@@ -1,0 +1,73 @@
+{
+  "status": "TEMPLATES_INVALID_FOR_DISPATCH",
+  "deploy": [
+    "D:/Android/Android Studio/jbr/bin/java.exe",
+    "-cp",
+    "D:/CodexProjects/VideoKit/docs/coder/d1resume01/artifacts/resume01-host-tools.jar",
+    "com.videokit.spike.e4.E13HostActivationSession",
+    "--approved-e13-deploy",
+    "PENDING_CONFIG_PATH",
+    "PENDING_CONFIG_SHA",
+    "PENDING_RELEASE_PATH",
+    "PENDING_RELEASE_SHA",
+    "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk",
+    "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug-androidTest.apk",
+    "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/fixture-debug.apk"
+  ],
+  "case": [
+    "D:/Android/Android Studio/jbr/bin/java.exe",
+    "-cp",
+    "D:/CodexProjects/VideoKit/docs/coder/d1resume01/artifacts/resume01-host-tools.jar",
+    "com.videokit.spike.e4.E13HostCase",
+    "PENDING_SCOPE_PATH",
+    "PENDING_FINAL_SCOPE_SHA",
+    "ordinarySenderCannotBindCodec"
+  ],
+  "instrumentationChild": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "am",
+    "instrument",
+    "-w",
+    "-r",
+    "-e",
+    "class",
+    "com.videokit.spike.e4.E13DeviceTests#ordinarySenderCannotBindCodec",
+    "-e",
+    "e13Case",
+    "ordinarySenderCannotBindCodec",
+    "-e",
+    "e13Batch",
+    "D1-E13F-LIFECYCLE-20261018",
+    "-e",
+    "e13ScopeSha256",
+    "PENDING_FINAL_SCOPE_SHA",
+    "com.videokit.app.test/com.videokit.spike.e4.E13Instrumentation"
+  ],
+  "observer": {
+    "path": "docs/coder/d1resume01/tools/observe_original.ps1",
+    "bytes": 9215,
+    "sha256": "0667bc7fe93cf2010cd337eeafaeabd94b7a795efa74059365af3fb83c8485b8"
+  },
+  "observerMaxBytes": {
+    "deploy": 81920,
+    "case": 32768
+  },
+  "observerPinsRequired": [
+    "finalHostJar",
+    "observerSource",
+    "finalSourceReview",
+    "canonicalDisposition",
+    "finalScope",
+    "activationTrustConfig",
+    "finalRelease",
+    "exactBudget",
+    "targetApks"
+  ],
+  "deploymentOnceBasename": "e13f-lifecycle-deployment.once",
+  "deploymentOnceParent": "NEW_REVIEWED_BATCH_DIRECTORY_OUTSIDE_ACCEPTED_REGISTRY",
+  "caseOnce": "Existing CREATE_NEW claim in fixed custody root; same scope+method is never admitted twice, including after a valid return marker.",
+  "noOnceCreated": true
+}

@@ -1,0 +1,265 @@
+{
+  "candidate": "D1-E1-20261016",
+  "state": "PARTIAL_IMPLEMENTATION_NOT_READY_FOR_MEDIA_EXPERIMENT",
+  "runtime": "PowerShell 7.6.5 / .NET 10.0.11; Java 21.0.10",
+  "files": [
+    {
+      "path": "docs/coder/D1_E1_DELIVERY_V1.0.md",
+      "bytes": 7413,
+      "sha256": "2d27a256e5992852779fcb991eda2969f27834a8575dee3497b1ec32896052ed"
+    },
+    {
+      "path": "docs/coder/D1_E1_EXECUTION_APPENDIX_V1.0.md",
+      "bytes": 5469,
+      "sha256": "3f1b1f32dd425d31f1d5c91ebce7c39fbd1017514d26e1ac59af6f4c427ce053"
+    },
+    {
+      "path": "docs/coder/D1_E1_IMPLEMENTATION_BOUNDARY_V1.0.md",
+      "bytes": 8268,
+      "sha256": "d4b677a02efc1c1d6cfe8949931ec39f816b075273287232a892be6e3faee0d8"
+    },
+    {
+      "path": "docs/coder/d1e1/artifacts/E1-before-repair-1.dll",
+      "bytes": 94208,
+      "sha256": "755864595bdd92e481c84533e5a2bef6d048d5299dd23121716e6ea9df182f6b"
+    },
+    {
+      "path": "docs/coder/d1e1/artifacts/E1-before-repair-2.dll",
+      "bytes": 96256,
+      "sha256": "4e94f4f9efdc29a8cbcfd86e934ea50f831a2670047dec80324df8783e105e0e"
+    },
+    {
+      "path": "docs/coder/d1e1/artifacts/E1-before-repair-3.dll",
+      "bytes": 98304,
+      "sha256": "32a6ceaac00de93dc1ccd75d8f70ac254ff50721a5058ffdf53a0dc99545855c"
+    },
+    {
+      "path": "docs/coder/d1e1/artifacts/E1-before-repair.dll",
+      "bytes": 78848,
+      "sha256": "b43aa10ff987e66a88c32e4c461558fc217485d328234f715d09975a642cf9cb"
+    },
+    {
+      "path": "docs/coder/d1e1/artifacts/E1-source.zip",
+      "bytes": 43087,
+      "sha256": "b3b71f5b899c34adb2c441af2fb7420f7d26d9f648090ed1357b3b71430a556f"
+    },
+    {
+      "path": "docs/coder/d1e1/artifacts/E1.dll",
+      "bytes": 99328,
+      "sha256": "1b234e574016431e78cde4a092be56c69f8ebdc06174536b5db5ef7b37758801"
+    },
+    {
+      "path": "docs/coder/d1e1/artifacts/java/videokit/e1/JavaHelper$Owned.class",
+      "bytes": 2910,
+      "sha256": "271661143d7d92aa45b9b55f9a5bfa230c3aa09399eed7f2fd5c30f3ac8d6a56"
+    },
+    {
+      "path": "docs/coder/d1e1/artifacts/java/videokit/e1/JavaHelper.class",
+      "bytes": 10298,
+      "sha256": "91b097f8d043c7ad2dcced8313b2f700e45451ca919feea64b5047f736d703ab"
+    },
+    {
+      "path": "docs/coder/d1e1/evidence/build-info.json",
+      "bytes": 1447,
+      "sha256": "3481676904d83cec4d7a2e2eab2aabc357479e5fd0fb5dcfdb0d588247d326a4"
+    },
+    {
+      "path": "docs/coder/d1e1/evidence/manifest-audit.json",
+      "bytes": 369,
+      "sha256": "679611d23f09b975d39936e172fc163a73678cd912814ff52aa9176593c95e0d"
+    },
+    {
+      "path": "docs/coder/d1e1/evidence/preserved-baselines.json",
+      "bytes": 2587,
+      "sha256": "c111a5abe92e8d51a14fbe148f0d279d415730c8705159d7be86f117ee4ca38f"
+    },
+    {
+      "path": "docs/coder/d1e1/evidence/selfcheck.json",
+      "bytes": 2054,
+      "sha256": "6b9b4ed86022cbe27af4022261473834508dbc12209226bd0f92321e91f8424c"
+    },
+    {
+      "path": "docs/coder/d1e1/evidence/source-manifest.json",
+      "bytes": 1968,
+      "sha256": "39a36bbf73a95ccea3fed12955952b1c5a65da5966f95912896bb6e506415b30"
+    }
+  ],
+  "syntheticFiles": [
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073033974/input.bin",
+      "bytes": 4096,
+      "sha256": "d67c656e01756650d77717b0839985a056ec28ffe174601d690fc407a2ceffca"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073033974/journal/state0.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073033974/journal/state1.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073033974/output.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073033974/recovery.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073033974/remote.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073618873/input.bin",
+      "bytes": 4096,
+      "sha256": "d67c656e01756650d77717b0839985a056ec28ffe174601d690fc407a2ceffca"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073618873/journal/state0.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073618873/journal/state1.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073618873/output.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073618873/recovery/state1.slot",
+      "bytes": 8192,
+      "sha256": "3a094cc76acc7199d9f01079b9b1fcb27312c20a20cdef53e675b67278aa33d1"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073618873/remote.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073618873/session/P01-N2.jsonl",
+      "bytes": 34,
+      "sha256": "6387aa98c6c2306f84cd457eec2b3e2791c17752c3fadd2df35dfba51cef762b"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073926870/input.bin",
+      "bytes": 4096,
+      "sha256": "d67c656e01756650d77717b0839985a056ec28ffe174601d690fc407a2ceffca"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073926870/journal/state0.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073926870/journal/state1.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073926870/output.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073926870/recovery/state1.slot",
+      "bytes": 8192,
+      "sha256": "3a094cc76acc7199d9f01079b9b1fcb27312c20a20cdef53e675b67278aa33d1"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073926870/remote.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T073926870/session/P01-N2.jsonl",
+      "bytes": 34,
+      "sha256": "6387aa98c6c2306f84cd457eec2b3e2791c17752c3fadd2df35dfba51cef762b"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074037466/input.bin",
+      "bytes": 4096,
+      "sha256": "d67c656e01756650d77717b0839985a056ec28ffe174601d690fc407a2ceffca"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074037466/journal/state0.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074037466/journal/state1.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074037466/output.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074037466/recovery/state1.slot",
+      "bytes": 8192,
+      "sha256": "3a094cc76acc7199d9f01079b9b1fcb27312c20a20cdef53e675b67278aa33d1"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074037466/remote.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074037466/session/P01-N2.jsonl",
+      "bytes": 34,
+      "sha256": "6387aa98c6c2306f84cd457eec2b3e2791c17752c3fadd2df35dfba51cef762b"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074226835/input.bin",
+      "bytes": 4096,
+      "sha256": "d67c656e01756650d77717b0839985a056ec28ffe174601d690fc407a2ceffca"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074226835/journal/state0.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074226835/journal/state1.slot",
+      "bytes": 8192,
+      "sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074226835/output.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074226835/recovery/state1.slot",
+      "bytes": 8192,
+      "sha256": "3a094cc76acc7199d9f01079b9b1fcb27312c20a20cdef53e675b67278aa33d1"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074226835/remote.bin",
+      "bytes": 32,
+      "sha256": "630dcd2966c4336691125448bbb25b4ff412a49c732db2c8abc1b8581bd710dd"
+    },
+    {
+      "path": "docs/coder/d1e1/selfcheck/synthetic-20261016T074226835/session/P01-N2.jsonl",
+      "bytes": 34,
+      "sha256": "6387aa98c6c2306f84cd457eec2b3e2791c17752c3fadd2df35dfba51cef762b"
+    }
+  ],
+  "syntheticBytes": 143816,
+  "mediaExecution": "NOT_RUN",
+  "PF": "NOT_RUN",
+  "C14": "UNCHANGED",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

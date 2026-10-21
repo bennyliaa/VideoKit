@@ -1,0 +1,1034 @@
+{
+  "scope": "D1QUAL03-CANDIDATE-001",
+  "status": "PASS_HOST_CONTAINER_QUALIFICATION_ONLY",
+  "conditions": {
+    "originalProcessReturned": true,
+    "originalStreamsReturned": true,
+    "noControllerUnknown": true,
+    "completeOriginalRawOutput": true,
+    "helperStatus": true,
+    "scopeAndHash": true,
+    "noEarlierUnknown": true,
+    "firstErrorNull": true,
+    "originalInputClose": true,
+    "originalFacadeAndWorker": true,
+    "timelyOriginalBodyJoin": true,
+    "readBudget": true,
+    "actualContainer": true,
+    "actualOriginalMetadata": true,
+    "actualCodeSources": true,
+    "postIdentityUnchanged": true
+  },
+  "originalProcessOwner": {
+    "scope": "D1QUAL03-CANDIDATE-001",
+    "registeredUtc": "2026-10-21T03:05:02.194985+00:00",
+    "registeredBeforePreflightAndPopen": true,
+    "state": "ORIGINAL_NATURAL_RETURN",
+    "processInvocations": 1,
+    "originalProcessReturned": true,
+    "stdoutHandleClosed": true,
+    "stderrHandleClosed": true,
+    "controllerTimeoutUnknownSticky": false,
+    "outputLimitUnknownSticky": false,
+    "killInterruptSecondCloseRetryRefundActions": 0,
+    "oldSessionQueriesOrInterventions": 0,
+    "argv": [
+      "D:/Android/Android Studio/jbr/bin/java.exe",
+      "-Xmx256m",
+      "-XX:-UsePerfData",
+      "-Xlog:class+load=info:file=loaded-classes.log:uptime,level,tags",
+      "-cp",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes;D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support;D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar",
+      "com.videokit.fixturetool.Six01ContainerQualifier03",
+      "--expected-sha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+      "--expected-bytes=8849",
+      "--scope=D1QUAL03-CANDIDATE-001"
+    ],
+    "cwd": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_CONTAINER_QUALIFICATION03\\control-001",
+    "environmentInjectionKeysCleared": {
+      "JAVA_TOOL_OPTIONS": true,
+      "JDK_JAVA_OPTIONS": true,
+      "_JAVA_OPTIONS": true,
+      "JDK_JAVAC_OPTIONS": true,
+      "CLASSPATH": true
+    },
+    "temp": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_CONTAINER_QUALIFICATION03\\control-001\\temp",
+    "observeSeconds": 60,
+    "combinedStdoutStderrUtf8Cap": 1048576,
+    "startUtc": "2026-10-21T03:05:02.536453+00:00",
+    "pid": 33176,
+    "exitCode": 0,
+    "endUtc": "2026-10-21T03:05:02.855133+00:00",
+    "elapsedSeconds": 0.3120000000053551
+  },
+  "rawStdoutBytes": 13708,
+  "rawStderrBytes": 0,
+  "allOriginalReceiptCount": 1,
+  "nonreceiptLineCount": 0,
+  "finalOriginalReceipt": {
+    "helper": "SIX01_QUALIFIER03_PREPARED_NO_EXECUTION_AUTHORITY",
+    "scopeLabelNotAuthority": "D1QUAL03-CANDIDATE-001",
+    "inputPath": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1fixture-six01\\new-output\\avc6-candidate.mp4",
+    "expectedBytes": 8849,
+    "expectedSha256": "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+    "wholeHash": "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+    "wholeHashEof": true,
+    "status": "HOST_CONTAINER_QUALIFICATION",
+    "firstError": null,
+    "sameOriginalCheckerThreadJoined": true,
+    "originalInputAndLibraryReaderReturn": true,
+    "originalInputOwner": {
+      "holderRegisteredBeforeOpen": true,
+      "singleOriginalReadDescriptor": true,
+      "state": "CLOSE_RETURNED",
+      "originalCloseEntered": true,
+      "sameOriginalCloseReturned": true,
+      "uncertainSticky": false,
+      "nativeInFlight": 0,
+      "operation": "NONE",
+      "mediaReadRequestedCumulative": 17787,
+      "mediaReadReturnedCumulative": 17786,
+      "readCalls": 18,
+      "seekCalls": 20,
+      "actualNativeEofReads": 1,
+      "lastAdoptedPosition": 8096,
+      "actualPhysicalPosition": 8096,
+      "positionScope": "LAST_ADOPTED_BEFORE_ORIGINAL_CLOSE",
+      "mediaReadBudget": 1048576,
+      "metadataSizeSource": "EXPECTED_BYTES_CHECKED_AT_ORIGINAL_OPEN",
+      "originalSeekTrace": [
+        {
+          "seek": 1,
+          "position": 0,
+          "cumulativeRequested": 8850
+        },
+        {
+          "seek": 2,
+          "position": 0,
+          "cumulativeRequested": 8850
+        },
+        {
+          "seek": 3,
+          "position": 0,
+          "cumulativeRequested": 8850
+        },
+        {
+          "seek": 4,
+          "position": 32,
+          "cumulativeRequested": 8866
+        },
+        {
+          "seek": 5,
+          "position": 40,
+          "cumulativeRequested": 8882
+        },
+        {
+          "seek": 6,
+          "position": 8096,
+          "cumulativeRequested": 8898
+        },
+        {
+          "seek": 7,
+          "position": 0,
+          "cumulativeRequested": 8914
+        },
+        {
+          "seek": 8,
+          "position": 0,
+          "cumulativeRequested": 8914
+        },
+        {
+          "seek": 9,
+          "position": 0,
+          "cumulativeRequested": 8914
+        },
+        {
+          "seek": 10,
+          "position": 32,
+          "cumulativeRequested": 8930
+        },
+        {
+          "seek": 11,
+          "position": 40,
+          "cumulativeRequested": 8946
+        },
+        {
+          "seek": 12,
+          "position": 8096,
+          "cumulativeRequested": 8962
+        },
+        {
+          "seek": 13,
+          "position": 8,
+          "cumulativeRequested": 8978
+        },
+        {
+          "seek": 14,
+          "position": 8104,
+          "cumulativeRequested": 9002
+        },
+        {
+          "seek": 15,
+          "position": 56,
+          "cumulativeRequested": 9747
+        },
+        {
+          "seek": 16,
+          "position": 1396,
+          "cumulativeRequested": 11087
+        },
+        {
+          "seek": 17,
+          "position": 2736,
+          "cumulativeRequested": 12427
+        },
+        {
+          "seek": 18,
+          "position": 4076,
+          "cumulativeRequested": 13767
+        },
+        {
+          "seek": 19,
+          "position": 5416,
+          "cumulativeRequested": 15107
+        },
+        {
+          "seek": 20,
+          "position": 6756,
+          "cumulativeRequested": 16447
+        }
+      ]
+    },
+    "workerDeadline": {
+      "deadlineNanos": 60000000000,
+      "startNanoTime": 127460581146100,
+      "completionPointRecordedBySameWorker": true,
+      "bodyCompletedNanoTime": 127460692696100,
+      "completionElapsedNanos": 111550000,
+      "observerElapsedNanos": 111832100,
+      "deadlineUnknownSticky": false,
+      "invalidMonotonicRange": false,
+      "sameOriginalExternallyJoined": true,
+      "timelyBodyAndOriginalJoin": true,
+      "equalDeadlineIsLate": true,
+      "completionPointContract": "LAST_DRIVER_CONTROLLED_STATEMENT_AFTER_CLEANUP_NOT_OS_THREAD_EXIT"
+    },
+    "receiptUtf8Max": 1048576,
+    "classificationBoundary": "HOST_CONTAINER_ONLY_NOT_HOST_ISOLATED_FORMAT_V1_READY_COMMIT_DECODE_MEDIA3",
+    "oldSessionsTouched": false,
+    "actualContainerObservation": {
+      "framework": "JCodec0.2.5-videokit-observation01 createRawMP4Demuxer",
+      "trackCount": 1,
+      "videoTracks": 1,
+      "audioTracks": 0,
+      "sampleEntry": "avc1",
+      "widthFromEntry": 256,
+      "heightFromEntry": 144,
+      "rotationMatrix": "[65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824]",
+      "movieMatrix": "[65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824]",
+      "rotation0IdentityObserved": true,
+      "noProtectionSignalingInAcceptedBoxScope": true,
+      "encryptionClaimScope": "UNPROTECTED_AVC1_AND_ABSENCE_OF_PROTECTION_BOXES_NOT_CRYPTOGRAPHIC_OR_RCE_PROOF",
+      "rootAtoms": [
+        {
+          "fourcc": "ftyp",
+          "offset": 0,
+          "size": 32,
+          "headerBytes": 8
+        },
+        {
+          "fourcc": "wide",
+          "offset": 32,
+          "size": 8,
+          "headerBytes": 8
+        },
+        {
+          "fourcc": "mdat",
+          "offset": 40,
+          "size": 8056,
+          "headerBytes": 16
+        },
+        {
+          "fourcc": "moov",
+          "offset": 8096,
+          "size": 753,
+          "headerBytes": 8
+        }
+      ],
+      "parsedBoxNames": [
+        "moov",
+        "mvhd",
+        "trak",
+        "tkhd",
+        "tapt",
+        "clef",
+        "prof",
+        "enof",
+        "mdia",
+        "mdhd",
+        "hdlr",
+        "minf",
+        "vmhd",
+        "hdlr",
+        "dinf",
+        "dref",
+        "alis",
+        "stbl",
+        "stsd",
+        "avc1",
+        "avcC",
+        "stsc",
+        "stsz",
+        "stts",
+        "co64"
+      ],
+      "mediaTimescale": 5,
+      "actualMediaDurationUnits": 6,
+      "actualSttsDurationUnits": 6,
+      "movieTimescale": 5,
+      "movieDurationUnits": 6,
+      "actualDurationUs": 1200000,
+      "dtsSource": "ACTUAL_STTS_ENTRIES_NO_EDITS_ZERO_CTTS_NOT_PACKET_GETMEDIAPTS_ALIAS",
+      "csd": [
+        {
+          "kind": "SPS_PAYLOAD_WITHOUT_HEADER",
+          "bytes": 7,
+          "hex": "420028f4080988",
+          "sha256": "0404c1e590a48f2ef2ef724b85b0db8b129265f80a1dc52d21edb6387a70da9b",
+          "actualSpsWidth": 256,
+          "actualSpsHeight": 144
+        },
+        {
+          "kind": "PPS_PAYLOAD_WITHOUT_HEADER",
+          "bytes": 3,
+          "hex": "ce3880",
+          "sha256": "cdaaa2424fbb7c615c63f7708634466b877cf93db2be7a7f4c0b44e15c161c69",
+          "maturePpsParsed": true
+        },
+        {
+          "kind": "MATURE_LIBRARY_AVCC_CONFIG_TO_ANNEXB",
+          "bytes": 20,
+          "hex": "0000000167420028f40809880000000168ce3880",
+          "sha256": "f6dcad95142c58fce67217fc175449c88b9c697f07db35952c617a66199e75a8"
+        }
+      ],
+      "samples": [
+        {
+          "index": 0,
+          "fileOffset": 56,
+          "avccBytes": 1340,
+          "avccSha256": "205dcfb80b86ae34608d64376b059cd59b47170038a4332574cdc5e193b5eb0a",
+          "matureNormalizedAnnexBBytes": 1340,
+          "matureNormalizedAnnexBSha256": "299447d41af824c07d904ddf424063922e4546edb29d01b0b32e4f3a4e84433f",
+          "ptsUnits": 0,
+          "mediaCompositionPtsUnits": 0,
+          "dtsDerivedFromActualSttsUnits": 0,
+          "durationUnits": 1,
+          "timescale": 5,
+          "ptsUs": 0,
+          "dtsUs": 0,
+          "durationUs": 200000,
+          "containerKeyFlag": true,
+          "actualIdrNal": true,
+          "nals": [
+            {
+              "type": 5,
+              "bytes": 1336,
+              "sha256": "c1f3f9137a83f026cc6ce16a0fc504a3a216b5a78af169c4ffae16ede470a267"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "fileOffset": 1396,
+          "avccBytes": 1340,
+          "avccSha256": "3c9f2b6e8da6af8b5e2832ea95635a8dc7a1f9c237d0313bb3ef507c10f533fb",
+          "matureNormalizedAnnexBBytes": 1340,
+          "matureNormalizedAnnexBSha256": "05f0f4e598823343f8d021b3aa2c62c1a6ca5e9e6446e46b3eff737a3f44709c",
+          "ptsUnits": 1,
+          "mediaCompositionPtsUnits": 1,
+          "dtsDerivedFromActualSttsUnits": 1,
+          "durationUnits": 1,
+          "timescale": 5,
+          "ptsUs": 200000,
+          "dtsUs": 200000,
+          "durationUs": 200000,
+          "containerKeyFlag": true,
+          "actualIdrNal": true,
+          "nals": [
+            {
+              "type": 5,
+              "bytes": 1336,
+              "sha256": "e70e324b995c715fd39272bc5147d195f866710a664967b4af71bfeb417826bb"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "fileOffset": 2736,
+          "avccBytes": 1340,
+          "avccSha256": "515abeb50b79859efc1b4fa899b9acc3978840ac8275d8eb672539d1772a8815",
+          "matureNormalizedAnnexBBytes": 1340,
+          "matureNormalizedAnnexBSha256": "01905769af8def741f27e914901dd27767e0faa351874cbb0d9b75bb6d7df2dc",
+          "ptsUnits": 2,
+          "mediaCompositionPtsUnits": 2,
+          "dtsDerivedFromActualSttsUnits": 2,
+          "durationUnits": 1,
+          "timescale": 5,
+          "ptsUs": 400000,
+          "dtsUs": 400000,
+          "durationUs": 200000,
+          "containerKeyFlag": true,
+          "actualIdrNal": true,
+          "nals": [
+            {
+              "type": 5,
+              "bytes": 1336,
+              "sha256": "b58b152f7c83286c3d9c1f099eedcce64ad6fc9b598bc8ab7ebaa2153564a81c"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "fileOffset": 4076,
+          "avccBytes": 1340,
+          "avccSha256": "df2099cf1407368beeeab50be00b0b59149eaf4255e8d9d53fcd0093774deaba",
+          "matureNormalizedAnnexBBytes": 1340,
+          "matureNormalizedAnnexBSha256": "21ab0d10a58ca53b72c1a01eb5ca9014094ca1afd63011e861973ebf27d14032",
+          "ptsUnits": 3,
+          "mediaCompositionPtsUnits": 3,
+          "dtsDerivedFromActualSttsUnits": 3,
+          "durationUnits": 1,
+          "timescale": 5,
+          "ptsUs": 600000,
+          "dtsUs": 600000,
+          "durationUs": 200000,
+          "containerKeyFlag": true,
+          "actualIdrNal": true,
+          "nals": [
+            {
+              "type": 5,
+              "bytes": 1336,
+              "sha256": "7388895054095cff47be33b69036da728c4d1cc5383bb5a5ada94bdf5ae09849"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "fileOffset": 5416,
+          "avccBytes": 1340,
+          "avccSha256": "7d38ca512b1b2f7abe3502f9b7b02311788fad3b6094f04dd17cc77b51e674b4",
+          "matureNormalizedAnnexBBytes": 1340,
+          "matureNormalizedAnnexBSha256": "71c19f10000d2fa907b705369e2c55e147702a841eda326cdcd5ba6feedddaae",
+          "ptsUnits": 4,
+          "mediaCompositionPtsUnits": 4,
+          "dtsDerivedFromActualSttsUnits": 4,
+          "durationUnits": 1,
+          "timescale": 5,
+          "ptsUs": 800000,
+          "dtsUs": 800000,
+          "durationUs": 200000,
+          "containerKeyFlag": true,
+          "actualIdrNal": true,
+          "nals": [
+            {
+              "type": 5,
+              "bytes": 1336,
+              "sha256": "b074ae101b8b819209eb59a7b1f3fe8ceeb8766a290ef286d2a508181a5480b1"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "fileOffset": 6756,
+          "avccBytes": 1340,
+          "avccSha256": "6b59e23e4b1989a567bcde48281e7de7efca7f68e0cbe47dae2cdbb2d06c195c",
+          "matureNormalizedAnnexBBytes": 1340,
+          "matureNormalizedAnnexBSha256": "ba1f530d497d0c40a9402768be6a0dfcd3ba19b690b5a561218ddf8e5a3f3500",
+          "ptsUnits": 5,
+          "mediaCompositionPtsUnits": 5,
+          "dtsDerivedFromActualSttsUnits": 5,
+          "durationUnits": 1,
+          "timescale": 5,
+          "ptsUs": 1000000,
+          "dtsUs": 1000000,
+          "durationUs": 200000,
+          "containerKeyFlag": true,
+          "actualIdrNal": true,
+          "nals": [
+            {
+              "type": 5,
+              "bytes": 1336,
+              "sha256": "be12b8da3af4091ab1e9747d0e6fb3d97e6ed0b001230589c333940ba70d65c0"
+            }
+          ]
+        }
+      ],
+      "rawGeneratorAuHashComparison": "NOT_EQUAL_BY_DEFAULT_DIFFERENT_SPS_PPS_AND_REPRESENTATION",
+      "decodedPixels": "NOT_RUN",
+      "Media3Qualification": "NOT_RUN",
+      "matureLibraryInternalAllocationBound": "UNPROVEN"
+    },
+    "actualDataReferenceChildObservation": {
+      "criterionSource": "0.2.5-videokit-observation01 original-parent + typed-child APIs",
+      "sampleEntryDataReferenceIndex": 1,
+      "parsedEntryCount": 1,
+      "originalDrefHeader": {
+        "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+        "observed": true,
+        "fourcc": "dref",
+        "rawVersionFlagsWord": 0,
+        "version": 0,
+        "flags": 0,
+        "declaredCountUnsigned": 1,
+        "actualParsedChildren": 1,
+        "actualHeaderBodyBytes": 20,
+        "bodyFromActualChildrenAndOriginalPrefix": 20
+      },
+      "actualChildFourcc": "alis",
+      "actualChildClass": "org.jcodec.containers.mp4.boxes.AliasBox",
+      "actualChildHeaderBytes": 8,
+      "actualChildBodyBytes": 4,
+      "actualDrefBodyBytes": 20,
+      "childVersion": 0,
+      "childFlags": 1,
+      "matureAliasIsSelfRef": true,
+      "aliasFileName": null,
+      "aliasExtrasCount": null,
+      "aliasRecordSize": 0,
+      "childSelfContainedSemantics": "PROVEN_IN_RESTRICTED_VERSION0_FLAGS1_EXACT_BODY4_SCOPE"
+    },
+    "actualOriginalMetadataObservation": {
+      "originalStsdHeader": {
+        "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+        "observed": true,
+        "fourcc": "stsd",
+        "rawVersionFlagsWord": 0,
+        "version": 0,
+        "flags": 0,
+        "declaredCountUnsigned": 1,
+        "actualParsedChildren": 1,
+        "actualHeaderBodyBytes": 125,
+        "bodyFromActualChildrenAndOriginalPrefix": 125
+      },
+      "originalAvccHeader": {
+        "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+        "observed": true,
+        "configurationVersion": 1,
+        "rawLengthSizeByte": 255,
+        "lengthReservedHigh6": 63,
+        "actualNalLengthSize": 4,
+        "rawSpsCountByte": 225,
+        "spsReservedHigh3": 7,
+        "declaredSpsCount": 1,
+        "declaredPpsCount": 1,
+        "actualSpsCount": 1,
+        "actualPpsCount": 1,
+        "actualHeaderBodyBytes": 23,
+        "bodyFromObservedCountsAndActualPayloads": 23,
+        "actualCsdPayloadBytes": 10
+      }
+    },
+    "actualCodeSourceProof": {
+      "scope": "ACTUAL_METADATA_AND_SUPPORT_CODE_SOURCES_ONLY",
+      "forkVersion": "0.2.5-videokit-observation01",
+      "classes": [
+        {
+          "class": "org.jcodec.containers.mp4.boxes.DataRefBox",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.boxes.SampleDescriptionBox",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.codecs.h264.mp4.AvcCBox",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.boxes.AliasBox",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.boxes.UrlBox",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.boxes.FullBox",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.boxes.NodeBox",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.boxes.Header",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.BoxFactory",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.common.io.SeekableByteChannel",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "com.videokit.fixturetool.WorkerDeadline",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support"
+        },
+        {
+          "class": "com.videokit.fixturetool.ReceiptJson",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support"
+        },
+        {
+          "class": "com.videokit.fixturetool.MetadataPolicy03",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes"
+        },
+        {
+          "class": "com.videokit.fixturetool.DataReferencePolicy03",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes"
+        },
+        {
+          "class": "com.videokit.fixturetool.OriginFence03",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes"
+        }
+      ],
+      "fullJcodecJarFallback": false,
+      "additionalActualRuntimeTypes": [
+        {
+          "class": "org.jcodec.containers.mp4.demuxer.MP4Demuxer",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.demuxer.MP4DemuxerTrack",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.containers.mp4.MP4Util",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.codecs.h264.H264Utils",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        },
+        {
+          "class": "org.jcodec.codecs.h264.io.model.NALUnit",
+          "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+        }
+      ]
+    }
+  },
+  "actualContainerObservation": {
+    "framework": "JCodec0.2.5-videokit-observation01 createRawMP4Demuxer",
+    "trackCount": 1,
+    "videoTracks": 1,
+    "audioTracks": 0,
+    "sampleEntry": "avc1",
+    "widthFromEntry": 256,
+    "heightFromEntry": 144,
+    "rotationMatrix": "[65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824]",
+    "movieMatrix": "[65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824]",
+    "rotation0IdentityObserved": true,
+    "noProtectionSignalingInAcceptedBoxScope": true,
+    "encryptionClaimScope": "UNPROTECTED_AVC1_AND_ABSENCE_OF_PROTECTION_BOXES_NOT_CRYPTOGRAPHIC_OR_RCE_PROOF",
+    "rootAtoms": [
+      {
+        "fourcc": "ftyp",
+        "offset": 0,
+        "size": 32,
+        "headerBytes": 8
+      },
+      {
+        "fourcc": "wide",
+        "offset": 32,
+        "size": 8,
+        "headerBytes": 8
+      },
+      {
+        "fourcc": "mdat",
+        "offset": 40,
+        "size": 8056,
+        "headerBytes": 16
+      },
+      {
+        "fourcc": "moov",
+        "offset": 8096,
+        "size": 753,
+        "headerBytes": 8
+      }
+    ],
+    "parsedBoxNames": [
+      "moov",
+      "mvhd",
+      "trak",
+      "tkhd",
+      "tapt",
+      "clef",
+      "prof",
+      "enof",
+      "mdia",
+      "mdhd",
+      "hdlr",
+      "minf",
+      "vmhd",
+      "hdlr",
+      "dinf",
+      "dref",
+      "alis",
+      "stbl",
+      "stsd",
+      "avc1",
+      "avcC",
+      "stsc",
+      "stsz",
+      "stts",
+      "co64"
+    ],
+    "mediaTimescale": 5,
+    "actualMediaDurationUnits": 6,
+    "actualSttsDurationUnits": 6,
+    "movieTimescale": 5,
+    "movieDurationUnits": 6,
+    "actualDurationUs": 1200000,
+    "dtsSource": "ACTUAL_STTS_ENTRIES_NO_EDITS_ZERO_CTTS_NOT_PACKET_GETMEDIAPTS_ALIAS",
+    "csd": [
+      {
+        "kind": "SPS_PAYLOAD_WITHOUT_HEADER",
+        "bytes": 7,
+        "hex": "420028f4080988",
+        "sha256": "0404c1e590a48f2ef2ef724b85b0db8b129265f80a1dc52d21edb6387a70da9b",
+        "actualSpsWidth": 256,
+        "actualSpsHeight": 144
+      },
+      {
+        "kind": "PPS_PAYLOAD_WITHOUT_HEADER",
+        "bytes": 3,
+        "hex": "ce3880",
+        "sha256": "cdaaa2424fbb7c615c63f7708634466b877cf93db2be7a7f4c0b44e15c161c69",
+        "maturePpsParsed": true
+      },
+      {
+        "kind": "MATURE_LIBRARY_AVCC_CONFIG_TO_ANNEXB",
+        "bytes": 20,
+        "hex": "0000000167420028f40809880000000168ce3880",
+        "sha256": "f6dcad95142c58fce67217fc175449c88b9c697f07db35952c617a66199e75a8"
+      }
+    ],
+    "samples": [
+      {
+        "index": 0,
+        "fileOffset": 56,
+        "avccBytes": 1340,
+        "avccSha256": "205dcfb80b86ae34608d64376b059cd59b47170038a4332574cdc5e193b5eb0a",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "299447d41af824c07d904ddf424063922e4546edb29d01b0b32e4f3a4e84433f",
+        "ptsUnits": 0,
+        "mediaCompositionPtsUnits": 0,
+        "dtsDerivedFromActualSttsUnits": 0,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 0,
+        "dtsUs": 0,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "c1f3f9137a83f026cc6ce16a0fc504a3a216b5a78af169c4ffae16ede470a267"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "fileOffset": 1396,
+        "avccBytes": 1340,
+        "avccSha256": "3c9f2b6e8da6af8b5e2832ea95635a8dc7a1f9c237d0313bb3ef507c10f533fb",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "05f0f4e598823343f8d021b3aa2c62c1a6ca5e9e6446e46b3eff737a3f44709c",
+        "ptsUnits": 1,
+        "mediaCompositionPtsUnits": 1,
+        "dtsDerivedFromActualSttsUnits": 1,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 200000,
+        "dtsUs": 200000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "e70e324b995c715fd39272bc5147d195f866710a664967b4af71bfeb417826bb"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "fileOffset": 2736,
+        "avccBytes": 1340,
+        "avccSha256": "515abeb50b79859efc1b4fa899b9acc3978840ac8275d8eb672539d1772a8815",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "01905769af8def741f27e914901dd27767e0faa351874cbb0d9b75bb6d7df2dc",
+        "ptsUnits": 2,
+        "mediaCompositionPtsUnits": 2,
+        "dtsDerivedFromActualSttsUnits": 2,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 400000,
+        "dtsUs": 400000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "b58b152f7c83286c3d9c1f099eedcce64ad6fc9b598bc8ab7ebaa2153564a81c"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "fileOffset": 4076,
+        "avccBytes": 1340,
+        "avccSha256": "df2099cf1407368beeeab50be00b0b59149eaf4255e8d9d53fcd0093774deaba",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "21ab0d10a58ca53b72c1a01eb5ca9014094ca1afd63011e861973ebf27d14032",
+        "ptsUnits": 3,
+        "mediaCompositionPtsUnits": 3,
+        "dtsDerivedFromActualSttsUnits": 3,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 600000,
+        "dtsUs": 600000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "7388895054095cff47be33b69036da728c4d1cc5383bb5a5ada94bdf5ae09849"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "fileOffset": 5416,
+        "avccBytes": 1340,
+        "avccSha256": "7d38ca512b1b2f7abe3502f9b7b02311788fad3b6094f04dd17cc77b51e674b4",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "71c19f10000d2fa907b705369e2c55e147702a841eda326cdcd5ba6feedddaae",
+        "ptsUnits": 4,
+        "mediaCompositionPtsUnits": 4,
+        "dtsDerivedFromActualSttsUnits": 4,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 800000,
+        "dtsUs": 800000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "b074ae101b8b819209eb59a7b1f3fe8ceeb8766a290ef286d2a508181a5480b1"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "fileOffset": 6756,
+        "avccBytes": 1340,
+        "avccSha256": "6b59e23e4b1989a567bcde48281e7de7efca7f68e0cbe47dae2cdbb2d06c195c",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "ba1f530d497d0c40a9402768be6a0dfcd3ba19b690b5a561218ddf8e5a3f3500",
+        "ptsUnits": 5,
+        "mediaCompositionPtsUnits": 5,
+        "dtsDerivedFromActualSttsUnits": 5,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 1000000,
+        "dtsUs": 1000000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "be12b8da3af4091ab1e9747d0e6fb3d97e6ed0b001230589c333940ba70d65c0"
+          }
+        ]
+      }
+    ],
+    "rawGeneratorAuHashComparison": "NOT_EQUAL_BY_DEFAULT_DIFFERENT_SPS_PPS_AND_REPRESENTATION",
+    "decodedPixels": "NOT_RUN",
+    "Media3Qualification": "NOT_RUN",
+    "matureLibraryInternalAllocationBound": "UNPROVEN"
+  },
+  "actualOriginalMetadataObservation": {
+    "originalStsdHeader": {
+      "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+      "observed": true,
+      "fourcc": "stsd",
+      "rawVersionFlagsWord": 0,
+      "version": 0,
+      "flags": 0,
+      "declaredCountUnsigned": 1,
+      "actualParsedChildren": 1,
+      "actualHeaderBodyBytes": 125,
+      "bodyFromActualChildrenAndOriginalPrefix": 125
+    },
+    "originalAvccHeader": {
+      "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+      "observed": true,
+      "configurationVersion": 1,
+      "rawLengthSizeByte": 255,
+      "lengthReservedHigh6": 63,
+      "actualNalLengthSize": 4,
+      "rawSpsCountByte": 225,
+      "spsReservedHigh3": 7,
+      "declaredSpsCount": 1,
+      "declaredPpsCount": 1,
+      "actualSpsCount": 1,
+      "actualPpsCount": 1,
+      "actualHeaderBodyBytes": 23,
+      "bodyFromObservedCountsAndActualPayloads": 23,
+      "actualCsdPayloadBytes": 10
+    }
+  },
+  "actualDataReferenceChildObservation": {
+    "criterionSource": "0.2.5-videokit-observation01 original-parent + typed-child APIs",
+    "sampleEntryDataReferenceIndex": 1,
+    "parsedEntryCount": 1,
+    "originalDrefHeader": {
+      "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+      "observed": true,
+      "fourcc": "dref",
+      "rawVersionFlagsWord": 0,
+      "version": 0,
+      "flags": 0,
+      "declaredCountUnsigned": 1,
+      "actualParsedChildren": 1,
+      "actualHeaderBodyBytes": 20,
+      "bodyFromActualChildrenAndOriginalPrefix": 20
+    },
+    "actualChildFourcc": "alis",
+    "actualChildClass": "org.jcodec.containers.mp4.boxes.AliasBox",
+    "actualChildHeaderBytes": 8,
+    "actualChildBodyBytes": 4,
+    "actualDrefBodyBytes": 20,
+    "childVersion": 0,
+    "childFlags": 1,
+    "matureAliasIsSelfRef": true,
+    "aliasFileName": null,
+    "aliasExtrasCount": null,
+    "aliasRecordSize": 0,
+    "childSelfContainedSemantics": "PROVEN_IN_RESTRICTED_VERSION0_FLAGS1_EXACT_BODY4_SCOPE"
+  },
+  "actualCodeSourceProof": {
+    "scope": "ACTUAL_METADATA_AND_SUPPORT_CODE_SOURCES_ONLY",
+    "forkVersion": "0.2.5-videokit-observation01",
+    "classes": [
+      {
+        "class": "org.jcodec.containers.mp4.boxes.DataRefBox",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.boxes.SampleDescriptionBox",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.codecs.h264.mp4.AvcCBox",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.boxes.AliasBox",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.boxes.UrlBox",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.boxes.FullBox",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.boxes.NodeBox",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.boxes.Header",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.BoxFactory",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.common.io.SeekableByteChannel",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "com.videokit.fixturetool.WorkerDeadline",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support"
+      },
+      {
+        "class": "com.videokit.fixturetool.ReceiptJson",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support"
+      },
+      {
+        "class": "com.videokit.fixturetool.MetadataPolicy03",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes"
+      },
+      {
+        "class": "com.videokit.fixturetool.DataReferencePolicy03",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes"
+      },
+      {
+        "class": "com.videokit.fixturetool.OriginFence03",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes"
+      }
+    ],
+    "fullJcodecJarFallback": false,
+    "additionalActualRuntimeTypes": [
+      {
+        "class": "org.jcodec.containers.mp4.demuxer.MP4Demuxer",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.demuxer.MP4DemuxerTrack",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.containers.mp4.MP4Util",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.codecs.h264.H264Utils",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      },
+      {
+        "class": "org.jcodec.codecs.h264.io.model.NALUnit",
+        "actualCodeSource": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar"
+      }
+    ]
+  },
+  "actualClassloadErrors": [],
+  "media3": "NOT_RUN",
+  "Android": "NOT_RUN",
+  "decode": "NOT_RUN",
+  "hostIsolatedFormat": "NOT_RUN",
+  "READY": false,
+  "COMMIT": false,
+  "playback": "NOT_RUN",
+  "oldSessionsTouched": false,
+  "successorAdmitted": false
+}

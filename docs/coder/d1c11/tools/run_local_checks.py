@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,subprocess,sys
+root=Path(sys.argv[1]).resolve();base=root/'docs/coder/d1c11';jdk=Path('D:/Android/Android Studio/jbr/bin');classes=base/'classes'
+sources=list((base/'src').rglob('*.java'))+[base/'tools'/name for name in ['C11CpuSelfCheck.java','C11CpuSourceSelfCheck.java','C11ExitRecordSelfCheck.java','C11LifecycleSelfCheck.java','C11GenerationSelfCheck.java','C11TraceSelfCheck.java']]
+resume='--resume' in sys.argv
+if not resume:
+ compile_result=subprocess.run([str(jdk/'javac.exe'),'-encoding','UTF-8','-d',str(classes),*[str(p) for p in sources]],capture_output=True,text=True,encoding='utf-8');(base/'evidence/local-javac.log').write_text(compile_result.stdout+compile_result.stderr,encoding='utf-8');assert compile_result.returncode==0,compile_result.stderr
+else:
+ assert all((classes/'com/videokit/spike/c11'/p.with_suffix('.class').name).exists() and (classes/'com/videokit/spike/c11'/p.with_suffix('.class').name).stat().st_mtime>=p.stat().st_mtime for p in sources)
+names=['C11GenerationSelfCheck','C11TraceSelfCheck','C11CpuSelfCheck','C11CpuSourceSelfCheck','C11ExitRecordSelfCheck','C11LifecycleSelfCheck','C11SelfCheck','C11ControlSelfCheck','C11FailureSelfCheck','C11CaptureSelfCheck','RecoverySelfCheck','ValidationSelfCheck'];results=[]
+for name in names:
+ if resume and name in names[:3]:
+  previous=(base/'evidence'/(name+'.log')).read_text(encoding='utf-8');assert previous.startswith('PASS ');results.append({'class':name,'exit':0,'output':previous,'execution':'REUSED_PREVIOUS_C11_LOCAL_LOG_WITH_UNCHANGED_CHECKED_CLASSES'});continue
+ argument=base/'outputs/recovery-checks' if name=='RecoverySelfCheck' else root
+ if name=='RecoverySelfCheck':argument.mkdir(exist_ok=True)
+ result=subprocess.run([str(jdk/'java.exe'),'-cp',str(classes),'com.videokit.spike.c11.'+name,str(argument)],cwd=base/'outputs',capture_output=True,text=True,encoding='utf-8',timeout=90)
+ (base/'evidence'/(name+'.log')).write_text(result.stdout+result.stderr,encoding='utf-8');results.append({'class':name,'exit':result.returncode,'output':result.stdout+result.stderr});print(name,result.returncode,(result.stdout+result.stderr).splitlines()[-1:]);assert result.returncode==0,result.stderr
+(base/'evidence/local-check-results.json').write_text(json.dumps(results,indent=2),encoding='utf-8')

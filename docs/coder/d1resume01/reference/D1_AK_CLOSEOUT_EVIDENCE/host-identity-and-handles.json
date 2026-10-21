@@ -1,0 +1,78 @@
+{
+  "atUtc": "2026-10-18T14:23:48.1981299Z",
+  "hostCimSnapshotsUsed": 1,
+  "totalSnapshotRows": 614,
+  "selectedRoles": [
+    {
+      "role": "A_POWERSHELL",
+      "verified": true,
+      "basis": "Exact historical path/full argv/creation/parent comparison; same-generation opened control handle",
+      "identity": {
+        "pid": 39560,
+        "parentPid": 52592,
+        "creationUtc": "2026-10-18T08:48:05.0052570Z",
+        "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "fullArgv": "\"C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe\" -Command \"try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}\n& 'D:/CodexProjects/VideoKit/docs/tester/D1_E13C_TABLET_EXECUTION/aeefe32f-816d-4c0b-aca7-16f76dbd45ff/harness/run_original.ps1' -RequestPath 'D:/CodexProjects/VideoKit/docs/tester/D1_E13C_TABLET_EXECUTION/aeefe32f-816d-4c0b-aca7-16f76dbd45ff/inputs/case-01-request.json'\""
+      },
+      "handleAcquired": true,
+      "handleStartUtc": "2026-10-18T08:48:05.0052574Z",
+      "handleValidationError": null
+    },
+    {
+      "role": "A_JAVA",
+      "verified": true,
+      "basis": "Exact historical path/full argv/creation/parent comparison; same-generation opened control handle",
+      "identity": {
+        "pid": 38056,
+        "parentPid": 39560,
+        "creationUtc": "2026-10-18T08:48:05.6880290Z",
+        "path": "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "fullArgv": "\"D:/Android/Android Studio/jbr/bin/java.exe\" -cp D:/CodexProjects/VideoKit/docs/coder/d1e13c/artifacts/e13c-host-tools.jar com.videokit.spike.e4.E13HostCase D:/CodexProjects/VideoKit/docs/tester/D1_E13C_TABLET_EXECUTION/aeefe32f-816d-4c0b-aca7-16f76dbd45ff/inputs/runtime-scope.json 116c978327fc2240dbe04a9ead566165d231b88d14166776e03938a40b76aaef ordinarySenderCannotBindCodec"
+      },
+      "handleAcquired": true,
+      "handleStartUtc": "2026-10-18T08:48:05.6880292Z",
+      "handleValidationError": null
+    },
+    {
+      "role": "A_ADB_CLIENT",
+      "verified": false,
+      "basis": "Exact historical path/full argv/creation/parent comparison; same-generation opened control handle",
+      "identity": null,
+      "handleAcquired": false,
+      "handleStartUtc": null,
+      "handleValidationError": null
+    },
+    {
+      "role": "K_JAVA",
+      "verified": true,
+      "basis": "Exact recorded Java generation/path and full pinned seven-argument launch",
+      "identity": {
+        "pid": 51664,
+        "parentPid": 6648,
+        "creationUtc": "2026-10-18T13:48:53.1610570Z",
+        "path": "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "fullArgv": "\"D:/Android/Android Studio/jbr/bin/java.exe\" -cp D:/CodexProjects/VideoKit/docs/coder/d1e13k/artifacts/e13k-host-tools.jar com.videokit.spike.e4.E13JReadOnly --g-readonly D:/CodexProjects/VideoKit/docs/coder/d1e13k/release/read-only-release.json a5a7fd2f15c41f2a01f8e49f11b942c34bb23c9e890e5d6f8f275d49a7bffa03"
+      },
+      "handleAcquired": true,
+      "handleStartUtc": "2026-10-18T13:48:53.1610574Z",
+      "handleValidationError": null
+    },
+    {
+      "role": "K_LAUNCHER",
+      "verified": true,
+      "basis": "Same snapshot direct parent of exact K Java; exact four-argument launcher path and newly recorded creation time",
+      "identity": {
+        "pid": 6648,
+        "parentPid": 18904,
+        "creationUtc": "2026-10-18T13:48:52.2469140Z",
+        "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "fullArgv": "\"C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe\" -NoProfile -File D:/CodexProjects/VideoKit/docs/coder/d1e13k/release/launch_once.ps1"
+      },
+      "handleAcquired": true,
+      "handleStartUtc": "2026-10-18T13:48:52.2469149Z",
+      "handleValidationError": null
+    }
+  ],
+  "originalSessionsRead": 0,
+  "administrativeHandlesAreNotOriginalProtocolAck": true
+}

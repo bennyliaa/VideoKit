@@ -1,0 +1,1 @@
+ps -A -o PID,PPID,UID,NAME | awk 'NR==1 || $4 ~ /^com[.]videokit[.](app|e13[.]sender)([:.]|$)/ {print}'

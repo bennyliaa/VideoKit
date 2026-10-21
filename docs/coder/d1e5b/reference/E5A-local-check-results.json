@@ -1,0 +1,255 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "scope": "E5A_LOCAL_OWNED_FILES_PRODUCTION_PATHS",
+  "inputs": [
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E4Broker.java",
+      "bytes": 21452,
+      "sha256": "a675d656b3d532206a4543dee794cd9ec3328045eff45c5f34abfb3e765ff93e"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E4FencedTask.java",
+      "bytes": 6088,
+      "sha256": "3ebd95aba59b71d3ccff9a8437cd7a8e40554fba77f00c5064bc3fdfc7eaf635"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E4OutputBudget.java",
+      "bytes": 12282,
+      "sha256": "2b733c0a2b31cffef446715869e084206d3fd6b0befac45704dae5f6a53dffb3"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E4Owned.java",
+      "bytes": 2311,
+      "sha256": "aee54f13e6eb548006a0fe355d59c22521a407df632210d104e739ccecd83626"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E4Protocol.java",
+      "bytes": 4866,
+      "sha256": "8df1eeb0ce6d3d331fda20223eabd4fdac04835ff22bc61e21e33ba44b12080b"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E4ReturnGate.java",
+      "bytes": 1056,
+      "sha256": "4db732831b72a6b689a3bf7e0077547c13191bbf6aad0369c62f01b642ac91c5"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E5AAdmission.java",
+      "bytes": 1188,
+      "sha256": "40f07cd141e764a99699d96a5d44d98b0863eed6503ef7749a746f18f83175de"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E5ADirectoryBarrier.java",
+      "bytes": 1187,
+      "sha256": "6aeb0e14f9529977eb0c1f5bd3af487c9ea5624faa9a3768ab689a7b2809594e"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E5AFinalObservation.java",
+      "bytes": 11107,
+      "sha256": "b7f87d5bed7438431a2c6f9eea06554d2020e58a33c1c9ef20ba43c009d5455d"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E5ALifecycle.java",
+      "bytes": 6053,
+      "sha256": "45194760de0c293f0ebe0946921fd9677de8f3e0dabc4e5b17dc3550af273302"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E5AOwner.java",
+      "bytes": 1405,
+      "sha256": "13d91dba720c8263c561714434ddf145cf1e0ad32046998b5704d461a7a2e3c1"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E5CallbackGate.java",
+      "bytes": 1610,
+      "sha256": "4e29cb214e1a956338302c8704560a9a627b2ab6681f3cf26a07eba27eff2b2a"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E5N2Recovery.java",
+      "bytes": 14776,
+      "sha256": "901c2c0ef22d9a13f6a7ff1d51cc983b19d3f1e6af644582be376b64e197fbfe"
+    },
+    {
+      "path": "docs/coder/d1e5a/src/com/videokit/spike/e4/E5Trace.java",
+      "bytes": 1395,
+      "sha256": "69fb3b14a0771c578596efb97aeb04fd7a9feaa4c69b9973478cb0331a32fe0e"
+    },
+    {
+      "path": "docs/coder/d1e5a/android/com/videokit/spike/e4/E4EncoderNegotiation.java",
+      "bytes": 7006,
+      "sha256": "45cbd0e7c8108ae7fca0fa5b1b250b6388dd46759750f42c865f13e6c896b730"
+    },
+    {
+      "path": "docs/coder/d1e5a/tools/E4CoreSelfCheck.java",
+      "bytes": 18995,
+      "sha256": "ef6d8aa341d20009427d9ab5599e8755f377f97a30dfe721cc4d4b8c3e19e971"
+    },
+    {
+      "path": "docs/coder/d1e5a/tools/E5SelfCheck.java",
+      "bytes": 13768,
+      "sha256": "bda6ddf8397e6c64acd8f6a355321131f267c2386fa8a70851748ddf5ccdea07"
+    },
+    {
+      "path": "docs/coder/d1e5a/tools/E5ASelfCheck.java",
+      "bytes": 17304,
+      "sha256": "92a1c8676fbcc108a56847db0d36edd5d9fcca3f17ea57f0d1913c926999d7f6"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\javac.exe",
+        "-encoding",
+        "UTF-8",
+        "--release",
+        "11",
+        "-d",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\selfcheck\\repair-006",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E4Broker.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E4FencedTask.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E4OutputBudget.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E4Owned.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E4Protocol.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E4ReturnGate.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E5AAdmission.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E5ADirectoryBarrier.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E5AFinalObservation.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E5ALifecycle.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E5AOwner.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E5CallbackGate.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E5N2Recovery.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\src\\com\\videokit\\spike\\e4\\E5Trace.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\android\\com\\videokit\\spike\\e4\\E4EncoderNegotiation.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\tools\\E4CoreSelfCheck.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\tools\\E5SelfCheck.java",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\tools\\E5ASelfCheck.java"
+      ],
+      "exitCode": 0,
+      "log": {
+        "path": "docs/coder/d1e5a/evidence/jvm-attempts/repair-006/javac.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-cp",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\selfcheck\\repair-006",
+        "com.videokit.spike.e4.E4CoreSelfCheck"
+      ],
+      "exitCode": 0,
+      "log": {
+        "path": "docs/coder/d1e5a/evidence/jvm-attempts/repair-006/core.log",
+        "bytes": 134,
+        "sha256": "9ad0b197d4ee730273df1083804daaef203609ed212e1c7a4312798e835540f0"
+      }
+    },
+    {
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-cp",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\selfcheck\\repair-006",
+        "com.videokit.spike.e4.E5SelfCheck",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\evidence\\jvm-attempts\\repair-006\\owned-main",
+        "main"
+      ],
+      "exitCode": 0,
+      "log": {
+        "path": "docs/coder/d1e5a/evidence/jvm-attempts/repair-006/main.log",
+        "bytes": 148,
+        "sha256": "bdf7c972d3f82868035fbd45105d424bcc956802ff6f5863899c8ec8b8f7982a"
+      }
+    },
+    {
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-cp",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\selfcheck\\repair-006",
+        "com.videokit.spike.e4.E5SelfCheck",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\evidence\\jvm-attempts\\repair-006\\owned-close-unknown",
+        "close-unknown"
+      ],
+      "exitCode": 0,
+      "log": {
+        "path": "docs/coder/d1e5a/evidence/jvm-attempts/repair-006/close-unknown.log",
+        "bytes": 156,
+        "sha256": "92295a76643dc6d725a5ecbc22e944fec32ee51512c21b3dde062db1ca7c4fa7"
+      }
+    },
+    {
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-cp",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\selfcheck\\repair-006",
+        "com.videokit.spike.e4.E5SelfCheck",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\evidence\\jvm-attempts\\repair-006\\owned-durability-unknown",
+        "durability-unknown"
+      ],
+      "exitCode": 0,
+      "log": {
+        "path": "docs/coder/d1e5a/evidence/jvm-attempts/repair-006/durability-unknown.log",
+        "bytes": 161,
+        "sha256": "70b93779a3709929000914feda2ce4692b68fad2cbc5995b1c7461e7f7f99eed"
+      }
+    },
+    {
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-cp",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\selfcheck\\repair-006",
+        "com.videokit.spike.e4.E5ASelfCheck",
+        "all",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5a\\evidence\\jvm-attempts\\repair-006\\owned-e5a"
+      ],
+      "exitCode": 0,
+      "log": {
+        "path": "docs/coder/d1e5a/evidence/jvm-attempts/repair-006/e5a.log",
+        "bytes": 193,
+        "sha256": "e172b4dc17d27a8f3b1fc339da6e46c47801863342e19d573073709eccde9ba0"
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "scope": "E5_JVM_SYNTHETIC_ONLY",
+      "mode": "main",
+      "status": "PASS",
+      "assertions": 48,
+      "retainedOperations": 0,
+      "androidCodec": "NOT_RUN",
+      "binder": "NOT_RUN"
+    },
+    {
+      "scope": "E5_JVM_SYNTHETIC_ONLY",
+      "mode": "close-unknown",
+      "status": "PASS",
+      "assertions": 3,
+      "retainedOperations": 1,
+      "androidCodec": "NOT_RUN",
+      "binder": "NOT_RUN"
+    },
+    {
+      "scope": "E5_JVM_SYNTHETIC_ONLY",
+      "mode": "durability-unknown",
+      "status": "PASS",
+      "assertions": 2,
+      "retainedOperations": 1,
+      "androidCodec": "NOT_RUN",
+      "binder": "NOT_RUN"
+    },
+    {
+      "scope": "E5A_PRODUCTION_RECOVERY_ADMISSION_LIFECYCLE_LOCAL_ONLY",
+      "assertions": 128,
+      "status": "PASS",
+      "lateCases": 8,
+      "androidCodec": "NOT_RUN",
+      "androidDirectoryFsync": "NOT_RUN",
+      "realMediaReads": 0
+    }
+  ],
+  "error": "",
+  "repairReason": "Enforce absolute cancellation cutoff even with delayed timer dispatch or late resource/report capture; raw returned counters do not imply deadline qualification; all device cases require actual qualified terminal",
+  "androidExecution": "NOT_RUN",
+  "deviceCalls": 0,
+  "oldMediaReads": 0
+}

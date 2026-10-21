@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "mode": "INDEPENDENT_READ_ONLY",
+  "candidateId": "D1-20261017-E7A",
+  "freeze": {
+    "path": "docs/coder/d1e7a/evidence/e7a-freeze.json",
+    "bytes": 42016,
+    "sha256": "1264dd365255b8d22fe1586a7b892240a4745dc01e54d6f26c88ec149784cf76"
+  },
+  "sourceZip": {
+    "path": "docs/coder/d1e7a/artifacts/D1-20261017-E7A/D1-20261017-E7A-source.zip",
+    "bytes": 18524366,
+    "sha256": "9f615382bf299aa2795688357ef084f6ae383745ef3101c6c8d59f1f0a8ca851"
+  },
+  "sourceFiles": 196,
+  "immutableFiles": 200,
+  "allHashRowsVerified": true,
+  "zipExactMembershipVerified": true,
+  "finalBuildInputsVerified": true,
+  "apks": [
+    {
+      "role": "app-debug",
+      "path": "docs/coder/d1e7a/artifacts/D1-20261017-E7A/final/app-debug.apk",
+      "bytes": 10544590,
+      "sha256": "78ec2d3b057b91736ea0bf273ab6bf1b1028dae97916052b5ddb235087d84baf",
+      "applicationId": "com.videokit.app",
+      "signerCertificateSha256": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+      "signingVerified": true,
+      "signingReport": "docs/coder/d1e7a/evidence/app-debug-signing.txt"
+    },
+    {
+      "role": "androidTest",
+      "path": "docs/coder/d1e7a/artifacts/D1-20261017-E7A/final/app-debug-androidTest.apk",
+      "bytes": 2738285,
+      "sha256": "5a97f705813dfbe6f1476d9409c6448a7de981ea77420f2733890691a2248646",
+      "applicationId": "com.videokit.app.test",
+      "signerCertificateSha256": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+      "signingVerified": true,
+      "signingReport": "docs/coder/d1e7a/evidence/androidTest-signing.txt"
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/coder/D1_E7A_DELIVERY_V1.0.md",
+      "bytes": 4624,
+      "sha256": "8290c713671861847fbc27f684b3dadfeeb58b1a1a1c031757e03697563bd88f"
+    },
+    {
+      "path": "docs/coder/D1_E7A_ARCHITECTURE_AND_THREAT_BOUNDARY_V1.0.md",
+      "bytes": 7277,
+      "sha256": "7611bf9ba0741233b4ffc42f189308ff705cae6899a5d9b3522cdfdb595be6e9"
+    },
+    {
+      "path": "docs/coder/D1_E7A_REMAINING_GATE_REVIEW_V1.0.md",
+      "bytes": 2790,
+      "sha256": "ca3f32d9e120f7b21fc51492e34812c84d1e47d731a32674bb75baeb217babb0"
+    },
+    {
+      "path": "docs/coder/D1_E7A_DEVICE_EXECUTION_APPENDIX_V1.0.md",
+      "bytes": 4459,
+      "sha256": "05cfed007c3d8c01c1ccb6db4a1f02e6ae0463fdda6430a6d8ef2ca4134c9ce1"
+    }
+  ],
+  "baselines": [
+    {
+      "freeze": {
+        "path": "docs/coder/d1e7/evidence/e7-freeze.json",
+        "bytes": 40669,
+        "sha256": "b69200b6599144894382e46af0f9555407894f8ce8dd57fad5b71d96bcc63599"
+      },
+      "immutableFilesVerified": 195,
+      "mutation": false
+    },
+    {
+      "freeze": {
+        "path": "docs/coder/d1e6b/evidence/e6b-freeze.json",
+        "bytes": 39745,
+        "sha256": "21ef22f4e92535a0d4e50703d87ff46849c4228f5a20dd6f9721c31c87dddc33"
+      },
+      "immutableFilesVerified": 191,
+      "mutation": false
+    }
+  ],
+  "actualLocalJobCases": 28,
+  "localAssertions": 338,
+  "androidExecution": "NOT_RUN",
+  "deviceCalls": 0,
+  "mediaReads": 0,
+  "E7_F01": "LOCAL_CORE_SUPPORTED_ANDROID_NOT_RUN",
+  "E6B_OBS_F01": "OPEN",
+  "persistentDeathProtocol": "DESIGN_BLOCKED",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

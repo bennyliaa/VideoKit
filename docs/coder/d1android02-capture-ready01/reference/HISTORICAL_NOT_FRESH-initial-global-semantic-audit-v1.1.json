@@ -1,0 +1,53 @@
+{
+  "atUtc": "2026-10-20T14:51:38.975308+00:00",
+  "status": "ENV_WAIT_OTHER_PROJECT_OCCUPIED",
+  "capturePhysical": "PASS_RETURNED",
+  "sourceRawBytes": 366415,
+  "sourceSha256": "8c95a4fbd50df66627a40ced6f3eaf5932e5334f6ab3faf0379c1830f425c5a2",
+  "fullHeaderBodyTailEOFVerified": true,
+  "records": [
+    {
+      "uid": 10223,
+      "startLine": 2356,
+      "observations": [
+        "  *APP* UID 10223 ProcessRecord{20237c1 19377:com.lendmanager.app/u0a223}",
+        "    mInstr=ActiveInstrumentation{352aaa1 {com.lendmanager.app.test/androidx.test.runner.AndroidJUnitRunner} 1 procs}",
+        "    pid=19377",
+        "    curProcState=4 mRepProcState=4 setProcState=4 lastStateTime=-15s354ms",
+        "    cached=false empty=false"
+      ]
+    }
+  ],
+  "top": [],
+  "instrumentationMentionLines": [
+    {
+      "line": 2363,
+      "text": "    mInstr=ActiveInstrumentation{352aaa1 {com.lendmanager.app.test/androidx.test.runner.AndroidJUnitRunner} 1 procs}"
+    },
+    {
+      "line": 3612,
+      "text": "  Active instrumentation:"
+    },
+    {
+      "line": 3613,
+      "text": "    Instrumentation #0: ActiveInstrumentation{352aaa1 {com.lendmanager.app.test/androidx.test.runner.AndroidJUnitRunner} 1 procs}"
+    },
+    {
+      "line": 3629,
+      "text": "      mWatcher=android.app.IInstrumentationWatcher$Stub$Proxy@9650cd9"
+    },
+    {
+      "line": 3804,
+      "text": "    Proc # 8: fg     F/ /FGS  -CMN  t: 0 19377:com.lendmanager.app/u0a223 (instrumentation)"
+    },
+    {
+      "line": 4328,
+      "text": "    Proc # 8: fg     F/ /FGS  -CMN  t: 0 19377:com.lendmanager.app/u0a223 (instrumentation)"
+    }
+  ],
+  "approvedForNext": false,
+  "noNextProofGenerated": true,
+  "allOriginalResourcesReturned": true,
+  "extractionCorrection": "Match package only in ProcessRecord header, avoiding later cross-record references. Same saved raw source; zero additional SDK.",
+  "previousAnalysisRetained": "initial-global-semantic-audit.json"
+}

@@ -1,0 +1,113 @@
+{
+  "status": "PASS_ENV03_STRICT_READONLY_VERIFY",
+  "writes": 0,
+  "productionEntryInvoked": false,
+  "sdkCalls": 0,
+  "deviceCalls": 0,
+  "liveFilesRead": false,
+  "seal": {
+    "path": "docs/coder/d1env03/evidence/env03-freeze.json",
+    "bytes": 5014,
+    "sha256": "37fbd2b0f4842099f6ffb27a642eb58d8e22d89b394925abd9ca6b44d70ad302"
+  },
+  "archive": {
+    "path": "docs/coder/D1-20261020-ENV03-source.zip",
+    "bytes": 95677,
+    "sha256": "f20e61cfdcabb9154ec12af09251af295b734afeeabbc6bb48274ed868ac0bd0"
+  },
+  "archiveEntries": 23,
+  "immutableRows": 24,
+  "authorization": {
+    "path": "docs/coder/d1env03/release/environment-authorization.json",
+    "bytes": 2355,
+    "sha256": "dcc163aa7f4764a7cef146b33dadf1e5c86793be987efc95aefc1c315fcec44c"
+  },
+  "plan": {
+    "path": "docs/coder/d1env03/release/environment-plan.json",
+    "bytes": 2235,
+    "sha256": "ff23db7cdba88db95af9e9e39af8738fea4be9ec90b3cd9fb73402996051b27d"
+  },
+  "policy": {
+    "path": "docs/coder/d1env03/release/capture-policy.json",
+    "bytes": 6219,
+    "sha256": "a32081b68c811497b122cac63d042816423c1776852bfda7ecfc301f3fb17ee8"
+  },
+  "authorizedRequests": 2,
+  "inactiveTemplates": 3,
+  "entry": {
+    "path": "docs/coder/d1env03/tools/capture_metadata.ps1",
+    "bytes": 20118,
+    "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+  },
+  "productReleaseGenerated": false,
+  "hostBuilds": 0,
+  "androidBuilds": 0,
+  "old388818Preserved": true,
+  "consumed": false,
+  "independentMechanicalReview": null,
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "readOnlyModesVerified": [
+    "help",
+    "pack-help",
+    "default-verify",
+    "external-seal-verify"
+  ],
+  "trackedCandidateContentsBeforeEqualsAfter": true,
+  "commands": [
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1env03\\tools\\package_delivery.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nENV03 data-only verification; default verify/help read-only. No entry\ninvocation or live directory probing.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1env03\\tools\\package_delivery.py",
+        "pack",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nENV03 data-only verification; default verify/help read-only. No entry\ninvocation or live directory probing.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1env03\\tools\\package_delivery.py"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_ENV03_STRICT_READONLY_VERIFY\", \"writes\": 0, \"productionEntryInvoked\": false, \"sdkCalls\": 0, \"deviceCalls\": 0, \"liveFilesRead\": false, \"seal\": {\"path\": \"docs/coder/d1env03/evidence/env03-freeze.json\", \"bytes\": 5014, \"sha256\": \"37fbd2b0f4842099f6ffb27a642eb58d8e22d89b394925abd9ca6b44d70ad302\"}, \"archive\": {\"path\": \"docs/coder/D1-20261020-ENV03-source.zip\", \"bytes\": 95677, \"sha256\": \"f20e61cfdcabb9154ec12af09251af295b734afeeabbc6bb48274ed868ac0bd0\"}, \"archiveEntries\": 23, \"immutableRows\": 24, \"authorization\": {\"path\": \"docs/coder/d1env03/release/environment-authorization.json\", \"bytes\": 2355, \"sha256\": \"dcc163aa7f4764a7cef146b33dadf1e5c86793be987efc95aefc1c315fcec44c\"}, \"plan\": {\"path\": \"docs/coder/d1env03/release/environment-plan.json\", \"bytes\": 2235, \"sha256\": \"ff23db7cdba88db95af9e9e39af8738fea4be9ec90b3cd9fb73402996051b27d\"}, \"policy\": {\"path\": \"docs/coder/d1env03/release/capture-policy.json\", \"bytes\": 6219, \"sha256\": \"a32081b68c811497b122cac63d042816423c1776852bfda7ecfc301f3fb17ee8\"}, \"authorizedRequests\": 2, \"inactiveTemplates\": 3, \"entry\": {\"path\": \"docs/coder/d1env03/tools/capture_metadata.ps1\", \"bytes\": 20118, \"sha256\": \"fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe\"}, \"productReleaseGenerated\": false, \"hostBuilds\": 0, \"androidBuilds\": 0, \"old388818Preserved\": true, \"consumed\": false, \"independentMechanicalReview\": null, \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1env03\\tools\\package_delivery.py",
+        "verify",
+        "--seal-sha",
+        "37fbd2b0f4842099f6ffb27a642eb58d8e22d89b394925abd9ca6b44d70ad302"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_ENV03_STRICT_READONLY_VERIFY\", \"writes\": 0, \"productionEntryInvoked\": false, \"sdkCalls\": 0, \"deviceCalls\": 0, \"liveFilesRead\": false, \"seal\": {\"path\": \"docs/coder/d1env03/evidence/env03-freeze.json\", \"bytes\": 5014, \"sha256\": \"37fbd2b0f4842099f6ffb27a642eb58d8e22d89b394925abd9ca6b44d70ad302\"}, \"archive\": {\"path\": \"docs/coder/D1-20261020-ENV03-source.zip\", \"bytes\": 95677, \"sha256\": \"f20e61cfdcabb9154ec12af09251af295b734afeeabbc6bb48274ed868ac0bd0\"}, \"archiveEntries\": 23, \"immutableRows\": 24, \"authorization\": {\"path\": \"docs/coder/d1env03/release/environment-authorization.json\", \"bytes\": 2355, \"sha256\": \"dcc163aa7f4764a7cef146b33dadf1e5c86793be987efc95aefc1c315fcec44c\"}, \"plan\": {\"path\": \"docs/coder/d1env03/release/environment-plan.json\", \"bytes\": 2235, \"sha256\": \"ff23db7cdba88db95af9e9e39af8738fea4be9ec90b3cd9fb73402996051b27d\"}, \"policy\": {\"path\": \"docs/coder/d1env03/release/capture-policy.json\", \"bytes\": 6219, \"sha256\": \"a32081b68c811497b122cac63d042816423c1776852bfda7ecfc301f3fb17ee8\"}, \"authorizedRequests\": 2, \"inactiveTemplates\": 3, \"entry\": {\"path\": \"docs/coder/d1env03/tools/capture_metadata.ps1\", \"bytes\": 20118, \"sha256\": \"fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe\"}, \"productReleaseGenerated\": false, \"hostBuilds\": 0, \"androidBuilds\": 0, \"old388818Preserved\": true, \"consumed\": false, \"independentMechanicalReview\": null, \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    }
+  ]
+}

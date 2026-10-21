@@ -1,0 +1,10 @@
+{
+  "status": "FAILED_TEST_OBSERVER_PARTIAL_ASYNC_JSON",
+  "testHarnessToolExitCode": 1,
+  "reason": "File existence preceded completion of the async halt record write; observer attempted JSON decoding too early.",
+  "productionOrSdkActions": false,
+  "affectedRole": "CONTROLLED_LOCAL_FIXTURE_ONLY",
+  "outerControllerReturnProof": "UNKNOWN_NO_SAME_POPEN_WAIT_RECEIPT_AFTER_HARNESS_EXCEPTION",
+  "owner": "The same PowerShell capture context retained its original local child until its built-in finite gate fallback; no PID query, kill, return marker or replacement observer was used.",
+  "historyNotPromotedToPass": true
+}

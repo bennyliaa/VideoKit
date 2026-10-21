@@ -1,0 +1,21 @@
+{
+  "kind": "CAPTURED_COORDINATOR_RESUME01_RELEASE_DELEGATION",
+  "sourceThread": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "date": "2026-10-20",
+  "sourceReview": {
+    "path": "docs/tester/D1_RESUME01_STATIC_REVIEW_REPORT_V1.0.md",
+    "bytes": 10083,
+    "sha256": "0bad8b95ac7e0308713fdfed2f21c9215d18606f86aaa8e4e1dbd09059640743"
+  },
+  "acceptedBudget": {
+    "operations": 43,
+    "textBytes": 3145728,
+    "archiveBytes": 4194304,
+    "unallocatedNotSpendable": 409600
+  },
+  "instruction": "RESUME01独立静态PASS；负责人接受候选及明确新预算；正式派RESUME01_RELEASE一次整批机械绑定；完整冻结后tester独立机械核验，PASS可按负责人同批授权执行M1→无占用且全门通过后部署→M2→仅ordinarySenderCannotBindCodec，首失败/UNKNOWN停止不其余五法；coder不设备/SDK/现场读。",
+  "mechanicalReviewRequired": true,
+  "freshM1AndZeroOtherProjectOccupancyRequired": true,
+  "oldUnknownOrOnceRefunded": false,
+  "claimWaiver": false
+}

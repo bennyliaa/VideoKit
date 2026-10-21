@@ -1,0 +1,371 @@
+{
+  "schema": "ANDROID02_READY01_STATIC_AUDIT_V1",
+  "priorFrozenSeals": [
+    {
+      "seal": "docs/coder/d1media3-android02-fix02/evidence/fix02-freeze.json",
+      "sha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+      "rows": 874,
+      "bad": []
+    },
+    {
+      "seal": "docs/coder/d1render02-capture/evidence/capture-adapt-freeze.json",
+      "sha256": "65e8413b3e90dd571c22fea7049778b29c0d94221cd490560cdcd5c3cc00ae5a",
+      "rows": 818,
+      "bad": []
+    }
+  ],
+  "pins": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1media3-android02-fix02\\artifacts\\media3-android02-fix02-app-debug.apk",
+      "bytes": 7151481,
+      "sha256": "f67edf0184f2d1cb6c87fe2350f2113e0c56d0452b185b02b24c879d61ac04ad",
+      "match": true,
+      "action": "STATIC_FILE_READ_ONLY_NO_EXECUTION"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1media3-android02-fix02\\artifacts\\media3-android02-fix02-test-debug.apk",
+      "bytes": 478124,
+      "sha256": "b034ceb0e19e37ff2e10fc3db3a89c88b3d9a50d02851bbcb9e360b551dc37d9",
+      "match": true,
+      "action": "STATIC_FILE_READ_ONLY_NO_EXECUTION"
+    },
+    {
+      "path": "D:\\Android\\SDK\\platform-tools\\adb.exe",
+      "bytes": 8273560,
+      "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+      "match": true,
+      "action": "STATIC_FILE_READ_ONLY_NO_EXECUTION"
+    },
+    {
+      "path": "D:\\Android\\SDK\\platform-tools\\AdbWinApi.dll",
+      "bytes": 108184,
+      "sha256": "c1d653030b4bde65d3e07e4d0b0979e17be56df1436cdd15528630f27808050d",
+      "match": true,
+      "action": "STATIC_FILE_READ_ONLY_NO_EXECUTION"
+    },
+    {
+      "path": "D:\\Android\\SDK\\platform-tools\\AdbWinUsbApi.dll",
+      "bytes": 73368,
+      "sha256": "0710e894d9b40f71a670c13c694079d564c92c1279da382cfe4850983aaebe1b",
+      "match": true,
+      "action": "STATIC_FILE_READ_ONLY_NO_EXECUTION"
+    }
+  ],
+  "sourceEntrySha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13",
+  "planSha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199",
+  "producerSha256": "b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed",
+  "policySha256": "4158e2065ee89fc54d795ae5b03a262926137c48fd5ee5d21601cce96c70e13a",
+  "roleCapSums": {
+    "preflight": 1048576,
+    "install": 131072,
+    "instrument": 1048576
+  },
+  "oracleMatrix": [
+    {
+      "oracle": "AC01",
+      "sourceMarker": "PREPARATION_ONLY_NO_EXECUTION_AUTHORIZATION",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC02",
+      "sourceMarker": "EXACT_LOCAL_PRODUCER_ONLY",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC03",
+      "sourceMarker": "DUPLICATE_JSON_FIELD",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC04",
+      "sourceMarker": "EXACT_NEW_ACTIVATION_BINDING",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC05",
+      "sourceMarker": "EXACT_SEVEN_REQUEST_ONLY",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC06",
+      "sourceMarker": "EXISTING_FRESH_ROUTE_CLAIM_UNPROVEN",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC07",
+      "sourceMarker": "GLOBAL_FOREGROUND_UNPROVEN",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC08",
+      "sourceMarker": "OpenPinnedSource",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC09",
+      "sourceMarker": "$global:Android02CaptureCustody[$c.owner]=$c",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC10",
+      "sourceMarker": "$c.rawBytes+=$n",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC11",
+      "sourceMarker": "$bodyReturned=",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC12",
+      "sourceMarker": "EXACT_OUTER_ORIGINAL_RETURN_REQUIRED",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC13",
+      "sourceMarker": "PREDECESSOR_RAW_SEMANTIC_NOT_PASS",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC14",
+      "sourceMarker": "NO_SCOPE_CONSUMPTION_RESET",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC15",
+      "sourceMarker": "7629605",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC16",
+      "sourceMarker": "WHOLE_SEVEN_ROLE_BUDGET_BEFORE_CHILD",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC17",
+      "sourceMarker": "NOT_MEASURED_NOT_FREE_NOT_ARCHIVE",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC18",
+      "sourceMarker": "$request.qualificationSeconds -gt 90",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC19",
+      "sourceMarker": "QUALIFICATION_TIMEOUT_NO_TERMINATION",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC20",
+      "sourceMarker": "$r.file.WriteAsync",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC21",
+      "sourceMarker": "EXACT_LOCAL_PRODUCER_ONLY",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC22",
+      "sourceMarker": "EXACT_BOUNDED_FIXTURE_PAYLOAD",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC23",
+      "sourceMarker": "FIX02_PRODUCT_SEAL_PIN",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC24",
+      "sourceMarker": "FRESH_SCOPE_REQUIRED",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    },
+    {
+      "oracle": "AC25",
+      "sourceMarker": "PREPARATION_ONLY_NO_EXECUTION_AUTHORIZATION",
+      "present": true,
+      "classification": "STATIC_MAPPING_NOT_INDEPENDENT_B_NOT_DEVICE_PROOF"
+    }
+  ],
+  "roles": [
+    {
+      "oracle": "CR01",
+      "role": "identity",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"ANDROID02_ID_BEGIN\\n\"; getprop ro.product.model; getprop ro.build.version.sdk; getprop ro.build.fingerprint; am get-current-user; getprop ro.product.cpu.abilist; printf \"ANDROID02_ID_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15,
+      "classification": "FIXED_PLAN_STATIC_AND_LOCAL_FAKE_CHAIN_ONLY_NOT_DEVICE"
+    },
+    {
+      "oracle": "CR02",
+      "role": "global_idle",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"ANDROID02_GLOBAL_BEGIN\\n\"; dumpsys activity processes; printf \"\\nANDROID02_GLOBAL_ACTIVITIES\\n\"; dumpsys activity activities; printf \"\\nANDROID02_GLOBAL_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 851968,
+      "qualificationSeconds": 15,
+      "classification": "FIXED_PLAN_STATIC_AND_LOCAL_FAKE_CHAIN_ONLY_NOT_DEVICE"
+    },
+    {
+      "oracle": "CR03",
+      "role": "app_absence",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"ANDROID02_APP_BEGIN\\n\"; pm list packages --user 0 com.videokit.d1media3.android02; printf \"ANDROID02_APP_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15,
+      "classification": "FIXED_PLAN_STATIC_AND_LOCAL_FAKE_CHAIN_ONLY_NOT_DEVICE"
+    },
+    {
+      "oracle": "CR04",
+      "role": "test_absence",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"ANDROID02_TEST_BEGIN\\n\"; pm list packages --user 0 com.videokit.d1media3.android02.test; printf \"ANDROID02_TEST_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15,
+      "classification": "FIXED_PLAN_STATIC_AND_LOCAL_FAKE_CHAIN_ONLY_NOT_DEVICE"
+    },
+    {
+      "oracle": "CR05",
+      "role": "install_app",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-t",
+        "--no-streaming",
+        "D:/CodexProjects/VideoKit/docs/coder/d1media3-android02-fix02/artifacts/media3-android02-fix02-app-debug.apk"
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 45,
+      "classification": "FIXED_PLAN_STATIC_AND_LOCAL_FAKE_CHAIN_ONLY_NOT_DEVICE"
+    },
+    {
+      "oracle": "CR06",
+      "role": "install_test",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-t",
+        "--no-streaming",
+        "D:/CodexProjects/VideoKit/docs/coder/d1media3-android02-fix02/artifacts/media3-android02-fix02-test-debug.apk"
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 45,
+      "classification": "FIXED_PLAN_STATIC_AND_LOCAL_FAKE_CHAIN_ONLY_NOT_DEVICE"
+    },
+    {
+      "oracle": "CR07",
+      "role": "scope_all",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "case",
+        "scopeAll",
+        "-e",
+        "fixtureSha256",
+        "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "-e",
+        "runId",
+        "@RUN_ID@",
+        "com.videokit.d1media3.android02.test/com.videokit.d1media3.android02.test.Media3Instrumentation"
+      ],
+      "maxTextBytes": 1048576,
+      "qualificationSeconds": 90,
+      "classification": "FIXED_PLAN_STATIC_AND_LOCAL_FAKE_CHAIN_ONLY_NOT_DEVICE"
+    }
+  ],
+  "selfcheckAttemptHistory": [
+    {
+      "path": "selfchecks/work/suite-35ad972aea9e/summary.json",
+      "sha256": "42542f881e02d84ef4f4ea0d015b43bc869af814bf67018834284c9faed9c826",
+      "elapsedSeconds": 18.453000000008615,
+      "allPassed": true,
+      "results": 7
+    },
+    {
+      "path": "selfchecks/work/suite-7ceea3d85e0a/summary.json",
+      "sha256": "0587d421cde5acdd7a643f52b2c771132ca0d7c2cf426c329a5c1c408df3b5ee",
+      "elapsedSeconds": 26.84299999999348,
+      "allPassed": false,
+      "results": 14
+    },
+    {
+      "path": "selfchecks/work/suite-c6ba8a620e63/summary.json",
+      "sha256": "e6d1727ea9fd213c9201a6e3c6a05515df67b16772a5a0d6cde0eaf6aca9e59e",
+      "elapsedSeconds": 26.90600000001723,
+      "allPassed": false,
+      "results": 8
+    },
+    {
+      "path": "selfchecks/work/suite-d48c69b2cd92/summary.json",
+      "sha256": "3270ae2469aa5142365ea3b510f5584d081b2f0b1e4f3811fe46bfcade8068d8",
+      "elapsedSeconds": 26.155999999988126,
+      "allPassed": false,
+      "results": 16
+    }
+  ],
+  "latestSelfchecksPassed": true,
+  "sdkChildren": 0,
+  "deviceQueries": 0,
+  "serverQueries": 0,
+  "oldUnknownQueries": 0,
+  "gradleRuns": 0,
+  "actualAndroid": "NOT_RUN",
+  "independentNewToolB": "NOT_RUN_PENDING_REVIEW",
+  "allStaticChecksPassed": true
+}

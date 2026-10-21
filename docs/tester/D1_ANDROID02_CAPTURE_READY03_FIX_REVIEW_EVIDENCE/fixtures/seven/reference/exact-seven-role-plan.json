@@ -1,0 +1,246 @@
+{
+  "schema": "ANDROID02_CAPTURE_PLAN_V1",
+  "status": "PREPARATION_NOT_AUTHORIZATION",
+  "product": {
+    "sealPath": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1media3-android02-fix02\\evidence\\fix02-freeze.json",
+    "sealSha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+    "app": {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1media3-android02-fix02/artifacts/media3-android02-fix02-app-debug.apk",
+      "bytes": 7151481,
+      "sha256": "f67edf0184f2d1cb6c87fe2350f2113e0c56d0452b185b02b24c879d61ac04ad"
+    },
+    "test": {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1media3-android02-fix02/artifacts/media3-android02-fix02-test-debug.apk",
+      "bytes": 478124,
+      "sha256": "b034ceb0e19e37ff2e10fc3db3a89c88b3d9a50d02851bbcb9e360b551dc37d9"
+    },
+    "signerCertificateSha256": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+    "version": "D1-MEDIA3-ANDROID02-FIX02",
+    "fixtureSha256": "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+    "caseOrder": [
+      "preopenAdmission",
+      "rejectFixture",
+      "cancelLateRead",
+      "writerPending",
+      "inspectKnown",
+      "inspectShort3",
+      "inspectUnknown",
+      "inspectSeek1s",
+      "bbbObserve",
+      "muxQualified"
+    ]
+  },
+  "sdkFiles": [
+    {
+      "path": "D:/Android/SDK/platform-tools/adb.exe",
+      "bytes": 8273560,
+      "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+    },
+    {
+      "path": "D:/Android/SDK/platform-tools/AdbWinApi.dll",
+      "bytes": 108184,
+      "sha256": "c1d653030b4bde65d3e07e4d0b0979e17be56df1436cdd15528630f27808050d"
+    },
+    {
+      "path": "D:/Android/SDK/platform-tools/AdbWinUsbApi.dll",
+      "bytes": 73368,
+      "sha256": "0710e894d9b40f71a670c13c694079d564c92c1279da382cfe4850983aaebe1b"
+    }
+  ],
+  "device": {
+    "serial": "HA1Q6WXR",
+    "model": "TB138FC",
+    "api": 31,
+    "fingerprint": "FUTURE_FRESH_OBSERVATION_REQUIRED"
+  },
+  "steps": [
+    {
+      "id": "identity",
+      "ordinal": 1,
+      "group": "preflight",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"ANDROID02_ID_BEGIN\\n\"; getprop ro.product.model; getprop ro.build.version.sdk; getprop ro.build.fingerprint; am get-current-user; getprop ro.product.cpu.abilist; printf \"ANDROID02_ID_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 15,
+      "dependency": "EXTERNAL_PRE_SDK_GATE"
+    },
+    {
+      "id": "global_idle",
+      "ordinal": 2,
+      "group": "preflight",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"ANDROID02_GLOBAL_BEGIN\\n\"; dumpsys activity processes; printf \"\\nANDROID02_GLOBAL_ACTIVITIES\\n\"; dumpsys activity activities; printf \"\\nANDROID02_GLOBAL_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 851968,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 15,
+      "dependency": "identity_ACTUAL_RETURN_AND_SEMANTIC_PASS"
+    },
+    {
+      "id": "app_absence",
+      "ordinal": 3,
+      "group": "preflight",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"ANDROID02_APP_BEGIN\\n\"; pm list packages --user 0 com.videokit.d1media3.android02; printf \"ANDROID02_APP_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 15,
+      "dependency": "global_idle_ACTUAL_RETURN_AND_SEMANTIC_PASS"
+    },
+    {
+      "id": "test_absence",
+      "ordinal": 4,
+      "group": "preflight",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"ANDROID02_TEST_BEGIN\\n\"; pm list packages --user 0 com.videokit.d1media3.android02.test; printf \"ANDROID02_TEST_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 15,
+      "dependency": "app_absence_ACTUAL_RETURN_AND_SEMANTIC_PASS"
+    },
+    {
+      "id": "install_app",
+      "ordinal": 5,
+      "group": "install",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-t",
+        "--no-streaming",
+        "D:/CodexProjects/VideoKit/docs/coder/d1media3-android02-fix02/artifacts/media3-android02-fix02-app-debug.apk"
+      ],
+      "maxTextBytes": 65536,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 45,
+      "dependency": "test_absence_ACTUAL_RETURN_AND_SEMANTIC_PASS"
+    },
+    {
+      "id": "install_test",
+      "ordinal": 6,
+      "group": "install",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-t",
+        "--no-streaming",
+        "D:/CodexProjects/VideoKit/docs/coder/d1media3-android02-fix02/artifacts/media3-android02-fix02-test-debug.apk"
+      ],
+      "maxTextBytes": 65536,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 45,
+      "dependency": "install_app_ACTUAL_RETURN_AND_SEMANTIC_PASS"
+    },
+    {
+      "id": "scope_all",
+      "ordinal": 7,
+      "group": "instrument",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "case",
+        "scopeAll",
+        "-e",
+        "fixtureSha256",
+        "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "-e",
+        "runId",
+        "@RUN_ID@",
+        "com.videokit.d1media3.android02.test/com.videokit.d1media3.android02.test.Media3Instrumentation"
+      ],
+      "maxTextBytes": 1048576,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 90,
+      "dependency": "install_test_ACTUAL_RETURN_AND_SEMANTIC_PASS"
+    }
+  ],
+  "roles": [
+    "identity",
+    "global_idle",
+    "app_absence",
+    "test_absence",
+    "install_app",
+    "install_test",
+    "scope_all"
+  ],
+  "budget": {
+    "operations": 7,
+    "preflightText": 1048576,
+    "installText": 131072,
+    "instrumentText": 1048576,
+    "controlProofText": 1048576,
+    "allInboundLogical": 3276800,
+    "binaryOutbound": 7629605,
+    "commandEach": 4096,
+    "commandAll": 28672,
+    "allOutboundLogical": 7658277,
+    "controlReservePerOperation": 65536,
+    "wireFraming": "UNPROVEN_NOT_SDK_PAYLOAD_OR_ARCHIVE"
+  },
+  "observationWindowsSumSeconds": 240,
+  "observationWindowsSumIsNotWholeWall": true,
+  "batchWall": "UNASSIGNED_REQUIRES_COORDINATOR_CAPTURE_AND_LOCAL_PROOF_WALL_BOUND_BEFORE_PRODUCTION",
+  "allowedForegroundSystemPackages": [
+    "android",
+    "com.android.systemui",
+    "com.zui.launcher",
+    "com.android.launcher3",
+    "com.lenovo.launcher"
+  ],
+  "forbiddenOldPlanIds": [
+    "78df082b-ed71-4c34-b032-448c061a299b",
+    "7aebea43-88e7-40cb-8794-cd3c6216cbe0"
+  ],
+  "sourceCapture": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render02-capture\\tools\\capture_render02.ps1",
+    "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+  },
+  "noAdditionalRoles": [
+    "screenshot",
+    "logcat",
+    "push",
+    "pull",
+    "kill",
+    "uninstall",
+    "clear",
+    "retry"
+  ],
+  "productionActivation": "New reviewer/coordinator activation, exact scope/runId, source pins and fresh original route/claim proof; current policy rejects before SDK context",
+  "preparedWallCeilingsNotExecutionAuthorization": {
+    "wholeScopeSecondsMaximum": 600,
+    "localProofSecondsMaximum": 30,
+    "outerSecondsMaximum": 600,
+    "exactScopeValues": "UNASSIGNED_UNTIL_NEW_REVIEWED_ACTIVATION",
+    "240IsOnlyQualificationWindowSum": true
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "receivedDate": "2026-10-18",
+  "sourceThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "source": "Coordinator relayed explicit human authorization in current task",
+  "humanAuthorization": "同意，批准按方案对A/K执行一次集中收尾，包括必要的条件后备进程和强停平板上的com.videokit.app，接受未落盘信息损失及同包任务中断。保留全部证据，B/H继续保留UNKNOWN，完成后集中报告，暂不恢复测试。",
+  "approvedProposal": "docs/tester/D1_UNRESOLVED_TASKS_CONSOLIDATED_DISPOSITION_V1.0.md",
+  "approvedProposalSha256": "f242eef9a91921af0e5c7a4f19b10c6b84c0815874f3d85ca6016eb86c3e745c",
+  "scope": {
+    "hostRoles": ["A_JAVA_38056", "A_ADB_CLIENT_49540", "A_POWERSHELL_39560", "K_JAVA_51664", "K_ORIGINAL_LAUNCHER_IDENTIFIED_FROM_SAME_SNAPSHOT"],
+    "androidSerial": "HA1Q6WXR",
+    "androidUser": 0,
+    "androidPackage": "com.videokit.app",
+    "androidAction": "ONE_FORCE_STOP_THROUGH_SYSTEM_APP_SETTINGS_AFTER_IDENTITY_AND_OCCUPANCY_CONFIRMATION",
+    "BH": "ADMINISTRATIVELY_QUARANTINED_UNKNOWN_NO_PID_ACTION_NO_ACK_NO_REFUND"
+  },
+  "finiteExecutionBudget": {
+    "hostCimSnapshots": 1,
+    "hostSelectedIdentityUtf8MaxBytes": 32768,
+    "hostControlHandlesMax": 5,
+    "externalTerminationCallsPerVerifiedRoleMax": 1,
+    "waitForExitPerCallMaxMilliseconds": 10000,
+    "waitsPerRoleMax": 2,
+    "controllerDecisionWindowMaxSeconds": 600,
+    "androidCliInvocationsMax": 24,
+    "androidSingleTextPayloadMaxBytes": 16384,
+    "androidAllTextPayloadMaxBytes": 131072,
+    "androidUiDumpFilesMax": 4,
+    "androidUiInputActionsMax": 6,
+    "androidForceStopConfirmationMax": 1,
+    "originalSessions42537And49433Reads": 0,
+    "originalBufferReads": 0,
+    "controllerConsoleMaxBytes": 8192,
+    "newDiagnosticsOrCompiledTools": 0,
+    "retriesOrReplacementPids": 0
+  },
+  "executionOrder": ["PRESERVE_AUTHORIZATION_AND_EXISTING_EVIDENCE", "ONE_HOST_IDENTITY_SNAPSHOT_AND_RETAIN_SAME_GENERATION_HANDLES", "CONFIRM_ANDROID_IDENTITY_AND_PROJECT_OCCUPANCY_THEN_ONE_SETTINGS_FORCE_STOP", "FINITE_NATURAL_EXIT_OPPORTUNITY_AND_CONDITIONAL_SELECTED_HOST_TERMINATIONS", "WRITE_ONE_CONSOLIDATED_REPORT_AND_NOTIFY_COORDINATOR_THEN_STOP"],
+  "excluded": ["5037 listener/ADB server", "device adbd/system_server", "other serials/projects", "conhost", "test/fixture/other Android packages", "kill-server", "root/reboot", "whole-process-tree termination", "original once/ledger/media/frozen evidence mutation", "test/deployment/resumption"],
+  "denialPolicy": "Save approval rejection; do not bypass or retry denied action",
+  "resultPolicy": "External termination is TERMINATED_WITHOUT_RETURN, originalJavaReturn=false. OS results do not substitute original Java/reader/socket/Android ACK. UNKNOWN is not refunded."
+}

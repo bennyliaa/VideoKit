@@ -1,0 +1,56 @@
+{
+  "status": "EXACT_PROPOSAL_REQUIRES_REVIEW_AND_DEVICE_DISPATCH",
+  "maxOperations": 43,
+  "groups": [
+    {
+      "role": "freshM1Metadata",
+      "operations": 3,
+      "textBytes": 655360
+    },
+    {
+      "role": "deploymentHostJava",
+      "operations": 1,
+      "textBytes": 81920
+    },
+    {
+      "role": "deploymentSdkChildren",
+      "operations": 35,
+      "textBytes": 524288
+    },
+    {
+      "role": "freshM2Metadata",
+      "operations": 2,
+      "textBytes": 589824
+    },
+    {
+      "role": "singleCaseHostJava",
+      "operations": 1,
+      "textBytes": 32768
+    },
+    {
+      "role": "singleInstrumentationChild",
+      "operations": 1,
+      "textBytes": 65536
+    }
+  ],
+  "rawAndDuplicatedOutputReserve": 1949696,
+  "metadataAndControlTextReserve": 786432,
+  "unallocatedNotSpendable": 409600,
+  "totalTextBytes": 3145728,
+  "archiveDiskBytes": 4194304,
+  "occupationRetries": 0,
+  "unknownRefunded": false,
+  "inheritedBalances": false,
+  "reasonForExplicitTextChange": "Fresh full M1/M2 activity-process outputs are each bounded at 512KiB; count nested instrumentation/host output and original SDK archive metadata, rather than inheriting the six-method 2MiB proposal.",
+  "recordReserves": {
+    "operationArchives": 442368,
+    "observerRecordsAndConsole": 81920,
+    "metadataClientRecords": 122880,
+    "releaseAndScopeRecords": 49152,
+    "claimAndPointer": 16384,
+    "subtotal": 712704
+  },
+  "perSdkResponseQualificationSeconds": 55,
+  "metadataQualificationSeconds": 15,
+  "qualificationIsNotPhysicalTermination": true
+}

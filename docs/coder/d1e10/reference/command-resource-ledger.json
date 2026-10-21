@@ -1,0 +1,577 @@
+{
+  "scope": {
+    "kind": "READ_ONLY_IDENTITY_EXECUTION_SCOPE",
+    "created": "2026-10-18T08:45:40.315716+08:00",
+    "sourceThread": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+    "source": "Formal E9B_READ_ONLY_IDENTITY dispatch after accepted E9B review; human permanent tablet-use permission and 2026-10-18 resume",
+    "requirements": "docs/milestones/D1_E9B_READ_ONLY_IDENTITY_TESTER_REQUIREMENTS_V1.0.md",
+    "requirementsSha256": "a93d2a97dd495d82696c84ef95780470b45abf4da0095269e299c56981f7b09d",
+    "sourceReview": "03cae4e6313db391ea0838bc289814b97a1319bd98ac6d08e30f2a4df1fa5fb1",
+    "serial": "HA1Q6WXR",
+    "user": 0,
+    "appUid": 10221,
+    "testUid": 10222,
+    "version": 13,
+    "mode": "READ_ONLY_IDENTITY",
+    "registry": "b1d2b533-2461-4a85-ad05-d64509a6b1f9",
+    "migration": "eed3bd1d-7f52-47a4-bd66-992f5b8937f1",
+    "attempt": "fa4e3689-90dc-4bef-b565-fb602863d97f",
+    "handle": "8419402b-16a0-45a0-92fe-d1ec7019848c",
+    "actorOrdinal": 1,
+    "pcStatusOpCleanupLimit": 16,
+    "androidControlLimit": 8,
+    "androidStatusLimit": 3,
+    "scopeProhibitions": [
+      "RESERVE",
+      "EXECUTE_COMMIT",
+      "SEAL_FINAL",
+      "MEDIA",
+      "PRODUCT",
+      "ACTOR2",
+      "ACTOR3",
+      "MIGRATION",
+      "ACTIVATION",
+      "ABORT",
+      "BUDGET_CHANGE"
+    ],
+    "migrationApprovalToken": "NOT_CREATED",
+    "finalCatalog": "NOT_CREATED",
+    "authorityMeaning": "SHA binds this explicitly dispatched read-only scope; no commit or product authority"
+  },
+  "configSha256": "085d9d0e01f4e7910c19ca752b9292878015e231a4b827ad8d836a7ca23966a5",
+  "planSha256": "909d2803628fc6358f5b6a1c0088b88bc96cd40a7f0e74df42e8f5b0854dc9ac",
+  "sessionIntents": [
+    {
+      "at": "2026-10-18T08:48:24.464753+08:00",
+      "stage": "DEPLOY",
+      "sha256": "1cec5b959d0bd913cd12f9611b97e76404bce6ac1c437d21e6b02039ddf0feb7",
+      "androidControlsIssued": 0,
+      "androidStatusesIssued": 0,
+      "pcQueriesIssued": 0
+    },
+    {
+      "at": "2026-10-18T08:48:24.479697+08:00",
+      "stage": "INSPECT",
+      "sha256": "aecc271156e42c3f0162b174efea444bea5f9db712c8f19dd268a58e14be36b6",
+      "androidControlsIssued": 0,
+      "androidStatusesIssued": 0,
+      "pcQueriesIssued": 0
+    },
+    {
+      "at": "2026-10-18T08:49:04.413828+08:00",
+      "stage": "LAUNCH",
+      "sha256": "17eefd6213b41422c7721ec8a35b55b24ba766d5e2a2c66e22e20c72177c88cc",
+      "androidControlsIssued": 0,
+      "androidStatusesIssued": 0,
+      "pcQueriesIssued": 1
+    },
+    {
+      "at": "2026-10-18T08:49:04.415827+08:00",
+      "stage": "INSPECT",
+      "sha256": "aecc271156e42c3f0162b174efea444bea5f9db712c8f19dd268a58e14be36b6",
+      "androidControlsIssued": 0,
+      "androidStatusesIssued": 0,
+      "pcQueriesIssued": 1
+    },
+    {
+      "at": "2026-10-18T08:49:11.879660+08:00",
+      "stage": "POLL",
+      "sha256": "0d776ae2c0c51e58cfa2d00677092c8c1a28518f3295ab99e7f0a978a82e7a83",
+      "androidControlsIssued": 1,
+      "androidStatusesIssued": 1,
+      "pcQueriesIssued": 1
+    },
+    {
+      "at": "2026-10-18T08:49:58.316379+08:00",
+      "stage": "ARCHIVE",
+      "sha256": "3caa7ad009e4a33c7d26c8b2dd1cfd7c6bf062573d4d98c816c5dd1f3ed10da4",
+      "androidControlsIssued": 1,
+      "androidStatusesIssued": 1,
+      "pcQueriesIssued": 1
+    },
+    {
+      "at": "2026-10-18T08:49:58.316379+08:00",
+      "stage": "INSPECT",
+      "sha256": "aecc271156e42c3f0162b174efea444bea5f9db712c8f19dd268a58e14be36b6",
+      "androidControlsIssued": 1,
+      "androidStatusesIssued": 1,
+      "pcQueriesIssued": 1
+    },
+    {
+      "at": "2026-10-18T08:50:16.467561+08:00",
+      "stage": "ACK",
+      "sha256": "a87bb810f8ef457f22f27db96ea8a32f1ca2c5915681e1ed1b7dc06ca69987fc",
+      "androidControlsIssued": 2,
+      "androidStatusesIssued": 1,
+      "pcQueriesIssued": 1
+    },
+    {
+      "at": "2026-10-18T08:50:24.522219+08:00",
+      "stage": "FINISH",
+      "sha256": "365dc29c6f1ccb46eb11104407781eead18c98e096d9791b402f92aeb326a134",
+      "androidControlsIssued": 2,
+      "androidStatusesIssued": 1,
+      "pcQueriesIssued": 1
+    },
+    {
+      "at": "2026-10-18T08:50:24.523219+08:00",
+      "stage": "INSPECT",
+      "sha256": "aecc271156e42c3f0162b174efea444bea5f9db712c8f19dd268a58e14be36b6",
+      "androidControlsIssued": 2,
+      "androidStatusesIssued": 1,
+      "pcQueriesIssued": 1
+    }
+  ],
+  "canonicalAndroidLedger": [
+    {
+      "attempt": "fa4e3689-90dc-4bef-b565-fb602863d97f",
+      "handle": "8419402b-16a0-45a0-92fe-d1ec7019848c",
+      "kind": "launch",
+      "migration": "eed3bd1d-7f52-47a4-bd66-992f5b8937f1",
+      "ordinal": "1",
+      "plan": "909d2803628fc6358f5b6a1c0088b88bc96cd40a7f0e74df42e8f5b0854dc9ac",
+      "registry": "b1d2b533-2461-4a85-ad05-d64509a6b1f9"
+    },
+    {
+      "command": "STATUS",
+      "handle": "8419402b-16a0-45a0-92fe-d1ec7019848c",
+      "intent": "3efe2857dc688e9de9be101ddb242ecccadd5169d3a748a78d9eaafae55d0008",
+      "kind": "control",
+      "seq": "1"
+    },
+    {
+      "command": "ACK_FINISH",
+      "handle": "8419402b-16a0-45a0-92fe-d1ec7019848c",
+      "intent": "27ed075755ddf8dea51f87a5f8f5bb22a2d7a58dc771fb81ac1ef5c81e657e47",
+      "kind": "control",
+      "seq": "2"
+    }
+  ],
+  "pcIdentity": {
+    "handle": "5ee53215-c4d4-4437-9db9-fd3f2c12c495",
+    "pcPid": 27924,
+    "port": 14691,
+    "at": "2026-10-18T08:48:02.600043+08:00",
+    "controllerPid": 31448,
+    "managerPid": 27924
+  },
+  "pcFinalClientReceipt": {
+    "at": "2026-10-18T08:50:49.994172+08:00",
+    "exitCode": 0,
+    "managerPid": 27924,
+    "stdoutReaderReturned": true,
+    "stderrReaderReturned": true,
+    "pcQueriesIssued": 2,
+    "androidControlsIssued": 2,
+    "androidStatusesIssued": 1,
+    "scope": "8419402b-16a0-45a0-92fe-d1ec7019848c"
+  },
+  "independentHostManagerAbsence": {
+    "observedAt": "2026-10-18T08:55:51.0713484+08:00",
+    "originalManagerPid": 27924,
+    "absent": true,
+    "operation": "READ_ONLY_HOST_PROCESS_QUERY",
+    "forceStopOrKillIssued": false
+  },
+  "metadataReceipts": [
+    {
+      "label": "devices",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "devices",
+        "-l"
+      ],
+      "began": "2026-10-18T08:45:49.179601+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:49.246302+08:00",
+      "elapsedSeconds": 0.061999999976251274,
+      "pid": 12800,
+      "exitCode": 0,
+      "stdoutBytes": 208,
+      "stderrBytes": 0,
+      "stdoutSha256": "8cbb8259c1cf25d569690f0bcac4652667f3d0dc24e6a6b9d584783854eea252",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "current-user",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "am",
+        "get-current-user"
+      ],
+      "began": "2026-10-18T08:45:49.247721+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:49.366435+08:00",
+      "elapsedSeconds": 0.125,
+      "pid": 35132,
+      "exitCode": 0,
+      "stdoutBytes": 3,
+      "stderrBytes": 0,
+      "stdoutSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "model",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "getprop",
+        "ro.product.model"
+      ],
+      "began": "2026-10-18T08:45:49.367445+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:49.467941+08:00",
+      "elapsedSeconds": 0.11000000004423782,
+      "pid": 21364,
+      "exitCode": 0,
+      "stdoutBytes": 9,
+      "stderrBytes": 0,
+      "stdoutSha256": "b37eed2d5fa1045ac206ac49ddafbe1c42ab5081aba7b1656a5ee8bde4100f40",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "api",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "getprop",
+        "ro.build.version.sdk"
+      ],
+      "began": "2026-10-18T08:45:49.470451+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:49.556675+08:00",
+      "elapsedSeconds": 0.0779999999795109,
+      "pid": 50472,
+      "exitCode": 0,
+      "stdoutBytes": 4,
+      "stderrBytes": 0,
+      "stdoutSha256": "a951e23594a3f4f473035249277fff93b85c2d9d21e4add532b377384ed31b89",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "app-package",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app"
+      ],
+      "began": "2026-10-18T08:45:49.557965+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:49.666644+08:00",
+      "elapsedSeconds": 0.10899999999674037,
+      "pid": 33008,
+      "exitCode": 0,
+      "stdoutBytes": 7471,
+      "stderrBytes": 0,
+      "stdoutSha256": "00ef9f110c47789e66ece6862bce6d3d11b6f3fca542ca299990e47040cca324",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "test-package",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app.test"
+      ],
+      "began": "2026-10-18T08:45:49.668103+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:49.769616+08:00",
+      "elapsedSeconds": 0.10999999998603016,
+      "pid": 48656,
+      "exitCode": 0,
+      "stdoutBytes": 7493,
+      "stderrBytes": 0,
+      "stdoutSha256": "5aae3768fe97b30c943613f6a5fef8d43d5862eb49f05ee35519a009e5a18156",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "processes",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,UID,NAME"
+      ],
+      "began": "2026-10-18T08:45:49.769616+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:49.899752+08:00",
+      "elapsedSeconds": 0.125,
+      "pid": 7612,
+      "exitCode": 0,
+      "stdoutBytes": 22406,
+      "stderrBytes": 0,
+      "stdoutSha256": "b644a5f24ca07530055d9310be8fb948a43c174e2e527cc74f6bf91ad53cf25b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "app-path",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app"
+      ],
+      "began": "2026-10-18T08:45:49.901138+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:50.016533+08:00",
+      "elapsedSeconds": 0.125,
+      "pid": 18192,
+      "exitCode": 0,
+      "stdoutBytes": 97,
+      "stderrBytes": 0,
+      "stdoutSha256": "0b8ea55aa1431d3bac5609762bce801410c9325916d2cce10ceb1787947ab884",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "test-path",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app.test"
+      ],
+      "began": "2026-10-18T08:45:50.017535+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:50.140406+08:00",
+      "elapsedSeconds": 0.125,
+      "pid": 3328,
+      "exitCode": 0,
+      "stdoutBytes": 102,
+      "stderrBytes": 0,
+      "stdoutSha256": "43846bc17fa6a3f8b9fa7aecf1ca2de5e0865c0963883e98f99f62128af13e02",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "installed-pair-hash",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "/data/app/~~thfw6mBKAgrNkL9PqqS1gA==/com.videokit.app-zo5Vncvkw49MVayCGwllhw==/base.apk",
+        "/data/app/~~ZiLSZTAkfhnIn-ujjShcEQ==/com.videokit.app.test-Bz8JefVa12RANgZliyp0mw==/base.apk"
+      ],
+      "began": "2026-10-18T08:45:50.141405+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:45:50.261825+08:00",
+      "elapsedSeconds": 0.10899999999674037,
+      "pid": 44440,
+      "exitCode": 0,
+      "stdoutBytes": 315,
+      "stderrBytes": 0,
+      "stdoutSha256": "4364959127cef525805c83af86ba23f4d7e194578f15182bf59e8009a30b5679",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "identity-live-processes",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,UID,NAME"
+      ],
+      "began": "2026-10-18T08:49:51.961089+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:49:52.066168+08:00",
+      "elapsedSeconds": 0.10999999998603016,
+      "pid": 15380,
+      "exitCode": 0,
+      "stdoutBytes": 22539,
+      "stderrBytes": 0,
+      "stdoutSha256": "14ec703b57a0039acda25c2ff4715fe226719d62d1391a6df4490154567f7973",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "identity-boot-count",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "settings",
+        "get",
+        "global",
+        "boot_count"
+      ],
+      "began": "2026-10-18T08:49:52.067172+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:49:52.174248+08:00",
+      "elapsedSeconds": 0.10899999999674037,
+      "pid": 50468,
+      "exitCode": 0,
+      "stdoutBytes": 3,
+      "stderrBytes": 0,
+      "stdoutSha256": "df4e26a04a444901b95afef44e4a96cfae34690fff2ad2c66389c70079cdff2b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "identity-proc-stat",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "cat",
+        "/proc/17434/stat"
+      ],
+      "began": "2026-10-18T08:49:52.175247+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:49:52.253521+08:00",
+      "elapsedSeconds": 0.0779999999795109,
+      "pid": 21600,
+      "exitCode": 0,
+      "stdoutBytes": 198,
+      "stderrBytes": 0,
+      "stdoutSha256": "e903667f30e91259690e30fbd51b155e814c6721c019027cd83016d4d1858d52",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "final-app-package",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app"
+      ],
+      "began": "2026-10-18T08:51:46.185861+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:51:46.289377+08:00",
+      "elapsedSeconds": 0.09299999999348074,
+      "pid": 54704,
+      "exitCode": 0,
+      "stdoutBytes": 8279,
+      "stderrBytes": 0,
+      "stdoutSha256": "f7ed601ecdb66df83fac6d265bef53b70fe726e3c65f497360a3b69dad50e2b5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "final-test-package",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app.test"
+      ],
+      "began": "2026-10-18T08:51:46.291376+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:51:46.395985+08:00",
+      "elapsedSeconds": 0.10999999998603016,
+      "pid": 19616,
+      "exitCode": 0,
+      "stdoutBytes": 7489,
+      "stderrBytes": 0,
+      "stdoutSha256": "c5dc7c6df797d4af037246409901072c72416dfae02c74340f9c5e3ceba12f71",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "label": "final-processes",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,UID,NAME"
+      ],
+      "began": "2026-10-18T08:51:46.396987+08:00",
+      "scope": "READ_ONLY_METADATA",
+      "ended": "2026-10-18T08:51:46.515098+08:00",
+      "elapsedSeconds": 0.125,
+      "pid": 35220,
+      "exitCode": 0,
+      "stdoutBytes": 22451,
+      "stderrBytes": 0,
+      "stdoutSha256": "6269123141c438b9f6b190e3121296e25f7696c9a7ec5c86e9851c1f17e03b98",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalClientReturned": true,
+      "pipesReturned": true
+    }
+  ],
+  "localQueryReceipts": [
+    {
+      "at": "2026-10-18T08:48:43.143622+08:00",
+      "exitCode": 0,
+      "clientPid": 55696,
+      "originalClientReturned": true,
+      "pipesReturned": true
+    },
+    {
+      "at": "2026-10-18T08:50:41.907035+08:00",
+      "exitCode": 0,
+      "clientPid": 20944,
+      "originalClientReturned": true,
+      "pipesReturned": true
+    }
+  ],
+  "inFlight": [],
+  "noForceStopKillClearRestartOrRetry": true,
+  "note": "Production process breakdown follows the frozen port and observed 21/26 operation counts; individual raw subprocess argv/stdout were not separately instrumented."
+}

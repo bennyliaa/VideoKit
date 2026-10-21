@@ -1,0 +1,34 @@
+--- frozen-android02/src/com/videokit/d1android/ScopeMeter.java
++++ recovery01/src/com/videokit/d1android/ScopeMeter.java
+@@ -0,0 +1,31 @@
++package com.videokit.d1android;
++import java.io.IOException;import java.util.*;
++/** One scope, no phase/case reset. SDK requested, native attempt and actual are distinct layers. */
++public final class ScopeMeter {
++ public static final long INPUT=8388608,OUTPUT=16777216;
++ public enum Count{COPY_REQUEST,COPY_ACTUAL,COPY_EOF,SDK_REQUEST,SDK_ACTUAL,SDK_EOF,SDK_FAILED_REQUEST,NATIVE_ATTEMPT,NATIVE_ACTUAL,NATIVE_EOF,NATIVE_UNKNOWN,DIRECT_EOF,CONTROLLED_INPUT,CONTROLLED_INPUT_ACK,CONTROLLED_OUTPUT_ACK,OUTPUT_SDK_REQUEST,OUTPUT_ATTEMPT,OUTPUT_ACTUAL,OUTPUT_UNKNOWN}
++ private final long inputLimit,outputLimit;
++ public ScopeMeter(){this(INPUT,OUTPUT);}public ScopeMeter(long input,long output){if(input<1||input>INPUT||output<1||output>OUTPUT)throw new IllegalArgumentException("METER_LIMITS");inputLimit=input;outputLimit=output;}
++ private final Map<String,long[]> rows=new LinkedHashMap<>();private final List<Descriptor> descriptors=new ArrayList<>();private long inputReserved,outputRequested,outputAttempted;private int nativeActive,nativePeak,assetActive,assetPeak,unknownAllocations;
++ private long[] row(String key)throws IOException{if(key==null||!key.matches("[A-Za-z0-9_]{1,80}"))throw new IOException("METER_PHASE_REJECTED");long[] r=rows.get(key);if(r==null){if(rows.size()>=128)throw new IOException("METER_PHASE_BUDGET");rows.put(key,r=new long[Count.values().length]);}return r;}
++ private void positive(int n)throws IOException{if(n<1||n>65536)throw new IOException("METER_BLOCK_BUDGET");}
++ public synchronized void input(String phase,Count kind,int n)throws IOException{positive(n);long[] r=row(phase);if(kind!=Count.SDK_REQUEST&&kind!=Count.COPY_REQUEST&&kind!=Count.CONTROLLED_INPUT&&kind!=Count.DIRECT_EOF)throw new IOException("METER_KIND_REJECTED");if(n>inputLimit-inputReserved)throw new IOException("INPUT_CUMULATIVE_BUDGET");inputReserved+=n;r[kind.ordinal()]+=n;}
++ public synchronized void nativeAttempt(String phase,int n)throws IOException{positive(n);row(phase)[Count.NATIVE_ATTEMPT.ordinal()]+=n;}
++ public synchronized void returned(String phase,Count actual,Count eof,int requested,int n)throws IOException{if(n< -1||n>requested||requested<1)throw new IOException("INVALID_READ_RESULT");long[] r=row(phase);if(n<0)r[eof.ordinal()]++;else r[actual.ordinal()]+=n;}
++ public synchronized void outputRequest(String phase,int n)throws IOException{positive(n);if(n>outputLimit-outputRequested)throw new IOException("OUTPUT_SCOPE_REQUEST_BUDGET");outputRequested+=n;row(phase)[Count.OUTPUT_SDK_REQUEST.ordinal()]+=n;}
++ public synchronized void outputAttempt(String phase,int n)throws IOException{positive(n);if(n>outputLimit-outputAttempted)throw new IOException("OUTPUT_SCOPE_ATTEMPT_BUDGET");outputAttempted+=n;row(phase)[Count.OUTPUT_ATTEMPT.ordinal()]+=n;}
++ public synchronized void outputReturned(String phase,int request,int n)throws IOException{if(n<1||n>request)throw new IOException("INVALID_WRITE_RESULT");row(phase)[Count.OUTPUT_ACTUAL.ordinal()]+=n;}
++ public synchronized void outputUnknown(String phase,int reservation)throws IOException{row(phase)[Count.OUTPUT_UNKNOWN.ordinal()]+=reservation;}
++ public synchronized void inputUnknown(String phase,Count kind,int reservation)throws IOException{if(kind!=Count.SDK_FAILED_REQUEST&&kind!=Count.NATIVE_UNKNOWN)throw new IOException("METER_KIND_REJECTED");row(phase)[kind.ordinal()]+=reservation;}
++ public synchronized void controlledAcknowledged(String phase,int input,int output)throws IOException{if(input<0||output<0||input>65536||output>65536)throw new IOException("CONTROLLED_COUNT_REJECTED");long[] r=row(phase);r[Count.CONTROLLED_INPUT_ACK.ordinal()]+=input;r[Count.CONTROLLED_OUTPUT_ACK.ordinal()]+=output;}
++ public synchronized Descriptor descriptor(String role,boolean knownNativeFd)throws IOException{if(descriptors.size()>=128)throw new IOException("DESCRIPTOR_HISTORY_BUDGET");Descriptor d=new Descriptor(role,knownNativeFd,descriptors.size()+1);descriptors.add(d);return d;}
++ public final class Descriptor{
++  private final String role;private final boolean nativeFd;private final int id;private boolean adopted,closed,unknown;
++  private Descriptor(String role,boolean nativeFd,int id){this.role=role;this.nativeFd=nativeFd;this.id=id;}
++  public void adopted(){synchronized(ScopeMeter.this){if(adopted)throw new IllegalStateException("DESCRIPTOR_ADOPT_ONCE");adopted=true;if(nativeFd){nativeActive++;nativePeak=Math.max(nativePeak,nativeActive);}else{assetActive++;assetPeak=Math.max(assetPeak,assetActive);}}}
++  public void unknown(){synchronized(ScopeMeter.this){if(!unknown){unknown=true;unknownAllocations++;}}}
++  public void closed(){synchronized(ScopeMeter.this){if(!adopted||closed)throw new IllegalStateException("DESCRIPTOR_CLOSE_ONCE");closed=true;if(nativeFd)nativeActive--;else assetActive--;}}
++ }
++ public synchronized Map<String,Object> snapshot(){Map<String,Object> root=new LinkedHashMap<>(),phases=new LinkedHashMap<>();for(Map.Entry<String,long[]> e:rows.entrySet()){Map<String,Long> r=new LinkedHashMap<>();for(Count c:Count.values())r.put(c.name(),e.getValue()[c.ordinal()]);phases.put(e.getKey(),Collections.unmodifiableMap(r));}List<Map<String,Object>> ds=new ArrayList<>();for(Descriptor d:descriptors){Map<String,Object> m=new LinkedHashMap<>();m.put("id",d.id);m.put("role",d.role);m.put("knownNativeFD",d.nativeFd);m.put("adopted",d.adopted);m.put("closed",d.closed);m.put("unknown",d.unknown);ds.add(Collections.unmodifiableMap(m));}root.put("scopeInputReserved",inputReserved);root.put("scopeOutputRequested",outputRequested);root.put("scopeOutputAttempted",outputAttempted);root.put("inputLimit",inputLimit);root.put("outputLimit",outputLimit);root.put("phases",Collections.unmodifiableMap(phases));root.put("registeredDescriptorHistory",List.copyOf(ds));root.put("knownNativeFdActive",nativeActive);root.put("knownNativeFdPeak",nativePeak);root.put("assetStreamActive",assetActive);root.put("assetStreamPeak",assetPeak);root.put("unknownAllocationOrClose",unknownAllocations);root.put("assetInternalFdCount","API_UNPROVEN_NOT_SOURCE_LEASE_PEAK");return Collections.unmodifiableMap(root);}
++ public synchronized Map<String,Object> caseSnapshot(String prefix){Map<String,Object> r=new LinkedHashMap<>(snapshot());r.remove("registeredDescriptorHistory");Map<String,Object> p=new LinkedHashMap<>();for(Map.Entry<String,long[]> e:rows.entrySet())if(e.getKey().startsWith(prefix+"_")){Map<String,Long> values=new LinkedHashMap<>();for(Count c:Count.values())values.put(c.name(),e.getValue()[c.ordinal()]);p.put(e.getKey(),values);}r.put("phases",p);return r;}
++}

@@ -1,0 +1,1 @@
+package android.content;import android.os.*;public interface ServiceConnection {void onServiceConnected(ComponentName c,IBinder b);void onServiceDisconnected(ComponentName c);default void onNullBinding(ComponentName c){}default void onBindingDied(ComponentName c){}}

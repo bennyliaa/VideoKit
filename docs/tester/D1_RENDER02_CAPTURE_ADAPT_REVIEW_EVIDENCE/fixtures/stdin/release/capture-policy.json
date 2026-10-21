@@ -1,0 +1,33 @@
+{
+  "schema": "RENDER02_CAPTURE_POLICY_V1",
+  "mode": "OFFLINE_FIXTURE",
+  "entrySha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e",
+  "scope": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RENDER02_CAPTURE_ADAPT_REVIEW_EVIDENCE\\fixtures\\stdin\\outputs",
+  "slots": [
+    {
+      "id": "fixture_a",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1render02-capture/selfchecks/capture_fixture.py",
+        "stdin",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RENDER02_CAPTURE_ADAPT_REVIEW_EVIDENCE\\fixtures\\stdin\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 65536,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 10
+    }
+  ],
+  "fixtureFault": "NONE",
+  "fixtureGatePath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RENDER02_CAPTURE_ADAPT_REVIEW_EVIDENCE\\fixtures\\stdin\\outputs\\fixture-gate",
+  "fixtureScriptSha256": "76a0200544f0a0e24e9a29d5fd5114144148810a584054252dd823a92a1975fe",
+  "toolSha256": "abc1aa0b5a63f745804e88789b2dfe6857582ec19ed36b3b5f9dc6b340212344",
+  "inputPin": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RENDER02_CAPTURE_ADAPT_REVIEW_EVIDENCE\\fixtures\\stdin\\outputs\\fixture-input.bin",
+    "bytes": 349102,
+    "sha256": "109ee4d97196c26567e53713f3d45c1b6445757ae100c1b3ffbdb498e7d9234f"
+  }
+}

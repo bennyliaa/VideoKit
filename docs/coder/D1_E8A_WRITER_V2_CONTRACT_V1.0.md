@@ -1,0 +1,65 @@
+# D1 E8A actor与writer V2接续契约 V1.0
+
+2026-10-18。设计修订，未实现。适用于新迁移actor及未来writer，不给旧V1补造boot/start。E8合作故障模型、原Binder/隔离角色/FD持有者和产品时限保持。
+
+## 新actor完整身份
+
+ActorKey=(registryID,migrationID,actorOrdinal,attemptUUID,handleUUID,task,policyID,descriptorSHA,prepareAppSHA,prepareTestSHA,UID,PID,process,bootSourceKind,bootValue,starttime)。单进程迁移的participants必须明确仅本actor且FD不跨进程传递；任何转交企图超出合同，在转交前失败关闭。V2其他业务writer若需host/codec/CPU多参与者，应各自在传FD前完成同等级登记/实际ACK，不能套迁移单进程的死亡处分。
+
+新actor首次持久写之前，要完成V2事前身份采样与外部reserve绑定。boot_id+/proc/self/stat starttime是候选；SYSTEM_BOOT_COUNT为备用来源但不能与KERNEL_BOOT_ID混比；API31/OEM权限和语义尚需独立有界验证。错误/不一致/无法可靠采集时无写许可，不能退到墙钟或旧PID。跨进程DeathRecipient必须事前绑定实际对象/nonce/角色并强持有，使用API31可用binderDied()，不是API34 who重载；断连/ping/超时不是死亡证明。不能事后制造未采的内核代次。
+
+每actor commandSeq单调、最多8个实际请求、每个状态变更命令带expectedStateSeq和前一受信registry event引用。status可只读核当前状态；同seq重复写命令只能ALREADY_ACCEPTED_NOT_REEXECUTED，不能重复mkdir/写/close/结算。派发意图已发而响应不明时次数已消耗，先归档UNKNOWN，不清额度重发。handle/ordinal/attempt/代码SHA不同的回执不能替代。
+
+## authority与记录语义
+
+外部tester管理器是当前迁移会话状态authority，负责人独立验收final catalog；保护入口沿既有DUMP资格与精确受管handle，实际传输/负例尚未实现测试。Android file intent、acceptance或commit均非authority。scope/批准来自外部已审核descriptor与授权来源，不让文件自己选择“已批准/已返回”hash。
+
+阶段证据最少包含：IDENTIFY原采样/读取FD全部返回；BOUND前外部reserve已实际存储；EXECUTE接受及唯一序号；COMMITTED时device三对象字节摘要；RETURNED原metadata/目录/ledger/guard raw+dup/unlock全部实际返回；NORMAL_FINISH的准确归档ACK、系统正常finish与原代次结束。每阶段原始日志/快照都绑定ActorKey和冻结代码。锁释放不能替代raw/dup close；状态值不能来自外部传入的resourcesReturned=true。
+
+phase间的资格和执行保留：身份阶段10秒、实际提交阶段10秒是两个明确独立任务阶段，后者在无业务资源持有的BOUND等待后开始；不能在原操作仍在途时重置钟进入下一phase。任何超时PENDING永久，晚返只能更新资源状态并保留非合格结果。接收EXECUTE前必须先预留原操作/队列占位，尚未开始的平台动作也算未返；不得在worker出队前因FD尚EMPTY就finish。允许安全关闭尚未接收写许可的入口，仅在原身份操作真实返回、未保留待执行动作、互斥关闭命令入口且拒绝所有晚到EXECUTE后，失败结束，不进行迁移写。
+
+## 终局分类与跨host消费表
+
+|registry终局/证据|旧actor原返回语义|可否成为最终catalog|
+|---|---|---|
+|RETURN_VERIFIED_IN_TIME + NORMAL_FINISH_CONFIRMED|该精确actor全部原调用/holder真实返回且资格内|可以，需全scope与device绑定独立接受|
+|RETURNED_LATE_NONQUALIFIED|真实返回已知，但原PENDING不改成功|不能单独激活；新actor2精确重验证并合格返回后可接受恢复catalog|
+|TERMINATED_WITHOUT_RETURN_RECOVERY_REQUIRED|原Java返回保持UNKNOWN，只证明精确代次及其全部参与者能力已终止|不能单独激活；须独立接受终止处分＋actor2实际完成/返回/正常finish|
+|BOUND/ACTIVE/COMMITTED_UNRETURNED/ALLOCATING/CLOSING/UNKNOWN|未取得实际全部返回|不可以，活或不明时不能靠锁/commit推断|
+|错/缺/旧seq回执、registry缺失或未核实连续head|authority或归属不明|不可以，管理失联不能让device挑成功状态|
+
+最终catalog必须包含原actor全历史及恢复关联；保留TERMINATED_WITHOUT_RETURN并非伪造RETURNED。在原代次确证结束、此迁移从未传递FD给其他进程且无其他参与者的限定下，内核能力终止可支持新owner接管，但不回填原closeACK或原活计数。新owner所有新资源仍实际归还，不reset原账户。无法证实任一前提则不允许恢复actor开始。
+
+每新host读取受信activation包中的精确最终catalog，而非读取一个device文件就自授激活。必须校验外部accepted head/policy/descriptor/actor全集、精确最后执行者RETURN_VERIFIED+正常finish、前序处分/恢复关系、所有device intent/payload/commit摘要与合法完整账本、当前参与者/原locks和本host真实返回。缺任一项失败关闭；不凭旧liveproof、任意新handle或完整commit替代。
+
+新host不需要一直在线访问已完成管理器：最终包内已冻结且受信的历史终局是authority的可核副本。管理器在未最终审定/未形成这个副本时丢失则阻断；已有受信完整最终副本后，原管理员离线不是新的活资源未知。永久事实不因日期较旧就作废；被当前部署policy替代/撤销、错head或错actor才是不可接受的旧证据。
+
+## 只读识别、完成提交与不可修复状态
+
+同payload+commit完整仅支持COMMITTED_IDENTIFIED。还要从authority取得对应actor终局才能进入新host观察；没有返回证据时不能把识别当成功。活UNKNOWN仅保原任务；原代次终止或晚返回后的专门actor2先新绑定、持原guards/ledger，在同scope下重验全部旧档、force/close/sync/readback及精确commit，出自己的返回证明。
+
+原actor按规定终局且外部绑定完整后，当前payload/commit都缺席，可经专门批准CREATE_NEW同一内容；完整payload而commit缺席，只能CREATE_NEW该commit；已经完整的commit绝不覆盖。缺席必须是固定目录/同锁下实际ENOENT，不从“主机没收到回执”推断未创建，也不回填旧调用结果。旧intent允许完整精确或在其他payload/commit也全无时明确缺席，catalog记录实际presence；intent截断、旧intent缺失但其他提交已存在、payload/commit截断、不同字节、多份记录或外部actor身份缺失均不自动修复，不截断/删除/改名清障。最多2actor；超出须新完整设计/审批，不形成无限继任链。
+
+## 发布闭合，不循环证明自身close
+
+外部final catalog产生于Android迁移操作已返回/终止且恢复完成之后。它不由原actor回头再写device returned.receipt；Android的最后guard close UNKNOWN不会被“我写了已关闭”消除。外部管理器自己存储/独立封存失败则没有FINAL可发布；可信本机管理验收是合作边界，不新增远端服务或硬件根。
+
+严格避免构建自指：先冻结actor-final event head H_actor及final.acceptance/registry.checkpoint/final.seal；这个子清单不包含未来activation APK SHA或activation-release.json。activation源码/asset固定H_actor和终局包，构建后另生成activation-release.json绑定实际app/test SHA与H_actor。部署记录不再修改已冻结actor events，也不要求APK包含自身SHA。可执行部署状态与不变actor-final head分层，不能因为新发布记录出现就把包内H_actor说成过期未返回。
+
+同理批准descriptor不包含未来approval自身hash，approval只引用descriptor，受信scope manifest绑定二者。implementation/source/intent/policy若变更，需新descriptor，不暗改已批准文件。全部本地hash/序号只在合作与可信发布范围承诺连续性；同UID或本机管理员主动全套重写不冒充可抵抗。
+
+## E8-F02兼容与部署合同
+
+支持集合仅包括具明确LegacyRetirementGateABI=1且经完整源码审查、精确app/test SHA批准的PREPARE/ACTIVATION/REVOKED或后续compatible版本。该ABI声明本身不是证据，防伪边界是审查后的完整字节allowlist和原签名。现有E7A version10及更旧observer没有该门，不支持迁移后回退。
+
+部署必须实际先查当前app/test package/UID/版本/签名/base.apk SHA、当前actor无在途，再核待装两文件字节/清单/source审定和批准phase；install-r只在原任务已安全终局后，安装后再核actual base.apk SHA/组件/角色。不允许-d/卸载/clear/改budget/恢复旧data绕过；version只是一个拒绝条件，不是唯一authority。旧同签名代码即便提高versionCode也因SHA未批准而拒绝；伪gate marker/复制manifest不能改变完整APK不匹配。
+
+prepare app及test入口都要在首写前绑定批准的prepare pair，产品入口硬拒绝历史退休例外；activation app/test pair不保留可变迁移路由，旧prepare test与新app不匹配不得执行。其他既存恢复入口、debug入口或public源/codec创建路径必须先经过对应phase兼容门，不能只改正常@Test。既有预算reserve→E5AAdmission.require与final observation分支是必查集成点，其他可能先开资源的入口需要逐一列入实现审计，不假定预算门覆盖所有早期资源。
+
+受信撤销通过新compatible release显式禁用scope，部署allowlist不再接受已撤销APK；管理员不能只写外部revoked.json就声称运行中的旧代码已生效。升级前须原业务原生命周期真实归还，不用安装杀未知actor。旧代码无新reader的事实保持真实；绕开管理流程手动安装旧/改造高version包，或root全量恢复，属于不支持状态，应隔离重核，不承诺Android平台绝对阻止。不能把当前history空等同版本门。
+
+## 未来业务V2与成本
+
+历史TERMINAL_STATE、原RETURNED、已接受RETIRED和当前host liveproof仍分开。每个活FD参与者预登记；确证退休的历史actor不再永久查exit，活/未知actor必须真实识别当前代次/处置。原host/codec/CPU实际slot/source/CONTROL边界、既定60秒方法与首次30秒取消不扩。
+
+此迁移专门scope最多2actor、每actor2个资格phase、8控制请求、48原holder上限作为待直接切点测试核定的设计界；不能因为新增intent和目录就暗增旧框架holder容量。actor/registry/deviceside metadata/日志及两发布阶段成本已在迁移清单给出。实现审查必须给出完整调用/holder计数，如果48内装不下就先修订布局而非静默放宽。E8A没有把这些设计上界当实际测量。

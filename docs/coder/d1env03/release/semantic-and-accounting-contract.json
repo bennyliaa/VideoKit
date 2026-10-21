@@ -1,0 +1,48 @@
+{
+  "scope": "ENV03_READ_ONLY_ONLY",
+  "actualObservedDeviceState": "NOT_READ_BY_CODER",
+  "identity": {
+    "serial": "HA1Q6WXR",
+    "model": "TB138FC",
+    "api": 31,
+    "user": 0,
+    "appVersion": 17,
+    "fixtureVersion": 1,
+    "appSha256": "962d903ff4dbe2ccf767a6adb9bd7845c4cbfd025ebee249caad4d0517483aad",
+    "testSha256": "83109c13d76d635024add5575c1bf77606a05c3400b71ae3f6247acf18949f13",
+    "fixtureSha256": "868f581538d4a92908870d9066d5dfce18d847a5d9559e827e24cbb3ca3544d8",
+    "appSigner": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+    "fixtureSigner": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9",
+    "uids": [
+      10221,
+      10222,
+      10228
+    ],
+    "data": [
+      "10221:6972",
+      "10222:4741"
+    ],
+    "fixtureData": "Record the fresh complete UID:inode only; no M2 is authorized in ENV03."
+  },
+  "testApkVersionRule": "No extra version17 requirement; admit by frozen test SHA and approved signer/UID/data, record the observed version (previously0).",
+  "globalObservation": "Complete original activity processes head/All known processes/OOM/tail/EOF; report other-project foreground/test processes and active instrumentation separately. No instrumentation alone does not prove idle.",
+  "stop": "Any error/UNKNOWN or failed identity semantics stops before global; after global always stop/report even if idle. No M1 ps, deployment, M2, case, server lifecycle or automatic retry.",
+  "toolCompatibility": {
+    "adbSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+    "beforeAnyClient": "One local existing-listener/source check using existing host APIs, not an extra ADB version/start/query. Require existing 127.0.0.1:5037 listener executable D:/Android/SDK/platform-tools/adb.exe, exact approved on-disk hash, unchanged file predating the current server creation; unresolved provenance blocks.",
+    "noHistoricalPidReuse": true,
+    "environment": "Require default local5037 routing; ADB_SERVER_SOCKET, ANDROID_ADB_SERVER_PORT, ADB_SERVER_PORT must not redirect. Unexplained override blocks.",
+    "serverAbsentOrMismatch": "STOP_NO_START_NO_RESTART_NO_NEW_PROTOCOL"
+  },
+  "localClaimGate": "Fresh local/tool/default routing and no unresolved current claim, without modifying/deleting old claim/ledger/unknown.",
+  "oldHistory": {
+    "scope": "20b08d64-6fd0-4a88-8b72-c80615e58258",
+    "unitsEntered": 2,
+    "sdkRawBytes": 388818,
+    "returned": "Per immutable report only, not a fresh observation",
+    "refund": false
+  },
+  "currentCaptureProof": "Not generated here. Trusted tester must separately observe physical original identity controller/tool return and only then semantic approvedForNext before global.",
+  "newCounters": "Two SDK calls only, actual raw reads/saved/control/console copies/proof/final report separated. Unknown/overrun remain explicit; original maxTextBytes is not physical hard stop.",
+  "oldBalanceReused": false
+}

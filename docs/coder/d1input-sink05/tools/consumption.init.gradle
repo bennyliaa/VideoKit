@@ -1,0 +1,19 @@
+import org.gradle.internal.operations.*
+import groovy.json.JsonOutput
+def output = new File(System.getProperty('render02.operations'))
+def listener = new BuildOperationListener() {
+ void started(BuildOperationDescriptor d, OperationStartEvent e) {
+  def details=d.details;def fields=[:]
+  if(details!=null) details.class.methods.findAll { it.parameterCount==0 && it.name in ['getLocation','getFile','getUri','getRepositoryId','getComponentId','getModuleVersionId','getArtifactIdentifier','getConfigurationName','getProjectPath'] }.each { m ->
+   try { m.setAccessible(true);fields[m.name]=String.valueOf(m.invoke(details)) } catch(Exception ignored) {}
+  }
+  if(!fields.isEmpty() || d.displayName =~ /(?i)(resolve|download|metadata|resource|plugin|verif)/) {
+   def row=[event:'started',id:d.id.toString(),parent:d.parentId?.toString(),name:d.displayName,progressName:d.progressDisplayName,detailsType:details?.class?.name,fields:fields]
+   synchronized(output){output.append(JsonOutput.toJson(row)+'\n','UTF-8')}
+  }
+ }
+ void progress(OperationIdentifier i, OperationProgressEvent e) {}
+ void finished(BuildOperationDescriptor d, OperationFinishEvent e) {}
+}
+gradle.services.get(BuildOperationListenerManager).addListener(listener)
+gradle.buildFinished { gradle.services.get(BuildOperationListenerManager).removeListener(listener) }

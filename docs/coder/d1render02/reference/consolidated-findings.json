@@ -1,0 +1,37 @@
+{
+  "candidate": "D1-20261020-RENDER01",
+  "overall": "FAIL_OFFLINE_ACCEPTANCE_BLOCK_DEVICE_ADMISSION",
+  "findings": [
+    {
+      "id": "RENDER01-META-PROV-01",
+      "severity": "P1",
+      "status": "CONFIRMED_OPEN",
+      "cause": "Guava parent 33.3.1-android POM lacks historical metadata pin; candidate disables metadata verification globally.",
+      "evidence": ["docs/coder/d1render01/gradle/verification-metadata.xml:4", "docs/coder/d1render01/evidence/build-main-008/gradle.log:16", "metadata-parent-bom-closure-audit.json"],
+      "impact": "Exact binary identities and APK signatures pass; full trusted build metadata admission remains blocked.",
+      "minimumFix": "Review missing parent provenance as a new approval, pin exact bytes, restore metadata verification and freeze actual consumed descriptor closure. No unrelated feature rewrite."
+    },
+    {
+      "id": "RENDER01-R02",
+      "severity": "P2",
+      "status": "REPRODUCED_CONTROLLED_JVM_PLATFORM_PORT",
+      "cause": "Cancel while original lockCanvas is in flight skips drawBitmap but draw returns true, causing WorkSession drawn/frame receipt to count a frame with no bitmap draw.",
+      "evidence": ["docs/coder/d1render01/android/com/videokit/d1present/PlatformRenderer.java:64", "docs/coder/d1render01/android/com/videokit/d1present/PlatformRenderer.java:72", "docs/coder/d1render01/src/com/videokit/d1present/WorkSession.java:123", "independent-faults.stdout"],
+      "observed": {"workSessionDrawn": 1, "controlledCanvasBitmapDraws": 0, "cleanupPosts": 1, "allOriginalsReturned": true},
+      "minimumFix": "Return whether this exact canvas actually executed the bitmap draw, separately preserve cleanup post and late generation status, add the controlled race regression. Never skip original unlock/return."
+    },
+    {
+      "id": "RENDER01-R03",
+      "severity": "P2",
+      "status": "CONFIRMED_FROZEN_TEST_ENTRY_GAP",
+      "cause": "Documented manual Listen-from-idle procedure lacks an accurate controlled entry: Activity is non-exported/no launcher; all four frozen methods start a session automatically.",
+      "evidence": ["docs/coder/d1render01/app/src/debug/AndroidManifest.xml:3", "docs/coder/d1render01/app/src/androidTest/java/com/videokit/d1present/RenderDeviceTests.java:31", "docs/coder/D1_RENDER_AUDIO_SOURCE_DEVICE_PLAN_V1.0.md"],
+      "impact": "Do not silently substitute an already-running muted test, new external start mechanism or partial 3s observation for documented manual idle entry.",
+      "minimumFix": "Supply one explicit bounded same-package manual idle/listen entry or document an approved executable same-UID setup route; keep existing four automatic selectors exact and default-muted."
+    }
+  ],
+  "sdkCalls": 0,
+  "androidBuilds": 0,
+  "deviceEffects": "NOT_RUN",
+  "automaticFollowOn": false
+}

@@ -1,0 +1,351 @@
+{
+  "schema": 1,
+  "status": "PASS_EXISTING_METADATA_ONLY",
+  "ledger": {
+    "bytes": 1011,
+    "sha256": "f32b1a35689fff1ffae230f2efcd10fbf42adc8c3e2d3e74892d2d8c7da98aba",
+    "events": [
+      {
+        "payload": "R 86cafdb3-0fc4-447d-920b-b19c884bf494 D1-E4A-N2-TABLET-20261017",
+        "chain": "6660cfb1b19dee6ced8fb9427d6605eb394ba9ecd9ab5931905a9a8727ffd026"
+      },
+      {
+        "payload": "S 86cafdb3-0fc4-447d-920b-b19c884bf494 ABORTED 0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "chain": "1747c406b45987a8f4a3e8194bb170dfac92eb938d94ad2950bbb1f303ad4055"
+      },
+      {
+        "payload": "R 0ee15550-8952-4639-91ac-83ab9d14d36c D1-E4A-E5B-NORMAL-TABLET-20261017",
+        "chain": "b0551f43749c4fb45f9d7bdf6c3b597c08551b682b171f46d39059313ae697c9"
+      },
+      {
+        "payload": "S 0ee15550-8952-4639-91ac-83ab9d14d36c ABORTED 53651 20ad48067b3293aa9e6b8f3eacc7543e29edcda8ab19c15cbe438d55c995b6dd",
+        "chain": "2a17abc339f7e682aede64ae1ce387a88578ce594fa2707d69e2c4c2cf57f5ff"
+      },
+      {
+        "payload": "R fbe4330b-111b-4b05-a93c-467413eb8d34 D1-E4A-E6B-NORMAL-TABLET-20261017",
+        "chain": "7d0acdec59e815f2dcab9bb173b6c11c521d65ad55fca5e7b482eafeaa990716"
+      },
+      {
+        "payload": "S fbe4330b-111b-4b05-a93c-467413eb8d34 READY 53567 6877567a65c7811131fe38d17bb642fa906bcb0c10fa38c3ba636c70dcaafb5e",
+        "chain": "31d288bab671cf5012ec850e689706c29d5ca9bdd395063e4fc7f4e4b8e66aeb"
+      }
+    ],
+    "entries": {
+      "86cafdb3-0fc4-447d-920b-b19c884bf494": {
+        "batch": "D1-E4A-N2-TABLET-20261017",
+        "length": 0,
+        "state": "ABORTED",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "0ee15550-8952-4639-91ac-83ab9d14d36c": {
+        "batch": "D1-E4A-E5B-NORMAL-TABLET-20261017",
+        "length": 53651,
+        "state": "ABORTED",
+        "sha256": "20ad48067b3293aa9e6b8f3eacc7543e29edcda8ab19c15cbe438d55c995b6dd"
+      },
+      "fbe4330b-111b-4b05-a93c-467413eb8d34": {
+        "batch": "D1-E4A-E6B-NORMAL-TABLET-20261017",
+        "length": 53567,
+        "state": "READY",
+        "sha256": "6877567a65c7811131fe38d17bb642fa906bcb0c10fa38c3ba636c70dcaafb5e"
+      }
+    },
+    "consumed": 107218,
+    "reserved": 0,
+    "reservations": 3,
+    "settlements": 3
+  },
+  "legacyGuardIds": [
+    [
+      64522,
+      20304,
+      10221
+    ],
+    [
+      64522,
+      20385,
+      10221
+    ]
+  ],
+  "legacyFence": "662e9ecd-bede-42e6-bb58-ce81d668ff44",
+  "legacyOwnerBytes": 104,
+  "originalCloseACK": false,
+  "currentManagedDiagnostic": {
+    "handle": "9f19bfb5-60e0-4bcc-9666-852409cfe3b4",
+    "sequence": "9",
+    "phase": "RETURNED",
+    "verdict": "QUALIFIED_DIAGNOSTIC",
+    "reason": "ACTUAL_RETURNED",
+    "holder": "CLOSED",
+    "originalOperationsReturned": "true",
+    "safeToFinish": "true",
+    "finishClaimed": "false",
+    "admission": "NONE",
+    "expectedAttempt": "8c6673b7-38a5-4a24-838d-ca8466d8b75f",
+    "expectedPid": "4869",
+    "expectedUid": "10221",
+    "expectedProcess": "com.videokit.app",
+    "ownerRecordedAt": "1792224193301",
+    "schema": "1",
+    "code": "NO_UNIQUE_MATCH_MISSING",
+    "history": "AVAILABLE",
+    "limit": "8",
+    "callsMax": "1",
+    "returned": "0",
+    "matches": "0",
+    "rejectPid": "0",
+    "rejectUid": "0",
+    "rejectProcess": "0",
+    "rejectBeforeOwner": "0",
+    "rejectFuture": "0",
+    "reasonNonPositive": "0",
+    "matchedTimestamp": "NOT_COLLECTED",
+    "matchedReason": "NOT_COLLECTED",
+    "matchedStatus": "NOT_COLLECTED",
+    "proc": "NOT_REQUESTED",
+    "errorClass": "NONE",
+    "persistentFact": "DISABLED",
+    "birthGeneration": "NOT_RECORDED",
+    "reboot": "NOT_PROVEN",
+    "pidReuse": "NOT_PROVEN",
+    "grant": "NONE",
+    "observation": "NOT_CALLED",
+    "persistentWrites": "0",
+    "mediaReads": "0"
+  },
+  "legacyBirth": "NOT_RECORDED",
+  "oldAVIExactPredicate": "UNKNOWN",
+  "scope": "Independent reconstruction of already archived metadata and source binding, NOT migration/V2 tests or new device observations",
+  "sources": [
+    {
+      "original": {
+        "path": "docs/milestones/D1_E8_CODER_REQUIREMENTS_V1.0.md",
+        "bytes": 2014,
+        "sha256": "0c666aea6b7681a84605342c8f47e05844444c18493c0da8c849e6388522dbb1"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/D1_E8_CODER_REQUIREMENTS_V1.0.md",
+        "bytes": 2014,
+        "sha256": "0c666aea6b7681a84605342c8f47e05844444c18493c0da8c849e6388522dbb1"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/milestones/D1_E8_TESTER_REQUIREMENTS_V1.0.md",
+        "bytes": 1281,
+        "sha256": "f34bfebda1ac51767cebde6fe0d2ead0c4fb1a6d11c0601ffd01547f474d37e6"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/D1_E8_TESTER_REQUIREMENTS_V1.0.md",
+        "bytes": 1281,
+        "sha256": "f34bfebda1ac51767cebde6fe0d2ead0c4fb1a6d11c0601ffd01547f474d37e6"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E5C_N2_ABORT_REPORT_V1.1.md",
+        "bytes": 9213,
+        "sha256": "5b4b769c530714c1ee42721ab7c64cc87b9c6d8377a9bc8c47d1645c8eb4e962"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/D1_E5C_N2_ABORT_REPORT_V1.1.md",
+        "bytes": 9213,
+        "sha256": "5b4b769c530714c1ee42721ab7c64cc87b9c6d8377a9bc8c47d1645c8eb4e962"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E5C_OBSERVE_REGRESSION_REPORT_V1.0.md",
+        "bytes": 11342,
+        "sha256": "40d8e3643842e3381c2a06b7cae2a63354cbea8a68defacf81520e2d4aad239c"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/D1_E5C_OBSERVE_REGRESSION_REPORT_V1.0.md",
+        "bytes": 11342,
+        "sha256": "40d8e3643842e3381c2a06b7cae2a63354cbea8a68defacf81520e2d4aad239c"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E6B_NORMAL_DEVICE_TEST_REPORT_V1.0.md",
+        "bytes": 9469,
+        "sha256": "6c89dae7991f713f3b6ed4e4f42e40434c33be631d9bdb5795c53211fe46c4a3"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/D1_E6B_NORMAL_DEVICE_TEST_REPORT_V1.0.md",
+        "bytes": 9469,
+        "sha256": "6c89dae7991f713f3b6ed4e4f42e40434c33be631d9bdb5795c53211fe46c4a3"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E7A_MANAGED_DIAGNOSTIC_REPORT_V1.0.md",
+        "bytes": 9860,
+        "sha256": "43eda6f938b1b0456f902d5f43068dddc4447f6ae75fc3275bb41ba49b7ae41e"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/D1_E7A_MANAGED_DIAGNOSTIC_REPORT_V1.0.md",
+        "bytes": 9860,
+        "sha256": "43eda6f938b1b0456f902d5f43068dddc4447f6ae75fc3275bb41ba49b7ae41e"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E5C_N2_ABORT_EVIDENCE/02-original-abort-stdout.txt",
+        "bytes": 1528,
+        "sha256": "f079eed91f75a6f457a2610a5b55c8af40179bf3fe6de16644a95020838f54e8"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/02-original-abort-stdout.txt",
+        "bytes": 1528,
+        "sha256": "f079eed91f75a6f457a2610a5b55c8af40179bf3fe6de16644a95020838f54e8"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E5C_N2_ABORT_EVIDENCE/archive-proof.txt.bin",
+        "bytes": 401,
+        "sha256": "0bc78f5a6c54a17f065a997785c7d077512682864062594ccab8c3185438a0c6"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/archive-proof.txt.bin",
+        "bytes": 401,
+        "sha256": "0bc78f5a6c54a17f065a997785c7d077512682864062594ccab8c3185438a0c6"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E5C_N2_ABORT_EVIDENCE/archive-recovery.owner.bin",
+        "bytes": 104,
+        "sha256": "91944886001df30b3a50c1b0b4382ba259cac2c2342d2c8f2da988484c62f30c"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/archive-recovery.owner.bin",
+        "bytes": 104,
+        "sha256": "91944886001df30b3a50c1b0b4382ba259cac2c2342d2c8f2da988484c62f30c"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E5C_N2_ABORT_EVIDENCE/archive-guard.identity.bin",
+        "bytes": 82,
+        "sha256": "c2b0936fbb6114548d27df00d7521deb5397457ecbea9399be418a133569e113"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/archive-guard.identity.bin",
+        "bytes": 82,
+        "sha256": "c2b0936fbb6114548d27df00d7521deb5397457ecbea9399be418a133569e113"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E6B_NORMAL_EVIDENCE/normalMp4SixRealFrames-instrumentation-stdout.txt",
+        "bytes": 8700,
+        "sha256": "06d37744d73db58fa42b98c6dce7ed66caf87d82b6ce9bff6163981d953205f4"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/normalMp4SixRealFrames-instrumentation-stdout.txt",
+        "bytes": 8700,
+        "sha256": "06d37744d73db58fa42b98c6dce7ed66caf87d82b6ce9bff6163981d953205f4"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E6B_NORMAL_EVIDENCE/normalMp4SixRealFrames-post-state-stdout.txt",
+        "bytes": 15260,
+        "sha256": "24e435658438429ffc91c164e52d8bca1ff51721be71d576a4e93d32c5d38a8b"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/normalMp4SixRealFrames-post-state-stdout.txt",
+        "bytes": 15260,
+        "sha256": "24e435658438429ffc91c164e52d8bca1ff51721be71d576a4e93d32c5d38a8b"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E7A_MANAGED_EVIDENCE/control-01-snapshot.json",
+        "bytes": 2425,
+        "sha256": "339ad43ef17b3ae2d2624b50bb1e2de3ad5157c23b1c268e2721db66208968dd"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/control-01-snapshot.json",
+        "bytes": 2425,
+        "sha256": "339ad43ef17b3ae2d2624b50bb1e2de3ad5157c23b1c268e2721db66208968dd"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E7A_MANAGED_EVIDENCE/finish-admission.json",
+        "bytes": 463,
+        "sha256": "5c8f1430a138bc964d22dc3649342209a66795c903eed353d3f3610812699b85"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/finish-admission.json",
+        "bytes": 463,
+        "sha256": "5c8f1430a138bc964d22dc3649342209a66795c903eed353d3f3610812699b85"
+      }
+    },
+    {
+      "original": {
+        "path": "docs/tester/D1_E7A_MANAGED_EVIDENCE/05-final-lifecycle-stdout.txt",
+        "bytes": 22571,
+        "sha256": "bafc46bb1a3e1649f5ac929fb5d39c0fd2e00805c2a6c875a094ba73db2cf601"
+      },
+      "copy": {
+        "path": "docs/coder/d1e8/reference/05-final-lifecycle-stdout.txt",
+        "bytes": 22571,
+        "sha256": "bafc46bb1a3e1649f5ac929fb5d39c0fd2e00805c2a6c875a094ba73db2cf601"
+      }
+    }
+  ],
+  "productionSources": [
+    {
+      "path": "docs/coder/d1e7a/src/com/videokit/spike/e4/E5N2Recovery.java",
+      "bytes": 15309,
+      "sha256": "142f49099508026490a5571db80954079781f444d9bdfd2d37646d553ec32683"
+    },
+    {
+      "path": "docs/coder/d1e7a/src/com/videokit/spike/e4/E5AFinalObservation.java",
+      "bytes": 11725,
+      "sha256": "a98375bb2d67c2e54576a3c7f739ce3bc19dd90ab9b7b64c33109f4e8bb89434"
+    },
+    {
+      "path": "docs/coder/d1e7a/src/com/videokit/spike/e4/E5AAdmission.java",
+      "bytes": 1188,
+      "sha256": "40f07cd141e764a99699d96a5d44d98b0863eed6503ef7749a746f18f83175de"
+    },
+    {
+      "path": "docs/coder/d1e7a/src/com/videokit/spike/e4/E5BGuard.java",
+      "bytes": 4930,
+      "sha256": "d5f9128ea60eb2db59c13250fe2949d7f794beda2b877072e580153f1bb18235"
+    },
+    {
+      "path": "docs/coder/d1e7a/src/com/videokit/spike/e4/E4OutputBudget.java",
+      "bytes": 12914,
+      "sha256": "53ee6115668948ebfed38835a68e8dd088c04ca5b7da7c7f1ad60ef98e27366d"
+    },
+    {
+      "path": "docs/coder/d1e7a/android/com/videokit/spike/e4/E4Session.java",
+      "bytes": 37490,
+      "sha256": "da7308015c314b7447035128136e60d2b1c7302a99882cb0a1e7129330c6aa97"
+    },
+    {
+      "path": "docs/coder/d1e7a/upstream-c14/android/com/videokit/spike/c14/CpuTaskClient.java",
+      "bytes": 52180,
+      "sha256": "0720c62b3f709ee9cbf458d911c0e2d1e7d64262221ea14ca52bfff19038d495"
+    }
+  ],
+  "frozenE7A": {
+    "seal": {
+      "path": "docs/coder/d1e7a/evidence/e7a-freeze.json",
+      "bytes": 42016,
+      "sha256": "1264dd365255b8d22fe1586a7b892240a4745dc01e54d6f26c88ec149784cf76"
+    },
+    "immutableFilesVerified": 200,
+    "mutation": false
+  },
+  "androidTests": 0,
+  "builds": 0,
+  "mediaReads": 0,
+  "migrationExecutions": 0
+}

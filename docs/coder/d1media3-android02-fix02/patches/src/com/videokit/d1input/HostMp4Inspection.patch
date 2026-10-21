@@ -1,0 +1,49 @@
+--- frozen-android02/src/com/videokit/d1input/HostMp4Inspection.java
++++ recovery01/src/com/videokit/d1input/HostMp4Inspection.java
+@@ -50,12 +50,14 @@
+   public boolean extractorReleaseReturned(){return releaseReturned;}public boolean dataSourceCloseReturned(){return dataSourceCloseReturned;}
+   Evidence(String hash,long bytes,Reader r,Output o,Scan scan,RangeObservation raw){sha256=hash;actualExtractorClass=scan.extractor.getClass().getName();this.bytes=bytes;physicalBytesRead=r.readBytes;List<Track> copy=new ArrayList<>();for(Port p:o.tracks.values())copy.add(new Track(p));tracks=List.copyOf(copy);extractorSeeks=scan.seeks;seekReplaySamples=o.replaySamples;fullReadEof=true;extractorEof=true;seekable=o.seek!=null&&o.seek.isSeekable();durationUs=o.seek==null?C.TIME_UNSET:o.seek.getDurationUs();announcedLength=raw.remaining;sniffMatched=scan.sniffMatched;peekReset=scan.peekReset;endTracksObserved=o.ended;List<RangeObservation> rs=new ArrayList<>();rs.add(raw);rs.addAll(scan.ranges);ranges=List.copyOf(rs);seeks=List.copyOf(scan.seekTrace);parserEofPositions=List.copyOf(scan.eofPositions);replay=List.copyOf(o.replayTrace);}
+  }
++ public interface Phases {void phase(String value);default int maxReadRequest(){return 65536;}}
++ public static final Phases NO_PHASES=value->{};
+  static final class Reader implements DataReader {
+-  final HostDataSource ds;long readBytes;
+-  Reader(HostDataSource ds){this.ds=ds;}
++  final HostDataSource ds;final int maxRequest;long readBytes;
++  Reader(HostDataSource ds){this(ds,65536);}Reader(HostDataSource ds,int max){this.ds=ds;if(max<1||max>65536)throw new IllegalArgumentException("READ_REQUEST_CAP");maxRequest=max;}
+   public int read(byte[] b,int off,int len)throws IOException{
+    if(len==0)return 0;if(readBytes>=INPUT_LIMIT)throw new IOException("MP4_INPUT_BYTE_BUDGET");
+-   int count=(int)Math.min(Math.min(65536L,len),INPUT_LIMIT-readBytes);
++   int count=(int)Math.min(Math.min((long)maxRequest,len),INPUT_LIMIT-readBytes);
+    int n=ds.read(b,off,count);if(n>0){readBytes+=n;if(readBytes>INPUT_LIMIT)throw new IOException("MP4_INPUT_BYTE_BUDGET");}return n;
+   }
+  }
+@@ -63,21 +65,24 @@
+   * seekUs=-1 means scan only. A nonnegative time requests one real SeekMap replay.
+   * capture=true accepts only a single six-sample AVC256x144 stream, without adaptation. */
+  public static Evidence inspect(HostInputFactory factory,Container container,boolean mp4ReadCapability,long seekUs,boolean capture)throws IOException {
++  return inspect(factory,container,mp4ReadCapability,seekUs,capture,NO_PHASES);
++ }
++ public static Evidence inspect(HostInputFactory factory,Container container,boolean mp4ReadCapability,long seekUs,boolean capture,Phases phases)throws IOException {
+   Objects.requireNonNull(factory);factory.worker.requireWorker();
+   requireAdmission(container,mp4ReadCapability,seekUs);
+   Extractor extractor=null;HostDataSource ds=null;Evidence result=null;
+   try {
+    extractor=container==Container.MP4?new Mp4Extractor():new FragmentedMp4Extractor();
+-   ds=factory.createDataSource();Reader reader=new Reader(ds);MessageDigest hash=digest();byte[] block=new byte[65536];long bytes=0;
+-   long announced=ds.open(new DataSpec(factory.uri()));RangeObservation raw=new RangeObservation(factory,0,announced);if(announced>INPUT_LIMIT)throw new IOException("MP4_INPUT_BYTE_BUDGET");int n;
++   ds=factory.createDataSource();Reader reader=new Reader(ds,phases.maxReadRequest());MessageDigest hash=digest();byte[] block=new byte[65536];long bytes=0;
++   phases.phase("HASH");long announced=ds.open(new DataSpec(factory.uri()));RangeObservation raw=new RangeObservation(factory,0,announced);if(announced>INPUT_LIMIT)throw new IOException("MP4_INPUT_BYTE_BUDGET");int n;
+    while((n=reader.read(block,0,block.length))!=-1){bytes+=n;hash.update(block,0,n);}
+    if(bytes==0||announced>=0&&announced!=bytes)throw new IOException("MP4_INPUT_TRUNCATED");ds.close();
+    Output output=new Output(capture);extractor.init(output);Scan scan=new Scan(factory,ds,reader,extractor,bytes);
+-   scan.open(0);scan.sniffMatched=extractor.sniff(scan.input);if(!scan.sniffMatched)throw new IOException("MP4_CONTAINER_MISMATCH");scan.input.resetPeekPosition();scan.peekReset=true;scan.drain();
++   phases.phase("PARSE");scan.open(0);scan.sniffMatched=extractor.sniff(scan.input);if(!scan.sniffMatched)throw new IOException("MP4_CONTAINER_MISMATCH");scan.input.resetPeekPosition();scan.peekReset=true;scan.drain();
+    output.complete();int replay=0;
+    if(seekUs>=0){
+     if(output.seek==null||!output.seek.isSeekable()||output.seek.getDurationUs()<0||seekUs>output.seek.getDurationUs())throw new IOException("MP4_SEEK_UNSUPPORTED");
+-    SeekPoint point=output.seek.getSeekPoints(seekUs).first;scan.position(point.position,"SEEK_MAP",seekUs,point.timeUs);output.replay=true;extractor.seek(point.position,point.timeUs);scan.drain();replay=output.replaySamples;
++    phases.phase("SEEK");SeekPoint point=output.seek.getSeekPoints(seekUs).first;scan.position(point.position,"SEEK_MAP",seekUs,point.timeUs);output.replay=true;extractor.seek(point.position,point.timeUs);scan.drain();replay=output.replaySamples;
+    }
+    return result=new Evidence(hex(hash.digest()),bytes,reader,output,scan,raw);
+   }catch(IOException e){throw e;}catch(Throwable t){throw Failures.io(t,"MP4_PLATFORM_OR_STRUCTURE_UNAVAILABLE");}

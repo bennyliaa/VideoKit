@@ -1,0 +1,42 @@
+import org.gradle.internal.operations.*
+import groovy.json.JsonOutput
+def output = new File(System.getProperty('render02.operations'))
+def listener = new BuildOperationListener() {
+ void started(BuildOperationDescriptor d, OperationStartEvent e) {
+  def details=d.details;def fields=[:]
+  if(details!=null) details.class.methods.findAll { it.parameterCount==0 && it.name in ['getLocation','getFile','getUri','getRepositoryId','getComponentId','getModuleVersionId','getArtifactIdentifier','getConfigurationName','getProjectPath'] }.each { m ->
+   try { m.setAccessible(true);fields[m.name]=String.valueOf(m.invoke(details)) } catch(Exception ignored) {}
+  }
+  if(!fields.isEmpty() || d.displayName =~ /(?i)(resolve|download|metadata|resource|plugin|verif)/) {
+   def row=[event:'started',id:d.id.toString(),parent:d.parentId?.toString(),name:d.displayName,progressName:d.progressDisplayName,detailsType:details?.class?.name,fields:fields]
+   synchronized(output){output.append(JsonOutput.toJson(row)+'\n','UTF-8')}
+  }
+ }
+ void progress(OperationIdentifier i, OperationProgressEvent e) {}
+ void finished(BuildOperationDescriptor d, OperationFinishEvent e) {}
+}
+gradle.services.get(BuildOperationListenerManager).addListener(listener)
+gradle.buildFinished { gradle.services.get(BuildOperationListenerManager).removeListener(listener) }
+
+// Exact app/test configurations are recorded separately. Project target classes
+// are distinguished from external artifacts; this does not infer a test closure
+// from the app's17 coordinates.
+gradle.projectsEvaluated {
+ def app=gradle.rootProject.findProject(':app')
+ ['debugCompileClasspath','debugRuntimeClasspath','debugAndroidTestCompileClasspath','debugAndroidTestRuntimeClasspath'].each { name ->
+  def config=app.configurations.findByName(name)
+  if(config!=null)config.incoming.afterResolve {
+   def components=config.incoming.resolutionResult.allComponents.collect { c -> [componentId:c.id.toString(),coordinate:c.moduleVersion?.toString(),external:c.id instanceof org.gradle.api.artifacts.component.ModuleComponentIdentifier] }.sort { a,b -> a.componentId<=>b.componentId }
+   synchronized(output){output.append(JsonOutput.toJson([event:'actual-configuration-closure',configuration:name,project:app.path,components:components])+'\n','UTF-8')}
+  }
+ }
+ app.tasks.withType(org.gradle.api.tasks.compile.JavaCompile).configureEach { compile ->
+  compile.doFirst {
+   def files=compile.classpath.files.collect { f ->
+    def md=java.security.MessageDigest.getInstance('SHA-256');if(f.isFile())f.withInputStream { stream -> byte[] b=new byte[65536];int n;while((n=stream.read(b))!=-1)md.update(b,0,n) }
+    [file:f.absolutePath,directory:f.isDirectory(),sha256:f.isFile()?md.digest().encodeHex().toString():null]
+   }
+   synchronized(output){output.append(JsonOutput.toJson([event:'actual-javac-classpath',task:compile.path,files:files])+'\n','UTF-8')}
+  }
+ }
+}

@@ -1,0 +1,27 @@
+{
+  "status": "BLOCKED_METADATA_COMMAND_CONTRACT",
+  "reviewedDate": "2026-10-18",
+  "candidate": "D1-20261018-E13A",
+  "finding": "E13A-F01/P1",
+  "locations": ["release/metadata/M1_PRE_DEPLOY.sh:19", "release/metadata/M2_POST_DEPLOY_PRE_CASE.sh:19", "release/metadata/M3_AFTER_SIX.sh:19"],
+  "command": "dumpsys activity instrumentation",
+  "primarySources": [
+    {
+      "url": "https://raw.githubusercontent.com/aosp-mirror/platform_frameworks_base/android-12.0.0_r1/services/core/java/com/android/server/am/ActivityManagerService.java",
+      "reviewedRanges": ["8265-8464", "8635-8659"],
+      "observation": "The API31 release dump dispatcher provides processes/p but no instrumentation subcommand; unmatched arguments fall through activity/shell command handling and diagnostic text. Active-instrumentation dumping exists separately."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/aosp-mirror/platform_frameworks_base/android-12.0.0_r1/services/core/java/com/android/server/am/ActivityManagerShellCommand.java",
+      "reviewedRange": "171-319",
+      "observation": "No instrumentation case; instrument is a different command and is rejected through this entry."
+    }
+  ],
+  "existingAcceptedDeviceEvidence": "docs/tester/D1_E11_FINAL_R1_TABLET_EXECUTION/a129ad0a-9d93-49c6-8289-9087afd419ff/evidence/metadata-03-activity-processes-stdout.txt",
+  "interpretation": "Static upstream API31 command-contract finding; no claim of a new vendor-device execution or exact vendor error text. Current scripts cannot be accepted as producing active-instrumentation evidence without a supported reviewed route.",
+  "repairScope": "Correct metadata scripts/argv/record expectations and pins using a supported read-only query within the same three direct clients and budgets; do not add a query, wrapper, product build, or product test merely for this issue.",
+  "deviceRuns": 0,
+  "remoteScriptRuns": 0,
+  "originalP1BindingFix": "ACCEPTED_STATIC_AND_RECORDED_PLATFORM_SUBSTITUTES_ONLY",
+  "originalP2ReadonlyFix": "ACCEPTED_INDEPENDENT_READONLY_ENTRY_AND_BYTE_SNAPSHOTS"
+}

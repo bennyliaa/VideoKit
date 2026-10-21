@@ -1,0 +1,108 @@
+--- frozen_coder_failed_helper
++++ independent_tester_helper
+@@ -1,4 +1,4 @@
+-package com.videokit.observation;
++package com.videokit.testerobs;
+ import java.nio.*;
+ import java.nio.file.*;
+ import java.net.*;
+@@ -7,7 +7,7 @@
+ 
+ /** One JVM, isolated original/patched metadata classes. Reflection invokes only
+  * public mature APIs/new getters; no field access, setAccessible or state edits. */
+-public final class MetadataObservationCheck {
++public final class IndependentObservationCheck {
+     static final String ROOT="D:/CodexProjects/VideoKit/docs/coder/";
+     static final String BASE=ROOT+"d1fixture-tool02/artifacts/videokit-fixture-tool02.jar";
+     static final String FORK=ROOT+"d1jcodec-observation01/artifacts/jcodec-0.2.5-videokit-observation01.jar";
+@@ -15,6 +15,7 @@
+     static volatile long endNano;
+     static long startNano;
+     static volatile Throwable failure;
++    static Thread originalWorker;static final List<Api> loaderOwners=new ArrayList<>();
+     static int cases,payload;
+     static final long MAX_NANOS=5000000000L;
+     static void need(boolean v,String m){if(!v)throw new AssertionError(m);}
+@@ -34,9 +35,9 @@
+     }
+     static Map<String,Object> map(Object...pairs){Map<String,Object>m=new LinkedHashMap<>();for(int i=0;i<pairs.length;i+=2)m.put((String)pairs[i],pairs[i+1]);return m;}
+     static final class Api implements AutoCloseable {
+-        final URLClassLoader loader;final Object factory;final Class<?> header;
+-        Api(String path)throws Exception{loader=new URLClassLoader(new URL[]{Paths.get(path).toUri().toURL()},ClassLoader.getPlatformClassLoader());header=Class.forName("org.jcodec.containers.mp4.boxes.Header",true,loader);Class<?> f=Class.forName("org.jcodec.containers.mp4.BoxFactory",true,loader);factory=f.getMethod("getDefault").invoke(null);}
+-        Object box(String fourcc)throws Exception{return call(factory,"newBox",new Class<?>[]{header},header.getConstructor(String.class).newInstance(fourcc));}
++        URLClassLoader loader;Object factory;Class<?> header;final String path;boolean openEntered,openReturned,closeEntered,closeReturned;
++        Api(String path)throws Exception{this.path=path;loaderOwners.add(this);openEntered=true;loader=new URLClassLoader(new URL[]{Paths.get(path).toUri().toURL()},ClassLoader.getPlatformClassLoader());header=Class.forName("org.jcodec.containers.mp4.boxes.Header",true,loader);Class<?> f=Class.forName("org.jcodec.containers.mp4.BoxFactory",true,loader);factory=f.getMethod("getDefault").invoke(null);openReturned=true;}
++        Object box(String fourcc)throws Exception{Object h=header.getConstructor(String.class).newInstance(fourcc);if(fourcc.equals("avcC"))return Class.forName("org.jcodec.codecs.h264.mp4.AvcCBox",true,loader).getConstructor(header).newInstance(h);return call(factory,"newBox",new Class<?>[]{header},h);}
+         Object withoutFactory(String type)throws Exception{String name=type.equals("dref")?"DataRefBox":"SampleDescriptionBox";return Class.forName("org.jcodec.containers.mp4.boxes."+name,true,loader).getConstructor(header).newInstance(header.getConstructor(String.class).newInstance(type));}
+         Map<String,Object> originalView(Object box,String type)throws Exception {
+             if(type.equals("avcC")) {
+@@ -49,17 +50,25 @@
+                 if(c.equals("alis")||c.equals("url ")){v.put("version",get(child,"getVersion"));v.put("flags",get(child,"getFlags"));if(c.equals("alis")){v.put("selfRef",get(child,"isSelfRef"));v.put("fileName",get(child,"getFileName"));v.put("recordSize",get(child,"getRecordSize"));}else v.put("url",get(child,"getUrl"));}views.add(v);}
+             return map("actualChildCount",children.size(),"children",views);
+         }
+-        public void close()throws Exception{loader.close();}
++        public void close()throws Exception{need(Thread.currentThread()==originalWorker,"same original loader closer");if(closeEntered)return;if(loader==null){unknown=true;return;}closeEntered=true;loader.close();closeReturned=true;}
++        Map<String,Object>owner(){return map("path",path,"registeredBeforeLoaderAllocation",true,"openEntered",openEntered,"openReturned",openReturned,"closeEntered",closeEntered,"sameOriginalCloseReturned",closeReturned,"sameOriginalWorkerCloser",true);}
+     }
+     static String hex(ByteBuffer b){ByteBuffer d=b.duplicate();StringBuilder s=new StringBuilder();while(d.hasRemaining()){int v=d.get()&255;s.append(Character.forDigit(v>>>4,16)).append(Character.forDigit(v&15,16));}return s.toString();}
+     static final class Outcome {
+-        String exception,beforeOrder,afterOrder;int before,after,limit,remaining;Map<String,Object>view;
+-        Map<String,Object>data(){return map("exceptionClass",exception,"inputBefore",before,"inputAfter",after,"limit",limit,"remaining",remaining,"byteOrderBefore",beforeOrder,"byteOrderAfter",afterOrder,"existingGetterView",view);}
++        String exception,beforeOrder,afterOrder;int before,after,limit,remaining;Map<String,Object>view,raw;
++        Map<String,Object>data(){return map("exceptionClass",exception,"inputBefore",before,"inputAfter",after,"limit",limit,"remaining",remaining,"byteOrderBefore",beforeOrder,"byteOrderAfter",afterOrder,"existingGetterView",view,"originalObservation",raw);}
+     }
+     static Outcome parse(Api a,Object box,String type,ByteBuffer input)throws Exception {
+         admission();Outcome r=new Outcome();r.before=input.position();r.limit=input.limit();r.beforeOrder=input.order().toString();
+         try{call(box,"parse",new Class<?>[]{ByteBuffer.class},input);}catch(Exception e){r.exception=e.getClass().getName();}
+-        r.after=input.position();r.remaining=input.remaining();r.afterOrder=input.order().toString();r.view=a.originalView(box,type);return r;
++        r.after=input.position();r.remaining=input.remaining();r.afterOrder=input.order().toString();r.view=a.originalView(box,type);r.raw=a.path.equals(FORK)?observation(box,type):null;return r;
++    }
++    static Map<String,Object> observation(Object box,String type)throws Exception {
++        boolean complete=(Boolean)get(box,"hasOriginalParseObservation");Map<String,Object>m=map("observed",complete);
++        if(complete){String[]names=type.equals("avcC")?new String[]{"getOriginalConfigurationVersion","getOriginalLengthSizeByte","getOriginalSpsCountByte","getOriginalPpsCountByte"}:new String[]{"getOriginalVersionFlagsWord","getOriginalVersion","getOriginalFlags","getOriginalDeclaredEntryCount"};for(String n:names)m.put(n,get(box,n));}return m;
++    }
++    static void readonlyObservation(Api base,Api fork,String type)throws Exception {
++        byte[]bytes=type.equals("avcC")?avcc():parent(0xaabbccdd,-1,type.equals("dref")?"alis":"free");Object box=fork.box(type);ByteBuffer input=ByteBuffer.wrap(bytes);Outcome result=parse(fork,box,type,input);need(result.exception==null,"readonly observation precondition");int position=input.position();Map<String,Object>legacy=fork.originalView(box,type),first=observation(box,type),second=observation(box,type);need(first.equals(second)&&legacy.equals(fork.originalView(box,type))&&position==input.position(),"new getter mutated input or legacy state");cases++;System.out.println(json(map("case",type+"_readonly_observation_getters","result","PASS_NONMEDIA_METADATA","actual",first,"inputPositionBeforeAfter",position,"legacyUnchanged",true)));
+     }
+     static void unobserved(Object box,String type)throws Exception {
+         need(Boolean.FALSE.equals(get(box,"hasOriginalParseObservation")),"no false observed state");
+@@ -118,10 +127,10 @@
+         try(Api base=new Api(BASE);Api fork=new Api(FORK)) {
+             System.out.println(json(map("origin","isolated-public-api-only","baseline",base.box("dref").getClass().getProtectionDomain().getCodeSource().getLocation().toString(),"fork",fork.box("dref").getClass().getProtectionDomain().getCodeSource().getLocation().toString())));
+             need(base.box("dref").getClass().getClassLoader()==base.loader&&fork.box("dref").getClass().getClassLoader()==fork.loader&&base.loader!=fork.loader,"two actual isolated origins");
+-            for(String type:new String[]{"dref","stsd","avcC"}){unobserved(fork.box(type),type);cases++;System.out.println(json(map("case",type+"_new_instance_unobserved","result","PASS_NONMEDIA_METADATA")));}
++            for(String type:new String[]{"dref","stsd","avcC"}){Object oldBox=base.box(type),newBox=fork.box(type);need(oldBox.getClass().getClassLoader()==base.loader&&newBox.getClass().getClassLoader()==fork.loader,"per-type isolated loaders");need(oldBox.getClass().getName().equals(newBox.getClass().getName())&&(type.equals("avcC")?newBox.getClass().getName().equals("org.jcodec.codecs.h264.mp4.AvcCBox"):true),"actual mature type");System.out.println(json(map("classOrigins",type,"baseline",oldBox.getClass().getProtectionDomain().getCodeSource().getLocation().toString(),"fork",newBox.getClass().getProtectionDomain().getCodeSource().getLocation().toString(),"actualClass",newBox.getClass().getName())));unobserved(newBox,type);cases++;System.out.println(json(map("case",type+"_new_instance_unobserved","result","PASS_NONMEDIA_METADATA")));}
+             for(String type:new String[]{"dref","stsd"}){
+                 need(!stopped&&System.nanoTime()-start<MAX_NANOS,"admission window");
+-                parentCase(base,fork,type,0,0,null,"empty_zero");parentCase(base,fork,type,0,1,type.equals("dref")?"alis":"free","one_child");
++                parentCase(base,fork,type,0,0,null,"empty_zero");parentCase(base,fork,type,0xff123456,0x80000000,null,"uint32_highbit_no_child_no_alloc");parentCase(base,fork,type,0,1,type.equals("dref")?"alis":"free","one_child");
+                 parentCase(base,fork,type,0xaabbccdd,0xffffffff,type.equals("dref")?"url ":"free","unknown_vf_unsigned_count_mismatch");
+                 parentCase(base,fork,type,0x01000002,0,type.equals("dref")?"alis":"free","declared_zero_actual_one");parentFailures(base,fork,type);
+             }
+@@ -150,18 +159,18 @@
+             for(int flags:new int[]{1,0})failedChild.putInt(12).put((byte)'a').put((byte)'l').put((byte)'i').put((byte)'s').putInt(flags);
+             Object db0=base.box("dref"),df0=fork.box("dref");parse(base,db0,"dref",ByteBuffer.wrap(firstAlias));parse(fork,df0,"dref",ByteBuffer.wrap(firstAlias));
+             Outcome da=parse(base,db0,"dref",failedChild.duplicate().flip()),df=parse(fork,df0,"dref",failedChild.duplicate().flip());row("dref_partial_child_append_then_bounded_alias_failure",da,df);need(da.exception!=null&&((List<?>)get(df0,"getBoxes")).size()==2,"legacy successful child append before failure retained");unobserved(df0,"dref");
+-            need(payload<4096,"payload small");
++            for(String type:new String[]{"dref","stsd","avcC"})readonlyObservation(base,fork,type);
++            need(cases==79&&payload<4096,"exact79cases payload small");
+         }
+     }
+     public static void main(String[]args)throws Exception {
+-        need(args.length==0,"no media/path/selection args");long start=System.nanoTime();startNano=start;
+-        Thread worker=new Thread(()->{try{runAll(start);}catch(Throwable t){failure=t;stopped=true;}finally{bodyComplete=true;endNano=System.nanoTime();}},"jcodec-observation01-original-metadata-worker");worker.setDaemon(false);worker.start();worker.join(5000);
++        need(args.length==0,"no selection/media arguments");long start=System.nanoTime();startNano=start;
++        Thread worker=new Thread(()->{try{runAll(start);}catch(Throwable t){failure=t;stopped=true;}finally{for(Api api:loaderOwners){try{api.close();}catch(Throwable t){unknown=true;if(failure==null)failure=t;}}bodyComplete=true;endNano=System.nanoTime();}},"independent-observation01-original-metadata-worker");originalWorker=worker;worker.setDaemon(false);worker.start();worker.join(5000);
+         if(worker.isAlive()){unknown=true;stopped=true;System.out.println(json(map("status","UNKNOWN_ORIGINAL_WORKER_PENDING")));}
+         worker.join();long elapsed=endNano-start;if(elapsed<0||elapsed>=MAX_NANOS)unknown=true;
+-        need(bodyComplete&&!unknown&&failure==null,"metadata check failed or original timeout: "+failure);
+-        // Conservative2048B mature Header/fourcc scratch allowance for these inputs;
+-        // explicit byte[] payload plus that conservative allowance stays8KiB.
+-        need(payload+2048<=8192,"combined metadata payload allowance");
+-        System.out.println(json(map("status","METADATA_PARSE_CHECKS_COMPLETE_NOT_MEDIA_QUALIFICATION","cases",cases,"explicitBytePayload",payload,"matureHeaderScratchAllowance",2048,"metadataLimit",8192,"bodyElapsedNanos",elapsed,"sameOriginalWorkerJoined",true,"originalUrlLoadersClosed",true,"mediaReads",0,"encoderDemuxMuxerRuns",0,"reflectionUse","public API calls only; no fields/setAccessible/state edits")));
++        List<Object>owners=new ArrayList<>();boolean closed=loaderOwners.size()==2;for(Api api:loaderOwners){owners.add(api.owner());closed&=api.openReturned&&api.closeReturned;}need(payload+2048<=8192,"8KiB payload allowance");
++        boolean success=bodyComplete&&!unknown&&failure==null&&closed&&cases==79;
++        System.out.println(json(map("status",success?"INDEPENDENT_METADATA_PARSE_COMPLETE_NOT_MEDIA_QUALIFICATION":"INDEPENDENT_METADATA_FAILED_OR_UNKNOWN_NO_RETRY","cases",cases,"explicitBytePayload",payload,"matureHeaderScratchAllowance",2048,"metadataLimit",8192,"bodyElapsedNanos",elapsed,"sameOriginalWorkerJoined",true,"workerBodyComplete",bodyComplete,"unknownSticky",unknown,"originalLoaderOwners",owners,"twoOriginalLoadersCloseReturned",closed,"failureClass",failure==null?null:failure.getClass().getName(),"failureMessage",failure==null?null:String.valueOf(failure.getMessage()),"mediaReads",0,"encoderDecoderDemuxMuxerMainRuns",0,"reflectionUse","public API invocation only, no fields/setAccessible/state edits")));
++        if(!success)throw new AssertionError("Independent original metadata test failed; no retry",failure);
+     }
+ }

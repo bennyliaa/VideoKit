@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "atUtc": "2026-10-18T00:06:42.890848+00:00",
+  "current": {
+    "status": "PASS",
+    "seal": {
+      "path": "docs/coder/d1e9a/evidence/e9a-freeze.json",
+      "bytes": 159567,
+      "sha256": "edfb13109b1cc5103ed348f3ce757165597fe16fe8320a1426afd4cd9651fdfb"
+    },
+    "archive": {
+      "path": "docs/coder/D1-20261018-E9A-source.zip",
+      "bytes": 24710914,
+      "sha256": "378b2ceec7ac5d47e0f63710efde0d590a33adea6316219e554f193de7b37acb"
+    },
+    "immutableVerified": 733,
+    "mutation": false
+  },
+  "baselines": [
+    {
+      "seal": {
+        "path": "docs/coder/d1e9/evidence/e9-freeze.json",
+        "bytes": 226087,
+        "sha256": "6cd4844610a8ed6df9f15a9809740dcf37d5b2d5c4597701388e792852830131"
+      },
+      "immutableVerified": 1045
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e7a/evidence/e7a-freeze.json",
+        "bytes": 42016,
+        "sha256": "1264dd365255b8d22fe1586a7b892240a4745dc01e54d6f26c88ec149784cf76"
+      },
+      "immutableVerified": 200
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e8a/evidence/e8a-design-seal.json",
+        "bytes": 9545,
+        "sha256": "dfbb91fcc193d65b599d88e9399f66edb115e0331e85a656f1b83d0ba54d1e86"
+      },
+      "immutableVerified": 42
+    }
+  ],
+  "scopedSyntheticJavaResiduals": 0,
+  "scopedResidualCheck": "Read-only Win32_Process filter E9AProductionCheck after all checks",
+  "immutableMutation": false,
+  "deviceCalls": 0,
+  "realMediaReads": 0,
+  "scope": "E9A733 immutable rows and exact ZIP membership/bytes; oldE91045/E7A200/E8A42 unchanged"
+}

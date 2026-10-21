@@ -1,0 +1,40 @@
+{
+  "status": "CONTRACT_ONLY_NO_CURRENT_LOCAL_SERVER_OR_CLAIM_OBSERVATION",
+  "sourceReferences": [
+    "HISTORICAL_NOT_FRESH-fresh-tool-source.json",
+    "HISTORICAL_NOT_FRESH-fresh-local-gate.json"
+  ],
+  "sdkFiles": [
+    {
+      "path": "D:/Android/SDK/platform-tools/adb.exe",
+      "bytes": 8273560,
+      "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+    },
+    {
+      "path": "D:/Android/SDK/platform-tools/AdbWinApi.dll",
+      "bytes": 108184,
+      "sha256": "c1d653030b4bde65d3e07e4d0b0979e17be56df1436cdd15528630f27808050d"
+    },
+    {
+      "path": "D:/Android/SDK/platform-tools/AdbWinUsbApi.dll",
+      "bytes": 73368,
+      "sha256": "0710e894d9b40f71a670c13c694079d564c92c1279da382cfe4850983aaebe1b"
+    }
+  ],
+  "requiredFreshScopeFields": [
+    "scope",
+    "planId",
+    "checkedAtUtc",
+    "toolSha256",
+    "sourceContractSha256",
+    "serverPid",
+    "serverCreationUtc",
+    "serverImage",
+    "serverFileSha256",
+    "claimHeldExclusive",
+    "claimScope",
+    "routingOverrides",
+    "originalCheckerReturned"
+  ],
+  "originalMechanism": "Reuse previously reviewed external native tool/server/source/claim checker. No new checker/server lifecycle/native helper implemented here. If fresh proof is unavailable, reject before first SDK child. Old records are NEVER accepted as current idle/source facts."
+}

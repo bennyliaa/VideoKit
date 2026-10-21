@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "status": "PASS_READ_ONLY",
+  "atUtc": "2026-10-18T01:35:10.455947+00:00",
+  "argv": [
+    "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+    "-X",
+    "utf8",
+    "-B",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e10a\\tools\\e10a_package.py",
+    "verify"
+  ],
+  "current": {
+    "status": "PASS",
+    "seal": {
+      "path": "docs/coder/d1e10a/evidence/e10a-freeze.json",
+      "bytes": 97199,
+      "sha256": "0a2d1c3a6c02f6194427ca93688a804f7df8d7966ffedb1ee0324cbccaf7d090"
+    },
+    "archive": {
+      "path": "docs/coder/D1-20261018-E10A-source.zip",
+      "bytes": 24396414,
+      "sha256": "53986b28eb4ce2f01f730b8774ba8bd049c97be1b7ad1d13cfa22a61ea057a37"
+    },
+    "immutableVerified": 463,
+    "mutation": false
+  },
+  "previousFrozen": [
+    {
+      "seal": "docs\\coder\\d1e9b\\evidence\\e9b-freeze.json",
+      "sha256": "6f8c1ffffa6bff17da48b7067594d33980c443ff03a7c547e917f0814add2c92",
+      "immutableVerified": 402
+    },
+    {
+      "seal": "docs\\coder\\d1e10\\evidence\\e10-freeze.json",
+      "sha256": "d9b684b1d5946533738139c170b95aae1c4cc4743ccc9c14fae07ad46e8f81c1",
+      "immutableVerified": 67
+    }
+  ],
+  "mutation": false,
+  "deviceCalls": 0,
+  "actualIdentity": null,
+  "scopeIssued": false,
+  "readiness": "PENDING_INDEPENDENT_REVIEW_NOT_AUTHORIZED"
+}

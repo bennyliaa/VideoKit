@@ -1,0 +1,20 @@
+[
+  {
+    "id": "REC-OBS01",
+    "kind": "SOURCE_OBSERVED_REPORTING_GAP_NOT_RUNTIME_FINDING",
+    "area": "Partial batch failure receipts",
+    "fact": "ExperimentJob exports caseReceipts only if current method==scopeAll. On mid-batch exception current method remains failing subcase, so earlier completed case snapshots remain in retained Job memory but are omitted from final/pending receipt. Current failing observation/firstFailure and original ownership are still present.",
+    "consequence": "Cannot claim complete externally exported per-case evidence on partial failure. Do not schedule device as fully evidence-ready.",
+    "proposalNotApplied": "Next concentrated source batch export existing caseReceipts whenever requestedMethod==scopeAll, mark partial/completed counts even failure, with same byte-budget checks; no additional worker or replay.",
+    "newBuildAfterSecond": false
+  },
+  {
+    "id": "REC-OBS02",
+    "kind": "DECLARED_OBSERVATION_LIMIT",
+    "area": "SDK requested versus native attempted bytes",
+    "fact": "Scope inputReserved tracks copy/native read attempt sizes+EOF/control reservation; inputActual and provider physicalBytes track returned native bytes. SDK requested total and full per-phase request ledger are not separately emitted. Short3 native request3 must not be called an SDK requested3.",
+    "consequence": "8MiB applies native physical attempt accounting; exact SDK requested total remains UNAVAILABLE, not fabricated from actual bytes or readCalls. Layer-separated reporting needs next batch if mandatory.",
+    "proposalNotApplied": "Expose bounded cumulative SDK-requested/native-requested/actual per-phase observations on same original paths, no refund or new factory budget.",
+    "newBuildAfterSecond": false
+  }
+]

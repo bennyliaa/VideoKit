@@ -1,0 +1,63 @@
+{
+  "status": "PASS_E13D_OFFLINE_ANALYSIS_FINAL_READONLY_VERIFICATION",
+  "archive": {
+    "path": "docs/coder/D1-20261018-E13D-offline-analysis.zip",
+    "bytes": 40299,
+    "sha256": "dbe40dc80a4962b53f677fdc55d034b0d1b282529d6fb9a37109e25fd04d6385"
+  },
+  "externalSeal": {
+    "path": "docs/coder/d1e13d/evidence/e13d-freeze.json",
+    "bytes": 2102,
+    "sha256": "acc83e5aff9288099c1f324fb24394316dedfd83272cce66cd8299a215b66365"
+  },
+  "archiveEntries": 8,
+  "immutableRows": 9,
+  "readOnlyFilesBeforeAfter": 7,
+  "verifications": [
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13d\\tools\\analysis_bundle.py"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_E13D_OFFLINE_ANALYSIS_READONLY_VERIFY\", \"writes\": 0, \"archive\": {\"path\": \"docs/coder/D1-20261018-E13D-offline-analysis.zip\", \"bytes\": 40299, \"sha256\": \"dbe40dc80a4962b53f677fdc55d034b0d1b282529d6fb9a37109e25fd04d6385\"}, \"externalSeal\": {\"path\": \"docs/coder/d1e13d/evidence/e13d-freeze.json\", \"bytes\": 2102, \"sha256\": \"acc83e5aff9288099c1f324fb24394316dedfd83272cce66cd8299a215b66365\"}, \"archiveEntries\": 8, \"immutableRows\": 9, \"sourceFiles\": 18, \"deviceCalls\": 0, \"builds\": 0, \"testRuns\": 0, \"implementationChanges\": 0, \"caseRootCause\": \"NOT_UNIQUELY_DETERMINED\", \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13d\\tools\\analysis_bundle.py",
+        "verify",
+        "--seal-sha",
+        "acc83e5aff9288099c1f324fb24394316dedfd83272cce66cd8299a215b66365"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_E13D_OFFLINE_ANALYSIS_READONLY_VERIFY\", \"writes\": 0, \"archive\": {\"path\": \"docs/coder/D1-20261018-E13D-offline-analysis.zip\", \"bytes\": 40299, \"sha256\": \"dbe40dc80a4962b53f677fdc55d034b0d1b282529d6fb9a37109e25fd04d6385\"}, \"externalSeal\": {\"path\": \"docs/coder/d1e13d/evidence/e13d-freeze.json\", \"bytes\": 2102, \"sha256\": \"acc83e5aff9288099c1f324fb24394316dedfd83272cce66cd8299a215b66365\"}, \"archiveEntries\": 8, \"immutableRows\": 9, \"sourceFiles\": 18, \"deviceCalls\": 0, \"builds\": 0, \"testRuns\": 0, \"implementationChanges\": 0, \"caseRootCause\": \"NOT_UNIQUELY_DETERMINED\", \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13d\\tools\\analysis_bundle.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: analysis_bundle.py [-h] [--seal-sha SEAL_SHA] [{verify,collect}]\n\nRead-only source/evidence analysis. Default verify writes nothing; explicit\ncollect seals documents only.\n\npositional arguments:\n  {verify,collect}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    }
+  ],
+  "caseRootCause": "NOT_UNIQUELY_DETERMINED",
+  "implementationChanges": 0,
+  "builds": 0,
+  "testRuns": 0,
+  "deviceCalls": 0
+}

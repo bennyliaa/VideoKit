@@ -1,0 +1,39 @@
+--- official-0.2.5/source/org/jcodec/containers/mp4/boxes/DataRefBox.java
++++ 0.2.5-videokit-observation01/source/org/jcodec/containers/mp4/boxes/DataRefBox.java
+@@ -10,6 +10,20 @@
+  *
+  */
+ public class DataRefBox extends NodeBox {
++
++    // VideoKit observation01: parse provenance only, no policy or write change.
++    private boolean originalParseObserved;
++    private int originalVersionFlagsWord;
++    private long originalDeclaredEntryCount;
++
++    public boolean hasOriginalParseObservation() { return originalParseObserved; }
++    private void requireOriginalParseObservation() {
++        if (!originalParseObserved) throw new IllegalStateException("ORIGINAL_PARSE_NOT_OBSERVED");
++    }
++    public int getOriginalVersionFlagsWord() { requireOriginalParseObservation(); return originalVersionFlagsWord; }
++    public int getOriginalVersion() { requireOriginalParseObservation(); return originalVersionFlagsWord >>> 24; }
++    public int getOriginalFlags() { requireOriginalParseObservation(); return originalVersionFlagsWord & 0xffffff; }
++    public long getOriginalDeclaredEntryCount() { requireOriginalParseObservation(); return originalDeclaredEntryCount; }
+ 
+     public static String fourcc() {
+         return "dref";
+@@ -25,9 +39,13 @@
+ 
+     @Override
+     public void parse(ByteBuffer input) {
+-        input.getInt();
+-        input.getInt();
++        originalParseObserved = false;
++        originalVersionFlagsWord = 0;
++        originalDeclaredEntryCount = 0;
++        originalVersionFlagsWord = input.getInt();
++        originalDeclaredEntryCount = input.getInt() & 0xffffffffL;
+         super.parse(input);
++        originalParseObserved = true;
+     }
+ 
+     @Override

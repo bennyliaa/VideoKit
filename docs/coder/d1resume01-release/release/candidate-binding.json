@@ -1,0 +1,92 @@
+{
+  "candidate": "D1-20261020-RESUME01-RELEASE",
+  "status": "FROZEN_MATERIALS_FOR_INDEPENDENT_MECHANICAL_REVIEW",
+  "executionBatch": "1f1cc608-2337-438f-a9f5-086cda29ceb2",
+  "sourceCandidate": "D1-20261020-RESUME01",
+  "sourceReview": {
+    "path": "docs/tester/D1_RESUME01_STATIC_REVIEW_REPORT_V1.0.md",
+    "bytes": 10083,
+    "sha256": "0bad8b95ac7e0308713fdfed2f21c9215d18606f86aaa8e4e1dbd09059640743"
+  },
+  "hostJar": {
+    "path": "docs/coder/d1resume01-release/artifacts/resume01-release-host-tools.jar",
+    "bytes": 323124,
+    "sha256": "03a27c74061b740a879e2dfec3341b0b07172c68bf374b9231c20e42a46566c5"
+  },
+  "observer": {
+    "path": "docs/coder/d1resume01-release/tools/observe_original.ps1",
+    "bytes": 9215,
+    "sha256": "0667bc7fe93cf2010cd337eeafaeabd94b7a795efa74059365af3fb83c8485b8"
+  },
+  "targetApks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk",
+      "bytes": 10708622,
+      "sha256": "938d70fbc70fd9bfdbef4ac37d2d83a66d7260e88e8c3c62bb2d022ea427908e",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug-androidTest.apk",
+      "bytes": 2774237,
+      "sha256": "4227751bf659fca9efc8a8d2d32d5ce754bcbef9033e15a0c92ab7537dca9dd7",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/fixture-debug.apk",
+      "bytes": 80041,
+      "sha256": "a8c86650ae756f682fb2cbaaa896424974893282026525266e7b1912a8dd1867",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "disposition": {
+    "path": "docs/coder/d1resume01-release/disposition/reviewed-original-disposition.json",
+    "bytes": 610,
+    "sha256": "7270e5c0208d2895394bbd1cd25508b239bbe7a711a40b3e8d2b3d59a37a265d"
+  },
+  "scope": {
+    "path": "docs/coder/d1resume01-release/release/runtime-scope.json",
+    "bytes": 884,
+    "sha256": "917d8c1dc57d267a25101355f077e4a0c3ed62b6c93c10d63ec8255def6b1bde"
+  },
+  "release": {
+    "path": "docs/coder/d1resume01-release/release/activation-release.json",
+    "bytes": 741,
+    "sha256": "04605dcf8f1ab1b2c0d0147da255e6514f309f4669f79efa1bf0f404042f35e5"
+  },
+  "config": {
+    "path": "docs/coder/d1resume01-release/release/activation-trust-deploy.json",
+    "bytes": 1852,
+    "sha256": "c988760490747e7d456311b3b4df1fdf4579bc753ac0cf0130a8115d5ad958eb"
+  },
+  "permit": {
+    "path": "docs/coder/d1resume01-release/release/one-shot-permit.json",
+    "bytes": 1122,
+    "sha256": "37e899f0cc92ef97d8d473f96d8491050e5985210975db56337efe0b4ce6bead"
+  },
+  "budget": {
+    "path": "docs/coder/d1resume01-release/release/exact-budget.json",
+    "bytes": 2039,
+    "sha256": "58f84b4f4c5f886f88d067a44b742d73a23a347a016627acc328c754aadde30d"
+  },
+  "registryPlan": {
+    "path": "docs/coder/d1resume01-release/release/registry-plan.json",
+    "bytes": 8544,
+    "sha256": "c7a8ec98eb27cae39ee450ef440e6c766e8a21a61475a61a32346af59f97085f"
+  },
+  "deploymentOncePath": "D:/CodexProjects/VideoKit/docs/tester/D1_RESUME01_RELEASE_EXECUTION/1f1cc608-2337-438f-a9f5-086cda29ceb2/e13f-lifecycle-deployment.once",
+  "caseOnce": "PERSISTENT_SCOPE_METHOD_CLAIM",
+  "onceConsumed": false,
+  "liveRecordsCreated": false,
+  "hostBuilds": 0,
+  "androidBuilds": 0,
+  "mechanicalReview": "PENDING_INDEPENDENT_RECEIPT",
+  "T07": "NOT_RUN",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

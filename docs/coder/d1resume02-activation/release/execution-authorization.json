@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "kind": "RESPONSIBLE_COORDINATOR_CONDITIONAL_EXECUTION_AUTHORIZATION",
+  "issuerThread": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "date": "2026-10-20",
+  "userAuthority": "User explicitly authorized ongoing project development/device testing and coordinator dispatch; if another project occupies device wait, no repeated user authorization needed.",
+  "scopeId": "20b08d64-6fd0-4a88-8b72-c80615e58258",
+  "deviceExecutionAuthorized": true,
+  "conditional": true,
+  "device": {
+    "serial": "HA1Q6WXR",
+    "user": 0,
+    "package": "com.videokit.app"
+  },
+  "pins": [
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/evidence/resume02-freeze.json",
+      "sha256": "0b44299376d4e53f7499403e0122b1a6c21a5ecb14769989e8e810542f39cda9",
+      "bytes": 20380
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/activation-delta.json",
+      "sha256": "27f70184fb6c48b5e728699ee1be7aa76d81ea2c9035167167c0b4f01bc9d61b",
+      "bytes": 5023
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/tester/D1_RESUME02_RELEASE_REVIEW_REPORT_V1.0.md",
+      "sha256": "75380086d04cfcefa6b1ed6b67307386b3e56f0a19b16366e9be8b55aa47f582",
+      "bytes": 10943
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/tester/D1_RESUME01_CAPTURE_REVIEW_REPORT_V1.0.md",
+      "sha256": "ad306682e27cdf1dec67955d9cb7f57bf99cd1451ab3b413963ee03439c6caf9",
+      "bytes": 11062
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/runtime-scope.json",
+      "sha256": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3",
+      "bytes": 884
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/activation-release.json",
+      "sha256": "f40bc6a0095b1627a176f13f5edfc6cb297bc31dc32a78ff997bcc8dd6bf3295",
+      "bytes": 741
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/activation-trust-deploy.json",
+      "sha256": "35ee8559baed16d80a041c30f46ac5cf4abfc2806beb11090539835833bd229d",
+      "bytes": 1852
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/base-release-descriptor.json",
+      "sha256": "134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c",
+      "bytes": 4518
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/exact-budget.json",
+      "sha256": "70643b37227ef9dd044223767ddbd5bbfc4225a57fcaa7311a8c50141d36076b",
+      "bytes": 1917
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/registry-plan.json",
+      "sha256": "f6dd30238f551e5d23306ee3b1abab377d00e0195674f7c9486d6323b39cf483",
+      "bytes": 8621
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/artifacts/resume02-host-tools.jar",
+      "sha256": "03a27c74061b740a879e2dfec3341b0b07172c68bf374b9231c20e42a46566c5",
+      "bytes": 323124
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/tools/observe_original.ps1",
+      "sha256": "0667bc7fe93cf2010cd337eeafaeabd94b7a795efa74059365af3fb83c8485b8",
+      "bytes": 9215
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/tools/capture_metadata.ps1",
+      "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe",
+      "bytes": 20118
+    }
+  ],
+  "budget": {
+    "operations": 43,
+    "textBytes": 3145728,
+    "archiveBytes": 4194304,
+    "unallocatedNotSpendable": 409600,
+    "oldUnknownReserve": 8192,
+    "oldKnownBytes": 2272
+  },
+  "sequence": [
+    "independent final overlay mechanical PASS",
+    "fresh local tool/default routing/registry/ledger/claim gates",
+    "initialize only approved fresh capture root",
+    "M1 three exact requests with separate physical and semantic predecessor approvals",
+    "only if exact v17 fixture1/signature/UID/data and no other project or instrumentation proceed to deployment with 35 approved children",
+    "M2 two requests with real deployment completion proof",
+    "only ordinarySenderCannotBindCodec instrumentation"
+  ],
+  "constraints": [
+    "No execution during coder overlay generation",
+    "No old permit replay or old frozen edits",
+    "First failure/UNKNOWN/other project occupation stops dependent steps; no automatic retry",
+    "No force-stop/kill/server restart/clear-data/downgrade or other five test methods",
+    "Keep original owner and actual read/unknown accounting; no forged ACK/refund",
+    "Runtime completion/deployment proofs not precreated",
+    "No product or Android/host rebuild",
+    "All unresolved historical UNKNOWN and fixture002 preserved"
+  ],
+  "finalOverlayReviewRequired": true
+}

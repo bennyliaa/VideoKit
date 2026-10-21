@@ -1,0 +1,42 @@
+package com.videokit.spike.e4;
+import java.io.*;import java.nio.file.*;import java.util.*;import java.util.concurrent.*;import java.util.concurrent.atomic.*;
+public final class E13EHostCheck {
+ static void need(boolean b,String s){if(!b)throw new AssertionError(s);}
+ static void await(java.util.function.BooleanSupplier s)throws Exception{long end=System.nanoTime()+TimeUnit.SECONDS.toNanos(8);while(!s.getAsBoolean()&&System.nanoTime()<end)Thread.sleep(5);need(s.getAsBoolean(),"bounded original wait");}
+ public static void main(String[] a)throws Exception{
+  String mode=a[0];Path root=Paths.get(a[1]);Files.createDirectories(root);
+  if(mode.equals("OBSERVE_PENDING")){
+   CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1);E9CurrentObservation.Platform platform=(E9CurrentObservation.Platform)java.lang.reflect.Proxy.newProxyInstance(E13EHostCheck.class.getClassLoader(),new Class<?>[]{E9CurrentObservation.Platform.class},(proxy,method,args)->{if(method.getName().equals("requireIdleOriginalHost")){entered.countDown();release.await();throw new IOException("CONTROLLED_OBSERVATION_RETURNED_FAILURE");}throw new AssertionError("no other platform IO permitted");});
+   E9CurrentObservation observation=new E9CurrentObservation(root,E9Phase.catalog(),platform);String[] result={null};Thread original=new Thread(()->result[0]=observation.observe(),"original-before-observation");original.start();need(entered.await(2,TimeUnit.SECONDS),"actual before observation entered");Thread.sleep(5200);need(E9CurrentObservation.retained()==1&&original.isAlive(),"5s not original observation close");release.countDown();original.join(3000);need(!original.isAlive()&&E9CurrentObservation.retained()==0&&result[0].startsWith("BLOCKED"),"same original known failure with actual empty resources return");System.out.println("PASS OBSERVE_PENDING actualObserver=true platformBoundarySubstitute=true noFalseGrant=true");return;
+  }
+  if(mode.equals("SOURCE_ORIGINAL_JOIN")){
+   E13SourceGroup group=new E13SourceGroup(new E13SourceGroup.Identity(10221,1,"local",1,"original"));CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1);Future<Boolean> work=group.submit(()->{entered.countDown();release.await();return true;});need(entered.await(2,TimeUnit.SECONDS),"actual source caller");group.closeAll();AtomicInteger finishes=new AtomicInteger();E13FinishOwner finisher=new E13FinishOwner(new E13FinishOwner.Port(){public boolean canFinish(){return E13SourceGroup.canFinish();}public void awaitOriginalReturns()throws Exception{E13SourceGroup.awaitOriginalReturns();}public boolean mainThread(){return false;}public void finish(int c,Object r){finishes.incrementAndGet();}});finisher.request(-1,"unchanged");Thread.sleep(50);need(finishes.get()==0&&!group.tryReturn(),"original caller retained");release.countDown();need(work.get(2,TimeUnit.SECONDS),"actual original caller result");await(()->finishes.get()==1);need(E13SourceGroup.retained()==0,"actual caller join/runtime termination");System.out.println("PASS SOURCE_ORIGINAL_JOIN actualGroup/registry/runtime/finalizer=true noPollingNoCancel=true");return;
+  }
+  if(mode.equals("CHILD")){String s=a[2],m=a[3];System.out.print("FRESH_E9_OBSERVATION_ADMITTED\nearly-original\n");System.out.flush();Thread.sleep(56000);System.out.print("late-original\nE13_RETURN_CHECK case="+m+" sourceRetained=0 canFinish=true\nE13_PLATFORM_FINISH_ADMITTED scope="+s+" case="+m+" ownersReturned=true\nOK (1 test)\nINSTRUMENTATION_CODE: -1\n");return;}
+  if(mode.equals("PC_LATE")){
+   E9PcSupervisor pc=new E9PcSupervisor("E13E_LOCAL_LATE",(p,o)->{},root);E13HostCase owner=new E13HostCase();pc.retainAuthority(owner,null,owner);String scope="a".repeat(64),method="ordinarySenderCannotBindCodec";
+   List<String> cmd=List.of(Paths.get(System.getProperty("java.home"),"bin/java.exe").toString(),"-cp",System.getProperty("java.class.path"),E13EHostCheck.class.getName(),"CHILD",root.toString(),scope,method);
+   long began=System.nanoTime();try{E13HostCase.runOriginal(pc,owner,cmd,scope,method,E9PcSupervisor.GENERAL_NS);throw new AssertionError("late became success");}catch(IOException e){need(e.getMessage().contains("PENDING"),"55s pending");}
+   need(System.nanoTime()-began>=55000000000L&&!owner.originalResourcesReturned(),"no early fake return");E9Record ack=pc.closeIngressAndSupervise();need(ack.get("kind").equals("pcIsolationAck"),"actual custodian");await(pc::terminated);need(owner.originalResourcesReturned(),"late exact decoder owner proof on local child fixture");
+   need(pc.operations().size()==1&&pc.operations().get(0).resourcesReturned(),"same process and pipes returned");List<Path> raws;try(var paths=Files.walk(root)){raws=paths.filter(p->p.getFileName().toString().equals("original.raw")).toList();}need(raws.size()==1,"one original reader archive");String raw=Files.readString(raws.get(0));need(raw.contains("early-original")&&raw.contains("late-original"),"late bytes survive timeout");System.out.println("PASS PC_LATE original55sPending=true lateNotPass=true rawSha="+E9Record.sha(Files.readAllBytes(raws.get(0)))+" "+pc.operations().get(0).archiveState());return;
+  }
+  if(mode.startsWith("ARCHIVE_")){
+   AtomicInteger closes=new AtomicInteger();CountDownLatch entered=new CountDownLatch(1),allow=new CountDownLatch(1);
+   E13OperationArchive.IO io=p->{if(mode.equals("ARCHIVE_OPEN_DENIED")&&p.getFileName().toString().equals("original.raw"))throw new IOException("CONTROLLED_PERMISSION_DENIED");OutputStream original=Files.newOutputStream(p,StandardOpenOption.CREATE_NEW);if(!p.getFileName().toString().equals("original.raw"))return original;return new FilterOutputStream(original){public void write(byte[] b,int o,int n)throws IOException{if(mode.equals("ARCHIVE_WRITE_FAIL"))throw new IOException("CONTROLLED_WRITE_FAILURE");if(mode.equals("ARCHIVE_WRITE_PENDING")){entered.countDown();try{allow.await();}catch(InterruptedException e){throw new IOException(e);}}out.write(b,o,n);}public void close()throws IOException{closes.incrementAndGet();super.close();if(mode.equals("ARCHIVE_CLOSE_UNKNOWN"))throw new IOException("CONTROLLED_CLOSE_UNKNOWN");}};};
+   E13OperationArchive ar=new E13OperationArchive(root,"original-op",65536,io);try{ar.start("LOCAL_ONLY",List.of("NO_SDK"));}catch(IOException e){need(mode.equals("ARCHIVE_OPEN_DENIED"),"only denied before start");}
+   if(!mode.equals("ARCHIVE_OPEN_DENIED")){
+    ar.started(123);ar.append("one".getBytes(),3);if(mode.equals("ARCHIVE_WRITE_PENDING")){need(entered.await(2,TimeUnit.SECONDS),"original writer entered");Thread.sleep(2100);ar.append("two".getBytes(),3);need(ar.failed()&&!ar.resourcesReturned(),"write pending retains original");allow.countDown();}
+    ar.eof();ar.readerDone();ar.processExit(0);
+   }
+   if(mode.equals("ARCHIVE_OPEN_DENIED")||mode.equals("ARCHIVE_CLOSE_UNKNOWN")){Thread.sleep(100);need(ar.failed()&&!ar.resourcesReturned(),"unknown retained no fake close");}
+   else{await(ar::resourcesReturned);need(closes.get()==1,"single original close");need(ar.failed()==!mode.equals("ARCHIVE_OK"),"failure separate from actual resources");}
+   System.out.println("PASS "+mode+" closes="+closes+" "+ar.state());return;
+  }
+  if(mode.equals("GUARD")){
+   String hash="b".repeat(64);try{E13PendingGuard.enter(root,"ABSENT",hash,"DEPLOY");throw new AssertionError("old pending bypassed");}catch(IOException e){need(e.getMessage().contains("PENDING"),"old pending");}
+   E9Record d=new E9Record(E9Record.map("kind","e13ReviewedOriginalDisposition","originalScope",E13PendingGuard.OLD_SCOPE,"serial","HA1Q6WXR","packages","com.videokit.app,com.videokit.app.test,com.videokit.e13.sender","outcome","TERMINATED_WITHOUT_RETURN","originalJavaReturn","false","caseEvidence",hash,"diagnosticDisposition",hash,"review",hash,"authorization",hash),8192);Files.write(root.resolve("reviewed-original-disposition.json"),d.bytes(),StandardOpenOption.CREATE_NEW);
+   E13PendingGuard first=E13PendingGuard.enter(root,d.hash(),hash,"DEPLOY");try{E13PendingGuard.enter(root,d.hash(),"c".repeat(64),"DEPLOY");throw new AssertionError("new uuid bypass");}catch(IOException expected){}first.originalReturned(true);E13PendingGuard second=E13PendingGuard.enter(root,d.hash(),"d".repeat(64),"ordinarySenderCannotBindCodec");need(second!=first,"new same slot only after actual marker");System.out.println("PASS GUARD oldPending/noPIDOverride/crossScope/validTypedDisposition/atomicClaim/unresolvedNextClaim");return;
+  }
+  throw new IllegalArgumentException(mode);
+ }
+}

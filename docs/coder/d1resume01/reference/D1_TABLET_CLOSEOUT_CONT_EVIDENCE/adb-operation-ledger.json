@@ -1,0 +1,113 @@
+{
+  "maxCalls": 8,
+  "maxRawBytes": 1048576,
+  "operations": [
+    {
+      "id": "01-local-version",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "version"
+      ],
+      "cap": 32768,
+      "enteredAtUtc": "2026-10-20T07:17:17.175787+00:00",
+      "bytes": 145,
+      "state": "COMPLETE",
+      "qualificationSeconds": 15,
+      "clientPid": 25972,
+      "exitCode": 0,
+      "elapsedSeconds": 0.047,
+      "timedOut": false,
+      "streams": {
+        "stdout": {
+          "bytes": 145,
+          "eof": true
+        },
+        "stderr": {
+          "bytes": 0,
+          "eof": true
+        }
+      },
+      "errors": [],
+      "endedAtUtc": "2026-10-20T07:17:17.220680+00:00",
+      "sharedServerLifecycleActions": 0,
+      "complete": true
+    },
+    {
+      "id": "02-pre-complete",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-H",
+        "127.0.0.1",
+        "-P",
+        "5037",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e\nprintf 'TABLET_CLOSEOUT_CONT_PRE_BEGIN\\n'\nprintf 'IDENTITY_SERIAL\\n'\ngetprop ro.serialno\nprintf 'IDENTITY_MODEL\\n'\ngetprop ro.product.model\nprintf 'IDENTITY_API\\n'\ngetprop ro.build.version.sdk\nprintf 'IDENTITY_USER\\n'\nam get-current-user\nprintf 'PACKAGE_BEGIN com.videokit.app\\n'\ndumpsys package com.videokit.app\nprintf 'PACKAGE_END com.videokit.app\\n'\nprintf 'ACTIVITY_PROCESSES_BEGIN\\n'\ndumpsys activity processes\nprintf 'ACTIVITY_PROCESSES_END\\n'\nprintf 'TABLET_CLOSEOUT_CONT_PRE_END\\n'"
+      ],
+      "cap": 524288,
+      "enteredAtUtc": "2026-10-20T07:17:42.485712+00:00",
+      "bytes": 365524,
+      "state": "COMPLETE",
+      "qualificationSeconds": 15,
+      "clientPid": 29728,
+      "exitCode": 0,
+      "elapsedSeconds": 0.375,
+      "timedOut": false,
+      "streams": {
+        "stdout": {
+          "bytes": 365524,
+          "eof": true
+        },
+        "stderr": {
+          "bytes": 0,
+          "eof": true
+        }
+      },
+      "errors": [],
+      "endedAtUtc": "2026-10-20T07:17:42.867741+00:00",
+      "sharedServerLifecycleActions": 0,
+      "complete": true
+    },
+    {
+      "id": "03-ps-supplement",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-H",
+        "127.0.0.1",
+        "-P",
+        "5037",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps -A -o USER,PID,PPID,NAME,ARGS"
+      ],
+      "cap": 131072,
+      "enteredAtUtc": "2026-10-20T07:19:07.654917+00:00",
+      "bytes": 53297,
+      "state": "COMPLETE",
+      "qualificationSeconds": 15,
+      "clientPid": 27788,
+      "exitCode": 0,
+      "elapsedSeconds": 0.093,
+      "timedOut": false,
+      "streams": {
+        "stdout": {
+          "bytes": 53297,
+          "eof": true
+        },
+        "stderr": {
+          "bytes": 0,
+          "eof": true
+        }
+      },
+      "errors": [],
+      "endedAtUtc": "2026-10-20T07:19:07.754765+00:00",
+      "sharedServerLifecycleActions": 0,
+      "complete": true
+    }
+  ],
+  "halt": true,
+  "stopReason": "ENV_WAIT_OTHER_PROJECT_ACTIVE",
+  "retryAllowedInThisBatch": false
+}

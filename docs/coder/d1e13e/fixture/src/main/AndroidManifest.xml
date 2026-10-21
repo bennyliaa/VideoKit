@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries><package android:name="com.videokit.app" /></queries>
+    <application android:label="E13 ordinary UID negative fixture" android:allowBackup="false">
+        <service android:name="com.videokit.e13.sender.SenderService" android:exported="true" />
+    </application>
+</manifest>

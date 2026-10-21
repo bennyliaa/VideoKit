@@ -1,0 +1,41 @@
+{
+  "status": "ACCEPTED_RESUME02_PREPARATION_NOT_EXECUTION_PERMISSION",
+  "existingRuntimeProposal": {
+    "operations": 43,
+    "textBytes": 3145728,
+    "archiveBytes": 4194304
+  },
+  "newSDKOperations": 0,
+  "rawAndDuplicatedOutputReserve": 1949696,
+  "controlReserve": 786432,
+  "otherOriginalControlReserves": 589824,
+  "newFiveCaptureControlReserve": 135168,
+  "captureComponents": {
+    "enteredPerRequest": 8192,
+    "receiptPerRequest": 8192,
+    "consolePerRequest": 4096,
+    "consoleEvidenceCopyPerRequest": 4096,
+    "externalProofPerRequest": 2048,
+    "batchHaltOnce": 2048
+  },
+  "historicalSeparateCarry": {
+    "knownPreflightRecordBytes": 2272,
+    "consoleActualBytes": "UNKNOWN",
+    "consoleUnknownSlotHeld": 8192,
+    "refunded": false
+  },
+  "controlCommittedConservative": 735456,
+  "controlHeadroomNotNewOperations": 50976,
+  "globalUnallocatedNotSpendable": 409600,
+  "physicalReadHardBoundClaimed": false,
+  "rawCounting": "Known successful original raw reads charged before qualification or writing; prefix remains provisional while original read unresolved; read error total UNKNOWN. File storage is accounted separately from data being forwarded again.",
+  "writerFaultCounting": "savedBytes is the known-successful-write prefix; savedAmountUnknown retains raw archive allocation. recordWriteAmountUnknown retains control allocation. No partial write is invented as zero.",
+  "oldAuthorizationReusable": false,
+  "newDevicePermitIssued": false,
+  "offlineEvidence": "Dev fixtures/package/control evidence are separate preparation artifacts; never debit/credit the historical execution ledger or call them a new device grant.",
+  "preparationAcceptance": {
+    "path": "docs/coder/d1resume02-release/release/preparation-authorization.json",
+    "bytes": 760,
+    "sha256": "a1d13dfcd87d3c555becaf9df7dc0e2dd670148fea46047d8918234d0cddd626"
+  }
+}

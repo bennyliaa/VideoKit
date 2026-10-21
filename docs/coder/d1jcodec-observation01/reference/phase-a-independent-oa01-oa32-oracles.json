@@ -1,0 +1,266 @@
+{
+  "phase": "A_FROZEN_BASELINE_ONLY",
+  "status": "PREPARED_NOT_RUN",
+  "cases": [
+    {
+      "id": "OA01",
+      "area": "authority",
+      "oracle": "Only exact independent fork, no product/driver/old checker or runtime input changes; A never reads floating fork",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA02",
+      "area": "source identities",
+      "oracle": "All708 base rows and635JCodec/73JAAD lineage; only3 allowed modified production files, remaining705 byte-for-byte same",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA03",
+      "area": "raw parents",
+      "oracle": "Dref/stsd capture vf/count from exact same two getInt operations; no duplicate/get before original or new rescan/parser",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA04",
+      "area": "uint count",
+      "oracle": "Preserve0/1 and unsigned high-bit boundary; no signed truncation/clamping; inspect no count-driven allocation first, any later dynamic case separate and safe",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA05",
+      "area": "actual-versus-declared",
+      "oracle": "Retain declared count even different from real children; underlying parse still normal if baseline does. Policy rejects outside fork, not normalize or repair",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA06",
+      "area": "unknown parents",
+      "oracle": "Unknown version/flags remain actual observed raw word on successful parse, not silently set0 or rejected by fork",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA07",
+      "area": "raw config",
+      "oracle": "Original configVersion unsigned byte at skip position retained without changing empty-buffer/failure state",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA08",
+      "area": "raw reserved",
+      "oracle": "Retain whole lengthSize byte and whole SPS-count byte before masks; keep legacy interpreted fields unchanged",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA09",
+      "area": "PPS count",
+      "oracle": "Retain same uint8 count only after original SPS loop consumes it; malformed earlier SPS does not publish previous PPS/default value as complete",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA10",
+      "area": "fresh and builder",
+      "oracle": "new/createEmpty/createAvcCBox/createDataRefBox/createSampleDescriptionBox and setter-created values observation false; no parse means no observation",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA11",
+      "area": "write not observation",
+      "oracle": "doWrite/estimateSize unchanged; serializing builder/parsed boxes never generates original-observed facts or sets complete",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA12",
+      "area": "completion meaning",
+      "oracle": "normal parse return complete only means original routine returned; NodeBox may ignore declared count/leave <8-byte tail and avcC may leave extensions; never full conformance/EOF proof",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA13",
+      "area": "failure reset",
+      "oracle": "good parse then failure must clear previous observation before reads; incomplete never exposes old successful observation, exception class+position preserved",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA14",
+      "area": "legacy partial state",
+      "oracle": "Do not clear original child lists or SPS/PPS lists/legacy fields to fix failed/repeated parse; baseline retains/partially appends them. New observation resets separately",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA15",
+      "area": "read sequence",
+      "oracle": "Compare patched/baseline original byte position/remaining/order and existing getters after safe success/failure; no additional input reads, forced byteorder, flip/rewind, bounds repair",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA16",
+      "area": "truncated parents",
+      "oracle": "Exact original getInt boundaries0..7 and child-consumption exceptions; bounded safe metadata only when separately authorized; no resource/atom attack",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA17",
+      "area": "short avcC",
+      "oracle": "Zero/short fixed header skip vs get, existing getShort signed lengths, checkState and NIOUtils.read limit failures remain baseline exception/position; not new validator",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA18",
+      "area": "successful metadata",
+      "oracle": "Use bounded provenance-known own minimal metadata through real original parse; input bytes oracle known at construction, not effective media/AVC decode proof",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA19",
+      "area": "repeated objects",
+      "oracle": "Second successful parse raw fields reflect second input; existing lists append as baseline; counts never from accumulated list sizes",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA20",
+      "area": "readonly getters",
+      "oracle": "No public mutation API to observation; primitive values/defensive immutable snapshot; getter calls no input or source mutation; concurrent use not claimed without contract",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA21",
+      "area": "factory/children",
+      "oracle": "BoxFactory/DataBoxes/NodeBox/Header/AliasBox/UrlBox unmodified; true typed alias/url remain exact semantic source; no leaf/fourcc bypass",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA22",
+      "area": "algorithm preservation",
+      "oracle": "All codec/muxer/doWrite/timebase/SPS/NAL/parse structural branching original; diff review before executing any future test",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA23",
+      "area": "artifact identity",
+      "oracle": "Explicit0.2.5-videokit-observation01 new artifact/source+patch hashes; never original c4ed JAR identity/official signature; no old class shadowing",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA24",
+      "area": "source-to-class",
+      "oracle": "Actual javac output major/source and class hashes, full JAR class set/source match, annotation processors off, tests excluded from production artifact",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA25",
+      "area": "licensing",
+      "oracle": "Original per-file copyrights/FreeBSD/JAAD PublicDomain+FreeBSD/GuavaApache2 preserved, visible modification notice/SBOM diff; no commercial/patent/FFmpeg clearance",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA26",
+      "area": "build limits",
+      "oracle": "Coder original compile/jar512MiB observed60s serial/input16MiB/output64MiB with original process+two streams; no new deps/network/Gradle/cache/retries",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA27",
+      "area": "finite unit limits",
+      "oracle": "Only separately authorized bounded metadata parse <=8KiB/singleJVM256MiB/5s/same original worker join and process/two-stream natural return; no demux/media/encoder/decoder/Main/device",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA28",
+      "area": "differential origins",
+      "oracle": "Same approved finite JVM must identify original/patched artifacts/class origin separately; avoid parent-first shadowing or testing patched against itself; future loader mechanism not presumed authorized now",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA29",
+      "area": "raw receipt completeness",
+      "oracle": "All stdout/stderr pending/final/source/diff/class/compile-test owners/manifest/seal ZIP consistent; exit0 never replaces fields or original return",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA30",
+      "area": "later checker integration",
+      "oracle": "Checker02 mandatory blockers cannot be removed until exact fork independentB and explicit integration/new classpath/scope; original readonly file still unparsed",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA31",
+      "area": "immutability",
+      "oracle": "Original JAR/media/tool/checker reports/classes/seals/failedscope stay frozen; no concurrent shared cache or product dependency/APK change",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    },
+    {
+      "id": "OA32",
+      "area": "classification",
+      "oracle": "A preparation only; future metadata observability is not actual file/sample/CSD/time/Media3/HOST_CONTAINER/isolated/READY/COMMIT; D1 notpassed M0notstarted oldUNKNOWN untouched",
+      "status": "PREPARED_NOT_RUN",
+      "floatingForkRead": false,
+      "dynamicExecuted": false
+    }
+  ],
+  "candidateForkIdentity": null,
+  "dynamicCasesActuallyRun": 0,
+  "newBuildProcesses": 0,
+  "mediaReads": 0
+}

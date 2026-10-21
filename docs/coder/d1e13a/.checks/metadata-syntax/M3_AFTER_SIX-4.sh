@@ -1,0 +1,1 @@
+dumpsys package com.videokit.app | awk '/^[ ]*(userId=|versionCode=|User 0:)/ {print}'

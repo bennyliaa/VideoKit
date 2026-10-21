@@ -1,0 +1,175 @@
+{
+  "candidate": "D1-20261021-INPUT-SINK03",
+  "matrix": [
+    {
+      "id": "I01",
+      "title": "known short-read requested range and exact offsets",
+      "phaseA": "PASS_CORE",
+      "assertion": "offset5 length7 returns3+3+1 then EOF",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I02",
+      "title": "unknown length EOF",
+      "phaseA": "PASS_CORE",
+      "assertion": "open=-1, reads3+2+-1; never invent length",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I03",
+      "title": "sparse offset above2GiB and64KiB block",
+      "phaseA": "PASS_CORE",
+      "assertion": "2GiB+123 and3GiB+7; no giant file",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I04",
+      "title": "long overflow returned bytes",
+      "phaseA": "PASS_CORE",
+      "assertion": "INVALID_RANGE; caller target unchanged",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I05",
+      "title": "zero/negative/oversized host result",
+      "phaseA": "PASS_CORE",
+      "assertion": "0/-2/count+1 rejected",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I06",
+      "title": "private error redaction",
+      "phaseA": "PASS_CORE",
+      "assertion": "AccessDenied mapsSOURCE_PERMISSION_DENIED",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I07",
+      "title": "same bridge concurrent read",
+      "phaseA": "PASS_CORE",
+      "assertion": "READ_IN_FLIGHT; original read still owned",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I08",
+      "title": "cancel and late private result",
+      "phaseA": "PASS_CORE",
+      "assertion": "caller wakes; no target overwrite; release waits original read and close",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I09",
+      "title": "dual-consumer original return",
+      "phaseA": "PASS_CORE",
+      "assertion": "first close insufficient; both real stages/handles/threads complete",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I10",
+      "title": "per physical source max1 and queue4",
+      "phaseA": "ADAPTATION_GAP",
+      "assertion": "same provider pending peak2; baseline Runtime queue16",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I11",
+      "title": "reopen and unknown-length seek",
+      "phaseA": "PASS_BASELINE_BOUNDARY",
+      "assertion": "same bridge cannot reopen; CPU_SEEK_UNSUPPORTED; newDataSource must adapt lifecycle",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I12",
+      "title": "known failed source close",
+      "phaseA": "PASS_CORE",
+      "assertion": "no release or auto retry; explicit original API retry after observed failure only",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "S01",
+      "title": "partial write accounting",
+      "phaseA": "ADAPTATION_GAP",
+      "assertion": "actual controlled prefix7; budget/position32; must not call32 actual write",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "S02",
+      "title": "output budget rejection beforewrite",
+      "phaseA": "PASS_CORE",
+      "assertion": "legacy2MiB+1 rejected; no emitted bytes",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "S03",
+      "title": "close exception retains exact original",
+      "phaseA": "PASS_CORE",
+      "assertion": "E4Owned UNKNOWN; second close never invokes original closer",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PARTIAL_FAIL_B05"
+    },
+    {
+      "id": "S04",
+      "title": "reopen validation failure",
+      "phaseA": "PASS_CORE_ONLY",
+      "assertion": "real generated4B file reopen; controlled validation rejection; original closed once",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "S05",
+      "title": "real Media3 muxer close/fsync/container reopen failure",
+      "phaseA": "NOT_RUN_PLATFORM",
+      "assertion": "AndroidFD/codec/container path not executed; no fakeSink substitute",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "NOT_RUN_PLATFORM"
+    },
+    {
+      "id": "S06",
+      "title": "READY vs hostCOMMIT",
+      "phaseA": "PASS_NEGATIVE_AND_STATIC_ONLY",
+      "assertion": "prematureREADY rejected; no COMMIT enum/API; no business commit proved",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PARTIAL_FAIL_B05"
+    },
+    {
+      "id": "F01",
+      "title": "actual Media3 DataSource interface and new dependencies",
+      "phaseA": "NOT_RUN_PHASE_B",
+      "assertion": "do not inspect floating coder directory; review fullfreeze later",
+      "phaseB": "REPLAY_AGAINST_FROZEN_REAL_ADAPTER",
+      "newCandidateIndependentResult": "PASS_LIMITED_OFFLINE"
+    }
+  ],
+  "oldB01B02": "PASS_LIMITED_OFFLINE_FOR_ORIGINAL_FINDINGS",
+  "oldB03B04": "PASS_LIMITED_OFFLINE_FOR_ORIGINAL_FINDINGS",
+  "newFindings": [
+    {
+      "id": "B05",
+      "priority": "P2",
+      "scope": "Invalid QUERY terminal result"
+    },
+    {
+      "id": "C01",
+      "priority": "P3",
+      "scope": "Documented external review root mismatch"
+    }
+  ],
+  "sourceAndProductionJarBoth": true,
+  "overall": "FAIL",
+  "platformAndRealBusinessCommit": "NOT_RUN",
+  "deadlineExactInstructionInterleaving": "Static causal audit plus dynamic late ACK; not deterministically injected"
+}

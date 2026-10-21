@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "atUtc": "2026-10-18T00:37:10.731603+00:00",
+  "verificationCommand": [
+    "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+    "-X",
+    "utf8",
+    "-B",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e9b\\tools\\e9b_package.py",
+    "verify"
+  ],
+  "current": {
+    "status": "PASS",
+    "seal": {
+      "path": "docs/coder/d1e9b/evidence/e9b-freeze.json",
+      "bytes": 83970,
+      "sha256": "6f8c1ffffa6bff17da48b7067594d33980c443ff03a7c547e917f0814add2c92"
+    },
+    "archive": {
+      "path": "docs/coder/D1-20261018-E9B-source.zip",
+      "bytes": 24208160,
+      "sha256": "8c5952d929aa40edd17fd7c37dbdba69c6c49e4212da12103c6175506aa075ae"
+    },
+    "immutableVerified": 402,
+    "mutation": false
+  },
+  "previousBaselines": [
+    {
+      "seal": "docs/coder/d1e9a/evidence/e9a-freeze.json",
+      "sealSha256": "edfb13109b1cc5103ed348f3ce757165597fe16fe8320a1426afd4cd9651fdfb",
+      "immutableVerified": 733,
+      "mutation": false
+    },
+    {
+      "seal": "docs/coder/d1e9/evidence/e9-freeze.json",
+      "sealSha256": "6cd4844610a8ed6df9f15a9809740dcf37d5b2d5c4597701388e792852830131",
+      "immutableVerified": 1045,
+      "mutation": false
+    },
+    {
+      "seal": "docs/coder/d1e7a/evidence/e7a-freeze.json",
+      "sealSha256": "1264dd365255b8d22fe1586a7b892240a4745dc01e54d6f26c88ec149784cf76",
+      "immutableVerified": 200,
+      "mutation": false
+    },
+    {
+      "seal": "docs/coder/d1e8a/evidence/e8a-design-seal.json",
+      "sealSha256": "dfbb91fcc193d65b599d88e9399f66edb115e0331e85a656f1b83d0ba54d1e86",
+      "immutableVerified": 42,
+      "mutation": false
+    }
+  ],
+  "deviceCalls": 0,
+  "realMediaReads": 0,
+  "mutation": false
+}

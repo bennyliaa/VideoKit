@@ -1,0 +1,137 @@
+{
+  "schema": "ANDROID02_CAPTURE_POLICY_V1",
+  "mode": "OFFLINE_FIXTURE",
+  "entrySha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13",
+  "planSha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199",
+  "productSealSha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+  "scope": "fb08cb722330fcb81af69b9245f29e2ab4337f804d9ecbc4ff0fcdd0173756f6",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs",
+  "toolSha256": "abc1aa0b5a63f745804e88789b2dfe6857582ec19ed36b3b5f9dc6b340212344",
+  "fixtureScriptSha256": "b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed",
+  "fixtureFault": "NONE",
+  "fixtureGatePath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\fixture-gate",
+  "slots": [
+    {
+      "id": "identity",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+        "identity",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 8192,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 2
+    },
+    {
+      "id": "global_idle",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+        "global_idle",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 8192,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 2
+    },
+    {
+      "id": "app_absence",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+        "app_absence",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 8192,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 2
+    },
+    {
+      "id": "test_absence",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+        "test_absence",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 8192,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 2
+    },
+    {
+      "id": "install_app",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+        "payload_app",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 8192,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 2,
+      "payloadPin": {
+        "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\install_app-fixture-input.bin",
+        "bytes": 4096,
+        "sha256": "c8f5d0341d54d951a71b136e6e2afcb14d11ed8489a7ae126a8fee0df6ecf193"
+      }
+    },
+    {
+      "id": "install_test",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+        "payload_test",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 8192,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 2,
+      "payloadPin": {
+        "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\install_test-fixture-input.bin",
+        "bytes": 2048,
+        "sha256": "10fc3c51a152e90e5b90319b601d92ccf37290ef53c35ff92507687d8a911a08"
+      }
+    },
+    {
+      "id": "scope_all",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+        "instrument",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\whole-seven\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 8192,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 2
+    }
+  ]
+}

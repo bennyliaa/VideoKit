@@ -1,0 +1,24 @@
+--- frozen-android02/src/com/videokit/d1android/ExperimentContract.java
++++ recovery01/src/com/videokit/d1android/ExperimentContract.java
+@@ -3,18 +3,18 @@
+ /** Exact benign experiment inputs; no external path/URL, encoder selection or execution permit. */
+ public final class ExperimentContract {
+  public static final String APP="com.videokit.d1media3.android02",TEST=APP+".test",PROCESS=APP+":media3";
+- public static final String RUNNER=TEST+".Media3Instrumentation",VERSION="D1-MEDIA3-ANDROID02-CONTAINER";
++ public static final String RUNNER=TEST+".Media3Instrumentation",VERSION="D1-MEDIA3-ANDROID02-RECOVERY01";
+  public static final String SAMPLE_SHA="720957c94b3665ff97bcc2f59ad5407c5ca54f566b59865723be9eecc0a6a1f9";
+  public static final int SAMPLE_BYTES=349102,RECEIPT_UTF8_MAX=262144;
+  public static final long METHOD_DEADLINE_MS=60000;
+  public enum Method {
+-  inspectKnown(65536,false,-1),inspectShort3(3,false,-1),inspectUnknown(65536,true,-1),inspectSeek1s(65536,false,1000000),preopenAdmission(65536,false,-1),muxQualified(65536,false,-1),rejectFixture(65536,false,-1),cancelLateRead(65536,false,-1),writerPending(65536,false,-1),bbbObserve(65536,false,-1);
++  scopeAll(65536,false,-1),inspectKnown(65536,false,-1),inspectShort3(3,false,-1),inspectUnknown(65536,true,-1),inspectSeek1s(65536,false,1000000),preopenAdmission(65536,false,-1),muxQualified(65536,false,-1),rejectFixture(65536,false,-1),cancelLateRead(65536,false,-1),writerPending(65536,false,-1),bbbObserve(65536,false,-1);
+   public final int chunk;public final boolean unknown;public final long seekUs;
+   Method(int c,boolean u,long s){chunk=c;unknown=u;seekUs=s;}
+  }
+  public static Method admit(Map<String,String> args)throws IOException {
+   if(!args.keySet().equals(Set.of("case","fixtureSha256","runId"))||!QUALIFIED.sha256.equals(args.get("fixtureSha256"))||args.get("runId")==null||!args.get("runId").matches("D1MA02-[A-Z0-9_-]{1,32}"))throw new IOException("EXPERIMENT_ARGUMENT_REJECTED");
+-  try{return Method.valueOf(args.get("case"));}catch(RuntimeException bad){throw new IOException("EXPERIMENT_METHOD_REJECTED");}
++  try{Method m=Method.valueOf(args.get("case"));if(m!=Method.scopeAll)throw new IllegalArgumentException("EXPERIMENT_BATCH_ONLY");return m;}catch(RuntimeException bad){throw new IOException("EXPERIMENT_METHOD_REJECTED");}
+  }
+  /** Only the exact independently qualified synthetic asset is registered. BBB remains observation-only. */
+  public static final class QualifiedFixture {

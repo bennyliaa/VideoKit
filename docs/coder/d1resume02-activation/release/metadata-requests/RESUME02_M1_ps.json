@@ -1,0 +1,19 @@
+{
+  "schema": "RESUME01_CAPTURE_REQUEST_V1",
+  "id": "RESUME02_M1_ps",
+  "policySha256": "6d982a8341168c8d4d839a653aefbefd9e8999a9079828299bd0b4266a52f083",
+  "scope": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs",
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "ps",
+    "-A",
+    "-o",
+    "USER,PID,PPID,NAME,ARGS"
+  ],
+  "maxTextBytes": 65536,
+  "qualificationSeconds": 15
+}

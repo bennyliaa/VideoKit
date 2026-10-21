@@ -1,0 +1,143 @@
+{
+  "audit": "PASS_ORIGINAL_EVIDENCE_INTEGRITY_NOT_PRODUCT_PASS",
+  "calls": [
+    {
+      "file": "00-environment.json",
+      "bytes": 47267,
+      "sha256": "b964b64e192651fa7df77fd37c1c3b1e6074550e38db97b4042a3b14fc642ce8",
+      "exit": 0,
+      "elapsedSeconds": 0.344,
+      "stdoutBytes": 22784,
+      "stderrBytes": 0,
+      "hostOwnership": "RETURNED"
+    },
+    {
+      "file": "01-logcat-help.json",
+      "bytes": 13899,
+      "sha256": "62e25af231333c53e72b7bf554f815abba4a9c503202b914f789a9ff2b6bc677",
+      "exit": 0,
+      "elapsedSeconds": 0.093,
+      "stdoutBytes": 0,
+      "stderrBytes": 6249,
+      "hostOwnership": "RETURNED"
+    },
+    {
+      "file": "02-private-admission.json",
+      "bytes": 4240,
+      "sha256": "9d3a30879583e52c5ba2a5789f4cc6737921296449fccfd4f850586c944e43ed",
+      "exit": 0,
+      "elapsedSeconds": 0.328,
+      "stdoutBytes": 623,
+      "stderrBytes": 0,
+      "hostOwnership": "RETURNED"
+    },
+    {
+      "file": "03-post-failure-private-state.json",
+      "bytes": 9032,
+      "sha256": "7b41465c45b07130aa904c7b711b21df0cd9965c44e4d51b64ab2cf34e896294",
+      "exit": 0,
+      "elapsedSeconds": 0.516,
+      "stdoutBytes": 2530,
+      "stderrBytes": 0,
+      "hostOwnership": "RETURNED"
+    },
+    {
+      "file": "04-post-instrumentation-state.json",
+      "bytes": 1896,
+      "sha256": "a98790fbe7bf7dddef1770f768b75376ad808b5b131b9719fafc03e2805a0a3b",
+      "exit": 0,
+      "elapsedSeconds": 0.187,
+      "stdoutBytes": 171,
+      "stderrBytes": 0,
+      "hostOwnership": "RETURNED"
+    },
+    {
+      "file": "normalMp4SixRealFrames-instrumentation.json",
+      "bytes": 6824,
+      "sha256": "bdd4c062849c239336194ad0dc6fcd8ff5873c1c0eb615de54e04638901712de",
+      "exit": 0,
+      "elapsedSeconds": 17.75,
+      "stdoutBytes": 2500,
+      "stderrBytes": 0,
+      "hostOwnership": "RETURNED"
+    },
+    {
+      "file": "normalMp4SixRealFrames-logcat.json",
+      "bytes": 15213,
+      "sha256": "0d4ab0f1fbc092645e4057d4a110552a9dd1ab7ad962feae4160fa40efa60231",
+      "exit": 0,
+      "elapsedSeconds": 0.25,
+      "stdoutBytes": 6789,
+      "stderrBytes": 0,
+      "hostOwnership": "RETURNED"
+    },
+    {
+      "file": "normalMp4SixRealFrames-start-clock.json",
+      "bytes": 1488,
+      "sha256": "1b53f90cb3e45861d9d02ca16b930a34c9db19e204721ebc8e594b857f85559e",
+      "exit": 0,
+      "elapsedSeconds": 0.109,
+      "stdoutBytes": 12,
+      "stderrBytes": 0,
+      "hostOwnership": "RETURNED"
+    }
+  ],
+  "independentReview": {
+    "status": "FAIL_PENDING_DEPENDENTS_BLOCKED",
+    "dependentEncoderAdmitted": false,
+    "method": "normalMp4SixRealFrames",
+    "batch": "D1-E4A-N2-TABLET-20261017",
+    "originalReceipt": "normalMp4SixRealFrames-instrumentation-stdout.txt",
+    "originalReceiptSha256": "6dd62e481bf2322a76b8149c59beb9ad9cff9b48c94dc835e1d26f053f31d3e8",
+    "sourceFrames": 0,
+    "encoderInputs": 0,
+    "encoderOutputs": 0,
+    "productResourcesReleased": false,
+    "budgetPending": true,
+    "settlementPresent": false,
+    "consumedSettledBytes": 0,
+    "outstandingReservationBytes": 2097152,
+    "independentRejectionAdmitted": false,
+    "cancelAdmitted": false,
+    "reason": "Same service/Sink/stable ledger pending; no independent unknown-free capability session proven"
+  },
+  "identityRecord": {
+    "magic": "E4A_ORIGINAL_IDENTITY_V1",
+    "batch": "D1-E4A-N2-TABLET-20261017",
+    "budget": "730a73e1-50e1-4198-a515-047104f00e31",
+    "task": "86cafdb30fc4447d920bb19c884bf494",
+    "epoch": 5131975343750146374,
+    "generation": 1,
+    "serviceInstance": "775a5ee9-fff3-4340-a03b-97751099c0c4",
+    "hostUid": 10221,
+    "serviceUid": 10221,
+    "outputTask": "86cafdb3-0fc4-447d-920b-b19c884bf494"
+  },
+  "journalRecord": {
+    "magic": 1161052465,
+    "task": "86cafdb3-0fc4-447d-920b-b19c884bf494",
+    "state": 0,
+    "epoch": "a256356e-361b-47a0-b2e9-32dce4ccea8e",
+    "granted": true
+  },
+  "identityBytes": 225,
+  "journalBytes": 85,
+  "fixtureFullHashBytesExecuted": 698204,
+  "fixtureFullHashBytesPlannedAllFour": 1475003924,
+  "extraFixtureHashBytes": 0,
+  "productCpuRequestsObserved": 0,
+  "productCpuReadBytesObserved": 0,
+  "productOutputHashBytesProven": 0,
+  "productOutputProtocolSha": "UNKNOWN",
+  "hostClientOwnersReturned": true,
+  "activeHostClientHandles": [],
+  "productProtocolOwnership": "UNKNOWN_NOT_RELEASED_DESPITE_SYSTEM_PROCESS_EXIT",
+  "methods": {
+    "normalMp4SixRealFrames": "FAIL",
+    "normalAviSixRealFrames": "BLOCKED",
+    "capabilityDenialDoesNotOpenSource": "BLOCKED",
+    "cancelRejectsWrongEpochOversizeAndLateFrame": "BLOCKED"
+  },
+  "methodArtifactBytes": 34020,
+  "batchArtifactBytesBeforeAudit": 160881
+}

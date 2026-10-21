@@ -1,0 +1,46 @@
+{
+  "status": "BLOCKED_PRE_SDK_CAPTURE_CAPABILITY",
+  "sourceAuditOnly": true,
+  "sdkCalls": 0,
+  "nativeSourceOrListenerQueries": 0,
+  "claimOrLiveLedgerQueries": 0,
+  "deviceOccupancyCurrent": "NOT_OBSERVED",
+  "captureRootInitialized": false,
+  "newFrameworkCreated": false,
+  "sources": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\tools\\capture_metadata.ps1",
+      "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\tools\\observe_original.ps1",
+      "sha256": "0667bc7fe93cf2010cd337eeafaeabd94b7a795efa74059365af3fb83c8485b8"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\e11_tablet_batch.py",
+      "sha256": "1171536a8118ff662b2bebc9f6f460531f713d07b110f2526e0bdc021f4a01be"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_C14_EVIDENCE\\prepare_device.py",
+      "sha256": "d2d513bdec694778f5296f615c99708f61c67096a1c4ee4b892c5c8e3d6836ae"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1c14\\tools\\transfer_fixtures.py",
+      "sha256": "73de47c164ea6ad1611deae11a0ca527649b18cbf3cd5c4da662f5cdadc25f66"
+    }
+  ],
+  "blockingReasons": [
+    "Approved metadata entry fixes five argv/phase/cap slots; new identity/install/fixture/runner/binary screenshot requests are not admissible.",
+    "Approved original Java observer accepts only two frozen E13 Java host roles and32768/81920 text caps, not direct SDK commands or new RenderDeviceTests.",
+    "Original binary stdin fixture input and screenshot owner/timing/bytes not covered by reviewed dispatcher.",
+    "Earlier E11 communicate buffers until return and checks cap afterward; timeout path no longer drains same pipes. Earlier C14 subprocess.run(timeout) may terminate original child; cannot reuse these for this no-kill/actual-capture batch.",
+    "Old socket fixture transfer is fixed to old com.videokit.app/files/d1_c14_fixtures, not this new sandbox; changing role or transport is not authorized by reuse-only condition."
+  ],
+  "prohibitedWorkarounds": [
+    "Do not disguise new methods as old E13 roles",
+    "Do not use OFFLINE_FIXTURE to start SDK",
+    "Do not alter frozen argv/regex/cap/production checks",
+    "Do not create replacement custodian/protocol",
+    "Do not spend first SDK checks before the whole required capability gate passes"
+  ]
+}

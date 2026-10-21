@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "candidate": "D1-20261017-E4A",
+  "status": "NOT_RUN",
+  "executionAuthorized": false,
+  "androidExecution": "NOT_RUN",
+  "nativeFaultExecution": "NOT_RUN",
+  "testClass": "com.videokit.spike.e4.E4DeviceTests",
+  "singleApp": true,
+  "applicationId": "com.videokit.app",
+  "instrumentationIsNotCompanion": true,
+  "devices": "Android 12 phone/tablet independently; current connection/enabled state unobserved",
+  "formalCoordinatorHandoffRequired": true,
+  "cases": [
+    {
+      "order": 1,
+      "method": "normalMp4SixRealFrames",
+      "group": "NORMAL",
+      "status": "NOT_RUN",
+      "preconditions": [],
+      "lastSingleCase": false
+    },
+    {
+      "order": 2,
+      "method": "normalAviSixRealFrames",
+      "group": "NORMAL",
+      "status": "NOT_RUN",
+      "preconditions": [],
+      "lastSingleCase": false
+    },
+    {
+      "order": 3,
+      "method": "capabilityDenialDoesNotOpenSource",
+      "group": "INDEPENDENT_NEGATIVE",
+      "status": "NOT_RUN",
+      "preconditions": [],
+      "lastSingleCase": false
+    },
+    {
+      "order": 4,
+      "method": "binderRefusesBeforeBeginAndOversizeParcel",
+      "group": "INDEPENDENT_NEGATIVE",
+      "status": "NOT_RUN",
+      "preconditions": [],
+      "lastSingleCase": false
+    },
+    {
+      "order": 5,
+      "method": "cancelRejectsWrongEpochOversizeAndLateFrame",
+      "group": "CANCEL_LATE",
+      "status": "NOT_RUN",
+      "preconditions": [
+        "SAME_DEVICE_REVIEWED_NORMAL_RECEIPT"
+      ],
+      "lastSingleCase": false
+    },
+    {
+      "order": 6,
+      "method": "selfKillOtherCpuContinuesAndOldGenerationRejected",
+      "group": "HOST_OTHER_TASK",
+      "status": "NOT_RUN",
+      "preconditions": [
+        "SAME_DEVICE_REVIEWED_NORMAL_RECEIPT"
+      ],
+      "lastSingleCase": true
+    },
+    {
+      "order": 7,
+      "method": "nativeSegvOtherCpuContinuesAndOldGenerationRejected",
+      "group": "HOST_OTHER_TASK",
+      "status": "NOT_RUN",
+      "preconditions": [
+        "SAME_DEVICE_REVIEWED_NORMAL_RECEIPT"
+      ],
+      "lastSingleCase": true
+    },
+    {
+      "order": 8,
+      "method": "closeUnprovenRetainsPermitAndNeverReady",
+      "group": "RESOURCE_QUARANTINE",
+      "status": "NOT_RUN",
+      "preconditions": [
+        "SAME_DEVICE_REVIEWED_NORMAL_RECEIPT"
+      ],
+      "lastSingleCase": true
+    }
+  ],
+  "arguments": {
+    "e4Case": "Exact selected method; whole class forbidden",
+    "e4Batch": "Coordinator-reviewed D1-E4A-[A-Za-z0-9-]{8,80}; does not create or reset any output credit",
+    "e4NormalReceiptSha256": "Externally verified same-device normal receipt, mandatory for dependent cases; syntax is not authorization",
+    "e4Quarantine": "LAST_SINGLE_CASE for three fault/quarantine methods",
+    "e4BudgetIdentity": "Externally reviewed stable UUID; same private persistent ledger across all methods/host restarts; changing UUID cannot reset existing anchor"
+  },
+  "fixtures": [
+    {
+      "name": "basic.mp4",
+      "relativeAppPath": "files/e4_fixtures/basic.mp4",
+      "bytes": 349102,
+      "sha256": "720957c94b3665ff97bcc2f59ad5407c5ca54f566b59865723be9eecc0a6a1f9"
+    },
+    {
+      "name": "subtitle.avi",
+      "relativeAppPath": "files/e4_fixtures/subtitle.avi",
+      "bytes": 736454656,
+      "sha256": "3f0bf3e9fa6f24130a546fee5be98ba43274959cdc0df82a2ee74306ad4ef52f"
+    }
+  ],
+  "fixturePolicy": "Tester preprovisions authorized copies only after handoff; no local stat/bytes; bounded pre/post complete hash on device; no automatic copying/downloading",
+  "budgets": {
+    "frames": 6,
+    "width": 256,
+    "height": 144,
+    "rgbaFrameBytes": 147456,
+    "queue": 2,
+    "consumer": 1,
+    "encoder": 1,
+    "cpuSlots": 2,
+    "reachableRgbaCopiesConservative": 16,
+    "reachableRgbaBytes": 2359296,
+    "yuvBytes": 55296,
+    "frameParcelBytes": 196608,
+    "callbackParcelBytes": 16384,
+    "outputBytes": 2097152,
+    "outputDirectoryAggregateBytes": 4194304,
+    "outputDirectoryFileRecords": 128,
+    "negotiationAttempts": 4,
+    "negotiationSeconds": 12,
+    "pipelineSeconds": 60,
+    "methodLogBytes": 4194304,
+    "batchLogBytes": 33554432,
+    "cumulativeOutputConsumptionBytes": 4194304,
+    "reservationPerOutputBytes": 2097152,
+    "ledgerMetadataBytes": 131072,
+    "ledgerOutputRecords": 128,
+    "ledgerEvents": 256,
+    "outputIdentityAndJournalMetadataBytes": 131072,
+    "ledgerAnchorBytes": 36,
+    "ledgerPendingMarkerBytes": 0,
+    "sourceFullHashReadsForAllEightOnce": 1477098536,
+    "outputHashReadsPerAdmittedOutputMax": 6291456
+  },
+  "stopRules": [
+    "No same-condition retry for desired signal",
+    "Missing normal prerequisite blocks dependent cases",
+    "PENDING or UNKNOWN preserves original owners/permit; no following encoder reuse",
+    "Preserve failed outputs and historical caches; never delete to make room",
+    "Do not execute connected/managed Gradle tasks; this package contains no device runner",
+    "Historical C14 73 and two NOT_RUN signal gates unchanged; system status0 remains UNKNOWN_FAIL",
+    "Changing batch/UUID or rebuilding host must never erase original pending marker or restore output credit",
+    "Cumulative or metadata budget refusal stops dependent encoders; no increased limits or repeat",
+    "Cancellation query observes original CONTROL and final budget-return within original30s; no timeout renewal"
+  ],
+  "claimLimits": [
+    "Same-UID codec is a crash boundary, not RCE/permission isolation",
+    "Source/output compressed parser remains ordinary isolated",
+    "Compile/JVM results are not Android codec, hardware, process fault or actual resource evidence",
+    "Device tests do not close original P0 or §29"
+  ],
+  "localActivity": {
+    "adbCalls": 0,
+    "deviceRuns": 0,
+    "nativeFaultRuns": 0,
+    "mediaStatCalls": 0,
+    "mediaBytesRead": 0
+  },
+  "persistentBudgetPolicy": "Global app-private e4a_output_budget independent of method/batch/host instance; R reserves2MiB, S charges actual closed length+SHA. Deleted output never refunds. operation.pending blocks other holders/hosts before any initialization and remains on all unknown paths; only original fully drained session can settle and remove. No reset/recovery API.",
+  "quarantineScheduling": "Three alternative last-single-case branches, not a runnable sequence. First PENDING marker blocks later encoders even after host restart. Remaining branches BLOCKED until separately reviewed lawful resolution of original unknown ownership; no new ledger identity/root/data reset workaround."
+}

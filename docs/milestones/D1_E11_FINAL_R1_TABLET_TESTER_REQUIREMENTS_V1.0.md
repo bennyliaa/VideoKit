@@ -1,0 +1,23 @@
+# D1 E11 final R1 平板部署与回归要求 V1.0
+
+来源：负责人 VideoKit项目助理 thread01a107c3-2bf9-7fa0-94a0-234258ca6774 正式派发 E11_FINAL_R1_TABLET。人类真实消息“授权在项目开发测试过程中使用真机测试，无需再授权。”及紧随其后的“如果有其他项目在使用真机测试，可以稍后再试。”已通过 read_thread 核实，保存于 docs/tester/D1_E11_DEVICE_AUTHORITY_20261018.json；此次明确解除此前E11设备激活/播放限制，后续常规真机使用无需重复授权。
+
+设备被其他项目、instrumentation或受管任务占用时不抢占、不中断、不安装覆盖、不并发。记录等待，待明确空闲从未执行步骤续行。只允许在正常半小时状态检查或占用者结束通知后有限一次复查尚未启动的占用前置门，不高频ADB；不得重发UNKNOWN的安装/产品/EXEC/ACK，已成功结果保留复用。设备不可用报告不轮询、不重复问授权。
+
+依据已审基础与R1 DEVICE_EXECUTION_APPENDIX 和独立报告 docs/tester/D1_E11_ARCHITECTURE_REVIEW_REPORT_V1.0.md，SHA cf905ea90b30899fdfe0724920d6f869c55c5a486c184879fbda83bd423a9e5f。只限HA1Q6WXR/user0、原UID10221/10222、原签名。原head6ce0f654a5bec6527a6773b141f64e49e858d3ef2e51c8c2e52360fd9ce0a4e5、5853B catalog SHA27fe90573f2d8a3a750c270e760f4e19e797fe188287ade5c58268e8c6d911b7和接受的终局报告a597bca5c392aaf142f1fa5e74ab4a1aa869fb3cdc367df5005af54e335feaff准确绑定。
+
+先建本批真实scope及单向绑定release/config/input-index和统一资源账本，不挪旧N2写scope升权，不用随机hash充批准。唯一最终R1 JAR adb7b384ed305c925be7b2a670f33063e8d4309e085f1a6b7950f4b7125ebc27；目标v15 app2f323c16e896b0535e80cccce05bbcf3051224f0add279a51392312083e89f48/teste644dce77be6ccb0e7f99d82f2479fc92238aad682bb022bb95835fc015d0bfb，原证书5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f。不得用基础旧JAR。
+
+当前来源须精确E10A14 PREPARE app611672a9f2a7eab3f08a495832d513e79ee446cb1a9f99001fe323e944f2af54/test2ee2ada85cbbe6e6a4a8d145a8d7b30a2cebe6a8be4d4c9413f2cd906e36f76b、无相关在途、原数据目录身份、旧guard/fence/13metadata/完整ledger接受前缀与合法结算后缀、无pending、原107218/三R三S和三迁移记录资格。现场不同（含已15）停止，不改pin、不重装。非零媒体不预读payload、不重传或额外全量扫描。
+
+新scope明确允许新执行目录中的唯一 activation-deployment.once 主机控制记录≤4096B及常规外部证据写入；其固定绝对路径由config SHA采纳，父目录预存在且全路径无symlink、原registry之外。生产CREATE_NEW/force/readback/原close全返后才部署；记录已存在/部分/未知不删除、不换path/JVM重试。原终局registry/events/head只读不append。受管14→15 app/test install-r各一次保数据；安装后核exactpair/version/ACTIVATION/ABI/UID/signature/原数据目录和旧档。未知安装不重发，不卸载、clear、降级或强停。
+
+部署成功后只运行四个精确单方法、各自独立Android host：normalMp4SixRealFrames→本scope真实独立完整READY接受并生成receipt1→normalAviSixRealFrames→两个不同normal task/report原证据独立接受并生成receipt2→capabilityDenialDoesNotOpenSource→进一步条件满足才cancelRejectsWrongEpochOversizeAndLateFrame。每host必须当前原guard/fence/13metadata/完整合法ledger/无pending/精确三记录及自己的原holder真返才grant；历史catalog、旧或模拟normal回执不能直接grant。不得旧迁移、整类、额外故障/信号、ABORT或actor2。
+
+normal接受必须真实6源/6输入/6samples/6accepted、PTS1000us、双EOF-drain、content-thumbnail及完整source-validator诊断、READY、所有原FD/slot/CPU死亡/owner/control返回、唯一R/S无pending。本批normal回执准确绑定scope、actualpair、v15/catalog/batch、独立实际报告SHA/task。能力核生产source opens/bytes/reads0及无READY和原资源归还；cancel依附录条件及原门。
+
+旧107218消费/三R三S/原档及产物绝不删改；正常新输出允许合法追加消费。每项2MiB全额预留、总4MiB、128任务，下一预留不足停止，不清账换budget。原60s方法/12s协商/15s启动/首次cancel30s/每CPU64MiB与8192reads/三次输出hash6MiB等不扩。统一台账累计PC原操作≤96、总accept128、受审查询≤16、5s控制/55s一般响应、原输出/日志1MiB、48owner，不按新进程清零，不设备Gradle并发、不手机/模拟器。
+
+任何FAIL/BLOCKED/PENDING/UNKNOWN/证据缺失停止后继，保现场及原受管handle；runner未知不得自行结束，禁止kill、restart、换port、强制close或重跑求PASS。允许必要测试侧受管客户端/有限主机适配，仅调用已冻结生产监督器和精确受审方法，不修改候选/框架或增加预算。无副作用主机只读兼容错误最多2次，留痕修正复用成功结果，不适用于安装/产品或UNKNOWN重试。
+
+交付集中 docs/tester/D1_E11_FINAL_R1_TABLET_EXECUTION_REPORT_V1.0.md，含once/原raw/独立实际normal receipt与控制资源账本，主动发负责人。无中间小功能交接。D1整体未过、M0未启、其他P0许可及历史FAIL/UNKNOWN/oldCloseACK=false保持，实测仅关闭对应范围。完成停止等待。

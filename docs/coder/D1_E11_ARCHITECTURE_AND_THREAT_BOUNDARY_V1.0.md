@@ -1,0 +1,15 @@
+# D1 E11 架构与威胁边界 V1.0
+
+继续采用已审签名代码/受信本机执行者的合作故障边界。SHA绑定真实输入，不认证批准人的身份；同UID主动篡改、root、自洽回滚及远端撤销服务不在本批新增承诺内。不新增密钥、远端根、普通文件自证authority或取消框架。
+
+authority单向DAG：真实迁移原身份/BOUND→原三记录→COMMIT原返回→normalfinish→四事件最终head→catalog/checkpoint/seal→独立终局接受→source-pinned ACTIVATION policy→签名APK真实SHA（构建后）→未来独立批准release。APK不含其自身hash，release不反写原event/catalog。旧authorization/review仍是原历史来源，不代表E11安装批准。
+
+实时准入是另一条链：每新host的已审catalog类型→当前平台idle→原owner/lease准确身份与fence→13旧metadata/完整合法ledger及settled后缀/无pending→精确intent/acceptance/commit→本host全部原holder真实返回→epoch一致的进程内grant。普通E9Record、设备自选digest、磁盘commit或外部normal receipt布尔字段不能替代该链。E9Catalog.Trusted只能由reviewed digest/head/environment路径得到；旧observer/recovery公共路由仍禁用。
+
+成功观察完成并移出ACTIVE后才可能发grant。已知失败即使holder已真返也不发grant；此时可以解除不再需要的keeper。UNKNOWN/ALLOCATING/CLOSING/在途不能移出ACTIVE或第二close，保留原对象。新runner在platform finish前调用实际lifetime门，若当前观察/原Session/slot/旧操作未返则拒结束；不为JUnit失败强行结束原资源。开始新观察和runner结束都撤销旧grant；并发epoch在等待class锁之前失效，旧观察不能晚发grant。有限本机交错验证不代表Android内核UNKNOWN测试。
+
+测试选择和normal receipts仅约束受信批次流程：精确class#method/batch/稳定budget/独立终局报告、同scope和actual candidate pair；AVI需MP4，能力及cancel需两份不同报告/task。记录还须声称READY、6/6/6、fullEOF、PTS1000us、ownersReturned，并由外部独立核原证据。APK只核结构/绑定，无法认证这些声明；每个测试@Before仍做真实当前观察，选择通过不发grant。旧test调用写迁移时实际app role ACT拒首写；新test manifest只注册E11 runner，不声明旧managed迁移入口。
+
+部署沿用原精确字节/source role/ABI/签名/UID/idle/升版门、原Process/pipe/55秒一般任务和5秒控制解码、同JVM非daemon custodian/128总accept/有限查询。新增detached入口读原final registry与当前独立批准release，不写原registry。partial/UNKNOWN install不重试，不能以install结束未知actor。批准尚未存在时模板不是合法release；REVOKED role/未知schema/未匹配pin都拒绝。
+
+框架帧/资源/ABI和全部native严格六帧/完整EOF/1000us不变。没有对原V1缺birth补证、没有改oldCloseACKfalse或旧三R三S；对当前13原metadata和合法账本后缀验证不能被历史age替代。独立Kit/Flutter/许可与D1总体验收均未由本批源码或模拟测试完成。

@@ -1,0 +1,83 @@
+{
+  "candidate": "D1-20261020-RESUME01",
+  "status": "FROZEN_FOR_STATIC_REVIEW_NOT_DEVICE_DISPATCH",
+  "appVersion": 19,
+  "fixtureVersion": 3,
+  "hostJar": {
+    "path": "docs/coder/d1resume01/artifacts/resume01-host-tools.jar",
+    "bytes": 323124,
+    "sha256": "03a27c74061b740a879e2dfec3341b0b07172c68bf374b9231c20e42a46566c5"
+  },
+  "observer": {
+    "path": "docs/coder/d1resume01/tools/observe_original.ps1",
+    "bytes": 9215,
+    "sha256": "0667bc7fe93cf2010cd337eeafaeabd94b7a795efa74059365af3fb83c8485b8"
+  },
+  "targetApks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk",
+      "bytes": 10708622,
+      "sha256": "938d70fbc70fd9bfdbef4ac37d2d83a66d7260e88e8c3c62bb2d022ea427908e",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug-androidTest.apk",
+      "bytes": 2774237,
+      "sha256": "4227751bf659fca9efc8a8d2d32d5ce754bcbef9033e15a0c92ab7537dca9dd7",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/fixture-debug.apk",
+      "bytes": 80041,
+      "sha256": "a8c86650ae756f682fb2cbaaa896424974893282026525266e7b1912a8dd1867",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "disposition": {
+    "path": "docs/coder/d1resume01/disposition/reviewed-original-disposition.json",
+    "bytes": 610,
+    "sha256": "7270e5c0208d2895394bbd1cd25508b239bbe7a711a40b3e8d2b3d59a37a265d"
+  },
+  "administrativeReview": {
+    "path": "docs/coder/d1resume01/disposition/administrative-review.json",
+    "bytes": 683,
+    "sha256": "ad8a97b052a0b2c1764a0eca7267d1766d6dc9cdad8c443e26feada66111c1bd"
+  },
+  "authorization": {
+    "path": "docs/coder/d1resume01/disposition/authorization.json",
+    "bytes": 749,
+    "sha256": "7a0e74be8f2764426f85e4353b0f47c0e13e718bd05a1f8543af7e94aebbbd03"
+  },
+  "budget": {
+    "path": "docs/coder/d1resume01/release/exact-budget.json",
+    "bytes": 1618,
+    "sha256": "f1c2b86505c839014bb389809ebac2940d8319d9a1643092d2fd6c6ed4a2f419"
+  },
+  "scopeTemplate": {
+    "path": "docs/coder/d1resume01/release/templates/scope.template.json",
+    "bytes": 853,
+    "sha256": "2bba87a17a1f8c19a068f6710133ad10cd54081f71ee5880f53f523a0f1b2e8c"
+  },
+  "releaseTemplate": {
+    "path": "docs/coder/d1resume01/release/templates/activation-release.template.json",
+    "bytes": 595,
+    "sha256": "1e35d4147335a9f59b045239a8a7bdd6533ef09db7159781b38babd0f1d34c4e"
+  },
+  "sourceReview": null,
+  "actualScope": null,
+  "actualRelease": null,
+  "actualOnce": null,
+  "T07": "NOT_RUN",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "deviceHold": "OTHER_PROJECT_FOREGROUND_IN_LAST_SNAPSHOT_FRESH_M1_REQUIRED",
+  "frozenE13FUnmodified": true,
+  "claimInspection": "NOT_PERFORMED_NO_REAL_CUSTODY_ROOT_ACCESS",
+  "recordInstallation": "NOT_PERFORMED; reviewed-original-disposition.json is in delivery folder only, not live custody root"
+}

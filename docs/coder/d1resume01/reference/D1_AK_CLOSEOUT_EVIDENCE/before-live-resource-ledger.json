@@ -1,0 +1,46 @@
+{
+  "scope": "aeefe32f-816d-4c0b-aca7-16f76dbd45ff",
+  "maxOriginalOperations": 50,
+  "chargedOriginalOperations": 37,
+  "maxTextBytes": 2097152,
+  "originalTextBytes": 114005,
+  "hostReadOperations": 0,
+  "startServerOperations": 0,
+  "occupancyRetries": 0,
+  "pcControlConnections": 0,
+  "initialChargeExplanation": "New independent E13C batch; no prior balance or ENV recovery inherited",
+  "events": [
+    {
+      "id": "01-M1_PRE_DEPLOY",
+      "role": "METADATA",
+      "charge": 1,
+      "entered": true,
+      "state": "ORIGINAL_RETURNED",
+      "nestedTextReservation": 0
+    },
+    {
+      "id": "02-DEPLOY",
+      "role": "DEPLOY",
+      "charge": 33,
+      "entered": true,
+      "state": "ORIGINAL_RETURNED",
+      "nestedTextReservation": 524288
+    },
+    {
+      "id": "03-M2_POST_DEPLOY_PRE_CASE",
+      "role": "METADATA",
+      "charge": 1,
+      "entered": true,
+      "state": "ORIGINAL_RETURNED",
+      "nestedTextReservation": 0
+    },
+    {
+      "id": "04-ordinarySenderCannotBindCodec",
+      "role": "CASE",
+      "charge": 2,
+      "entered": true,
+      "state": "ENTERED_ORIGINAL",
+      "nestedTextReservation": 65536
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "overall": "BUILT_OFFLINE_WITH_KNOWN_OBSERVATION_GAPS_PENDING_INDEPENDENT_REVIEW",
+  "mainReport": {
+    "path": "docs/coder/D1_MEDIA3_ANDROID02_BUILD_RECOVERY01_DELIVERY_V1.0.md",
+    "bytes": 11433,
+    "sha256": "a0dbc309e9f7df2c1e07dd0cb0e74330f43b033a7940eb137e66f50079901481"
+  },
+  "finalApks": [
+    {
+      "path": "docs/coder/d1media3-android02-recovery01/artifacts/media3-android02-recovery01-app-debug.apk",
+      "bytes": 7124541,
+      "sha256": "0998beeaa129ef3858fbe1122b80394383f96ad75196c8e4f22b4b856237f6c8"
+    },
+    {
+      "path": "docs/coder/d1media3-android02-recovery01/artifacts/media3-android02-recovery01-test-debug.apk",
+      "bytes": 466368,
+      "sha256": "f8323a1c0d82d23382baf4f776e56b26174fd5354de5e86d897cb979a467f5de"
+    }
+  ],
+  "buildCalls": 2,
+  "classCounts": {
+    "production": 78,
+    "instrumentation": 8
+  },
+  "newPolicyCases": 17,
+  "knownObservationGaps": [
+    "REC-OBS01",
+    "REC-OBS02"
+  ],
+  "AndroidRuntime": 0,
+  "deviceOperations": 0
+}

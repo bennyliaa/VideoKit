@@ -1,0 +1,234 @@
+{
+  "status": "READ_ONLY_FIELD_PLAN_NOT_DEVICE_DISPATCH",
+  "baselineReceipt": {
+    "path": "docs/tester/D1_E11_FINAL_R1_TABLET_EXECUTION/a129ad0a-9d93-49c6-8289-9087afd419ff/evidence/metadata-39-cancelRejectsWrongEpochOversizeAndLateFrame-after-stdout.txt",
+    "bytes": 15584,
+    "sha256": "4e66be568c1da7cd6b50ad51b39d74ddc11b612bfd73eb9e839bae71a9c765f6"
+  },
+  "ledger": {
+    "bytes": 2271,
+    "sha256": "e7d6441ca5bdb050fa8f584152f64da5e6009e4d751ac610f33e42797710b649",
+    "lastChain": "0eadfcd645c9ea796ba13b813c02e1604c128ef619683f1f6f2bb76b68a96a75",
+    "consumed": 214483,
+    "reserved": 0,
+    "tasks": 7,
+    "recordsR": 7,
+    "recordsS": 7,
+    "original107218And3R3SPrefixPreserved": true,
+    "newConsumedDelta": 107265,
+    "newOutputs": [
+      {
+        "task": "acb10ab9-b26c-42b3-b04a-d27417c868fd",
+        "state": "READY",
+        "bytes": 53567,
+        "sha256": "9bfc3de9879578d88329542ff269a554954c24972202f5f147ea4fd019a0ea83",
+        "acceptedStat": "64522|659|10221|8180|53567|112"
+      },
+      {
+        "task": "5b78515c-1699-4374-be66-8b8a367a6dec",
+        "state": "READY",
+        "bytes": 53698,
+        "sha256": "b66d9ec0335c9cc1bb3d42d68ca88687e03b0ecc72ae62b3d387ce5ffd4dcd10",
+        "acceptedStat": "64522|21955|10221|8180|53698|112"
+      },
+      {
+        "task": "64507c9c-a650-462f-9af7-bc2bf32b1f5a",
+        "state": "ABORTED",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "acceptedStat": "64522|18754|10221|8180|0|0"
+      },
+      {
+        "task": "0e3dcbcc-d7db-451e-ad17-00b95c3c04a1",
+        "state": "ABORTED",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "acceptedStat": "64522|19404|10221|8180|0|0"
+      }
+    ]
+  },
+  "fixedStatPaths": [
+    "files",
+    "files/e4a_output_budget",
+    "files/e4a_outputs",
+    "files/e4a_output_budget/N2-e5-recovery",
+    "files/e4a_output_budget/legacy-acceptance",
+    "files/e4a_output_budget/legacy-acceptance/4f21f71a-bf66-4a44-a287-320f0ae25fde",
+    "files/e4a_output_budget/legacy-acceptance/4f21f71a-bf66-4a44-a287-320f0ae25fde/actors",
+    "files/e4a_output_budget/N2-e5-recovery/identity.before",
+    "files/e4a_output_budget/N2-e5-recovery/journal.before",
+    "files/e4a_output_budget/N2-e5-recovery/lease.before",
+    "files/e4a_output_budget/N2-e5-recovery/ledger.before",
+    "files/e4a_output_budget/N2-e5-recovery/recovery.owner",
+    "files/e4a_output_budget/N2-e5-recovery/proof.txt",
+    "files/e4a_output_budget/N2-e5-recovery/guard.identity",
+    "files/e4a_output_budget/identity.anchor",
+    "files/e4a_output_budget/N2-e5-recovery.complete",
+    "files/e4a_output_budget/operation.pending.N2-e5-aborted",
+    "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.identity",
+    "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.journal",
+    "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.lease",
+    "files/e4a_output_budget/ledger.bin",
+    "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.owner",
+    "files/e4a_output_budget/legacy-acceptance/4f21f71a-bf66-4a44-a287-320f0ae25fde/actors/0001.intent",
+    "files/e4a_output_budget/legacy-acceptance/4f21f71a-bf66-4a44-a287-320f0ae25fde/n2-v2.acceptance",
+    "files/e4a_output_budget/legacy-acceptance/4f21f71a-bf66-4a44-a287-320f0ae25fde/n2-v2.commit",
+    "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.mp4",
+    "files/e4a_outputs/0ee15550-8952-4639-91ac-83ab9d14d36c.mp4",
+    "files/e4a_outputs/fbe4330b-111b-4b05-a93c-467413eb8d34.mp4",
+    "files/e4_fixtures/basic.mp4",
+    "files/e4_fixtures/subtitle.avi",
+    "files/e4a_outputs/0e3dcbcc-d7db-451e-ad17-00b95c3c04a1.mp4",
+    "files/e4a_outputs/acb10ab9-b26c-42b3-b04a-d27417c868fd.mp4",
+    "files/e4a_outputs/5b78515c-1699-4374-be66-8b8a367a6dec.mp4",
+    "files/e4a_outputs/64507c9c-a650-462f-9af7-bc2bf32b1f5a.mp4"
+  ],
+  "fixedControlPins": [
+    {
+      "path": "files/e4a_output_budget/N2-e5-recovery/identity.before",
+      "bytes": 225,
+      "sha256": "46b6dd034b8c852bce046d9e1b89d36f7be5538753c505408ebed99c968e8873"
+    },
+    {
+      "path": "files/e4a_output_budget/N2-e5-recovery/journal.before",
+      "bytes": 85,
+      "sha256": "a0eccece0d94a6eb9f8554ce7dde127493b26fd1935c1fac0c0cb9e9d1a39e98"
+    },
+    {
+      "path": "files/e4a_output_budget/N2-e5-recovery/lease.before",
+      "bytes": 36,
+      "sha256": "160829abef2ebb9f1ee2950aa0ea9d69389fac9cedde3b3cf980ed2de71432e9"
+    },
+    {
+      "path": "files/e4a_output_budget/N2-e5-recovery/ledger.before",
+      "bytes": 192,
+      "sha256": "4a8f0409aee7bf91576927b932ad390bf941c465ac303200e6f2bdcdb7d900eb"
+    },
+    {
+      "path": "files/e4a_output_budget/N2-e5-recovery/recovery.owner",
+      "bytes": 104,
+      "sha256": "91944886001df30b3a50c1b0b4382ba259cac2c2342d2c8f2da988484c62f30c"
+    },
+    {
+      "path": "files/e4a_output_budget/N2-e5-recovery/proof.txt",
+      "bytes": 401,
+      "sha256": "0bc78f5a6c54a17f065a997785c7d077512682864062594ccab8c3185438a0c6"
+    },
+    {
+      "path": "files/e4a_output_budget/N2-e5-recovery/guard.identity",
+      "bytes": 82,
+      "sha256": "c2b0936fbb6114548d27df00d7521deb5397457ecbea9399be418a133569e113"
+    },
+    {
+      "path": "files/e4a_output_budget/identity.anchor",
+      "bytes": 36,
+      "sha256": "2b5624333ada8407460c3ef45fd38d21b562b3617736043846d563e198e8aa36"
+    },
+    {
+      "path": "files/e4a_output_budget/N2-e5-recovery.complete",
+      "bytes": 96,
+      "sha256": "fc14064f847a87b92d3227f614f97749fffdca00af8fbbd1e5b4720ff363f37d"
+    },
+    {
+      "path": "files/e4a_output_budget/operation.pending.N2-e5-aborted",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.identity",
+      "bytes": 225,
+      "sha256": "46b6dd034b8c852bce046d9e1b89d36f7be5538753c505408ebed99c968e8873"
+    },
+    {
+      "path": "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.journal",
+      "bytes": 85,
+      "sha256": "a872941459a317d98144335e561d6df0a397cc602365720066047ff83b8e50bf"
+    },
+    {
+      "path": "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.lease",
+      "bytes": 36,
+      "sha256": "3a012de046eae6a636b4e2a28a622f16aac190e1a4fa056e774ac977cb57c104"
+    },
+    {
+      "path": "files/e4a_output_budget/ledger.bin",
+      "bytes": 2271,
+      "sha256": "e7d6441ca5bdb050fa8f584152f64da5e6009e4d751ac610f33e42797710b649"
+    },
+    {
+      "path": "files/e4a_outputs/86cafdb3-0fc4-447d-920b-b19c884bf494.owner",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "files/e4a_output_budget/legacy-acceptance/4f21f71a-bf66-4a44-a287-320f0ae25fde/actors/0001.intent",
+      "bytes": 959,
+      "sha256": "6ab15e02d848613811228f679daea25ee2ec19541ef0ae825e8a89adb47439de"
+    },
+    {
+      "path": "files/e4a_output_budget/legacy-acceptance/4f21f71a-bf66-4a44-a287-320f0ae25fde/n2-v2.acceptance",
+      "bytes": 725,
+      "sha256": "4a1877713ba2b6763d777e73e9b956914a3b5fefa8c8c35c340f81531e6c2adb"
+    },
+    {
+      "path": "files/e4a_output_budget/legacy-acceptance/4f21f71a-bf66-4a44-a287-320f0ae25fde/n2-v2.commit",
+      "bytes": 244,
+      "sha256": "f0fc5dd5cac41d6d702b26d809f28ef52536633f04058a2dfe42e18f3cd7c542"
+    }
+  ],
+  "common": {
+    "serial": "HA1Q6WXR",
+    "device": "TB138FC",
+    "api": 31,
+    "user": 0,
+    "originalClientCount": 3,
+    "maxTextPerClient": 65536,
+    "totalMetadataText": 196608,
+    "maxOriginalResponseSeconds": 55,
+    "extraPcProcessesAllowed": 0,
+    "retryAllowed": false,
+    "mediaPayloadReadAllowed": false,
+    "networkOrPcControlQueries": 0,
+    "controlReadPerFileBound": 4096,
+    "completeLedgerExactBytes": 2271
+  },
+  "clients": [
+    {
+      "id": "M1_PRE_DEPLOY",
+      "fields": [
+        "device serial/model/API/current-user/arm64 and unlocked availability",
+        "existing tester controller device-use evidence; unknown or occupied means stop",
+        "bounded ps PID/PPID/UID/NAME and exact activity instrumentation/service entries for app/test/codec/isolated CPU/fixture; no related live task",
+        "installed v15 exact app/test paths and hashes, UID10221/10222 and data identities10221:6972/10222:4741",
+        "fixture package absent",
+        "fixedStatPaths and fixedControlPins below; complete accepted ledger2271B bytes with 7R7S/214483/0reserved, operation.pending absent, fixed control directory inventory"
+      ],
+      "expected": "all equal accepted E11 snapshot; source fixture files stat only"
+    },
+    {
+      "id": "M2_POST_DEPLOY_PRE_CASE",
+      "fields": [
+        "installed v16 app/test exact paths/hash, role/ABI via reviewed byte allowlist, UID and same data identities",
+        "fixture exact path/hash/version1, actual UID>=10000 distinct10221/10222, different signer by reviewed APK; controller source actual signer records",
+        "bounded matching ps and activity instrumentation/services; no related in-flight work",
+        "device current user remains0"
+      ],
+      "expected": "new reviewed delivery pair/fixture; original data unchanged; no reads of media"
+    },
+    {
+      "id": "M3_AFTER_SIX",
+      "fields": [
+        "same fixedStatPaths/controlPins/accepted complete ledger and fixed inventory as M1; no new output or pending",
+        "final bounded matching ps + activity instrumentation/service records, correlate six runner all-owner tokens and seven original PC natural-close records",
+        "installed target app/test/fixture paths/hash and original data identities still exact"
+      ],
+      "expected": "ledger bytes/hash exactly M1 accepted E11; control pins/stat identities unchanged except directory times not asserted; no live instrumentation/worker/service ownership; cached process alone not proof of live task or completed resource return"
+    }
+  ],
+  "executionConditions": [
+    "Only the existing tester original-process/pipe custodian may run the 3 direct bounded adb shell clients; no extra Java wrappers or helper process silently outside48",
+    "Final exact argv/scripts and per-record bounds must be pinned in formal device scope before use; unknown interface/budget mismatch is BLOCKED for coordinator amendment",
+    "Complete bounded records required; no tail/truncation-as-success, no global dumps/media hash scan, no account credentials/full media path disclosure",
+    "Every original client exit, original stdout/stderr reader and pipe return recorded; pending preserves same process/custodian, no terminate/retry",
+    "Current P1 binding-return finding blocks this candidate; this field plan grants no testing permission"
+  ]
+}

@@ -1,0 +1,41 @@
+# D1 E9A 架构与威胁边界 V1.0
+
+2026-10-18。保留E8A/E9已审查的共享phase、固定catalog无环DAG、2actor有限恢复和真实原holder门；集中修PC管理链路与当前grant失效，不新增远端根、密钥或第三次APK发布。
+
+## 非等待actor与独立状态
+
+HostManager真正构造am instrument -r，不带-w。该client的Process/pipe归还只结算PC启动请求，绝不结算Android actor。LAUNCH前外部intent与原remote责任登记，随后即使client已退出、管道已EOF、甚至actor所有IO已归还，remote责任仍需精确正常finish或类型化原代次终止才完成。
+
+custom runner保持异步受管生命周期；完整actor/returned/snapshot transport仅由DUMP保护的ordered broadcast返回，publish只记snapshot日志。PC每个POLL实际发送STATUS（handle/新seq/state=-1），原Run在同锁内采当前state并扣请求；写/ACK仍绑定精确state。后台原任务可推进，缺actor/returned资格信息不授写。请求未达、截断、拒绝、未知响应均不视为完成，不自动重发EXECUTE/ACK；缺失STATUS序号保守作为已消费请求/STATUS处理，不能扩大8/STATUS3。READ_ONLY_IDENTITY真实身份返回后关闭写入口，STATUS和精确失败/只读finish仍可用，晚到EXEC拒绝。
+
+只读或未提交身份的回执可在原外部identify/returned/finish槽归档收尾，没有reserve、device业务写或COMMIT资格。最终catalog仍严格要求COMMIT phase合格返回；identity-only不能final或凭此续actor2。没有完整V2身份/有效原回执的未知路径不补造boot/start或CLOSED，保持可识别隔离，等待独立处置。
+
+## 原PC生命周期与隔离
+
+E9PcSupervisor在ProcessBuilder.start之前登记原Operation及原starter线程。实际start、stdin/stdout/stderr、原reader、wait、response decoder均保留原对象，线程非daemon；子进程仍活、read先EOF/失败、pipe close在途或UNKNOWN都不能算allReturned。UNKNOWN不重关求成功，生产代码没有destroy/cancel/kill。实际原等待/管道归还后仅更新资源状态，资格PENDING不回成功。
+
+所有HostManager console出口（正常EOF、截断、超界、异常）和Deployment.Processes使用同一个原监督者。主入口停止依赖并等待两种真实结果：all originals归还且本机监听关闭的pcClosed，或由已运行原custodian实际给出的pcIsolationAck。后者只让main方法交接，不让JVM结束：同一个非daemon原线程、静态LIVE强根、原registry/manager/remote/Process/pipe仍在原JVM。测试实际证明main返回后JVM仍活且状态可读，直至原资源真返。不是把对象放在即将退出JVM的局部列表，也不是只join一个已经退出的reader。
+
+本机127.0.0.1状态端点用session handle、PC PID、port、operation UUID和实际child PID识别原对象。STATUS/OP只读不消费Android控制额；CLEANUP仅在原输入关闭后、匹配原已审配置pin时调用原manager，允许POLL/STATUS、STOP、精确归档ACK、归档原回执、独立finish/termination和INSPECT。禁止LAUNCH/RESERVE/EXECUTE/DEPLOY/SEAL_FINAL；已发EXECUTE或ACK在registry命令账中只允许一次。pin复用原受审配置的SHA，不生成新密钥或替代approval。E9PcClient只是该原端点客户端，不接替authority或授新权限。
+
+状态服务的Socket/accept对象同样有原holder，已知无accept的超时与UNKNOWN分开；未知accept/close停后继并保留可识别原监督，不循环新accept掩盖未知。PC最多96个原client记录、128个本机状态连接，属新增PC原对象有限管理，不改Android48 owner、8/STATUS3、10秒或文件/日志界。状态通道本身内核故障的永久UNKNOWN、本机进程被管理员终止等没有通过运行验证，不宣称故障后仍必有可用网络；已有原对象和handle不被变造为close成功。
+
+本模型继续信任本机操作员、受审配置和同签名源码。配置pin是原scope绑定，不宣称对有配置/签名/管理员权限的主动攻击者提供绝对隔离。本机IPC不是新远端信任根，数据文件或查询BOOL不能自行成为真实原返回。手动杀原manager、改registry、重打包旧码或绕过部署门仍不受支持。
+
+## 独立绝对期限
+
+控制响应Operation从接受到结束的原任务只有5秒，包含实际ProcessBuilder启动、原Process/wait、pipe/reader及帧语法/身份/模式/seq验证；decoder在同一个原starter中，未返也保留。到界立即PENDING并停止依赖，不等55秒、不另join1秒、不重置，也不把随后decoder或client返回改成PASS。一般安装/本机工具保留原55秒期限；Android身份/提交仍各独立10秒且入队先保留。
+
+观察测试中的5.0至6.5秒只是父进程计时含调度/隔离交接的有限检测范围，不是将5秒资格扩到6.5秒。原deadline比较始终5秒；受控5.5秒decoder用例在到界仍未返，真实晚返后仍PENDING。
+
+## 当前grant的线性化
+
+每次E9CurrentObservation.observe先调用beginCurrentObservation：清grant并取单调epoch，再进入类串行锁。used/ACTIVE/历史未知早拒也不能沿用旧grant。只有当前最新epoch、实际本host已归还的观察可发布；已有另一调用进入时，旧在途调用即使后来IO全部完成也返回SUPERSEDED_NO_GRANT。requireCurrent/require与发布/撤销同步，Runtime.observe也在authority/context失败之前撤销。
+
+线性化的是新准入与观察尝试，不以取消别的原任务实现撤销；已开始资源仍由原owner负责。旧的物理返回历史可以保持，新的准入grant不能复用。并发定向测试实际持原guard/元数据FileChannel并卡原close，证实旧调用不晚发grant、新调用再成功及重复拒绝均按epoch处理。SDK桩进一步验证实际新APK Runtime拒绝后旧共享grant不可用。
+
+## 保持与未证边界
+
+PREPARE仍固定CATALOG_SHA/BASE64=ABSENT，无文件/回执能激活产品；activation的写迁移入口仍禁用。原accepted prefix1011B与完整合法后缀、107218消费/三R三S、fence/所有历史输出档案、oldCloseACKfalse、严格六帧/EOF/1000us及独立Kit/Flutter/许可P0保持。设备4文件8448B/3目录、外部20文件155648B且≤192KiB+1MiB日志、catalog实现16KiB≤24KiB、2actor/各8控制STATUS3、两phase各10秒、48仅新增Android owner均不扩。
+
+原Android调用/广播权限/原raw或dup关闭/真正boot与start/正常finished inst和当前host实机观察均NOT_RUN。本机Java真实进程不冒称ADB或Android；UID/inode/目录fsync及合成OS日志仍为元数据平台替身。原始失败与合成夹具清理均留痕，清理不授Java ACK。E9A静态自检不自动关闭D1、M0或长期准入。

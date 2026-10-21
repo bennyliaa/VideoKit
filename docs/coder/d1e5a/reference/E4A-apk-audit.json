@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "apks": [
+    {
+      "role": "app-debug",
+      "path": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug.apk",
+      "bytes": 10597168,
+      "sha256": "e4d9d5df28e5dbc5bcb9ac24e8555e457f80822a889fe3736e698fdfa6b9db2f",
+      "applicationId": "com.videokit.app",
+      "signerCertificateSha256": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+      "signingVerified": true,
+      "signingReport": "docs/coder/d1e4a/evidence/app-debug-signing.txt"
+    },
+    {
+      "role": "androidTest",
+      "path": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug-androidTest.apk",
+      "bytes": 2712637,
+      "sha256": "1f7c0e5be2cb1694ef44bc2ae2f5e0e12a32da161c70d976ac4112384c2366be",
+      "applicationId": "com.videokit.app.test",
+      "signerCertificateSha256": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+      "signingVerified": true,
+      "signingReport": "docs/coder/d1e4a/evidence/androidTest-signing.txt"
+    }
+  ],
+  "nativeLibraries": [
+    {
+      "apkPath": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug.apk",
+      "entry": "lib/arm64-v8a/libavcodec.so",
+      "bytes": 1949608,
+      "sha256": "7b514a39a1c314e99fca52e05c8a909a1902ff93af89ba6f132f0cf765190765",
+      "upstreamPath": "docs/coder/d1e4a/upstream-c14/native-libs/arm64-v8a/libavcodec.so"
+    },
+    {
+      "apkPath": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug.apk",
+      "entry": "lib/arm64-v8a/libavformat.so",
+      "bytes": 445504,
+      "sha256": "8fa2c6f5ee62ffa56265b1e128a8e01756db4e9b12631701629104674c11a8ca",
+      "upstreamPath": "docs/coder/d1e4a/upstream-c14/native-libs/arm64-v8a/libavformat.so"
+    },
+    {
+      "apkPath": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug.apk",
+      "entry": "lib/arm64-v8a/libavutil.so",
+      "bytes": 725296,
+      "sha256": "ad6cc7d3a1a0a57c4cc1dd3440c1b93990bfc8526537b82b66ba614114086ad2",
+      "upstreamPath": "docs/coder/d1e4a/upstream-c14/native-libs/arm64-v8a/libavutil.so"
+    },
+    {
+      "apkPath": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug.apk",
+      "entry": "lib/arm64-v8a/libswscale.so",
+      "bytes": 925464,
+      "sha256": "0ca0747d81190bff0b29c287dda09bfff46249167b9745caadd8a5b2e9ee35c6",
+      "upstreamPath": "docs/coder/d1e4a/upstream-c14/native-libs/arm64-v8a/libswscale.so"
+    },
+    {
+      "apkPath": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug.apk",
+      "entry": "lib/arm64-v8a/libvideokit_alloc.so",
+      "bytes": 9768,
+      "sha256": "f085b9cbcdfc758e052f3d4bfe66651278c32ffaa0f99eff6ae173416472252b",
+      "upstreamPath": "docs/coder/d1e4a/upstream-c14/native-libs/arm64-v8a/libvideokit_alloc.so"
+    },
+    {
+      "apkPath": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug.apk",
+      "entry": "lib/arm64-v8a/libvideokit_cpu.so",
+      "bytes": 18552,
+      "sha256": "ed02feb238b26ea2ac53b6ae2eafca3d3131d74ebfdfd52c39ff3a925648e9a7",
+      "upstreamPath": "docs/coder/d1e4a/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so"
+    },
+    {
+      "apkPath": "docs/coder/d1e4a/artifacts/D1-20261017-E4A/final/app-debug.apk",
+      "entry": "lib/arm64-v8a/libvideokit_d1_lease.so",
+      "bytes": 7232,
+      "sha256": "2ec60d4605df87ea9bdabaf5f40822c32c57fa300201f647b2b88158c7dcf4e9",
+      "upstreamPath": "docs/coder/d1e4a/upstream-c14/native-libs/arm64-v8a/libvideokit_d1_lease.so"
+    }
+  ],
+  "singleApk": true,
+  "services": [
+    {
+      "name": "com.videokit.spike.e4.E4CodecService",
+      "process": ":e4_codec",
+      "exported": false,
+      "isolatedProcess": false
+    },
+    {
+      "name": "com.videokit.spike.c14.CpuIsolatedService",
+      "process": ":d1_cpu_worker",
+      "exported": false,
+      "isolatedProcess": true
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "D:/Android/Android Studio/jbr/bin/java.exe",
+        "-jar",
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\lib\\apksigner.jar",
+        "verify",
+        "--verbose",
+        "--print-certs",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e4a\\artifacts\\D1-20261017-E4A\\final\\app-debug.apk"
+      ],
+      "exitCode": 0,
+      "log": "docs/coder/d1e4a/evidence/app-debug-signing.txt"
+    },
+    {
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt2.exe",
+        "dump",
+        "badging",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e4a\\artifacts\\D1-20261017-E4A\\final\\app-debug.apk"
+      ],
+      "exitCode": 0,
+      "log": "docs/coder/d1e4a/evidence/app-debug-badging.txt"
+    },
+    {
+      "argv": [
+        "D:/Android/Android Studio/jbr/bin/java.exe",
+        "-jar",
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\lib\\apksigner.jar",
+        "verify",
+        "--verbose",
+        "--print-certs",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e4a\\artifacts\\D1-20261017-E4A\\final\\app-debug-androidTest.apk"
+      ],
+      "exitCode": 0,
+      "log": "docs/coder/d1e4a/evidence/androidTest-signing.txt"
+    },
+    {
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt2.exe",
+        "dump",
+        "badging",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e4a\\artifacts\\D1-20261017-E4A\\final\\app-debug-androidTest.apk"
+      ],
+      "exitCode": 0,
+      "log": "docs/coder/d1e4a/evidence/androidTest-badging.txt"
+    },
+    {
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt2.exe",
+        "dump",
+        "xmltree",
+        "--file",
+        "AndroidManifest.xml",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e4a\\artifacts\\D1-20261017-E4A\\final\\app-debug.apk"
+      ],
+      "exitCode": 0,
+      "log": "docs/coder/d1e4a/evidence/app-manifest-xmltree.txt"
+    }
+  ],
+  "manifestReport": "docs/coder/d1e4a/evidence/app-manifest-xmltree.txt",
+  "finalBuildInputsVerified": true,
+  "signingKeysIncluded": false,
+  "androidExecution": "NOT_RUN",
+  "deviceCalls": 0,
+  "nativeFaultExecution": "NOT_RUN",
+  "resumedManifestParser": false,
+  "declaredPermissions": [
+    "android.permission.ACCESS_NETWORK_STATE"
+  ]
+}

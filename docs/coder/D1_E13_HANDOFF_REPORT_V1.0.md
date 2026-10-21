@@ -1,0 +1,63 @@
+E13完整开发交付，已冻结并完成最终只读验证，请一次整包交tester独立静态复审。当前无设备/真实媒体/实际新scope或once，不自动执行六方法，D1 NOT_PASSED / M0 NOT_STARTED。
+
+正式需求已先保存：
+D:/CodexProjects/VideoKit/docs/milestones/D1_E13_CODER_REQUIREMENTS_V1.0.md
+D:/CodexProjects/VideoKit/docs/milestones/D1_E13_TESTER_REQUIREMENTS_V1.0.md
+已吸收独立E12报告F01–F04，不将E12提案直接当执行许可。
+
+四主文档及具体设计均在docs/coder：
+D1_E13_DELIVERY_V1.0.md
+D1_E13_ARCHITECTURE_AND_THREAT_BOUNDARY_V1.0.md
+D1_E13_REMAINING_GATE_REVIEW_V1.0.md
+D1_E13_DEVICE_EXECUTION_APPENDIX_V1.0.md
+D1_E13_RENDER_AUDIO_SOURCE_AND_KIT_DECISION_V1.0.md
+
+候选唯一为D1-20261018-E13 / v16 / ACTIVATION / ABI1。只采用docs/coder/d1e13/artifacts/D1-20261018-E13/delivery/下最终三APK和host JAR；其他root/final路径为早期构建/修正前历史制品，不能派发。
+
+F01：
+E9DeploymentGate.deployE13Detached复用原private deploy，从已接受E11报告SHA60eb18e88e346e49ec34491083f2b67da21670d7cd5fde40ce3b72ba8246b635固定v15 ACTIVATION精确app/test/signature/UID来源，目标严格16/ACTIVATION/ABI1，不再取旧registry.trust.plan的v14 PREPARE。实际制品/installed pair/角色/ABI/同签名/原UID/idle/升版都走原门；原app/test data身份前后需10221:6972、10222:4741。E13HostActivationSession复用原registry/once/supervisor，独立reviewed scope与新固定e13-activation-deployment.once路径，原registry外CREATE_NEW/force/readback/原close，不复用旧once或改原registry。fixture只在确认原不存在后新装一次；partial/UNKNOWN不重试。scope绑定接受来源、实际targetpair/fixture hash/signer、方法和预算，当前仅draft binding和字段计划，无实际批准scope/release/once。
+
+F02：
+E13SourceGroup在runtime/bridge/open前强登记，实际持AsyncReadBridge.Runtime、LeaseRegistry/generation、真实bridge/CloseTicket、consumer与原调用线程。聚合retired&&consumers0&&operations0&&!closeFailed及原调用线程真返后才graceful shutdown原runtime，实际executor terminated后移keeper；不用shutdownNow充释放。真实E13 runner finish/onException同时查E11原lifetime、E13 source keeper及permission-binding原owner，未知拒super.finish；scope/case/task/epoch/instance/generation和原在途进入日志，取消响应与原实际返回分时记录。E13HostCase复用E9PcSupervisor OriginalAuthority，原Android同scope/case all-owner finish门+原instrument自然返回+原pipes物理归还才PC正常结束；JUnit PASS另验，已知FAIL但资源真返可正常关闭PC并保留FAIL，未知无token则保管原Process/authority不结束。没有新cleanup/authority/诊断控制框架。
+
+F03：
+SourceAdmission提取原CpuTaskClient实际UID/PID/task/epoch谓词，原CPU broker接线和新直接source实际门共同调用；旧代方法先同门真实当前代open/read，再旧task/epoch/instance各拒，provider opens/reads增量0，不拿HELLO或新旧全拒充正对照，不声称执行CPU解码。
+ordinarySenderCannotBindCodec实现独立不同签名普通UID Debug fixture，清入站Binder identity后以自身UID绑定固定non-exported codec；main独立核fixture包UID/不同签名，授权host同目标HELLO正对照。kernel拒绝与内部鉴权分栏，internalTransactAttempted=false；不把拿不到Binder说成内部onTransact跨UID实测。原连接在尝试前保管，bind/unbind/远端归还未知拒结束。
+
+六方法全部实现：
+ordinarySenderCannotBindCodec
+authorizedHostSourceReadAndClose
+oldGenerationNeverOpensSource
+twoConsumersHoldSourceUntilLastReturn
+cancelLateOpenRetainsOriginalOwner
+lateReadAndCloseFailureDoNotReleaseEarly
+
+F04：
+实际五source场景使用同一4096B非媒体字节定义，每source host内存初始化4096B（全批20KiB准备与payload分栏）；逐方法open/read/close分别0/0/0、1/4096/1、1/32/1、2/48/2、1/0/1、1/48/2，合计6open/4224B/7close，均在8/64KiB/16上限。每原ticket仍initial+最多2次明确失败重试，pending不重叠。第一个consumer关闭不retire整代，第二个仍真读；最后实际排空才释放。原bridge await5000ms不被30秒资格窗放宽。
+48次操作具体为部署entry1+部署原child32（原pair21+data前后4+fixture7）+六case Java entry6+原instrument child6+独立现场/收尾metadata3。部署wrapper提前拒第33操作并限其原文本512KiB；case原child每项64KiB，top每项80KiB；部署top32KiB；三个metadata各64KiB。合计已分配1638400B，剩458752B仅原scope/index/metadata，整体2MiB；child与top重复保存的raw分别计，不按阶段清零。STATUS/OP/CLEANUP额外连接查询计划0。
+三份独立现场metadata还须tester正式设备派单前锁定精确字段/输出；不足则预算缺口BLOCKED由你调整，不能运行中增次数/省关键证据。媒体输出/READY/新R/S=0。意外未知保原owner/host/PC/ADB/custodian并停止，不kill/第二close/换UUID/重跑；永久UNKNOWN/OOM/重启/自杀信号主动注入数量0。
+
+本机证据：
+evidence/local-checks/final-003为最终实际源码输入及日志：五个真实生产bridge/ticket场景通过；精确v15→16生产部署门用synthetic port45断言；选择/共享身份/原finish与JUnit判别22断言；最终7组通过。registry实际自检副本13文件前后相同，原字节副本/provenance随包。JVM不是Android kernel/Binder/native设备证据，普通UID实际拒绝仍NOT_RUN。没有机械跑旧套件/旧信号/native。
+第一次main-001因工作区外Gradle缓存写锁在配置前失败，保留原log，非源码编译失败/非自动审批拒绝。授权缓存访问后repair-001离线主app/test/fixture完整构建成功约1m14s/101任务。发现AGP自动加纯Java fixture Kotlin stdlib2.2.10/annotations13.0，离线依赖检查后排除并锁空，repair-002约33s（6执行/95up-to-date，主pair未变）。补齐原keeper scope/身份/取消及真返回时间证据后repair-003约28s完成，最终输入138项SHA6eeea5bd2a5faf97cea6f7905f01ebf4f1c91a22707cd1a5d61dd1f93bccbd95。全部历史尝试/原日志/早期制品保留；早期fixture“0运行时”的未充分核验审计不作为最终依据，最终空lock/实际DEX另审。未下载、未重建native。
+主锁同E11精确35Maven，7native及最终APK库字节全部继承不变，Media3 1.9.3/FFmpeg8.0.3不扩。fixture最终0 Maven runtime、无kotlin定义/资源；Debug APK含工具链生成Android API/tool类，实际292个DEX定义清单随包，不声称全部是手写代码或发行许可新准入。
+
+最终身份：
+app 11043409B SHA6ae468ccd81fce542202af9dd9567c95722505eb795a098557da4c042a716b71
+test 2858614B SHAfee6f07f423e6f080eb36adca14d8f1ee3b88a2bbcaed4916216c2e1a2489b13
+fixture 2463895B SHA79929c4f8c0f69f10e8b9eb2c4a10b737759195b0a8a9ae2afe16ee2c0b44640
+app/test原signer5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f；fixture signer45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9。
+e13-host-tools.jar 295475B SHA9c57d32e61917671257fbc582eb7c7eed70ad794a7efebedb7248c0b6d7bc397，170production classes，来自final-003实际编译类，不含自检类、不额外重编。fixture私钥仅本机留存不归档，构建输入有hash；重建需本机签名环境或新candidate，不能换当前已审APK。
+
+具体renderer/audio/source/Kit决定附文：
+保留成熟Media3/平台薄适配，后续有限显示用已审raw RGBA和受控owner的Canvas/Bitmap/Surface，generation/detach/原归还需实证；当前无显示，NOT_RUN。合法压缩音频→PCM仍BLOCKED，不扩FFmpeg音频；明确纯PCM样本/生成PCM只能验证AudioTrack输出，不替代正式音轨或把产品解码推给Browser。唯一audioEpoch/焦点/源consumer聚合与HostAction等待规则具体列出。Kit列可提取source/owner/service、Manifest命名及硬编码D1 UID/包/设备约束去向，当前:app不是AAR；D1处置封装可行性，M0 API/Fake、M7独立AAR/双宿主/可移除回退，不把全部M阶段塞E13。
+
+冻结：
+docs/coder/D1-20261018-E13-source.zip
+35095665B SHA dbaa6f510b54ad17e020b81be0d4e26ff378c7f4de1d40da4dea2f5230af98bb
+docs/coder/d1e13/evidence/e13-freeze.json
+77034B SHA 3b80d430aa7f859174ffae0a4b5ca948a01aa032d15c0666fb595e6a1bba5cc0
+docs/coder/D1_E13_FINAL_READONLY_VERIFICATION_V1.0.json
+PASS_E13_FINAL_READONLY_VERIFICATION；ZIP366项/封印367行，最终输入与JAR/三APK字节一致，原E11基础375/R1 65和E12 46行及三seal均未变（分层数不加作唯一文件数）。原214483B/7R7S/reserved0、旧107218B前缀、产物/fence/oldCloseACKfalse只引用接受报告时点，未在线重读或改账。E11有限实机PASS、C13/C14历史FAIL/NOT_RUN/UNKNOWN与全部P0/许可保持。
+
+请集中审查本候选/预算/源码真实接线，必要问题一次反馈。静态通过后由你正式派设备批次；当前停止后续实现/构建/设备，无需再向用户重复索常规真机授权，他项目占用时等待。

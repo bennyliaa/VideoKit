@@ -1,0 +1,89 @@
+{
+  "schema": "RESUME01_CAPTURE_POLICY_V1",
+  "mode": "PREPARATION_ONLY",
+  "planId": "7922756e-d11c-49bb-9efe-86363065df76",
+  "scope": "11f4e151da1885657115a30862675075cab1a45f9fbefcf59d9aac4a479b816c",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\7922756e-d11c-49bb-9efe-86363065df76\\outputs",
+  "slots": [
+    {
+      "id": "RESUME01_CAPTURE_M1_identity",
+      "phase": "M1",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"M1_identity_BEGIN\\n\"; printf \"M1_identity_PART_1\\n\"; getprop ro.product.model; printf \"M1_identity_PART_2\\n\"; getprop ro.build.version.sdk; printf \"M1_identity_PART_3\\n\"; am get-current-user; printf \"M1_identity_PART_4\\n\"; dumpsys package com.videokit.app; printf \"M1_identity_PART_5\\n\"; dumpsys package com.videokit.app.test; printf \"M1_identity_PART_6\\n\"; dumpsys package com.videokit.e13.sender; printf \"M1_identity_PART_7\\n\"; run-as com.videokit.app stat -c %u:%i .; printf \"M1_identity_PART_8\\n\"; run-as com.videokit.app.test stat -c %u:%i .; printf \"M1_identity_PART_9\\n\"; p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_10\\n\"; p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_11\\n\"; p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_12\\n\"; run-as com.videokit.e13.sender stat -c %u:%i .; printf \"M1_identity_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15
+    },
+    {
+      "id": "RESUME01_CAPTURE_M1_global",
+      "phase": "M1",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "activity",
+        "processes"
+      ],
+      "maxTextBytes": 524288,
+      "qualificationSeconds": 15
+    },
+    {
+      "id": "RESUME01_CAPTURE_M1_ps",
+      "phase": "M1",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "USER,PID,PPID,NAME,ARGS"
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15
+    },
+    {
+      "id": "RESUME01_CAPTURE_M2_identity",
+      "phase": "M2",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"M2_identity_BEGIN\\n\"; printf \"M2_identity_PART_1\\n\"; dumpsys package com.videokit.app; printf \"M2_identity_PART_2\\n\"; dumpsys package com.videokit.app.test; printf \"M2_identity_PART_3\\n\"; dumpsys package com.videokit.e13.sender; printf \"M2_identity_PART_4\\n\"; run-as com.videokit.app stat -c %u:%i .; printf \"M2_identity_PART_5\\n\"; run-as com.videokit.app.test stat -c %u:%i .; printf \"M2_identity_PART_6\\n\"; p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_7\\n\"; p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_8\\n\"; p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_9\\n\"; run-as com.videokit.e13.sender stat -c %u:%i .; printf \"M2_identity_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15
+    },
+    {
+      "id": "RESUME01_CAPTURE_M2_global",
+      "phase": "M2",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "activity",
+        "processes"
+      ],
+      "maxTextBytes": 524288,
+      "qualificationSeconds": 15
+    }
+  ],
+  "entrySha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe",
+  "toolSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+  "fixtureScriptSha256": "09c6c81379bccb55af304a8792e799cd598e7360533ea606ffe2830aa993cedd",
+  "executionAuthorization": null,
+  "independentCaptureReview": null,
+  "releaseBindingDigest": null,
+  "executionPins": [],
+  "fixtureFault": "NONE"
+}

@@ -1,0 +1,152 @@
+{
+  "candidate": "D1-20261021-INPUT-SINK01",
+  "cases": [
+    {
+      "id": "I01",
+      "title": "known short-read requested range and exact offsets",
+      "phaseA": "PASS_CORE",
+      "assertion": "offset5 length7 returns3+3+1 then EOF",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I02",
+      "title": "unknown length EOF",
+      "phaseA": "PASS_CORE",
+      "assertion": "open=-1, reads3+2+-1; never invent length",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I03",
+      "title": "sparse offset above2GiB and64KiB block",
+      "phaseA": "PASS_CORE",
+      "assertion": "2GiB+123 and3GiB+7; no giant file",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I04",
+      "title": "long overflow returned bytes",
+      "phaseA": "PASS_CORE",
+      "assertion": "INVALID_RANGE; caller target unchanged",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I05",
+      "title": "zero/negative/oversized host result",
+      "phaseA": "PASS_CORE",
+      "assertion": "0/-2/count+1 rejected",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I06",
+      "title": "private error redaction",
+      "phaseA": "PASS_CORE",
+      "assertion": "AccessDenied mapsSOURCE_PERMISSION_DENIED",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I07",
+      "title": "same bridge concurrent read",
+      "phaseA": "PASS_CORE",
+      "assertion": "READ_IN_FLIGHT; original read still owned",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I08",
+      "title": "cancel and late private result",
+      "phaseA": "PASS_CORE",
+      "assertion": "caller wakes; no target overwrite; release waits original read and close",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I09",
+      "title": "dual-consumer original return",
+      "phaseA": "PASS_CORE",
+      "assertion": "first close insufficient; both real stages/handles/threads complete",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I10",
+      "title": "per physical source max1 and queue4",
+      "phaseA": "ADAPTATION_GAP",
+      "assertion": "same provider pending peak2; baseline Runtime queue16",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I11",
+      "title": "reopen and unknown-length seek",
+      "phaseA": "PASS_BASELINE_BOUNDARY",
+      "assertion": "same bridge cannot reopen; CPU_SEEK_UNSUPPORTED; newDataSource must adapt lifecycle",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "I12",
+      "title": "known failed source close",
+      "phaseA": "PASS_CORE",
+      "assertion": "no release or auto retry; explicit original API retry after observed failure only",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "S01",
+      "title": "partial write accounting",
+      "phaseA": "ADAPTATION_GAP",
+      "assertion": "actual controlled prefix7; budget/position32; must not call32 actual write",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "S02",
+      "title": "output budget rejection beforewrite",
+      "phaseA": "PASS_CORE",
+      "assertion": "legacy2MiB+1 rejected; no emitted bytes",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "S03",
+      "title": "close exception retains exact original",
+      "phaseA": "PASS_CORE",
+      "assertion": "E4Owned UNKNOWN; second close never invokes original closer",
+      "phaseB": "PARTIAL_FAIL_B01"
+    },
+    {
+      "id": "S04",
+      "title": "reopen validation failure",
+      "phaseA": "PASS_CORE_ONLY",
+      "assertion": "real generated4B file reopen; controlled validation rejection; original closed once",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    },
+    {
+      "id": "S05",
+      "title": "real Media3 muxer close/fsync/container reopen failure",
+      "phaseA": "NOT_RUN_PLATFORM",
+      "assertion": "AndroidFD/codec/container path not executed; no fakeSink substitute",
+      "phaseB": "NOT_RUN_PLATFORM"
+    },
+    {
+      "id": "S06",
+      "title": "READY vs hostCOMMIT",
+      "phaseA": "PASS_NEGATIVE_AND_STATIC_ONLY",
+      "assertion": "prematureREADY rejected; no COMMIT enum/API; no business commit proved",
+      "phaseB": "FAIL_B02"
+    },
+    {
+      "id": "F01",
+      "title": "actual Media3 DataSource interface and new dependencies",
+      "phaseA": "NOT_RUN_PHASE_B",
+      "assertion": "do not inspect floating coder directory; review fullfreeze later",
+      "phaseB": "PASS_LIMITED_OFFLINE"
+    }
+  ],
+  "total": 19,
+  "allPlatformPass": false,
+  "newDependencies": "PASS_IDENTITY_LICENSE_FOR_THIS_OFFLINE_CANDIDATE",
+  "overall": "FAIL",
+  "findings": [
+    {
+      "id": "B02",
+      "priority": "P1"
+    },
+    {
+      "id": "B01",
+      "priority": "P2"
+    }
+  ]
+}

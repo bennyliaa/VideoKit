@@ -1,0 +1,159 @@
+{
+  "sourceAnchors": [
+    {
+      "meaning": "prepare rejects first",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 17,
+      "match": "PREPARATION_ONLY_NO_EXECUTION_AUTHORIZATION"
+    },
+    {
+      "meaning": "old28 plan pin",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 43,
+      "match": "FIXED_28_PLAN_PIN"
+    },
+    {
+      "meaning": "old product seal",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 49,
+      "match": "a226b5fe0703d31c486ec2deaad1c2f2241169f4c8257701331cd5d9c1a83581"
+    },
+    {
+      "meaning": "old app payload",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 55,
+      "match": "bytes=10480388"
+    },
+    {
+      "meaning": "old test payload",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 56,
+      "match": "bytes=2695613"
+    },
+    {
+      "meaning": "old max observation45",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 59,
+      "match": "qualificationSeconds -gt 45"
+    },
+    {
+      "meaning": "old per role text512KiB",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 59,
+      "match": "maxTextBytes -gt 524288"
+    },
+    {
+      "meaning": "old global operation32",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 79,
+      "match": "$batchSdkBefore+1 -gt 32"
+    },
+    {
+      "meaning": "old external text formula",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 239,
+      "match": "batchTextChargedBytesKnown=$batchTextBefore+$c.textBytes"
+    },
+    {
+      "meaning": "receipt own close boundary",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 227,
+      "match": "receiptOwnCloseNotProvenByThisFile"
+    },
+    {
+      "meaning": "external original return boundary",
+      "oldSource": {
+        "path": "docs/coder/d1render02-capture/tools/capture_render02.ps1",
+        "bytes": 32354,
+        "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+      },
+      "line": 235,
+      "match": "externalControllerExitProofStillRequired"
+    }
+  ],
+  "oldPolicy": {
+    "schema": "RENDER02_CAPTURE_POLICY_V1",
+    "mode": "PREPARATION_ONLY",
+    "entrySha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e",
+    "scope": "UNASSIGNED_NEW_SCOPE_REQUIRED",
+    "planId": "UNASSIGNED",
+    "evidenceRoot": "UNASSIGNED",
+    "toolSha256": "UNASSIGNED_NEW_REVIEW_REQUIRED",
+    "authorization": null,
+    "independentReview": null,
+    "sdkChildCap": 32,
+    "textCap": 4194304,
+    "binaryArchiveCap": 16777216,
+    "plannedSlots": 28,
+    "runnableSerialSlots": 25,
+    "screenshots": "NOT_RUN_LIVE_PARENT_ASSOCIATION_UNPROVEN",
+    "spare4": "NOT_RETRY_OR_MANUAL_AUTHORIZATION"
+  },
+  "oldActivationMustNotAuthorizeNewBatch": {
+    "schema": "RENDER02_CAPTURE_ACTIVATION_V1",
+    "scope": "UNASSIGNED_NEW_RESPONSIBLE_AUTHORIZATION_REQUIRED",
+    "planId": "UNASSIGNED_NEW_ID_REQUIRED",
+    "entrySha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e",
+    "planSha256": "1db733cd14d51b47d41df3670a5d9d84b1f68f599aeb3d02b8d1d814236810d1",
+    "candidateSealSha256": "a226b5fe0703d31c486ec2deaad1c2f2241169f4c8257701331cd5d9c1a83581",
+    "reviewSha256": "UNASSIGNED_INDEPENDENT_REVIEW_REQUIRED",
+    "toolSha256": "UNASSIGNED_FRESH_APPROVED_TOOL_IDENTITY_REQUIRED",
+    "evidenceRoot": "UNASSIGNED_NEW_TESTER_EXECUTION_ROOT_REQUIRED",
+    "approvedForExecution": false
+  },
+  "newProduct6PlanNotChanged": {
+    "path": "docs/coder/d1media3-android02-fix02/evidence/execution-plan.json",
+    "bytes": 4682,
+    "sha256": "d0763929f0e3711e28a2309b0c6dcd6d05a122b7c0d53d82aaaf4695221676c8"
+  },
+  "needMinimalExactAdaptationNotGeneralPlatform": true,
+  "newToolEntryPlanPolicyToolHashAndActivation": "UNBOUND_NOT_READ_FROM_FLOATING_CANDIDATE",
+  "oldMechanismPreserved": [
+    "same Process and async pipes",
+    "single original raw files and metadata writers",
+    "exclusive original scope lock and once/halt files",
+    "pinned original input source",
+    "actual outer original process/streams and later proof return",
+    "known-prefix vs amountUNKNOWN and sticky fail"
+  ]
+}

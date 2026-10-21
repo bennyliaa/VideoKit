@@ -1,0 +1,31 @@
+VideoKit D1 C10 local Debug CPU experiment — not a production/distribution approval.
+
+FFmpeg 8.0.3 from https://ffmpeg.org/releases/ffmpeg-8.0.3.tar.xz
+SHA-256 6136812ea6d4e68bdba27e33c2a94382711cdf4f8602ffef056ff792bd6f9818
+Official detached signature verified with FCF986EA15E6E293A5644F10B4322F04D67658D8.
+No local upstream modifications. LGPL-2.1-or-later aggregate build plus retained
+IJG, ISC, Zlib and MIT notices for actually compiled files. Full license texts and
+special original copyright/permission notices accompany this asset.
+
+This software is based in part on the work of the Independent JPEG Group.
+The jfdctfst.c, jfdctint_template.c and jrevdct.c files are unmodified relative to
+the signed FFmpeg 8.0.3 archive; upstream modifications relative to IJG remain
+identified in the corresponding retained full source files. No local additions
+or deletions were made to those files. faandct, Adler-32 and avsscanf retain their
+original ISC, Zlib and MIT notices and upstream attribution.
+
+Complete corresponding source archive, generated configurations, build commands,
+object/header license maps, unstripped shared libraries and source delta are in
+the same C10 frozen project delivery under docs/coder/d1c10. Dynamic linking does
+not by itself close distribution or replacement obligations. This experiment
+does not restrict LGPL-permitted modification/debugging/reverse engineering.
+Production host SDK, replacement/relink materials for external recipients,
+EULA/store/patent requirements and distribution remain separately unapproved.
+
+MPEG4 requires H263 decoder/parser transitively; they are compiled and registered,
+but the adapter only accepts AVI/MPEG4-part2 or MP4/H264 input. No encoders, network
+or file protocols, hardware decoders, GPL/nonfree/version3 or external codec libs.
+Media3 1.9.3 continues as the existing Apache-2.0 Android playback/export adapter;
+this finite CPU experiment does not replace Flutter App or independent Kit design.
+
+C10 reuses byte-identical audited FFmpeg 8.0.3 and allocation quota libraries from C09. Only task/control/lifecycle glue and JNI package identity changed; no upstream codec modifications. Original correspondence and source hashes are anchored by inherited-c09 evidence.

@@ -1,0 +1,59 @@
+{
+  "StructuredError": {
+    "code": "SOURCE_UNAVAILABLE",
+    "stage": "READ",
+    "retryable": false,
+    "suggestedAction": "RESELECT_SOURCE",
+    "typedArgs": {
+      "operation": "playback"
+    },
+    "resourceContractVersion": 1,
+    "redactedDiagnostic": null
+  },
+  "RecognitionSegment": {
+    "sessionId": "example-session",
+    "bindingGeneration": 1,
+    "timelineEpoch": 2,
+    "taskId": "example-asr",
+    "segmentId": "segment-1",
+    "recognitionConfigRevision": 3,
+    "revision": 1,
+    "text": "设计样例",
+    "languageTag": "zh-Hans",
+    "startUs": 0,
+    "endUs": 1000000,
+    "finality": "FINAL",
+    "qualityFlags": []
+  },
+  "TranslationResult": {
+    "sessionId": "example-session",
+    "bindingGeneration": 1,
+    "timelineEpoch": 2,
+    "taskId": "example-translation",
+    "translationConfigRevision": 4,
+    "sourceCueId": "segment-1",
+    "sourceCueRevision": 1,
+    "targetLanguageTag": "en",
+    "text": "Design example",
+    "status": "COMPLETED",
+    "modelRef": "unselected-example-model",
+    "qualityFlags": []
+  },
+  "Clip": {
+    "clipId": "clip-1",
+    "sourceId": "source-1",
+    "sourceInUs": 0,
+    "sourceOutUs": 1000000,
+    "outputOrder": 0,
+    "transformRef": "identity"
+  },
+  "OutputStatus": {
+    "exportId": "example-export",
+    "handleId": "example-handle",
+    "logicalState": "VALIDATING",
+    "originalReturnState": "RETURNED",
+    "cleanupState": "NOT_REQUESTED",
+    "outputTokenId": null,
+    "validationRef": null
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "status": "PASS_RESUME01_STRICT_READONLY_VERIFY",
+  "writes": 0,
+  "deviceCalls": 0,
+  "originalCustodyRootAccesses": 0,
+  "archive": {
+    "path": "docs/coder/D1-20261020-RESUME01-source.zip",
+    "bytes": 6442689,
+    "sha256": "bd4ad4548ac9ac1db6b8085fd0bccdfb2d769f854b606dc6087727c3d3c003a7"
+  },
+  "seal": {
+    "path": "docs/coder/d1resume01/evidence/resume01-freeze.json",
+    "bytes": 108353,
+    "sha256": "1673bca8580d7cba82cc3a518e5a9f888d25e52fb42f83beb2dec2c5b519f661"
+  },
+  "archiveEntries": 496,
+  "immutableRows": 497,
+  "productionClasses": 183,
+  "productionCompilations": 1,
+  "testOnlyRepairCompilations": 1,
+  "androidBuilds": 0,
+  "operationProposal": 43,
+  "textProposal": 3145728,
+  "sourceReview": null,
+  "T07": "NOT_RUN",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "readOnlyModesVerified": [
+    "help",
+    "pack-help",
+    "default-verify",
+    "verify-with-external-seal"
+  ],
+  "treeBeforeEqualsAfter": true,
+  "commands": [
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume01\\tools\\package_delivery.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nDefault verify/help are strictly read-only. Explicit pack seals this offline\ncandidate once.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume01\\tools\\package_delivery.py",
+        "pack",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nDefault verify/help are strictly read-only. Explicit pack seals this offline\ncandidate once.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume01\\tools\\package_delivery.py"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_RESUME01_STRICT_READONLY_VERIFY\", \"writes\": 0, \"deviceCalls\": 0, \"originalCustodyRootAccesses\": 0, \"archive\": {\"path\": \"docs/coder/D1-20261020-RESUME01-source.zip\", \"bytes\": 6442689, \"sha256\": \"bd4ad4548ac9ac1db6b8085fd0bccdfb2d769f854b606dc6087727c3d3c003a7\"}, \"seal\": {\"path\": \"docs/coder/d1resume01/evidence/resume01-freeze.json\", \"bytes\": 108353, \"sha256\": \"1673bca8580d7cba82cc3a518e5a9f888d25e52fb42f83beb2dec2c5b519f661\"}, \"archiveEntries\": 496, \"immutableRows\": 497, \"productionClasses\": 183, \"productionCompilations\": 1, \"testOnlyRepairCompilations\": 1, \"androidBuilds\": 0, \"operationProposal\": 43, \"textProposal\": 3145728, \"sourceReview\": null, \"T07\": \"NOT_RUN\", \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume01\\tools\\package_delivery.py",
+        "verify",
+        "--seal-sha",
+        "1673bca8580d7cba82cc3a518e5a9f888d25e52fb42f83beb2dec2c5b519f661"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_RESUME01_STRICT_READONLY_VERIFY\", \"writes\": 0, \"deviceCalls\": 0, \"originalCustodyRootAccesses\": 0, \"archive\": {\"path\": \"docs/coder/D1-20261020-RESUME01-source.zip\", \"bytes\": 6442689, \"sha256\": \"bd4ad4548ac9ac1db6b8085fd0bccdfb2d769f854b606dc6087727c3d3c003a7\"}, \"seal\": {\"path\": \"docs/coder/d1resume01/evidence/resume01-freeze.json\", \"bytes\": 108353, \"sha256\": \"1673bca8580d7cba82cc3a518e5a9f888d25e52fb42f83beb2dec2c5b519f661\"}, \"archiveEntries\": 496, \"immutableRows\": 497, \"productionClasses\": 183, \"productionCompilations\": 1, \"testOnlyRepairCompilations\": 1, \"androidBuilds\": 0, \"operationProposal\": 43, \"textProposal\": 3145728, \"sourceReview\": null, \"T07\": \"NOT_RUN\", \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    }
+  ]
+}

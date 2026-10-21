@@ -1,0 +1,23 @@
+# D1 E7A 架构与威胁边界 V1.0
+
+2026-10-17。E7-F01修复范围为实际任务/runner结束路径；Android实测仍NOT_RUN，不等于持续准入已解决。
+
+Android Instrumentation官方接口支持异步实现；onStart返回本身不等于finish，finish会结束被测进程。[Instrumentation官方文档](https://developer.android.com/reference/android/app/Instrumentation)。AOSP的非等待am instrument路径在不使用-w/proto时不建立watcher或UiAutomationConnection，启动命令返回与被测instrumentation结束分离；本计划据此设计，不把AOSP源码当本平板实测。[AOSP Instrument.java](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/cmds/am/src/com/android/commands/am/Instrument.java)。
+
+实际路径：E7AReadOnlyInstrumentation.onCreate校验专用参数并建立original E7ADiagnosticRun；onStart检查原App/UID/空闲产品host，注册控制receiver和一次10s事件，beginLaunch先保留启动窗口，再启动原Job线程。onStart随即返回，不运行JUnit。原Job严格串行 preflight→open→read/fstat→原close→afterClose lstat→原生产history/proc，资源使用原E4Owned。所有正常操作/Exception/Error被原Job收集；实际资源close只由原Job执行一次，控制线程不close、不interrupt、不cancel、不重开。open抛异常会留UNKNOWN，Error窗口可能ALLOCATING，均不补造未获得的FD。读失败保原首错，随后原close真实返回才可能证明归还。
+
+E7ADiagnosticRun既是实际Job也是唯一finish决策边界，非旁置模型。snapshot.originalOperationsReturned表示平台操作链已逐一真实返回并进入终结记账，不声称Java线程已死亡；末尾仅有内存结果发布。safeToFinish还要求原holder EMPTY（从未分配）或CLOSED（原close真实返回）。即使FD已归还，history/proc阻塞时操作链未返仍拒绝finish。ALLOCATING/OPEN/CLOSING/UNKNOWN或任何平台操作未返都拒绝。初始化在launch前明确拒绝、没有发起任何原操作时可失败结束；launch尝试窗口不明则不能套用这个例外。
+
+单调10秒从run创建时刻起计，不从超时再加时间。定时事件只记录资格失败，不中断任务；完成路径也核实际当前时间，防主线程定时消息迟到导致假PASS。截止时未返/到界才返均PENDING；PENDING不可变，真实迟到close和API返回只能令safeToFinish从false变true，不能改为QUALIFIED_DIAGNOSTIC。中断标记、InterruptedException、控制异常、过早finish请求等也永久PENDING。QUALIFIED_DIAGNOSTIC只表示限内完成诊断收集，BLOCKED_CURRENT_GATE依然可能是内容结果，不是死亡门/观察/产品准入。
+
+结束协议：实际作业需要外部先归档一个包含精确handle和sequence、原操作链已返且holder可证归还的snapshot，再以同一handle/sequence发送ACK_FINISH。核心在锁内核身份、版本、实际返回、只允许一次finish；过期/错handle/重复ACK无效，未知资源不能越过。实际Android平台finish只存在于一个私有出口，由这个核心callback调用，并排在控制广播回复后。先实际unregisterReceiver返回，再super.finish；若移除receiver/队列/finish抛异常，不把它当正常结束，保留PENDING/不伪ACK。完成时重新取当前PENDING等结果，避免排队后外部STOP被旧PASS覆盖。普通finish覆盖方法、onException均不转发到平台finish，只记PENDING；意外onDestroy标为控制生命周期不明。已安全申请结束时的正常销毁不再冒充未返资源。
+
+控制与权限：动态receiver action=com.videokit.app.E7A_DIAGNOSTIC_CONTROL，注册要求发送方有android.permission.DUMP；本app不申请新权限，不增加service或前台服务。仅接受精确handle，以及STATUS、STOP_DEPENDENCIES、ACK_FINISH三种固定命令。STATUS只是内存快照和截止检查，不重查owner/历史/proc；STOP只永久停依赖，不取消原作业；ACK仍受上述资源门。发送端需user0 shell/system有现成DUMP资格，外部须先验证实际可达性。公开广播resultCode1仅表示处理了命令，必须读snapshot的safeToFinish/finishClaimed等，不能当实际close或退出ACK。handle是单次派发识别码，不是超越DUMP的安全凭证；receiver普通app不可用，但不能抵抗有DUMP/root的外部杀进程。
+
+PENDING处置是事件驱动隔离，不是延长10秒或在Job/runner里无限join/await/轮询。唯一原操作继续自己运行；原instrumentation受管实例保持未finish并拥有Job。外部仅有限读取状态（计划最多6个控制请求），将handle/原PID/UID/组件/状态及原始日志归档，停止全部依赖并交负责人。原操作迟到真正返回且可证归还后，可归档新sequence并ACK，以PENDING/非通过结束。close UNKNOWN/分配UNKNOWN不会自动恢复，也没有再次close/retry接口；无法证时没有有限安全结束保证，协议明确不承诺固定时刻退出。外部完成隔离登记后可返回协调界面，原受管任务仍在；这是有标识、有停止依赖动作的隔离状态，不是静默延时求PASS。
+
+外部STOP_DEPENDENCIES不是停止进程。禁止force-stop/新instrumentation/升级/清数据/断电充当归还。若系统崩溃、用户强停、进程/设备意外死亡、控制receiver不可达或连接丢失，外部归档状态为LOST_OWNER_UNKNOWN，不能从进程不存在推出原close ACK。不能把新host当同handle恢复器，不能重放旧snapshot放行；原Java holder/FD无法跨死亡恢复。没有app持久作业文件或跨进程托管；恢复须负责人另审原始外部收据、真实死亡/资源证据与安全处置计划，不自动重启诊断/normal/恢复写。外部记录属于tester证据，不是持久死亡事实/产品准入入口。任何Android进程都可能被系统终止，因此本批只阻止自己过早finish，不能声称设备绝不杀进程。
+
+只读边界继续固定原recovery.owner、目录/文件UID角色、NOFOLLOW/NONBLOCK、257B哨兵、精确原字节/dev/inode/mtime/ctime和原holder close。生产max8一次/history匹配与reason/proc门全字节继承E7，无新observe、guard/fence/ledger/业务持久写、CPU/codec/媒体、grant。读取可能更新系统访问时间，不声称物理零写。持久死亡协议仍缺可信旧writer启动代次及完整性/防回滚根；本批不实现任何该格式、解析器、写入、迁移或fallback。
+
+有限证据：最终28场景338断言，实际E7ADiagnosticRun.run/deadline/acknowledgeFinish、原E4Owned与生产gate；clock替为可控单调值，平台open/read/close/history/proc以有限latch控制，finish替为计数callback。七处原操作在途均证明结束计数0，迟到释放后仍PENDING才可ACK；UNKNOWN不能ACK；中断异常不替代close。并测错/过期/重复ACK、launch窗口、close异常、实际线程中断标记、平台finish异常和重复Job。不是Android广播权限/handler/进程保活/OS finish杀进程/真实FD/退出history API实测，不能以本地测试宣称这些已获设备保证。首轮27/327及追加实际线程中断后的28/338日志与精确源保留，只采最终数。

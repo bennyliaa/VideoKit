@@ -1,0 +1,31 @@
+{
+  "schema": "ANDROID02_CAPTURE_POLICY_V1",
+  "mode": "OFFLINE_FIXTURE",
+  "entrySha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13",
+  "planSha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199",
+  "productSealSha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+  "scope": "28c1173ccd7b3bd3eb485fe6686d3e2e3f0c3c094519ccdd2386e0533d4c6075",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\semantic-owner\\outputs",
+  "toolSha256": "abc1aa0b5a63f745804e88789b2dfe6857582ec19ed36b3b5f9dc6b340212344",
+  "fixtureScriptSha256": "b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed",
+  "fixtureFault": "NONE",
+  "fixtureGatePath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\semantic-owner\\outputs\\fixture-gate",
+  "slots": [
+    {
+      "id": "identity",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+        "identity",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\\fixtures\\independent-001\\semantic-owner\\outputs\\fixture-gate"
+      ],
+      "maxTextBytes": 8192,
+      "maxBinaryBytes": 0,
+      "qualificationSeconds": 2
+    }
+  ]
+}

@@ -1,0 +1,3795 @@
+{
+  "schema": "ANDROID02_READY01_FROZEN_CANDIDATE_V1",
+  "createdUtc": "2026-10-21T05:44:49.727892+00:00",
+  "status": "PREPARATION_ONLY_LOCAL_CHECKS_PASSED_PENDING_INDEPENDENT_B",
+  "entrySha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13",
+  "planSha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199",
+  "sdkChildren": 0,
+  "files": [
+    {
+      "path": "docs/coder/D1_ANDROID02_CAPTURE_READY01_DELIVERY_V1.0.md",
+      "bytes": 11004,
+      "sha256": "95a1f12c3b076252e6e091d5439e436bb4b1c6b9f684821e4a8652693c88adb7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/evidence/bootstrap-source-pins.json",
+      "bytes": 676,
+      "sha256": "e80e93419dd97cafcbee1c84a1c476417178e76f831d9bf016c5a68021ac4f6c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/evidence/local-selfcheck-latest.json",
+      "bytes": 5157,
+      "sha256": "42542f881e02d84ef4f4ea0d015b43bc869af814bf67018834284c9faed9c826"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/evidence/minimal-entry-diff.patch",
+      "bytes": 51543,
+      "sha256": "a3a94473a4290a5e343c10f036b2f63199efc2dd7e8fc6e2dfa16de59c4eedb5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/evidence/source-and-adaptation.json",
+      "bytes": 849,
+      "sha256": "0314d67c75af268cdec58a767aa9cb2b54788395373f68f8d88786e8926cab6a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/evidence/static-audit.json",
+      "bytes": 12635,
+      "sha256": "bac7925ca2490185856c3beb6efa6be1ce5fa6fbab2cc0db21a1905f92e73309"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/D1_ANDROID02_CAPTURE_READY01_CODER_REQUIREMENTS_V1.0.md",
+      "bytes": 6214,
+      "sha256": "a7139ba2798823aeb0d8ba94b7e083d59d426f82ceadbffe344c68cdc9d76cb0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/D1_ANDROID02_CAPTURE_READY01_PHASE_A_REPORT_V1.0.md",
+      "bytes": 10092,
+      "sha256": "bc78ec7ad16ccf239b2005f3eb7b3560a10fb69f5c838a86e7654bb13cb34438"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/D1_ANDROID02_CAPTURE_READY01_TESTER_REQUIREMENTS_V1.0.md",
+      "bytes": 6808,
+      "sha256": "266dd48c7c93a5aab9d8c5a7c62e7cc562f988252c7b94ed33f6764fecf6b731"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/D1_MEDIA3_ANDROID02_FIX02_PHASE_B_REVIEW_REPORT_V1.0.md",
+      "bytes": 18104,
+      "sha256": "4421c264ab6c45a78979aaa9339a3bc1c19e7c3a9b2bf5c6442c0c68dedce1f3"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/D1_RENDER02_CAPTURE_ADAPT_REVIEW_REPORT_V1.0.md",
+      "bytes": 11397,
+      "sha256": "c87e3c900e78e95a204189a796cedeb52ac9774b0bbf0b0a37384452617fe886"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/HISTORICAL_NOT_FRESH-fresh-local-gate.json",
+      "bytes": 359,
+      "sha256": "5628d95b50ee8f76c76bb9223637c6900dc7d2e7ba02a70030c9c21cd12251c5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/HISTORICAL_NOT_FRESH-fresh-tool-source.json",
+      "bytes": 583,
+      "sha256": "69fe2942bd56052f54db2be047883e36351bd0b71d642f3ec5cf30097b239066"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/HISTORICAL_NOT_FRESH-initial-global-semantic-audit-v1.1.json",
+      "bytes": 2010,
+      "sha256": "04790f8b6773e21d58de58f602d88a560291c009e020822664cac1accd57b383"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture-stage-a/authority-and-frozen-baseline.json",
+      "bytes": 6983,
+      "sha256": "397940de9df13da9fa5daea55d1a0fd658a7536b7750133f847d9eb205885c25"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture-stage-a/authorized-requirements-snapshot.md",
+      "bytes": 5164,
+      "sha256": "f6094d5a6bb685618dfb5ffffba5afa0885460bb0232c76dc73d9904ece8920f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture-stage-a/cross-role-admission-capture-budget-oracles.json",
+      "bytes": 8198,
+      "sha256": "66385d13879a406dbb54f9e85ccee6637585322ab55b599e1ebcf9576f5a68c1"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture-stage-a/future-b-activation-and-budget-contract.json",
+      "bytes": 1559,
+      "sha256": "6b8da33bbe25e179e945e9228f83a935855407fc04acc34d829b32adfeb3ae9d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture-stage-a/old-capture-adaptation-boundaries.json",
+      "bytes": 5979,
+      "sha256": "3010640ba84c49f1d7818f856d274900b17bc4f347efeadf27f329851f6d6888"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture-stage-a/phase-a-evidence-manifest.json",
+      "bytes": 2164,
+      "sha256": "6d4861d6c5fd440ad4f8ab7d4056ad07d4b99ba26bc9d6b914f9dfb68bc5852a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture-stage-a/prepare_oracles.py",
+      "bytes": 28239,
+      "sha256": "b7b7b290e91ab2cd81464520dd1836ed45e8a6e6a722a151687b10301b044af0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture-stage-a/seven-role-independent-oracles.json",
+      "bytes": 10754,
+      "sha256": "8afa1fde3a1237fab44880f458457c577cc115548b9f7a4caca3c065d8a831d7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture_fixture-original.py",
+      "bytes": 1209,
+      "sha256": "76a0200544f0a0e24e9a29d5fd5114144148810a584054252dd823a92a1975fe"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/capture_render02-original.ps1",
+      "bytes": 32354,
+      "sha256": "b836b50403b4914a4afe762de5e327e2d97ac38bcc66beebafc1d097ab81f17e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/release/activation-required.template.json",
+      "bytes": 736,
+      "sha256": "6266a66d652f62313d936af607d67a810cf753d1298607ebf6084e313d234fb9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/release/capture-policy.json",
+      "bytes": 1034,
+      "sha256": "4158e2065ee89fc54d795ae5b03a262926137c48fd5ee5d21601cce96c70e13a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py",
+      "bytes": 3012,
+      "sha256": "b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/run_checks.py",
+      "bytes": 16840,
+      "sha256": "c6c9f6a9123ef9ca240a1a994cd19cd977821ddda3e46dd417e1e34eb8124d3e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-duplicate/guard-request.json",
+      "bytes": 932,
+      "sha256": "025d53ff5d089c8c3b395e10fc349cc2f00da6c2e355736e99636e161cece547"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-duplicate/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-duplicate/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-duplicate/release/capture-policy.json",
+      "bytes": 1553,
+      "sha256": "6bf2023b05334f6c61df0fd443385334cfcc1636e34575c15f0689430bc6172f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-duplicate/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-eighth/guard-request.json",
+      "bytes": 885,
+      "sha256": "041366c19e2b45a086c92f2ab24263dab84134f6e968ad035b1d1385e36cf283"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-eighth/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-eighth/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-eighth/release/capture-policy.json",
+      "bytes": 5667,
+      "sha256": "a8702337fd65c53ba3c41159556216ae0aee1a139eeb1a949c734d38fd80374b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-eighth/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-entry/guard-request.json",
+      "bytes": 883,
+      "sha256": "b943bcb096d0b1aff8477edfe0d55fd3981c8c6b4f64ef82db5faa87b8fff93e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-entry/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-entry/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-entry/release/capture-policy.json",
+      "bytes": 1541,
+      "sha256": "c3e882f885023164cb1cfc2f8e8cf107939e15ca3d1aada840f87cf488a1b6e8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-entry/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-preparation/guard-request.json",
+      "bytes": 895,
+      "sha256": "9ff2322c26bf7079358593d60062f3f2bb49104a8046b42ce69daf0b8e367616"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-preparation/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-preparation/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-preparation/release/capture-policy.json",
+      "bytes": 1560,
+      "sha256": "09d938f2611be3ee7516444a0a75016f082a13dbed97279df6365874902b0b42"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-preparation/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-sdk/guard-request.json",
+      "bytes": 827,
+      "sha256": "546db8c645610e0f7324598d811ffd7fcee801c87010ab5388eece98aae1664e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-sdk/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-sdk/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-sdk/release/capture-policy.json",
+      "bytes": 1483,
+      "sha256": "2f4600bd397e89780c466731b9b173f72dfbdec79be1fc8f19fd2ccb8379a86e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/batch-sdk/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/args.json",
+      "bytes": 415,
+      "sha256": "22d0292c21234d19c84c8d9773e383dafb126803af0a40e49f7841abcc41b96c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/outputs/identity-console.bin",
+      "bytes": 122,
+      "sha256": "918f7c6c63afba80e979986000404df2d9cbd9bf5f12d77e33e84fcf8d287c0d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/outputs/identity-outer-return.json",
+      "bytes": 1323,
+      "sha256": "280cde218e5fa42ca62a88b9d3fd398b77dcfce500f1b95089743bd978d7a783"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/release/capture-policy.json",
+      "bytes": 1565,
+      "sha256": "d87ac13e33622c67e001d7e45d723ea05469b40437a727e1b2752aba999774f9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/request-identity-8.json",
+      "bytes": 899,
+      "sha256": "afceab69dc250463e176d0ee74d77697788417aa71dea31926f4d74e54593349"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/semantic-only.ps1",
+      "bytes": 456,
+      "sha256": "4b0bd33a01b9c9110726d649a61cee0202c67c1bb263fb4b9e22f1c63bcd608c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/busy-semantic-owner/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/capture-halted.json",
+      "bytes": 296,
+      "sha256": "7f345dc3f2fceb7422220446d90ea03f293565f521353a51d7e42dbcf7f17642"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/fixture-gate",
+      "bytes": 34,
+      "sha256": "cf6a5caca1a4be42d569f4e195109627199cf64eee63785c098463d8cbffc12c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/identity-console.bin",
+      "bytes": 4022,
+      "sha256": "416725ad1e2326b8db83c7f224301313e34910d08f894df96fdbb0ae59c7cc11"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/identity-entered.json",
+      "bytes": 1004,
+      "sha256": "190e4c46326c9130c03f3835fbc077d9f79f6a89bea7c2977aa270b51152f983"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/identity-outer-return.json",
+      "bytes": 1390,
+      "sha256": "cf48612a5ff651904ac59cb52649ba5af1c042cf89c720e2e168329fec3e4004"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/identity-receipt.json",
+      "bytes": 3292,
+      "sha256": "5e5922edc8ffaa647ccfa0ff0e4047e65f430e51d7b25787d99ed23b2f8213bf"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/outputs/identity-stdout.bin",
+      "bytes": 105,
+      "sha256": "a5c831cdf9eac18fb634d2d8aa48ef727f450764b5b591f8b52bdbe2a1a5d9d4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/release/capture-policy.json",
+      "bytes": 1546,
+      "sha256": "a0cc86e7985767b73bf4de5dd7098b60a93c6ae9ac09e5a0610742cf70cbace5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/request-identity-12.json",
+      "bytes": 883,
+      "sha256": "96d07cdbc7ee4eefcec3a659af4bc3e2b66579fbd9f3551d2c40ce82f379901e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/close-gate/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/guards.json",
+      "bytes": 3671,
+      "sha256": "19d8ed36463eb1168fb896ee1c6dece19d41d1a5bf4e7490ae91a9816945d42b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/outputs/identity-console.bin",
+      "bytes": 705,
+      "sha256": "02733144c51e49b74be64224edddf507d70e8002a912a4551f361982eab3f033"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/outputs/identity-outer-return.json",
+      "bytes": 1343,
+      "sha256": "00e43d0b54be7e6d6595ed47bec32596057d14b8272eea99e917adf1c15f73c1"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/precontext-guard-checks.ps1",
+      "bytes": 554,
+      "sha256": "c7c3733a2580025babff7b928e9dcd505059aa05510953965bafc8b5d63bb549"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/release/capture-policy.json",
+      "bytes": 1559,
+      "sha256": "bbd138840bdae6f0ea2b03dc43525fdde08da052530fe5aedd3e1dbd1713bea6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/request-identity-7.json",
+      "bytes": 895,
+      "sha256": "14dd021ca25ae2895458de895e7149e0369b19538b30718f310446cf1a1f3943"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/guard-batch-owner/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/capture-halted.json",
+      "bytes": 295,
+      "sha256": "d611220891a4b4b701dd642c897d64d1d52ea4558643c1237be731f69058c298"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/fixture-gate",
+      "bytes": 34,
+      "sha256": "cf6a5caca1a4be42d569f4e195109627199cf64eee63785c098463d8cbffc12c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/identity-console.bin",
+      "bytes": 4003,
+      "sha256": "5b241a28295667fa22116921a2b2e7c1e87059f96318e167d84caa8d1baa466b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/identity-entered.json",
+      "bytes": 989,
+      "sha256": "cb1ebbd08018e663238177a398a5440a5502d4d56fe980cfbdc0f5a9a3968cfe"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/identity-outer-return.json",
+      "bytes": 1378,
+      "sha256": "faa35f4ba8211255e1b30f2644deb653e0131600a4f6cd13138256688fb29cf3"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/identity-receipt.json",
+      "bytes": 3275,
+      "sha256": "a27d3b7e2c499ef5c50d97d322afce6a8fcb67e882b04ae6d974ac06804d3319"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/outputs/identity-stdout.bin",
+      "bytes": 28,
+      "sha256": "06cd823cf856375cf13fc65b26446bdf47ceba1f037a51429c6bb6c64659995d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/release/capture-policy.json",
+      "bytes": 1518,
+      "sha256": "86d729a276847154fe59964ce1757d58985937404afeddd2acbf3c851a87207f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/request-identity-11.json",
+      "bytes": 867,
+      "sha256": "23476f1a68e68188f14e2a54fe2093dee14c26ea6741bf74d1275342d6faa9dd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/late/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/capture-halted.json",
+      "bytes": 284,
+      "sha256": "f7665006d8a88f14c868d88b894956f17872966de07019543dd9a0397a8a3012"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/identity-console.bin",
+      "bytes": 3936,
+      "sha256": "fa2d8bb9f83cde388f0a99f88c5278a39bf594aff91be153b2082525937a317e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/identity-entered.json",
+      "bytes": 994,
+      "sha256": "6ab9afc6f7b3e555cde5957cfb1904fcdb3e579ff7634c98073838ea376a2550"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/identity-outer-return.json",
+      "bytes": 1385,
+      "sha256": "f61219b32ee13cc1734635dc3c51fab6ab5fbc770a7bebb67de111de97896cbd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/identity-receipt.json",
+      "bytes": 3207,
+      "sha256": "1f5f236744f1f4b8f2e77f7238b2c46d346540fea754b9abda48580e4f6e489b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/outputs/identity-stdout.bin",
+      "bytes": 64,
+      "sha256": "d53eda7a637c99cc7fb566d96e9fa109bf15c478410a3f5eb4d4c4e26cd081f6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/release/capture-policy.json",
+      "bytes": 1526,
+      "sha256": "02ab141889f35ae7c28cc7c0b31aa1b38bac05f450bfef869a335dd8d63e4df6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/request-identity-9.json",
+      "bytes": 872,
+      "sha256": "4ad0aec1945cc8d7be79627c0c0b7d1ac404df7a5f50cb317db38f1306b74d88"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/overrun/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/counter-negative.json",
+      "bytes": 905,
+      "sha256": "aa39e30a8eb98ba1effb3bad9b46b43b0dbaff60b86f69e5b421087b8eaaf203"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/app_absence-completion-proof.json",
+      "bytes": 982,
+      "sha256": "4099f67227a647d1f2bba5fccf5b5e14d665d60f1c7751de6ca6be7035da3022"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/app_absence-console.bin",
+      "bytes": 3883,
+      "sha256": "f01c76d9bc589e562891c6146e19395a1885368c0466e9fe81a2a7655d4d9055"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/app_absence-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/app_absence-entered.json",
+      "bytes": 1027,
+      "sha256": "1c8843e889d30ff73f10e08d7e557687f24d2d29d7723d186934e63995b8a09b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/app_absence-outer-return.json",
+      "bytes": 1473,
+      "sha256": "cd7e62c6bde36d2187d1df31cf75e6b9ed65e9d382c0372394a9e82c1ce07d96"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/app_absence-receipt.json",
+      "bytes": 3147,
+      "sha256": "a79d182ee05f5481a71fd137fdc02e32e3e87f854b7f8ccd5f0918253af44ed5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/app_absence-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/app_absence-stdout.bin",
+      "bytes": 45,
+      "sha256": "126c14e6b9eee5fbbd6713e7453cf4b5c5e1b3da46c610528bf1e4b664404b0d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/global_idle-completion-proof.json",
+      "bytes": 980,
+      "sha256": "394e8e57fd56353c18daff8fd4e19437fe1e712d474d7995de947daf137e5850"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/global_idle-console.bin",
+      "bytes": 3889,
+      "sha256": "d5bfc271c5189f2e613d86b7fdd025042af3324200b1dd1d90dc7af6d51a712e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/global_idle-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/global_idle-entered.json",
+      "bytes": 1027,
+      "sha256": "9cc6d66290029eca4559953d2a9d6169c3077295bfb8df3d3e0acd786c424d62"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/global_idle-outer-return.json",
+      "bytes": 1473,
+      "sha256": "106aa87e7f0e59d682636a8974f394a19253f7d63164f1f781bc7dcb0ec43fd8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/global_idle-receipt.json",
+      "bytes": 3153,
+      "sha256": "63bb76fa84183ddaee423a1292973993d36ae476369120c76b2cf2626ec54c2c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/global_idle-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/global_idle-stdout.bin",
+      "bytes": 396,
+      "sha256": "610a47d2a818108260ef01450c2e653ec7dc7c1d568493b5e5844eb91852f1a6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/identity-completion-proof.json",
+      "bytes": 974,
+      "sha256": "51b473c398cdcc20ff1915eb2f6a98861cca402cd94d67d4d9b872099abc355f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/identity-console.bin",
+      "bytes": 3815,
+      "sha256": "42f0d793389dccb1fbd2316f77c5af25db220f85da43884812f1f98918427882"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/identity-entered.json",
+      "bytes": 1021,
+      "sha256": "7e1e8b4ba2c0010879c7f52c5bbff0cfe2edb4204cf6b76f6aac9ea3bc7e8844"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/identity-outer-return.json",
+      "bytes": 1409,
+      "sha256": "38ba8ddcb4595efd73ef9f31e6f9dfbea65b270b6070d8cceadde6fa936cbbcf"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/identity-receipt.json",
+      "bytes": 3085,
+      "sha256": "6cc475b9654cda2e09d15131e724565bf78a4599c639e5316039d5568ebad3b6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/identity-stdout.bin",
+      "bytes": 105,
+      "sha256": "a5c831cdf9eac18fb634d2d8aa48ef727f450764b5b591f8b52bdbe2a1a5d9d4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-completion-proof.json",
+      "bytes": 987,
+      "sha256": "420ba3e34247f6a0f714155ce87e9da931246034985e8deb36e5f07db18680aa"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-console.bin",
+      "bytes": 3981,
+      "sha256": "d7f812e5cdb677d4ffeb003d97035450b59d6ecabfa35fbccb02ebe7d8e60ae7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-entered.json",
+      "bytes": 1027,
+      "sha256": "f2e36a0f617d4d769ab00ac42103717c89a0d711ac43bb2da66308859157e0fb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-fixture-input.bin",
+      "bytes": 4096,
+      "sha256": "c8f5d0341d54d951a71b136e6e2afcb14d11ed8489a7ae126a8fee0df6ecf193"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-outer-return.json",
+      "bytes": 1473,
+      "sha256": "52ba8840363581df467a4649102f9baafc6ec95494e0c1b40d73d25b47d5c46c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-receipt.json",
+      "bytes": 3239,
+      "sha256": "f90feebea3dca480ef0e1caae688cc0845eab7122b4506c8a84633f01bbbd413"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_app-stdout.bin",
+      "bytes": 125,
+      "sha256": "d05577ba984aa8570aa1d6d882ac9487ffcfc69fd07ef881653903ecfedb0ea4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-completion-proof.json",
+      "bytes": 986,
+      "sha256": "34dbbc848dfd91127a53e06573d094b69212096e2f8ff7633df484edde0f64b1"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-console.bin",
+      "bytes": 3985,
+      "sha256": "4da3058bb0c0ba25c1f7b53f0651bba779de81207924dec0f5d860bba65b9545"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-entered.json",
+      "bytes": 1029,
+      "sha256": "9d60d0600d499de2922a843f48ac35d6ef986080d48ab79509203c73a6046ab2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-fixture-input.bin",
+      "bytes": 2048,
+      "sha256": "10fc3c51a152e90e5b90319b601d92ccf37290ef53c35ff92507687d8a911a08"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-outer-return.json",
+      "bytes": 1461,
+      "sha256": "c91eda36ca3696397f6e8a319594ba224f49918358e03ce0c6f8f54782b25db5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-receipt.json",
+      "bytes": 3242,
+      "sha256": "5ea40f17a812135dabc09deeeeef95989d927b3538bda6b998e974fa2d3ab9cd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/install_test-stdout.bin",
+      "bytes": 125,
+      "sha256": "54b71eba3f5d1b532a4598061ddff22f5753c5b725a92a3140be6017290c7319"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/scope_all-console.bin",
+      "bytes": 3935,
+      "sha256": "7ffe659769a9c4742eabfb8d73fa83a22171c362547268e0eb48604239b07cca"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/scope_all-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/scope_all-entered.json",
+      "bytes": 1024,
+      "sha256": "e8968f96a63cfc8468219f5f0528983a0e9c54bf989e3ffe0fcab48adeba236c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/scope_all-outer-return.json",
+      "bytes": 1469,
+      "sha256": "a2bc1513152bf0895a530b40f85c8bdc49ac970ac5a34e5369cc47ee0e880b74"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/scope_all-receipt.json",
+      "bytes": 3192,
+      "sha256": "c51a3edf212cdf10c6f89ec0347eb9fe012a10c4943b4d4395d649473460ba62"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/scope_all-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/scope_all-stdout.bin",
+      "bytes": 634,
+      "sha256": "7ec72fc207d5ba596e99dbbdf972981d21c2ce3348042285943f9ae0a8b7de0a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/test_absence-completion-proof.json",
+      "bytes": 983,
+      "sha256": "954d72b0c1d4be1f8e571b1ac67a167f3c13c28d22f7c045a7f7231d100dad1b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/test_absence-console.bin",
+      "bytes": 3886,
+      "sha256": "d4c47141d6f28e38700df14881311522a73119728d90d7aeb7cc360bb1881637"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/test_absence-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/test_absence-entered.json",
+      "bytes": 1029,
+      "sha256": "889dd9a88a787b5481b882f7e345666510e7c1f2b189580774ea21097240a603"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/test_absence-outer-return.json",
+      "bytes": 1475,
+      "sha256": "95d72dfb3a0169fee4ec5e2f7237ff74c033a46781548d07bd506f1b29f043c3"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/test_absence-receipt.json",
+      "bytes": 3149,
+      "sha256": "4cd86975a6e9d3610139263e32e448e659b2c823162bb691c49a13598649a63c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/test_absence-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/outputs/test_absence-stdout.bin",
+      "bytes": 47,
+      "sha256": "c1ea2fb69caab442caeb973f1dda48930b8433746c2a043161e0be322ebcef3c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/release/capture-policy.json",
+      "bytes": 5833,
+      "sha256": "8cfc78c5c2544138eb6f2393b9ab19b9f8f08310e974ef2df41ea84f2606dd80"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/request-app_absence-2.json",
+      "bytes": 905,
+      "sha256": "b53c4b9e9226f81493b06c982f8fed382dd26de66216fe41b7cde79e1e657ad7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/request-global_idle-1.json",
+      "bytes": 905,
+      "sha256": "aa39e30a8eb98ba1effb3bad9b46b43b0dbaff60b86f69e5b421087b8eaaf203"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/request-identity-0.json",
+      "bytes": 899,
+      "sha256": "9988804a86716e0a7216c119b3d91a2dded0a9934f1bdec2bd31b1eb0c0e0ad1"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/request-install_app-4.json",
+      "bytes": 905,
+      "sha256": "688bfa60fa229a366e32a547a4266a10c9bcbbc31207cc32c32f3e463ea3b0e4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/request-install_test-5.json",
+      "bytes": 907,
+      "sha256": "e30f8c568ec2db5b8ce2bfeabd92844132d890587120c8e98116c13d4a9072c8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/request-scope_all-6.json",
+      "bytes": 902,
+      "sha256": "ffa1c6c632c0718189574236a663e3aab523ff0895a9917f7e12a1ee0297d320"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/request-test_absence-3.json",
+      "bytes": 907,
+      "sha256": "cc30abd5005b8d3f226ab876f5f9461db2d1a376ed473f45247b00da6cc62824"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/seven-role-positive/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/capture-halted.json",
+      "bytes": 280,
+      "sha256": "51dabfa825b88648676b75d544edcb198a41f6dc33c94041fe76f0ecfa1edfa3"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/identity-console.bin",
+      "bytes": 3994,
+      "sha256": "63dc723b4ac4361ea22a6e1092212b190fdd911b8a4ab05c6e03fdfbdcdcdeff"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/identity-entered.json",
+      "bytes": 993,
+      "sha256": "3eb558cd9dcaa32de4bc9a01603f0a4960365cd9d55117a1302b12b99e23177c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/identity-outer-return.json",
+      "bytes": 1383,
+      "sha256": "cd81c6042998f28ded611b52739be1265330de6e871e4651b65c16b087e4a304"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/identity-receipt.json",
+      "bytes": 3266,
+      "sha256": "ccbe358a56e2135361a52fdb75a562fd2fffa7ad878c0d71422399fd3be53443"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/identity-stderr.bin",
+      "bytes": 29,
+      "sha256": "d61792449e48ffc0f3afaafb116d5d097c42b08f91fe601f73afde83c90b0826"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/outputs/identity-stdout.bin",
+      "bytes": 22,
+      "sha256": "3227fefebc1d9b799247d388142d9c54253592c07625fa8147b6673b62d27cd7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/release/capture-policy.json",
+      "bytes": 1524,
+      "sha256": "e381b650cd0defcc1be1b5c652a563eefb42d6996bd140f6d26cead76bbcb722"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/request-identity-10.json",
+      "bytes": 871,
+      "sha256": "7183c1895cc1234d0eec82ec8472fd5092acf82fbbef6a73c9ab8c8732fe8add"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/stderr/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-35ad972aea9e/summary.json",
+      "bytes": 5157,
+      "sha256": "42542f881e02d84ef4f4ea0d015b43bc869af814bf67018834284c9faed9c826"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/argv-extra/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/argv-extra/outputs/identity-controller-stderr.bin",
+      "bytes": 354,
+      "sha256": "9c1cc1f20d74ccd10d5015c6632db67667aa8cb33439b0865b2e2414815441fb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/argv-extra/outputs/identity-outer-return.json",
+      "bytes": 1390,
+      "sha256": "8267dd08c3e652b2b895c681c76892a79ba54b12b03f43b8bcb9a70e56af1ce6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/argv-extra/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/argv-extra/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/argv-extra/release/capture-policy.json",
+      "bytes": 1538,
+      "sha256": "ea5d0a490c53ecfb9007cff1a0f9099949f1c44e08e3145f07012dd5861808c1"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/argv-extra/request-identity-10.json",
+      "bytes": 894,
+      "sha256": "3331db0173ff809846cc825532e298683bb6771e4def8543eb33bfe5cf89ffbf"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/argv-extra/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/close-gate/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/close-gate/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/close-gate/release/capture-policy.json",
+      "bytes": 1546,
+      "sha256": "b14787081a7ece32a546b63023f8cabc554abf3576fe896fc8130d55ab0a9ca2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/close-gate/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/duplicate-field/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/duplicate-field/outputs/identity-controller-stderr.bin",
+      "bytes": 355,
+      "sha256": "95de6d0e7d429e57154b2ce8c85e1d3aa4c8c449d5f78b6071786e17dec4b5ac"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/duplicate-field/outputs/identity-outer-return.json",
+      "bytes": 1401,
+      "sha256": "a36b269ed96ad9c026789a12657197ad67caae44e33aba7e382ccc9c58b3dcb2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/duplicate-field/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/duplicate-field/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/duplicate-field/release/capture-policy.json",
+      "bytes": 1553,
+      "sha256": "999fb85d8b05331b6333aca195462ed80dd8c348ed967043117cf965f02d7765"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/duplicate-field/request-identity-11.json",
+      "bytes": 932,
+      "sha256": "5fe9ae53332b93954d6493814b9e803c1d5da61fbf10baa9a542a51d817336e7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/duplicate-field/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/eighth/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/eighth/outputs/identity-controller-stderr.bin",
+      "bytes": 351,
+      "sha256": "682db482de15a270dded4ee284467fc4c40a9e436d2b8f66ba05081c3d7b2c99"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/eighth/outputs/identity-outer-return.json",
+      "bytes": 1383,
+      "sha256": "86fd621e5bd6fcd95b4e20c725b7af47c770ea08b865fd492b387c7ee9e57a0d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/eighth/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/eighth/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/eighth/release/capture-policy.json",
+      "bytes": 5607,
+      "sha256": "ac841e9679c3ad82a977b3dbc76a0ea4f78066fe160402032e19a9c01697970e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/eighth/request-identity-12.json",
+      "bytes": 873,
+      "sha256": "8a4042e5355caf5da326a69dab53ba4cb22699ab50a77b2bca2964ab7fc58316"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/eighth/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/entry-pin/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/entry-pin/outputs/identity-controller-stderr.bin",
+      "bytes": 349,
+      "sha256": "686135dc379166ed83583298d56c54814ed91a3594f099d7b2406e1318876b46"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/entry-pin/outputs/identity-outer-return.json",
+      "bytes": 1387,
+      "sha256": "600c0b2f4ce8555fa7b4226bb790743acdd30f8bb072f8f7f0a3197c88b6de6c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/entry-pin/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/entry-pin/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/entry-pin/release/capture-policy.json",
+      "bytes": 1535,
+      "sha256": "d03f378e97c1d2d5112284e69e04f9f99db4b1c8ccc09f8c00b633ff847df030"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/entry-pin/request-identity-7.json",
+      "bytes": 879,
+      "sha256": "dae9a8d52f95e3668caf94664c20ec03733e7e41c07518fd932c7c743f99bc6d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/entry-pin/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/app_absence-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/app_absence-controller-stderr.bin",
+      "bytes": 372,
+      "sha256": "2ecdba8e4cb8d1b011752431319bf581a8318081ebc035bea2e25e25d675fad2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/app_absence-outer-return.json",
+      "bytes": 1457,
+      "sha256": "e10909fcea6c1de5279a1fb0f40150b895afe57700b38ca080d89b62aefda48b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/capture-halted.json",
+      "bytes": 301,
+      "sha256": "03eb6d9f16b28a253c3e01d0e9a9618050adb9e18c2528069cc6581f5098d261"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/global_idle-completion-proof.json",
+      "bytes": 976,
+      "sha256": "52a7a5ac93ce18039118e1331fab9fd257c311311350729791e998898ae20388"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/global_idle-console.bin",
+      "bytes": 4111,
+      "sha256": "8ab3d9e18ebccfc6aaa94fdb20f5c966d7ade11e16a84b77cf78628d037a542e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/global_idle-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/global_idle-entered.json",
+      "bytes": 1010,
+      "sha256": "fe5ee962cd4e02d07c24b9e5d263df1ee4fade9e4c1998754dbd9c57099a4e3c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/global_idle-outer-return.json",
+      "bytes": 1457,
+      "sha256": "b499e13f64d23e1df2381582b1b7fe83df24b81f1d6389c9498350fa246911c4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/global_idle-receipt.json",
+      "bytes": 3375,
+      "sha256": "4f73a48c80218458719ba44b74c78f4706c224408cbcd1e54773ab9da312340e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/global_idle-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/global_idle-stdout.bin",
+      "bytes": 474,
+      "sha256": "a3ceacceaaec5abd9bb5fc2822977287fd0d20e84f0f9527a1e607bf8f4bedfe"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/identity-completion-proof.json",
+      "bytes": 973,
+      "sha256": "a0cc9a54505a06372c15cb23a2fc0cfe99bdd1790d46942c4f0e304ceb54636b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/identity-console.bin",
+      "bytes": 3800,
+      "sha256": "1ea120492a4b6ded5dc9ae6bf9fb56fd5c90b11d04127157194e6be391314cb2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/identity-entered.json",
+      "bytes": 1004,
+      "sha256": "8fbc720e81be6b8b952694a6547f1954706b1866411dceedffe5ea411d4e15ce"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/identity-outer-return.json",
+      "bytes": 1393,
+      "sha256": "9bc79ff0c3e6b0e5a4502ded395a1c4930989a9ca9efece3b4e190d78dc191fc"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/identity-receipt.json",
+      "bytes": 3070,
+      "sha256": "618e2788fbedbc7cbb987e09bc6aa12b66eea6aba3a1d95e2df5bee6aa7367fc"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/outputs/identity-stdout.bin",
+      "bytes": 105,
+      "sha256": "a5c831cdf9eac18fb634d2d8aa48ef727f450764b5b591f8b52bdbe2a1a5d9d4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/release/capture-policy.json",
+      "bytes": 2729,
+      "sha256": "292563f9ac88b885c2472766df0447cd4a744d2bc5a12014605be84ee5932d16"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/request-app_absence-16.json",
+      "bytes": 889,
+      "sha256": "eda13088b619c9ba03de211548ef49726cfadc8236a84540b9c1c01d4b88175b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/request-global_idle-15.json",
+      "bytes": 889,
+      "sha256": "65d8978b6fd592e0af6079db48a90ac5f7e67ff5c448eeef9fae3f311dfc5425"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/request-identity-14.json",
+      "bytes": 883,
+      "sha256": "c79cfc2e8a24eafd5f4da3de5fd3feac13c037eaaf07349a48f8f428adfd05cc"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/global-busy/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/capture-halted.json",
+      "bytes": 294,
+      "sha256": "78ecb17c30a2c1706dcc9860aa1e8de167e86f8e08299da43d07404738c4fec4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/fixture-gate",
+      "bytes": 34,
+      "sha256": "cf6a5caca1a4be42d569f4e195109627199cf64eee63785c098463d8cbffc12c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/identity-console.bin",
+      "bytes": 4002,
+      "sha256": "63dcf38ea7e72e4d0214dc538bcbb3da7fac3d525e25f5896900d71e49d4782f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/identity-entered.json",
+      "bytes": 988,
+      "sha256": "f3a97f0d5c2aa73ef4bb32c4b7feca235a49dfadb45e23843953826e80dd6655"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/identity-outer-return.json",
+      "bytes": 1378,
+      "sha256": "3d00db32442d100ee90f991bffba8695d82684eb99c012038e6bc354278893a2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/identity-receipt.json",
+      "bytes": 3274,
+      "sha256": "2f4c1466cf7045dfc47ef7ac8e7b07ed9bf47bf67c9e01511b6027ddf07fcbc2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/outputs/identity-stdout.bin",
+      "bytes": 28,
+      "sha256": "06cd823cf856375cf13fc65b26446bdf47ceba1f037a51429c6bb6c64659995d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/release/capture-policy.json",
+      "bytes": 1518,
+      "sha256": "3c892be55f576e76dd36d8f5b5cab67db2b98ead9bc3c0387d0b4a73ef0192cc"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/request-identity-20.json",
+      "bytes": 867,
+      "sha256": "5e53a6335b26416a9ba66ced102d399b7238f20d1c4d3d0454b2e6280287a5a2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/late/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/capture-halted.json",
+      "bytes": 284,
+      "sha256": "21962cad7a7fef3a763aa1e156fae9972732b8d73acfa91bc17db9eaddd14f3a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/identity-console.bin",
+      "bytes": 3938,
+      "sha256": "c530ca06aedbab812508c6199696a47282deb67802a221e7017a760f906d67be"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/identity-entered.json",
+      "bytes": 994,
+      "sha256": "0a9c27852a625246eb8f507d836f5ef7d4428aed21ac2b3179a675ff262f3ca5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/identity-outer-return.json",
+      "bytes": 1372,
+      "sha256": "c79a7ad0f43b7d382dd1d8150d45a4662bbcbd4bdff4de26a02bf3d28ca09ac2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/identity-receipt.json",
+      "bytes": 3209,
+      "sha256": "4ce3be66aede09dc4dac7d1267a3cbe0ca43e7f39939f3ef897531ec1f11c11d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/outputs/identity-stdout.bin",
+      "bytes": 64,
+      "sha256": "d53eda7a637c99cc7fb566d96e9fa109bf15c478410a3f5eb4d4c4e26cd081f6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/release/capture-policy.json",
+      "bytes": 1526,
+      "sha256": "ba5b51d4c49a5edafa9c0f5d6d3d321499662c787f9956889ee8642ce0119e07"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/request-identity-17.json",
+      "bytes": 872,
+      "sha256": "961be231d1f8beffe4c80d97a2d4da99c97d8eccb7b3d685d47f19490f69da48"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/overrun/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/preparation/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/preparation/outputs/identity-controller-stderr.bin",
+      "bytes": 378,
+      "sha256": "1336622108803971bfffc6af775d66ba4fa114cd8a043946b1b178cdd3ab675d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/preparation/outputs/identity-outer-return.json",
+      "bytes": 1391,
+      "sha256": "749b0ed458102e3b4c74d11e96957bba95961d23b279272bf9bbce4046cf8815"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/preparation/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/preparation/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/preparation/release/capture-policy.json",
+      "bytes": 1542,
+      "sha256": "4d73a60966d880d336fcb73406d6a58bc8051aad4cccb9f5240526e4c37f3ca9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/preparation/request-identity-8.json",
+      "bytes": 883,
+      "sha256": "a42b5903eee8ea8948208bf6e6bf9109a05df87f8e211d973fd06ad8e8d1f6ae"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/preparation/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/sdk-argv/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/sdk-argv/outputs/identity-controller-stderr.bin",
+      "bytes": 357,
+      "sha256": "967b41a24b0bbeaee67199475ee61775083c58dba5aedb871c59bb0215a65bac"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/sdk-argv/outputs/identity-outer-return.json",
+      "bytes": 1373,
+      "sha256": "d25b9fb65de0bf8b1dbda9d425b6f1b9306b12e0bfe25666664d329e94d1ea7a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/sdk-argv/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/sdk-argv/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/sdk-argv/release/capture-policy.json",
+      "bytes": 1480,
+      "sha256": "0126b58fbbbc0463a83f96e009f39810198d1d858c4b77d91742b2310759e0c4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/sdk-argv/request-identity-9.json",
+      "bytes": 825,
+      "sha256": "049db458830773e8f565ca0f0e89ef1a027d73b9c09a1200444d988078f29beb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/sdk-argv/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/app_absence-completion-proof.json",
+      "bytes": 982,
+      "sha256": "5b775d9d89dc7bc1f3ae85e28c71e569b32a2de9bab9839ac5f5dddd7629d6bf"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/app_absence-console.bin",
+      "bytes": 3883,
+      "sha256": "1ecf68d10066bd6d57ddebb027aedcd96ba290abbad674a8ffd433ab00c1471b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/app_absence-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/app_absence-entered.json",
+      "bytes": 1027,
+      "sha256": "dbcda7a3d9fc1537d6e7d90631b57128dfcf71f715bd6bf1ec13b610dd920d51"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/app_absence-outer-return.json",
+      "bytes": 1473,
+      "sha256": "4042605af169d15a92612aaeb297ae7ce6b94c25684e0ffa7568ecac0af12336"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/app_absence-receipt.json",
+      "bytes": 3147,
+      "sha256": "a564cd1950f549e7f9599897398a96237523c0a25420d1bdf9e3a80b1a8e2c92"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/app_absence-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/app_absence-stdout.bin",
+      "bytes": 45,
+      "sha256": "126c14e6b9eee5fbbd6713e7453cf4b5c5e1b3da46c610528bf1e4b664404b0d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-attempt-14-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-attempt-14-controller-stderr.bin",
+      "bytes": 369,
+      "sha256": "d2989aaa3b6495c613053782d9bac2b87d63df354f549c78e356ee35fd23f674"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-attempt-14-outer-return.json",
+      "bytes": 1473,
+      "sha256": "18a8fe3918568226d6874574b50b3179191677722cc5bc7e1ce36856b335012a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-completion-proof.json",
+      "bytes": 980,
+      "sha256": "0388f31f944fa01dd556417aaa9ebb133cd56ce60a59ebd4d14820b310d87ed0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-console.bin",
+      "bytes": 3887,
+      "sha256": "d6853f78ac016404b4d9cbc0cefcadc3840a360c19fcf44126c45dc876ea0132"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-entered.json",
+      "bytes": 1027,
+      "sha256": "da3ae9df14f829d61babef9386bcfdfb9138c1db318679dc5748fa40ad23cdbd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-outer-return.json",
+      "bytes": 1473,
+      "sha256": "f9e12e980e84c49f024da2facdf679690428a21bd68e881d8178573d25fbb601"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-receipt.json",
+      "bytes": 3151,
+      "sha256": "9c7f2fa43712a76b41e59ef3956ad424ceb47781a25f611f10a04aff87c065e2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/global_idle-stdout.bin",
+      "bytes": 396,
+      "sha256": "610a47d2a818108260ef01450c2e653ec7dc7c1d568493b5e5844eb91852f1a6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/identity-completion-proof.json",
+      "bytes": 973,
+      "sha256": "33a4c092f642bd4205260974c17ac8b124fd08398e966a69d44560500e621c7a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/identity-console.bin",
+      "bytes": 3815,
+      "sha256": "eac134beaf69d8bbcb39301dd9cfb1e41cd6cca5be69dd53a49991818b7468cc"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/identity-entered.json",
+      "bytes": 1020,
+      "sha256": "feb41deb057c66375cb1494b2320dbe667c708bbdb3a4b68ad8f512ef3b6810c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/identity-outer-return.json",
+      "bytes": 1408,
+      "sha256": "0f81bfc176f4fa99dac631a091a3426e5b92186e6beab587b926a322bfa85fd9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/identity-receipt.json",
+      "bytes": 3085,
+      "sha256": "8b6d09116caa9f5f085c71bd3f54bc7a2de8084d158a62088ace9c703b58c984"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/identity-stdout.bin",
+      "bytes": 105,
+      "sha256": "a5c831cdf9eac18fb634d2d8aa48ef727f450764b5b591f8b52bdbe2a1a5d9d4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-completion-proof.json",
+      "bytes": 987,
+      "sha256": "14dfd3f7e0009063112fc07d53ede1051c80dc8da91164ac0c5d47cefaf6b4fe"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-console.bin",
+      "bytes": 3981,
+      "sha256": "966b7cb93e9df029893fc3b5dc473ea4772034a13b77137217f7c8632c7136fe"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-entered.json",
+      "bytes": 1027,
+      "sha256": "cfb2559a51c569af84814868f526d9d9838dcc5dc4bdad3cf47bd1773fd428a3"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-fixture-input.bin",
+      "bytes": 4096,
+      "sha256": "c8f5d0341d54d951a71b136e6e2afcb14d11ed8489a7ae126a8fee0df6ecf193"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-outer-return.json",
+      "bytes": 1472,
+      "sha256": "be5a3c784d3401457e61ff9e3fd7bbd90f67fe80af7a2b56d428841441ae77bb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-receipt.json",
+      "bytes": 3239,
+      "sha256": "8db01b9ee913bcbb1b678aff2f03b3277698083d163973231c26f1fa92cf29de"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_app-stdout.bin",
+      "bytes": 125,
+      "sha256": "d05577ba984aa8570aa1d6d882ac9487ffcfc69fd07ef881653903ecfedb0ea4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-completion-proof.json",
+      "bytes": 985,
+      "sha256": "457440b54976b973d5250f2c2650d3c540117e469133105479dd135b69b93ee2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-console.bin",
+      "bytes": 3984,
+      "sha256": "ee199af6a4bb12fb34877982826b5991baacbedbb4c1000bf64d475c43360973"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-entered.json",
+      "bytes": 1028,
+      "sha256": "236c8bbe1cd591d72d7a13bac31247af6f2ad6a9ccedd22ed7fcb27338ef4644"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-fixture-input.bin",
+      "bytes": 2048,
+      "sha256": "10fc3c51a152e90e5b90319b601d92ccf37290ef53c35ff92507687d8a911a08"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-outer-return.json",
+      "bytes": 1474,
+      "sha256": "5ad45a1538c07b701875e80f2b59307d205cc6b33dea34f87fd7f2b66d407e43"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-receipt.json",
+      "bytes": 3241,
+      "sha256": "b5c92d4a3e78f20e9eebfe56c712f400fa37cebd2642b7add23c9118187fb67e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/install_test-stdout.bin",
+      "bytes": 125,
+      "sha256": "54b71eba3f5d1b532a4598061ddff22f5753c5b725a92a3140be6017290c7319"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/scope_all-console.bin",
+      "bytes": 3935,
+      "sha256": "250c0e45dfac88981b4989f751067a7d563ec41c5a031722fe0574c265e92dc7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/scope_all-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/scope_all-entered.json",
+      "bytes": 1024,
+      "sha256": "c3a966504af98ac24a6d76ee2893b621195ab567b2d8679d277f2fafd5003234"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/scope_all-outer-return.json",
+      "bytes": 1469,
+      "sha256": "02b5ad9f5cf0c852057bed4a7e77ce589d1ecc7d9e60a123a93076284c037499"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/scope_all-receipt.json",
+      "bytes": 3192,
+      "sha256": "6d4112b35b1942c97cc0d0e9013ad61e978b7a26de13a6d7fbc4c248c0e5c014"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/scope_all-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/scope_all-stdout.bin",
+      "bytes": 634,
+      "sha256": "7ec72fc207d5ba596e99dbbdf972981d21c2ce3348042285943f9ae0a8b7de0a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/test_absence-completion-proof.json",
+      "bytes": 983,
+      "sha256": "4023785ac6b55939ee8c79a7765d0ba1999187230fc0df989498d34d1fbed283"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/test_absence-console.bin",
+      "bytes": 3887,
+      "sha256": "4c3c18d937cbce320acaed700be62b1a7e064d8497c9aceca512520f68379872"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/test_absence-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/test_absence-entered.json",
+      "bytes": 1029,
+      "sha256": "362d15ce2e1fae7578d88424e9f30cf28bb7b908542e7c3a00a6060b8fffb61d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/test_absence-outer-return.json",
+      "bytes": 1475,
+      "sha256": "bde20ff232dadfd7b75311d7e7c1f08d928b80683c33875c051ad0589672a5c4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/test_absence-receipt.json",
+      "bytes": 3150,
+      "sha256": "34340dcc1b2d06fd3f18d240fabba4918ab97bbb0b4370fada8cd7cfd70d3fd7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/test_absence-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/outputs/test_absence-stdout.bin",
+      "bytes": 47,
+      "sha256": "c1ea2fb69caab442caeb973f1dda48930b8433746c2a043161e0be322ebcef3c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/release/capture-policy.json",
+      "bytes": 5833,
+      "sha256": "208933965c10ee6661b3dcc64790ccaeba005e0aad5cb4fcc9096c0018904b6b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/request-app_absence-2.json",
+      "bytes": 905,
+      "sha256": "d47dff18851b5b4f7ba7383b16806ee4910c2c37fd44123ae2f80d9bb58e2719"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/request-global_idle-1.json",
+      "bytes": 905,
+      "sha256": "f09e3c606380d5661530885bd0f39bad540147c1a9ca92715732ac0226d136eb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/request-global_idle-13.json",
+      "bytes": 905,
+      "sha256": "f09e3c606380d5661530885bd0f39bad540147c1a9ca92715732ac0226d136eb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/request-identity-0.json",
+      "bytes": 899,
+      "sha256": "87ea00b42a57e7834cefe398f653bf3d959d13d189006bd0956aa4fe1e98361b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/request-install_app-4.json",
+      "bytes": 905,
+      "sha256": "20db786cd33d247623d9d9875b442e92fa77246ed0e3ef8bd0c720f602fa4e59"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/request-install_test-5.json",
+      "bytes": 907,
+      "sha256": "4a5744a9bb6338d3a67bb7f79027b66c494b7448d3c8956ca64d19c8e34b625b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/request-scope_all-6.json",
+      "bytes": 902,
+      "sha256": "c32ef1b993be65f73618a1f7a2235bee82d59e83353e0940112ef325ccc172a9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/request-test_absence-3.json",
+      "bytes": 907,
+      "sha256": "099dca4477518de7a4e1649999894d4151db0a36d5fb7b9c616a7261a0546c0c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/seven-role-positive/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/capture-halted.json",
+      "bytes": 280,
+      "sha256": "03d8baa1f85a3e6d3d4c6ffbcc703c716ba114f6a84a8a5217c44f19a8528453"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/identity-console.bin",
+      "bytes": 3994,
+      "sha256": "848dff9a61519f23096020d98bb0d063c009582772ca8ce57de60e7b77c2bbc5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/identity-entered.json",
+      "bytes": 993,
+      "sha256": "fe1f1bd1e956816c9c5c576a33a8fdaaaa8af59dcece8b2d46ae3274eb7e4008"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/identity-outer-return.json",
+      "bytes": 1384,
+      "sha256": "6a4ef27698adaaeaf49c921d3cbc94b2e16addc2837d8ecdae582e2b974b38dd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/identity-receipt.json",
+      "bytes": 3266,
+      "sha256": "2fa5f6cc11a4360bc3e9697e77a70c921db2e5b52ea9a7dd0ba2d077889646b0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/identity-stderr.bin",
+      "bytes": 29,
+      "sha256": "d61792449e48ffc0f3afaafb116d5d097c42b08f91fe601f73afde83c90b0826"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/outputs/identity-stdout.bin",
+      "bytes": 22,
+      "sha256": "3227fefebc1d9b799247d388142d9c54253592c07625fa8147b6673b62d27cd7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/release/capture-policy.json",
+      "bytes": 1524,
+      "sha256": "7595b98c59d5bb2d39ec751815e70714b1b4f170ad3263787a25b0e2cbe575d4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/request-identity-18.json",
+      "bytes": 871,
+      "sha256": "fc5b5bcc2ff99c386fba9c57ee3c4ed20c53e64ff7aea4c5e31d70f24eeba4c8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/stderr/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/summary.json",
+      "bytes": 5885,
+      "sha256": "0587d421cde5acdd7a643f52b2c771132ca0d7c2cf426c329a5c1c408df3b5ee"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/capture-halted.json",
+      "bytes": 281,
+      "sha256": "4cfbfb779dc87b0bdb471b56a639246848304d94fcedef9654089169887d487f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/identity-console.bin",
+      "bytes": 3976,
+      "sha256": "39df90f03d113646dd19aa911593eee2f9386b23d56b49552c642f09ffc4816a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/identity-entered.json",
+      "bytes": 995,
+      "sha256": "386b31c4ef32985c0ac3a4d9612d86e2ace0586688cfa96e263bcae7b5ccb4dd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/identity-outer-return.json",
+      "bytes": 1380,
+      "sha256": "2f57fffd3fc7cc8d8381c087fc07cebb0c3a92fc4f420a0bb140862502b7e873"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/identity-receipt.json",
+      "bytes": 3250,
+      "sha256": "7fdc8be211ae0405349ce097f483a3426886dac17ed87f988d8843a624c0097d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/outputs/identity-stdout.bin",
+      "bytes": 2,
+      "sha256": "b3d510ef04275ca8e698e5b3cbb0ece3949ef9252f0cdc839e9ee347409a2209"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/release/capture-policy.json",
+      "bytes": 1524,
+      "sha256": "694cc32166feca92c87723f9e4dc2433c4271e4614a82d3c7658e1429eda82ae"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/request-identity-19.json",
+      "bytes": 873,
+      "sha256": "09472e10beb29c35a113233c038cbec7edc31fbb7c23459100f27600f2cbde1e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-7ceea3d85e0a/utf8/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/duplicate-field/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/duplicate-field/outputs/identity-controller-stderr.bin",
+      "bytes": 355,
+      "sha256": "2ca0f3306fcfa118a77508b041fb1282b5f47e43c495980560bda0c55c22bbc6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/duplicate-field/outputs/identity-outer-return.json",
+      "bytes": 1401,
+      "sha256": "78c44e91c4063fa961e235ed6c86a99442eb98d9069641a4ba4f7882853b198f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/duplicate-field/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/duplicate-field/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/duplicate-field/release/capture-policy.json",
+      "bytes": 1553,
+      "sha256": "d7d87f1a0a5968c37867f6f5b631cc0524bc464c04f61efd5a81cd172d29ebf2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/duplicate-field/request-identity-10.json",
+      "bytes": 932,
+      "sha256": "bda1eb1b827d8e622d3015d5d6ccce1a8c2014186f2dfac4258db5d254c19297"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/duplicate-field/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/eighth/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/eighth/outputs/identity-controller-stderr.bin",
+      "bytes": 351,
+      "sha256": "027e5d5c7e5f43377923b742ef7b8fb10b55357c78f4c9ab82c4a7135696c761"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/eighth/outputs/identity-outer-return.json",
+      "bytes": 1382,
+      "sha256": "e9a7173e28d476d450c733dbabd3aec91f21f859c04c4acf9f85faa6ae78c618"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/eighth/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/eighth/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/eighth/release/capture-policy.json",
+      "bytes": 5607,
+      "sha256": "f1730a1a2d57003233465a02c13814e467f333be209c5c798913c147a21c13e9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/eighth/request-identity-11.json",
+      "bytes": 873,
+      "sha256": "980bc8bbeea2033193d5f8a955c78e131e71a22ef8786140e4446684c53b8dbf"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/eighth/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/entry-pin/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/entry-pin/outputs/identity-controller-stderr.bin",
+      "bytes": 349,
+      "sha256": "ad04587f8a9965c7f62446cb598b7c3e652e30b5a139396b7c1c6e0d14056faf"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/entry-pin/outputs/identity-outer-return.json",
+      "bytes": 1388,
+      "sha256": "277c628f69140c571bcca73ea66b8aafc45c392000b5e7c9f1bde2b82d6946de"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/entry-pin/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/entry-pin/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/entry-pin/release/capture-policy.json",
+      "bytes": 1535,
+      "sha256": "8635e922c08cf1deef23e34b3474b47ea1b8de85b136c0be50efa0fee3d6be5d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/entry-pin/request-identity-7.json",
+      "bytes": 879,
+      "sha256": "ef38bf20b2e855ac097f2b488de26804486d79b76754e6943c6bc2fdf9082e8d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/entry-pin/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/global-busy/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/global-busy/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/global-busy/release/capture-policy.json",
+      "bytes": 2729,
+      "sha256": "1c1778bf15c7623ebfb56179d40eac5bbc6321f960fbd43d80a76eb8253c986b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/global-busy/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/preparation/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/preparation/outputs/identity-controller-stderr.bin",
+      "bytes": 378,
+      "sha256": "244a64c2a1dfa2b19b686f42cc69a4831a921416ee96a2762b5b6a839cbd2865"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/preparation/outputs/identity-outer-return.json",
+      "bytes": 1392,
+      "sha256": "f18be9d5e9c99d27c660ff4cde1cdb39fee08fbe530694e93eb53a79326c46d8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/preparation/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/preparation/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/preparation/release/capture-policy.json",
+      "bytes": 1542,
+      "sha256": "76f1ad5f64844095a0360e81d37fa3d7de998e9a46bb8547fe68b2a10e821979"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/preparation/request-identity-8.json",
+      "bytes": 883,
+      "sha256": "3bca3de8503f8929d89b6c37e8d2c1214db670e444203db0218d5c500d265a79"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/preparation/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/sdk-argv/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/sdk-argv/outputs/identity-controller-stderr.bin",
+      "bytes": 357,
+      "sha256": "6e3f3a2b0136a85b1874da6413362e135a5f08f7461261a259819a52d835ac27"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/sdk-argv/outputs/identity-outer-return.json",
+      "bytes": 1386,
+      "sha256": "f8d510ee95c802b26ff6033c6a4bd9bbb0d5eaa015d92b1147aeaec76a7bcb45"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/sdk-argv/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/sdk-argv/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/sdk-argv/release/capture-policy.json",
+      "bytes": 1480,
+      "sha256": "eebcb727e56a206036d4046264910f117fbd1f6b4c06444db48fdf27ef16d126"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/sdk-argv/request-identity-9.json",
+      "bytes": 825,
+      "sha256": "317f2d96c8797b46c2ab5b5667bb99d0a5f35ec9d567dedcfbb563a83f949603"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/sdk-argv/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/app_absence-completion-proof.json",
+      "bytes": 982,
+      "sha256": "d0e3f15b21d7d0e4ca3a602e163fe9f284cdc6a3a39cc083c3c12119703242b0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/app_absence-console.bin",
+      "bytes": 3883,
+      "sha256": "65d5189faf28033b3ae36103732dc70df289025909396fa7163409365c908c44"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/app_absence-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/app_absence-entered.json",
+      "bytes": 1027,
+      "sha256": "24b37ea48d4fe3f3aff22f35381923526345640b26180c2b619ce075cb003926"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/app_absence-outer-return.json",
+      "bytes": 1472,
+      "sha256": "382c51df8548608a027665d7bc557219728d7b22756fd6ada91a2b9056fc378f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/app_absence-receipt.json",
+      "bytes": 3147,
+      "sha256": "54f1ed1405e2813c95a5900e18f14f0a5ba07ec1a5a80bd6ba912f3dbc59cc5c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/app_absence-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/app_absence-stdout.bin",
+      "bytes": 45,
+      "sha256": "126c14e6b9eee5fbbd6713e7453cf4b5c5e1b3da46c610528bf1e4b664404b0d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-attempt-13-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-attempt-13-controller-stderr.bin",
+      "bytes": 369,
+      "sha256": "c8ac5957bfd682571c1f6887711fecdb2528a49a7363699e1981e127d122a977"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-attempt-13-outer-return.json",
+      "bytes": 1472,
+      "sha256": "7c580ba2a8092c6c516b49a1a2f9cc978561b63c29d8332956325acd4612a449"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-completion-proof.json",
+      "bytes": 980,
+      "sha256": "8ce314b8ffd8762ddd307c741a7c07e73a0ba20401e0b1092d94b8106e319fe9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-console.bin",
+      "bytes": 3888,
+      "sha256": "b37a2904e2089d00c2d283ad60e403683925ef431cc761001c68515a9e1b2a13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-entered.json",
+      "bytes": 1027,
+      "sha256": "7a4dac443092e9fe78341c070938349b4bbc13003814efb6ea799e2347bbd62d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-outer-return.json",
+      "bytes": 1472,
+      "sha256": "d99716ee928edab85d4787ebf9a3990aa8aa49a56eca1be3833d674bce5c13f2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-receipt.json",
+      "bytes": 3152,
+      "sha256": "1c80fb6245db8eb113a70095442afe0fc8955eb56cc64c0f1e6ed238b6d65aaa"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/global_idle-stdout.bin",
+      "bytes": 396,
+      "sha256": "610a47d2a818108260ef01450c2e653ec7dc7c1d568493b5e5844eb91852f1a6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/identity-completion-proof.json",
+      "bytes": 974,
+      "sha256": "9d32736218e28d4db112d190ebd1a1d5f754dbe4794be86dc883b1a57a405931"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/identity-console.bin",
+      "bytes": 3815,
+      "sha256": "1a9dc4dc4a225ea17baf902933fef78940d129fa6013bcacc47af44156ea04ad"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/identity-entered.json",
+      "bytes": 1021,
+      "sha256": "a1d698f6e237a0d72efa17e7e5c50c2450d0510d5b5e26b0b5d4ea60ad8b8251"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/identity-outer-return.json",
+      "bytes": 1409,
+      "sha256": "b74bef1696a39c3ae32ba2017363d3dc4ea4703932175da28dd1b037cf4e2c26"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/identity-receipt.json",
+      "bytes": 3085,
+      "sha256": "99a607448e6832527040ff3b6291c797881dfd8f8d46d3caf2ef74f7e888f759"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/identity-stdout.bin",
+      "bytes": 105,
+      "sha256": "a5c831cdf9eac18fb634d2d8aa48ef727f450764b5b591f8b52bdbe2a1a5d9d4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-completion-proof.json",
+      "bytes": 987,
+      "sha256": "1bdbabaa94eaa57b67dfdc90d84c3e90d3d4aac8ced3526f8361be663184b095"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-console.bin",
+      "bytes": 3980,
+      "sha256": "b79b9261e199f86b23f1409cb68f8f1099198f91a9f21fe4bcdbfb4960b7d9b9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-entered.json",
+      "bytes": 1027,
+      "sha256": "3ba79ea95ae77db4ac8ccb049c48688f3d432472a5072861149e04baef4a975c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-fixture-input.bin",
+      "bytes": 4096,
+      "sha256": "c8f5d0341d54d951a71b136e6e2afcb14d11ed8489a7ae126a8fee0df6ecf193"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-outer-return.json",
+      "bytes": 1473,
+      "sha256": "c9d3abf6f50fa1f96f027733dd58d9384819f86d6bf649be3290129354664745"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-receipt.json",
+      "bytes": 3238,
+      "sha256": "c850edbc1b0da759b97688803077a78ed88c623eac8088af2165ae64f9236d42"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_app-stdout.bin",
+      "bytes": 125,
+      "sha256": "d05577ba984aa8570aa1d6d882ac9487ffcfc69fd07ef881653903ecfedb0ea4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-completion-proof.json",
+      "bytes": 985,
+      "sha256": "268cf0fa22ff56370c34583370dee72d41ace661e302a0c5279c9f7b23d5a3bc"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-console.bin",
+      "bytes": 3984,
+      "sha256": "4ab048f6cb598e3f2057f391ed95ec3db6f326b3ec071cb7f6f5e5fc2d918454"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-entered.json",
+      "bytes": 1028,
+      "sha256": "48b1056490482f41aa26b6ced3c48ecb2c27be373e2f16c88807282e6c0bb760"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-fixture-input.bin",
+      "bytes": 2048,
+      "sha256": "10fc3c51a152e90e5b90319b601d92ccf37290ef53c35ff92507687d8a911a08"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-outer-return.json",
+      "bytes": 1474,
+      "sha256": "c43c0aa2110e8f824ddbe7992b9cc56f591819a4c2ec80180dca38d85200faf9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-receipt.json",
+      "bytes": 3241,
+      "sha256": "1eb50b5501bf29b8e1717f9e7176c58a6944b5a77bbf18badf1121788d140960"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/install_test-stdout.bin",
+      "bytes": 125,
+      "sha256": "54b71eba3f5d1b532a4598061ddff22f5753c5b725a92a3140be6017290c7319"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/scope_all-console.bin",
+      "bytes": 3935,
+      "sha256": "cc16336eceb6a81a2e36f86437446a9130d6915d3306edd518ce28110cdc5bdd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/scope_all-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/scope_all-entered.json",
+      "bytes": 1024,
+      "sha256": "b0d52b191eba9aa9b74ad55cded155b262a2165dd90ee2851d5a40c3b8459705"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/scope_all-outer-return.json",
+      "bytes": 1467,
+      "sha256": "cc25224c4571fb4217245b4fb99787b1fe9bbdd37f1dd98ac63cdd6365896f49"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/scope_all-receipt.json",
+      "bytes": 3192,
+      "sha256": "4e313b55d9e9d253d4559da64386dba1f29524afa1be1753de45129d74582f48"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/scope_all-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/scope_all-stdout.bin",
+      "bytes": 634,
+      "sha256": "7ec72fc207d5ba596e99dbbdf972981d21c2ce3348042285943f9ae0a8b7de0a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/test_absence-completion-proof.json",
+      "bytes": 983,
+      "sha256": "7aa6e0f16d464718e93c55b3b4d64a09d015b3b030c245ca0b10e39ed48f8b0b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/test_absence-console.bin",
+      "bytes": 3888,
+      "sha256": "d422fc4877eb8bec3f83d87884c1fb73a3ce4c4e9c6dbc8785d0541dbdf6a7e7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/test_absence-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/test_absence-entered.json",
+      "bytes": 1029,
+      "sha256": "92d5750802a827a53e60da7f2ad13ec020d1d049abdfece9dea4774026405145"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/test_absence-outer-return.json",
+      "bytes": 1474,
+      "sha256": "23b44c0bc67c01a2a476b7c800554566309211d30fc883fd39fa016a384a8787"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/test_absence-receipt.json",
+      "bytes": 3151,
+      "sha256": "251effffa0f2a773ec77bf1f23e70c3eed35d3a0b1f2be8550b72ae8ed9e5e3c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/test_absence-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/outputs/test_absence-stdout.bin",
+      "bytes": 47,
+      "sha256": "c1ea2fb69caab442caeb973f1dda48930b8433746c2a043161e0be322ebcef3c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/release/capture-policy.json",
+      "bytes": 5833,
+      "sha256": "df7bf2b79a274acbf121e180104b19203782f9dde7060e2a514f4ea0fe551af5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/request-app_absence-2.json",
+      "bytes": 905,
+      "sha256": "d702dbb1738ef2eb8f8f9d9ce2d2d53086b8691683185c0f4a34eb573def87ab"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/request-global_idle-1.json",
+      "bytes": 905,
+      "sha256": "50ad68fb4af34f0b516e017dee34055a6bed4dd9ffc6d5b135569f98fd3cd093"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/request-global_idle-12.json",
+      "bytes": 905,
+      "sha256": "50ad68fb4af34f0b516e017dee34055a6bed4dd9ffc6d5b135569f98fd3cd093"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/request-identity-0.json",
+      "bytes": 899,
+      "sha256": "0b5ce0efe83d2c558dc6b8c718666cde1027aee03151883cac0a0651e4a1712e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/request-install_app-4.json",
+      "bytes": 905,
+      "sha256": "76d8fef7a057e24d2568f7325fe97438e4f87ed5aaf49df29210e0f6daedd1b5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/request-install_test-5.json",
+      "bytes": 907,
+      "sha256": "351f195283d7b601a21f078e1623557ddfb30781943072604f2c0e8e9675a8de"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/request-scope_all-6.json",
+      "bytes": 902,
+      "sha256": "3278af35fab310e3a5f919ff1e46135d8332118c889dbe70a9d6151756159342"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/request-test_absence-3.json",
+      "bytes": 907,
+      "sha256": "5530c81218a6b4643ef800bba300c466f7267066c57f99db2979224858a6683d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/seven-role-positive/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-c6ba8a620e63/summary.json",
+      "bytes": 4207,
+      "sha256": "e6d1727ea9fd213c9201a6e3c6a05515df67b16772a5a0d6cde0eaf6aca9e59e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/argv-extra/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/argv-extra/outputs/identity-controller-stderr.bin",
+      "bytes": 354,
+      "sha256": "2b059a93191aba14a5557f5b968dd47190cc9e4f9a24354d7e0a02c43d17e981"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/argv-extra/outputs/identity-outer-return.json",
+      "bytes": 1391,
+      "sha256": "32673087ec97bad60d1999b76e3bfaf9ca610091782d413aa6b533942f5f339b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/argv-extra/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/argv-extra/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/argv-extra/release/capture-policy.json",
+      "bytes": 1538,
+      "sha256": "4134cca04e30aa1142c65489bef0b19d8ee3188e1c9c5f859116f936475582a0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/argv-extra/request-identity-12.json",
+      "bytes": 894,
+      "sha256": "40ecc9c61103fb994768582138118ad6e24e09b5a6e178ed52436449248aa770"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/argv-extra/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/duplicate-field/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/duplicate-field/outputs/identity-controller-stderr.bin",
+      "bytes": 355,
+      "sha256": "4f5564337020d57cc17512d1445571282d6ab21638f93edd9130c78ce8e2830a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/duplicate-field/outputs/identity-outer-return.json",
+      "bytes": 1401,
+      "sha256": "523b673b9bf567b412db50de84830541f0c1bc48330849051466ba2586b41fe2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/duplicate-field/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/duplicate-field/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/duplicate-field/release/capture-policy.json",
+      "bytes": 1553,
+      "sha256": "e3efa4d4d9b0075d499e5a64bb606594fd1897ef5940a892591f0e3149461bef"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/duplicate-field/request-identity-14.json",
+      "bytes": 932,
+      "sha256": "5a30a2282217e05b03ea68998ae4721b528d0478ccd104677157f9529c806a46"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/duplicate-field/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/eighth/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/eighth/outputs/identity-controller-stderr.bin",
+      "bytes": 351,
+      "sha256": "72346b13da2e99cb4ec9a11a9b6968b6bb529193da21bd396952c9fdaf623710"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/eighth/outputs/identity-outer-return.json",
+      "bytes": 1383,
+      "sha256": "065dd65907ac8c9f4d96b6f6a5b86d872503456fd015f9f5beeb9337426dda5d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/eighth/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/eighth/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/eighth/release/capture-policy.json",
+      "bytes": 5607,
+      "sha256": "152ca1b8a10cd2d530a910434870d4d100f43ec55a4aebfa85a726eb35780520"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/eighth/request-identity-16.json",
+      "bytes": 873,
+      "sha256": "02278f51f3b9258865bbfda13369f217eb8a8ce00cfe543b90c771f62fc27518"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/eighth/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/entry-pin/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/entry-pin/outputs/identity-controller-stderr.bin",
+      "bytes": 349,
+      "sha256": "187199d7391bcaa17d7993101b46b78a9e0223edc6dedbe8604be798dc891ff2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/entry-pin/outputs/identity-outer-return.json",
+      "bytes": 1388,
+      "sha256": "8b63180349f41b64bb9ac11ce82359bdcf3e9147348f4f1499e9e468431397a6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/entry-pin/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/entry-pin/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/entry-pin/release/capture-policy.json",
+      "bytes": 1535,
+      "sha256": "2d2bb16b82c472d15bd1da27b9ac89a1224e0c486a5f70d9f9d57c256bd53e79"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/entry-pin/request-identity-7.json",
+      "bytes": 879,
+      "sha256": "412377f1bac013016a47158a8aa72140dfd92a23d7b20681e13e1023fbba9355"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/entry-pin/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/app_absence-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/app_absence-controller-stderr.bin",
+      "bytes": 372,
+      "sha256": "53ec1f9df1dfd340b043bedefe3f4c8c60fffd4364e946b480aac53f87d11b64"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/app_absence-outer-return.json",
+      "bytes": 1457,
+      "sha256": "644caaf186fb8010362aab923bd1f0092bec7bd982aaa3b7e90a95b7d63e7b08"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/capture-halted.json",
+      "bytes": 303,
+      "sha256": "bc0a094124389d2bab76d2c58925102763a014bb3b988aa9f9a35da6f9306850"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/global_idle-completion-proof.json",
+      "bytes": 977,
+      "sha256": "9aa3abbe2b0d574b86ec7f9250cd840df43d3ac7f6bbe0472f926b0fcf71ea24"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/global_idle-console.bin",
+      "bytes": 4113,
+      "sha256": "edb7a5fa489f0fc9aa071d736cc01f6f9065c311db74a2e169bcce9ebf429c68"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/global_idle-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/global_idle-entered.json",
+      "bytes": 1011,
+      "sha256": "b5f1121a10df26085129c5c77aa75006d849204300f563e171c18ae79c06dadd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/global_idle-outer-return.json",
+      "bytes": 1458,
+      "sha256": "1dc82c6abf1b9c043130a6de54b77a91c795fd5236dedae7ffebbc5c1f594506"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/global_idle-receipt.json",
+      "bytes": 3377,
+      "sha256": "3d57feeef3d94b47874a927e0ef905d3bc667cec8182bf41ef55d8ee25b1608e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/global_idle-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/global_idle-stdout.bin",
+      "bytes": 474,
+      "sha256": "a3ceacceaaec5abd9bb5fc2822977287fd0d20e84f0f9527a1e607bf8f4bedfe"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/identity-completion-proof.json",
+      "bytes": 974,
+      "sha256": "4567c71717aab8e4ff65264d0142deaaaac6e4efb8f4576729335d60fc89928d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/identity-console.bin",
+      "bytes": 3801,
+      "sha256": "e20f4594f0b0f8313b0dc98f639f49ebbfd890dc91c208661272f1d4dec07e7f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/identity-entered.json",
+      "bytes": 1005,
+      "sha256": "2daf030a7372ddfdd7a2504e13cfb00d986e377d5a65184665750fc190ade88c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/identity-outer-return.json",
+      "bytes": 1394,
+      "sha256": "b70784b2376f0ab95acf09e3d293bc099ef3bfd48f635356e96848536fb8e67e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/identity-receipt.json",
+      "bytes": 3071,
+      "sha256": "9a68870262074dd23283bebaf0b8a26a0e8360206ae43be6710d8ed393bd1c68"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/outputs/identity-stdout.bin",
+      "bytes": 105,
+      "sha256": "a5c831cdf9eac18fb634d2d8aa48ef727f450764b5b591f8b52bdbe2a1a5d9d4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/release/capture-policy.json",
+      "bytes": 2729,
+      "sha256": "476ea5b6cae751b4f0b558fe330529ff84baaf76ed7da5af664f9c611356ac90"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/request-app_absence-20.json",
+      "bytes": 889,
+      "sha256": "d5db09e8ce6ea7279d76518c2decae2291ea0d0425e3541f99146ab169a98aee"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/request-global_idle-19.json",
+      "bytes": 889,
+      "sha256": "69915792d900b9144edc5a54f50f428983e1a4e3d4d586f353ec718deedf5279"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/request-identity-18.json",
+      "bytes": 883,
+      "sha256": "900b3a5530ef7a8c70ad5b9f9af23dd46da1df6b8c8d1b0b7c25a2870cc467af"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/global-busy/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/capture-halted.json",
+      "bytes": 284,
+      "sha256": "64587a760e96be8c47417a66078ca97b2e9f7d16b491a504c9c54596bb41d4f1"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/identity-console.bin",
+      "bytes": 3938,
+      "sha256": "c8c9bec8df9fa03d3cbcc2a6b11663c4f441d041de6ee93801bd4462ac8abba4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/identity-entered.json",
+      "bytes": 994,
+      "sha256": "b735259f377915edf825bb7ff3a38b3d9fad26e9392b9e5814cd721699706e4d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/identity-outer-return.json",
+      "bytes": 1386,
+      "sha256": "8cf7ea6820ba7b893cc18fd2bc2fdf63e596bd1e2d95a66f3b9b7dcf1a7c2a21"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/identity-receipt.json",
+      "bytes": 3209,
+      "sha256": "304b9b549d1b771fa35045bd936e63c8c974e465e973e7861774b42cb6bfb727"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/outputs/identity-stdout.bin",
+      "bytes": 64,
+      "sha256": "d53eda7a637c99cc7fb566d96e9fa109bf15c478410a3f5eb4d4c4e26cd081f6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/release/capture-policy.json",
+      "bytes": 1526,
+      "sha256": "f7aa82b834fba0a4842951a94d73e6763f5b55b0a46acfc076fe4026780191d8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/request-identity-21.json",
+      "bytes": 872,
+      "sha256": "c57b2916c782446d49edc5cac77d25075d1470617e90cbde7559f4627618a620"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/overrun/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/plan-pin/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/plan-pin/outputs/identity-controller-stderr.bin",
+      "bytes": 352,
+      "sha256": "64496866915e035322f85ac0c308f0e772fa114537be4dc960da24dd6aae4fe1"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/plan-pin/outputs/identity-outer-return.json",
+      "bytes": 1385,
+      "sha256": "aeeeb1c4826ca78eb425d0901717aff1a9b5d01e3c5f27ea29c36b9a88947b1a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/plan-pin/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/plan-pin/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/plan-pin/release/capture-policy.json",
+      "bytes": 1532,
+      "sha256": "97ff732ca35d3d5f8db1ca4abc73dca8d17405bf346929110e1e243ce1051a72"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/plan-pin/request-identity-8.json",
+      "bytes": 877,
+      "sha256": "2a2e4394c94edc76c5c6d7ac25075344e41763e3338afbcc6e64512933d6043d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/plan-pin/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/producer-pin/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/producer-pin/outputs/identity-controller-stderr.bin",
+      "bytes": 354,
+      "sha256": "4080d7dc6b5037640b5facce3092b2a78fc12374dee59883537eb975f9ad4e41"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/producer-pin/outputs/identity-outer-return.json",
+      "bytes": 1394,
+      "sha256": "8afde8ebba438697723d02307cd5911d89cbe14b07414bb1c68841c71aaf5a47"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/producer-pin/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/producer-pin/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/producer-pin/release/capture-policy.json",
+      "bytes": 1544,
+      "sha256": "edd8a62454a5a5bca52e4db07c4e9a39528652419b431dd6753f438b375a0058"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/producer-pin/request-identity-10.json",
+      "bytes": 885,
+      "sha256": "dc07315e8cb12b545f00554a90e1bf2780c5da8ad2b25fe9a718601d9b87696c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/producer-pin/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/product-pin/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/product-pin/outputs/identity-controller-stderr.bin",
+      "bytes": 357,
+      "sha256": "6ecb0a6e8aff3ced8764dfc5356e91871a9d76c27dd95757b3bcef1006034dc8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/product-pin/outputs/identity-outer-return.json",
+      "bytes": 1392,
+      "sha256": "1d6cb5fe07f6c9b9727e4b356a2de425659b405481c4aede13ad7167181db254"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/product-pin/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/product-pin/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/product-pin/release/capture-policy.json",
+      "bytes": 1541,
+      "sha256": "0fe1b047bd45879ccd2a2c455856904faa4ec70a0b5de269382f755f4ae2f0e8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/product-pin/request-identity-9.json",
+      "bytes": 883,
+      "sha256": "b79e4ab8498b2f5b74776d25878f869b97d70962e407b6f1e9f2d9ee3c9eb89b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/product-pin/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/reordered/outputs/scope_all-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/reordered/outputs/scope_all-controller-stderr.bin",
+      "bytes": 358,
+      "sha256": "f1f8bfbcf222f0ca30fa40698c68356f0d6301673b24b8b5f560d3f058dbdae9"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/reordered/outputs/scope_all-outer-return.json",
+      "bytes": 1390,
+      "sha256": "4b5ed52a4a1eb3c469e2c1cba510e3c174bc597178771db72db1267c25994a86"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/reordered/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/reordered/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/reordered/release/capture-policy.json",
+      "bytes": 1536,
+      "sha256": "ceb875dc0838a45caba0a8ecbd9523009b1f4e136bb87ecba8ff51a82749e04c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/reordered/request-scope_all-15.json",
+      "bytes": 880,
+      "sha256": "7f589ec1f7300532548990dbd2f610663f3285620633f81a1aa7a3db696b8ebe"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/reordered/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/request-type/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/request-type/outputs/identity-controller-stderr.bin",
+      "bytes": 354,
+      "sha256": "5b573d3a2fc18c15fb2593fbba3de7a60ed4c1ea42022c5be26cd3fed7270b45"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/request-type/outputs/identity-outer-return.json",
+      "bytes": 1395,
+      "sha256": "42ba2501292be540655d376f45abfa63f3483cc680c8698930f7f7863e8b04fd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/request-type/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/request-type/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/request-type/release/capture-policy.json",
+      "bytes": 1544,
+      "sha256": "5b2c850c6feef30a6258a03bc6ae2bf314375b0b3f04d3a4646c21b0778fe959"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/request-type/request-identity-13.json",
+      "bytes": 887,
+      "sha256": "5928ddeb0f007ee4d850be2535c413a283e5d07609e58ac35d65eec776de24cb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/request-type/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/sdk-argv/outputs/identity-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/sdk-argv/outputs/identity-controller-stderr.bin",
+      "bytes": 357,
+      "sha256": "be5ffe525422233e86323d1bc2569be9f34262a56a6ca79a49d8ad7ee6e9e370"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/sdk-argv/outputs/identity-outer-return.json",
+      "bytes": 1386,
+      "sha256": "60dfec87091f4923a69f42bd4974174e169d0c0ee2b68af7ca441aba5a9b1820"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/sdk-argv/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/sdk-argv/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/sdk-argv/release/capture-policy.json",
+      "bytes": 1480,
+      "sha256": "7b50f51d50ff737e3260a533958415f80ffea880ea0c17767aee648c80bcab24"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/sdk-argv/request-identity-11.json",
+      "bytes": 825,
+      "sha256": "97cebe4d0d5e7c7e3356279b9acb91123b5fd4a851fe5abe027ba1bdcde0bc93"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/sdk-argv/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/app_absence-completion-proof.json",
+      "bytes": 982,
+      "sha256": "c5051b5d3905f2cb1660850e2795b5219d8b8c3126c493b9bc2279ed01649429"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/app_absence-console.bin",
+      "bytes": 3883,
+      "sha256": "76cac19daeefd63ff520eaafed3cf8fee82c5185b7c81516deb391aedb33c9bc"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/app_absence-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/app_absence-entered.json",
+      "bytes": 1027,
+      "sha256": "6a9c31fa29e12512e35af85d8a9479513e6791bc046b975398a45885b75c3daf"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/app_absence-outer-return.json",
+      "bytes": 1473,
+      "sha256": "720910f3c44b4b1279ce0802bc0b90f9548762bf3aff3ddf3944446bf402911f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/app_absence-receipt.json",
+      "bytes": 3147,
+      "sha256": "2d6249d59e21a06e41f16cb682b50210ba29ad6175714fbaa6fb11c0819331f3"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/app_absence-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/app_absence-stdout.bin",
+      "bytes": 45,
+      "sha256": "126c14e6b9eee5fbbd6713e7453cf4b5c5e1b3da46c610528bf1e4b664404b0d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-attempt-18-console.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-attempt-18-controller-stderr.bin",
+      "bytes": 369,
+      "sha256": "a6c89d197dc7afd275985b807d0fc9d0ace52551fcb001dda87e7c33075c309f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-attempt-18-outer-return.json",
+      "bytes": 1472,
+      "sha256": "b2e2850b3841690298d7667aad33abf14a6442cf9d5a01c004739dc181ff8439"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-completion-proof.json",
+      "bytes": 980,
+      "sha256": "cf1aa938a72c882d5f85a6a731dbdd3f80d4c4377f4f84240a1dc3187fbec029"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-console.bin",
+      "bytes": 3887,
+      "sha256": "2c266e82a137e79fa6d4d1ca00d6cb0a71e1b1c4c949fc8ee2ca6cf2b9fad0e5"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-entered.json",
+      "bytes": 1027,
+      "sha256": "054727f8f893031fa285f12154d0779eebb7076b092b7ef2ae8111d35e4c75e0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-outer-return.json",
+      "bytes": 1473,
+      "sha256": "537c18802de8d2a8a59870e78ec22dec4bed5d884d569ba70fc766ea2ecb26c3"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-receipt.json",
+      "bytes": 3151,
+      "sha256": "05a967d104409a8ce88568b288e7dcae2ea72affe54cf5b87ffdd5266a36ec8f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/global_idle-stdout.bin",
+      "bytes": 396,
+      "sha256": "610a47d2a818108260ef01450c2e653ec7dc7c1d568493b5e5844eb91852f1a6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/identity-completion-proof.json",
+      "bytes": 974,
+      "sha256": "3827ce272325c000d1d6d93ee0f84a5241e1123d64f5b165e73badc428df139d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/identity-console.bin",
+      "bytes": 3816,
+      "sha256": "0b6560def278bba79f4d04263515c9647c3f4a20641b3695421ae45c0e5583e2"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/identity-entered.json",
+      "bytes": 1021,
+      "sha256": "9f148b46cb646ad36d1db758450bfd19b7dc395aa0f77bf2b96677c4ca9fbbb6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/identity-outer-return.json",
+      "bytes": 1409,
+      "sha256": "1c1ac5ee5974842e6c5b594a3bc4ec8a2295c262bb73bce548a1a30d1d0e1092"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/identity-receipt.json",
+      "bytes": 3086,
+      "sha256": "b4f4ea4d5065a6abf4f977044e1eff060470dd6112577a793a38a43deee722b0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/identity-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/identity-stdout.bin",
+      "bytes": 105,
+      "sha256": "a5c831cdf9eac18fb634d2d8aa48ef727f450764b5b591f8b52bdbe2a1a5d9d4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-completion-proof.json",
+      "bytes": 987,
+      "sha256": "5b62528b036a6de92f00cd7c9d3b542fa8c135348368ef648766a92e52c7054f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-console.bin",
+      "bytes": 3981,
+      "sha256": "08af6d2db886eaf9b2d98040922f24744f6767d8daec9740287762bb55ea5df6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-entered.json",
+      "bytes": 1027,
+      "sha256": "a62b94a37eb3dd6ceebc32c608ed0a79b4507312105eb20916c2ef6abf197fc3"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-fixture-input.bin",
+      "bytes": 4096,
+      "sha256": "c8f5d0341d54d951a71b136e6e2afcb14d11ed8489a7ae126a8fee0df6ecf193"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-outer-return.json",
+      "bytes": 1473,
+      "sha256": "b148f2e7e21082326d52b5a8dc7fe9cb6b32b2f208050329746dd4d7bce8be0e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-receipt.json",
+      "bytes": 3239,
+      "sha256": "c2c3069c3b4d00a4e04b9a5bcf5f522d043e27db96bd8f77b2a3cc881a3278e4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_app-stdout.bin",
+      "bytes": 125,
+      "sha256": "d05577ba984aa8570aa1d6d882ac9487ffcfc69fd07ef881653903ecfedb0ea4"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-completion-proof.json",
+      "bytes": 986,
+      "sha256": "6f5a3f0ca52d7ab0a62124adda993e93fb66aa194464621870c033769b0525af"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-console.bin",
+      "bytes": 3985,
+      "sha256": "9207e0f129ec9eacbd1e3b5a8b014df8ac679ebe94fcee6400e8db68670961db"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-entered.json",
+      "bytes": 1029,
+      "sha256": "1b4f6c0336791a5012c90644c265a370cf75266394b777519c801e53cc74bfce"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-fixture-input.bin",
+      "bytes": 2048,
+      "sha256": "10fc3c51a152e90e5b90319b601d92ccf37290ef53c35ff92507687d8a911a08"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-outer-return.json",
+      "bytes": 1475,
+      "sha256": "0c3a72085605b454060308ce6d7561d85d7b08241a348dba1a666246c0973bcb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-receipt.json",
+      "bytes": 3242,
+      "sha256": "06ca48a9ebb44c3ac7dc904eeebb550681658993058465a7c499ae0a8a240fce"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/install_test-stdout.bin",
+      "bytes": 125,
+      "sha256": "54b71eba3f5d1b532a4598061ddff22f5753c5b725a92a3140be6017290c7319"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/scope_all-console.bin",
+      "bytes": 3935,
+      "sha256": "a44e62ea0e61cd5e02c625c85e84ad8cf882930b96e31b20dafd925b4605256a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/scope_all-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/scope_all-entered.json",
+      "bytes": 1024,
+      "sha256": "d66fe7a668e8d370fc966d6207256e1e109cf0d49cc6c9f54466baf4a5d1e747"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/scope_all-outer-return.json",
+      "bytes": 1468,
+      "sha256": "06f798e93bdff80d5ec990fbb3d425625f540571fa4a99d6f3cf65950fef7493"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/scope_all-receipt.json",
+      "bytes": 3192,
+      "sha256": "4f93009c74d420ed7b7f104557187a1800d4a9b4a65f5ea732d2098df9d44e1d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/scope_all-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/scope_all-stdout.bin",
+      "bytes": 634,
+      "sha256": "7ec72fc207d5ba596e99dbbdf972981d21c2ce3348042285943f9ae0a8b7de0a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/test_absence-completion-proof.json",
+      "bytes": 983,
+      "sha256": "4eac71c9d3f037203b450a61f5eca9a3772eae80da35eb7328b565b25f8ae2cb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/test_absence-console.bin",
+      "bytes": 3887,
+      "sha256": "158e45146ceca94f44a7d7bba40189ec2d361d9e281dad29b335e6ddfdb4913d"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/test_absence-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/test_absence-entered.json",
+      "bytes": 1029,
+      "sha256": "422cfec713930f153cdd74a03c1954dea9e82c6fcbfdeca705abe9a5b3808cd0"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/test_absence-outer-return.json",
+      "bytes": 1475,
+      "sha256": "9b056161fbb2dbe7e588e6ea8dff967d68d1690af65b7969cc2b3afc86a95b71"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/test_absence-receipt.json",
+      "bytes": 3150,
+      "sha256": "1173ea8717569beb23eed758b89830083c1742ae51d5b9f988f277f11da75b2a"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/test_absence-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/outputs/test_absence-stdout.bin",
+      "bytes": 47,
+      "sha256": "c1ea2fb69caab442caeb973f1dda48930b8433746c2a043161e0be322ebcef3c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/release/capture-policy.json",
+      "bytes": 5833,
+      "sha256": "4ce80c5e4daf0cdd369a49f68299a6c6029c0b6cf5c52a206c7427963c3c34a6"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/request-app_absence-2.json",
+      "bytes": 905,
+      "sha256": "b8d5c4ad6d79288a85755be20d298df253c4989615c834db193354c4fb6ad434"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/request-global_idle-1.json",
+      "bytes": 905,
+      "sha256": "32cf6e89df09ff2acb5ae2b05e95ce4b0f412b5b6d0a19a23eac081815ed5923"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/request-global_idle-17.json",
+      "bytes": 905,
+      "sha256": "32cf6e89df09ff2acb5ae2b05e95ce4b0f412b5b6d0a19a23eac081815ed5923"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/request-identity-0.json",
+      "bytes": 899,
+      "sha256": "e91f3268204b8c36f52670765d167a5f2254cd457effe40c685c9f507903d132"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/request-install_app-4.json",
+      "bytes": 905,
+      "sha256": "9b0606e9a06712f70caea430eeee3dbc99464854ae0e0f49e657ab616e0322dd"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/request-install_test-5.json",
+      "bytes": 907,
+      "sha256": "4927f4678df9192f1f1567bbb3508ec916db43cc3829b2ebe0000967035efd65"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/request-scope_all-6.json",
+      "bytes": 902,
+      "sha256": "12c29a4661933cd70a5a582e825ff470478fb159cba0183f67732a4752423475"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/request-test_absence-3.json",
+      "bytes": 907,
+      "sha256": "b36288016fbeab0c6f558064543a9c070bd3c1874513fe6c1d672789b3f53bdf"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/seven-role-positive/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/.capture.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/capture-halted.json",
+      "bytes": 280,
+      "sha256": "00646122f0f7fc0cb8fb56be08ea5daa80b7b70dcbd0fdb18384e87d403704da"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/identity-console.bin",
+      "bytes": 3994,
+      "sha256": "6ed306f7f305ad722f0e2e584f2ab32b5d5feb97d2d795af94f1b5059192112c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/identity-controller-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/identity-entered.json",
+      "bytes": 993,
+      "sha256": "9416b40a6ee53d53bf244242500c9c7268eb18ef32cac68667ac4b77a02c7812"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/identity-outer-return.json",
+      "bytes": 1384,
+      "sha256": "2f2b49cf220fbad19712d6c1e4f08a8d15ad1a6e63fc8d9bb12e01aedd798178"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/identity-receipt.json",
+      "bytes": 3266,
+      "sha256": "a2899a2189b91976d43a38fc103cb6f60cd0c855ce9448fef0bc6bfd04d10cc8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/identity-stderr.bin",
+      "bytes": 29,
+      "sha256": "d61792449e48ffc0f3afaafb116d5d097c42b08f91fe601f73afde83c90b0826"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/outputs/identity-stdout.bin",
+      "bytes": 22,
+      "sha256": "3227fefebc1d9b799247d388142d9c54253592c07625fa8147b6673b62d27cd7"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/release/capture-policy.json",
+      "bytes": 1524,
+      "sha256": "1707276597ab45d4b3f056fb763ab315c4e4e85092db94957f45a97171b39f0b"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/request-identity-22.json",
+      "bytes": 871,
+      "sha256": "bf1d0b4328f9cd3d704554f99056f852534654f665a5b7627442f9f767e90d6f"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/stderr/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/summary.json",
+      "bytes": 6376,
+      "sha256": "3270ae2469aa5142365ea3b510f5584d081b2f0b1e4f3811fe46bfcade8068d8"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/utf8/reference/exact-seven-role-plan.json",
+      "bytes": 8096,
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/utf8/reference/legacy-tool-route-contract.json",
+      "bytes": 1405,
+      "sha256": "344ccf2fbac73927597d5e75afbbd92a11d45faeb9be5b1031aa9f6afdc79310"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/utf8/release/capture-policy.json",
+      "bytes": 1524,
+      "sha256": "a9e11cdd7b1e8874fb7de201f303f55468f5739de157aff3a8ce24506ca46c78"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/selfchecks/work/suite-d48c69b2cd92/utf8/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/admission.ps1.txt",
+      "bytes": 18261,
+      "sha256": "097d9f27bc1ebd8eef81ac1db578a2fa4ba8dc516d3ed23d0b26a026071b42db"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/audit_candidate.py",
+      "bytes": 4093,
+      "sha256": "59fb0bbed3d8c63eceaf1cffd622d4d4accd0259df437a30fd0f014f96119857"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/capture_android02.ps1",
+      "bytes": 48068,
+      "sha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/derive_capture.py",
+      "bytes": 7997,
+      "sha256": "ec46bf19625aa351a0103cbd7818779b41a1099f7f98e303b0fdcdce2b4cb88c"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/finalize_admission.py",
+      "bytes": 1874,
+      "sha256": "a3f86753f3f2455784505bc96abae57acec50e974c26fc781a17617769570cfb"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/freeze_candidate.py",
+      "bytes": 13318,
+      "sha256": "cbf6d1a1975547b1c440a94579aa5896d9944fd30aeb5fb27f65805aad7cea8e"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/refine_bindings.py",
+      "bytes": 6025,
+      "sha256": "7eae51d2cbc14d66a07466a0e3f1c9133ef2395f37a60098aec533e26c0b4d35"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/semantic-gates.ps1.txt",
+      "bytes": 6045,
+      "sha256": "9bde376c0559bf0f4f1457a29838544a16c79560fbe0a67dc008c24166227d61"
+    },
+    {
+      "path": "docs/coder/d1android02-capture-ready01/tools/verify_frozen.py",
+      "bytes": 718,
+      "sha256": "a1a0a27cade648fbb294b25ac6110cef34a0eeec1e7b7070d3f8e9168e1e964f"
+    }
+  ],
+  "excludes": [
+    "this seal itself",
+    "external ZIP and handoff index"
+  ],
+  "archiveMembersExpected": 757
+}

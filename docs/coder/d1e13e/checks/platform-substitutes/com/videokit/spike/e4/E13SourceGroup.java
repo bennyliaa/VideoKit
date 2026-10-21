@@ -1,0 +1,1 @@
+package com.videokit.spike.e4;public class E13SourceGroup {public static boolean canFinish(){return true;}public static void awaitOriginalReturns(){}public static String pendingSummary(){return "LOCAL_PLATFORM_SUBSTITUTE";}}

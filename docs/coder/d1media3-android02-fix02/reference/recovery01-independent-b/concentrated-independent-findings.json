@@ -1,0 +1,225 @@
+{
+  "actualAndroidReproductions": 0,
+  "findings": [
+    {
+      "id": "R01-B01",
+      "priority": "P2",
+      "prior": "REC-OBS01",
+      "title": "部分失败或pending时此前case历史未导出",
+      "type": "DETERMINISTIC_SOURCE_REPORTING_GAP",
+      "trigger": "scopeAll已完成前k项，后一case抛异常/原返回pending，或whole deadline在子case执行时到达",
+      "facts": "run循环每次method=next；仅十项全部成功后method=requestedMethod；receipt只在current method==scopeAll加入caseReceipts/completedCaseCount。因此失败/pending时已存的历史仍在原Job，外部receipt却没有。不是此前未执行，也不是原Job完全丢失。",
+      "impact": "无法按实际部分执行结算全scope；不能交设备求测后才补历史。",
+      "fix": "按requestedMethod输出有界已有历史/完成数/当前case与同scope累计账；失败当前case另标partial；保持原Job/firstError/UNKNOWN，不重放完成case，不突破262144B。",
+      "evidence": [
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 28,
+          "match": "method=next;resetCase()"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 32,
+          "match": "method=requestedMethod;status="
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 124,
+          "match": "if(method==ExperimentContract.Method.scopeAll)result.put"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/Media3Instrumentation.java",
+          "bytes": 7789,
+          "sha256": "29272a92b233e314f6c3d9e167091836a5d11fb61b288949409e355742e689b8",
+          "line": 46,
+          "match": "pending.putString(\"receipt\",bounded(j.receipt(false)))"
+        }
+      ]
+    },
+    {
+      "id": "R01-B02",
+      "priority": "P2",
+      "prior": "REC-OBS02 + A02-S04 remaining layer gap",
+      "title": "原生attempt全scope累计已修，SDK requested及完整phase分层仍缺失",
+      "type": "SOURCE_OBSERVABILITY_CONTRACT_GAP",
+      "trigger": "inspectShort3时桥接SDK count可大于3，native实际read n=min(count,chunk,size-at)=3；或copy/hash/sniff/seek/reopen任一phase",
+      "facts": "reserveInput(n)在native读取前累计，inputActual只加正返回；sdk count无独立累计/预扣且phase无分层记录；receipt无SDK requested与native attempted/returned完整分层，readCalls不能推算。8MiB当前是native attempt+copy/control/EOF reserve，不是SDK requested总量。",
+      "impact": "M2A10/35/37的全口径观测与预算合同未闭合；绝不声称本批已实际超限。",
+      "fix": "同原路径在调用前记录/准入SDK requested、native attempted、returned/EOF及phase累计，无退款无新factory额度；明确copy/control非native传输计数；原native FD/asset/writer分层峰值也需在设备合同前补齐，不能从sourcePeak冒FD峰值。",
+      "evidence": [
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/OwnedFiles.java",
+          "bytes": 7396,
+          "sha256": "7bc0749e44cfbc207b51aa9296b8a7f79fa2df7f4dc2453c79e579792c84eb23",
+          "line": 25,
+          "match": "int n=(int)Math.min(Math.min(count,chunk),size-at)"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/OwnedFiles.java",
+          "bytes": 7396,
+          "sha256": "7bc0749e44cfbc207b51aa9296b8a7f79fa2df7f4dc2453c79e579792c84eb23",
+          "line": 26,
+          "match": "job.reserveInput(n);owner.original().seek"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 19,
+          "match": "void reserveInput(int bytes)"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 119,
+          "match": "inputAttemptedReserved"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 122,
+          "match": "physicalBytes\",provider.physicalBytes"
+        }
+      ]
+    },
+    {
+      "id": "R01-B03",
+      "priority": "P2",
+      "prior": "A02-S02 STILL_APPLIES",
+      "title": "wholebody完成标记仍早于最后受控返回信号",
+      "type": "SOURCE_ORDER_COUNTEREXAMPLE_NOT_RUNTIME_REPRO",
+      "trigger": "cleanup后marker及时，但之后同步E13ReturnEvents.returned回调/调度尾段跨60秒，等待者晚恢复时worker已结束",
+      "facts": "completedNano/workerBodyReturned均在returned()之前；returned同步遍历listener.changed。onStart只看isAlive/早marker差值。59.9s写marker，60.1s回调后worker结束，可被早时间认作及时。",
+      "impact": "源码不满足M2A42 last-controlled-point，实际join不能替较早body点；不伪称已实机触发。",
+      "fix": "把最后受控body标记置于全部cleanup/可延迟信号之后，保同worker join、等界迟及UNKNOWN sticky；若信号需提前，明确最终不可提前补绿的原完成点。",
+      "evidence": [
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 34,
+          "match": "completedNano=System.nanoTime();workerBodyReturned=true;E13ReturnEvents.returned()"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/upstream/com/videokit/spike/e4/E13ReturnEvents.java",
+          "bytes": 865,
+          "sha256": "44576bbb0c0fdd555ad3044e5645b5de3ae250c0172399098388964adcf53118",
+          "line": 12,
+          "match": "for(Listener l:listeners)l.changed()"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/Media3Instrumentation.java",
+          "bytes": 7789,
+          "sha256": "29272a92b233e314f6c3d9e167091836a5d11fb61b288949409e355742e689b8",
+          "line": 46,
+          "match": "j.completedNano-j.startedNano>=60000000000L"
+        }
+      ]
+    },
+    {
+      "id": "R01-B04",
+      "priority": "P2",
+      "prior": "A02-S03 STILL_APPLIES",
+      "title": "Os.open成功至流包装返回间raw FD仍未进入原owner",
+      "type": "SOURCE_EXCEPTION_RETENTION_GAP",
+      "trigger": "Os.open成功返回原FD，随后new FileOutputStream(fd)构造异常",
+      "facts": "createNew仍内嵌Os.open；外E4Owned仅在action.run整体返回后写resource，故此窗口原FD无登记字段/closer。包中正常Android wrapper关闭所有权依据仍API_UNPROVEN，不能用JDK helper替平台。",
+      "impact": "已注册外holder并不证明原FD被强保管；异常路径原FD归还证据缺口。未OOM/坏资源/权限注入，不断言正常Android一定泄漏。",
+      "fix": "先登记原native descriptor owner并在open返回后立即采用，包装/关闭单一权责，异常UNKNOWN强保管；提供准确Android关闭依据，防二close；不重放/强制清空。",
+      "evidence": [
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/OwnedFiles.java",
+          "bytes": 7396,
+          "sha256": "7bc0749e44cfbc207b51aa9296b8a7f79fa2df7f4dc2453c79e579792c84eb23",
+          "line": 8,
+          "match": "new FileOutputStream(android.system.Os.open"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/upstream/com/videokit/spike/e4/E4Owned.java",
+          "bytes": 2311,
+          "sha256": "aee54f13e6eb548006a0fe355d59c22521a407df632210d104e739ccecd83626",
+          "line": 19,
+          "match": "resource=action.run();"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 58,
+          "match": "dest.allocate(()->OwnedFiles.createNew(sourceFile))"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/OwnedFiles.java",
+          "bytes": 7396,
+          "sha256": "7bc0749e44cfbc207b51aa9296b8a7f79fa2df7f4dc2453c79e579792c84eb23",
+          "line": 40,
+          "match": "job.outputHost=this;original.allocate"
+        }
+      ]
+    },
+    {
+      "id": "R01-B05",
+      "priority": "P2",
+      "prior": "NEW_INDEPENDENT_FINDING_INHERITED_SOURCE",
+      "title": "原Media3 muxer在addTrack/write/EOS异常后无Job级保管及关闭门",
+      "type": "SOURCE_EXCEPTION_OWNERSHIP_GAP_NOT_ANDROID_REPRO",
+      "trigger": "MatureMuxerBinding构造及E6Muxer.create成功，后续addTrack、sample或E6 EOS/close抛异常",
+      "facts": "binding仅writeAndInspect栈局部；private original只在binding内，未登记到Job原owner。正路finishWriter才走E6Muxer.finish/close；异常没有finally或保管转移。Job cleanup只abort TemporaryOutput/关hostFD，resourcesReturned无binding/muxer状态。即使sink/native均返回，仍不能据此证原Media3 muxer已close/归还。",
+      "impact": "失败路径原muxer引用/原close返回缺口；可能在外资源已返回时允许finisher通过，不代表该muxer事实已证。源码继承不等此合同已验收。",
+      "fix": "原muxer/binding在创建前有Job级keeper、成功后采用；错误保管同原对象，按真实API明确一次关闭/close未知状态门，不重建muxer、不二close、不把sink abort当原mux close。",
+      "evidence": [
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/src/com/videokit/d1input/MatureContainerRemux.java",
+          "bytes": 3416,
+          "sha256": "3bf25db0f20eb8fadcb26d382632b67871088052eb84233be1f84aaf2f452028",
+          "line": 13,
+          "match": "MatureMuxerBinding binding=new MatureMuxerBinding(output)"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/src/com/videokit/d1input/MatureMuxerBinding.java",
+          "bytes": 1663,
+          "sha256": "c82377ae13e0b6fd136b799a468ad260ac3cf1b4111dda50dd7dd5ede4c885ee",
+          "line": 7,
+          "match": "original=com.videokit.spike.c14.E6Muxer.create"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/src/com/videokit/d1input/MatureMuxerBinding.java",
+          "bytes": 1663,
+          "sha256": "c82377ae13e0b6fd136b799a468ad260ac3cf1b4111dda50dd7dd5ede4c885ee",
+          "line": 11,
+          "match": "E6Muxer.finish(original,track,samples,last)"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/upstream/com/videokit/spike/c14/E6Muxer.java",
+          "bytes": 1083,
+          "sha256": "bea5c0c3625b3c7d433ca22e8106fd6280630d622ca81f1f241f5a6eb2fbe3d2",
+          "line": 18,
+          "match": "muxer.close();"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 94,
+          "match": "if(output!=null)try{if(!output.abort())"
+        },
+        {
+          "path": "docs/coder/d1media3-android02-recovery01/instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+          "bytes": 20887,
+          "sha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b",
+          "line": 104,
+          "match": "if(outputHost!=null&&!outputHost.original.returned())"
+        }
+      ]
+    }
+  ],
+  "scope": "ALL_728_COMPLETE_REVIEW_NOT_PIECEMEAL_REPAIR_DISPATCH"
+}

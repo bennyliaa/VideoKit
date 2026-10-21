@@ -1,0 +1,151 @@
+{
+  "schema": "ANDROID02_READY01_LOCAL_SELFCHECK_V1",
+  "candidateEntrySha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13",
+  "producerSha256": "b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed",
+  "planSha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199",
+  "runRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready01\\selfchecks\\work\\suite-c6ba8a620e63",
+  "elapsedSeconds": 26.90600000001723,
+  "suiteWithin30Seconds": true,
+  "totalOuterTextBytes": 29532,
+  "mockPayloadBytes": 6144,
+  "outerControllers": 13,
+  "localProducerStarts": 7,
+  "sdkChildren": 0,
+  "deviceQueries": 0,
+  "serverQueries": 0,
+  "kills": 0,
+  "retries": 0,
+  "results": [
+    {
+      "name": "seven-role-chain",
+      "pass": true,
+      "detail": {
+        "groups": [
+          {
+            "control": 11736,
+            "preflight": 105,
+            "instrument": 0,
+            "install": 0,
+            "payload": 0,
+            "command": 377
+          },
+          {
+            "preflight": 501,
+            "command": 757,
+            "payload": 0,
+            "instrument": 0,
+            "install": 0,
+            "control": 26074
+          },
+          {
+            "payload": 0,
+            "command": 1137,
+            "preflight": 546,
+            "instrument": 0,
+            "install": 0,
+            "control": 40466
+          },
+          {
+            "payload": 0,
+            "preflight": 593,
+            "install": 0,
+            "command": 1518,
+            "control": 54876,
+            "instrument": 0
+          },
+          {
+            "instrument": 0,
+            "control": 69558,
+            "install": 125,
+            "command": 1898,
+            "payload": 4096,
+            "preflight": 593
+          },
+          {
+            "install": 250,
+            "command": 2279,
+            "instrument": 0,
+            "control": 84255,
+            "payload": 6144,
+            "preflight": 593
+          },
+          {
+            "control": 98800,
+            "command": 2658,
+            "payload": 6144,
+            "preflight": 593,
+            "instrument": 634,
+            "install": 250
+          }
+        ],
+        "finalSemantic": "PASS_LIMITED_APP_RECEIPT_INTERNAL_FINISH_UNPROVEN",
+        "actualSdkChildren": 0,
+        "localProducers": 7
+      },
+      "seconds": 20.094000000011874
+    },
+    {
+      "name": "entry-pin",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "ad04587f8a9965c7f62446cb598b7c3e652e30b5a139396b7c1c6e0d14056faf"
+      },
+      "seconds": 1.3589999999967404
+    },
+    {
+      "name": "preparation-zero-context",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "244a64c2a1dfa2b19b686f42cc69a4831a921416ee96a2762b5b6a839cbd2865"
+      },
+      "seconds": 0.9060000000172295
+    },
+    {
+      "name": "sdk-argv-in-fixture",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "6e3f3a2b0136a85b1874da6413362e135a5f08f7461261a259819a52d835ac27"
+      },
+      "seconds": 0.9689999999827705
+    },
+    {
+      "name": "duplicate-request-field",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "2ca0f3306fcfa118a77508b041fb1282b5f47e43c495980560bda0c55c22bbc6"
+      },
+      "seconds": 1.062000000005355
+    },
+    {
+      "name": "eighth-role",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "027e5d5c7e5f43377923b742ef7b8fb10b55357c78f4c9ab82c4a7135696c761"
+      },
+      "seconds": 1.4219999999913853
+    },
+    {
+      "name": "counter-reset",
+      "pass": true,
+      "detail": "Counter reset rejected before reentry",
+      "seconds": 1.0940000000118744
+    },
+    {
+      "name": "busy-halts-successor",
+      "pass": false,
+      "detail": "AssertionError('SUITE_ADMISSION_STOP_26_SECONDS_NO_MORE_CHILDREN')",
+      "seconds": 0.0
+    }
+  ],
+  "allPassed": false
+}

@@ -1,0 +1,75 @@
+{
+  "status": "NOT_EXECUTED",
+  "commands": [
+    {
+      "id": "M1-identity",
+      "maxTextBytes": 65536,
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"M1_identity_BEGIN\\n\"; printf \"M1_identity_PART_1\\n\"; getprop ro.product.model; printf \"M1_identity_PART_2\\n\"; getprop ro.build.version.sdk; printf \"M1_identity_PART_3\\n\"; am get-current-user; printf \"M1_identity_PART_4\\n\"; dumpsys package com.videokit.app; printf \"M1_identity_PART_5\\n\"; dumpsys package com.videokit.app.test; printf \"M1_identity_PART_6\\n\"; dumpsys package com.videokit.e13.sender; printf \"M1_identity_PART_7\\n\"; run-as com.videokit.app stat -c %u:%i .; printf \"M1_identity_PART_8\\n\"; run-as com.videokit.app.test stat -c %u:%i .; printf \"M1_identity_PART_9\\n\"; p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_10\\n\"; p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_11\\n\"; p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_12\\n\"; run-as com.videokit.e13.sender stat -c %u:%i .; printf \"M1_identity_COMPLETE\\n\""
+      ],
+      "requires": "All part markers once and ordered, COMPLETE once, each command exit successful, exact identity/hash/UID/data; shell final exit alone insufficient."
+    },
+    {
+      "id": "M1-global",
+      "maxTextBytes": 524288,
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "activity",
+        "processes"
+      ]
+    },
+    {
+      "id": "M1-ps",
+      "maxTextBytes": 65536,
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "USER,PID,PPID,NAME,ARGS"
+      ]
+    },
+    {
+      "id": "M2-identity",
+      "maxTextBytes": 65536,
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"M2_identity_BEGIN\\n\"; printf \"M2_identity_PART_1\\n\"; dumpsys package com.videokit.app; printf \"M2_identity_PART_2\\n\"; dumpsys package com.videokit.app.test; printf \"M2_identity_PART_3\\n\"; dumpsys package com.videokit.e13.sender; printf \"M2_identity_PART_4\\n\"; run-as com.videokit.app stat -c %u:%i .; printf \"M2_identity_PART_5\\n\"; run-as com.videokit.app.test stat -c %u:%i .; printf \"M2_identity_PART_6\\n\"; p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_7\\n\"; p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_8\\n\"; p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_9\\n\"; run-as com.videokit.e13.sender stat -c %u:%i .; printf \"M2_identity_COMPLETE\\n\""
+      ],
+      "requires": "All part markers once and ordered, COMPLETE once, each command exit successful, exact identity/hash/UID/data; shell final exit alone insufficient."
+    },
+    {
+      "id": "M2-global",
+      "maxTextBytes": 524288,
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "activity",
+        "processes"
+      ]
+    }
+  ],
+  "noPipesOrTruncation": true,
+  "firstFailureStops": true,
+  "otherProjectForegroundMeansWait": true,
+  "noServerRestart": true,
+  "toolCompatibility": "Before dispatch confirm fixed ADB bytes still match the source already evidenced by TABLET_CLOSEOUT_CONT; mismatch blocks without starting client or querying server.",
+  "adbSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+}

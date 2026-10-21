@@ -1,0 +1,362 @@
+{
+  "result": "PASS_HOST_CONTAINER_QUALIFICATION_ONLY",
+  "rawReceiptReparsedExactly": true,
+  "originalMetadataAndTracksRechecked": true,
+  "rootWholeFileCoverage": 8849,
+  "mdatPayloadCoverage": {
+    "start": 56,
+    "end": 8096,
+    "bytes": 8040,
+    "actualSamplesContiguous": true
+  },
+  "originalMetadata": {
+    "dref": {
+      "criterionSource": "0.2.5-videokit-observation01 original-parent + typed-child APIs",
+      "sampleEntryDataReferenceIndex": 1,
+      "parsedEntryCount": 1,
+      "originalDrefHeader": {
+        "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+        "observed": true,
+        "fourcc": "dref",
+        "rawVersionFlagsWord": 0,
+        "version": 0,
+        "flags": 0,
+        "declaredCountUnsigned": 1,
+        "actualParsedChildren": 1,
+        "actualHeaderBodyBytes": 20,
+        "bodyFromActualChildrenAndOriginalPrefix": 20
+      },
+      "actualChildFourcc": "alis",
+      "actualChildClass": "org.jcodec.containers.mp4.boxes.AliasBox",
+      "actualChildHeaderBytes": 8,
+      "actualChildBodyBytes": 4,
+      "actualDrefBodyBytes": 20,
+      "childVersion": 0,
+      "childFlags": 1,
+      "matureAliasIsSelfRef": true,
+      "aliasFileName": null,
+      "aliasExtrasCount": null,
+      "aliasRecordSize": 0,
+      "childSelfContainedSemantics": "PROVEN_IN_RESTRICTED_VERSION0_FLAGS1_EXACT_BODY4_SCOPE"
+    },
+    "stsd": {
+      "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+      "observed": true,
+      "fourcc": "stsd",
+      "rawVersionFlagsWord": 0,
+      "version": 0,
+      "flags": 0,
+      "declaredCountUnsigned": 1,
+      "actualParsedChildren": 1,
+      "actualHeaderBodyBytes": 125,
+      "bodyFromActualChildrenAndOriginalPrefix": 125
+    },
+    "avcc": {
+      "source": "0.2.5-videokit-observation01 ORIGINAL_PARSE_ONLY",
+      "observed": true,
+      "configurationVersion": 1,
+      "rawLengthSizeByte": 255,
+      "lengthReservedHigh6": 63,
+      "actualNalLengthSize": 4,
+      "rawSpsCountByte": 225,
+      "spsReservedHigh3": 7,
+      "declaredSpsCount": 1,
+      "declaredPpsCount": 1,
+      "actualSpsCount": 1,
+      "actualPpsCount": 1,
+      "actualHeaderBodyBytes": 23,
+      "bodyFromObservedCountsAndActualPayloads": 23,
+      "actualCsdPayloadBytes": 10
+    }
+  },
+  "csdHexSizeShaSelfConsistent": true,
+  "actualContainer": {
+    "framework": "JCodec0.2.5-videokit-observation01 createRawMP4Demuxer",
+    "trackCount": 1,
+    "videoTracks": 1,
+    "audioTracks": 0,
+    "sampleEntry": "avc1",
+    "widthFromEntry": 256,
+    "heightFromEntry": 144,
+    "rotationMatrix": "[65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824]",
+    "movieMatrix": "[65536, 0, 0, 0, 65536, 0, 0, 0, 1073741824]",
+    "rotation0IdentityObserved": true,
+    "noProtectionSignalingInAcceptedBoxScope": true,
+    "encryptionClaimScope": "UNPROTECTED_AVC1_AND_ABSENCE_OF_PROTECTION_BOXES_NOT_CRYPTOGRAPHIC_OR_RCE_PROOF",
+    "rootAtoms": [
+      {
+        "fourcc": "ftyp",
+        "offset": 0,
+        "size": 32,
+        "headerBytes": 8
+      },
+      {
+        "fourcc": "wide",
+        "offset": 32,
+        "size": 8,
+        "headerBytes": 8
+      },
+      {
+        "fourcc": "mdat",
+        "offset": 40,
+        "size": 8056,
+        "headerBytes": 16
+      },
+      {
+        "fourcc": "moov",
+        "offset": 8096,
+        "size": 753,
+        "headerBytes": 8
+      }
+    ],
+    "parsedBoxNames": [
+      "moov",
+      "mvhd",
+      "trak",
+      "tkhd",
+      "tapt",
+      "clef",
+      "prof",
+      "enof",
+      "mdia",
+      "mdhd",
+      "hdlr",
+      "minf",
+      "vmhd",
+      "hdlr",
+      "dinf",
+      "dref",
+      "alis",
+      "stbl",
+      "stsd",
+      "avc1",
+      "avcC",
+      "stsc",
+      "stsz",
+      "stts",
+      "co64"
+    ],
+    "mediaTimescale": 5,
+    "actualMediaDurationUnits": 6,
+    "actualSttsDurationUnits": 6,
+    "movieTimescale": 5,
+    "movieDurationUnits": 6,
+    "actualDurationUs": 1200000,
+    "dtsSource": "ACTUAL_STTS_ENTRIES_NO_EDITS_ZERO_CTTS_NOT_PACKET_GETMEDIAPTS_ALIAS",
+    "csd": [
+      {
+        "kind": "SPS_PAYLOAD_WITHOUT_HEADER",
+        "bytes": 7,
+        "hex": "420028f4080988",
+        "sha256": "0404c1e590a48f2ef2ef724b85b0db8b129265f80a1dc52d21edb6387a70da9b",
+        "actualSpsWidth": 256,
+        "actualSpsHeight": 144
+      },
+      {
+        "kind": "PPS_PAYLOAD_WITHOUT_HEADER",
+        "bytes": 3,
+        "hex": "ce3880",
+        "sha256": "cdaaa2424fbb7c615c63f7708634466b877cf93db2be7a7f4c0b44e15c161c69",
+        "maturePpsParsed": true
+      },
+      {
+        "kind": "MATURE_LIBRARY_AVCC_CONFIG_TO_ANNEXB",
+        "bytes": 20,
+        "hex": "0000000167420028f40809880000000168ce3880",
+        "sha256": "f6dcad95142c58fce67217fc175449c88b9c697f07db35952c617a66199e75a8"
+      }
+    ],
+    "samples": [
+      {
+        "index": 0,
+        "fileOffset": 56,
+        "avccBytes": 1340,
+        "avccSha256": "205dcfb80b86ae34608d64376b059cd59b47170038a4332574cdc5e193b5eb0a",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "299447d41af824c07d904ddf424063922e4546edb29d01b0b32e4f3a4e84433f",
+        "ptsUnits": 0,
+        "mediaCompositionPtsUnits": 0,
+        "dtsDerivedFromActualSttsUnits": 0,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 0,
+        "dtsUs": 0,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "c1f3f9137a83f026cc6ce16a0fc504a3a216b5a78af169c4ffae16ede470a267"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "fileOffset": 1396,
+        "avccBytes": 1340,
+        "avccSha256": "3c9f2b6e8da6af8b5e2832ea95635a8dc7a1f9c237d0313bb3ef507c10f533fb",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "05f0f4e598823343f8d021b3aa2c62c1a6ca5e9e6446e46b3eff737a3f44709c",
+        "ptsUnits": 1,
+        "mediaCompositionPtsUnits": 1,
+        "dtsDerivedFromActualSttsUnits": 1,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 200000,
+        "dtsUs": 200000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "e70e324b995c715fd39272bc5147d195f866710a664967b4af71bfeb417826bb"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "fileOffset": 2736,
+        "avccBytes": 1340,
+        "avccSha256": "515abeb50b79859efc1b4fa899b9acc3978840ac8275d8eb672539d1772a8815",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "01905769af8def741f27e914901dd27767e0faa351874cbb0d9b75bb6d7df2dc",
+        "ptsUnits": 2,
+        "mediaCompositionPtsUnits": 2,
+        "dtsDerivedFromActualSttsUnits": 2,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 400000,
+        "dtsUs": 400000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "b58b152f7c83286c3d9c1f099eedcce64ad6fc9b598bc8ab7ebaa2153564a81c"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "fileOffset": 4076,
+        "avccBytes": 1340,
+        "avccSha256": "df2099cf1407368beeeab50be00b0b59149eaf4255e8d9d53fcd0093774deaba",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "21ab0d10a58ca53b72c1a01eb5ca9014094ca1afd63011e861973ebf27d14032",
+        "ptsUnits": 3,
+        "mediaCompositionPtsUnits": 3,
+        "dtsDerivedFromActualSttsUnits": 3,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 600000,
+        "dtsUs": 600000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "7388895054095cff47be33b69036da728c4d1cc5383bb5a5ada94bdf5ae09849"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "fileOffset": 5416,
+        "avccBytes": 1340,
+        "avccSha256": "7d38ca512b1b2f7abe3502f9b7b02311788fad3b6094f04dd17cc77b51e674b4",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "71c19f10000d2fa907b705369e2c55e147702a841eda326cdcd5ba6feedddaae",
+        "ptsUnits": 4,
+        "mediaCompositionPtsUnits": 4,
+        "dtsDerivedFromActualSttsUnits": 4,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 800000,
+        "dtsUs": 800000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "b074ae101b8b819209eb59a7b1f3fe8ceeb8766a290ef286d2a508181a5480b1"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "fileOffset": 6756,
+        "avccBytes": 1340,
+        "avccSha256": "6b59e23e4b1989a567bcde48281e7de7efca7f68e0cbe47dae2cdbb2d06c195c",
+        "matureNormalizedAnnexBBytes": 1340,
+        "matureNormalizedAnnexBSha256": "ba1f530d497d0c40a9402768be6a0dfcd3ba19b690b5a561218ddf8e5a3f3500",
+        "ptsUnits": 5,
+        "mediaCompositionPtsUnits": 5,
+        "dtsDerivedFromActualSttsUnits": 5,
+        "durationUnits": 1,
+        "timescale": 5,
+        "ptsUs": 1000000,
+        "dtsUs": 1000000,
+        "durationUs": 200000,
+        "containerKeyFlag": true,
+        "actualIdrNal": true,
+        "nals": [
+          {
+            "type": 5,
+            "bytes": 1336,
+            "sha256": "be12b8da3af4091ab1e9747d0e6fb3d97e6ed0b001230589c333940ba70d65c0"
+          }
+        ]
+      }
+    ],
+    "rawGeneratorAuHashComparison": "NOT_EQUAL_BY_DEFAULT_DIFFERENT_SPS_PPS_AND_REPRESENTATION",
+    "decodedPixels": "NOT_RUN",
+    "Media3Qualification": "NOT_RUN",
+    "matureLibraryInternalAllocationBound": "UNPROVEN"
+  },
+  "sampleHashEvidenceSource": "Real original mature getNextFrame buffers hashed by frozen helper; Python does not reread media sample bytes",
+  "seventhPacketEvidence": "Frozen helper checks getNextFrame()==null before setting actualContainerObservation; successful original observation/status proves gate ran without failure. Not a separately emitted raw field or additional native EOF read.",
+  "trackHeaderDurationEvidence": "Original frozen helper checked actual track-header duration normalization1200000us before setting observation; raw trackHeaderDuration not separately emitted and not invented here.",
+  "originalInputBudget": {
+    "requested": 17787,
+    "returned": 17786,
+    "wholeHashRequestedIncludingEof1": 8850,
+    "wholeHashReturned": 8849,
+    "rootAndDemuxMetadataRequestedReturned": 897,
+    "sampleReadsRequestedReturned": 8040,
+    "readCalls": 18,
+    "seeks": 20,
+    "nativeEof": 1,
+    "lastPosition": 8096,
+    "positionScope": "LAST_ADOPTED_BEFORE_ORIGINAL_CLOSE"
+  },
+  "externalOriginalHashBytes": 17698,
+  "actualHelperSupportClassloadLines": [
+    "[0.073s][info][class,load] com.videokit.fixturetool.Six01ContainerQualifier03 source: file:/D:/CodexProjects/VideoKit/docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION/helper-classes/",
+    "[0.110s][info][class,load] com.videokit.fixturetool.OriginFence03 source: file:/D:/CodexProjects/VideoKit/docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION/helper-classes/",
+    "[0.118s][info][class,load] com.videokit.fixturetool.ReceiptJson source: file:/D:/CodexProjects/VideoKit/docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION/support/",
+    "[0.128s][info][class,load] com.videokit.fixturetool.WorkerDeadline source: file:/D:/CodexProjects/VideoKit/docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION/support/",
+    "[0.131s][info][class,load] com.videokit.fixturetool.MetadataPolicy03 source: file:/D:/CodexProjects/VideoKit/docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION/helper-classes/",
+    "[0.131s][info][class,load] com.videokit.fixturetool.DataReferencePolicy03 source: file:/D:/CodexProjects/VideoKit/docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION/helper-classes/",
+    "[0.139s][info][class,load] com.videokit.fixturetool.Six01ContainerQualifier03$Job source: file:/D:/CodexProjects/VideoKit/docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION/helper-classes/",
+    "[0.141s][info][class,load] com.videokit.fixturetool.Six01ContainerQualifier03$InputOwner source: file:/D:/CodexProjects/VideoKit/docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION/helper-classes/",
+    "[0.143s][info][class,load] com.videokit.fixturetool.Six01ContainerQualifier03$Job$$Lambda/0x00000001000c4a10 source: com.videokit.fixturetool.Six01ContainerQualifier03"
+  ],
+  "originalPythonControllerToolReceipt": {
+    "chunkId": "f1baf3",
+    "exitCode": 0,
+    "originalCheckerExitCode": 0
+  },
+  "actualMediaWrites": 0,
+  "scope": "D1QUAL03-CANDIDATE-001",
+  "noSecondQualificationRun": true
+}

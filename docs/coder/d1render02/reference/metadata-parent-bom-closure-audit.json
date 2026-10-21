@@ -1,0 +1,954 @@
+{
+  "status": "OPEN_METADATA_PROVENANCE",
+  "scope": "Conservative parent/BOM closure of frozen candidate offline repository, not a claim every edge was consumed in final build. Final build lacks consumed-descriptor receipt.",
+  "visitedPoms": 326,
+  "edges": [
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\slf4j\\slf4j-api\\1.7.30\\slf4j-api-1.7.30.pom",
+      "kind": "parent",
+      "coordinate": "org.slf4j:slf4j-parent:1.7.30",
+      "artifact": "slf4j-parent-1.7.30.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\ow2\\asm\\asm-util\\9.9\\asm-util-9.9.pom",
+      "kind": "parent",
+      "coordinate": "org.ow2:ow2:1.5.1",
+      "artifact": "ow2-1.5.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\ow2\\asm\\asm-tree\\9.9\\asm-tree-9.9.pom",
+      "kind": "parent",
+      "coordinate": "org.ow2:ow2:1.5.1",
+      "artifact": "ow2-1.5.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\ow2\\asm\\asm-commons\\9.9\\asm-commons-9.9.pom",
+      "kind": "parent",
+      "coordinate": "org.ow2:ow2:1.5.1",
+      "artifact": "ow2-1.5.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\ow2\\asm\\asm-analysis\\9.9\\asm-analysis-9.9.pom",
+      "kind": "parent",
+      "coordinate": "org.ow2:ow2:1.5.1",
+      "artifact": "ow2-1.5.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\ow2\\asm\\asm\\9.9\\asm-9.9.pom",
+      "kind": "parent",
+      "coordinate": "org.ow2:ow2:1.5.1",
+      "artifact": "ow2-1.5.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\jvnet\\staxex\\stax-ex\\1.8.1\\stax-ex-1.8.1.pom",
+      "kind": "parent",
+      "coordinate": "org.eclipse.ee4j:project:1.0.5",
+      "artifact": "project-1.0.5.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\jetbrains\\kotlin\\kotlin-native-utils\\2.2.10\\kotlin-native-utils-2.2.10.pom",
+      "kind": "importBOM",
+      "coordinate": "org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.2.10",
+      "artifact": "kotlin-gradle-plugins-bom-2.2.10.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\jetbrains\\kotlin\\kotlin-gradle-plugin-annotations\\2.2.10\\kotlin-gradle-plugin-annotations-2.2.10.pom",
+      "kind": "importBOM",
+      "coordinate": "org.jetbrains.kotlin:kotlin-gradle-plugins-bom:2.2.10",
+      "artifact": "kotlin-gradle-plugins-bom-2.2.10.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\hamcrest\\hamcrest-library\\1.3\\hamcrest-library-1.3.pom",
+      "kind": "parent",
+      "coordinate": "org.hamcrest:hamcrest-parent:1.3",
+      "artifact": "hamcrest-parent-1.3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\hamcrest\\hamcrest-core\\1.3\\hamcrest-core-1.3.pom",
+      "kind": "parent",
+      "coordinate": "org.hamcrest:hamcrest-parent:1.3",
+      "artifact": "hamcrest-parent-1.3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\glassfish\\jaxb\\txw2\\2.3.2\\txw2-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "com.sun.xml.bind.mvn:jaxb-txw-parent:2.3.2",
+      "artifact": "jaxb-txw-parent-2.3.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\xml\\bind\\mvn\\jaxb-txw-parent\\2.3.2\\jaxb-txw-parent-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "com.sun.xml.bind.mvn:jaxb-parent:2.3.2",
+      "artifact": "jaxb-parent-2.3.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\xml\\bind\\mvn\\jaxb-parent\\2.3.2\\jaxb-parent-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "com.sun.xml.bind:jaxb-bom-ext:2.3.2",
+      "artifact": "jaxb-bom-ext-2.3.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\xml\\bind\\jaxb-bom-ext\\2.3.2\\jaxb-bom-ext-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "org.glassfish.jaxb:jaxb-bom:2.3.2",
+      "artifact": "jaxb-bom-2.3.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\glassfish\\jaxb\\jaxb-bom\\2.3.2\\jaxb-bom-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "org.eclipse.ee4j:project:1.0.5",
+      "artifact": "project-1.0.5.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\glassfish\\jaxb\\jaxb-runtime\\2.3.2\\jaxb-runtime-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "com.sun.xml.bind.mvn:jaxb-runtime-parent:2.3.2",
+      "artifact": "jaxb-runtime-parent-2.3.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\xml\\bind\\mvn\\jaxb-runtime-parent\\2.3.2\\jaxb-runtime-parent-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "com.sun.xml.bind.mvn:jaxb-parent:2.3.2",
+      "artifact": "jaxb-parent-2.3.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\codehaus\\mojo\\mojo-parent\\84\\mojo-parent-84.pom",
+      "kind": "importBOM",
+      "coordinate": "org.junit:junit-bom:5.10.2",
+      "artifact": "junit-bom-5.10.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\codehaus\\mojo\\mojo-parent\\74\\mojo-parent-74.pom",
+      "kind": "importBOM",
+      "coordinate": "org.junit:junit-bom:5.9.2",
+      "artifact": "junit-bom-5.9.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\codehaus\\mojo\\animal-sniffer-parent\\1.24\\animal-sniffer-parent-1.24.pom",
+      "kind": "parent",
+      "coordinate": "org.codehaus.mojo:mojo-parent:84",
+      "artifact": "mojo-parent-84.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\codehaus\\mojo\\animal-sniffer-parent\\1.23\\animal-sniffer-parent-1.23.pom",
+      "kind": "parent",
+      "coordinate": "org.codehaus.mojo:mojo-parent:74",
+      "artifact": "mojo-parent-74.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\codehaus\\mojo\\animal-sniffer-annotations\\1.24\\animal-sniffer-annotations-1.24.pom",
+      "kind": "parent",
+      "coordinate": "org.codehaus.mojo:animal-sniffer-parent:1.24",
+      "artifact": "animal-sniffer-parent-1.24.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\codehaus\\mojo\\animal-sniffer-annotations\\1.23\\animal-sniffer-annotations-1.23.pom",
+      "kind": "parent",
+      "coordinate": "org.codehaus.mojo:animal-sniffer-parent:1.23",
+      "artifact": "animal-sniffer-parent-1.23.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpmime\\4.5.6\\httpmime-4.5.6.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.httpcomponents:httpcomponents-client:4.5.6",
+      "artifact": "httpcomponents-client-4.5.6.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpcomponents-client\\4.5.6\\httpcomponents-client-4.5.6.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.httpcomponents:httpcomponents-parent:10",
+      "artifact": "httpcomponents-parent-10.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpcomponents-parent\\10\\httpcomponents-parent-10.pom",
+      "kind": "parent",
+      "coordinate": "org.apache:apache:18",
+      "artifact": "apache-18.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpcore\\4.4.16\\httpcore-4.4.16.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.httpcomponents:httpcomponents-core:4.4.16",
+      "artifact": "httpcomponents-core-4.4.16.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpcomponents-core\\4.4.16\\httpcomponents-core-4.4.16.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.httpcomponents:httpcomponents-parent:11",
+      "artifact": "httpcomponents-parent-11.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpcomponents-parent\\11\\httpcomponents-parent-11.pom",
+      "kind": "parent",
+      "coordinate": "org.apache:apache:21",
+      "artifact": "apache-21.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpcomponents-client\\4.5.14\\httpcomponents-client-4.5.14.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.httpcomponents:httpcomponents-parent:11",
+      "artifact": "httpcomponents-parent-11.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpclient\\4.5.6\\httpclient-4.5.6.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.httpcomponents:httpcomponents-client:4.5.6",
+      "artifact": "httpcomponents-client-4.5.6.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\httpcomponents\\httpclient\\4.5.14\\httpclient-4.5.14.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.httpcomponents:httpcomponents-client:4.5.14",
+      "artifact": "httpcomponents-client-4.5.14.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-parent\\72\\commons-parent-72.pom",
+      "kind": "parent",
+      "coordinate": "org.apache:apache:33",
+      "artifact": "apache-33.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-parent\\72\\commons-parent-72.pom",
+      "kind": "importBOM",
+      "coordinate": "org.junit:junit-bom:5.11.0-M2",
+      "artifact": "junit-bom-5.11.0-M2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-parent\\71\\commons-parent-71.pom",
+      "kind": "parent",
+      "coordinate": "org.apache:apache:32",
+      "artifact": "apache-32.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-parent\\71\\commons-parent-71.pom",
+      "kind": "importBOM",
+      "coordinate": "org.junit:junit-bom:5.11.0-M2",
+      "artifact": "junit-bom-5.11.0-M2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-parent\\69\\commons-parent-69.pom",
+      "kind": "parent",
+      "coordinate": "org.apache:apache:31",
+      "artifact": "apache-31.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-parent\\69\\commons-parent-69.pom",
+      "kind": "importBOM",
+      "coordinate": "org.junit:junit-bom:5.10.2",
+      "artifact": "junit-bom-5.10.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-parent\\34\\commons-parent-34.pom",
+      "kind": "parent",
+      "coordinate": "org.apache:apache:13",
+      "artifact": "apache-13.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-lang3\\3.16.0\\commons-lang3-3.16.0.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.commons:commons-parent:72",
+      "artifact": "commons-parent-72.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\org\\apache\\commons\\commons-compress\\1.27.1\\commons-compress-1.27.1.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.commons:commons-parent:72",
+      "artifact": "commons-parent-72.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\net\\sf\\jopt-simple\\jopt-simple\\4.9\\jopt-simple-4.9.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\javax\\annotation\\javax.annotation-api\\1.3.2\\javax.annotation-api-1.3.2.pom",
+      "kind": "parent",
+      "coordinate": "net.java:jvnet-parent:3",
+      "artifact": "jvnet-parent-3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\jakarta\\xml\\bind\\jakarta.xml.bind-api-parent\\2.3.2\\jakarta.xml.bind-api-parent-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "org.eclipse.ee4j:project:1.0.5",
+      "artifact": "project-1.0.5.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\jakarta\\xml\\bind\\jakarta.xml.bind-api\\2.3.2\\jakarta.xml.bind-api-2.3.2.pom",
+      "kind": "parent",
+      "coordinate": "jakarta.xml.bind:jakarta.xml.bind-api-parent:2.3.2",
+      "artifact": "jakarta.xml.bind-api-parent-2.3.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\jakarta\\activation\\jakarta.activation-api\\1.2.1\\jakarta.activation-api-1.2.1.pom",
+      "kind": "parent",
+      "coordinate": "com.sun.activation:all:1.2.1",
+      "artifact": "all-1.2.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\activation\\all\\1.2.1\\all-1.2.1.pom",
+      "kind": "parent",
+      "coordinate": "org.eclipse.ee4j:project:1.0.2",
+      "artifact": "project-1.0.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-transport-native-unix-common\\4.1.93.Final\\netty-transport-native-unix-common-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-parent\\4.1.93.Final\\netty-parent-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:9",
+      "artifact": "oss-parent-9.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-transport-native-unix-common\\4.1.110.Final\\netty-transport-native-unix-common-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-parent\\4.1.110.Final\\netty-parent-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:9",
+      "artifact": "oss-parent-9.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-transport\\4.1.93.Final\\netty-transport-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-transport\\4.1.110.Final\\netty-transport-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-resolver\\4.1.93.Final\\netty-resolver-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-resolver\\4.1.110.Final\\netty-resolver-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-handler-proxy\\4.1.93.Final\\netty-handler-proxy-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-handler-proxy\\4.1.110.Final\\netty-handler-proxy-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-handler\\4.1.93.Final\\netty-handler-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-handler\\4.1.110.Final\\netty-handler-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-common\\4.1.93.Final\\netty-common-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-common\\4.1.110.Final\\netty-common-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-codec-socks\\4.1.93.Final\\netty-codec-socks-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-codec-socks\\4.1.110.Final\\netty-codec-socks-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-codec-http2\\4.1.93.Final\\netty-codec-http2-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-codec-http2\\4.1.110.Final\\netty-codec-http2-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-codec-http\\4.1.93.Final\\netty-codec-http-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-codec-http\\4.1.110.Final\\netty-codec-http-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-codec\\4.1.93.Final\\netty-codec-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-codec\\4.1.110.Final\\netty-codec-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-buffer\\4.1.93.Final\\netty-buffer-4.1.93.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.93.Final",
+      "artifact": "netty-parent-4.1.93.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\io\\netty\\netty-buffer\\4.1.110.Final\\netty-buffer-4.1.110.Final.pom",
+      "kind": "parent",
+      "coordinate": "io.netty:netty-parent:4.1.110.Final",
+      "artifact": "netty-parent-4.1.110.Final.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\commons-logging\\commons-logging\\1.2\\commons-logging-1.2.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.commons:commons-parent:34",
+      "artifact": "commons-parent-34.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\commons-io\\commons-io\\2.16.1\\commons-io-2.16.1.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.commons:commons-parent:69",
+      "artifact": "commons-parent-69.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\commons-codec\\commons-codec\\1.17.1\\commons-codec-1.17.1.pom",
+      "kind": "parent",
+      "coordinate": "org.apache.commons:commons-parent:71",
+      "artifact": "commons-parent-71.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\xml\\fastinfoset\\fastinfoset-project\\1.2.16\\fastinfoset-project-1.2.16.pom",
+      "kind": "parent",
+      "coordinate": "org.eclipse.ee4j:project:1.0.5",
+      "artifact": "project-1.0.5.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\xml\\fastinfoset\\FastInfoset\\1.2.16\\FastInfoset-1.2.16.pom",
+      "kind": "parent",
+      "coordinate": "com.sun.xml.fastinfoset:fastinfoset-project:1.2.16",
+      "artifact": "fastinfoset-project-1.2.16.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\istack\\istack-commons-runtime\\3.0.8\\istack-commons-runtime-3.0.8.pom",
+      "kind": "parent",
+      "coordinate": "com.sun.istack:istack-commons:3.0.8",
+      "artifact": "istack-commons-3.0.8.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\sun\\istack\\istack-commons\\3.0.8\\istack-commons-3.0.8.pom",
+      "kind": "parent",
+      "coordinate": "org.eclipse.ee4j:project:1.0.5",
+      "artifact": "project-1.0.5.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\squareup\\okio\\okio-parent\\1.17.6\\okio-parent-1.17.6.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\squareup\\okio\\okio\\1.17.6\\okio-1.17.6.pom",
+      "kind": "parent",
+      "coordinate": "com.squareup.okio:okio-parent:1.17.6",
+      "artifact": "okio-parent-1.17.6.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\squareup\\javawriter\\2.5.0\\javawriter-2.5.0.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\squareup\\javapoet\\1.13.0\\javapoet-1.13.0.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-parent\\4.28.3\\protobuf-parent-4.28.3.pom",
+      "kind": "importBOM",
+      "coordinate": "com.google.protobuf:protobuf-bom:4.28.3",
+      "artifact": "protobuf-bom-4.28.3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-parent\\4.28.2\\protobuf-parent-4.28.2.pom",
+      "kind": "importBOM",
+      "coordinate": "com.google.protobuf:protobuf-bom:4.28.2",
+      "artifact": "protobuf-bom-4.28.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-parent\\3.25.5\\protobuf-parent-3.25.5.pom",
+      "kind": "importBOM",
+      "coordinate": "com.google.protobuf:protobuf-bom:3.25.5",
+      "artifact": "protobuf-bom-3.25.5.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-parent\\3.22.3\\protobuf-parent-3.22.3.pom",
+      "kind": "importBOM",
+      "coordinate": "com.google.protobuf:protobuf-bom:3.22.3",
+      "artifact": "protobuf-bom-3.22.3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-kotlin\\4.28.3\\protobuf-kotlin-4.28.3.pom",
+      "kind": "parent",
+      "coordinate": "com.google.protobuf:protobuf-parent:4.28.3",
+      "artifact": "protobuf-parent-4.28.3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-java-util\\4.28.3\\protobuf-java-util-4.28.3.pom",
+      "kind": "parent",
+      "coordinate": "com.google.protobuf:protobuf-parent:4.28.3",
+      "artifact": "protobuf-parent-4.28.3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-java-util\\3.25.5\\protobuf-java-util-3.25.5.pom",
+      "kind": "parent",
+      "coordinate": "com.google.protobuf:protobuf-parent:3.25.5",
+      "artifact": "protobuf-parent-3.25.5.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-java-util\\3.22.3\\protobuf-java-util-3.22.3.pom",
+      "kind": "parent",
+      "coordinate": "com.google.protobuf:protobuf-parent:3.22.3",
+      "artifact": "protobuf-parent-3.22.3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-java\\4.28.3\\protobuf-java-4.28.3.pom",
+      "kind": "parent",
+      "coordinate": "com.google.protobuf:protobuf-parent:4.28.3",
+      "artifact": "protobuf-parent-4.28.3.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-java\\4.28.2\\protobuf-java-4.28.2.pom",
+      "kind": "parent",
+      "coordinate": "com.google.protobuf:protobuf-parent:4.28.2",
+      "artifact": "protobuf-parent-4.28.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\protobuf\\protobuf-java\\3.25.5\\protobuf-java-3.25.5.pom",
+      "kind": "parent",
+      "coordinate": "com.google.protobuf:protobuf-parent:3.25.5",
+      "artifact": "protobuf-parent-3.25.5.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\jimfs\\jimfs-parent\\1.1\\jimfs-parent-1.1.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\jimfs\\jimfs\\1.1\\jimfs-1.1.pom",
+      "kind": "parent",
+      "coordinate": "com.google.jimfs:jimfs-parent:1.1",
+      "artifact": "jimfs-parent-1.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\j2objc\\j2objc-annotations\\2.8\\j2objc-annotations-2.8.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:9",
+      "artifact": "oss-parent-9.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\guava\\listenablefuture\\9999.0-empty-to-avoid-conflict-with-guava\\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.pom",
+      "kind": "parent",
+      "coordinate": "com.google.guava:guava-parent:26.0-android",
+      "artifact": "guava-parent-26.0-android.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\guava\\guava-parent\\26.0-android\\guava-parent-26.0-android.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:9",
+      "artifact": "oss-parent-9.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\guava\\listenablefuture\\1.0\\listenablefuture-1.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.guava:guava-parent:26.0-android",
+      "artifact": "guava-parent-26.0-android.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\guava\\guava\\33.3.1-android\\guava-33.3.1-android.pom",
+      "kind": "parent",
+      "coordinate": "com.google.guava:guava-parent:33.3.1-android",
+      "artifact": "guava-parent-33.3.1-android.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\guava\\guava\\32.0.1-jre\\guava-32.0.1-jre.pom",
+      "kind": "parent",
+      "coordinate": "com.google.guava:guava-parent:32.0.1-jre",
+      "artifact": "guava-parent-32.0.1-jre.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\guava\\failureaccess\\1.0.2\\failureaccess-1.0.2.pom",
+      "kind": "parent",
+      "coordinate": "com.google.guava:guava-parent:26.0-android",
+      "artifact": "guava-parent-26.0-android.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\guava\\failureaccess\\1.0.1\\failureaccess-1.0.1.pom",
+      "kind": "parent",
+      "coordinate": "com.google.guava:guava-parent:26.0-android",
+      "artifact": "guava-parent-26.0-android.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_parent\\2.3.1\\error_prone_parent-2.3.1.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_annotations\\2.36.0\\error_prone_annotations-2.36.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.errorprone:error_prone_parent:2.36.0",
+      "artifact": "error_prone_parent-2.36.0.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_annotations\\2.30.0\\error_prone_annotations-2.30.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.errorprone:error_prone_parent:2.30.0",
+      "artifact": "error_prone_parent-2.30.0.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_annotations\\2.3.1\\error_prone_annotations-2.3.1.pom",
+      "kind": "parent",
+      "coordinate": "com.google.errorprone:error_prone_parent:2.3.1",
+      "artifact": "error_prone_parent-2.3.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_annotations\\2.28.0\\error_prone_annotations-2.28.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.errorprone:error_prone_parent:2.28.0",
+      "artifact": "error_prone_parent-2.28.0.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_annotations\\2.27.0\\error_prone_annotations-2.27.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.errorprone:error_prone_parent:2.27.0",
+      "artifact": "error_prone_parent-2.27.0.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_annotations\\2.23.0\\error_prone_annotations-2.23.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.errorprone:error_prone_parent:2.23.0",
+      "artifact": "error_prone_parent-2.23.0.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_annotations\\2.22.0\\error_prone_annotations-2.22.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.errorprone:error_prone_parent:2.22.0",
+      "artifact": "error_prone_parent-2.22.0.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\errorprone\\error_prone_annotations\\2.18.0\\error_prone_annotations-2.18.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.errorprone:error_prone_parent:2.18.0",
+      "artifact": "error_prone_parent-2.18.0.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\dagger\\dagger\\2.48\\dagger-2.48.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\dagger\\dagger\\2.28.3\\dagger-2.28.3.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\crypto\\tink\\tink\\1.7.0\\tink-1.7.0.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\crypto\\tink\\tink\\1.18.0\\tink-1.18.0.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\code\\gson\\gson-parent\\2.8.9\\gson-parent-2.8.9.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\code\\gson\\gson\\2.8.9\\gson-2.8.9.pom",
+      "kind": "parent",
+      "coordinate": "com.google.code.gson:gson-parent:2.8.9",
+      "artifact": "gson-parent-2.8.9.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\code\\gson\\gson\\2.11.0\\gson-2.11.0.pom",
+      "kind": "parent",
+      "coordinate": "com.google.code.gson:gson-parent:2.11.0",
+      "artifact": "gson-parent-2.11.0.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\code\\gson\\gson\\2.10.1\\gson-2.10.1.pom",
+      "kind": "parent",
+      "coordinate": "com.google.code.gson:gson-parent:2.10.1",
+      "artifact": "gson-parent-2.10.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\code\\findbugs\\jsr305\\3.0.2\\jsr305-3.0.2.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\auto\\value\\auto-value-parent\\1.6.2\\auto-value-parent-1.6.2.pom",
+      "kind": "parent",
+      "coordinate": "com.google.auto:auto-parent:6",
+      "artifact": "auto-parent-6.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\auto\\auto-parent\\6\\auto-parent-6.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\auto\\value\\auto-value-annotations\\1.6.2\\auto-value-annotations-1.6.2.pom",
+      "kind": "parent",
+      "coordinate": "com.google.auto.value:auto-value-parent:1.6.2",
+      "artifact": "auto-value-parent-1.6.2.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\auto\\service\\auto-service-annotations\\1.1.1\\auto-service-annotations-1.1.1.pom",
+      "kind": "parent",
+      "coordinate": "com.google.auto.service:auto-service-aggregator:1.1.1",
+      "artifact": "auto-service-aggregator-1.1.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\auto\\service\\auto-service-aggregator\\1.1.1\\auto-service-aggregator-1.1.1.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\auto\\service\\auto-service\\1.1.1\\auto-service-1.1.1.pom",
+      "kind": "parent",
+      "coordinate": "com.google.auto.service:auto-service-aggregator:1.1.1",
+      "artifact": "auto-service-aggregator-1.1.1.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\auto\\auto-common\\1.2.1\\auto-common-1.2.1.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\android\\annotations\\4.1.1.4\\annotations-4.1.1.4.pom",
+      "kind": "parent",
+      "coordinate": "org.sonatype.oss:oss-parent:7",
+      "artifact": "oss-parent-7.pom",
+      "available": true
+    },
+    {
+      "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\androidx\\media3\\media3-common\\1.9.3\\media3-common-1.9.3.pom",
+      "kind": "importBOM",
+      "coordinate": "org.jetbrains.kotlin:kotlin-bom:1.8.0",
+      "artifact": "kotlin-bom-1.8.0.pom",
+      "available": true
+    }
+  ],
+  "gaps": [
+    {
+      "coordinate": "com.google.guava:guava-parent:33.3.1-android",
+      "artifact": "guava-parent-33.3.1-android.pom",
+      "availableFiles": [
+        {
+          "path": "C:\\Users\\benny\\.gradle\\caches\\modules-2\\files-2.1\\com.google.guava\\guava-parent\\33.3.1-android\\d4598d14da6c708054bc42f2be7e6245ac715be4\\guava-parent-33.3.1-android.pom",
+          "bytes": 20632,
+          "sha256": "6e11986ea7250b51f847157e2dc937f32a306804dfce0007a5e81ddb9b95c579",
+          "observedOnlyNotApproved": true
+        }
+      ],
+      "sourceEdges": [
+        {
+          "from": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1render01\\offline-maven\\com\\google\\guava\\guava\\33.3.1-android\\guava-33.3.1-android.pom",
+          "kind": "parent",
+          "coordinate": "com.google.guava:guava-parent:33.3.1-android",
+          "artifact": "guava-parent-33.3.1-android.pom",
+          "available": true
+        }
+      ],
+      "historicMetadataPinExists": false,
+      "candidateCentralUrl": "https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/33.3.1-android/guava-parent-33.3.1-android.pom",
+      "urlIsProposedNotFetched": true
+    }
+  ],
+  "unresolvedExpressions": [],
+  "networkRequests": 0,
+  "newlyApprovedPins": 0,
+  "verifyMetadata": false
+}

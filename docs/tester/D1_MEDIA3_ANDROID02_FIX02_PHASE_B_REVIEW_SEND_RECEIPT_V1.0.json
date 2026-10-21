@@ -1,0 +1,20 @@
+{
+  "status": "SENT_SUCCESSFULLY",
+  "recipientThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "sendToolReturnedThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "report": "docs/tester/D1_MEDIA3_ANDROID02_FIX02_PHASE_B_REVIEW_REPORT_V1.0.md",
+  "reportBytes": 18104,
+  "reportSha256": "4421c264ab6c45a78979aaa9339a3bc1c19e7c3a9b2bf5c6442c0c68dedce1f3",
+  "evidenceManifestSha256": "1b4cb0c9d4b65a0d59960c8873afae3ebde92b6ca6cce89f2788b9acb2fc5e54",
+  "evidenceFiles": 30,
+  "overall": "PASS_LIMITED_OFFLINE_FIVE_SOURCE_FIXES_ANDROID_NOT_RUN",
+  "fiveFindingClosureScope": "Source gaps and representative final-production pure-Java typed gates only; not real Android methods",
+  "independentGroups": {"typedAndPolicy": 45, "signatureGroup": 1, "total": 46, "realApksVerified": 4},
+  "payloadClarificationSent": "301B counts actual journal test payload UTF8, not all Java constants, argv or APK signature file reads; remaining typed ports use only bounded Token, counters and labels, no real native/media payload injection",
+  "newConfirmedSourceBlockers": 0,
+  "actualAndroidMediaRuntime": 0,
+  "deviceOperations": 0,
+  "oldUnknownActions": 0,
+  "reportOrEvidenceChangedAfterSend": false,
+  "subsequentTestingStarted": false
+}

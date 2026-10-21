@@ -1,0 +1,2 @@
+param([string]$InputFile)
+$ErrorActionPreference='Stop';$answer=@();foreach($g in (Get-Content -LiteralPath $InputFile -Raw|ConvertFrom-Json)){$errorText='';try{& $g.entry -RequestPath $g.request -PredecessorProofSha $g.proof;throw 'UNEXPECTED_ACCEPT'}catch{$errorText=$_.Exception.Message};if(-not $errorText.Contains($g.expected)){throw ('WRONG_GUARD '+$g.name+' '+$errorText)};$answer+=@{name=$g.name;observed=$errorText;expected=$g.expected}};@{guards=$answer;started=$false}|ConvertTo-Json -Depth 5 -Compress

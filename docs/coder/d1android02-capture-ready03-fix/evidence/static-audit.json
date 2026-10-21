@@ -1,0 +1,82 @@
+{
+  "schema": "READY03_FIX_STATIC_AUDIT_V1",
+  "allPassed": true,
+  "baselineSeals": [
+    {
+      "seal": "docs/coder/d1android02-capture-ready02-fix/evidence/ready02-fix-freeze.json",
+      "sha256": "c5ec7bafa461bc6e99ed2790248c67edce92cf11cd4a3e33c72fed54f5b82b1e",
+      "rows": 364,
+      "bad": []
+    },
+    {
+      "seal": "docs/coder/d1android02-capture-ready01/evidence/capture-ready01-freeze.json",
+      "sha256": "3ff8b42d7bd5c31f578bcfdec8bba7286dd32ba90289fcc6556dc338368fa51d",
+      "rows": 756,
+      "bad": []
+    },
+    {
+      "seal": "docs/coder/d1media3-android02-fix02/evidence/fix02-freeze.json",
+      "sha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+      "rows": 874,
+      "bad": []
+    },
+    {
+      "seal": "docs/coder/d1render02-capture/evidence/capture-adapt-freeze.json",
+      "sha256": "65e8413b3e90dd571c22fea7049778b29c0d94221cd490560cdcd5c3cc00ae5a",
+      "rows": 818,
+      "bad": []
+    }
+  ],
+  "pins": [
+    {
+      "path": "tools/capture_android02.ps1",
+      "sha256": "044fe40e340d5818b566dfee94462c7f5420886b22e5ed79f1a5fa4a28db023c",
+      "bytes": 56910
+    },
+    {
+      "path": "tools/outer_owner.py",
+      "sha256": "9e558b3f6d64d86ea7e8c4326cfb4d88cd261f95198067ff66cfb6ef7f91effb",
+      "bytes": 15617
+    },
+    {
+      "path": "selfchecks/run_checks.py",
+      "sha256": "66beeef15c3434cf36369a416ddf8a8846cbf86499cae47cbc0f00f0eed49cbd",
+      "bytes": 14934
+    },
+    {
+      "path": "selfchecks/capture_fixture.py",
+      "sha256": "4b0aea7b372f737ae6d0970374d18d491c2f537c741df3fa7166c5ef654e8d5a",
+      "bytes": 3066
+    },
+    {
+      "path": "release/capture-policy.json",
+      "sha256": "ff703e7b117060a5ee52357c8b2a6976ea0232710513b60f02dcd16ee5185c10",
+      "bytes": 1217
+    },
+    {
+      "path": "release/activation-required.template.json",
+      "sha256": "6bbb433ecdbf661ee591dbf8f8a1f6a5aa81a52453999126a9b8e05bd6874827",
+      "bytes": 919
+    }
+  ],
+  "selfcheckRunWholeDirectoryBytes": 911835,
+  "selfcheckRunFileCount": 201,
+  "selfcheckSeconds": 22.89100000000326,
+  "selfcheckGroupsCompleted": 9,
+  "schemaSamples": 13,
+  "deltaRejections": 3,
+  "history": [
+    {
+      "path": "selfchecks/work/suite-220f8ed192/summary.json",
+      "sha256": "115e1f596b2ccc9094ee3adb408f7c7de497efc9a85ee4a91a22772ea9f07d5a",
+      "allPassed": true,
+      "seconds": 22.89100000000326
+    }
+  ],
+  "sdkActions": 0,
+  "deviceActions": 0,
+  "oldUnknownActions": 0,
+  "gradleAndJvmRuns": 0,
+  "newIndependentB": "PENDING",
+  "Android": "NOT_RUN"
+}

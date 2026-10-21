@@ -1,0 +1,1 @@
+package android.content.pm;public class PackageManager {public static final int SIGNATURE_NO_MATCH=-3;public ApplicationInfo getApplicationInfo(String n,int f){return new ApplicationInfo();}public int checkSignatures(String a,String b){return SIGNATURE_NO_MATCH;}}

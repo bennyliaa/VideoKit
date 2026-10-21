@@ -1,0 +1,55 @@
+{
+  "format": "Project review inventory, not a clearance certificate",
+  "components": [
+    {
+      "name": "JCodec",
+      "version": "0.2.5",
+      "kind": "Exact official source artifact",
+      "sourceArchiveSha256": "9945efa92e16b3fbe8eb8bf37f00be53fa0adb52d09ac978a0744ca2ef3697db",
+      "sourceJavaFiles": 635,
+      "license": "See verbatim file headers, FreeBSD/POM and official repository text; per-file exceptions separately retained",
+      "source": "https://repo.maven.apache.org/maven2/org/jcodec/jcodec/0.2.5/jcodec-0.2.5-sources.jar"
+    },
+    {
+      "name": "JAAD bundled inside exact JCodec source",
+      "sourceJavaFiles": 73,
+      "license": "Source declares Public Domain; JCodec changes FreeBSD",
+      "scope": "Compiled main tree; no AAC decoding invoked"
+    },
+    {
+      "name": "Guava-derived Preconditions",
+      "path": "source/org/jcodec/common/Preconditions.java",
+      "license": "Apache-2.0",
+      "copyright": "2007 The Guava Authors",
+      "newExternalGuavaDependency": false
+    },
+    {
+      "name": "VideoKit fixture driver",
+      "sourceJavaFiles": 4,
+      "license": "Project-authored internal review; public release terms not inferred"
+    }
+  ],
+  "buildOnlyJdk": "Existing JetBrains21.0.10 exact compiler-identity.json; not downloaded/redistributed",
+  "newMavenGradleOrBinaryDependencies": [],
+  "notices": [
+    {
+      "path": "licenses/Apache-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "licenses/JCODEC-FreeBSD-LICENSE.txt",
+      "sha256": "8eacff112f76f32d03216c3076429384909ae6f45c0aad17d805e59d8af6cbc4"
+    },
+    {
+      "path": "licenses/PROJECT-CODE-NOTICE.txt",
+      "sha256": "bc198b39074f4f88c8e2694e040efdb783f53f1051b22b8aee4d7e4f037f63a8"
+    },
+    {
+      "path": "licenses/SOURCE_NOTICES.txt",
+      "sha256": "ed46f45aa093a217cd1101e208a1d519594801c43d62a1408928090eebd5d0ec"
+    }
+  ],
+  "unusedCompiledCode": "Full708-source archive includes other codecs/decoders/CLI classes. Their presence is not permission to invoke them, no general encoder/decoder execution approved.",
+  "externalRuntimeArtifactsOutsideBuiltJar": [],
+  "testAuxiliary": "1 source/5 classes, separately retained, never in production JAR"
+}

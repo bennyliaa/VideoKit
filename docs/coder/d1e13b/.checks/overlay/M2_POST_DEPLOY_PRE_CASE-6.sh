@@ -1,0 +1,1 @@
+dumpsys package com.videokit.app.test | sed -n '/^[ ]*userId=/p; /^[ ]*versionCode=/p; /^[ ]*User 0:/p' 

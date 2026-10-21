@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "RESPONSIBLE_COORDINATOR_ENVIRONMENT_RECHECK_AUTHORIZATION",
+  "date": "2026-10-20",
+  "issuerThread": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "batch": "ENV03",
+  "scopeId": "f0be73d2-01d2-4775-be6d-b6e55b8b77b3",
+  "deviceExecutionAuthorized": true,
+  "deviceSerial": "HA1Q6WXR",
+  "purpose": "one bounded read-only identity and global occupancy recheck after user next-work request",
+  "pins": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME02_ACTIVATION_EXECUTION_REPORT_V1.0.md",
+      "sha256": "0ccfb39bd348e4f77635055c7b5f64e9bef14018ee1732ed2d4cfd3b84394782"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\evidence\\activation-freeze.json",
+      "sha256": "f5ae97ca7714472601a338786b833e497820f3776569e2a9125814f8a7cd920a"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\release\\capture-policy.json",
+      "sha256": "6d982a8341168c8d4d839a653aefbefd9e8999a9079828299bd0b4266a52f083"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\tools\\capture_metadata.ps1",
+      "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+    }
+  ],
+  "operations": 2,
+  "textBytes": 1048576,
+  "archiveBytes": 1048576,
+  "captureCaps": [
+    65536,
+    524288
+  ],
+  "qualificationSeconds": 15,
+  "requiresIndependentFinalMechanicalPass": true,
+  "allowedRequests": "exact unchanged previous M1 identity then M1 global only",
+  "forbidden": [
+    "M1 ps",
+    "deployment",
+    "M2",
+    "instrumentation",
+    "product methods",
+    "force-stop/kill/server restart/clear-data",
+    "automatic retry",
+    "reuse stopped RESUME02 scope or balance"
+  ],
+  "conditions": [
+    "new isolated scope and evidence root, no old edits",
+    "fresh local/tool/default routing and no unresolved current claim",
+    "same approved capture entry bytes, no new framework or build",
+    "identity true physical return and exact semantic approval before global",
+    "stop after two requests regardless of occupancy; report result to coordinator",
+    "first failure/UNKNOWN stops dependents; preserve original owner/accounting",
+    "historical UNKNOWN and old consumption retained, no refunds"
+  ]
+}

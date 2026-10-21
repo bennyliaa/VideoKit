@@ -1,0 +1,11 @@
+# D1 E5C 部署/隔离补验/原只读QUERY整批执行要求 V1.0
+
+2026-10-17。E5C独立复审支持，现正式授权tester仅HA1Q6WXR/原appUID10221/user0一次整批，按docs/coder/d1e5c/tools/device_plan.json及D1_E5C_DEVICE_EXECUTION_APPENDIX准确参数。无需再问设备授权。三个结果独立，不自动写恢复。
+
+先只读核设备/既有包签名UID/version/空间/原数据必要身份，不媒体内容hash/不扫描旧cache。绑定seal75ad67f90cb7689cd4b7d765afc6b9101dcf75cc1f9e5f1343b9d7db9a1be47c/ZIPac7d5bc2901ab66bb16299cf8c2052e6e7bd3344276b1c3d2a0b50b38a291743。允许同签名保数据install-r final app5b7992f1ec01f8782b59dd1508c6a47e3af4f2602ba428e1b65892724f73f464及test5101c8efa43fd4ab5944479c8bafa8934ab9c4a1a1318fd9c6eae4c5d3f0e36c各一次，证书5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f，版本5/原UID10221不符停。无卸载/clear/降级/改签名/绕系统禁用。保原N2 metadata/pending/R2MiB/输出/fixture不变，安装前后仅必要准确元数据/有界原账本证据保全，不把新root误读原预算。
+
+精确单方法E5CGuardFixtureTests#isolatedOriginalInodeSymlinks，e5cCase同名/e5cBatch D1-E5C-GUARD-LINK-TABLET-20261017/e5cRun FORMAL_DEBUG_FIXTURE_ONLY。唯一root files/e5c_guard_fixture_20261017_once，已存在阻断不删/换名/重试。要求健康两真实生产锁close、owner/lease真symlink lstat/readlink/同原inode字节/实际ELOOP、原观察lock角色拒绝、无自有文件/R/S/grant改变及所有实际FD/holder返回完整证据，最终E5C_LOCK_BOUNDARY_PASS和JUnit PASS同时成立。前置拒绝无FD标NONE_PREOPEN_REJECTION不能冒已分配close。64节点256KiB/单64KiB/holder128/日志4MiB/方法60s/三例各一次，原失败保root/objects，不force-stop/信号/cancel求归还。准入与metadata总记录有界，批日志<=8MiB。
+
+只有以上全部真实PASS且原调用归还后，tester独立核实精确原证据并落本地准入，明确允许同整批另新instrumentation只读QUERY：E5RecoveryDeviceTests#originalN2QueryOrAbort，e5N2Action=QUERY、task86cafdb3-0fc4-447d-920b-b19c884bf494、budget730a73e1-50e1-4198-a515-047104f00e31、e5RecoveryBatch D1-E5B-N2-RECOVERY-20261017。逐参依plan，不整class/默认动作。不传settlement receipt，不ABORT/OBSERVE/正常。QUERY仅已审metadata/退出与proc，无guard锁/fence/outputhash/S/补guard.identity，原closeACK false/retained及系统死亡实证原值保存。QUERY_ELIGIBLE不是恢复完成，不解除R/marker。
+
+任一步FAIL/BLOCKED/PENDING/UNKNOWN/原root存在/runner传输未知停止依赖，QUERY标NOT_RUN；QUERY自身失败不抹fixture证据、不改参数重试。原handle/线程未返回保留，系统instrumentation结束不能代协议close。无手机模拟器/Gradle/媒体/外部路径/权限/原nativefault/原Binder或四产品方法。完整报告docs/tester/D1_E5C_DEVICE_TEST_REPORT_V1.0.md，部署/补验/QUERY分别实际结果与全部证据/预算/无在途或handle，主动报告，不自动下一批。G01待本次独立审证据，D1未通过/M0未启动/P0历史FAIL保持。

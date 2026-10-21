@@ -1,0 +1,89 @@
+{
+  "status": "REFERENCE_AND_ORACLES_NOT_NEW_MEDIA3_OBSERVATIONS",
+  "hostInput": {
+    "fileBytes": 8849,
+    "rawAvccSampleBytes": [
+      1340,
+      1340,
+      1340,
+      1340,
+      1340,
+      1340
+    ],
+    "normalizedAnnexBSampleBytes": [
+      1340,
+      1340,
+      1340,
+      1340,
+      1340,
+      1340
+    ],
+    "originalInternalRawAuBytes": 1360,
+    "hostCsdRepresentations": [
+      {
+        "kind": "SPS_PAYLOAD_WITHOUT_HEADER",
+        "bytes": 7,
+        "hex": "420028f4080988",
+        "sha256": "0404c1e590a48f2ef2ef724b85b0db8b129265f80a1dc52d21edb6387a70da9b",
+        "actualSpsWidth": 256,
+        "actualSpsHeight": 144
+      },
+      {
+        "kind": "PPS_PAYLOAD_WITHOUT_HEADER",
+        "bytes": 3,
+        "hex": "ce3880",
+        "sha256": "cdaaa2424fbb7c615c63f7708634466b877cf93db2be7a7f4c0b44e15c161c69",
+        "maturePpsParsed": true
+      },
+      {
+        "kind": "MATURE_LIBRARY_AVCC_CONFIG_TO_ANNEXB",
+        "bytes": 20,
+        "hex": "0000000167420028f40809880000000168ce3880",
+        "sha256": "f6dcad95142c58fce67217fc175449c88b9c697f07db35952c617a66199e75a8"
+      }
+    ],
+    "hostPtsUs": [
+      0,
+      200000,
+      400000,
+      600000,
+      800000,
+      1000000
+    ],
+    "hostDtsUs": [
+      0,
+      200000,
+      400000,
+      600000,
+      800000,
+      1000000
+    ],
+    "hostActualDurationUs": 1200000
+  },
+  "media3": {
+    "actualInitializationDataCount": null,
+    "actualInitializationDataHashes": null,
+    "actualSampleFlags": null,
+    "actualSampleHashes": null,
+    "actualPtsUs": null,
+    "actualDtsUs": null,
+    "actualDurationUs": null
+  },
+  "rules": [
+    "Do not equate host3 CSD representation records with Media3 initializationData array cardinality",
+    "Document mature1.9.3 real representation before new candidate freeze; observed Media3→sameFramework fMP4 roundtrip compare exact or predeclared mature normalization, no ad hoc byte parser",
+    "Host normalizedAnnexB1340 can be cross-reference only if actual representation matches; raw1360 contains PS, never directly equal; no reconstructed rawAU hash",
+    "Raw Media3 sample flags are real observations; JCodec isKeyFrame boolean is not rawFlags1 for every sample; predeclare supported semantic differences, no posthoc mask",
+    "TrackOutput sampleMetadata signature only has one timeUs in frozen HostMp4Inspection; independent Media3 DTS remains unsupported/unproven without real API evidence",
+    "Original E6 emptyEOS flags4 time last+200000=1200000 only expresses intended last duration, not actual reopenedDuration evidence",
+    "TIME_UNSET/absent SeekMap or reportedDuration callback stays NOT_PROVEN, not filled from EOS/host manifest",
+    "Fork/JCodec not embedded or used as actual Android parser"
+  ],
+  "baselineLimits": [
+    "Old QualifiedFixture registry=null is historical gap, not new-candidate finding",
+    "Old mux binding positive/actual duration/fMP4 cache path never ran; cannot infer from host tests",
+    "Old runner join60000+isAlive must not stand for monotonic body deadline contract in new batch",
+    "Old private FileOutputStream(false) inside fresh root is not by itself new CREATE_NEW proof; new candidate mechanism must be checked"
+  ],
+  "newCandidateFindings": "NOT_EVALUATED_FLOATING_CANDIDATE_NOT_READ"
+}

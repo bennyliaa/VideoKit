@@ -1,0 +1,9 @@
+# RENDER02_DEVICE_V2 准确一次执行派发
+
+2026-10-20 FORMALLY_DISPATCHED。负责人核并接受capture独立报告c87e3c900e78e95a204189a796cedeb52ac9774b0bbf0b0a37384452617fe886，有限25串行角色通过、3截图NOT_RUN。新planId 7aebea43-88e7-40cb-8794-cd3c6216cbe0，真实范围hash 8698220f3ef9bfb6c2aa0d8b4a330cc37d2e66b2605cc460fcb54fcd61e202e4；准确ACTIVATION文件已负责人签发，toolSHA是既有批准来源，运行前必须实际fresh匹配，不把批准hash冒新鲜现场事实。
+
+tester可在全新独立执行快照复制原入口/固定计划参考，纯数据设policy PRODUCTION及真实activation/review路径hash、新scope/planId/root；仅按已审激活差异生成准确25请求，四runner只改renderScope为真实范围hash，不改argv/资格/代码，不重建产品或新release链。先独立机械核快照/原包不变并外存结果，再已有条件授权同批fresh本地/tool/default路由/claim真实原外层返回，事实pre_sdk_local_gate proof后按准确固定串行依赖一次执行。需要的来源材料精确引用原product seal/原plan/独立review，不重新签发自称负责人权限。
+
+32工作单元/4MiB文本/16MiB二进制不扩，实际最多25串行SDK child。3截图child前拒绝不进入，4未分配不授权重试/人工。累计SDK实际量、stdin/payload/read/save/console副本/外层报告proof原实际量/UNKNOWN全记，未知拒后继。原同Process/pipe/stdin/source/file/lock及外层真实归还可证；做不到首child前BLOCKED，不新增框架。不跑整class或裸am命令绕入口。首次占用/失败/UNKNOWN停止，其他项目不操作，原owner继续保管不kill/强finish/二close，旧消费/UNKNOWN不退款。
+
+新鲜identity/global/ps及新包absence门全过后才安装准确两APK/新私有fixture及四静音用例，全部步骤按固定原计划与前驱语义。目标包若已有未知安装或数据则停不清空，不改旧com.videokit.app。截图和人工听音全部NOT_RUN，不能计数或末尾桌面替代效果。完整一份设备报告和真实账目主动发负责人，范围通过不自动D1退出/M0，coder保持冻结。

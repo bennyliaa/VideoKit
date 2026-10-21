@@ -1,0 +1,35 @@
+from pathlib import Path
+import hashlib,json,difflib
+B=Path(__file__).resolve().parents[1]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def save(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+old=(B/'reference/ready01-entry.ps1').read_text();s=old
+s=s.replace('d1android02-capture-ready01','d1android02-capture-ready02-fix').replace('D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE','D1_ANDROID02_CAPTURE_READY02_FIX_REVIEW_EVIDENCE')
+s=s.replace("[string]$PredecessorProofSha='ABSENT')","[string]$PredecessorProofSha='ABSENT',[string]$OwnerAdmissionSha='ABSENT')")
+s=s.replace("@('RequestPath','PredecessorProofSha')","@('RequestPath','PredecessorProofSha','OwnerAdmissionSha')")
+s=s.replace('function RoleSemantic', (B/'tools/strict-receipt.ps1.txt').read_text()+'\nfunction RoleSemantic',1)
+s=s.replace('$p=$encoded|ConvertFrom-Json',"$p=$encoded|ConvertFrom-Json;if(-not (StrictReceipt $p $IsFixture)){return 'APP_REQUIRED_TYPES_BOUNDS_OR_FIRST_FAILURE'}")
+# Keep the finite producer byte-identical except the required explicit null field.
+fp=B/'selfchecks/capture_fixture.py';f=fp.read_text()
+if "'firstFailure':None" not in f:f=f.replace("receipt={'fixtureOnly':True,","receipt={'firstFailure':None,'fixtureOnly':True,")
+fp.write_text(f,encoding='utf-8')
+s=s.replace('b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed',sha(fp))
+owner=sha(B/'tools/outer_owner.py')
+gate=(B/'tools/owner-admission.ps1.txt').read_text().replace('@OWNER_SHA@',owner)
+s=s.replace('$batchSdkBefore=0;',gate+'\n$batchSdkBefore=0;',1)
+s=s.replace("'outerReturnSha256','scopeStartTick') 4096","'outerReturnSha256','scopeStartTick','outerDelta','proofWriteBytes','candidateOnlyWriterCloseNotProven') 4096")
+s=s.replace(' -or $co.batchTextChargedBytesKnown -ne $batchTextBefore','')
+needle="  foreach($k in @('preflight','install','instrument','control','payload','command')){if($co.batchGroups.$k -ne $groups[$k]){throw 'GROUP_RESET_OR_FORGED_ACCOUNTING'}}"
+assert needle in s;s=s.replace(needle,(B/'tools/outer-delta.ps1.txt').read_text().replace('@OWNER_SHA@',owner))
+s=s.replace("[string]$prior.bindings.predecessorProofSha)","[string]$prior.bindings.predecessorProofSha,'-OwnerAdmissionSha',[string]$prior.bindings.ownerAdmissionSha)")
+s=s.replace('predecessorProofSha=$PredecessorProofSha;', 'predecessorProofSha=$PredecessorProofSha;ownerAdmissionSha=$OwnerAdmissionSha;outerOwnerSha256=$policy.outerOwnerSha256;')
+s=s.replace("$group=[string]$plan.steps[$index].group;","$groups.control+=$ownerCurrentWriteCost;$batchTextBefore+=$ownerCurrentWriteCost;$proofReadBytes+=$ownerCurrentReadCost\n$group=[string]$plan.steps[$index].group;")
+s=s.replace("'initialPredecessorProofSha256','approvedForExecution')","'initialPredecessorProofSha256','outerOwnerSha256','outerPythonSha256','approvedForExecution')")
+s=s.replace("if($activation.schema -cne", "if($activation.outerOwnerSha256 -cne $policy.outerOwnerSha256 -or $activation.outerPythonSha256 -cne $policy.outerPythonSha256){throw 'ACTIVATION_OWNER_SOURCE_PIN'}\n if($activation.schema -cne")
+s=s.replace("if($activation.wholeWallSeconds -lt 1", "if(-not (IntField $activation 'wholeWallSeconds' 600 1) -or -not (IntField $activation 'localProofSeconds' 30 1) -or -not (IntField $activation 'outerSeconds' 600 1)){throw 'STRICT_ACTIVATION_WALL_TYPES'}\n if($activation.wholeWallSeconds -lt 1")
+(B/'tools/capture_android02.ps1').write_text(s,encoding='utf-8')
+p=json.loads((B/'release/capture-policy.json').read_text());p.update(entrySha256=sha(B/'tools/capture_android02.ps1'),outerOwnerSha256=owner,outerPythonSha256=sha(Path('C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe')))
+save(B/'release/capture-policy.json',p)
+a=json.loads((B/'release/activation-required.template.json').read_text());a.update(entrySha256=p['entrySha256'],outerOwnerSha256=owner,outerPythonSha256=p['outerPythonSha256']);save(B/'release/activation-required.template.json',a)
+(B/'evidence/ready01-to-ready02.patch').write_text(''.join(difflib.unified_diff(old.splitlines(True),s.splitlines(True),fromfile='frozen-ready01',tofile='ready02-fix')),encoding='utf-8')
+print(json.dumps({'entry':p['entrySha256'],'owner':owner,'producer':sha(fp)}))

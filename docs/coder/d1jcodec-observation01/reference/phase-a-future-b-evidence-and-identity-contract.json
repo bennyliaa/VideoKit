@@ -1,0 +1,39 @@
+{
+  "state": "PHASE_A_ONLY_FUTURE_B_NOT_AUTHORIZED",
+  "newArtifactLabel": "0.2.5-videokit-observation01",
+  "newJarSha256": null,
+  "newForkSealSha256": null,
+  "patchSha256": null,
+  "newGetterBindings": null,
+  "newClassIdentities": null,
+  "allowedModifiedSourcePaths": [
+    "source/org/jcodec/containers/mp4/boxes/DataRefBox.java",
+    "source/org/jcodec/containers/mp4/boxes/SampleDescriptionBox.java",
+    "source/org/jcodec/codecs/h264/mp4/AvcCBox.java"
+  ],
+  "unchangedSourceExpected": 705,
+  "allSourceExpected": 708,
+  "baseSourceArchiveSha256": "9945efa92e16b3fbe8eb8bf37f00be53fa0adb52d09ac978a0744ca2ef3697db",
+  "baseToolJarSha256": "c4ed36f31cab8381bc47c0aea4c3f3d8a9c2afab09991a04a83102877f1bfecd",
+  "requiredFrozenDelivery": [
+    "full main report and actual new label/manifest",
+    "708 before-after source hashes/3 exact diff/patch SHA/no other production changes",
+    "byte-consumption/new-getter completeness-state contract for every retained field",
+    "original compiler/jar and finite unit-test process+streams and actual return receipts",
+    "actual javac class provenance and production/test packaging split",
+    "original copyright notices/new modification notices/SBOM changes",
+    "full immutable seal+ZIP same-member/hash evidence"
+  ],
+  "futureIndependentB": [
+    "coordinator verify full freeze then explicit separateB authorization",
+    "independent source/diff/API and class/JAR/license/provenance review before runtime",
+    "finite dynamic metadata only if separately authorized; exact method names from frozen code not guessed",
+    "no actual MP4/demux/encoder/decoder/Main/Media3/Android/device or old session",
+    "checker integration and real immutable file check are yet another explicit batch"
+  ],
+  "defaultObservationState": "NOT_OBSERVED_MUST_NOT_CLAIM_FIELD_VALUES",
+  "wholeQualification": "OPEN_BLOCKED",
+  "oldScopesNotReplayable": [
+    "D1QUAL01-CANDIDATE-001"
+  ]
+}

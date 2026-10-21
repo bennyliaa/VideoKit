@@ -1,0 +1,63 @@
+{
+  "changes": [
+    {
+      "path": "src/com/videokit/d1android/ExperimentContract.java",
+      "oldSha256": "b50b9d94dac422b131341d8c7a5029b1fcb154872de628d8e97e9b8513721033",
+      "newSha256": "a190768530c40d96d3e928827d0784e6b0949f5f87890c79b5313e74a8f6ec9c"
+    },
+    {
+      "path": "src/com/videokit/d1android/QualifiedObservation.java",
+      "oldSha256": "1b46bdac1754ea4fd1899be2edd2730e793579e0e54ffce48c0659cd58ac7d0b",
+      "newSha256": "180e543cc69549ddf0ce9ba6d5557ec5805ff90b9ceb7edcd66c79a4d2cac1a1"
+    },
+    {
+      "path": "src/com/videokit/d1input/MatureContainerRemux.java",
+      "oldSha256": "89651f21b4c2d38ebb0f0b1843ebf3e4328f61e214b8c55248cb4a3b5b3ac24e",
+      "newSha256": "3bf25db0f20eb8fadcb26d382632b67871088052eb84233be1f84aaf2f452028"
+    },
+    {
+      "path": "instrumentation/com/videokit/d1media3/android02/test/ExperimentJob.java",
+      "oldSha256": "22976833793ab96e53f3d25baa3f5b940d3b40916d20a629ba3d3cc0a6459da0",
+      "newSha256": "15193c2011f1de962147c8e191f558cac421dc81051094ebc7936fbe418f461b"
+    },
+    {
+      "path": "instrumentation/com/videokit/d1media3/android02/test/Media3Instrumentation.java",
+      "oldSha256": "d3c0423fa2edf05f3d24107ac6e5cad151be3858c61fe5b8cc20bb9c15c45216",
+      "newSha256": "29272a92b233e314f6c3d9e167091836a5d11fb61b288949409e355742e689b8"
+    },
+    {
+      "path": "instrumentation/com/videokit/d1media3/android02/test/OwnedFiles.java",
+      "oldSha256": "886acc1ff6bb2afd5dbd45ce8c8cf0ad5cf49473b33034dd5351e78b429b0d39",
+      "newSha256": "7bc0749e44cfbc207b51aa9296b8a7f79fa2df7f4dc2453c79e579792c84eb23"
+    },
+    {
+      "path": "app/src/androidTest/AndroidManifest.xml",
+      "oldSha256": "5e963c5e88903901210f03ada1c08a5250c8e40c1ea3741ebd9c04fc7e8fc58a",
+      "newSha256": "4bdfe04fc641cc4b50cd99ac2617560d4ffd8e63f9a8e9fffb6510f622dfb0c9"
+    }
+  ],
+  "config": {
+    "app/build.gradle.kts": {
+      "same": false,
+      "oldSha256": "5980ef0c98c54a9681c48771dd46e0617b1bde2107386ecb6c2a46ffc614c50c",
+      "newSha256": "6a14bea9f8119bced5f2e44a4e2cab0d2d0d6e07a44627a27cfe996b1b2a2061"
+    },
+    "app/gradle.lockfile": {
+      "same": true,
+      "oldSha256": "9bde24877dc5a4651f91230593bad511485be5779adc439bc5b5c20d4fd51dc7",
+      "newSha256": "9bde24877dc5a4651f91230593bad511485be5779adc439bc5b5c20d4fd51dc7"
+    },
+    "settings-gradle.lockfile": {
+      "same": true,
+      "oldSha256": "e58bb2ed80db9f829601a658d7c33b9802eb7d2191c31e79c28e01f14c225926",
+      "newSha256": "e58bb2ed80db9f829601a658d7c33b9802eb7d2191c31e79c28e01f14c225926"
+    },
+    "gradle/verification-metadata.xml": {
+      "same": true,
+      "oldSha256": "11b839624094774c30de91914586729c9abd7c0c7bb2651b8f93585337fd087c",
+      "newSha256": "11b839624094774c30de91914586729c9abd7c0c7bb2651b8f93585337fd087c"
+    }
+  },
+  "gradleVersionDiff": "--- \n+++ \n@@ -7,7 +7,7 @@\n  defaultConfig {\n   applicationId = \"com.videokit.d1media3.android02\"\n   testApplicationId = \"com.videokit.d1media3.android02.test\"\n-  minSdk = 31; targetSdk = 36; versionCode = 1; versionName = \"D1-MEDIA3-ANDROID02-CONTAINER\"\n+  minSdk = 31; targetSdk = 36; versionCode = 1; versionName = \"D1-MEDIA3-ANDROID02-RECOVERY01\"\n   testInstrumentationRunner = \"com.videokit.d1media3.android02.test.Media3Instrumentation\"\n  }\n  compileOptions { sourceCompatibility = JavaVersion.VERSION_11; targetCompatibility = JavaVersion.VERSION_11 }\n",
+  "wholeProductionFamilySetVerified": true
+}

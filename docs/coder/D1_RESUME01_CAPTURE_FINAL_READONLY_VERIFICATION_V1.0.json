@@ -1,0 +1,95 @@
+{
+  "status": "PASS_CAPTURE_STRICT_READONLY_VERIFY",
+  "writes": 0,
+  "sdkCalls": 0,
+  "deviceCalls": 0,
+  "seal": {
+    "path": "docs/coder/d1resume01-capture/evidence/capture-freeze.json",
+    "bytes": 155153,
+    "sha256": "9fd6b86f906f0ae196249e0885a83706be4692c31016bf687f6f07e322ab3b8c"
+  },
+  "archive": {
+    "path": "docs/coder/D1-20261020-RESUME01-CAPTURE-source.zip",
+    "bytes": 741139,
+    "sha256": "24c5e9f8c5442d17974cac7426c5d9e99bb8cb1f3a2c02e7634403c9becac263"
+  },
+  "archiveEntries": 663,
+  "immutableRows": 664,
+  "entry": {
+    "path": "docs/coder/d1resume01-capture/tools/capture_metadata.ps1",
+    "bytes": 20118,
+    "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+  },
+  "finalLocalAssertions": 145,
+  "productionSourcesUnchanged": 74,
+  "productionClassesUnchanged": 183,
+  "androidBuilds": 0,
+  "newDevicePermitIssued": false,
+  "historicalFixture002OuterReturn": "UNKNOWN_RETAINED",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "readOnlyModesVerified": [
+    "help",
+    "pack-help",
+    "default-verify",
+    "external-seal-verify"
+  ],
+  "allTrackedCandidateContentsBeforeEqualsAfter": true,
+  "mutableTestScratchExcludedFromImmutableSources": true,
+  "commands": [
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume01-capture\\tools\\package_delivery.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nVerify/help are read-only. Explicit pack seals offline capture preparation\nonce, never runs SDK/fixtures.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume01-capture\\tools\\package_delivery.py",
+        "pack",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nVerify/help are read-only. Explicit pack seals offline capture preparation\nonce, never runs SDK/fixtures.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume01-capture\\tools\\package_delivery.py"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_CAPTURE_STRICT_READONLY_VERIFY\", \"writes\": 0, \"sdkCalls\": 0, \"deviceCalls\": 0, \"seal\": {\"path\": \"docs/coder/d1resume01-capture/evidence/capture-freeze.json\", \"bytes\": 155153, \"sha256\": \"9fd6b86f906f0ae196249e0885a83706be4692c31016bf687f6f07e322ab3b8c\"}, \"archive\": {\"path\": \"docs/coder/D1-20261020-RESUME01-CAPTURE-source.zip\", \"bytes\": 741139, \"sha256\": \"24c5e9f8c5442d17974cac7426c5d9e99bb8cb1f3a2c02e7634403c9becac263\"}, \"archiveEntries\": 663, \"immutableRows\": 664, \"entry\": {\"path\": \"docs/coder/d1resume01-capture/tools/capture_metadata.ps1\", \"bytes\": 20118, \"sha256\": \"fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe\"}, \"finalLocalAssertions\": 145, \"productionSourcesUnchanged\": 74, \"productionClassesUnchanged\": 183, \"androidBuilds\": 0, \"newDevicePermitIssued\": false, \"historicalFixture002OuterReturn\": \"UNKNOWN_RETAINED\", \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume01-capture\\tools\\package_delivery.py",
+        "verify",
+        "--seal-sha",
+        "9fd6b86f906f0ae196249e0885a83706be4692c31016bf687f6f07e322ab3b8c"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_CAPTURE_STRICT_READONLY_VERIFY\", \"writes\": 0, \"sdkCalls\": 0, \"deviceCalls\": 0, \"seal\": {\"path\": \"docs/coder/d1resume01-capture/evidence/capture-freeze.json\", \"bytes\": 155153, \"sha256\": \"9fd6b86f906f0ae196249e0885a83706be4692c31016bf687f6f07e322ab3b8c\"}, \"archive\": {\"path\": \"docs/coder/D1-20261020-RESUME01-CAPTURE-source.zip\", \"bytes\": 741139, \"sha256\": \"24c5e9f8c5442d17974cac7426c5d9e99bb8cb1f3a2c02e7634403c9becac263\"}, \"archiveEntries\": 663, \"immutableRows\": 664, \"entry\": {\"path\": \"docs/coder/d1resume01-capture/tools/capture_metadata.ps1\", \"bytes\": 20118, \"sha256\": \"fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe\"}, \"finalLocalAssertions\": 145, \"productionSourcesUnchanged\": 74, \"productionClassesUnchanged\": 183, \"androidBuilds\": 0, \"newDevicePermitIssued\": false, \"historicalFixture002OuterReturn\": \"UNKNOWN_RETAINED\", \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "status": "NOT_EXECUTABLE_NO_ANDROID02_APKS_NO_DEVICE_AUTHORIZATION",
+  "app": "com.videokit.d1media3.android02",
+  "test": "com.videokit.d1media3.android02.test",
+  "runner": "com.videokit.d1media3.android02.test.Media3Instrumentation",
+  "process": "com.videokit.d1media3.android02:media3",
+  "version": "D1-MEDIA3-ANDROID02-CONTAINER",
+  "apks": null,
+  "signer": "NOT_VERIFIED_NO_ARTIFACTS",
+  "fixtureSha256": "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+  "futureScopeId": null,
+  "futureDeviceSerial": null,
+  "freshIdleGate": null,
+  "cases": [
+    {
+      "case": "inspectKnown",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "actual qualified MP4 full hash/EOF,one track,6 AnnexB samples/CSD/PTS/duration",
+      "requiredArguments": [
+        "case=inspectKnown",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "inspectShort3",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "same actual parser with max3-byte provider reads; cumulative attempts not reset",
+      "requiredArguments": [
+        "case=inspectShort3",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "inspectUnknown",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "same parser with unknown length; real native EOF mandatory",
+      "requiredArguments": [
+        "case=inspectUnknown",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "inspectSeek1s",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "same file; actual seekable SeekMap and1s replay; unsupported map is unsupported, not PASS",
+      "requiredArguments": [
+        "case=inspectSeek1s",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "muxQualified",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "actual captured6 through FragmentedMp4Muxer and same TemporaryOutput; sync/close/original return/read-only grant; actual FragmentedMp4Extractor comparison",
+      "requiredArguments": [
+        "case=muxQualified",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "preopenAdmission",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "capability/container/seek guards before source open",
+      "requiredArguments": [
+        "case=preopenAdmission",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "rejectFixture",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "reject BBB hash before IO/writer",
+      "requiredArguments": [
+        "case=rejectFixture",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "cancelLateRead",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "controlled non-media provider future: caller returns cancelled, same original read/close withheld then returned, caller bytes unchanged",
+      "requiredArguments": [
+        "case=cancelLateRead",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "writerPending",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "controlled non-media writer ACK before same original thread return; no reopen/no release/no duplicate close; then actual join",
+      "requiredArguments": [
+        "case=writerPending",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    },
+    {
+      "case": "bbbObserve",
+      "entry": "Media3Instrumentation.onStart -> ExperimentJob.run",
+      "expected": "inherited approved BBB observation only; cannot reach mux",
+      "requiredArguments": [
+        "case=bbbObserve",
+        "fixtureSha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+        "runId=D1MA02-<fresh reviewed unique id>"
+      ],
+      "AndroidRuntime": "NOT_RUN"
+    }
+  ],
+  "sameScopeBudget": {
+    "sources": 2,
+    "perSourceReadConcurrency": 1,
+    "queuedReads": 0,
+    "inputAttemptedBytesAllCopyHashParseSeekReopen": 8388608,
+    "outputAttemptedBytesIncludingPartialUnknownNoRefund": 16777216,
+    "blockBytes": 65536,
+    "sampleBytes": 262144,
+    "receiptUtf8PerStatus": 262144,
+    "methodDeadlineMs": 60000
+  },
+  "allFutureOperations": {
+    "preflightTextMaxBytes": 1048576,
+    "installOutboundBinaryBytes": "exact future frozen appBytes+testBytes once; currently UNBUILT, no permitted binary egress",
+    "fixture": "test APK embedded8849B included in future exact APK transfer, no arbitrary push",
+    "instrumentationTextInboundBytesPerMethod": 4096,
+    "receiptCaptureTotalBytesPerMethod": 1048576,
+    "methodsMaximum": 10,
+    "totalRuntimeReceiptCaptureBytes": 10485760,
+    "logcatOrUnboundedShell": false,
+    "retryReinstallClearForceStopPullOtherProjects": false,
+    "evidenceDestination": "new coordinator-bound absolute tester directory, original stdout/stderr/status/full raw owner evidence; no external messages by runner"
+  },
+  "stopConditions": [
+    "no exact APK/hash/signer/fresh gate => do not start",
+    "any UNKNOWN/timeout/original FD/thread pending => close admission, retain same owners; no force-stop/interrupt/second close/retry",
+    "fixture/CSD/sample/PTS/duration mismatch => fail, no fallback fixture or normalization tolerance",
+    "no READY COMMIT/isolated-format/decoder/audio/player/MediaCodec/GPU"
+  ],
+  "deviceOperationsThisBatch": 0
+}

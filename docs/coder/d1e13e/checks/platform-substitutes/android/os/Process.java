@@ -1,0 +1,1 @@
+package android.os;public class Process {public static final ThreadLocal<Integer> UID=ThreadLocal.withInitial(()->10221);public static int myUid(){return UID.get();}public static int myPid(){return myUid()+100;} }

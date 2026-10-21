@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity android:name=".PresentationActivity" android:exported="false" android:process=":presentation"
+            android:hardwareAccelerated="true" android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+        <service android:name="com.videokit.spike.c14.CpuIsolatedService" android:exported="false"
+            android:isolatedProcess="true" android:process=":d1_cpu_worker" />
+    </application>
+</manifest>

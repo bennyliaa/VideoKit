@@ -1,0 +1,146 @@
+{
+  "schema": "RESUME01_CAPTURE_POLICY_V1",
+  "mode": "PRODUCTION",
+  "planId": "20b08d64-6fd0-4a88-8b72-c80615e58258",
+  "scope": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs",
+  "slots": [
+    {
+      "id": "RESUME02_M1_identity",
+      "phase": "M1",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"M1_identity_BEGIN\\n\"; printf \"M1_identity_PART_1\\n\"; getprop ro.product.model; printf \"M1_identity_PART_2\\n\"; getprop ro.build.version.sdk; printf \"M1_identity_PART_3\\n\"; am get-current-user; printf \"M1_identity_PART_4\\n\"; dumpsys package com.videokit.app; printf \"M1_identity_PART_5\\n\"; dumpsys package com.videokit.app.test; printf \"M1_identity_PART_6\\n\"; dumpsys package com.videokit.e13.sender; printf \"M1_identity_PART_7\\n\"; run-as com.videokit.app stat -c %u:%i .; printf \"M1_identity_PART_8\\n\"; run-as com.videokit.app.test stat -c %u:%i .; printf \"M1_identity_PART_9\\n\"; p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_10\\n\"; p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_11\\n\"; p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M1_identity_PART_12\\n\"; run-as com.videokit.e13.sender stat -c %u:%i .; printf \"M1_identity_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15
+    },
+    {
+      "id": "RESUME02_M1_global",
+      "phase": "M1",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "activity",
+        "processes"
+      ],
+      "maxTextBytes": 524288,
+      "qualificationSeconds": 15
+    },
+    {
+      "id": "RESUME02_M1_ps",
+      "phase": "M1",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "USER,PID,PPID,NAME,ARGS"
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15
+    },
+    {
+      "id": "RESUME02_M2_identity",
+      "phase": "M2",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "set -e; printf \"M2_identity_BEGIN\\n\"; printf \"M2_identity_PART_1\\n\"; dumpsys package com.videokit.app; printf \"M2_identity_PART_2\\n\"; dumpsys package com.videokit.app.test; printf \"M2_identity_PART_3\\n\"; dumpsys package com.videokit.e13.sender; printf \"M2_identity_PART_4\\n\"; run-as com.videokit.app stat -c %u:%i .; printf \"M2_identity_PART_5\\n\"; run-as com.videokit.app.test stat -c %u:%i .; printf \"M2_identity_PART_6\\n\"; p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_7\\n\"; p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_8\\n\"; p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_9\\n\"; run-as com.videokit.e13.sender stat -c %u:%i .; printf \"M2_identity_COMPLETE\\n\""
+      ],
+      "maxTextBytes": 65536,
+      "qualificationSeconds": 15
+    },
+    {
+      "id": "RESUME02_M2_global",
+      "phase": "M2",
+      "argv": [
+        "D:/Android/SDK/platform-tools/adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "activity",
+        "processes"
+      ],
+      "maxTextBytes": 524288,
+      "qualificationSeconds": 15
+    }
+  ],
+  "entrySha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe",
+  "toolSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+  "fixtureScriptSha256": "09c6c81379bccb55af304a8792e799cd598e7360533ea606ffe2830aa993cedd",
+  "executionAuthorization": "04294e2f4e9dc0313b69239c9fd39572c2a449281949970b6ad1247d344c7ee3",
+  "independentCaptureReview": "ad306682e27cdf1dec67955d9cb7f57bf99cd1451ab3b413963ee03439c6caf9",
+  "releaseBindingDigest": "134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c",
+  "executionPins": [
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-activation/release/execution-authorization.json",
+      "sha256": "04294e2f4e9dc0313b69239c9fd39572c2a449281949970b6ad1247d344c7ee3"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/evidence/resume02-freeze.json",
+      "sha256": "0b44299376d4e53f7499403e0122b1a6c21a5ecb14769989e8e810542f39cda9"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/activation-delta.json",
+      "sha256": "27f70184fb6c48b5e728699ee1be7aa76d81ea2c9035167167c0b4f01bc9d61b"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/tester/D1_RESUME02_RELEASE_REVIEW_REPORT_V1.0.md",
+      "sha256": "75380086d04cfcefa6b1ed6b67307386b3e56f0a19b16366e9be8b55aa47f582"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/tester/D1_RESUME01_CAPTURE_REVIEW_REPORT_V1.0.md",
+      "sha256": "ad306682e27cdf1dec67955d9cb7f57bf99cd1451ab3b413963ee03439c6caf9"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/runtime-scope.json",
+      "sha256": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/activation-release.json",
+      "sha256": "f40bc6a0095b1627a176f13f5edfc6cb297bc31dc32a78ff997bcc8dd6bf3295"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/activation-trust-deploy.json",
+      "sha256": "35ee8559baed16d80a041c30f46ac5cf4abfc2806beb11090539835833bd229d"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/base-release-descriptor.json",
+      "sha256": "134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/exact-budget.json",
+      "sha256": "70643b37227ef9dd044223767ddbd5bbfc4225a57fcaa7311a8c50141d36076b"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/release/registry-plan.json",
+      "sha256": "f6dd30238f551e5d23306ee3b1abab377d00e0195674f7c9486d6323b39cf483"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/artifacts/resume02-host-tools.jar",
+      "sha256": "03a27c74061b740a879e2dfec3341b0b07172c68bf374b9231c20e42a46566c5"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/tools/observe_original.ps1",
+      "sha256": "0667bc7fe93cf2010cd337eeafaeabd94b7a795efa74059365af3fb83c8485b8"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1resume02-release/tools/capture_metadata.ps1",
+      "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+    }
+  ],
+  "fixtureFault": "NONE"
+}

@@ -1,0 +1,23 @@
+package com.videokit.spike.c13;
+import java.io.*;
+import java.util.*;
+public final class C13PipelineSelfCheck {
+    static int checks;static void yes(boolean value){if(!value)throw new AssertionError("case "+checks);checks++;}interface Work{void run()throws Exception;}static void reject(Work work)throws Exception{try{work.run();throw new AssertionError("bad metadata accepted");}catch(IOException expected){checks++;}}
+    static byte[] rgba(int value){byte[] raw=new byte[PipelineRules.RGBA];for(int i=0;i<raw.length;i+=4){raw[i]=raw[i+1]=raw[i+2]=(byte)value;raw[i+3]=(byte)255;}return raw;}
+    public static void main(String[] args)throws Exception {
+        PipelineRules.Identity id=new PipelineRules.Identity("0123456789abcdef0123456789abcdef",7,123,99001);PipelineRules.identity(id,id);checks++;
+        reject(()->PipelineRules.identity(id,new PipelineRules.Identity(id.task,8,123,99001)));reject(()->PipelineRules.identity(id,new PipelineRules.Identity(id.task,7,124,99001)));reject(()->PipelineRules.identity(id,new PipelineRules.Identity(id.task,7,123,99002)));reject(()->PipelineRules.identity(id,new PipelineRules.Identity(id.task,7,0,99001)));reject(()->PipelineRules.identity(id,new PipelineRules.Identity(id.task,7,123,10221)));
+        PipelineRules.layout(256,144,1024,147456,0);checks++;
+        for(int[] shape:new int[][]{{Integer.MAX_VALUE,144,1024,147456,0},{256,Integer.MAX_VALUE,1024,147456,0},{256,144,Integer.MAX_VALUE,147456,0},{256,144,1024,Integer.MAX_VALUE,0},{256,144,1024,147455,0},{256,144,1024,147456,90}})reject(()->PipelineRules.layout(shape[0],shape[1],shape[2],shape[3],shape[4]));
+        byte[] original=rgba(80);PipelinePacket packet=new PipelinePacket(id,id,1,2000000,2000,1,1000,0,256,144,1024,0,original);String hash=packet.sha;original[0]=0;yes(packet.sha.equals(hash));yes(packet.pixels()[0]==80);byte[] exposed=packet.pixels();exposed[0]=0;yes(packet.pixels()[0]==80);yes(packet.thumb()[0]==80);
+        reject(()->new PipelinePacket(id,id,1,2000001,2000,1,1000,0,256,144,1024,0,rgba(0)));byte[] alpha=rgba(0);alpha[3]=0;reject(()->new PipelinePacket(id,id,1,2000000,2000,1,1000,0,256,144,1024,0,alpha));
+        PipelineRules.Order order=new PipelineRules.Order();for(int i=1;i<=6;i++)yes(order.admit(i,2000000+(i-1)*200000)==(i-1)*200000);reject(()->order.admit(7,3200000));reject(()->new PipelineRules.Order().admit(2,2000000));reject(()->new PipelineRules.Order().admit(1,Long.MAX_VALUE));PipelineRules.Order repeated=new PipelineRules.Order();repeated.admit(1,1000);reject(()->repeated.admit(2,1000));reject(()->repeated.admit(1,2000));
+        long[] pts={0,200000,400000,600000,800000,1000000};PipelineRules.timeline(pts);checks++;reject(()->PipelineRules.timeline(new long[]{0,1}));reject(()->PipelineRules.timeline(new long[]{1,2,3,4,5,6}));reject(()->PipelineRules.timeline(new long[]{0,1,1,2,3,4}));reject(()->PipelineRules.timeline(new long[]{0,1,2,3,4,Long.MAX_VALUE}));
+        byte[] black=PipelineRules.yuv(rgba(0),19),white=PipelineRules.yuv(rgba(255),21);yes(black.length==55296 && (black[0]&255)==16 && (black[36864]&255)==128);yes((white[0]&255)==235 && (white[36864]&255)==128);reject(()->PipelineRules.yuv(rgba(0),999));reject(()->PipelineRules.yuv(new byte[1],19));
+        byte[] red=rgba(0);for(int i=0;i<red.length;i+=4)red[i]=(byte)255;byte[] planar=PipelineRules.yuv(red,19),semi=PipelineRules.yuv(red,21);yes((planar[0]&255)==82);yes((planar[36864]&255)==90 && (planar[46080]&255)==240);yes((semi[36864]&255)==90 && (semi[36865]&255)==240);
+        PipelineRules.plane(256,144,256,1,0,36864);checks++;PipelineRules.plane(128,72,256,2,0,18431);checks++;reject(()->PipelineRules.plane(128,72,256,2,0,18430));reject(()->PipelineRules.plane(256,144,Integer.MAX_VALUE,1,0,1048576));reject(()->PipelineRules.plane(256,144,256,1,Integer.MAX_VALUE,1048576));reject(()->PipelineRules.plane(256,144,256,0,0,36864));
+        List<byte[]> source=new ArrayList<>(),decoded=new ArrayList<>();for(int i=0;i<6;i++){byte[] a=new byte[144],b=new byte[144];Arrays.fill(a,(byte)(i*20));Arrays.fill(b,(byte)(i*20+2));source.add(a);decoded.add(b);}PipelineRules.content(source,decoded);checks++;
+        List<byte[]> reversed=new ArrayList<>(decoded);Collections.reverse(reversed);reject(()->PipelineRules.content(source,reversed));List<byte[]> frozen=new ArrayList<>();for(int i=0;i<6;i++)frozen.add(source.get(0));reject(()->PipelineRules.content(source,frozen));reject(()->PipelineRules.content(source,decoded.subList(0,5)));reject(()->PipelineRules.content(frozen,frozen));
+        System.out.println("PASS "+checks+" raw-layout/identity/immutable-copy/PTS/YUV/plane/content counterexamples; synthetic unit data ONLY, real pipeline/device NOT_RUN");
+    }
+}

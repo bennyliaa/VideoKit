@@ -1,0 +1,61 @@
+{
+  "candidate": "d1media3-android01",
+  "toolSha256": "e8b4e161b2fc658c131314547e18d81b20176e3c9147d8387dd6e430e53327a2",
+  "positiveActualJdkCompileAnd20Groups": true,
+  "positiveDirectory": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_ANDROID01_REVIEW_EVIDENCE\\coder-tool-positive-002",
+  "positiveContext": "CODER_SELF_CHECK_UNFROZEN_NOT_INDEPENDENT_REVIEW",
+  "positivePinsMatchFinalLocal002": true,
+  "derivedRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_ANDROID01_REVIEW_EVIDENCE",
+  "negativeCases": [
+    {
+      "case": "old04",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_CONTAINER01_REVIEW_EVIDENCE\\coder-tool-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "old03",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK05_REVIEW_EVIDENCE\\coder-tool-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "candidate",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1media3-android01\\evidence\\tool-negative-denied",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "prefix-sibling",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_ANDROID01_REVIEW_EVIDENCE_extra\\coder-negative",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "traversal",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_ANDROID01_REVIEW_EVIDENCE\\..\\D1_MEDIA3_CONTAINER01_REVIEW_EVIDENCE\\coder-tool-traversal-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "root-itself",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_ANDROID01_REVIEW_EVIDENCE",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "relative",
+      "target": "docs\\tester\\D1_MEDIA3_ANDROID01_REVIEW_EVIDENCE\\coder-relative-negative",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "existing-child",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_ANDROID01_REVIEW_EVIDENCE\\coder-tool-positive-002",
+      "expectedDenied": true,
+      "targetCreated": false
+    }
+  ],
+  "oldEvidenceUnmodified": true,
+  "noTemporaryOverride": true
+}

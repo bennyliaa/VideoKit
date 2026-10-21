@@ -1,0 +1,87 @@
+{
+  "status": "DRAFT_NO_DISPATCH",
+  "candidate": "D1-20261018-E13E",
+  "appVersion": 18,
+  "fixtureVersion": 2,
+  "abi": 1,
+  "role": "ACTIVATION",
+  "hostJar": {
+    "path": "docs/coder/d1e13e/artifacts/D1-20261018-E13E/delivery-final/e13e-host-tools.jar",
+    "bytes": 318828,
+    "sha256": "8d17b39c999d8b2e135af69927f1a2614672995ed5e39575d99e1bfcb5ab9223"
+  },
+  "targetApks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13e/artifacts/D1-20261018-E13E/delivery-final/app-debug.apk",
+      "bytes": 10708622,
+      "sha256": "5a196bb225ad5f3811fd8daa06769ebdfa41b1da410c1487c7b3a91f954e0045",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13e/artifacts/D1-20261018-E13E/delivery-final/app-debug-androidTest.apk",
+      "bytes": 2774237,
+      "sha256": "49808fb23aabb8e01b2b0a18f89b5d6aa5767b4365d9c5ee8e2fcafaafca8c97",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13e/artifacts/D1-20261018-E13E/delivery-final/fixture-debug.apk",
+      "bytes": 78841,
+      "sha256": "454f50865f6393c03d4b914aece10289cd1ae2f7c60b1c2512e860e089eb8eb5",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "actualScope": null,
+  "actualRelease": null,
+  "actualOnce": null,
+  "sourceReview": null,
+  "dispositionSourcePin": "ABSENT",
+  "oldTask": "E13C_LAST_RECORDED_PENDING_NOT_RECHECKED",
+  "lostDiagnostic": "LOST_DIAGNOSTIC_OWNER_UNKNOWN_SEPARATE",
+  "installedPredecessorVersionHistorical": 17,
+  "predecessorIsDeploymentBytesNotTestPass": true,
+  "fixedOnceBasename": "e13e-lifecycle-deployment.once",
+  "batch": "D1-E13E-LIFECYCLE-20261018",
+  "freshM1AndExactMetadataRequired": true,
+  "metadataArgv": "NOT_YET_AUTHORIZED; must finalize v17/fixture1 -> v18/fixture2 expectations after original disposition",
+  "budgetProposal": {
+    "successOperations": 51,
+    "deploymentEntry": 1,
+    "deploymentChildren": 35,
+    "caseJavaEntries": 6,
+    "caseInstrumentChildren": 6,
+    "directMetadataClients": 3,
+    "occupationRechecks": 2,
+    "maxOperationsWithOccupation": 53,
+    "externalTextBytes": 2097152,
+    "successAllocatedText": 1638400,
+    "occupationTextReserve": 131072,
+    "remainingText": 327680,
+    "archiveDiskBytesProposed": 3145728,
+    "fixtureInternalReadRpcLimit": 2,
+    "fixtureRequestBytes": 1024,
+    "fixtureReplyBytes": 4096,
+    "originalPriorBalancesInherited": false
+  },
+  "stageBounds": {
+    "eventsPerProcess": 48,
+    "lineAsciiChars": 500,
+    "totalBytesPerProcess": 24576
+  },
+  "archiveBounds": {
+    "rawPerOriginalOperation": "existing original cap",
+    "queueBlocks": 8,
+    "blockBytes": 4096,
+    "fixedRecordBytes": 4096,
+    "writeQualificationSeconds": 2,
+    "actualWriteMayRemainPending": true
+  },
+  "T07": "NOT_RUN",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

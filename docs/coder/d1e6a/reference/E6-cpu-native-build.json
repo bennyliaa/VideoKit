@@ -1,0 +1,448 @@
+{
+  "status": "PASS",
+  "command": [
+    "D:\\Android\\SDK\\ndk\\30.0.16248370\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+    "--target=aarch64-linux-android31",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wl,--no-undefined",
+    "-Wl,-z,max-page-size=16384",
+    "-Wl,-soname,libvideokit_cpu.so",
+    "-ID:\\CodexProjects\\VideoKit\\docs\\coder\\d1e6\\native\\headers\\source",
+    "-ID:\\CodexProjects\\VideoKit\\docs\\coder\\d1e6\\native\\headers\\build",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e6\\native\\cpu.c",
+    "-LD:\\CodexProjects\\VideoKit\\docs\\coder\\d1e6\\upstream-c14\\native-libs\\arm64-v8a",
+    "-lavformat",
+    "-lavcodec",
+    "-lswscale",
+    "-lavutil",
+    "-lvideokit_alloc",
+    "-MMD",
+    "-MF",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e6\\.native-temp\\cpu-native.d",
+    "-o",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e6\\upstream-c14\\native-libs\\arm64-v8a\\libvideokit_cpu.so"
+  ],
+  "inputs": [
+    {
+      "path": "docs/coder/d1e6/native/cpu.c",
+      "bytes": 13801,
+      "sha256": "f986311041a5c132252bbce261ad1ac750261240e884d8673b1941f4fa39b7c6"
+    },
+    {
+      "path": "docs/coder/d1e6/native/e6_verify.h",
+      "bytes": 874,
+      "sha256": "bbb70787f5be45b9423cda715bfe3a33bd1e0b9788d77d93cc19bd115e51847e"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/build/libavutil/avconfig.h",
+      "bytes": 180,
+      "sha256": "6d78a911a2128e926262114c9904209209674e3bc1a18c208c850ecbfc3393ec"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/avcodec.h",
+      "bytes": 108136,
+      "sha256": "0367ee7e67763630d632f193e3a6ef643d30049898a5b8ea82c30c85bf4ab291"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/codec.h",
+      "bytes": 12641,
+      "sha256": "b1c1afa2310c509b95845d526fbd1ec8f5f7130e4ade5920d2d8848ac6e58a13"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/codec_desc.h",
+      "bytes": 3974,
+      "sha256": "4c1a8d02398cc82c1913487405c483f4d74ec71ed3e666ed7e7570f581c8f479"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/codec_id.h",
+      "bytes": 18380,
+      "sha256": "7f0c8ce1a2b94f7b2abbeb4779774f32cb0c00041263ca4c22c98869ac1d0e75"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/codec_par.h",
+      "bytes": 7728,
+      "sha256": "5b74b8ba0d71048d4753cd563f38a6d05608879308c71beb4a8960ef44b1f806"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/defs.h",
+      "bytes": 13333,
+      "sha256": "f1d391ac2417702b59b7a4b6ae3927eea8c8b5e9858ae9ade6fdd009a60bd9ce"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/packet.h",
+      "bytes": 30773,
+      "sha256": "42bd04e20cbbd22f6e8142b5351f339c781357b6f3f2e4c282328c5eda0331cb"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/version.h",
+      "bytes": 1619,
+      "sha256": "ca965e2357176cf83a0c2a69d69669730238eeff8a08afdd3fce14b3753bcd61"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavcodec/version_major.h",
+      "bytes": 2154,
+      "sha256": "53ac8fa11a769d53aee97bb99650e39d8ef0773adfde0e1ca06a53aca2a51986"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavformat/avformat.h",
+      "bytes": 114855,
+      "sha256": "3abd044fbd0c6be3cb38b821c4e7f32f1da3f623cb0db6b552dd93374cbb4fe1"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavformat/avio.h",
+      "bytes": 31142,
+      "sha256": "b1a25f1465b87b62bf2797870c39fbbf81d2e1b4513ac34a66d57963e8facb6f"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavformat/version.h",
+      "bytes": 1652,
+      "sha256": "8c596547b562521a19724520d24a884783e6e9686fe5cb9dc4207ab093d1cb4d"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavformat/version_major.h",
+      "bytes": 1876,
+      "sha256": "3dde828335345cf56d654fcae728c0fdeb66da23774556d5fed8b09a1fb1a9fc"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/attributes.h",
+      "bytes": 4996,
+      "sha256": "9d429bb37267333d2eee9359a7da862564741e2f0cf4fde6b9d375f7a5270128"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/avutil.h",
+      "bytes": 9492,
+      "sha256": "8f3782efa238fc579463497136e831b4c098664bc022b84928b91bbaca8045e1"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/buffer.h",
+      "bytes": 11998,
+      "sha256": "f16742d574216434580573a2b09f56fc5b66b7dda1960d4f02ba59e3269ba548"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/channel_layout.h",
+      "bytes": 34091,
+      "sha256": "fbd3246297cd72be45268eacd9229d23247dfe394fb15b6a40ce8773422661c6"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/common.h",
+      "bytes": 17601,
+      "sha256": "c882e2a3e53721474e1370523c555af5315bd6d23c19998bed9f0b5b55c3f99c"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/dict.h",
+      "bytes": 9521,
+      "sha256": "b8b7abebb6e5ab5ffa70b8463df52c96d4e774aa2d5574bebbc02f6031e62ad8"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/error.h",
+      "bytes": 5555,
+      "sha256": "bcf4f7e69c7e0d658ad6e81611810f7cf1f0b8334ebe948d27e518c459e4104c"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/frame.h",
+      "bytes": 41912,
+      "sha256": "cd2b592d3e57586dc6d570fa6a84ca8426a203a44b06dc3993fc5c75b0ceefb0"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/hwcontext.h",
+      "bytes": 24170,
+      "sha256": "229c918d0809dbbaa0aaebd18848bece039ad458538f0fcafc11015fd2111fc2"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/imgutils.h",
+      "bytes": 16326,
+      "sha256": "8e0055fd86fb10b7c9e435e9375736b6db201cb9930a38fb4ff1e1a1da8e0cff"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/intfloat.h",
+      "bytes": 1726,
+      "sha256": "3a29e4eebc8c269cfd867b96de91d8231773d392c12a8820e46eaba96d2b4ca1"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/log.h",
+      "bytes": 14088,
+      "sha256": "b8ef46be6210baadb3ad61eb72ee48e7dd7d6be39c17c3a8bbc8c81ba9e26110"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/macros.h",
+      "bytes": 2304,
+      "sha256": "b63b3a268b096f0eed1e91b821714cff334e5dc5bb34365148704393ae15321e"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/mathematics.h",
+      "bytes": 9565,
+      "sha256": "e85c71fb77b0fe7823a88db904982e2a9b953e806ced0714fe6cc6b8a0951469"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/mem.h",
+      "bytes": 20457,
+      "sha256": "bf9a1d8c218c38b333efb16be076c5778d31d66a0691bdd6175f171c08283d7c"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/pixdesc.h",
+      "bytes": 16165,
+      "sha256": "5e5b269eae685c54a3f9aa2ff6ab3749e6237a5dfee5bfad1d2c4aef6171a66a"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/pixfmt.h",
+      "bytes": 47056,
+      "sha256": "cd4b5d4b5065084689f5cc7389ad9259f80b64f1d4885fa81d504121b9e4f946"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/rational.h",
+      "bytes": 6287,
+      "sha256": "f4fb850924b414f9ca35579df4e50d6f406734eb9735bbfbf388ae22ec5a0a9c"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/samplefmt.h",
+      "bytes": 10270,
+      "sha256": "bec4e2708b42a026450c1227e137661f71850698f19b89f6e9f721fe993f56a9"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/time.h",
+      "bytes": 1800,
+      "sha256": "40e11fa242e0585996753affb054443e78be25919b7c3063042d0aaff1656760"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libavutil/version.h",
+      "bytes": 4195,
+      "sha256": "b044b1fa01f84325cf5f64610440fd19da1abf88be89a2c482149a64f1b7871f"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libswscale/swscale.h",
+      "bytes": 25058,
+      "sha256": "c01be7059260430c29322ceb1e45c4582d74a2cc12dee92c51dabb4df3cea925"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libswscale/version.h",
+      "bytes": 1589,
+      "sha256": "61d65d139d54d921697558c8fee3bb0558505b57a435630e3ea8c34981ef656b"
+    },
+    {
+      "path": "docs/coder/d1e6/native/headers/source/libswscale/version_major.h",
+      "bytes": 1175,
+      "sha256": "00be1f7f4faefb2a98269e901abeccaa28794f347e585bf1ad3cf975d1a3c616"
+    }
+  ],
+  "output": {
+    "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so",
+    "bytes": 20104,
+    "sha256": "2547b07d7d4b298e8b455c5f24d0d1fbcdf7068b016527edbf5f80f31d16191a"
+  },
+  "changes": [
+    {
+      "name": "libavcodec.so",
+      "before": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavcodec.so",
+        "bytes": 1949608,
+        "sha256": "7b514a39a1c314e99fca52e05c8a909a1902ff93af89ba6f132f0cf765190765"
+      },
+      "after": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavcodec.so",
+        "bytes": 1949608,
+        "sha256": "7b514a39a1c314e99fca52e05c8a909a1902ff93af89ba6f132f0cf765190765"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "libavformat.so",
+      "before": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavformat.so",
+        "bytes": 445504,
+        "sha256": "8fa2c6f5ee62ffa56265b1e128a8e01756db4e9b12631701629104674c11a8ca"
+      },
+      "after": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavformat.so",
+        "bytes": 445504,
+        "sha256": "8fa2c6f5ee62ffa56265b1e128a8e01756db4e9b12631701629104674c11a8ca"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "libavutil.so",
+      "before": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavutil.so",
+        "bytes": 725296,
+        "sha256": "ad6cc7d3a1a0a57c4cc1dd3440c1b93990bfc8526537b82b66ba614114086ad2"
+      },
+      "after": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavutil.so",
+        "bytes": 725296,
+        "sha256": "ad6cc7d3a1a0a57c4cc1dd3440c1b93990bfc8526537b82b66ba614114086ad2"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "libswscale.so",
+      "before": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libswscale.so",
+        "bytes": 925464,
+        "sha256": "0ca0747d81190bff0b29c287dda09bfff46249167b9745caadd8a5b2e9ee35c6"
+      },
+      "after": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libswscale.so",
+        "bytes": 925464,
+        "sha256": "0ca0747d81190bff0b29c287dda09bfff46249167b9745caadd8a5b2e9ee35c6"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "libvideokit_alloc.so",
+      "before": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_alloc.so",
+        "bytes": 9768,
+        "sha256": "f085b9cbcdfc758e052f3d4bfe66651278c32ffaa0f99eff6ae173416472252b"
+      },
+      "after": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_alloc.so",
+        "bytes": 9768,
+        "sha256": "f085b9cbcdfc758e052f3d4bfe66651278c32ffaa0f99eff6ae173416472252b"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "libvideokit_cpu.so",
+      "before": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so",
+        "bytes": 18552,
+        "sha256": "ed02feb238b26ea2ac53b6ae2eafca3d3131d74ebfdfd52c39ff3a925648e9a7"
+      },
+      "after": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so",
+        "bytes": 20104,
+        "sha256": "2547b07d7d4b298e8b455c5f24d0d1fbcdf7068b016527edbf5f80f31d16191a"
+      },
+      "relationship": "CHANGED_PROJECT_WRAPPER"
+    },
+    {
+      "name": "libvideokit_d1_lease.so",
+      "before": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_d1_lease.so",
+        "bytes": 7232,
+        "sha256": "2ec60d4605df87ea9bdabaf5f40822c32c57fa300201f647b2b88158c7dcf4e9"
+      },
+      "after": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_d1_lease.so",
+        "bytes": 7232,
+        "sha256": "2ec60d4605df87ea9bdabaf5f40822c32c57fa300201f647b2b88158c7dcf4e9"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    }
+  ],
+  "elf": [
+    {
+      "name": "libavcodec.so",
+      "loadSegmentAlignments": [
+        "0x4000",
+        "0x4000",
+        "0x4000",
+        "0x4000"
+      ],
+      "static16KiBAligned": true,
+      "report": {
+        "path": "docs/coder/d1e6/evidence/native-libavcodec.so.readelf.txt",
+        "bytes": 4322,
+        "sha256": "21018bf7b8d77b6147a72bd61ddf7d4d6cd3800420fff5041cc3cf2c1197013c"
+      }
+    },
+    {
+      "name": "libavformat.so",
+      "loadSegmentAlignments": [
+        "0x4000",
+        "0x4000",
+        "0x4000",
+        "0x4000"
+      ],
+      "static16KiBAligned": true,
+      "report": {
+        "path": "docs/coder/d1e6/evidence/native-libavformat.so.readelf.txt",
+        "bytes": 4327,
+        "sha256": "7ce1ab8ea383020197aeafb6172873bbdba225046f9622db0e876186d53f0684"
+      }
+    },
+    {
+      "name": "libavutil.so",
+      "loadSegmentAlignments": [
+        "0x4000",
+        "0x4000",
+        "0x4000",
+        "0x4000"
+      ],
+      "static16KiBAligned": true,
+      "report": {
+        "path": "docs/coder/d1e6/evidence/native-libavutil.so.readelf.txt",
+        "bytes": 4392,
+        "sha256": "ae9295522b224c0671fed8f4aea34a1244ee8bfcf8eaf2bb9f39f1efb59bea10"
+      }
+    },
+    {
+      "name": "libswscale.so",
+      "loadSegmentAlignments": [
+        "0x4000",
+        "0x4000",
+        "0x4000",
+        "0x4000"
+      ],
+      "static16KiBAligned": true,
+      "report": {
+        "path": "docs/coder/d1e6/evidence/native-libswscale.so.readelf.txt",
+        "bytes": 4370,
+        "sha256": "8d54c1ac81e9b6adbd33c60be3a673d5a2222aa203b5227f8ddd90156113645f"
+      }
+    },
+    {
+      "name": "libvideokit_alloc.so",
+      "loadSegmentAlignments": [
+        "0x4000",
+        "0x4000",
+        "0x4000",
+        "0x4000"
+      ],
+      "static16KiBAligned": true,
+      "report": {
+        "path": "docs/coder/d1e6/evidence/native-libvideokit_alloc.so.readelf.txt",
+        "bytes": 3896,
+        "sha256": "3927d514104c0bd9e4d8288791e3cb3b62d3a402694993000e01e1ed12878f85"
+      }
+    },
+    {
+      "name": "libvideokit_cpu.so",
+      "loadSegmentAlignments": [
+        "0x4000",
+        "0x4000",
+        "0x4000"
+      ],
+      "static16KiBAligned": true,
+      "report": {
+        "path": "docs/coder/d1e6/evidence/native-libvideokit_cpu.so.readelf.txt",
+        "bytes": 4159,
+        "sha256": "792ff974fe71e5ca5ea18c3c485f0c28bad371bbdb3a68112bc69a8de111566c"
+      }
+    },
+    {
+      "name": "libvideokit_d1_lease.so",
+      "loadSegmentAlignments": [
+        "0x4000",
+        "0x4000",
+        "0x4000"
+      ],
+      "static16KiBAligned": true,
+      "report": {
+        "path": "docs/coder/d1e6/evidence/native-libvideokit_d1_lease.so.readelf.txt",
+        "bytes": 3785,
+        "sha256": "2e7240c1b73f02e9fccf1a5d436530aa13c71fafffb042e4123245bce2aa0658"
+      }
+    }
+  ],
+  "ndk": "30.0.16248370",
+  "target": "aarch64-linux-android31",
+  "ffmpeg": "8.0.3",
+  "thirdPartyVersionOrWhitelistChanged": false,
+  "scope": "Only project JNI wrapper, diagnostic telemetry and equivalent strict gate helper changed; static ELF alignment not actual Android 16KiB execution",
+  "deviceCalls": 0
+}

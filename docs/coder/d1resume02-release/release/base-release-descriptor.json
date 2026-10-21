@@ -1,0 +1,101 @@
+{
+  "schema": "RESUME02_BASE_RELEASE_V1",
+  "candidate": "D1-20261020-RESUME02-RELEASE",
+  "scopeId": "20b08d64-6fd0-4a88-8b72-c80615e58258",
+  "scope": {
+    "path": "docs/coder/d1resume02-release/release/runtime-scope.json",
+    "bytes": 884,
+    "sha256": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3"
+  },
+  "release": {
+    "path": "docs/coder/d1resume02-release/release/activation-release.json",
+    "bytes": 741,
+    "sha256": "f40bc6a0095b1627a176f13f5edfc6cb297bc31dc32a78ff997bcc8dd6bf3295"
+  },
+  "config": {
+    "path": "docs/coder/d1resume02-release/release/activation-trust-deploy.json",
+    "bytes": 1852,
+    "sha256": "35ee8559baed16d80a041c30f46ac5cf4abfc2806beb11090539835833bd229d"
+  },
+  "registryPlan": {
+    "path": "docs/coder/d1resume02-release/release/registry-plan.json",
+    "bytes": 8621,
+    "sha256": "f6dd30238f551e5d23306ee3b1abab377d00e0195674f7c9486d6323b39cf483"
+  },
+  "executionRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258",
+  "captureRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs",
+  "deploymentOncePath": "D:/CodexProjects/VideoKit/docs/tester/D1_RESUME01_CAPTURE_EXECUTION/20b08d64-6fd0-4a88-8b72-c80615e58258/e13f-lifecycle-deployment.once",
+  "caseOnce": {
+    "type": "PERSISTENT_SCOPE_METHOD_CLAIM",
+    "scope": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3",
+    "method": "ordinarySenderCannotBindCodec"
+  },
+  "budget": {
+    "path": "docs/coder/d1resume02-release/release/exact-budget.json",
+    "bytes": 1917,
+    "sha256": "70643b37227ef9dd044223767ddbd5bbfc4225a57fcaa7311a8c50141d36076b"
+  },
+  "preparationAuthority": {
+    "path": "docs/coder/d1resume02-release/release/preparation-authorization.json",
+    "bytes": 760,
+    "sha256": "a1d13dfcd87d3c555becaf9df7dc0e2dd670148fea46047d8918234d0cddd626"
+  },
+  "deviceExecutionAuthority": null,
+  "productSourceReview": {
+    "path": "docs/coder/d1resume02-release/reference/D1_RESUME01_STATIC_REVIEW_REPORT_V1.0.md",
+    "bytes": 10083,
+    "sha256": "0bad8b95ac7e0308713fdfed2f21c9215d18606f86aaa8e4e1dbd09059640743"
+  },
+  "captureReview": {
+    "path": "docs/coder/d1resume02-release/reference/D1_RESUME01_CAPTURE_REVIEW_REPORT_V1.0.md",
+    "bytes": 11062,
+    "sha256": "ad306682e27cdf1dec67955d9cb7f57bf99cd1451ab3b413963ee03439c6caf9"
+  },
+  "hostJar": {
+    "path": "docs/coder/d1resume02-release/artifacts/resume02-host-tools.jar",
+    "bytes": 323124,
+    "sha256": "03a27c74061b740a879e2dfec3341b0b07172c68bf374b9231c20e42a46566c5"
+  },
+  "observer": {
+    "path": "docs/coder/d1resume02-release/tools/observe_original.ps1",
+    "bytes": 9215,
+    "sha256": "0667bc7fe93cf2010cd337eeafaeabd94b7a795efa74059365af3fb83c8485b8"
+  },
+  "captureEntry": {
+    "path": "docs/coder/d1resume02-release/tools/capture_metadata.ps1",
+    "bytes": 20118,
+    "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+  },
+  "targetApks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk",
+      "bytes": 10708622,
+      "sha256": "938d70fbc70fd9bfdbef4ac37d2d83a66d7260e88e8c3c62bb2d022ea427908e",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug-androidTest.apk",
+      "bytes": 2774237,
+      "sha256": "4227751bf659fca9efc8a8d2d32d5ce754bcbef9033e15a0c92ab7537dca9dd7",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/fixture-debug.apk",
+      "bytes": 80041,
+      "sha256": "a8c86650ae756f682fb2cbaaa896424974893282026525266e7b1912a8dd1867",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "disposition": {
+    "path": "docs/coder/d1resume02-release/disposition/reviewed-original-disposition.json",
+    "bytes": 610,
+    "sha256": "7270e5c0208d2895394bbd1cd25508b239bbe7a711a40b3e8d2b3d59a37a265d"
+  },
+  "capturedHistoricalUnknownsPreserved": true
+}

@@ -1,0 +1,18 @@
+{
+  "templateOnly": true,
+  "state": "DRAFT_NOT_APPROVED_NOT_DISPATCHABLE",
+  "wireFields": {
+    "kind": "activationRelease",
+    "head": "6ce0f654a5bec6527a6773b141f64e49e858d3ef2e51c8c2e52360fd9ce0a4e5",
+    "catalog": "27fe90573f2d8a3a750c270e760f4e19e797fe188287ade5c58268e8c6d911b7",
+    "app": "2f323c16e896b0535e80cccce05bbcf3051224f0add279a51392312083e89f48",
+    "test": "e644dce77be6ccb0e7f99d82f2479fc92238aad682bb022bb95835fc015d0bfb",
+    "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+    "role": "ACTIVATION",
+    "abi": "1",
+    "version": "15",
+    "sourceReview": "REQUIRED_ACCEPTED_E11_SOURCE_REVIEW_SHA256",
+    "environment": "DEVICE_HA1Q6WXR"
+  },
+  "rule": "Replace sourceReview only after real independent E11 acceptance and separate human-authorized deployment dispatch; canonical bytes and their exact SHA then become the pinned detached release. No new secret/token/key."
+}

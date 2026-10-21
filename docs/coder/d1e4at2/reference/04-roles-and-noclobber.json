@@ -1,0 +1,53 @@
+{
+  "status": "PROCESS_IO_COMPLETE_ONLY",
+  "ownership": "RETURNED",
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "run-as",
+    "com.videokit.app",
+    "sh",
+    "-c",
+    "'set -e; test \"$(id -u)\" = 10221; test \"$(pwd)\" = /data/user/0/com.videokit.app; test -d files; test ! -L files; test -d files/e4_fixtures; test ! -L files/e4_fixtures; test -r files/e4_fixtures; test -w files/e4_fixtures; id; pwd; /system/bin/toybox stat -c '\"'\"'%u %a %F'\"'\"' -- files/e4_fixtures; ls -lan files/e4_fixtures; if [ -e files/e4a_output_budget/operation.pending ]; then printf '\"'\"'PRIOR_PENDING\\n'\"'\"'; else printf '\"'\"'NO_PRIOR_PENDING\\n'\"'\"'; fi; set -C; cat /dev/null'"
+  ],
+  "expectedBytes": 0,
+  "expectedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourcePrehashBytes": 0,
+  "sourcePrehashSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceStreamReadBytes": 0,
+  "submittedBytes": 0,
+  "submittedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "flushReturned": true,
+  "stdinCloseReturned": true,
+  "sourceCloseReturned": true,
+  "originalExitCode": 0,
+  "originalExitObserved": true,
+  "terminatedOwnedChild": false,
+  "writerReturned": true,
+  "elapsedSeconds": 0.188,
+  "firstError": null,
+  "errors": [],
+  "stdout": {
+    "bytes": 553,
+    "sha256": "c88d41f1f1f5aa9d2d3f940364954c57b21b085c18301177acc57a4a0214c6a9",
+    "prefixHex": "7569643d31303232312875305f6132323129206769643d31303232312875305f61323231292067726f7570733d31303232312875305f61323231292c3130303428696e707574292c31303037286c6f67292c3130313128616462292c31303135287364636172645f7277292c31303238287364636172645f72292c31303738286578745f646174615f7277292c31303739286578745f6f62625f7277292c33303031286e65745f62745f61646d696e292c33303032286e65745f6274292c3330303328696e6574292c33303036286e65745f62775f7374617473292c33303039287265616470726f63292c333031312875686964292c353032323128616c6c5f613232312920636f6e746578743d753a723a72756e61735f6170703a73303a633232312c633235362c633531322c633736380d0a2f646174612f757365722f302f636f6d2e766964656f6b69742e6170700d0a313032323120373737206469726563746f72790d0a746f74616c2038360d0a6472777872777872777820203220313032323120313032323120203334383820323032362d31302d31372030383a3136202e0d0a6472777872777872777820313320313032323120313032323120203334383820323032362d31302d31372030383a3136202e2e0d0a2d72772d72772d72772d20203120313032323120313032323120383134303720323032362d31302d31372030383a31362062617369632e6d70340d0a4e4f5f5052494f525f50454e44494e470d0a",
+    "prefixTruncated": false,
+    "closeReturned": true,
+    "error": null
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prefixHex": "",
+    "prefixTruncated": false,
+    "closeReturned": true,
+    "error": null
+  },
+  "remoteFileVerified": false,
+  "stdinOwnerAllocated": true,
+  "stdinCloseAttempted": true,
+  "stdinCloseError": null,
+  "creationUnknown": false
+}

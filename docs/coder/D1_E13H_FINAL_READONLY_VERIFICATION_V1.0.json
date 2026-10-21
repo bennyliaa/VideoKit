@@ -1,0 +1,166 @@
+{
+  "status": "PASS_E13H_FINAL_READONLY_VERIFICATION_PREPARE_ONLY",
+  "archive": {
+    "path": "docs/coder/D1-20261018-E13H-source.zip",
+    "bytes": 928716,
+    "sha256": "38ba1472783cf540cea451ea811af83ea1dfd8e9d60f1a4f08c3aa4bcf35af76"
+  },
+  "externalSeal": {
+    "path": "docs/coder/d1e13h/evidence/e13h-freeze.json",
+    "bytes": 41354,
+    "sha256": "befdcfcc5c04722cb138f845a27fe6d434d63fd204c211b39028914cdce2fc9e"
+  },
+  "archiveEntries": 180,
+  "immutableRows": 181,
+  "readOnlyFilesBeforeAfter": 182,
+  "beforeAfterIdentical": true,
+  "verifications": [
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13h\\tools\\package_delivery.py"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_E13H_STRICT_READONLY_VERIFY_PREPARE_ONLY\", \"writes\": 0, \"archive\": {\"path\": \"docs/coder/D1-20261018-E13H-source.zip\", \"bytes\": 928716, \"sha256\": \"38ba1472783cf540cea451ea811af83ea1dfd8e9d60f1a4f08c3aa4bcf35af76\"}, \"externalSeal\": {\"path\": \"docs/coder/d1e13h/evidence/e13h-freeze.json\", \"bytes\": 41354, \"sha256\": \"befdcfcc5c04722cb138f845a27fe6d434d63fd204c211b39028914cdce2fc9e\"}, \"archiveEntries\": 180, \"immutableRows\": 181, \"jarClasses\": 188, \"unchangedE13FClassComparisons\": 183, \"newTestedClassComparisons\": 5, \"priorSealGroups\": 10, \"hostCompilations\": 1, \"SDKStarts\": 0, \"actual5037Connections\": 0, \"originalSessionReads\": 0, \"productionEnabled\": false, \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13h\\tools\\package_delivery.py",
+        "verify",
+        "--seal-sha",
+        "befdcfcc5c04722cb138f845a27fe6d434d63fd204c211b39028914cdce2fc9e"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_E13H_STRICT_READONLY_VERIFY_PREPARE_ONLY\", \"writes\": 0, \"archive\": {\"path\": \"docs/coder/D1-20261018-E13H-source.zip\", \"bytes\": 928716, \"sha256\": \"38ba1472783cf540cea451ea811af83ea1dfd8e9d60f1a4f08c3aa4bcf35af76\"}, \"externalSeal\": {\"path\": \"docs/coder/d1e13h/evidence/e13h-freeze.json\", \"bytes\": 41354, \"sha256\": \"befdcfcc5c04722cb138f845a27fe6d434d63fd204c211b39028914cdce2fc9e\"}, \"archiveEntries\": 180, \"immutableRows\": 181, \"jarClasses\": 188, \"unchangedE13FClassComparisons\": 183, \"newTestedClassComparisons\": 5, \"priorSealGroups\": 10, \"hostCompilations\": 1, \"SDKStarts\": 0, \"actual5037Connections\": 0, \"originalSessionReads\": 0, \"productionEnabled\": false, \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13h\\tools\\package_delivery.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nDefault verify/help read only. Explicit pack seals one new E13H offline\npreparation bundle.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13h\\tools\\package_delivery.py",
+        "pack",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nDefault verify/help read only. Explicit pack seals one new E13H offline\npreparation bundle.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    }
+  ],
+  "priorSeals": [
+    {
+      "seal": {
+        "path": "docs/coder/d1e11/evidence/e11-freeze.json",
+        "bytes": 75113,
+        "sha256": "fd71fd2f3e696a144befb84307391f5f11c6b966dc068063d409c7df95f3eaa5"
+      },
+      "immutableRowsVerified": 375
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e11/revision-r1/evidence/e11-final-freeze.json",
+        "bytes": 13989,
+        "sha256": "2e1dcdcf212131952529e998da0f0cd1c14e10ca3eee912d1f897181b7cf81d3"
+      },
+      "immutableRowsVerified": 65
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e12/e12-freeze.json",
+        "bytes": 10565,
+        "sha256": "6cfaa9291b10bbc5a0f4410ef7d35b2cc59672368998a64d699e6dfe21bd9640"
+      },
+      "immutableRowsVerified": 46
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e13/evidence/e13-freeze.json",
+        "bytes": 77034,
+        "sha256": "3b80d430aa7f859174ffae0a4b5ca948a01aa032d15c0666fb595e6a1bba5cc0"
+      },
+      "immutableRowsVerified": 367
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e13a/evidence/e13a-freeze.json",
+        "bytes": 56667,
+        "sha256": "24d9fd0b3fa00afe0d37768cfd7eafd7bf1349810f641c7c03814937ace8acb6"
+      },
+      "immutableRowsVerified": 270
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e13b/evidence/e13b-freeze.json",
+        "bytes": 27051,
+        "sha256": "e74a7cc615c4b1db78717e48f170e0248bf7445de059db7eacc2aaa4018c482e"
+      },
+      "immutableRowsVerified": 118
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e13c/evidence/e13c-freeze.json",
+        "bytes": 31261,
+        "sha256": "14358fdb7e7900de669e76965c4ecce5b008eb8daea216b9abaa7f7891e45762"
+      },
+      "immutableRowsVerified": 141
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e13d/evidence/e13d-freeze.json",
+        "bytes": 2102,
+        "sha256": "acc83e5aff9288099c1f324fb24394316dedfd83272cce66cd8299a215b66365"
+      },
+      "immutableRowsVerified": 9
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e13e/evidence/e13e-freeze.json",
+        "bytes": 215351,
+        "sha256": "a07b56f55733ecc775a21a8c5622b3cdd5b99480386b7ba627520e71e2c6f978"
+      },
+      "immutableRowsVerified": 1001
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e13f/evidence/e13f-freeze.json",
+        "bytes": 267984,
+        "sha256": "7b72f1bade91286b7d99fbba5459777261e905f4317e0daa969042148b5bf38f"
+      },
+      "immutableRowsVerified": 1179
+    }
+  ],
+  "hostJar": {
+    "path": "docs/coder/d1e13h/artifacts/e13h-host-tools.jar",
+    "bytes": 334906,
+    "sha256": "b610227fb564d8fb0d0085dcd12dd398e042ead38b28d36d9d9a3bc1babced35"
+  },
+  "productionEnabled": false,
+  "actual5037Connections": 0,
+  "SDKStarts": 0,
+  "originalSessionReads": 0,
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

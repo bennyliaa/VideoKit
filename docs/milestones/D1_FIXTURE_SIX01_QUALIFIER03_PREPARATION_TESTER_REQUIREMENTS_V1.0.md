@@ -1,0 +1,13 @@
+# SIX01 QUALIFIER03_OBSERVATION 接入准备要求 V1.0
+
+2026-10-21；负责人核完整独立B报告6b71997ce6ad6136cdea7f7908e102bc460e6933b7c288e78657c6fb5cbbf59b，接受PASS_LIMITED_METADATA_OBSERVABILITY_WITH_MEDIA_NOT_RUN。79元数据有限用例不代真实文件资格；旧辅助FAIL和QUAL01实际BLOCKED不回写。
+
+正式派tester新独立完整checker准备批，目录docs/tester/D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION。基于冻结checker02逻辑接入已审独立fork JAR1930955B SHA1a7e8601be4ebb5665219f2ccfa6e75476323e7408a6b18824ecf2a37873de86，版本0.2.5-videokit-observation01；原生产/encoder/App依赖不变。实际JCodec全部类必须来自该fork，不能将官方JAR与fork混装或让原类fallback覆盖新增观察。
+
+需要WorkerDeadline/ReceiptJson时仅提取原c4ed工具内准确已有对应支持class及嵌套class到独立support目录、逐class hash/SourceFile绑定，禁止携入任何org.jcodec/JAAD类/encoder/Main/Job；运行classpath仅新helper classes+该support+准确fork JAR。新增getter/parse代码不得再改，原工具仅静态提取支持类，不运行或重编译。准备报告列唯一类集合与全部CodeSource未来断言，不拿文件名作身份。
+
+接入所有已明确必须原字段：dref/stsd原version-flags/unsigned declared count与actualchildren独立、parse observation complete且字段来自真实parse非builder；avcC configurationVersion/lengthSize reserved bits/SPS count reserved bits及原count头等与真实CSD个数/表示/长度对照。应用原受限合同拒绝未知/不一致/无法证明，不删字段/预填从生成receipt拷golden。原typed AliasBox/UrlBox唯一entry/index1/selfref/version0flags1/body4及外引用拒绝保留；不得Leaf白名单或重序列化取原值。complete不等合法/EOF，原其余轨道/样本/时间/保护/全流hash预算及原返回门不减。
+
+允许一次固定已有JDK javac编译新checker及单独最小语义helper，输入仅新源/已审fork/精确support，-proc:none/无隐式补源/无MavenGradle网络缓存/输出16MiB/512m/观察60秒。只运行一次有限非媒体策略语义自测JVM256m/总5秒/元数据payload8KiB：实际成熟typed boxes/getters，原字段与actual不一致/unknownflag/version/未完成观测/缺信息/child外引用等政策正反例，受控原线程loader/Popen真实归还，超窗保管UNKNOWN无kill/interrupt/重试。禁止读取已生成MP4/实际demux/encoder/decoder/mux/Main/旧session/设备，本阶段媒体hash或scope仍UNBOUND不执行真实资格。
+
+不得自写MP4/AVC解析器/新库，不顺带改workerdeadline或其他已审框架。完整newhelper/support/class/编译回执/非媒体测试/全字段合同/API缺口/固定fork来源许可/未来准确argv及原1MiB累计读/60秒/receipt1MiB门冻结主动报负责人。失败亦完整整包停批，不能连续修跑；核完整checker后另派D1QUAL03准确一次固定良性媒体只读检查。实际文件仍未资格化，D1未过M0未启。

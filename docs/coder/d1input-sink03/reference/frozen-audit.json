@@ -1,0 +1,71 @@
+{
+  "result": "PASS_FROZEN_IDENTITY_STATIC_ARTIFACT_DEPENDENCY_AUDIT",
+  "candidateFiles": 316,
+  "zipMembers": 315,
+  "oldFrozen": [
+    {
+      "candidate": "d1render01",
+      "files": 477,
+      "sealSha256": "995e7b5e9bc2bcdbbbbd600aa0a058f259b93ea56ac172fea90796c586f4e12e"
+    },
+    {
+      "candidate": "d1render02",
+      "files": 404,
+      "sealSha256": "a226b5fe0703d31c486ec2deaad1c2f2241169f4c8257701331cd5d9c1a83581"
+    },
+    {
+      "candidate": "d1render02-capture",
+      "files": 818,
+      "sealSha256": "65e8413b3e90dd571c22fea7049778b29c0d94221cd490560cdcd5c3cc00ae5a"
+    },
+    {
+      "candidate": "d1input-sink01",
+      "files": 334,
+      "sealSha256": "128113fd40b958b56823cb76b230833b5cc9a42aff0f0bcfab7a5db90038a238"
+    }
+  ],
+  "oldFrozenFiles": 2033,
+  "inputPins": 1037,
+  "runtimeCoordinates": 15,
+  "actualConsumption": {
+    "binary": 121,
+    "module": 35,
+    "pom": 140
+  },
+  "eventRows": 819,
+  "apkManifest": [
+    {
+      "tag": "manifest",
+      "attributes": {
+        "versionCode": 2,
+        "versionName": "D1-INPUT-SINK02",
+        "compileSdkVersion": 36,
+        "compileSdkVersionCodename": "16",
+        "package": "com.videokit.d1input",
+        "platformBuildVersionCode": 36,
+        "platformBuildVersionName": 16
+      }
+    },
+    {
+      "tag": "uses-sdk",
+      "attributes": {
+        "minSdkVersion": 31,
+        "targetSdkVersion": 36
+      }
+    },
+    {
+      "tag": "application",
+      "attributes": {
+        "label": "D1 Input Sink Compile Probe",
+        "debuggable": 4294967295,
+        "allowBackup": 0,
+        "extractNativeLibs": 0
+      }
+    }
+  ],
+  "apkClassCount": 4393,
+  "jarEntries": 52,
+  "newDependencies": 0,
+  "originalInputAdaptersUnchanged": true,
+  "SDKOrDeviceOrGradleCommands": 0
+}

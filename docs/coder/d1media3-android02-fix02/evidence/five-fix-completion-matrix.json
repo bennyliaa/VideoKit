@@ -1,0 +1,37 @@
+{
+  "independentBaselineReportSha256": "51b9181446d747bc3030cb2c13ce3d8fa1f1d5c9089267418a3f40f122bee8fa",
+  "coderStatus": "IMPLEMENTED_COMPILED_TYPED_LIMITED_EVIDENCE_PENDING_INDEPENDENT_B",
+  "actualAndroidReproductions": 0,
+  "fixes": [
+    {
+      "id": "R01-B01",
+      "implementation": "ScopeJournal immutable strings/same-lock snapshots; requested scope identity always emitted with complete existing history/completed count/current partial/currentIOPhase/firstFailure. Worker alone builds full JSON; observer never walks mutable parser/case collections. Content196608 reserves status262144/whole emission1048576; overflow blocks explicitly and preserves earlier history. Runner no bare last-json fallback.",
+      "typedEvidence": "typed-001 journal6 cases: pending/failure/history/immutable list/concurrent publication/limit no drop+global emission",
+      "remaining": "Android JSONObject/platform pending/finish integration NOT_RUN; final source type/DEX verified"
+    },
+    {
+      "id": "R01-B02",
+      "implementation": "Same ScopeMeter SDK readAt requested/native attempted/native actual/EOF/unknown and copy/controlled/output by case+COPY/HASH/PARSE/SEEK/REOPEN prefix. All scope reservations before calls, input8MiB/output request and attempt16MiB, no resets/refunds. Short3 mature Reader admits SDK requests max4, original native cap3 => real4/3/actual separately; mature internal request length is not called observed SDK readAt count. Native FD slots register before open/adopt/close; known registered peak separate asset stream and source lease peak.",
+      "typedEvidence": "typed-001 meter8 cases incl atomic cross-case budget,4/3/1,EOF,unknown,short write and FD/source distinction",
+      "remaining": "AssetManager/internal platform total FD peak API_UNPROVEN; actual Android phase counts/FD peaks NOT_RUN"
+    },
+    {
+      "id": "R01-B03",
+      "implementation": "CompletionPoint.finishAfterSignal runs synchronous E13ReturnEvents and error recording BEFORE marker/body flag. Same original worker; strict elapsed>=0 && <60s, actual join and finalizer/outer finish separate. No controlled callbacks after marker.",
+      "typedEvidence": "typed-001 7 callback/clock cases incl actual E13 listener gate,59.9 timely/60 equality late/60.1 late,late observer and failure handler before marker",
+      "remaining": "Typed clock stimuli/real controlled threads; not actual60s Android deadline reproduction"
+    },
+    {
+      "id": "R01-B04",
+      "implementation": "Pre-open Job rawWriters and OriginalOwner<FileDescriptor>, holder itself is unbuffered OutputStream created before open. No post-open platform stream wrapper/alias. Same Os.write/fsync/Os.close exact owner, one close admission; allocation/close unknown blocks return, no replacement/second close. Read RAF owners before constructor plus failed-open unclaimed keeper cleanup.",
+      "typedEvidence": "typed-001 raw6 owner cases pending/allocation/init/close unknown and same original close+thread join; full Android source types compile",
+      "remaining": "Actual Android Os/close behavior/API uncertainty not upgraded by typed ports; full platform FD cardinality UNPROVEN"
+    },
+    {
+      "id": "R01-B05",
+      "implementation": "Original Job muxerBinding before mature constructor. OriginalOwner<FragmentedMp4Muxer> records allocation intent/object/calls/EOS/close. MatureContainerRemux requires registered binding, legacy unowned entry rejects. Existing six payload/EOS intent split from one original close to observe independent stages. Cleanup closes original once, UNKNOWN retained with Sink/FD; resourcesReturned includes muxer.",
+      "typedEvidence": "typed-001 muxer6 owner plus ADD_TRACK/SAMPLE/EMPTY_EOS3 stage cases; Sink return cannot stand for muxer return",
+      "remaining": "Real Media3 construction/addTrack/sample/EOS/close and positive fMP4 chain Android NOT_RUN"
+    }
+  ]
+}

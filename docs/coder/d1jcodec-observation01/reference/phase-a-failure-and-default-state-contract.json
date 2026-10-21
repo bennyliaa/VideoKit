@@ -1,0 +1,66 @@
+{
+  "cases": [
+    {
+      "id": "parents_short",
+      "scenario": "0..7 bytes relative to parent start",
+      "baselineObligation": "getInt atomic consumption4/4; baseline BufferUnderflow at original boundary",
+      "observationObligation": "same legacy partial fields/lists; no complete observation",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "id": "avcc_empty",
+      "scenario": "original skip=min(remaining,1), then profile get",
+      "baselineObligation": "replacing skip by get must preserve same exception class/position and old legacy getters even if throw statement location differs",
+      "observationObligation": "no phantom observed config0",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "id": "avcc_short_header",
+      "scenario": "before rawLength/SPS-count/PPS-count originally consumed",
+      "baselineObligation": "existing fields assigned in original order; no eager full preflight changing baseline assignment/position",
+      "observationObligation": "only complete false, no stale raw values trusted",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "id": "avcc_bad_ps",
+      "scenario": "safe bounded payload that baseline rejects; never huge length/metadata allocation",
+      "baselineObligation": "original signed getShort, masked NAL checkState and NIOUtils.read behavior preserved; future actual error class/position compared",
+      "observationObligation": "do not validate/repair lengths or clear old lists",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "id": "node_early_return",
+      "scenario": "valid minimal children or no children; <8 tail/count mismatch",
+      "baselineObligation": "super.parse normal return can retain tail or count mismatch, patch completion is not legal-container verdict",
+      "observationObligation": "later qualification must check raw declarations separately",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "id": "reused_success_fail",
+      "scenario": "one good parse, same object short failing parse",
+      "baselineObligation": "observation false/reset before possible failure; original legacy partial state identical to baseline",
+      "observationObligation": "new getters absent/throw/untrusted while false, no previous complete true",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "id": "reused_success_success",
+      "scenario": "same original object parses next safe input",
+      "baselineObligation": "new raw fields reflect latest consumed values; original children/SPS/PPS append unchanged",
+      "observationObligation": "new declared count distinct from accumulated actual counts",
+      "status": "PREPARED_NOT_RUN"
+    }
+  ],
+  "notAllowed": [
+    "new parser",
+    "pre-scan",
+    "extra native source reads",
+    "alter mature exception policy",
+    "repair or normalize counts",
+    "clear legacy lists",
+    "builder/doWrite generation of observed facts",
+    "serializing parsed object to infer original bytes",
+    "default0 treated as observed",
+    "candidate fork inspection in phaseA"
+  ],
+  "laterDynamicScope": "NOT_AUTHORIZED_BY_THIS_PHASE"
+}

@@ -1,0 +1,15 @@
+# D1 E10A final 本机只读补审要求 V1.0
+
+负责人 VideoKit项目助理（thread01a107c3-2bf9-7fa0-94a0-234258ca6774）在收到 E10A 实际执行报告后正式派发 E10A_FINAL_READONLY_REVIEW：接受原 MIGRATION_QUALIFIED_FINAL_REVIEW_INCOMPLETE_TESTER_ERROR 范围，本批只补原未完成的独立终局审证，不得追溯改写原失败报告、脚本及其两次兼容修正。
+
+原报告 docs/tester/D1_E10A_ACTOR1_EXECUTION_REPORT_V1.0.md，SHA27bfa28db47d9956e1b151a81398e69fe483d39523dabbe353eac2659d0cd3b2；原证据manifest SHAe045e98bae54159c863f5ac01823cc5fc70c91591247681dc46f3cf917846726。新建独立目录 docs/tester/D1_E10A_FINAL_READONLY_REVIEW_EVIDENCE、新只读脚本和输入pin，不调用原执行控制器，不修改旧目录或候选包。
+
+以生产 E9Registry/E9Evidence/E9Catalog/E9Actor/E9Record 及实际受管主机实现为依据，区分归档事件 RETURN_OBSERVED 与 catalog disposition RETURN_VERIFIED_IN_TIME，不通过简单改断言代替独立审证。
+
+验证原manifest全部原文件及可信authority、scope→plan→config→index和候选source/JAR/APK原pin，核准确M4f21f71a-bf66-4a44-a287-320f0ae25fde、原actorPID22086/UID10221/boot/start、head6ce0f654a5bec6527a6773b141f64e49e858d3ef2e51c8c2e52360fd9ce0a4e5、catalog SHA27fe90573f2d8a3a750c270e760f4e19e797fe188287ade5c58268e8c6d911b7。独立验证四事件canonical/parent/hash及非自指，catalog所有嵌入原字节、scope授权、plan、device、intent及checkpoint/seal原SHA DAG。
+
+联合重核原identity与COMMIT真实原返回、34资源全返、两phase各<10s、STATUS/EXEC/ACK准确序列和唯一性、归档原字节、唯一normalfinish锚和后续原系统正常结束、已有独立PID缺席回执、PC同handle自然closed及两reader/process/Store/listener/remote真实归还。重读既有只读采集的raw stdout与exit/pipe/hash回执，独立重算旧13metadata/guard/fence/完整账本与原107218消费/0reserved/三R三S及产物stat守恒，不以原汇总true代替原证据。1928B内容与12288B文件系统块占用分别报告，FS额外成本不假定为内容上限。
+
+只读现有已冻结本机证据，不新增ADB、设备metadata、安装、迁移、EXEC、ACK、SEAL、actor2/3、媒体读取、activation或播放；不运行生产会话、启动服务或重新生成已有catalog。现有证据缺失则BLOCKED，不补造。只在本新目录和本批报告写审证产物。
+
+输出 docs/tester/D1_E10A_FINAL_READONLY_REVIEW_REPORT_V1.0.md，自有独立audit/输入pin/manifest及通知回执；明确原实际生产迁移、原测试脚本错误、本次补审范围、NOT_RUN和限制。完成主动通知负责人后停止，D1 NOT_PASSED/M0 NOT_STARTED/P0历史保持，不解除产品准入或自动安排测试。

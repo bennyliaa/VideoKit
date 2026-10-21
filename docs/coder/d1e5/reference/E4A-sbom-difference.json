@@ -1,0 +1,424 @@
+{
+  "schema": 1,
+  "scope": "E4_EXACT_LOCK_AND_NATIVE_DIFF_NOT_VULNERABILITY_CLEARANCE",
+  "originalC14LockSha256": "dfda98822d7b932a8dc3dc7d9d239c66cc091652c9263edd43963eae1c4170c4",
+  "currentLockSha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a",
+  "currentCoordinates": 35,
+  "addedPackageFamilies": [],
+  "removedPackageFamilies": [
+    "androidx.activity:activity",
+    "androidx.activity:activity-compose",
+    "androidx.activity:activity-ktx",
+    "androidx.appcompat:appcompat",
+    "androidx.appcompat:appcompat-resources",
+    "androidx.arch.core:core-common",
+    "androidx.arch.core:core-runtime",
+    "androidx.autofill:autofill",
+    "androidx.collection:collection",
+    "androidx.collection:collection-jvm",
+    "androidx.collection:collection-ktx",
+    "androidx.compose.animation:animation",
+    "androidx.compose.animation:animation-android",
+    "androidx.compose.animation:animation-core",
+    "androidx.compose.animation:animation-core-android",
+    "androidx.compose.foundation:foundation",
+    "androidx.compose.foundation:foundation-android",
+    "androidx.compose.foundation:foundation-layout",
+    "androidx.compose.foundation:foundation-layout-android",
+    "androidx.compose.material3:material3",
+    "androidx.compose.material3:material3-android",
+    "androidx.compose.material:material",
+    "androidx.compose.material:material-android",
+    "androidx.compose.material:material-ripple",
+    "androidx.compose.material:material-ripple-android",
+    "androidx.compose.runtime:runtime",
+    "androidx.compose.runtime:runtime-android",
+    "androidx.compose.runtime:runtime-annotation",
+    "androidx.compose.runtime:runtime-annotation-android",
+    "androidx.compose.runtime:runtime-retain",
+    "androidx.compose.runtime:runtime-retain-android",
+    "androidx.compose.runtime:runtime-saveable",
+    "androidx.compose.runtime:runtime-saveable-android",
+    "androidx.compose.ui:ui",
+    "androidx.compose.ui:ui-android",
+    "androidx.compose.ui:ui-geometry",
+    "androidx.compose.ui:ui-geometry-android",
+    "androidx.compose.ui:ui-graphics",
+    "androidx.compose.ui:ui-graphics-android",
+    "androidx.compose.ui:ui-test",
+    "androidx.compose.ui:ui-test-android",
+    "androidx.compose.ui:ui-test-junit4",
+    "androidx.compose.ui:ui-test-junit4-android",
+    "androidx.compose.ui:ui-test-manifest",
+    "androidx.compose.ui:ui-text",
+    "androidx.compose.ui:ui-text-android",
+    "androidx.compose.ui:ui-tooling",
+    "androidx.compose.ui:ui-tooling-android",
+    "androidx.compose.ui:ui-tooling-data",
+    "androidx.compose.ui:ui-tooling-data-android",
+    "androidx.compose.ui:ui-tooling-preview",
+    "androidx.compose.ui:ui-tooling-preview-android",
+    "androidx.compose.ui:ui-unit",
+    "androidx.compose.ui:ui-unit-android",
+    "androidx.compose.ui:ui-util",
+    "androidx.compose.ui:ui-util-android",
+    "androidx.compose:compose-bom",
+    "androidx.core:core",
+    "androidx.core:core-ktx",
+    "androidx.core:core-viewtree",
+    "androidx.cursoradapter:cursoradapter",
+    "androidx.customview:customview",
+    "androidx.customview:customview-poolingcontainer",
+    "androidx.documentfile:documentfile",
+    "androidx.drawerlayout:drawerlayout",
+    "androidx.dynamicanimation:dynamicanimation",
+    "androidx.emoji2:emoji2",
+    "androidx.emoji2:emoji2-views-helper",
+    "androidx.exifinterface:exifinterface",
+    "androidx.fragment:fragment",
+    "androidx.graphics:graphics-path",
+    "androidx.interpolator:interpolator",
+    "androidx.legacy:legacy-support-core-utils",
+    "androidx.lifecycle:lifecycle-common-java8",
+    "androidx.lifecycle:lifecycle-common-jvm",
+    "androidx.lifecycle:lifecycle-livedata",
+    "androidx.lifecycle:lifecycle-livedata-core",
+    "androidx.lifecycle:lifecycle-livedata-core-ktx",
+    "androidx.lifecycle:lifecycle-process",
+    "androidx.lifecycle:lifecycle-runtime",
+    "androidx.lifecycle:lifecycle-runtime-android",
+    "androidx.lifecycle:lifecycle-runtime-compose",
+    "androidx.lifecycle:lifecycle-runtime-compose-android",
+    "androidx.lifecycle:lifecycle-runtime-ktx",
+    "androidx.lifecycle:lifecycle-runtime-ktx-android",
+    "androidx.lifecycle:lifecycle-viewmodel",
+    "androidx.lifecycle:lifecycle-viewmodel-android",
+    "androidx.lifecycle:lifecycle-viewmodel-ktx",
+    "androidx.lifecycle:lifecycle-viewmodel-savedstate",
+    "androidx.lifecycle:lifecycle-viewmodel-savedstate-android",
+    "androidx.loader:loader",
+    "androidx.localbroadcastmanager:localbroadcastmanager",
+    "androidx.media3:media3-database",
+    "androidx.media3:media3-datasource",
+    "androidx.media3:media3-decoder",
+    "androidx.media3:media3-effect",
+    "androidx.media3:media3-exoplayer",
+    "androidx.media3:media3-extractor",
+    "androidx.media3:media3-inspector",
+    "androidx.media3:media3-transformer",
+    "androidx.media3:media3-ui",
+    "androidx.navigationevent:navigationevent",
+    "androidx.navigationevent:navigationevent-android",
+    "androidx.navigationevent:navigationevent-compose",
+    "androidx.navigationevent:navigationevent-compose-android",
+    "androidx.print:print",
+    "androidx.profileinstaller:profileinstaller",
+    "androidx.recyclerview:recyclerview",
+    "androidx.resourceinspection:resourceinspection-annotation",
+    "androidx.savedstate:savedstate",
+    "androidx.savedstate:savedstate-android",
+    "androidx.savedstate:savedstate-compose",
+    "androidx.savedstate:savedstate-compose-android",
+    "androidx.savedstate:savedstate-ktx",
+    "androidx.startup:startup-runtime",
+    "androidx.transition:transition",
+    "androidx.vectordrawable:vectordrawable",
+    "androidx.vectordrawable:vectordrawable-animated",
+    "androidx.versionedparcelable:versionedparcelable",
+    "androidx.viewpager:viewpager",
+    "androidx.window:window",
+    "androidx.window:window-core",
+    "androidx.window:window-core-android",
+    "com.airbnb.android:lottie",
+    "com.android.tools.analytics-library:protos",
+    "com.android.tools.analytics-library:shared",
+    "com.android.tools.analytics-library:tracker",
+    "com.android.tools.build:aapt2-proto",
+    "com.android.tools.build:builder-model",
+    "com.android.tools.build:manifest-merger",
+    "com.android.tools.ddms:ddmlib",
+    "com.android.tools.emulator:proto",
+    "com.android.tools.external.com-intellij:intellij-core",
+    "com.android.tools.external.com-intellij:kotlin-compiler",
+    "com.android.tools.external.org-jetbrains:uast",
+    "com.android.tools.layoutlib:layoutlib-api",
+    "com.android.tools.lint:lint",
+    "com.android.tools.lint:lint-api",
+    "com.android.tools.lint:lint-checks",
+    "com.android.tools.lint:lint-gradle",
+    "com.android.tools.lint:lint-model",
+    "com.android.tools.lint:lint-typedef-remover",
+    "com.android.tools.utp:android-device-provider-ddmlib",
+    "com.android.tools.utp:android-device-provider-ddmlib-proto",
+    "com.android.tools.utp:android-test-plugin-host-additional-test-output",
+    "com.android.tools.utp:android-test-plugin-host-additional-test-output-proto",
+    "com.android.tools.utp:android-test-plugin-host-apk-installer",
+    "com.android.tools.utp:android-test-plugin-host-apk-installer-proto",
+    "com.android.tools.utp:android-test-plugin-host-coverage",
+    "com.android.tools.utp:android-test-plugin-host-coverage-proto",
+    "com.android.tools.utp:android-test-plugin-host-device-info",
+    "com.android.tools.utp:android-test-plugin-host-device-info-proto",
+    "com.android.tools.utp:android-test-plugin-host-emulator-control",
+    "com.android.tools.utp:android-test-plugin-host-emulator-control-proto",
+    "com.android.tools.utp:android-test-plugin-host-logcat",
+    "com.android.tools.utp:android-test-plugin-host-logcat-proto",
+    "com.android.tools.utp:android-test-plugin-result-listener-gradle",
+    "com.android.tools.utp:android-test-plugin-result-listener-gradle-proto",
+    "com.android.tools.utp:gradle-work-action",
+    "com.android.tools.utp:utp-common",
+    "com.android.tools:annotations",
+    "com.android.tools:common",
+    "com.android.tools:dvlib",
+    "com.android.tools:play-sdk-proto",
+    "com.android.tools:repository",
+    "com.android.tools:sdk-common",
+    "com.android.tools:sdklib",
+    "com.google.android:annotations",
+    "com.google.api.grpc:proto-google-common-protos",
+    "com.google.auto.service:auto-service",
+    "com.google.auto.service:auto-service-annotations",
+    "com.google.auto:auto-common",
+    "com.google.code.gson:gson",
+    "com.google.crypto.tink:tink",
+    "com.google.dagger:dagger",
+    "com.google.j2objc:j2objc-annotations",
+    "com.google.jimfs:jimfs",
+    "com.google.protobuf:protobuf-java",
+    "com.google.protobuf:protobuf-java-util",
+    "com.google.protobuf:protobuf-kotlin",
+    "com.google.testing.platform:android-device-provider-local",
+    "com.google.testing.platform:android-driver-instrumentation",
+    "com.google.testing.platform:android-test-plugin",
+    "com.google.testing.platform:core",
+    "com.google.testing.platform:core-proto",
+    "com.google.testing.platform:launcher",
+    "com.squareup.okio:okio",
+    "com.sun.istack:istack-commons-runtime",
+    "com.sun.xml.fastinfoset:FastInfoset",
+    "commons-codec:commons-codec",
+    "commons-io:commons-io",
+    "commons-logging:commons-logging",
+    "io.grpc:grpc-api",
+    "io.grpc:grpc-context",
+    "io.grpc:grpc-core",
+    "io.grpc:grpc-netty",
+    "io.grpc:grpc-protobuf",
+    "io.grpc:grpc-protobuf-lite",
+    "io.grpc:grpc-services",
+    "io.grpc:grpc-stub",
+    "io.grpc:grpc-util",
+    "io.netty:netty-buffer",
+    "io.netty:netty-codec",
+    "io.netty:netty-codec-http",
+    "io.netty:netty-codec-http2",
+    "io.netty:netty-codec-socks",
+    "io.netty:netty-common",
+    "io.netty:netty-handler",
+    "io.netty:netty-handler-proxy",
+    "io.netty:netty-resolver",
+    "io.netty:netty-transport",
+    "io.netty:netty-transport-native-unix-common",
+    "io.opencensus:opencensus-api",
+    "io.opencensus:opencensus-proto",
+    "io.perfmark:perfmark-api",
+    "jakarta.activation:jakarta.activation-api",
+    "jakarta.xml.bind:jakarta.xml.bind-api",
+    "javax.annotation:javax.annotation-api",
+    "net.java.dev.jna:jna",
+    "net.java.dev.jna:jna-platform",
+    "net.sf.kxml:kxml2",
+    "org.apache.commons:commons-compress",
+    "org.apache.commons:commons-lang3",
+    "org.apache.httpcomponents:httpclient",
+    "org.apache.httpcomponents:httpcore",
+    "org.apache.httpcomponents:httpmime",
+    "org.bouncycastle:bcpkix-jdk18on",
+    "org.bouncycastle:bcprov-jdk18on",
+    "org.bouncycastle:bcutil-jdk18on",
+    "org.checkerframework:checker-qual",
+    "org.codehaus.groovy:groovy",
+    "org.codehaus.mojo:animal-sniffer-annotations",
+    "org.glassfish.jaxb:jaxb-runtime",
+    "org.glassfish.jaxb:txw2",
+    "org.jetbrains.kotlin:kotlin-build-tools-api",
+    "org.jetbrains.kotlin:kotlin-build-tools-impl",
+    "org.jetbrains.kotlin:kotlin-compiler-embeddable",
+    "org.jetbrains.kotlin:kotlin-compiler-runner",
+    "org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable",
+    "org.jetbrains.kotlin:kotlin-daemon-client",
+    "org.jetbrains.kotlin:kotlin-daemon-embeddable",
+    "org.jetbrains.kotlin:kotlin-reflect",
+    "org.jetbrains.kotlin:kotlin-script-runtime",
+    "org.jetbrains.kotlin:kotlin-scripting-common",
+    "org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable",
+    "org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable",
+    "org.jetbrains.kotlin:kotlin-scripting-jvm",
+    "org.jetbrains.kotlin:kotlin-stdlib-common",
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
+    "org.jetbrains.kotlinx:atomicfu",
+    "org.jetbrains.kotlinx:atomicfu-jvm",
+    "org.jetbrains.kotlinx:kotlinx-coroutines-android",
+    "org.jetbrains.kotlinx:kotlinx-coroutines-guava",
+    "org.jetbrains.kotlinx:kotlinx-coroutines-test",
+    "org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm",
+    "org.jetbrains.kotlinx:kotlinx-serialization-bom",
+    "org.jetbrains.kotlinx:kotlinx-serialization-core",
+    "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm",
+    "org.jspecify:jspecify",
+    "org.jvnet.staxex:stax-ex",
+    "org.ow2.asm:asm",
+    "org.ow2.asm:asm-analysis",
+    "org.ow2.asm:asm-commons",
+    "org.ow2.asm:asm-tree"
+  ],
+  "selectedVersionDifferences": {
+    "androidx.annotation:annotation": {
+      "previous": [
+        "1.9.1"
+      ],
+      "current": [
+        "1.6.0",
+        "1.7.0"
+      ]
+    },
+    "androidx.annotation:annotation-experimental": {
+      "previous": [
+        "1.4.1"
+      ],
+      "current": [
+        "1.3.1"
+      ]
+    },
+    "androidx.annotation:annotation-jvm": {
+      "previous": [
+        "1.9.1"
+      ],
+      "current": [
+        "1.6.0",
+        "1.7.0"
+      ]
+    },
+    "androidx.concurrent:concurrent-futures": {
+      "previous": [
+        "1.1.0",
+        "1.2.0"
+      ],
+      "current": [
+        "1.2.0"
+      ]
+    },
+    "androidx.lifecycle:lifecycle-common": {
+      "previous": [
+        "2.10.0"
+      ],
+      "current": [
+        "2.3.1"
+      ]
+    },
+    "androidx.tracing:tracing": {
+      "previous": [
+        "1.1.0",
+        "1.2.0"
+      ],
+      "current": [
+        "1.1.0"
+      ]
+    },
+    "com.google.errorprone:error_prone_annotations": {
+      "previous": [
+        "2.23.0",
+        "2.28.0",
+        "2.30.0",
+        "2.36.0"
+      ],
+      "current": [
+        "2.30.0"
+      ]
+    },
+    "com.google.guava:failureaccess": {
+      "previous": [
+        "1.0.1",
+        "1.0.2"
+      ],
+      "current": [
+        "1.0.2"
+      ]
+    },
+    "com.google.guava:guava": {
+      "previous": [
+        "32.0.1-jre",
+        "33.3.1-android",
+        "33.4.0-jre"
+      ],
+      "current": [
+        "33.3.1-android"
+      ]
+    },
+    "com.google.guava:listenablefuture": {
+      "previous": [
+        "1.0",
+        "9999.0-empty-to-avoid-conflict-with-guava"
+      ],
+      "current": [
+        "9999.0-empty-to-avoid-conflict-with-guava"
+      ]
+    },
+    "org.jetbrains.kotlin:kotlin-stdlib": {
+      "previous": [
+        "1.8.21",
+        "1.9.0",
+        "2.2.10"
+      ],
+      "current": [
+        "2.2.10"
+      ]
+    },
+    "org.jetbrains.kotlinx:kotlinx-coroutines-bom": {
+      "previous": [
+        "1.7.3",
+        "1.9.0"
+      ],
+      "current": [
+        "1.9.0"
+      ]
+    },
+    "org.jetbrains.kotlinx:kotlinx-coroutines-core": {
+      "previous": [
+        "1.7.3",
+        "1.9.0"
+      ],
+      "current": [
+        "1.9.0"
+      ]
+    },
+    "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm": {
+      "previous": [
+        "1.7.3",
+        "1.8.0",
+        "1.9.0"
+      ],
+      "current": [
+        "1.9.0"
+      ]
+    }
+  },
+  "nativeLibraries": "Same seven actual APK native members, byte-identical to C14; see apk-audit.json",
+  "ffmpeg": "8.0.3 unchanged allowlist/quota/network-disabled configuration; no native rebuild",
+  "media3": "1.9.3 muxer/common/container only; no new package family; ExoPlayer/Transformer/UI/Compose omitted from E4",
+  "offlineAlignment": "Cached C14 kotlin-stdlib2.2.10 and coroutines-core1.9.0; missing1.8.1 artifact was not downloaded",
+  "originalRuntimeGraphClaim": "Not identical: selected transitive compile/instrumentation versions differ in the reduced project; all differences listed",
+  "cachedArtifactsRead": {
+    "bytes": 11796560,
+    "files": 51,
+    "byteCap": 134217728,
+    "fileCap": 512
+  },
+  "safetyAndDistribution": "No new SCA/license acceptance claim. Original P0, tool restrictions and release/distribution review remain open.",
+  "previousE4LockSha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a",
+  "e4ToE4ADifference": {
+    "addedCoordinates": [],
+    "removedCoordinates": [],
+    "configurationChanges": {}
+  }
+}

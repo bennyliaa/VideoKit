@@ -1,0 +1,13 @@
+{
+  "source": "https://developer.android.com/reference/android/system/Os",
+  "accessedLocalDate": "2026-10-21",
+  "relevantEntries": [
+    "open(String,int,int)",
+    "close(FileDescriptor)",
+    "fsync(FileDescriptor)",
+    "write(FileDescriptor,byte[],int,int)"
+  ],
+  "use": "Public API signatures checked against official Android reference and actual android-36.1 SDK typecheck. Existing fixed SDK/runtime dependency/license boundary retained.",
+  "ownershipChoice": "No FileOutputStream(fd) alias after open. RawWrite OutputStream object/OriginalOwner/Descriptor slot registered in original Job BEFORE Os.open. Returned original FileDescriptor is adopted before later operations; sole original close authority Os.close.",
+  "conservativeLimits": "Native throws/uncertain allocation/close remain UNKNOWN. No claims of EINTR recovery, internal platform FD count, Android Os execution or kernel-close behavior proven. No OOM/platform crash injected."
+}

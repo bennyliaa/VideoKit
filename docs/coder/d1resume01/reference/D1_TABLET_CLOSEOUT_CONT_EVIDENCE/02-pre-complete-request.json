@@ -1,0 +1,15 @@
+{
+  "id": "02-pre-complete",
+  "maxBytes": 524288,
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-H",
+    "127.0.0.1",
+    "-P",
+    "5037",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "set -e\nprintf 'TABLET_CLOSEOUT_CONT_PRE_BEGIN\\n'\nprintf 'IDENTITY_SERIAL\\n'\ngetprop ro.serialno\nprintf 'IDENTITY_MODEL\\n'\ngetprop ro.product.model\nprintf 'IDENTITY_API\\n'\ngetprop ro.build.version.sdk\nprintf 'IDENTITY_USER\\n'\nam get-current-user\nprintf 'PACKAGE_BEGIN com.videokit.app\\n'\ndumpsys package com.videokit.app\nprintf 'PACKAGE_END com.videokit.app\\n'\nprintf 'ACTIVITY_PROCESSES_BEGIN\\n'\ndumpsys activity processes\nprintf 'ACTIVITY_PROCESSES_END\\n'\nprintf 'TABLET_CLOSEOUT_CONT_PRE_END\\n'"
+  ]
+}

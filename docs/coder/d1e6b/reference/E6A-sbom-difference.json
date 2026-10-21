@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "baseline": "D1-20261017-E6",
+  "baselineLockSha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a",
+  "currentLockSha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a",
+  "coordinates": 35,
+  "coordinateDelta": [],
+  "nativeDelta": [],
+  "nativeLibraries": 7,
+  "unchangedNativeLibraries": 7,
+  "native": [
+    {
+      "current": {
+        "path": "docs/coder/d1e6a/upstream-c14/native-libs/arm64-v8a/libavcodec.so",
+        "bytes": 1949608,
+        "sha256": "7b514a39a1c314e99fca52e05c8a909a1902ff93af89ba6f132f0cf765190765"
+      },
+      "baseline": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavcodec.so",
+        "bytes": 1949608,
+        "sha256": "7b514a39a1c314e99fca52e05c8a909a1902ff93af89ba6f132f0cf765190765"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "current": {
+        "path": "docs/coder/d1e6a/upstream-c14/native-libs/arm64-v8a/libavformat.so",
+        "bytes": 445504,
+        "sha256": "8fa2c6f5ee62ffa56265b1e128a8e01756db4e9b12631701629104674c11a8ca"
+      },
+      "baseline": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavformat.so",
+        "bytes": 445504,
+        "sha256": "8fa2c6f5ee62ffa56265b1e128a8e01756db4e9b12631701629104674c11a8ca"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "current": {
+        "path": "docs/coder/d1e6a/upstream-c14/native-libs/arm64-v8a/libavutil.so",
+        "bytes": 725296,
+        "sha256": "ad6cc7d3a1a0a57c4cc1dd3440c1b93990bfc8526537b82b66ba614114086ad2"
+      },
+      "baseline": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libavutil.so",
+        "bytes": 725296,
+        "sha256": "ad6cc7d3a1a0a57c4cc1dd3440c1b93990bfc8526537b82b66ba614114086ad2"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "current": {
+        "path": "docs/coder/d1e6a/upstream-c14/native-libs/arm64-v8a/libswscale.so",
+        "bytes": 925464,
+        "sha256": "0ca0747d81190bff0b29c287dda09bfff46249167b9745caadd8a5b2e9ee35c6"
+      },
+      "baseline": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libswscale.so",
+        "bytes": 925464,
+        "sha256": "0ca0747d81190bff0b29c287dda09bfff46249167b9745caadd8a5b2e9ee35c6"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "current": {
+        "path": "docs/coder/d1e6a/upstream-c14/native-libs/arm64-v8a/libvideokit_alloc.so",
+        "bytes": 9768,
+        "sha256": "f085b9cbcdfc758e052f3d4bfe66651278c32ffaa0f99eff6ae173416472252b"
+      },
+      "baseline": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_alloc.so",
+        "bytes": 9768,
+        "sha256": "f085b9cbcdfc758e052f3d4bfe66651278c32ffaa0f99eff6ae173416472252b"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "current": {
+        "path": "docs/coder/d1e6a/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so",
+        "bytes": 20104,
+        "sha256": "2547b07d7d4b298e8b455c5f24d0d1fbcdf7068b016527edbf5f80f31d16191a"
+      },
+      "baseline": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so",
+        "bytes": 20104,
+        "sha256": "2547b07d7d4b298e8b455c5f24d0d1fbcdf7068b016527edbf5f80f31d16191a"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    },
+    {
+      "current": {
+        "path": "docs/coder/d1e6a/upstream-c14/native-libs/arm64-v8a/libvideokit_d1_lease.so",
+        "bytes": 7232,
+        "sha256": "2ec60d4605df87ea9bdabaf5f40822c32c57fa300201f647b2b88158c7dcf4e9"
+      },
+      "baseline": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_d1_lease.so",
+        "bytes": 7232,
+        "sha256": "2ec60d4605df87ea9bdabaf5f40822c32c57fa300201f647b2b88158c7dcf4e9"
+      },
+      "relationship": "BYTE_IDENTICAL"
+    }
+  ],
+  "nativeRebuild": false,
+  "media3": "1.9.3",
+  "ffmpeg": "8.0.3",
+  "newDependencies": false,
+  "downloads": 0,
+  "notice": "upstream-c14/notice-assets/NOTICE-E6A.txt",
+  "scope": "Exact E6 native and locked Maven inheritance, original native source/header/config and E6 build evidence retained; no third-party version/config/license change or clearance"
+}

@@ -1,0 +1,99 @@
+{
+  "status": "BUILT_OFFLINE_NOT_DEVICE_AUTHORIZATION_KNOWN_OBSERVATION_GAPS",
+  "runner": "com.videokit.d1media3.android02.test.Media3Instrumentation",
+  "app": "com.videokit.d1media3.android02",
+  "test": "com.videokit.d1media3.android02.test",
+  "process": "com.videokit.d1media3.android02:media3",
+  "version": "D1-MEDIA3-ANDROID02-RECOVERY01",
+  "versionCode": 1,
+  "apks": [
+    {
+      "path": "docs/coder/d1media3-android02-recovery01/artifacts/media3-android02-recovery01-app-debug.apk",
+      "bytes": 7124541,
+      "sha256": "0998beeaa129ef3858fbe1122b80394383f96ad75196c8e4f22b4b856237f6c8"
+    },
+    {
+      "path": "docs/coder/d1media3-android02-recovery01/artifacts/media3-android02-recovery01-test-debug.apk",
+      "bytes": 466368,
+      "sha256": "f8323a1c0d82d23382baf4f776e56b26174fd5354de5e86d897cb979a467f5de"
+    }
+  ],
+  "signerCertificateSha256": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+  "scopeId": null,
+  "serial": null,
+  "freshIdleGate": null,
+  "captureToolIdentity": null,
+  "requiredArguments": {
+    "case": "scopeAll",
+    "fixtureSha256": "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+    "runId": "D1MA02-<reviewed fresh id max32>"
+  },
+  "singleOriginalWorkerScopeOrder": [
+    "preopenAdmission",
+    "rejectFixture",
+    "cancelLateRead",
+    "writerPending",
+    "inspectKnown",
+    "inspectShort3",
+    "inspectUnknown",
+    "inspectSeek1s",
+    "bbbObserve",
+    "muxQualified"
+  ],
+  "entry": "Media3Instrumentation.onStart -> one ExperimentJob.run -> scopeCases/runCase, no new per-case Job/factory budget",
+  "directIndividualCaseAdmission": "REJECTED; public policy verified",
+  "AndroidActualMethodsRun": 0,
+  "wholeScopeSdkBudgets": {
+    "nativeInputAttemptedAllCopyHashParseSeekReopenAndCases": 8388608,
+    "sdkRequestedAggregate": "UNAVAILABLE_CURRENT_REPORTING_GAP",
+    "outputAttemptsAllCasesNoRefund": 16777216,
+    "block": 65536,
+    "sample": 262144,
+    "sources": 2,
+    "perSourceInFlight": 1,
+    "queue": 0,
+    "oneWholeScopeBodyDeadlineMs": 60000,
+    "receiptUtf8PerStatus": 262144
+  },
+  "futureOperationBudget": {
+    "logicalPlatformInvocations": 6,
+    "readOnlyPreflight": [
+      "approved exact device build fingerprint once",
+      "exact new APP package presence once",
+      "exact new TEST package presence once"
+    ],
+    "install": [
+      "exact new app once without -r",
+      "exact new test once without -r"
+    ],
+    "execute": [
+      "single scopeAll instrumentation once, original stdout/stderr ownership retained"
+    ],
+    "binaryOutboundBytesExact": 7590909,
+    "binaryTransfers": 2,
+    "extraFixturePush": 0,
+    "commandTextMaxPerOperation": 4096,
+    "commandTextMaxTotal": 24576,
+    "logicalOutboundPayloadUpperBound": 7615485,
+    "preflightStdoutStderrMaxTotal": 786432,
+    "installStdoutStderrMaxTotal": 131072,
+    "instrumentationAllPendingAndFinalStdoutStderrMaxTotal": 1048576,
+    "controllerProofLogMax": 1048576,
+    "allLogicalInboundTextUpperBound": 3014656,
+    "adbTransportFramingExact": "NOT_OBSERVED_OR_INCLUDED_AS_FAKE_EXACT; future capture/tool contract must separately bind protocol overhead",
+    "noUnboundedLogcatOrShell": true
+  },
+  "admissionPrerequisites": [
+    "independent complete offline B",
+    "coordinator resolves/accepts REC-OBS01/02 explicitly; current plan not execution-ready",
+    "exact scope/device/fresh idle and capture/transport accounting gate",
+    "no old running scope reuse or force-stop"
+  ],
+  "stopRules": [
+    "one unknown/error/budget/unsupported seek stops later cases; no retry or factory refund",
+    "same original FD/worker/task kept; no interrupt/kill/second close/old deletion",
+    "partial case snapshot export gap is known, do not misinterpret missing history as not executed",
+    "no generation/decode/audio/player/READY COMMIT/isolated format"
+  ],
+  "currentDeviceOrAdbOperations": 0
+}

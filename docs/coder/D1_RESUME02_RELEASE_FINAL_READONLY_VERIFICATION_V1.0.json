@@ -1,0 +1,117 @@
+{
+  "status": "PASS_RESUME02_READONLY_PREPARATION_VERIFY",
+  "writes": 0,
+  "sdkCalls": 0,
+  "deviceCalls": 0,
+  "liveFilesRead": false,
+  "seal": {
+    "path": "docs/coder/d1resume02-release/evidence/resume02-freeze.json",
+    "bytes": 20380,
+    "sha256": "0b44299376d4e53f7499403e0122b1a6c21a5ecb14769989e8e810542f39cda9"
+  },
+  "archive": {
+    "path": "docs/coder/D1-20261020-RESUME02-RELEASE-source.zip",
+    "bytes": 5701737,
+    "sha256": "a9b5a70b9c8ef9a2365bbbe7b26e6b2b273389cc51bc7e2dbd3340184ec34828"
+  },
+  "archiveEntries": 94,
+  "immutableRows": 95,
+  "scope": {
+    "path": "docs/coder/d1resume02-release/release/runtime-scope.json",
+    "bytes": 884,
+    "sha256": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3"
+  },
+  "release": {
+    "path": "docs/coder/d1resume02-release/release/activation-release.json",
+    "bytes": 741,
+    "sha256": "f40bc6a0095b1627a176f13f5edfc6cb297bc31dc32a78ff997bcc8dd6bf3295"
+  },
+  "config": {
+    "path": "docs/coder/d1resume02-release/release/activation-trust-deploy.json",
+    "bytes": 1852,
+    "sha256": "35ee8559baed16d80a041c30f46ac5cf4abfc2806beb11090539835833bd229d"
+  },
+  "base": {
+    "path": "docs/coder/d1resume02-release/release/base-release-descriptor.json",
+    "bytes": 4518,
+    "sha256": "134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c"
+  },
+  "policy": {
+    "path": "docs/coder/d1resume02-release/release/capture-policy.json",
+    "bytes": 5149,
+    "sha256": "f3e03619f6a95ec9a9e531fde4c85978e1df0d2057b7c4dc004e64be0db7ef5a"
+  },
+  "productionSourcesUnchanged": 74,
+  "productionClassesUnchanged": 183,
+  "hostBuilds": 0,
+  "androidBuilds": 0,
+  "deviceExecutionAuthorization": null,
+  "devicePermitIssued": false,
+  "blockedRealEntryInvocations": 7,
+  "T07": "NOT_RUN",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "readOnlyModesVerified": [
+    "help",
+    "pack-help",
+    "default-verify",
+    "external-seal-verify"
+  ],
+  "trackedCandidateContentsBeforeEqualsAfter": true,
+  "commands": [
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume02-release\\tools\\package_delivery.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nRESUME02 preparation verifier. Verify/help are read-only; explicit pack never\nsigns or executes.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume02-release\\tools\\package_delivery.py",
+        "pack",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\n\nRESUME02 preparation verifier. Verify/help are read-only; explicit pack never\nsigns or executes.\n\npositional arguments:\n  {verify,pack}\n\noptions:\n  -h, --help           show this help message and exit\n  --seal-sha SEAL_SHA\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume02-release\\tools\\package_delivery.py"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_RESUME02_READONLY_PREPARATION_VERIFY\", \"writes\": 0, \"sdkCalls\": 0, \"deviceCalls\": 0, \"liveFilesRead\": false, \"seal\": {\"path\": \"docs/coder/d1resume02-release/evidence/resume02-freeze.json\", \"bytes\": 20380, \"sha256\": \"0b44299376d4e53f7499403e0122b1a6c21a5ecb14769989e8e810542f39cda9\"}, \"archive\": {\"path\": \"docs/coder/D1-20261020-RESUME02-RELEASE-source.zip\", \"bytes\": 5701737, \"sha256\": \"a9b5a70b9c8ef9a2365bbbe7b26e6b2b273389cc51bc7e2dbd3340184ec34828\"}, \"archiveEntries\": 94, \"immutableRows\": 95, \"scope\": {\"path\": \"docs/coder/d1resume02-release/release/runtime-scope.json\", \"bytes\": 884, \"sha256\": \"662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3\"}, \"release\": {\"path\": \"docs/coder/d1resume02-release/release/activation-release.json\", \"bytes\": 741, \"sha256\": \"f40bc6a0095b1627a176f13f5edfc6cb297bc31dc32a78ff997bcc8dd6bf3295\"}, \"config\": {\"path\": \"docs/coder/d1resume02-release/release/activation-trust-deploy.json\", \"bytes\": 1852, \"sha256\": \"35ee8559baed16d80a041c30f46ac5cf4abfc2806beb11090539835833bd229d\"}, \"base\": {\"path\": \"docs/coder/d1resume02-release/release/base-release-descriptor.json\", \"bytes\": 4518, \"sha256\": \"134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c\"}, \"policy\": {\"path\": \"docs/coder/d1resume02-release/release/capture-policy.json\", \"bytes\": 5149, \"sha256\": \"f3e03619f6a95ec9a9e531fde4c85978e1df0d2057b7c4dc004e64be0db7ef5a\"}, \"productionSourcesUnchanged\": 74, \"productionClassesUnchanged\": 183, \"hostBuilds\": 0, \"androidBuilds\": 0, \"deviceExecutionAuthorization\": null, \"devicePermitIssued\": false, \"blockedRealEntryInvocations\": 7, \"T07\": \"NOT_RUN\", \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "docs\\coder\\d1resume02-release\\tools\\package_delivery.py",
+        "verify",
+        "--seal-sha",
+        "0b44299376d4e53f7499403e0122b1a6c21a5ecb14769989e8e810542f39cda9"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"PASS_RESUME02_READONLY_PREPARATION_VERIFY\", \"writes\": 0, \"sdkCalls\": 0, \"deviceCalls\": 0, \"liveFilesRead\": false, \"seal\": {\"path\": \"docs/coder/d1resume02-release/evidence/resume02-freeze.json\", \"bytes\": 20380, \"sha256\": \"0b44299376d4e53f7499403e0122b1a6c21a5ecb14769989e8e810542f39cda9\"}, \"archive\": {\"path\": \"docs/coder/D1-20261020-RESUME02-RELEASE-source.zip\", \"bytes\": 5701737, \"sha256\": \"a9b5a70b9c8ef9a2365bbbe7b26e6b2b273389cc51bc7e2dbd3340184ec34828\"}, \"archiveEntries\": 94, \"immutableRows\": 95, \"scope\": {\"path\": \"docs/coder/d1resume02-release/release/runtime-scope.json\", \"bytes\": 884, \"sha256\": \"662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3\"}, \"release\": {\"path\": \"docs/coder/d1resume02-release/release/activation-release.json\", \"bytes\": 741, \"sha256\": \"f40bc6a0095b1627a176f13f5edfc6cb297bc31dc32a78ff997bcc8dd6bf3295\"}, \"config\": {\"path\": \"docs/coder/d1resume02-release/release/activation-trust-deploy.json\", \"bytes\": 1852, \"sha256\": \"35ee8559baed16d80a041c30f46ac5cf4abfc2806beb11090539835833bd229d\"}, \"base\": {\"path\": \"docs/coder/d1resume02-release/release/base-release-descriptor.json\", \"bytes\": 4518, \"sha256\": \"134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c\"}, \"policy\": {\"path\": \"docs/coder/d1resume02-release/release/capture-policy.json\", \"bytes\": 5149, \"sha256\": \"f3e03619f6a95ec9a9e531fde4c85978e1df0d2057b7c4dc004e64be0db7ef5a\"}, \"productionSourcesUnchanged\": 74, \"productionClassesUnchanged\": 183, \"hostBuilds\": 0, \"androidBuilds\": 0, \"deviceExecutionAuthorization\": null, \"devicePermitIssued\": false, \"blockedRealEntryInvocations\": 7, \"T07\": \"NOT_RUN\", \"D1\": \"NOT_PASSED\", \"M0\": \"NOT_STARTED\"}\n",
+      "stderr": ""
+    }
+  ]
+}

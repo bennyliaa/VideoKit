@@ -1,0 +1,11 @@
+--- frozen-android02/src/com/videokit/d1android/ExperimentContract.java
++++ recovery01/src/com/videokit/d1android/ExperimentContract.java
+@@ -3,7 +3,7 @@
+ /** Exact benign experiment inputs; no external path/URL, encoder selection or execution permit. */
+ public final class ExperimentContract {
+  public static final String APP="com.videokit.d1media3.android02",TEST=APP+".test",PROCESS=APP+":media3";
+- public static final String RUNNER=TEST+".Media3Instrumentation",VERSION="D1-MEDIA3-ANDROID02-RECOVERY01";
++ public static final String RUNNER=TEST+".Media3Instrumentation",VERSION="D1-MEDIA3-ANDROID02-FIX02";
+  public static final String SAMPLE_SHA="720957c94b3665ff97bcc2f59ad5407c5ca54f566b59865723be9eecc0a6a1f9";
+  public static final int SAMPLE_BYTES=349102,RECEIPT_UTF8_MAX=262144;
+  public static final long METHOD_DEADLINE_MS=60000;

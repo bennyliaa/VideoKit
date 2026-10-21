@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "candidate": "D1-20261017-E5B",
+  "state": "NOT_EXECUTED_OS_PRIVILEGE_REQUIRED",
+  "custodianWindow": "VideoKit项目助理",
+  "scope": "E5B authorized local owned-file testing only; not administrator privilege, system changes or device permission",
+  "executionId": "4a38729d-0275-4172-b853-1aa582dd2a4f",
+  "freezeSha256": "3c55e0c83517e8937799b72d327dcab98b9d23965dc41813a5d18756640aceee",
+  "script": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5b\\tools\\invoke_true_symlink_once.ps1",
+  "command": "& 'D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e5b\\tools\\invoke_true_symlink_once.ps1' -Run -ExecutionId '4a38729d-0275-4172-b853-1aa582dd2a4f' -ExpectedFreezeSha256 '3c55e0c83517e8937799b72d327dcab98b9d23965dc41813a5d18756640aceee'",
+  "oneTimeGate": "exact execution directory CREATE_NEW; existing ID refuses reuse",
+  "output": "D:\\CodexProjects\\VideoKit\\docs\\coder\\E5B_SYMBOLICLINK_ONCE\\4a38729d-0275-4172-b853-1aa582dd2a4f",
+  "requires": "responsible explicit dispatch in an existing OS context capable of true file symbolic links",
+  "trueFileSymlink": "NOT_RUN",
+  "deviceCalls": 0,
+  "realMediaReads": 0,
+  "systemSettingChanges": 0,
+  "automaticActivation": false
+}

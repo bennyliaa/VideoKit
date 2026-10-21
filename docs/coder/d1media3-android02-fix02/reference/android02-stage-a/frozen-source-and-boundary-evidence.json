@@ -1,0 +1,1132 @@
+{
+  "sourcePins": [
+    {
+      "path": "docs/coder/d1media3-android01/src/com/videokit/d1input/HostMp4Inspection.java",
+      "bytes": 12360,
+      "sha256": "97fdb206512d0ee68aebcc7ba7f5f5c8d2c782339bb0e12e440ac63ff5ad9459",
+      "sourceLines": [
+        {
+          "line": 79,
+          "text": "    if(output.seek==null||!output.seek.isSeekable()||output.seek.getDurationUs()<0||seekUs>output.seek.getDurationUs())throw new IOException(\"MP4_SEEK_UNSUPPORTED\");"
+        },
+        {
+          "line": 80,
+          "text": "    SeekPoint point=output.seek.getSeekPoints(seekUs).first;scan.position(point.position,\"SEEK_MAP\",seekUs,point.timeUs);output.replay=true;extractor.seek(point.position,point.timeUs);scan.drain();replay=output.replaySamples;"
+        },
+        {
+          "line": 81,
+          "text": "   }"
+        },
+        {
+          "line": 82,
+          "text": "   return result=new Evidence(hex(hash.digest()),bytes,reader,output,scan,raw);"
+        },
+        {
+          "line": 83,
+          "text": "  }catch(IOException e){throw e;}catch(Throwable t){throw Failures.io(t,\"MP4_PLATFORM_OR_STRUCTURE_UNAVAILABLE\");}"
+        },
+        {
+          "line": 108,
+          "text": "  Port(Output o,int id,int type){owner=o;this.id=id;this.type=type;}"
+        },
+        {
+          "line": 109,
+          "text": "  public void durationUs(long value){reportedDurationUs=value;}"
+        },
+        {
+          "line": 110,
+          "text": "  public void format(Format f){if(format!=null&&!format.equals(f))throw bad(\"MP4_FORMAT_CHANGED\");if(!\"video/avc\".equals(f.sampleMimeType)&&!\"audio/mp4a-latm\".equals(f.sampleMimeType))throw bad(\"MP4_TRACK_UNSUPPORTED\");if(owner.capture&&(!\"video/avc\".equals(f.sampleMimeType)||f.width!=256||f.height!=144||f.rotationDegrees!=0))throw bad(\"MP4_CAPTURE_FORMAT\");format=f;}"
+        },
+        {
+          "line": 111,
+          "text": "  private void budget(int len,int part){if(part!=SAMPLE_DATA_PART_MAIN||len<0||len>262144-pending.size())throw bad(\"MP4_SAMPLE_BUDGET\");}"
+        },
+        {
+          "line": 112,
+          "text": "  public int sampleData(DataReader r,int length,boolean allowEnd,int part)throws IOException{budget(length,part);int n=r.read(scratch,0,Math.min(length,scratch.length));if(n<0){if(!allowEnd)throw new EOFException();return -1;}if(n==0)throw new IOException(\"MP4_ZERO_SAMPLE_READ\");pending.write(scratch,0,n);return n;}"
+        },
+        {
+          "line": 113,
+          "text": "  public void sampleData(ParsableByteArray b,int length,int part){budget(length,part);int left=length;while(left>0){int n=Math.min(left,scratch.length);b.readBytes(scratch,0,n);pending.write(scratch,0,n);left-=n;}}"
+        },
+        {
+          "line": 114,
+          "text": "  public void sampleMetadata(long time,int flags,int size,int offset,CryptoData crypto){"
+        },
+        {
+          "line": 115,
+          "text": "   if(crypto!=null||offset!=0||size<1||size!=pending.size()||time<0)throw bad(\"MP4_SAMPLE_BOUNDARY\");"
+        },
+        {
+          "line": 116,
+          "text": "   if(owner.replay){if(++owner.replaySamples>1024)throw bad(\"MP4_REPLAY_BUDGET\");owner.replayTrace.add(new ReplayObservation(id,new Sample(time,flags,pending.toByteArray(),false)));pending.reset();return;}"
+        },
+        {
+          "line": 117,
+          "text": "   if(samples.size()>=512||owner.capture&&(samples.size()>=6||time>2000000||last>=0&&time<=last))throw bad(\"MP4_SAMPLE_BUDGET\");"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/src/com/videokit/d1input/MatureContainerRemux.java",
+      "bytes": 3384,
+      "sha256": "320938eaec79ee28c5a1b21a40d40f8b4630a8c5cd8d7c4aa2e786dbfe9f91bc",
+      "sourceLines": [
+        {
+          "line": 4,
+          "text": "public final class MatureContainerRemux {"
+        },
+        {
+          "line": 5,
+          "text": " public static HostMp4Inspection.Evidence writeAndInspect(HostMp4Inspection.Evidence input,TemporaryOutput output)throws Exception {"
+        },
+        {
+          "line": 6,
+          "text": "  if(input==null||!HostMp4Inspection.KIND.equals(input.kind)||!input.fullReadEof||!input.extractorEof||input.tracks.size()!=1)throw new IOException(\"MP4_REMUX_INPUT_UNPROVEN\");"
+        },
+        {
+          "line": 7,
+          "text": "  HostMp4Inspection.Track track=input.tracks.get(0);"
+        },
+        {
+          "line": 8,
+          "text": "  if(!\"video/avc\".equals(track.format.sampleMimeType)||track.format.width!=256||track.format.height!=144||track.format.rotationDegrees!=0||track.format.drmInitData!=null||track.samples.size()!=6||track.format.initializationData.isEmpty()||(track.samples.get(0).flags&C.BUFFER_FLAG_KEY_FRAME)==0)throw new IOException(\"MP4_CAPTURE_FORMAT\");"
+        },
+        {
+          "line": 13,
+          "text": "  for(HostMp4Inspection.Sample sample:track.samples)binding.sample(token,ByteBuffer.wrap(sample.encodedCopy()),new BufferInfo(sample.timeUs,sample.size,sample.flags));"
+        },
+        {
+          "line": 14,
+          "text": "  binding.finishWriter();HostMp4Inspection.Evidence reopened=output.inspectHostMp4Structure(HostMp4Inspection.Container.FRAGMENTED_MP4);"
+        },
+        {
+          "line": 15,
+          "text": "  if(reopened.tracks.size()!=1){output.rejectHostStructure();throw new IOException(\"MP4_REOPEN_TRACK_MISMATCH\");}HostMp4Inspection.Track actual=reopened.tracks.get(0);"
+        },
+        {
+          "line": 16,
+          "text": "  if(!\"video/avc\".equals(actual.format.sampleMimeType)||actual.format.width!=256||actual.format.height!=144||actual.format.rotationDegrees!=0||actual.samples.size()!=6){output.rejectHostStructure();throw new IOException(\"MP4_REOPEN_TRACK_MISMATCH\");}"
+        },
+        {
+          "line": 17,
+          "text": "  // Conservative oracle: the same library's Annex-B sample output and exact CSD"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/src/com/videokit/d1input/MatureMuxerBinding.java",
+      "bytes": 1663,
+      "sha256": "c82377ae13e0b6fd136b799a468ad260ac3cf1b4111dda50dd7dd5ede4c885ee",
+      "sourceLines": [
+        {
+          "line": 8,
+          "text": " public int addTrack(Format f)throws Exception{if(track>=0||!\"video/avc\".equals(f.sampleMimeType)||f.width!=256||f.height!=144||f.rotationDegrees!=0)throw new java.io.IOException(\"E4_MUX_TRACK_INVALID\");track=original.addTrack(f);return track;}"
+        },
+        {
+          "line": 9,
+          "text": " public void sample(int token,ByteBuffer data,BufferInfo info)throws Exception{if(closeEntered||track<0||token!=track||samples>=6||info.size<1||info.size>262144||data.remaining()<info.size||info.presentationTimeUs<0||info.presentationTimeUs>2000000||last>=0&&info.presentationTimeUs<=last)throw new java.io.IOException(\"E4_MUX_SAMPLE_BUDGET\");original.writeSampleData(token,data,info);samples++;last=info.presentationTimeUs;}"
+        },
+        {
+          "line": 10,
+          "text": " /** Original six-sample EOS/finalize helper; never build an unbounded new codec/container path. */"
+        },
+        {
+          "line": 11,
+          "text": " public void finishWriter()throws Exception{if(closeEntered)throw new java.io.IOException(\"MUXER_ORIGINAL_CLOSE_UNPROVEN\");closeEntered=true;com.videokit.spike.c14.E6Muxer.finish(original,track,samples,last);sink.channel().close();sink.finishWriter();}"
+        },
+        {
+          "line": 12,
+          "text": "}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/src/com/videokit/d1input/TemporaryOutput.java",
+      "bytes": 34382,
+      "sha256": "10881d43719348c5b0c9205a7bf42647cf65a135b41c686c8537cdeaf2f120a4",
+      "sourceLines": [
+        {
+          "line": 128,
+          "text": " public void cancel(){cancelled.set(true);coordinator.cancel();HostInputFactory f=reopenedInput;if(hostInspectionActive&&f!=null)f.close();}"
+        },
+        {
+          "line": 129,
+          "text": " public void finishWriter()throws IOException {enter();try{"
+        },
+        {
+          "line": 130,
+          "text": "  if(!producerClosed)throw new IOException(\"OUTPUT_PRODUCER_NOT_CLOSED\");if(cancelled.get()||firstFailure!=null)throw new IOException(\"OUTPUT_NOT_VALIDATABLE\");"
+        },
+        {
+          "line": 131,
+          "text": "  if(!flushAttempted)call(\"FLUSH\",host::flush);if(!flushed)throw new IOException(\"OUTPUT_ORIGINAL_PENDING\");if(!closeAttempted)call(\"CLOSE\",host::closeWriter);"
+        },
+        {
+          "line": 132,
+          "text": "  requirePrevious();if(!writerReturned()||!closeSucceeded)throw new IOException(\"OUTPUT_ORIGINAL_PENDING\");if(!random&&expectedSequentialSha==null)expectedSequentialSha=hex(sequentialDigest.digest());"
+        },
+        {
+          "line": 137,
+          "text": "  * exact one REOPEN result. True call failures/timeouts remain sticky in call(). */"
+        },
+        {
+          "line": 138,
+          "text": " private AsyncReadBridge.Provider inspectionReadProvider()throws IOException {"
+        },
+        {
+          "line": 139,
+          "text": "  requirePrevious();"
+        },
+        {
+          "line": 140,
+          "text": "  if(!reopenAttempted)call(\"REOPEN\",host::reopenReadOnly);"
+        },
+        {
+          "line": 141,
+          "text": "  requirePrevious();"
+        },
+        {
+          "line": 145,
+          "text": " }"
+        },
+        {
+          "line": 146,
+          "text": " private void hostInspectionAdmission()throws IOException {"
+        },
+        {
+          "line": 147,
+          "text": "  if(firstFailure!=null||cancelled.get()||aborted||released||!producerClosed||!flushed||!closeSucceeded)throw new IOException(\"OUTPUT_NOT_VALIDATABLE\");"
+        },
+        {
+          "line": 148,
+          "text": "  requirePrevious();if(!writerReturned()||!scopedObserversReturned()||!coordinator.originalResponsesCompleted())throw new IOException(\"OUTPUT_ORIGINAL_PENDING\");"
+        },
+        {
+          "line": 149,
+          "text": " }"
+        },
+        {
+          "line": 153,
+          "text": "  HostMp4Inspection.requireAdmission(container,true,-1);"
+        },
+        {
+          "line": 154,
+          "text": "  hostInspectionAdmission();"
+        },
+        {
+          "line": 155,
+          "text": "  if(hostInspectionAttempted){if(hostStructure==null||hostInspectionContainer!=container)throw new IOException(\"OUTPUT_NOT_VALIDATABLE\");return hostStructure;}"
+        },
+        {
+          "line": 156,
+          "text": "  AsyncReadBridge.Provider provider=inspectionReadProvider();hostInspectionAdmission();"
+        },
+        {
+          "line": 157,
+          "text": "  // Source quota denial is still pre-inspection admission, with no source opened."
+        },
+        {
+          "line": 158,
+          "text": "  HostInputFactory f=new HostInputFactory(reopenUid,reopenPid,\"host_mp4_structure_v1\",provider,worker);"
+        },
+        {
+          "line": 159,
+          "text": "  reopenedInput=f;reopenedInputClosed=false;hostInspectionContainer=container;hostInspectionAttempted=true;hostInspectionActive=true;"
+        },
+        {
+          "line": 160,
+          "text": "  try{"
+        },
+        {
+          "line": 161,
+          "text": "   if(cancelled.get()){f.close();throw new IOException(\"CANCELLED\");}"
+        },
+        {
+          "line": 162,
+          "text": "   HostMp4Inspection.Evidence fact=HostMp4Inspection.inspect(f,container,true,-1,false);"
+        },
+        {
+          "line": 173,
+          "text": "  if(validatorOriginal!=null&&validatorOriginal!=validator)throw new IOException(\"OUTPUT_VALIDATOR_IDENTITY\");"
+        },
+        {
+          "line": 174,
+          "text": "  inspectionReadProvider();"
+        },
+        {
+          "line": 175,
+          "text": "  if(!hashComplete){HostInputFactory f=new HostInputFactory(reopenUid,reopenPid,\"output_reopen_v1\",reopenedProvider,worker);reopenedInput=f;reopenedInputClosed=false;HostDataSource ds=f.createDataSource();long bytes=0;String hash;"
+        },
+        {
+          "line": 176,
+          "text": "   try{MessageDigest d=digest();long length=ds.open(new DataSpec(f.uri()));if(length>=0&&length!=extent)throw new IOException(\"OUTPUT_VALIDATION_FAILED\");byte[] block=new byte[65536];int n;while((n=ds.read(block,0,block.length))!=-1){bytes+=n;if(bytes>MAX_OUTPUT)throw new IOException(\"OUTPUT_VALIDATION_FAILED\");d.update(block,0,n);}hash=hex(d.digest());if(bytes<1||bytes!=extent||!random&&!hash.equals(expectedSequentialSha))throw new IOException(\"OUTPUT_VALIDATION_FAILED\");}"
+        },
+        {
+          "line": 177,
+          "text": "   catch(Throwable t){IOException e=Failures.io(t,\"OUTPUT_REOPEN_FAILED\");fail(e.getMessage());throw e;}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/src/com/videokit/d1input/HostInputFactory.java",
+      "bytes": 5533,
+      "sha256": "54e189ea092bc7cb7d9127fbbab7a9ccdc3f25091b28b145b644e8750f5e973e",
+      "sourceLines": []
+    },
+    {
+      "path": "docs/coder/d1media3-android01/src/com/videokit/d1input/HostDataSource.java",
+      "bytes": 4973,
+      "sha256": "9dc6257eb56d2e9715b9edfd289c16f56566ebf6464b4e6df934937f28d85ad0",
+      "sourceLines": [
+        {
+          "line": 27,
+          "text": "  byte[] scratch=new byte[count];"
+        },
+        {
+          "line": 28,
+          "text": "  try{int n=r.consumer.read(r.group.identity,scratch,0,count);synchronized(this){if(ticket!=serial||!started||cancelled.get())throw new IOException(\"CANCELLED\");if(n<0){eof=true;return -1;}if(remaining>=0&&n>remaining)throw new IOException(\"INVALID_READ_RESULT\");System.arraycopy(scratch,0,target,offset,n);position=Math.addExact(position,n);if(remaining>=0)remaining-=n;bytesTransferred(n);return n;}}"
+        },
+        {
+          "line": 29,
+          "text": "  catch(Throwable failure){throw Failures.io(failure,\"SOURCE_IO_FAILED\");}finally{synchronized(this){if(serial==ticket)reading=false;}}"
+        },
+        {
+          "line": 30,
+          "text": " }"
+        },
+        {
+          "line": 31,
+          "text": " public Uri getUri(){return uri;}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/src/com/videokit/d1android/ExperimentContract.java",
+      "bytes": 3039,
+      "sha256": "58a9bd4600051b6b6d272f8fe3a5fd9b3476074d69ac6d17d20d2fd660707f22",
+      "sourceLines": [
+        {
+          "line": 10,
+          "text": " public enum Method {"
+        },
+        {
+          "line": 11,
+          "text": "  inspectKnown(65536,false,-1),inspectShort3(3,false,-1),inspectUnknown(65536,true,-1),inspectSeek1s(65536,false,1000000),preopenAdmission(65536,false,-1),muxQualified(65536,false,-1);"
+        },
+        {
+          "line": 12,
+          "text": "  public final int chunk;public final boolean unknown;public final long seekUs;"
+        },
+        {
+          "line": 13,
+          "text": "  Method(int c,boolean u,long s){chunk=c;unknown=u;seekUs=s;}"
+        },
+        {
+          "line": 14,
+          "text": " }"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/src/com/videokit/d1android/VerifiedFixtureCopy.java",
+      "bytes": 2006,
+      "sha256": "a60457c1d7175d0c8047cecb10ea0a55c7201024f6326447b08dad4cc4675fcd",
+      "sourceLines": [
+        {
+          "line": 7,
+          "text": " public static final class Receipt {public final long bytes;public final String sha256;public final boolean fullEof;private Receipt(long n,String h){bytes=n;sha256=h;fullEof=true;}}"
+        },
+        {
+          "line": 8,
+          "text": " public static Receipt copy(InputStream input,OutputStream output,long expectedBytes,String expectedSha,Stop stop)throws IOException {"
+        },
+        {
+          "line": 9,
+          "text": "  if(expectedBytes<1||expectedBytes>8388608||expectedSha==null||!expectedSha.matches(\"[0-9a-f]{64}\"))throw new IOException(\"FIXTURE_SCOPE_REJECTED\");"
+        },
+        {
+          "line": 10,
+          "text": "  MessageDigest digest=digest();byte[] block=new byte[65536];long count=0;"
+        },
+        {
+          "line": 11,
+          "text": "  while(count<expectedBytes){if(stop.stopped())throw new IOException(\"EXPERIMENT_ADMISSION_STOPPED\");int n=input.read(block,0,(int)Math.min(block.length,expectedBytes-count));if(n<0)throw new IOException(\"FIXTURE_TRUNCATED\");if(n==0)throw new IOException(\"FIXTURE_ZERO_READ\");if(n>expectedBytes-count||n>block.length)throw new IOException(\"FIXTURE_INVALID_READ\");output.write(block,0,n);digest.update(block,0,n);count+=n;}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/instrumentation/com/videokit/d1media3/android01/test/ExperimentJob.java",
+      "bytes": 17789,
+      "sha256": "06a2dafdd2bcc9ed4cb4dec3ac39153806a6104eb6be6ce20f0ad94b08b6fef4",
+      "sourceLines": [
+        {
+          "line": 13,
+          "text": " File root,sourceFile,outputFile;boolean ownRoot,readOnlyCopy,copySynced;VerifiedFixtureCopy.Receipt copyReceipt;"
+        },
+        {
+          "line": 14,
+          "text": " volatile HostMp4Inspection.Evidence observation,reopened;volatile long inputReserved,inputActual;volatile int peakSources;volatile String normalizedFingerprint;"
+        },
+        {
+          "line": 15,
+          "text": " ExperimentJob(Instrumentation r,ExperimentContract.Method m,String runId,JSONObject identity){runner=r;method=m;this.runId=runId;this.identity=identity;}"
+        },
+        {
+          "line": 16,
+          "text": " synchronized void fail(String reason){if(firstFailure==null)firstFailure=reason;stopped=true;status=\"FAILED\";}"
+        },
+        {
+          "line": 17,
+          "text": " void requireAdmission()throws IOException{AndroidInput.WORKER.requireWorker();if(stopped)throw new IOException(\"EXPERIMENT_ADMISSION_STOPPED\");E13FinishOwner.requireAdmission();}"
+        },
+        {
+          "line": 18,
+          "text": " synchronized void reserveInput(int bytes)throws IOException{if(stopped)throw new IOException(\"EXPERIMENT_ADMISSION_STOPPED\");if(bytes<1||bytes>65536||bytes>8388608-inputReserved)throw new IOException(\"INPUT_CUMULATIVE_BUDGET\");inputReserved+=bytes;}"
+        },
+        {
+          "line": 19,
+          "text": " synchronized void inputReturned(int requested,int returned)throws IOException{if(returned< -1||returned>requested)throw new IOException(\"INVALID_READ_RESULT\");if(returned>0)inputActual+=returned;}"
+        },
+        {
+          "line": 20,
+          "text": " synchronized void observeSources(){peakSources=Math.max(peakSources,HostInputFactory.admittedSources());}"
+        },
+        {
+          "line": 21,
+          "text": " void deadline(){deadlineUnknown=true;stopped=true;synchronized(this){if(firstFailure==null)firstFailure=\"METHOD_DEADLINE_UNKNOWN\";}status=\"UNKNOWN_ORIGINAL_RETURN_PENDING\";}"
+        },
+        {
+          "line": 24,
+          "text": "  requireAdmission();status=\"RUNNING\";"
+        },
+        {
+          "line": 25,
+          "text": "  if(method==ExperimentContract.Method.muxQualified&&ExperimentContract.qualifiedFixture()==null){stage=\"QUALIFIED_FIXTURE_GATE\";status=\"FIXTURE_BLOCKED\";return;}"
+        },
+        {
+          "line": 26,
+          "text": "  if(method==ExperimentContract.Method.preopenAdmission){preopen();status=\"PREOPEN_GUARDS_OBSERVED\";return;}"
+        },
+        {
+          "line": 27,
+          "text": "  if(method==ExperimentContract.Method.muxQualified){runQualified(ExperimentContract.qualifiedFixture());return;}"
+        },
+        {
+          "line": 28,
+          "text": "  prepareAsset(\"sample.mp4\",ExperimentContract.SAMPLE_BYTES,ExperimentContract.SAMPLE_SHA);"
+        },
+        {
+          "line": 29,
+          "text": "  stage=\"REAL_MP4_INSPECTION\";observation=inspect(sourceFile,method.unknown,method.chunk,method.seekUs,false,\"approved_720957c94b3665ff\");"
+        },
+        {
+          "line": 30,
+          "text": "  requireAdmission();checkSource(observation);normalizedFingerprint=VerifiedFixtureCopy.hash(normalized(observation).toString().getBytes(StandardCharsets.UTF_8));"
+        },
+        {
+          "line": 33,
+          "text": " }catch(Throwable e){fail(safe(e));if(\"MP4_SEEK_UNSUPPORTED\".equals(e.getMessage()))status=\"UNSUPPORTED_REAL_SEEK_MAP\";}"
+        },
+        {
+          "line": 34,
+          "text": " finally{try{cleanup();}catch(Throwable t){fail(\"ORIGINAL_CLEANUP_UNKNOWN\");}finally{workerBodyReturned=true;E13ReturnEvents.returned();}}}"
+        },
+        {
+          "line": 35,
+          "text": " private void newRoot()throws Exception{"
+        },
+        {
+          "line": 36,
+          "text": "  requireAdmission();File cache=runner.getTargetContext().getCacheDir().getCanonicalFile();root=new File(cache,\"d1media3-android01-run\").getCanonicalFile();if(!root.getParentFile().equals(cache)||root.exists()||!root.mkdir())throw new IOException(\"FRESH_PRIVATE_ROOT_REQUIRED\");ownRoot=true;sourceFile=new File(root,\"source.mp4\");outputFile=new File(root,\"mux-output.mp4\");"
+        },
+        {
+          "line": 37,
+          "text": " }"
+        },
+        {
+          "line": 38,
+          "text": " private void closeOnce(E4Owned<?> owner){if(owner.state()==E4Owned.State.OPEN||owner.state()==E4Owned.State.READY)try{owner.close();}catch(Throwable e){fail(\"ORIGINAL_ASSET_CLOSE_UNKNOWN\");}}"
+        },
+        {
+          "line": 39,
+          "text": " private void prepareAsset(String asset,int bytes,String sha)throws Exception{"
+        },
+        {
+          "line": 40,
+          "text": "  stage=\"PRIVATE_APPROVED_ASSET_COPY\";newRoot();E4Owned<InputStream> input=new E4Owned<>(asset,InputStream::close);E4Owned<FileOutputStream> dest=new E4Owned<>(sourceFile,FileOutputStream::close);assetOwners.add(input);assetOwners.add(dest);"
+        },
+        {
+          "line": 41,
+          "text": "  try{input.allocate(()->runner.getContext().getAssets().open(asset));requireAdmission();dest.allocate(()->new FileOutputStream(sourceFile,false));requireAdmission();"
+        },
+        {
+          "line": 42,
+          "text": "   InputStream counted=new FilterInputStream(input.original()){"
+        },
+        {
+          "line": 43,
+          "text": "    public int read(byte[] b,int off,int n)throws IOException{requireAdmission();reserveInput(n);int got=in.read(b,off,n);inputReturned(n,got);return got;}"
+        },
+        {
+          "line": 44,
+          "text": "    public int read()throws IOException{requireAdmission();reserveInput(1);int got=in.read();inputReturned(1,got<0?-1:1);return got;}"
+        },
+        {
+          "line": 45,
+          "text": "   };"
+        },
+        {
+          "line": 46,
+          "text": "   copyReceipt=VerifiedFixtureCopy.copy(counted,dest.original(),bytes,sha,()->stopped);dest.original().flush();dest.original().getFD().sync();copySynced=true;"
+        },
+        {
+          "line": 47,
+          "text": "  }finally{closeOnce(dest);closeOnce(input);}"
+        },
+        {
+          "line": 48,
+          "text": "  requireAdmission();if(!input.returned()||!dest.returned()||copyReceipt==null||!sourceFile.setReadOnly())throw new IOException(\"PRIVATE_COPY_ORIGINAL_RETURN_UNPROVEN\");readOnlyCopy=true;"
+        },
+        {
+          "line": 49,
+          "text": " }"
+        },
+        {
+          "line": 63,
+          "text": " }"
+        },
+        {
+          "line": 64,
+          "text": " private void runQualified(ExperimentContract.QualifiedFixture q)throws Exception{"
+        },
+        {
+          "line": 65,
+          "text": "  if(q==null)throw new IOException(\"FIXTURE_BLOCKED\");prepareAsset(q.asset,q.bytes,q.sha256);stage=\"QUALIFIED_AVC_CAPTURE\";observation=inspect(sourceFile,false,65536,-1,true,\"qualified6_\"+q.sha256.substring(0,16));"
+        },
+        {
+          "line": 66,
+          "text": "  if(observation.tracks.size()!=1||observation.bytes!=q.bytes||!observation.sha256.equals(q.sha256))throw new IOException(\"QUALIFIED_CAPTURE_MISMATCH\");HostMp4Inspection.Track t=observation.tracks.get(0);if(t.format.width!=256||t.format.height!=144||t.format.rotationDegrees!=0||t.format.drmInitData!=null||t.samples.size()!=6||t.format.initializationData.size()!=q.csdHashes.size())throw new IOException(\"QUALIFIED_CAPTURE_FORMAT\");"
+        },
+        {
+          "line": 67,
+          "text": "  for(int i=0;i<q.csdHashes.size();i++)if(!VerifiedFixtureCopy.hash(t.format.initializationData.get(i)).equals(q.csdHashes.get(i)))throw new IOException(\"QUALIFIED_CSD_MISMATCH\");"
+        },
+        {
+          "line": 69,
+          "text": "  requireAdmission();stage=\"REAL_MUX_TO_TEMPORARY_OUTPUT\";OwnedFiles.OutputCapability host=new OwnedFiles.OutputCapability(this,outputFile);providers.add(host.readback);requireAdmission();output=new TemporaryOutput(host,false,AndroidInput.WORKER,5000,android.os.Process.myUid(),android.os.Process.myPid());requireAdmission();"
+        },
+        {
+          "line": 70,
+          "text": "  reopened=MatureContainerRemux.writeAndInspect(observation,output);if(output.validationAcknowledged()||output.readyAcknowledged()||output.committed()||host.readyCalls!=0)throw new IOException(\"HOST_STRUCTURE_ESCALATION_FORBIDDEN\");"
+        },
+        {
+          "line": 71,
+          "text": "  boolean actualDuration=reopened.durationUs==1200000||reopened.tracks.stream().anyMatch(track->track.reportedDurationUs==1200000);if(!actualDuration)throw new IOException(\"ACTUAL_EOS_DURATION_NOT_PROVEN\");status=\"OBSERVED_HOST_MUX_STRUCTURE_ONLY\";"
+        },
+        {
+          "line": 72,
+          "text": " }"
+        },
+        {
+          "line": 73,
+          "text": " private void cleanup(){"
+        },
+        {
+          "line": 87,
+          "text": " }"
+        },
+        {
+          "line": 88,
+          "text": " void awaitOriginalReturns()throws Exception{Thread worker=originalWorker;if(worker!=null&&worker!=Thread.currentThread())worker.join();E13SourceGroup.awaitOriginalReturns();}"
+        },
+        {
+          "line": 89,
+          "text": " boolean canFinish(){return workerBodyReturned&&originalWorker!=null&&!originalWorker.isAlive()&&resourcesReturned();}"
+        },
+        {
+          "line": 90,
+          "text": " private static JSONObject sample(HostMp4Inspection.Sample s)throws JSONException{return new JSONObject().put(\"ptsUs\",s.timeUs).put(\"flags\",s.flags).put(\"keyframe\",(s.flags&1)!=0).put(\"size\",s.size).put(\"sha256\",s.sha256);}"
+        },
+        {
+          "line": 91,
+          "text": " private static JSONObject normalized(HostMp4Inspection.Evidence e)throws Exception{"
+        },
+        {
+          "line": 99,
+          "text": " String receipt(boolean finishGateReady)throws Exception{"
+        },
+        {
+          "line": 100,
+          "text": "  JSONObject result=new JSONObject().put(\"candidate\",ExperimentContract.VERSION).put(\"case\",method.name()).put(\"runId\",runId).put(\"identity\",identity).put(\"status\",deadlineUnknown?\"UNKNOWN_DEADLINE_NO_SUCCESS_UPGRADE\":status).put(\"stage\",stage).put(\"firstFailure\",firstFailure==null?JSONObject.NULL:firstFailure).put(\"deadlineMs\",ExperimentContract.METHOD_DEADLINE_MS).put(\"stopped\",stopped).put(\"inputAttemptedReserved\",inputReserved).put(\"inputActuallyReturned\",inputActual).put(\"inputBudget\",8388608).put(\"sourcePeakObserved\",peakSources).put(\"copyReadOnly\",readOnlyCopy).put(\"copySyncReturned\",copySynced).put(\"finishGateReady\",finishGateReady).put(\"workerActuallyJoined\",originalWorker!=null&&!originalWorker.isAlive()).put(\"originalResourcesReturned\",canFinish()).put(\"sourceKeepers\",HostInputFactory.admittedSources()).put(\"outputKeepers\",TemporaryOutput.retained()).put(\"runnerFinalizerOwnerAtReceipt\",E13FinishOwner.retained()).put(\"runnerFinishReturn\",\"EXTERNAL_ORIGINAL_CAPTURE_REQUIRED\").put(\"scope\",\"HOST_STRUCTURE_ONLY_NOT_ISOLATED_OR_PLAYBACK\");"
+        },
+        {
+          "line": 101,
+          "text": "  if(copyReceipt!=null)result.put(\"copy\",new JSONObject().put(\"bytes\",copyReceipt.bytes).put(\"sha256\",copyReceipt.sha256).put(\"assetUnderlyingEof\",copyReceipt.fullEof));"
+        },
+        {
+          "line": 102,
+          "text": "  if(observation!=null)result.put(\"observation\",parser(observation));if(normalizedFingerprint!=null)result.put(\"normalizationFingerprint\",normalizedFingerprint);if(reopened!=null)result.put(\"reopened\",parser(reopened));"
+        },
+        {
+          "line": 103,
+          "text": "  JSONArray nativeSources=new JSONArray();for(OwnedFiles.ReadCapability provider:providers)synchronized(provider){nativeSources.put(new JSONObject().put(\"providerIdentityWithinProcess\",System.identityHashCode(provider)).put(\"openCalls\",provider.opens).put(\"closeReturns\",provider.closes).put(\"readCalls\",provider.readCalls).put(\"physicalBytes\",provider.physicalBytes).put(\"actualNativeEofReads\",provider.eofReads).put(\"readInFlightPeak\",provider.peak).put(\"sourceEpochs\",new JSONArray(provider.epochs)).put(\"firstReadOffsets\",new JSONArray(provider.firstOffsets)).put(\"sameNativeFDHoldersReturned\",provider.descriptorsReturned()));}result.put(\"nativeSources\",nativeSources);"
+        },
+        {
+          "line": 104,
+          "text": "  result.put(\"muxWriteAcknowledgedLowerBound\",outputHost==null?0:outputHost.bytes).put(\"muxReadyCalls\",outputHost==null?0:outputHost.readyCalls).put(\"muxReopenCalls\",outputHost==null?0:outputHost.reopens).put(\"muxFlushSyncReturned\",outputHost!=null&&outputHost.flushReturned).put(\"muxWriterOriginalReturned\",outputHost==null||outputHost.writerOriginalsReturned());"
+        },
+        {
+          "line": 105,
+          "text": "  String text=result.toString();if(text.getBytes(StandardCharsets.UTF_8).length>ExperimentContract.RECEIPT_UTF8_MAX){fail(\"RECEIPT_BYTE_BUDGET\");return new JSONObject().put(\"candidate\",ExperimentContract.VERSION).put(\"case\",method.name()).put(\"runId\",runId).put(\"status\",deadlineUnknown?\"UNKNOWN_DEADLINE_RECEIPT_BUDGET\":\"FAILED_RECEIPT_BYTE_BUDGET\").put(\"observationComplete\",false).put(\"originalResourcesReturned\",canFinish()).put(\"finishGateReady\",finishGateReady).toString();}return text;"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/instrumentation/com/videokit/d1media3/android01/test/OwnedFiles.java",
+      "bytes": 6920,
+      "sha256": "3bac696287d8b6489e8d0a593ed730ac80afa3243c69942b203bb1a3c225c15c",
+      "sourceLines": [
+        {
+          "line": 36,
+          "text": "  long bytes;int flushes,closes,reopens,readyCalls;boolean flushReturned;SinkCoordinator.HostState terminal=SinkCoordinator.HostState.WRITING;"
+        },
+        {
+          "line": 37,
+          "text": "  OutputCapability(ExperimentJob job,File file)throws Exception{this.job=job;this.file=file;readback=new ReadCapability(job,file,false,65536);original=new E4Owned<>(file,FileOutputStream::close);job.outputHost=this;original.allocate(()->new FileOutputStream(file,false));}"
+        },
+        {
+          "line": 38,
+          "text": "  public String opaqueTask(){return task;}public Capabilities capabilities(){return new Capabilities(true,false,true,true,true);}"
+        },
+        {
+          "line": 39,
+          "text": "  public CompletionStage<Integer> writeAt(long at,byte[] b,int off,int n){active.incrementAndGet();try{job.requireAdmission();AndroidInput.WORKER.requireWorker();if(at!=bytes||n<1||n>65536||n>16777216-bytes)throw new IOException(\"OUTPUT_CAPABILITY_UNSUPPORTED\");original.original().write(b,off,n);bytes+=n;return CompletableFuture.completedFuture(n);}catch(Throwable t){return failed(PlatformOutputErrors.map(t));}finally{active.decrementAndGet();}}"
+        },
+        {
+          "line": 40,
+          "text": "  public CompletionStage<Void> flush(){active.incrementAndGet();try{AndroidInput.WORKER.requireWorker();original.original().flush();original.original().getFD().sync();flushes++;flushReturned=true;return CompletableFuture.completedFuture(null);}catch(Throwable t){return failed(PlatformOutputErrors.map(t));}finally{active.decrementAndGet();}}"
+        },
+        {
+          "line": 41,
+          "text": "  public CompletionStage<Void> closeWriter(){active.incrementAndGet();try{AndroidInput.WORKER.requireWorker();original.close();closes++;return CompletableFuture.completedFuture(null);}catch(Throwable t){return failed(PlatformOutputErrors.map(t));}finally{active.decrementAndGet();}}"
+        },
+        {
+          "line": 42,
+          "text": "  public boolean originalOperationsReturned(){return active.get()==0;}public boolean writerOriginalsReturned(){return active.get()==0&&original.returned();}"
+        },
+        {
+          "line": 43,
+          "text": "  public CompletionStage<AsyncReadBridge.Provider> reopenReadOnly(){reopens++;if(!writerOriginalsReturned()||!flushReturned||reopens!=1||!file.setReadOnly())return failed(new IOException(\"OUTPUT_REOPEN_FAILED\"));return CompletableFuture.completedFuture(readback);}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/instrumentation/com/videokit/d1media3/android01/test/Media3Instrumentation.java",
+      "bytes": 7545,
+      "sha256": "8ac4afb2a6354e3ed0ca5af1e5a71f66e16eb3717f8f724056071803c834b775",
+      "sourceLines": [
+        {
+          "line": 21,
+          "text": "   public void awaitOriginalReturns()throws Exception{ExperimentJob j=job;if(j!=null)j.awaitOriginalReturns();else E13SourceGroup.awaitOriginalReturns();}"
+        },
+        {
+          "line": 22,
+          "text": "   public void finish(int code,Object saved)throws Exception{"
+        },
+        {
+          "line": 23,
+          "text": "    Bundle b=new Bundle((Bundle)saved);ExperimentJob j=job;String requested=b.getString(\"status\",\"UNKNOWN_REQUESTED_STATUS\");"
+        },
+        {
+          "line": 24,
+          "text": "    int finalCode=code;"
+        },
+        {
+          "line": 25,
+          "text": "    if(j!=null){JSONObject r=new JSONObject(j.receipt(true)).put(\"requestedStatus\",requested).put(\"runnerFinishGate\",\"SAME_ORIGINAL_CASE_AND_E13_RETURNED\");if(finishOwner.failed())r.put(\"status\",\"UNKNOWN_RUNNER_FINALIZER_FAILURE\");else if(requested.startsWith(\"UNKNOWN\"))r.put(\"status\",requested);String text=bounded(r.toString());String semantic=new JSONObject(text).optString(\"status\",\"UNKNOWN_RECEIPT_STATUS\");b.putString(\"receipt\",text);b.putString(\"status\",semantic);if(!isObservation(semantic))finalCode=Activity.RESULT_CANCELED;}"
+        },
+        {
+          "line": 27,
+          "text": "    // reaches it before the existing original-return finalizer accepts the port."
+        },
+        {
+          "line": 28,
+          "text": "    Media3Instrumentation.super.finish(finishOwner.failed()?Activity.RESULT_CANCELED:finalCode,b);"
+        },
+        {
+          "line": 29,
+          "text": "    if(j!=null)ORIGINAL_CASE.compareAndSet(j,null);"
+        },
+        {
+          "line": 30,
+          "text": "   }"
+        },
+        {
+          "line": 31,
+          "text": "  });"
+        },
+        {
+          "line": 34,
+          "text": "   ExperimentContract.Method method=ExperimentContract.admit(values);JSONObject identity=ownIdentity();ExperimentJob created=new ExperimentJob(this,method,values.get(\"runId\"),identity);job=created;if(!ORIGINAL_CASE.compareAndSet(null,created))throw new IllegalStateException(\"ORIGINAL_CASE_ALREADY_RETAINED\");start();"
+        },
+        {
+          "line": 35,
+          "text": "  }catch(Throwable e){Bundle b=new Bundle();b.putString(\"status\",\"BLOCKED_ARGUMENT_OR_EMPTY_SANDBOX_IDENTITY\");b.putString(\"failureClass\",e.getClass().getSimpleName());finish(Activity.RESULT_CANCELED,b);}"
+        },
+        {
+          "line": 36,
+          "text": " }"
+        },
+        {
+          "line": 37,
+          "text": " private JSONObject ownIdentity()throws Exception{"
+        },
+        {
+          "line": 38,
+          "text": "  Context target=getTargetContext(),test=getContext();String process=Application.getProcessName();if(!ExperimentContract.APP.equals(target.getPackageName())||!ExperimentContract.TEST.equals(test.getPackageName())||!ExperimentContract.PROCESS.equals(process)||target.getApplicationInfo().uid!=android.os.Process.myUid())throw new IllegalStateException(\"EMPTY_EXPERIMENT_IDENTITY_REQUIRED\");"
+        },
+        {
+          "line": 44,
+          "text": "  ExperimentJob j=job;if(j==null)return;"
+        },
+        {
+          "line": 45,
+          "text": "  try{Thread worker=new Thread(j::run,\"d1media3-android01-\"+j.method.name());j.originalWorker=worker;worker.setUncaughtExceptionHandler((t,e)->{j.fail(\"UNCAUGHT_ORIGINAL_WORKER_UNKNOWN\");E13ReturnEvents.returned();});worker.start();worker.join(ExperimentContract.METHOD_DEADLINE_MS);"
+        },
+        {
+          "line": 46,
+          "text": "   if(worker.isAlive()){j.deadline();Bundle pending=new Bundle();pending.putString(\"status\",\"UNKNOWN_DEADLINE_ORIGINAL_RETURN_PENDING\");pending.putString(\"receipt\",bounded(j.receipt(false)));sendStatus(-2,pending);finish(Activity.RESULT_CANCELED,pending);return;}"
+        },
+        {
+          "line": 47,
+          "text": "   Bundle result=new Bundle();String text=bounded(j.receipt(false));String status=j.canFinish()?new JSONObject(text).optString(\"status\",\"UNKNOWN_RECEIPT_STATUS\"):\"UNKNOWN_ORIGINAL_RETURN_PENDING\";result.putString(\"status\",status);result.putString(\"receipt\",text);if(!j.canFinish())sendStatus(-2,result);finish(isObservation(status)?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);"
+        },
+        {
+          "line": 48,
+          "text": "  }catch(Throwable e){j.fail(\"RUNNER_ORIGINAL_WAIT_UNKNOWN\");Bundle b=new Bundle();b.putString(\"status\",\"UNKNOWN_RUNNER_ORIGINAL_WAIT\");sendStatus(-2,b);finish(Activity.RESULT_CANCELED,b);}"
+        },
+        {
+          "line": 49,
+          "text": " }"
+        },
+        {
+          "line": 50,
+          "text": " private static boolean isObservation(String status){return status.equals(\"OBSERVED_HOST_STRUCTURE_ONLY\")||status.equals(\"OBSERVED_HOST_MUX_STRUCTURE_ONLY\")||status.equals(\"PREOPEN_GUARDS_OBSERVED\");}"
+        },
+        {
+          "line": 51,
+          "text": " private static String bounded(String text){if(text.getBytes(StandardCharsets.UTF_8).length<=ExperimentContract.RECEIPT_UTF8_MAX)return text;return \"{\\\"status\\\":\\\"FAILED_RECEIPT_BYTE_BUDGET\\\",\\\"observationComplete\\\":false}\";}"
+        },
+        {
+          "line": 52,
+          "text": " @Override public void finish(int code,Bundle result){if(finishOwner==null)throw new IllegalStateException(\"ORIGINAL_FINALIZER_MISSING\");Bundle copy=result==null?new Bundle():new Bundle(result);if(copy.hasFileDescriptors())throw new IllegalArgumentException(\"RESULT_DESCRIPTORS_FORBIDDEN\");finishOwner.request(code,copy);}"
+        },
+        {
+          "line": 53,
+          "text": " @Override public boolean onException(Object object,Throwable error){ExperimentJob j=job;if(j!=null)j.fail(\"ANDROID_RUNTIME_ORIGINAL_UNKNOWN\");if(finishOwner==null)return false;finishOwner.fail(\"ANDROID_RUNTIME_ORIGINAL_UNKNOWN\");Bundle b=new Bundle();b.putString(\"status\",\"UNKNOWN_ANDROID_RUNTIME_ORIGINAL\");sendStatus(-2,b);finish(Activity.RESULT_CANCELED,b);return true;}"
+        },
+        {
+          "line": 54,
+          "text": "}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/upstream/com/videokit/spike/c14/E6Muxer.java",
+      "bytes": 1083,
+      "sha256": "bea5c0c3625b3c7d433ca22e8106fd6280630d622ca81f1f241f5a6eb2fbe3d2",
+      "sourceLines": [
+        {
+          "line": 9,
+          "text": "public final class E6Muxer {"
+        },
+        {
+          "line": 10,
+          "text": "    public static final int FRAGMENT_MS=3000;"
+        },
+        {
+          "line": 11,
+          "text": "    public static FragmentedMp4Muxer create(WritableByteChannel channel){"
+        },
+        {
+          "line": 12,
+          "text": "        return new FragmentedMp4Muxer.Builder(channel).setFragmentDurationMs(FRAGMENT_MS).setSampleCopyingEnabled(true).build();"
+        },
+        {
+          "line": 13,
+          "text": "    }"
+        },
+        {
+          "line": 14,
+          "text": "    public static void finish(FragmentedMp4Muxer muxer,int track,int count,long last)throws Exception {"
+        },
+        {
+          "line": 15,
+          "text": "        if(count!=6 || last<0 || last>2000000 || track<0)throw new IOException(\"E6_MUX_INCOMPLETE\");"
+        },
+        {
+          "line": 16,
+          "text": "        // EOS supplies the final sample's duration only; it is an empty metadata marker, never a seventh frame."
+        },
+        {
+          "line": 17,
+          "text": "        muxer.writeSampleData(track,ByteBuffer.allocate(0),new BufferInfo(last+200000,0,4));"
+        },
+        {
+          "line": 18,
+          "text": "        muxer.close();"
+        },
+        {
+          "line": 19,
+          "text": "    }"
+        },
+        {
+          "line": 20,
+          "text": "    private E6Muxer(){}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/upstream/com/videokit/spike/c14/SinkCoordinator.java",
+      "bytes": 9686,
+      "sha256": "8efb5172521a968a28df86a0ce243bbf9841d86c4d54493e9fd262bd7590de00",
+      "sourceLines": [
+        {
+          "line": 12,
+          "text": " private final java.util.List<Thread> originalThreads=new java.util.concurrent.CopyOnWriteArrayList<>();"
+        },
+        {
+          "line": 13,
+          "text": " private final ThreadPoolExecutor callbacks=new ThreadPoolExecutor(1,1,0,TimeUnit.MILLISECONDS,new ArrayBlockingQueue<>(4),r->{Thread t=new Thread(r,\"videokit-d1-sink\");t.setDaemon(true);originalThreads.add(t);return t;},new ThreadPoolExecutor.AbortPolicy());"
+        },
+        {
+          "line": 14,
+          "text": " private State state=State.NEW;private boolean cancel;private CompletableFuture<String> readyOperation;private String token;"
+        },
+        {
+          "line": 15,
+          "text": " private final java.util.concurrent.atomic.AtomicInteger outstanding=new java.util.concurrent.atomic.AtomicInteger();"
+        },
+        {
+          "line": 16,
+          "text": " /** Exact references to existing calls and their REAL whenComplete return stages, not proxy proofs."
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/upstream/com/videokit/spike/e4/E4Owned.java",
+      "bytes": 2311,
+      "sha256": "aee54f13e6eb548006a0fe355d59c22521a407df632210d104e739ccecd83626",
+      "sourceLines": []
+    },
+    {
+      "path": "docs/coder/d1media3-android01/upstream/com/videokit/spike/e4/E13FinishOwner.java",
+      "bytes": 3505,
+      "sha256": "f400c820f11be9b177b8338987b3b95a61547dbaa0ec5494dbc0e88b74227837",
+      "sourceLines": [
+        {
+          "line": 5,
+          "text": "public final class E13FinishOwner {"
+        },
+        {
+          "line": 6,
+          "text": " public interface Port {boolean canFinish();void finish(int code,Object saved)throws Exception;boolean mainThread();default void awaitOriginalReturns()throws Exception{}}"
+        },
+        {
+          "line": 7,
+          "text": " private static volatile boolean admissionClosed;"
+        },
+        {
+          "line": 8,
+          "text": " public static synchronized void requireAdmission(){if(admissionClosed)throw new IllegalStateException(\"E13_COMPLETION_SEALED_NO_NEW_WORK\");}"
+        },
+        {
+          "line": 9,
+          "text": " public static synchronized void admit(Runnable originalRegistration){requireAdmission();originalRegistration.run();}"
+        },
+        {
+          "line": 15,
+          "text": " /** Caller supplies a private immutable/deep copy. First result wins; later failures can only lower qualification. */"
+        },
+        {
+          "line": 16,
+          "text": " public void request(int c,Object copy){Thread launch=null;String detail=null;synchronized(this){if(!requested){synchronized(E13FinishOwner.class){admissionClosed=true;}requested=true;code=c;saved=copy;worker=new Thread(this::run,\"e13-original-finalizer-\"+id);worker.setDaemon(true);launch=worker;detail=\"code=\"+c+\" publishedAt=\"+System.nanoTime();}wake();}if(launch!=null){try{launch.start();}catch(Throwable t){synchronized(this){failed=true;failure=\"FINALIZER_START_UNKNOWN\";}E13Stages.at(id,\"FINALIZER_UNKNOWN\",\"FINALIZER_START_UNKNOWN\");}E13Stages.at(id,\"FINISH_REQUEST\",detail);}}"
+        },
+        {
+          "line": 17,
+          "text": " public void fail(String why){String detail;synchronized(this){if(!failed){failed=true;failure=why;}detail=why;wake();}E13Stages.at(id,\"ORIGINAL_FAILURE\",detail);}"
+        },
+        {
+          "line": 18,
+          "text": " public synchronized boolean failed(){return failed;}public synchronized String failure(){return failure;}"
+        },
+        {
+          "line": 19,
+          "text": " public synchronized boolean attempted(){return attempted;}public synchronized boolean returned(){return returned;}"
+        },
+        {
+          "line": 24,
+          "text": "    if(port.mainThread())throw new IllegalStateException(\"E13_FINALIZER_MUST_NOT_BE_MAIN\");"
+        },
+        {
+          "line": 25,
+          "text": "    E13Stages.at(id,\"PLATFORM_FINISH_ENTER\",\"failed=\"+failed());port.finish(c,r);synchronized(this){returned=true;}E13Stages.at(id,\"PLATFORM_FINISH_RETURN\",\"actual=true\");OWNERS.remove(this);return;"
+        },
+        {
+          "line": 26,
+          "text": "   }}catch(Throwable t){synchronized(this){failed=true;failure=t.getClass().getName();}E13Stages.at(id,\"FINALIZER_UNKNOWN\",failure);}"
+        },
+        {
+          "line": 27,
+          "text": " }"
+        },
+        {
+          "line": 28,
+          "text": " public synchronized String state(){return \"requested=\"+requested+\" attempted=\"+attempted+\" returned=\"+returned+\" failed=\"+failed+\" subscribed=\"+subscribed+\" worker=\"+(worker==null?\"NOT_STARTED\":worker.getState());}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/upstream/com/videokit/spike/e4/E13SourceGroup.java",
+      "bytes": 6589,
+      "sha256": "2f7cb24008f851ef987a97f30ae47f36fac19a2dbcea57bd64ffd5d78b1e3e64",
+      "sourceLines": [
+        {
+          "line": 57,
+          "text": "        if(returned || originalCallers.size()>=2)throw new IOException(\"SOURCE_CALLER_BUDGET\");"
+        },
+        {
+          "line": 58,
+          "text": "        FutureTask<T> task=new FutureTask<>(call);Thread thread=new Thread(task,\"videokit-e13-source-caller\");"
+        },
+        {
+          "line": 59,
+          "text": "        originalCallers.add(thread);thread.start();return task;"
+        },
+        {
+          "line": 60,
+          "text": "    }"
+        },
+        {
+          "line": 61,
+          "text": "    public synchronized LeaseRegistry.Snapshot snapshot(){return registry.query(generation);}"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/D1_MEDIA3_ANDROID01_METHODS_AND_BUDGET_V1.0.md",
+      "bytes": 3218,
+      "sha256": "3c5fd48825bd7baffdc7d32873c21a940db447d8450fb3d88ecf062d1ad0208b",
+      "sourceLines": [
+        {
+          "line": 6,
+          "text": ""
+        },
+        {
+          "line": 7,
+          "text": "六个精确case、runId及完整am参数数组见execution-plan.json，禁止增加class/path/URI/codec/fixture注册参数。inspectKnown普通已知长度，inspectShort3每次host至多返回3字节，inspectUnknown宣布未知长度，inspectSeek1s请求1000000us，preopenAdmission仅良性准入拒绝，muxQualified当前FIXTURE_BLOCKED且写入0。普通读取cap=true、MP4、seek=-1、capture=false。seek只根据实际SeekMap首point确定真实byte/time，记录新epoch与真实重放，不能仅以计数代替。已知/短读/未知长度的完整轨道CSD/样本PTS/flags/size/hash语义指纹须跨receipt比较，尚无实机golden。"
+        },
+        {
+          "line": 8,
+          "text": ""
+        },
+        {
+          "line": 9,
+          "text": "每例原始worker期限60000ms；UTF8 receipt262144B，原始观测有界，溢出为失败而非截断成功。输入累计8MiB包含副本、全文件hash、sniff/parse/seek/读回/EOF探测；64KiB块、全局两源、单源一个inflight/queue0，输出attempt16MiB不退款。六帧正例仍须新fixture新候选独立准入。每例最多2轨、512样本/轨、262144B/样本、16seek/18range；项目自有线程理论上限11，非整进程线程上限。"
+        },
+        {
+          "line": 10,
+          "text": ""
+        },
+        {
+          "line": 12,
+          "text": ""
+        },
+        {
+          "line": 13,
+          "text": "必须逐项区分真实rawEOF/hash与parserEOF、Extractor.release/DataSource.close、原Provider/FD/注册表/worker/observer与平台finish。唯一既有E13FinishOwner等待同一原线程/源/observer实际归还；期限只关准入保留UNKNOWN/强引用，无interrupt/kill/第二close/补ACK。receipt中的runnerFinalizerOwnerAtReceipt=1是生成receipt时原finalizer仍在，platform finish原返回须现有外层采集自然返回证据补齐，不能声称receipt自身已证明。仅全部原owner正归还后可清理新test/app；未知时保留目录/进程并另行审查。"
+        },
+        {
+          "line": 14,
+          "text": ""
+        },
+        {
+          "line": 15,
+          "text": "结构结果仅HOST_MEDIA3_MP4_STRUCTURE_V1；不得给HOST_ISOLATED_FORMAT_V1、validated、产品READY/COMMIT或播放PASS。所有实机方法NOT_RUN，D1未过、M0未启。"
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/evidence/execution-plan.json",
+      "bytes": 14934,
+      "sha256": "c17e1d9886253431027f4f7a2f7d246bad81f0059e426afc76d975a2f31f0461",
+      "sourceLines": [
+        {
+          "line": 202,
+          "text": "    {"
+        },
+        {
+          "line": 203,
+          "text": "      \"case\": \"muxQualified\","
+        },
+        {
+          "line": 204,
+          "text": "      \"entry\": \"Media3Instrumentation.onStart -> ExperimentJob.run\","
+        },
+        {
+          "line": 205,
+          "text": "      \"args\": {"
+        },
+        {
+          "line": 206,
+          "text": "        \"case\": \"muxQualified\","
+        },
+        {
+          "line": 207,
+          "text": "        \"fixtureSha256\": \"720957c94b3665ff97bcc2f59ad5407c5ca54f566b59865723be9eecc0a6a1f9\","
+        },
+        {
+          "line": 208,
+          "text": "        \"runId\": \"D1MA01-MUX-001\""
+        },
+        {
+          "line": 209,
+          "text": "      },"
+        },
+        {
+          "line": 216,
+          "text": "        \"case\","
+        },
+        {
+          "line": 217,
+          "text": "        \"muxQualified\","
+        },
+        {
+          "line": 218,
+          "text": "        \"-e\","
+        },
+        {
+          "line": 219,
+          "text": "        \"fixtureSha256\","
+        },
+        {
+          "line": 220,
+          "text": "        \"720957c94b3665ff97bcc2f59ad5407c5ca54f566b59865723be9eecc0a6a1f9\","
+        },
+        {
+          "line": 362,
+          "text": "      \"action\": \"one fresh instrumentation process, exact frozen method and args\","
+        },
+        {
+          "line": 363,
+          "text": "      \"case\": \"muxQualified\","
+        },
+        {
+          "line": 364,
+          "text": "      \"commandArguments\": ["
+        },
+        {
+          "line": 365,
+          "text": "        \"am\","
+        },
+        {
+          "line": 366,
+          "text": "        \"instrument\","
+        },
+        {
+          "line": 370,
+          "text": "        \"case\","
+        },
+        {
+          "line": 371,
+          "text": "        \"muxQualified\","
+        },
+        {
+          "line": 372,
+          "text": "        \"-e\","
+        },
+        {
+          "line": 373,
+          "text": "        \"fixtureSha256\","
+        },
+        {
+          "line": 374,
+          "text": "        \"720957c94b3665ff97bcc2f59ad5407c5ca54f566b59865723be9eecc0a6a1f9\","
+        },
+        {
+          "line": 433,
+          "text": "    \"Capture outer timeout cannot kill/interrupt/force-stop/uninstall/refund/relaunch; retain original process/resources for separately reviewed resolution\","
+        },
+        {
+          "line": 434,
+          "text": "    \"Current muxQualified is blocked: no fixture, no original file allocation or mux/writes; blocked receipt expected, not mux PASS\","
+        },
+        {
+          "line": 435,
+          "text": "    \"Any receipt shape/hash/signer/process mismatch blocks; compare known/short3/unknown semantic observations offline without pretending to know golden track/sample counts\""
+        },
+        {
+          "line": 436,
+          "text": "  ],"
+        },
+        {
+          "line": 437,
+          "text": "  \"requiredBeforeAnyExecution\": ["
+        }
+      ]
+    },
+    {
+      "path": "docs/coder/d1media3-android01/app/gradle.lockfile",
+      "bytes": 2093,
+      "sha256": "9bde24877dc5a4651f91230593bad511485be5779adc439bc5b5c20d4fd51dc7",
+      "sourceLines": []
+    },
+    {
+      "path": "docs/coder/d1media3-android01/settings-gradle.lockfile",
+      "bytes": 198,
+      "sha256": "e58bb2ed80db9f829601a658d7c33b9802eb7d2191c31e79c28e01f14c225926",
+      "sourceLines": []
+    },
+    {
+      "path": "docs/coder/d1media3-android01/gradle/verification-metadata.xml",
+      "bytes": 268568,
+      "sha256": "11b839624094774c30de91914586729c9abd7c0c7bb2651b8f93585337fd087c",
+      "sourceLines": []
+    },
+    {
+      "path": "docs/coder/d1media3-android01/media3-android01-sbom.cdx.json",
+      "bytes": 13458,
+      "sha256": "f4606447dc38b844fee976023c13db3c94563639999074b4e8d37caac3e30d65",
+      "sourceLines": []
+    },
+    {
+      "path": "docs/coder/d1media3-container02/src/com/videokit/d1input/TemporaryOutput.java",
+      "bytes": 33815,
+      "sha256": "366951079f8f5857ac5ebdd1760ae7a6f614807828b70985969e774bd07f63ee",
+      "android01SameBytes": false
+    },
+    {
+      "path": "docs/coder/d1media3-container02/src/com/videokit/d1input/HostMp4Inspection.java",
+      "bytes": 9369,
+      "sha256": "b044252c8cb3d203f2682265999377f8915d1a482ce073d8867ce521163da86b",
+      "android01SameBytes": false
+    },
+    {
+      "path": "docs/coder/d1media3-container02/src/com/videokit/d1input/MatureContainerRemux.java",
+      "bytes": 3384,
+      "sha256": "320938eaec79ee28c5a1b21a40d40f8b4630a8c5cd8d7c4aa2e786dbfe9f91bc",
+      "android01SameBytes": true
+    },
+    {
+      "path": "docs/coder/d1media3-container02/src/com/videokit/d1input/MatureMuxerBinding.java",
+      "bytes": 1663,
+      "sha256": "c82377ae13e0b6fd136b799a468ad260ac3cf1b4111dda50dd7dd5ede4c885ee",
+      "android01SameBytes": true
+    }
+  ],
+  "selectedSourceFiles": 26,
+  "newAndroid02CandidateRead": false,
+  "gradleOrCachesReadOrRun": false,
+  "activeSuites001Read": false
+}

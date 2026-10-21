@@ -1,0 +1,1 @@
+dumpsys package com.videokit.e13.sender | awk '/^[ ]*(userId=|versionCode=|User 0:)/ {print}'

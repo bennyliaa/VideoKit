@@ -1,0 +1,1 @@
+package com.videokit.spike.e4;import android.os.*;public class E4CodecWire {public static final int HELLO=1;public static Bundle call(IBinder b,int c,Bundle q)throws RemoteException{Parcel i=Parcel.obtain(),o=Parcel.obtain();try{b.transact(c,i,o,0);o.readException();return o.readBundle(E4CodecWire.class.getClassLoader());}finally{i.recycle();o.recycle();}}}

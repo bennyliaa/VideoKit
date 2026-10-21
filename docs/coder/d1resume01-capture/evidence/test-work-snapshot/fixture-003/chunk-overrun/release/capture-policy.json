@@ -1,0 +1,29 @@
+{
+  "schema": "RESUME01_CAPTURE_POLICY_V1",
+  "mode": "OFFLINE_FIXTURE",
+  "planId": "30cdc267-ef64-44a0-a87f-93bc29e3583a",
+  "scope": "bace7be9b48e66dc73a5c818354cec4b8c77b1f2caa337703db7321f4fe6af9f",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01-capture\\selfchecks\\work\\fixture-003\\chunk-overrun\\outputs",
+  "slots": [
+    {
+      "id": "LOCAL_0",
+      "phase": "M1",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1resume01-capture/selfchecks/capture_fixture.py",
+        "chunks"
+      ],
+      "maxTextBytes": 96,
+      "qualificationSeconds": 5
+    }
+  ],
+  "entrySha256": "bb4f8480667484d1ce1da3f5c5ac8107ef0d245fa8a57c1d9ac57da2b7e439d4",
+  "toolSha256": "abc1aa0b5a63f745804e88789b2dfe6857582ec19ed36b3b5f9dc6b340212344",
+  "fixtureScriptSha256": "09c6c81379bccb55af304a8792e799cd598e7360533ea606ffe2830aa993cedd",
+  "fixtureFault": "NONE",
+  "fixtureGatePath": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01-capture\\selfchecks\\work\\fixture-003\\chunk-overrun\\outputs\\file-close.gate",
+  "executionPins": []
+}

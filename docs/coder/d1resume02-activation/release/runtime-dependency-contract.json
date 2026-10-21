@@ -1,0 +1,200 @@
+{
+  "schema": "RESUME02_RUNTIME_DEPENDENCIES_V1",
+  "currentDeviceExecutionAllowed": false,
+  "commands": [
+    {
+      "id": "RESUME02_M1_identity",
+      "phase": "M1",
+      "request": {
+        "path": "docs/coder/d1resume02-activation/release/metadata-requests/RESUME02_M1_identity.json",
+        "bytes": 1768,
+        "sha256": "ef79a96842d9055497282a2a48db8d2cee3923ed4a9e8a047a659627f716d3eb"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\release\\metadata-requests\\RESUME02_M1_identity.json"
+      ],
+      "currentState": "CONDITIONALLY_BOUND_RUNTIME_PROOFS_AND_SEMANTICS_REQUIRED",
+      "predecessor": null
+    },
+    {
+      "id": "RESUME02_M1_global",
+      "phase": "M1",
+      "request": {
+        "path": "docs/coder/d1resume02-activation/release/metadata-requests/RESUME02_M1_global.json",
+        "bytes": 604,
+        "sha256": "8f70507cfefc4dd56b2d5fd04fdb57ac053dade85c5276f8373ee89708bf7951"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\release\\metadata-requests\\RESUME02_M1_global.json"
+      ],
+      "currentState": "CONDITIONALLY_BOUND_RUNTIME_PROOFS_AND_SEMANTICS_REQUIRED",
+      "predecessor": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\RESUME02_M1_identity-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "digest": "Runtime SHA from trusted tester after original tool exit/EOF; not issued now.",
+        "requires": [
+          "same prior request/scope/controllerPid/receipt SHA",
+          "original resources actually returned",
+          "actual original controller/tool ended",
+          "semantic approval before next"
+        ]
+      }
+    },
+    {
+      "id": "RESUME02_M1_ps",
+      "phase": "M1",
+      "request": {
+        "path": "docs/coder/d1resume02-activation/release/metadata-requests/RESUME02_M1_ps.json",
+        "bytes": 613,
+        "sha256": "f6f387ece776c2e80e5f680168607d71531005e13337f446bd6d045e90086f7c"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\release\\metadata-requests\\RESUME02_M1_ps.json"
+      ],
+      "currentState": "CONDITIONALLY_BOUND_RUNTIME_PROOFS_AND_SEMANTICS_REQUIRED",
+      "predecessor": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\RESUME02_M1_global-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "digest": "Runtime SHA from trusted tester after original tool exit/EOF; not issued now.",
+        "requires": [
+          "same prior request/scope/controllerPid/receipt SHA",
+          "original resources actually returned",
+          "actual original controller/tool ended",
+          "semantic approval before next"
+        ]
+      }
+    },
+    {
+      "id": "RESUME02_M2_identity",
+      "phase": "M2",
+      "request": {
+        "path": "docs/coder/d1resume02-activation/release/metadata-requests/RESUME02_M2_identity.json",
+        "bytes": 1586,
+        "sha256": "71ef5aa4e5845b5693e413eb3442b11e40da5bd24669ce8b090737df750a7153"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\release\\metadata-requests\\RESUME02_M2_identity.json"
+      ],
+      "currentState": "CONDITIONALLY_BOUND_RUNTIME_PROOFS_AND_SEMANTICS_REQUIRED",
+      "predecessor": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\RESUME02_M1_ps-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "digest": "Runtime SHA from trusted tester after original tool exit/EOF; not issued now.",
+        "requires": [
+          "same prior request/scope/controllerPid/receipt SHA",
+          "original resources actually returned",
+          "actual original controller/tool ended",
+          "semantic approval before next"
+        ]
+      },
+      "deployment": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\deployment-completion-proof.json",
+        "argument": "-DeploymentProofSha",
+        "scope": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3",
+        "releaseBindingDigest": "134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c",
+        "requires": [
+          "actual deployment passed",
+          "all deployment original objects physically returned"
+        ]
+      }
+    },
+    {
+      "id": "RESUME02_M2_global",
+      "phase": "M2",
+      "request": {
+        "path": "docs/coder/d1resume02-activation/release/metadata-requests/RESUME02_M2_global.json",
+        "bytes": 604,
+        "sha256": "01ea9da3e787a87fbc0c680f073e1099c990120fcff16a248921a73fd01ce956"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\release\\metadata-requests\\RESUME02_M2_global.json"
+      ],
+      "currentState": "CONDITIONALLY_BOUND_RUNTIME_PROOFS_AND_SEMANTICS_REQUIRED",
+      "predecessor": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\RESUME02_M2_identity-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "digest": "Runtime SHA from trusted tester after original tool exit/EOF; not issued now.",
+        "requires": [
+          "same prior request/scope/controllerPid/receipt SHA",
+          "original resources actually returned",
+          "actual original controller/tool ended",
+          "semantic approval before next"
+        ]
+      }
+    }
+  ],
+  "newSDKRequests": 0,
+  "rootCreation": "After actual new dispatch and independent final mechanical PASS/local gates, create only approved evidenceRoot before M1; no once/disposition/claim initialization before M1 passes.",
+  "authorityGranted": true,
+  "conditionalExecutionOnly": true,
+  "state": "BOUND_AWAIT_FINAL_MECHANICAL_AND_FRESH_GATES",
+  "executionAuthorization": {
+    "path": "docs/coder/d1resume02-activation/release/execution-authorization.json",
+    "bytes": 4886,
+    "sha256": "04294e2f4e9dc0313b69239c9fd39572c2a449281949970b6ad1247d344c7ee3"
+  },
+  "finalMechanicalReview": null,
+  "javaObserverCommands": [
+    {
+      "role": "DEPLOY",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\tools\\observe_original.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\release\\observer-deploy-request.json"
+      ]
+    },
+    {
+      "role": "CASE",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\tools\\observe_original.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-activation\\release\\observer-case-request.json"
+      ]
+    }
+  ]
+}

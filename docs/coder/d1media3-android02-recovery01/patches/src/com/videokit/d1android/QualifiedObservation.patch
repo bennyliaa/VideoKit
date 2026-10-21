@@ -1,0 +1,14 @@
+--- frozen-android02/src/com/videokit/d1android/QualifiedObservation.java
++++ recovery01/src/com/videokit/d1android/QualifiedObservation.java
+@@ -14,8 +14,10 @@
+   HostMp4Inspection.Track t=e.tracks.get(0);
+   if(t.type!=C.TRACK_TYPE_VIDEO||!"video/avc".equals(t.format.sampleMimeType)||t.format.width!=256||t.format.height!=144||t.format.rotationDegrees!=0||t.format.drmInitData!=null||t.samples.size()!=6)throw new IOException("QUALIFIED_CAPTURE_FORMAT");
+   if(!csdHash(t).equals(q.csdHashes.get(0)))throw new IOException("QUALIFIED_CSD_MISMATCH");
+-  for(int i=0;i<6;i++){HostMp4Inspection.Sample s=t.samples.get(i);if(s.timeUs!=q.pts.get(i)||s.flags!=q.flags.get(i)||s.size!=q.sizes.get(i)||!s.sha256.equals(q.sampleHashes.get(i)))throw new IOException("QUALIFIED_SAMPLE_MISMATCH");}
++  for(int i=0;i<6;i++){HostMp4Inspection.Sample s=t.samples.get(i);if(s.timeUs!=q.pts.get(i)||!supportedFlags(s.flags,i)||s.size!=q.sizes.get(i)||!s.sha256.equals(q.sampleHashes.get(i)))throw new IOException("QUALIFIED_SAMPLE_MISMATCH");}
+   if(e.durationUs!=1200000&&t.reportedDurationUs!=1200000)throw new IOException("ACTUAL_EOS_DURATION_NOT_PROVEN");
+  }
++ /** Raw extractor flags stay in receipts. LAST_SAMPLE is a Media3 marker, not a host key boolean. */
++ public static boolean supportedFlags(int raw,int index){int allowed=C.BUFFER_FLAG_KEY_FRAME|C.BUFFER_FLAG_LAST_SAMPLE;return (raw&C.BUFFER_FLAG_KEY_FRAME)!=0&&(raw&~allowed)==0&&((raw&C.BUFFER_FLAG_LAST_SAMPLE)==0||index==5);}
+  private QualifiedObservation(){}
+ }

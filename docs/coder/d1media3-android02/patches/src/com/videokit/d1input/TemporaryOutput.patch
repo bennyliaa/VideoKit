@@ -1,0 +1,17 @@
+--- frozen-android01/src\com\videokit\d1input\TemporaryOutput.java
++++ android02/src/com/videokit/d1input/TemporaryOutput.java
+@@ -117,12 +117,12 @@
+  }
+  public WritableByteChannel channel(){return channel;}
+  private int write(long at,ByteBuffer input)throws IOException {enter();try{
+-  if(input.remaining()==0)return 0;synchronized(this){if(producerClosed||cancelled.get()||firstFailure!=null||invoking||pending!=null)throw new IOException("OUTPUT_NOT_WRITABLE");requirePrevious();if(at<0||at>MAX_OUTPUT||!random&&at!=extent)throw new IOException("OUTPUT_CAPABILITY_UNSUPPORTED");int n=Math.min(65536,input.remaining());if(n>MAX_OUTPUT-at||n>MAX_OUTPUT-written)throw new IOException("OUTPUT_BYTE_BUDGET");originalBlock=new byte[n];input.duplicate().get(originalBlock);opCount=n;opOffset=at;writeAttemptedBytes+=n;}
++  if(input.remaining()==0)return 0;synchronized(this){if(producerClosed||cancelled.get()||firstFailure!=null||invoking||pending!=null)throw new IOException("OUTPUT_NOT_WRITABLE");requirePrevious();if(at<0||at>MAX_OUTPUT||!random&&at!=extent)throw new IOException("OUTPUT_CAPABILITY_UNSUPPORTED");int n=Math.min(65536,input.remaining());if(n>MAX_OUTPUT-at||n>MAX_OUTPUT-writeAttemptedBytes)throw new IOException("OUTPUT_BYTE_BUDGET");originalBlock=new byte[n];input.duplicate().get(originalBlock);opCount=n;opOffset=at;writeAttemptedBytes+=n;}
+   int n=call("WRITE",()->host.writeAt(at,originalBlock,0,opCount));input.position(input.position()+n);if(cancelled.get()){fail("CANCELLED");throw new IOException("CANCELLED");}return n;
+  }finally{leave();}}
+  public int writeAt(long at,ByteBuffer input)throws IOException {if(!random)throw new IOException("OUTPUT_CAPABILITY_UNSUPPORTED");return write(at,input);}
+  private final class Channel implements WritableByteChannel {
+-  public int write(ByteBuffer b)throws IOException {if(b.remaining()>MAX_OUTPUT-extent||b.remaining()>MAX_OUTPUT-written)throw new IOException("OUTPUT_BYTE_BUDGET");int total=0;while(b.hasRemaining())total+=TemporaryOutput.this.write(extent,b);return total;}
++  public int write(ByteBuffer b)throws IOException {if(b.remaining()>MAX_OUTPUT-extent||b.remaining()>MAX_OUTPUT-writeAttemptedBytes)throw new IOException("OUTPUT_BYTE_BUDGET");int total=0;while(b.hasRemaining())total+=TemporaryOutput.this.write(extent,b);return total;}
+   public boolean isOpen(){return !producerClosed;}public void close(){producerClosed=true;}
+  }
+  public void cancel(){cancelled.set(true);coordinator.cancel();HostInputFactory f=reopenedInput;if(hostInspectionActive&&f!=null)f.close();}

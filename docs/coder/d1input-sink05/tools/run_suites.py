@@ -1,0 +1,13 @@
+from pathlib import Path
+import json,subprocess,sys,hashlib,datetime
+B=Path(__file__).resolve().parents[1];assert not (B/'evidence/input-sink05-freeze.json').exists(),'FROZEN'
+attempt,local,mode=sys.argv[1:4];D=B/'evidence'/('suites-'+attempt);D.mkdir(exist_ok=False);J=Path('D:/Android/Android Studio/jbr/bin')
+jar=B/'artifacts/input-sink05-classes.jar';cp=';'.join(map(str,([jar] if mode=='production' else [])+[B/'evidence'/('local-'+local)/'classes']+sorted((B/'deps').glob('*.jar'))))
+plan=[('results','HostResultCheck',[]),('transitions','TransitionCheck',[]) ] if '--results-only' in sys.argv else [('core','InputSinkCheck',[str(D)]),('original17','ReturnBoundaryCheck',[]),('tester12','IndependentFixCheck',[]),('readback','ReadbackReturnCheck',[]),('latecancel','LateCancellationRegression',[]),('input','InputExceptionCheck',[])]+[('cancel-'+p,'CancellationRegression',[p]) for p in ['WRITE','FLUSH','CLOSE','REOPEN','VALIDATE','COMMIT']]+[('history-'+p,'AbortHistoryRegression',[p]) for p in ['ABORT','QUERY','ABORT_ERROR']]+[('matrix','ExceptionMatrixCheck',[]),('independent-authority','IndependentAuthorityCheck',[]),('independent-cancel','IndependentCancellationCheck',[]),('results','HostResultCheck',[]),('transitions','TransitionCheck',[])]
+if '--results-only' not in sys.argv:plan.append(('query-original','QueryResultRegression',[]))
+if '--order-only' in sys.argv:plan=[('original-responses','OriginalResponseRegression',[]),('orders','ResponseOrderCheck',[]),('coordinator-orders','CoordinatorOrderCheck',[]),('independent-host','IndependentHostResults',[])]
+elif '--results-only' not in sys.argv:plan += [('original-responses','OriginalResponseRegression',[]),('orders','ResponseOrderCheck',[]),('coordinator-orders','CoordinatorOrderCheck',[]),('independent-host','IndependentHostResults',[])]
+for name,cls,extra in plan:
+ argv=[str(J/'java.exe'),'-Xmx256m','-cp',cp,'com.videokit.d1input.'+cls]+extra;start=datetime.datetime.now(datetime.timezone.utc).isoformat();r=subprocess.run(argv,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ (D/(name+'.stdout')).write_bytes(r.stdout);(D/(name+'.stderr')).write_bytes(r.stderr);(D/(name+'.json')).write_text(json.dumps({'argv':argv,'startUtc':start,'endUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'exitCode':r.returncode,'originalProcessReturned':True,'mode':mode,'productionJarFirst':mode=='production','jarSha256':hashlib.sha256(jar.read_bytes()).hexdigest() if mode=='production' else None,'sourcePins':f'evidence/local-{local}/source-pins.json'},indent=2),encoding='utf-8')
+ print(name,'exit',r.returncode,r.stdout.decode('utf-8','replace')[-750:],r.stderr.decode('utf-8','replace')[-750:]);assert r.returncode==0

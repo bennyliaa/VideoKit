@@ -1,0 +1,67 @@
+{
+  "status": "PASS_READONLY_DEFAULT_VERIFY_AND_HELP_PREFREEZE",
+  "commands": [
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13a\\tools\\package_delivery.py"
+      ],
+      "exitCode": 2,
+      "stdout": "{\"status\": \"NOT_FROZEN\", \"mode\": \"READ_ONLY\", \"writes\": 0}\r\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13a\\tools\\package_delivery.py",
+        "verify"
+      ],
+      "exitCode": 2,
+      "stdout": "{\"status\": \"NOT_FROZEN\", \"mode\": \"READ_ONLY\", \"writes\": 0}\r\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13a\\tools\\package_delivery.py",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\r\n\r\nDefault/verify/help are strictly read-only. Writing requires the explicit\r\n'pack' subcommand.\r\n\r\npositional arguments:\r\n  {verify,pack}\r\n\r\noptions:\r\n  -h, --help           show this help message and exit\r\n  --seal-sha SEAL_SHA  Optional independently supplied external seal SHA256\r\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13a\\tools\\package_delivery.py",
+        "pack",
+        "--help"
+      ],
+      "exitCode": 0,
+      "stdout": "usage: package_delivery.py [-h] [--seal-sha SEAL_SHA] [{verify,pack}]\r\n\r\nDefault/verify/help are strictly read-only. Writing requires the explicit\r\n'pack' subcommand.\r\n\r\npositional arguments:\r\n  {verify,pack}\r\n\r\noptions:\r\n  -h, --help           show this help message and exit\r\n  --seal-sha SEAL_SHA  Optional independently supplied external seal SHA256\r\n",
+      "stderr": ""
+    }
+  ],
+  "candidateFilesBeforeAfterIdentical": 197,
+  "oldE13FrozenRowsUnchanged": 367,
+  "oldSeal": {
+    "path": "docs/coder/d1e13/evidence/e13-freeze.json",
+    "bytes": 77034,
+    "sha256": "3b80d430aa7f859174ffae0a4b5ca948a01aa032d15c0666fb595e6a1bba5cc0"
+  },
+  "oldMisusedPackagerReexecuted": false,
+  "oldMisuseScope": "Existing JAR FileExistsError before completion was a packaging invocation problem; not a product functionality FAIL",
+  "deviceCalls": 0
+}

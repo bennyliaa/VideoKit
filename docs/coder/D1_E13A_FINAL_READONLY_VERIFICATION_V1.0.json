@@ -1,0 +1,224 @@
+{
+  "status": "PASS_E13A_FINAL_STRICT_READONLY_VERIFICATION",
+  "atUtc": "2026-10-18T06:54:25.305806+00:00",
+  "archive": {
+    "path": "docs/coder/D1-20261018-E13A-source.zip",
+    "bytes": 23947746,
+    "sha256": "45765142b21ca193d1b5ca26feb2e1023e5151e95303fd9ba5b167c1cc37e48e"
+  },
+  "externalSeal": {
+    "path": "docs/coder/d1e13a/evidence/e13a-freeze.json",
+    "bytes": 56667,
+    "sha256": "24d9fd0b3fa00afe0d37768cfd7eafd7bf1349810f641c7c03814937ace8acb6"
+  },
+  "archiveEntries": 269,
+  "immutableRows": 270,
+  "readonlySnapshotFilesUnchanged": 264,
+  "verifications": [
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13a\\tools\\package_delivery.py"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "status": "PASS_E13A_STRICT_READONLY_VERIFY",
+        "mode": "READ_ONLY",
+        "writes": 0,
+        "archive": {
+          "path": "docs/coder/D1-20261018-E13A-source.zip",
+          "bytes": 23947746,
+          "sha256": "45765142b21ca193d1b5ca26feb2e1023e5151e95303fd9ba5b167c1cc37e48e"
+        },
+        "externalSeal": {
+          "path": "docs/coder/d1e13a/evidence/e13a-freeze.json",
+          "bytes": 56667,
+          "sha256": "24d9fd0b3fa00afe0d37768cfd7eafd7bf1349810f641c7c03814937ace8acb6"
+        },
+        "immutableRows": 270,
+        "archiveEntries": 269,
+        "jarClasses": 172,
+        "priorSeals": [
+          {
+            "seal": {
+              "path": "docs/coder/d1e11/evidence/e11-freeze.json",
+              "bytes": 75113,
+              "sha256": "fd71fd2f3e696a144befb84307391f5f11c6b966dc068063d409c7df95f3eaa5"
+            },
+            "immutableRowsVerified": 375
+          },
+          {
+            "seal": {
+              "path": "docs/coder/d1e11/revision-r1/evidence/e11-final-freeze.json",
+              "bytes": 13989,
+              "sha256": "2e1dcdcf212131952529e998da0f0cd1c14e10ca3eee912d1f897181b7cf81d3"
+            },
+            "immutableRowsVerified": 65
+          },
+          {
+            "seal": {
+              "path": "docs/coder/d1e12/e12-freeze.json",
+              "bytes": 10565,
+              "sha256": "6cfaa9291b10bbc5a0f4410ef7d35b2cc59672368998a64d699e6dfe21bd9640"
+            },
+            "immutableRowsVerified": 46
+          },
+          {
+            "seal": {
+              "path": "docs/coder/d1e13/evidence/e13-freeze.json",
+              "bytes": 77034,
+              "sha256": "3b80d430aa7f859174ffae0a4b5ca948a01aa032d15c0666fb595e6a1bba5cc0"
+            },
+            "immutableRowsVerified": 367
+          }
+        ],
+        "deviceCalls": 0
+      },
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1e13a\\tools\\package_delivery.py",
+        "verify",
+        "--seal-sha",
+        "24d9fd0b3fa00afe0d37768cfd7eafd7bf1349810f641c7c03814937ace8acb6"
+      ],
+      "exitCode": 0,
+      "stdout": {
+        "status": "PASS_E13A_STRICT_READONLY_VERIFY",
+        "mode": "READ_ONLY",
+        "writes": 0,
+        "archive": {
+          "path": "docs/coder/D1-20261018-E13A-source.zip",
+          "bytes": 23947746,
+          "sha256": "45765142b21ca193d1b5ca26feb2e1023e5151e95303fd9ba5b167c1cc37e48e"
+        },
+        "externalSeal": {
+          "path": "docs/coder/d1e13a/evidence/e13a-freeze.json",
+          "bytes": 56667,
+          "sha256": "24d9fd0b3fa00afe0d37768cfd7eafd7bf1349810f641c7c03814937ace8acb6"
+        },
+        "immutableRows": 270,
+        "archiveEntries": 269,
+        "jarClasses": 172,
+        "priorSeals": [
+          {
+            "seal": {
+              "path": "docs/coder/d1e11/evidence/e11-freeze.json",
+              "bytes": 75113,
+              "sha256": "fd71fd2f3e696a144befb84307391f5f11c6b966dc068063d409c7df95f3eaa5"
+            },
+            "immutableRowsVerified": 375
+          },
+          {
+            "seal": {
+              "path": "docs/coder/d1e11/revision-r1/evidence/e11-final-freeze.json",
+              "bytes": 13989,
+              "sha256": "2e1dcdcf212131952529e998da0f0cd1c14e10ca3eee912d1f897181b7cf81d3"
+            },
+            "immutableRowsVerified": 65
+          },
+          {
+            "seal": {
+              "path": "docs/coder/d1e12/e12-freeze.json",
+              "bytes": 10565,
+              "sha256": "6cfaa9291b10bbc5a0f4410ef7d35b2cc59672368998a64d699e6dfe21bd9640"
+            },
+            "immutableRowsVerified": 46
+          },
+          {
+            "seal": {
+              "path": "docs/coder/d1e13/evidence/e13-freeze.json",
+              "bytes": 77034,
+              "sha256": "3b80d430aa7f859174ffae0a4b5ca948a01aa032d15c0666fb595e6a1bba5cc0"
+            },
+            "immutableRowsVerified": 367
+          }
+        ],
+        "deviceCalls": 0
+      },
+      "stderr": ""
+    }
+  ],
+  "priorSeals": [
+    {
+      "seal": {
+        "path": "docs/coder/d1e11/evidence/e11-freeze.json",
+        "bytes": 75113,
+        "sha256": "fd71fd2f3e696a144befb84307391f5f11c6b966dc068063d409c7df95f3eaa5"
+      },
+      "immutableRowsVerified": 375
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e11/revision-r1/evidence/e11-final-freeze.json",
+        "bytes": 13989,
+        "sha256": "2e1dcdcf212131952529e998da0f0cd1c14e10ca3eee912d1f897181b7cf81d3"
+      },
+      "immutableRowsVerified": 65
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e12/e12-freeze.json",
+        "bytes": 10565,
+        "sha256": "6cfaa9291b10bbc5a0f4410ef7d35b2cc59672368998a64d699e6dfe21bd9640"
+      },
+      "immutableRowsVerified": 46
+    },
+    {
+      "seal": {
+        "path": "docs/coder/d1e13/evidence/e13-freeze.json",
+        "bytes": 77034,
+        "sha256": "3b80d430aa7f859174ffae0a4b5ca948a01aa032d15c0666fb595e6a1bba5cc0"
+      },
+      "immutableRowsVerified": 367
+    }
+  ],
+  "apks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/app-debug.apk",
+      "bytes": 10692238,
+      "sha256": "962d903ff4dbe2ccf767a6adb9bd7845c4cbfd025ebee249caad4d0517483aad",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/app-debug-androidTest.apk",
+      "bytes": 2770225,
+      "sha256": "83109c13d76d635024add5575c1bf77606a05c3400b71ae3f6247acf18949f13",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/fixture-debug.apk",
+      "bytes": 65609,
+      "sha256": "868f581538d4a92908870d9066d5dfce18d847a5d9559e827e24cbb3ca3544d8",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "hostJar": {
+    "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/e13a-host-tools.jar",
+    "bytes": 298510,
+    "sha256": "a0ff822bb9097106322bfccfc6a9c95d2bc1c701928da1be3feef5f01122614f"
+  },
+  "hostClasses": 172,
+  "bindingGroups": 9,
+  "bindingAssertions": 72,
+  "nativeLibraries": 7,
+  "mavenCoordinates": 35,
+  "fixtureRuntimeCoordinates": 0,
+  "deviceCalls": 0,
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

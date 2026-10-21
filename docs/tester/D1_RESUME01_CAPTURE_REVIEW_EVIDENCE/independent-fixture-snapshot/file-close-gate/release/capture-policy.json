@@ -1,0 +1,29 @@
+{
+  "schema": "RESUME01_CAPTURE_POLICY_V1",
+  "mode": "OFFLINE_FIXTURE",
+  "planId": "1a12d7b7-2bc8-4daa-94f5-864164620f97",
+  "scope": "1ab44dba4ead2827d4dc221d38a3e494ca9f432bfaea5f6c3e1855776a513645",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01-capture\\selfchecks\\work\\tester-29d7cb11-369c-49a2-83d0-9dc497f3e9d2\\file-close-gate\\outputs",
+  "slots": [
+    {
+      "id": "INDEP_0",
+      "phase": "M1",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1resume01-capture/selfchecks/capture_fixture.py",
+        "success"
+      ],
+      "maxTextBytes": 512,
+      "qualificationSeconds": 0.5
+    }
+  ],
+  "entrySha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe",
+  "toolSha256": "abc1aa0b5a63f745804e88789b2dfe6857582ec19ed36b3b5f9dc6b340212344",
+  "fixtureScriptSha256": "09c6c81379bccb55af304a8792e799cd598e7360533ea606ffe2830aa993cedd",
+  "fixtureFault": "CLOSE_GATE",
+  "fixtureGatePath": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01-capture\\selfchecks\\work\\tester-29d7cb11-369c-49a2-83d0-9dc497f3e9d2\\file-close-gate\\outputs\\file-close.gate",
+  "executionPins": []
+}

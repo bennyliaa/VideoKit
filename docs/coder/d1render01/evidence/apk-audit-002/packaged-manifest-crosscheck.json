@@ -1,0 +1,27 @@
+[
+  {
+    "source": "app/build/intermediates/packaged_manifests/debug/processDebugManifestForPackage/AndroidManifest.xml",
+    "sha256": "d20e8bf430a3c5ee0f32878052dbec48f9c43e9698d4fe5a9e15f8544acff24d",
+    "package": "com.videokit.d1present",
+    "instrumentation": null,
+    "permissions": [
+      "android.permission.ACCESS_NETWORK_STATE"
+    ]
+  },
+  {
+    "source": "app/build/intermediates/packaged_manifests/debugAndroidTest/processDebugAndroidTestManifest/AndroidManifest.xml",
+    "sha256": "21517164f9ca1a40b28343c15cdec4c3c558c3ca680da9bd6201f438bd5b6a7a",
+    "package": "com.videokit.d1present.test",
+    "instrumentation": {
+      "{http://schemas.android.com/apk/res/android}name": "com.videokit.d1present.RenderInstrumentation",
+      "{http://schemas.android.com/apk/res/android}functionalTest": "false",
+      "{http://schemas.android.com/apk/res/android}handleProfiling": "false",
+      "{http://schemas.android.com/apk/res/android}label": "Tests for com.videokit.d1present",
+      "{http://schemas.android.com/apk/res/android}targetPackage": "com.videokit.d1present",
+      "{http://schemas.android.com/apk/res/android}targetProcesses": "com.videokit.d1present:presentation"
+    },
+    "permissions": [
+      "android.permission.REORDER_TASKS"
+    ]
+  }
+]

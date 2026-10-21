@@ -1,0 +1,44 @@
+{
+  "status": "PREPARED_NOT_EXECUTED",
+  "requiredReceiptGroups": {
+    "identity": [
+      "exact app/test hashes and signing cert",
+      "target package/version UID/process PID and instrumentation selector",
+      "actual Media3 class source/version",
+      "exact scope and immutable original fixture identity"
+    ],
+    "source": [
+      "announced length and actual raw EOF/hash/bytes",
+      "cumulative physical bytes and original read offsets/count",
+      "sourceVersion/epoch and same original Provider identity",
+      "per-source/global peaks and no queue bypass"
+    ],
+    "parser": [
+      "sniff/reset result separate from EOF",
+      "real extractor class, endTracks and actual SeekMap/duration/points",
+      "for each track id/type/MIME/dimensions/rotation/encryption/CSD length+hash",
+      "per sample size/PTS/flags/keyframe and declared NAL-representation hash; actual count",
+      "parser END_OF_INPUT and replay/end position independent from whole-stream EOF"
+    ],
+    "output": [
+      "qualified fixture admission before mux create/write",
+      "actual payload/EOS count/timing, byte totals and original flush/close/return",
+      "same read-only reopen Provider/REOPEN count",
+      "real reopened format/six samples/CSD/PTS/size/hash compare policy and actual duration"
+    ],
+    "returns": [
+      "same original source/FD/registry/read worker and callback return",
+      "actual caller/parser/observer threads joined; method deadline not return proof",
+      "first failure and SDK lower bounds/physical attempted/UNKNOWN separately",
+      "owner strong retention on UNKNOWN; no force stop/second close/refund"
+    ],
+    "classification": [
+      "Android real operation executed vs host/static review vs NOT_RUN",
+      "no decoder/playback/audio/isolated format/READY/COMMIT claims"
+    ]
+  },
+  "exactDeviceOperationBudget": null,
+  "exactMethodDeadlineMs": null,
+  "exactOutputReceiptByteCap": null,
+  "note": "Future frozen plan must bind exact fields and budgets before any device method; this schema is not an activation"
+}

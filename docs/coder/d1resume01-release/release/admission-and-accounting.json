@@ -1,0 +1,114 @@
+{
+  "scope": {
+    "path": "docs/coder/d1resume01-release/release/runtime-scope.json",
+    "bytes": 884,
+    "sha256": "917d8c1dc57d267a25101355f077e4a0c3ed62b6c93c10d63ec8255def6b1bde"
+  },
+  "release": {
+    "path": "docs/coder/d1resume01-release/release/activation-release.json",
+    "bytes": 741,
+    "sha256": "04605dcf8f1ab1b2c0d0147da255e6514f309f4669f79efa1bf0f404042f35e5"
+  },
+  "config": {
+    "path": "docs/coder/d1resume01-release/release/activation-trust-deploy.json",
+    "bytes": 1852,
+    "sha256": "c988760490747e7d456311b3b4df1fdf4579bc753ac0cf0130a8115d5ad958eb"
+  },
+  "registryPlan": {
+    "path": "docs/coder/d1resume01-release/release/registry-plan.json",
+    "bytes": 8544,
+    "sha256": "c7a8ec98eb27cae39ee450ef440e6c766e8a21a61475a61a32346af59f97085f"
+  },
+  "standardMetadataCaptureReference": {
+    "path": "docs/coder/d1resume01-release/reference/recorded-standard-client-capture-command.txt",
+    "bytes": 4402,
+    "sha256": "64e4171befead0a52ae310b7572efe1d5d7c337dd770133b7377d2565cf28ce9"
+  },
+  "sourceReview": {
+    "path": "docs/tester/D1_RESUME01_STATIC_REVIEW_REPORT_V1.0.md",
+    "bytes": 10083,
+    "sha256": "0bad8b95ac7e0308713fdfed2f21c9215d18606f86aaa8e4e1dbd09059640743"
+  },
+  "mechanicalReview": "Required independent receipt bound externally to final seal; not fabricated in this package.",
+  "localPreflight": [
+    "Pin all inputs and original tool bytes before starting a client; ADB mismatch stops without restarting server.",
+    "Match original accepted registry inventory and exact bytes; do not initialize/copy-replace live registry.",
+    "Reconcile ledger, administrative A/K and independent B/H; do not refund old UNKNOWN.",
+    "Inspect fixed guard root once under authorization; <=32 exact claims, no symlinks; any unresolved claim stops with specific identity, no deletion/reset/admin waiver.",
+    "New deployment once path must not exist. Existing root disposition must match exact approved bytes, or be absent until post-M1 CREATE_NEW installation."
+  ],
+  "expectedM1": {
+    "serial": "HA1Q6WXR",
+    "model": "TB138FC",
+    "api": 31,
+    "user": 0,
+    "appVersion": 17,
+    "fixtureVersion": 1,
+    "appSha256": "962d903ff4dbe2ccf767a6adb9bd7845c4cbfd025ebee249caad4d0517483aad",
+    "testSha256": "83109c13d76d635024add5575c1bf77606a05c3400b71ae3f6247acf18949f13",
+    "fixtureSha256": "868f581538d4a92908870d9066d5dfce18d847a5d9559e827e24cbb3ca3544d8",
+    "appSigner": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+    "fixtureSigner": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9",
+    "uids": [
+      10221,
+      10222,
+      10228
+    ],
+    "data": [
+      "10221:6972",
+      "10222:4741"
+    ],
+    "fixtureData": "Capture fresh complete UID:inode and require unchanged in M2."
+  },
+  "expectedM2": {
+    "appVersion": 19,
+    "fixtureVersion": 3,
+    "appSha256": "938d70fbc70fd9bfdbef4ac37d2d83a66d7260e88e8c3c62bb2d022ea427908e",
+    "testSha256": "4227751bf659fca9efc8a8d2d32d5ce754bcbef9033e15a0c92ab7537dca9dd7",
+    "fixtureSha256": "a8c86650ae756f682fb2cbaaa896424974893282026525266e7b1912a8dd1867",
+    "uids": [
+      10221,
+      10222,
+      10228
+    ],
+    "data": [
+      "10221:6972",
+      "10222:4741"
+    ],
+    "fixtureData": "Exactly equal fresh M1 identity."
+  },
+  "occupancy": "Full activity-process and ps records; no other project live tasks or unknown ownership. Absence of instrumentation alone insufficient. If occupied, stop this scope without automatic retry.",
+  "dispositionInstallation": "Only after all M1 gates: CREATE_NEW approved exact bytes in fixed root if absent, read back and verify original close. Existing equal bytes reuse; mismatch stops, never overwrite. Do not alter any claim/pointer/return marker.",
+  "deploymentOnce": "D:/CodexProjects/VideoKit/docs/tester/D1_RESUME01_RELEASE_EXECUTION/1f1cc608-2337-438f-a9f5-086cda29ceb2/e13f-lifecycle-deployment.once",
+  "caseOnce": {
+    "type": "EXISTING_SCOPE_METHOD_CLAIM",
+    "scopeSha256": "917d8c1dc57d267a25101355f077e4a0c3ed62b6c93c10d63ec8255def6b1bde",
+    "method": "ordinarySenderCannotBindCodec",
+    "persistentRoot": "D:/CodexProjects/VideoKit/docs/tester/VideoKit-device-custody/HA1Q6WXR",
+    "reentryEvenAfterReturn": "REJECTED"
+  },
+  "rawCapsArePhysicalHardBounds": false,
+  "counting": "All original successful raw reads are charged even if over cap or not saved; duplicated forwarding/records charged separately. Unknown exact original read count is UNKNOWN, not cap or savedBytes; entire category remains reserved.",
+  "overflow": "Stop all subsequent admission, preserve original owner and first failure; any actual overrun remains explicitly charged, never borrow the unallocated409600B.",
+  "internalSdkReaderOverflow": "If frozen PC/archive does not expose exact overshoot count, record actual UNKNOWN / above qualifier with full category retained; no dependent work or fabricated precise amount.",
+  "controlReserve": {
+    "operationArchives": 442368,
+    "observerRecordsAndConsole": 81920,
+    "metadataClientRecords": 122880,
+    "releaseAndScopeRecords": 49152,
+    "claimAndPointer": 16384,
+    "subtotal": 712704
+  },
+  "metadataControlReserve": 786432,
+  "unallocatedNotSpendable": 409600,
+  "externalCallsBeyondPlan": "NOT_AUTHORIZED; no process/handle/status polling, retry, termination or later five methods.",
+  "toolCompatibility": {
+    "adbSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+    "beforeAnyClient": "One local existing-listener/source check using existing host APIs, not an extra ADB version/start/query. Require existing 127.0.0.1:5037 listener executable D:/Android/SDK/platform-tools/adb.exe, exact approved on-disk hash, unchanged file predating the current server creation; unresolved provenance blocks.",
+    "noHistoricalPidReuse": true,
+    "environment": "Require default local5037 routing; ADB_SERVER_SOCKET, ANDROID_ADB_SERVER_PORT, ADB_SERVER_PORT must not redirect. Unexplained override blocks.",
+    "serverAbsentOrMismatch": "STOP_NO_START_NO_RESTART_NO_NEW_PROTOCOL"
+  },
+  "controlAllocation": "releaseAndScopeRecords 6x8192: scope, release, config, permit, dispatch authorization, and one bounded local preflight receipt. No new operation allowance. Static artifact/input reads are not newly generated process output. All new records/console/forwarding are charged.",
+  "operationDefinition": "43 approved dispatch work units in the accepted groups; controller context does not authorize extra SDK/Java children. Record actual controller/child identities and text overhead without claiming 43 is a count of every OS-created Android/system process."
+}

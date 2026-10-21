@@ -1,0 +1,606 @@
+{
+  "candidateId": "D1-20261016-C09",
+  "git_commit": null,
+  "frozen_at": "2026-10-16T08:18:39.689352+08:00",
+  "state": "READY_FOR_COORDINATED_DEVICE_TEST / D1_NOT_PASSED",
+  "source_manifest_sha256": "c7cb5aa37a96fcc4ea90170def1a30070bb38874688b0e4d461ffe53ac8cb51c",
+  "artifacts": [
+    {
+      "path": "docs/coder/d1c09/artifacts/D1-20261016-C09/app-debug-androidTest.apk",
+      "bytes": 2400485,
+      "sha256": "2701b39a780174c76235db86262583204f0f9ac27b7ffd513ba32574a4a0c673"
+    },
+    {
+      "path": "docs/coder/d1c09/artifacts/D1-20261016-C09/app-debug.apk",
+      "bytes": 45308435,
+      "sha256": "55e5bea436b2195517af72c991c9f36ede75e6da390c450bb65ae9ad2106a9f0"
+    },
+    {
+      "path": "docs/coder/d1c09/artifacts/D1-20261016-C09/app-release-unsigned.apk",
+      "bytes": 21607782,
+      "sha256": "71aa8b8b25e1e94d14a6f2939b536b71eea6d043974397120fafad35ebc5f03e"
+    },
+    {
+      "path": "docs/coder/d1c09/artifacts/D1-20261016-C09/D1-20261016-C09-source.zip",
+      "bytes": 35790277,
+      "sha256": "7551a6bb0fc94cf0d66a65b4b027925ec85c17e19d03a796b072eaaa31e3af28"
+    },
+    {
+      "path": "docs/coder/d1c09/artifacts/D1-20261016-C09/worker-debug.apk",
+      "bytes": 17047488,
+      "sha256": "e27a4d77d51e4fdc59eb56234b383c9b845e33f5d40ac45b4e9b0113627fc0bd"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/coder/d1c09/evidence/apk-audit-console.log",
+      "bytes": 11574,
+      "sha256": "216ea29a1880ca1d1a189dd74e4f934772c0015d57acdb44318046aedd217ead"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/apk-audit.json",
+      "bytes": 12407,
+      "sha256": "e8ecfcada00a9e7d2c9b6e60eb089fe24b6adb685679c64c5ba19f459cf9e43e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/apk-pre-quota-audit.json",
+      "bytes": 11732,
+      "sha256": "ca5b819ecdfefd9864d45c5785ee2e772a5ac184c4a1e0ba19e80ddbfe090ab3"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug-androidTest.apk.badging.txt",
+      "bytes": 1138,
+      "sha256": "02bb3caa213fbe43947b0a91e5db20622d68fef89fd8aadfe4bad96ca55c38eb"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug-androidTest.apk.manifest.txt",
+      "bytes": 3562,
+      "sha256": "839f8e3f35c1b5cf9b9cdd364e48d95a4ac90671307403ec828da573c803276a"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug-androidTest.apk.signing.txt",
+      "bytes": 989,
+      "sha256": "6ec59536e0dba1b669725643e1eeaf70634d7a5b2e20ff09919f16fedfd87002"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug-androidTest.apk.zipalign.txt",
+      "bytes": 3489,
+      "sha256": "05c3a8d0e804f4efc6b5da9667be8c64304c9bfab792280ea86dd23ab30a0f3e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk-libandroidx.graphics.path.so.elf.txt",
+      "bytes": 4093,
+      "sha256": "8a8cf96c60737261effe3e6fb054deb9c7cb6ef02750776d0c0c5ee39df53086"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk-libavcodec.so.elf.txt",
+      "bytes": 4322,
+      "sha256": "21018bf7b8d77b6147a72bd61ddf7d4d6cd3800420fff5041cc3cf2c1197013c"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk-libavformat.so.elf.txt",
+      "bytes": 4327,
+      "sha256": "7ce1ab8ea383020197aeafb6172873bbdba225046f9622db0e876186d53f0684"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk-libavutil.so.elf.txt",
+      "bytes": 4392,
+      "sha256": "ae9295522b224c0671fed8f4aea34a1244ee8bfcf8eaf2bb9f39f1efb59bea10"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk-libswscale.so.elf.txt",
+      "bytes": 4370,
+      "sha256": "8d54c1ac81e9b6adbd33c60be3a673d5a2222aa203b5227f8ddd90156113645f"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk-libvideokit_alloc.so.elf.txt",
+      "bytes": 3896,
+      "sha256": "3927d514104c0bd9e4d8288791e3cb3b62d3a402694993000e01e1ed12878f85"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk-libvideokit_cpu.so.elf.txt",
+      "bytes": 4159,
+      "sha256": "eec17078d49f07717a9de60d1a121f2a5a46faa8df26de797d6c876ee45f793d"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk-libvideokit_d1_lease.so.elf.txt",
+      "bytes": 3785,
+      "sha256": "2e7240c1b73f02e9fccf1a5d436530aa13c71fafffb042e4123245bce2aa0658"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk.badging.txt",
+      "bytes": 5124,
+      "sha256": "bed8a8f2cf6626923dd8d560a18c63d1b155f9b81313515bdc107bffd420d43e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk.manifest.txt",
+      "bytes": 8187,
+      "sha256": "e9b76267e41dfe2de8fe040ab78f91f69c578e9c427d9eabed6ec0ad793fa670"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk.signing.txt",
+      "bytes": 989,
+      "sha256": "6ec59536e0dba1b669725643e1eeaf70634d7a5b2e20ff09919f16fedfd87002"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-debug.apk.zipalign.txt",
+      "bytes": 50496,
+      "sha256": "40ceda2fec1aa82d7313bf449753acc0ed133894a3bc45f031081382464d969d"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-release-unsigned.apk-libandroidx.graphics.path.so.elf.txt",
+      "bytes": 4093,
+      "sha256": "8a8cf96c60737261effe3e6fb054deb9c7cb6ef02750776d0c0c5ee39df53086"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-release-unsigned.apk.badging.txt",
+      "bytes": 4614,
+      "sha256": "cb253dfe525066dda9155be42ea7303cebe413a42e96eeda7c0fb700acd9221a"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/app-release-unsigned.apk.manifest.txt",
+      "bytes": 5353,
+      "sha256": "29098ba753d51c781a3767dcdda89d266c07fef2d5a1a26d4c7f971a6fe1473a"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/avutil-quota-references.txt",
+      "bytes": 36747,
+      "sha256": "4fcc94e1ee2f6ce28c9fcf5d7c80ee9f178d000f8c0f2d3e9efe62a092035e98"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/c09-sbom.cdx.json",
+      "bytes": 2049,
+      "sha256": "2d58b41b44196fa5d82e868c117ff3a3866ef42686a648783a54e42dd946518f"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/C09CaptureSelfCheck.log",
+      "bytes": 1092,
+      "sha256": "0e799a7d0ec7b48c64410009b9f8c60fa6f7d40fb8f8e24c59badf1af79d3fbb"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/C09ControlSelfCheck.log",
+      "bytes": 410,
+      "sha256": "3aac401b4464b8d61230cec2074084becbdfbbc3afb6e7908231ade4b3208dbc"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/C09CpuSelfCheck.log",
+      "bytes": 79,
+      "sha256": "97f28d6101f6b33128a3215997e3e7af790ad76647cac636d1436f21840d6163"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/C09CpuSourceSelfCheck.log",
+      "bytes": 68,
+      "sha256": "f611ac60f0aad19b27c16dc77aaae9f0e06225d1b82c82ef579e6ab3ce1a25dc"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/C09ExitRecordSelfCheck.log",
+      "bytes": 58,
+      "sha256": "5995442bd29e642008cb01f849e5218ff7ad0a205c6e7ee3d0a68ec4f1700623"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/C09FailureSelfCheck.log",
+      "bytes": 1193,
+      "sha256": "41d21401e9adcf58e73115fe827e65e30421c3c71589d36559573fdedbb9133e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/C09SelfCheck-harness-arg-failure.log",
+      "bytes": 173,
+      "sha256": "0b8b3ba16e409d80cfa183abe4411c5b43297e3377415caae878f9e491911548"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/C09SelfCheck.log",
+      "bytes": 2059,
+      "sha256": "7594f703fe6212ec66b763771df263b2a14a6096449cc1479eecc5b54d0d05c8"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/candidate-self-review.json",
+      "bytes": 731,
+      "sha256": "3e2f4d9ac0c88e6c272a84785608574cd97ae01a5466a6bbe34447ee28304a31"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/concentrated-build-attempt1.log",
+      "bytes": 94438,
+      "sha256": "d4677643f6123b4e86d6c7ba00d8f2a58d0ba1173f2575b8599847af5a098704"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/concentrated-build.log",
+      "bytes": 92391,
+      "sha256": "28e0c46d38b319760a6cda56b6b9b2e33af4e773f8b8fb5e884850487d4315b5"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/cpu-native-build.json",
+      "bytes": 3209,
+      "sha256": "3bee9fe3e01d18f8da9a7d2761437833571d4622797dd07b2ac55e7ff7309181"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/cpu-native-compile-attempt1.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/cpu-native-compile.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/cpu-native-dependencies.txt",
+      "bytes": 3860,
+      "sha256": "69bc167761acc84c7b96a2ffc51c0f16d39d30a3f06bde09fbb3e4e01537876e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/cpu-native-readelf.txt",
+      "bytes": 4159,
+      "sha256": "eec17078d49f07717a9de60d1a121f2a5a46faa8df26de797d6c876ee45f793d"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/cpu-native-symbols.txt",
+      "bytes": 2363,
+      "sha256": "b78c2956c2ccf521792aa25f56d06929e1abdb21eaaa402f00125e63dd606ebf"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/dependency-baseline-review.json",
+      "bytes": 8319,
+      "sha256": "fbe6ef541fbb5e487afb41765b413f2f1ec64ee20c17d2357cb1e1b3b63cf8c8"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-8.0-to-8.0.3-delta.json",
+      "bytes": 149666,
+      "sha256": "96631db57e0a5c4956b72944d1855a77d1e235eb5ac3101c4d7864425e5da364"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-admission.json",
+      "bytes": 2542,
+      "sha256": "ff53d736dadde6a78fce861890336bb1224be94572394baab7f22ba97a1540ae"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-build.log",
+      "bytes": 10431,
+      "sha256": "ceac5fab546ad32b0cb93814d9082f327f89a453ec8b4cf9cea6683033800046"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-download.html",
+      "bytes": 27484,
+      "sha256": "e1b15edebbabe602905de2b10aa4784fa3b0ed6125582248b686ba3aab3c6442"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/config.h",
+      "bytes": 23524,
+      "sha256": "cac3e1d9e704ca72eec20584a8126473f47eefdee2ce7e522d6eb3fb15bb7460"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/config_components.h",
+      "bytes": 74588,
+      "sha256": "a68c5d84a768282da3e94b612478e3841647f7b0bd38cdd03c8617dc6fea51cd"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/ffbuild_config.log",
+      "bytes": 480950,
+      "sha256": "18e7e0f564b2647a743da95d4cc89f955264ffeb07df2d814e31d5629b2355a5"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/ffbuild_config.mak",
+      "bytes": 86941,
+      "sha256": "8836acdc41978248668b6406222e7eb501db7681aa6c1dfb41f39f6cc5b8fb62"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/libavcodec_codec_list.c",
+      "bytes": 125,
+      "sha256": "b50598b5478e69a734393f068c08fe2a8916d636ee1970870faa5bacc2cb4de5"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/libavcodec_parser_list.c",
+      "bytes": 134,
+      "sha256": "f8f81d68d70c0b77dc77be45ad089e9073ec2035da63825f74000f60a78cf4c1"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/libavformat_demuxer_list.c",
+      "bytes": 108,
+      "sha256": "f348b0fd0909d479b37c1d130b7e6f7cb3eb3cadca46e5a2532892cd6e6fa24e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/libavformat_protocol_list.c",
+      "bytes": 65,
+      "sha256": "20390d2af0b45f7de454ca6f3b806275de063a3de97e80feea6857da98e60b67"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/config.h",
+      "bytes": 23524,
+      "sha256": "cac3e1d9e704ca72eec20584a8126473f47eefdee2ce7e522d6eb3fb15bb7460"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/config_components.h",
+      "bytes": 74588,
+      "sha256": "a68c5d84a768282da3e94b612478e3841647f7b0bd38cdd03c8617dc6fea51cd"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/libavcodec/bsf_list.c",
+      "bytes": 75,
+      "sha256": "bdd8790c519c97b62a52edba0b6d0b2241695e08d3c03bf026984c5e21a3e8a7"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/libavcodec/codec_list.c",
+      "bytes": 125,
+      "sha256": "b50598b5478e69a734393f068c08fe2a8916d636ee1970870faa5bacc2cb4de5"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/libavcodec/parser_list.c",
+      "bytes": 134,
+      "sha256": "f8f81d68d70c0b77dc77be45ad089e9073ec2035da63825f74000f60a78cf4c1"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/libavformat/demuxer_list.c",
+      "bytes": 108,
+      "sha256": "f348b0fd0909d479b37c1d130b7e6f7cb3eb3cadca46e5a2532892cd6e6fa24e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/libavformat/muxer_list.c",
+      "bytes": 65,
+      "sha256": "286605f176b8f4c91f8e1eefabef037c51ccc12b16b7e7e94758996c490059c2"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/libavformat/protocol_list.c",
+      "bytes": 65,
+      "sha256": "20390d2af0b45f7de454ca6f3b806275de063a3de97e80feea6857da98e60b67"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/libavutil/avconfig.h",
+      "bytes": 180,
+      "sha256": "6d78a911a2128e926262114c9904209209674e3bc1a18c208c850ecbfc3393ec"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-generated/tree/libavutil/ffversion.h",
+      "bytes": 184,
+      "sha256": "d9c9b2c1e873553b912442dd985d3f1f5c536687398c0a35f5f288af02c340bd"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-initial-unquotaed-build.log",
+      "bytes": 11124,
+      "sha256": "ad33af5b988d338fa889df6f02718220f04a7f99476cff9997803e34bf4baca1"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-key-import.log",
+      "bytes": 842,
+      "sha256": "7a4adb7cb84bb2a92d82b027b55c118b574b1e110bd8566ce8f968682e70196d"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-object-source-license-map.json",
+      "bytes": 3247955,
+      "sha256": "cca4d7902be6113bad18e2596597eed2de40c7562f9d790fecb2e231ff7b38cf"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-security-coverage.json",
+      "bytes": 6613,
+      "sha256": "88e91e5b623f05e5bfd5feea86f366bf687986786ecdeb5a5b0462060f2eab85"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-security.html",
+      "bytes": 178709,
+      "sha256": "382bddbb0454a8945a36a082ae14c35afe12426103e2c9b60cd582bf6b18d496"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-signature.log",
+      "bytes": 1028,
+      "sha256": "bf80dcf8101e5eec4875edf306c64db1c66dd2e50b952cfe9c4206293690e36e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ffmpeg-source-identity.json",
+      "bytes": 2121924,
+      "sha256": "2648f8706c3309a3d0cbeedcd1a6ad80504606f84e0912bdee7222b942f3aa2b"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/final-build.log",
+      "bytes": 92118,
+      "sha256": "293faf4d402edf366073f61531861fb468617c6a9c4ee9e91680445c297ed063"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/formal-baseline-source-equivalence.json",
+      "bytes": 11079,
+      "sha256": "c04147fb02f3897175096b698e6f894e5519ad13def8b29c8f5e3005120fd23d"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/iamf-equivalent-fixed-function.txt",
+      "bytes": 5471,
+      "sha256": "a91b970aff07d814aaef96dc2328bcbea80735bdcbed2cf2457f0c7fd99c97b0"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/input-D1_C09_CODER_REQUIREMENTS_V1.0.md",
+      "bytes": 4123,
+      "sha256": "c54a8c3068c57d4fcdcdfa1daee59ba88070a307ffb5c2d7bb6173b78413b13f"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/input-D1_C09_PRETEST_REVIEW_V1.0.md",
+      "bytes": 15437,
+      "sha256": "ece30dfb9308dd119593c8e9fd0d6be33ea41d5e21fd530fbdc79de974dc280c"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/integrity-check.json",
+      "bytes": 3331147,
+      "sha256": "91adf108e773164b4854964df7c6c16a04e03abb6c5a28c0d492006c0b7f1fc6"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/jni-callback-descriptors.txt",
+      "bytes": 1043,
+      "sha256": "d7e8c45e1c5c7e7e48a79487f463cbfa9b230e9a01faba1ae20667aad426bef9"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/jni-source-dependency-map.json",
+      "bytes": 9911,
+      "sha256": "a3d9fc7d62ef9828d688ceab8f9c4d7fc1d1a3eaca86e8d206feadab6275f886"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/libavcodec.so.62.readelf.txt",
+      "bytes": 4322,
+      "sha256": "21018bf7b8d77b6147a72bd61ddf7d4d6cd3800420fff5041cc3cf2c1197013c"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/libavformat.so.62.readelf.txt",
+      "bytes": 4327,
+      "sha256": "7ce1ab8ea383020197aeafb6172873bbdba225046f9622db0e876186d53f0684"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/libavutil.so.60.readelf.txt",
+      "bytes": 4392,
+      "sha256": "ae9295522b224c0671fed8f4aea34a1244ee8bfcf8eaf2bb9f39f1efb59bea10"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/libswscale.so.9.readelf.txt",
+      "bytes": 4370,
+      "sha256": "8d54c1ac81e9b6adbd33c60be3a673d5a2222aa203b5227f8ddd90156113645f"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/local-check-results.json",
+      "bytes": 7649,
+      "sha256": "2585de7f7526a29e7c616cfde204e8795acb78356cec5b5571c8fb2808f47422"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/local-javac.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/native-build.json",
+      "bytes": 1511,
+      "sha256": "8d50aa10b5ea71fc710b4a128313be9fbce2a91c131a2068761df84029aa0211"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/native-readelf.txt",
+      "bytes": 3785,
+      "sha256": "2e7240c1b73f02e9fccf1a5d436530aa13c71fafffb042e4123245bce2aa0658"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/native-symbols.txt",
+      "bytes": 572,
+      "sha256": "24cdef66fc90a296c33eeec6e5cdfbf7226f103703e4218a2589c906f7cc1a75"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ndk-NOTICE.toolchain.txt",
+      "bytes": 777125,
+      "sha256": "6b8633011d874b75629180e60de13ebfd546a10e56dc7d0380a35f6609f30617"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ndk-NOTICE.txt",
+      "bytes": 493924,
+      "sha256": "a3c12eee897f63991da71464b690433a15d0d74a508ce0e275436279bdcaff58"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ndk-source.properties.txt",
+      "bytes": 107,
+      "sha256": "e73b7dc557cea2da9212c09ee1795434957d62e63b7550eef69fd1887a355d94"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/protocol-final-build.log",
+      "bytes": 8881,
+      "sha256": "64ba4b5b5fe1574950be5e34b763fd3e31dd8cf31889e24726bf6ac9dc013de8"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/quota-build.json",
+      "bytes": 951,
+      "sha256": "d72be7f154bbb3d6b80a845e0b799bf575e5b34c49094cfae3c17bd32f21dc25"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/quota-compile.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/quota-final-build.log",
+      "bytes": 8944,
+      "sha256": "ffed4c23c1613ec966d674c9f99d3bd67764c66b172e8b3ce4a817d6f366c097"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/quota-symbols.txt",
+      "bytes": 656,
+      "sha256": "89cc210046d8444666264f0fb3be0a9193f2aa8d221d746e1d9e86de7e093fb6"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/RecoverySelfCheck.log",
+      "bytes": 1390,
+      "sha256": "b4861bd807c5162bf003654c41f2fd80d5f5e0a5933eb357d348a666dfc01746"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/security-patches/24b452cd9f6664dcee63f1d597ba052b34f8efd2.patch",
+      "bytes": 1470,
+      "sha256": "1a2fda15c02c4ad02b8390fcfa02d90a2238fbe892885a52f0f57c00e17f3ff2"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/security-patches/31c9c550ef5a2aea5606c319b6299108c359f21f.patch",
+      "bytes": 1268,
+      "sha256": "9e06f82eb8f6711bc40282991f70d2d411f2dd645dd0e69ec4d55fd8651a97f5"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/security-patches/3e8f3537f957da011d7360acacc9941f3ce5c306.patch",
+      "bytes": 1187,
+      "sha256": "bad13369fe73d64025951af207c3a4939d0a8eed4558e2da0569b0391907e34f"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/security-patches/5a6e2b0ab1bbc5a85a9575af8e4d67b4f0ed3d14.patch",
+      "bytes": 1679,
+      "sha256": "ca672a4b2bb0053dc032350d553f135d2e22f4bc2c156c8c6d9da19b24b9d6eb"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/security-patches/5c8a8750de5239136da3e2cdb2ede8122864b252.patch",
+      "bytes": 1080,
+      "sha256": "3e7295a2d021ff2dc31eb9fbc11be2ecece8c2ac25bf73d087c8d587d5d4881c"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/security-patches/716cf25eb8616e8e068a7c2a5d23ae107bd117b4.patch",
+      "bytes": 1407,
+      "sha256": "f7cfe19858b3afee4764107d449f082bb76192a1d67f5126df409395e1735d82"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/security-patches/b5996929df27276db37e075600988ebb17890eb4.patch",
+      "bytes": 1209,
+      "sha256": "a0281b98444f40bc56772820e275c9bb48dc8dcbba2d93d80a63cc8b3053bd5c"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/security-patches/fe72a8781b22912ec7125de1509d83fc2b1ad802.patch",
+      "bytes": 912,
+      "sha256": "fe5c87a1754129c0a5bc4583f4ea347f0a622c0f785e448ec9c7042b2d99750e"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/source-manifest.json",
+      "bytes": 2152322,
+      "sha256": "c7cb5aa37a96fcc4ea90170def1a30070bb38874688b0e4d461ffe53ac8cb51c"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/ValidationSelfCheck.log",
+      "bytes": 364,
+      "sha256": "d68604bc050acb430b04250135463c9d607e5265307cef5391eb3f3c022338dc"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/worker-debug.apk-libvideokit_d1_lease.so.elf.txt",
+      "bytes": 3785,
+      "sha256": "2e7240c1b73f02e9fccf1a5d436530aa13c71fafffb042e4123245bce2aa0658"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/worker-debug.apk.badging.txt",
+      "bytes": 5208,
+      "sha256": "715af07385296a9db339f8a5519a0829727480c550aebbb624090e0935ad22f3"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/worker-debug.apk.manifest.txt",
+      "bytes": 5770,
+      "sha256": "644bb4aa0a9278edf25b60c5f79123a818967baf693d874de5e57bdf5613f577"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/worker-debug.apk.signing.txt",
+      "bytes": 989,
+      "sha256": "6ec59536e0dba1b669725643e1eeaf70634d7a5b2e20ff09919f16fedfd87002"
+    },
+    {
+      "path": "docs/coder/d1c09/evidence/worker-debug.apk.zipalign.txt",
+      "bytes": 30531,
+      "sha256": "6f970e6397fbaf2faab8a0aa4ffd7820eec1911fc976855f6b2ba91bb16d93ac"
+    }
+  ],
+  "pure_assertions": 215,
+  "cpu_device_methods": 17,
+  "android_execution": "NOT_RUN",
+  "scope": "single APK ordinary-isolated ARM64 API31+ Debug CPU experiment; only legacy regression uses companion",
+  "required_remaining": [
+    "Coordinator hands this entire frozen candidate to tester once, phone then tablet serially; verify fresh identities and data before use",
+    "Actual isolated loading/frames/PTS/quotas/cancellation/death/source FD release/fault/raw signal/second task/host survival and affected legacy gates",
+    "Keep historical ordinary UNKNOWN/C07 FAIL unchanged; no opportunistic reruns or cleanup-derived signal proof",
+    "Full Kit/AAR/Flutter product/multi-host/model rights/all P0/distribution remain incomplete; do not enter M0"
+  ]
+}

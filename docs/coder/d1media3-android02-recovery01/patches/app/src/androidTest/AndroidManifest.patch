@@ -1,0 +1,8 @@
+--- frozen-android02/app/src/androidTest/AndroidManifest.xml
++++ recovery01/app/src/androidTest/AndroidManifest.xml
+@@ -1,4 +1,4 @@
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="D1-MEDIA3-ANDROID02-CONTAINER">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="D1-MEDIA3-ANDROID02-RECOVERY01">
+  <application android:allowBackup="false" android:usesCleartextTraffic="false" />
+  <instrumentation android:name="com.videokit.d1media3.android02.test.Media3Instrumentation" android:targetPackage="com.videokit.d1media3.android02" android:targetProcesses="com.videokit.d1media3.android02:media3" android:handleProfiling="false" android:functionalTest="true" />
+ </manifest>

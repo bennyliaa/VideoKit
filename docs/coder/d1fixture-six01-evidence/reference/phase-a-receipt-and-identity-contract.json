@@ -1,0 +1,61 @@
+{
+  "status": "PREPARED_SCHEMA_NOT_AN_ACTUAL_GENERATION_RESULT",
+  "scope": "D1GEN01-CANDIDATE-001",
+  "rawStreams": [
+    "complete stdout bytes incl all pending/final JSON and other lines",
+    "complete stderr bytes and semantic disposition",
+    "per-original stream/handle/process return; total receipt bytes never per-line disguised cap"
+  ],
+  "candidateRequired": {
+    "status": "GENERATED_CANDIDATE_NOT_QUALIFIED",
+    "firstError": null,
+    "deadlineUnknownSticky": false,
+    "sameWorkerExternallyJoined": true,
+    "originalResourceOwnersReturned": true,
+    "muxFinishReturned": true,
+    "outputReadOnly": true,
+    "wholeOutputEof": true,
+    "qualifiedFixture": false,
+    "media3Qualification": "NOT_RUN"
+  },
+  "requiredGroups": {
+    "workerDeadline": [
+      "same original completion marker after cleanup",
+      "timelyBodyAndOriginalJoin true",
+      "equalDeadlineIsLate true",
+      "clock origin and actual completion/observer elapsed separate"
+    ],
+    "writer": [
+      "state CLOSE_RETURNED",
+      "forceAttempted/forceReturned true if claimed",
+      "same original close returned",
+      "actual final size observed"
+    ],
+    "reader": [
+      "state CLOSE_RETURNED",
+      "same original read EOF/hash and close",
+      "actual native read counts/bytes, no assumed second closer"
+    ],
+    "channel": [
+      "sum WRITE requested/valid returned vs attempt/knownAck/extent",
+      "nativeCalls/returns/adoptions and zero inFlight/pending",
+      "physicalUnknownSticky and failed flags",
+      "512 nonterminal+one terminal record, no refund",
+      "post-close last-confirmed scope, not physical live FD"
+    ],
+    "samples": [
+      "six actual raw AU and nal observations; manifest source hashes not recomputable without bytes",
+      "CSD payload/annex hex and actual hash/size with representation",
+      "declared packet timescale/duration and internal observed track duration distinct from independent actual file parsing"
+    ]
+  },
+  "expectedToolJarSha256": "c4ed36f31cab8381bc47c0aea4c3f3d8a9c2afab09991a04a83102877f1bfecd",
+  "futureFileIdentity": {
+    "path": "D:/CodexProjects/VideoKit/docs/coder/d1fixture-six01/new-output/avc6-candidate.mp4",
+    "bytes": null,
+    "sha256": null,
+    "existence": "NOT_QUERIED_BY_STAGE_A"
+  },
+  "independentStageBPostReadAccounting": "Hash/size bytes and audit IO separately from original generator input ledger; no new parser or decoder",
+  "noAutomaticExecution": true
+}

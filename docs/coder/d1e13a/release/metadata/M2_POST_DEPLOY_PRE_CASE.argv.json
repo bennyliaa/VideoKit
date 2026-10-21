@@ -1,0 +1,127 @@
+{
+  "id": "M2_POST_DEPLOY_PRE_CASE",
+  "status": "REVIEW_ONLY_NOT_EXECUTED",
+  "script": {
+    "path": "docs/coder/d1e13a/release/metadata/M2_POST_DEPLOY_PRE_CASE.sh",
+    "bytes": 2347,
+    "sha256": "dcfc31af8eebdf647e5adc4719c44d66abf7ed52c8def5b94759fe372cf24426"
+  },
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "sh",
+    "-c",
+    "'set -eu\nexport LC_ALL=C\nemit() {\n label=\"$1\"; max=\"$2\"; shift 2\n if value=$(\"$@\" 2>&1); then :; else printf '\"'\"'RECORD_ERROR\\t%s\\n'\"'\"' \"$label\" >&2; exit 21; fi\n size=$(printf '\"'\"'%s'\"'\"' \"$value\" | wc -c)\n if [ \"$size\" -gt \"$max\" ]; then printf '\"'\"'RECORD_OVERSIZE\\t%s\\n'\"'\"' \"$label\" >&2; exit 22; fi\n printf '\"'\"'BEGIN\\t%s\\n%s\\nEND\\t%s\\n'\"'\"' \"$label\" \"$value\" \"$label\"\n}\n\nprintf '\"'\"'E13A_METADATA\\tM2_POST_DEPLOY_PRE_CASE\\tD1-20261018-E13A\\n'\"'\"'\nemit SERIAL 64 getprop ro.serialno\nemit MODEL 128 getprop ro.product.model\nemit API 16 getprop ro.build.version.sdk\nemit ABI 128 getprop ro.product.cpu.abilist\nemit CURRENT_USER 16 am get-current-user\nemit USER0_STATE 512 sh -c '\"'\"'dumpsys user | awk '\"'\"'\"'\"'\"'\"'\"'\"'/UserInfo/ {want=($0 ~ /UserInfo\\{0:/)} want && /UserInfo|State:/ {print}'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\nemit RELATED_PS 4096 sh -c '\"'\"'ps -A -o PID,PPID,UID,NAME | awk '\"'\"'\"'\"'\"'\"'\"'\"'NR==1 || $4 ~ /^com[.]videokit[.](app|e13[.]sender)([:.]|$)/ {print}'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\nemit INSTRUMENTATION 4096 dumpsys activity instrumentation\nemit APP_SERVICES 4096 dumpsys activity services com.videokit.app\nemit FIXTURE_SERVICES 4096 dumpsys activity services com.videokit.e13.sender\nemit APK_APP 1024 sh -c '\"'\"'p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 23;; esac; p=${p#package:}; case \"$p\" in *'\"'\"'\"'\"'\"'\"'\"'\"'\n'\"'\"'\"'\"'\"'\"'\"'\"'*) exit 24;; esac; printf '\"'\"'\"'\"'\"'\"'\"'\"'%s\\n'\"'\"'\"'\"'\"'\"'\"'\"' \"$p\"; sha256sum \"$p\"'\"'\"'\nemit PKG_APP 2048 sh -c '\"'\"'dumpsys package com.videokit.app | awk '\"'\"'\"'\"'\"'\"'\"'\"'/^[ ]*(userId=|versionCode=|User 0:)/ {print}'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\nemit APK_TEST 1024 sh -c '\"'\"'p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 23;; esac; p=${p#package:}; case \"$p\" in *'\"'\"'\"'\"'\"'\"'\"'\"'\n'\"'\"'\"'\"'\"'\"'\"'\"'*) exit 24;; esac; printf '\"'\"'\"'\"'\"'\"'\"'\"'%s\\n'\"'\"'\"'\"'\"'\"'\"'\"' \"$p\"; sha256sum \"$p\"'\"'\"'\nemit PKG_TEST 2048 sh -c '\"'\"'dumpsys package com.videokit.app.test | awk '\"'\"'\"'\"'\"'\"'\"'\"'/^[ ]*(userId=|versionCode=|User 0:)/ {print}'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\nemit APK_FIXTURE 1024 sh -c '\"'\"'p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 23;; esac; p=${p#package:}; case \"$p\" in *'\"'\"'\"'\"'\"'\"'\"'\"'\n'\"'\"'\"'\"'\"'\"'\"'\"'*) exit 24;; esac; printf '\"'\"'\"'\"'\"'\"'\"'\"'%s\\n'\"'\"'\"'\"'\"'\"'\"'\"' \"$p\"; sha256sum \"$p\"'\"'\"'\nemit PKG_FIXTURE 2048 sh -c '\"'\"'dumpsys package com.videokit.e13.sender | awk '\"'\"'\"'\"'\"'\"'\"'\"'/^[ ]*(userId=|versionCode=|User 0:)/ {print}'\"'\"'\"'\"'\"'\"'\"'\"''\"'\"'\nemit DATA_APP 128 run-as com.videokit.app stat -c '\"'\"'%u|%i'\"'\"' .\nemit DATA_TEST 128 run-as com.videokit.app.test stat -c '\"'\"'%u|%i'\"'\"' .\nprintf '\"'\"'E13A_METADATA_END\\tM2_POST_DEPLOY_PRE_CASE\\n'\"'\"'\n'"
+  ],
+  "nestedShellBodiesForSyntaxAudit": [
+    "dumpsys user | awk '/UserInfo/ {want=($0 ~ /UserInfo\\{0:/)} want && /UserInfo|State:/ {print}'",
+    "ps -A -o PID,PPID,UID,NAME | awk 'NR==1 || $4 ~ /^com[.]videokit[.](app|e13[.]sender)([:.]|$)/ {print}'",
+    "p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 23;; esac; p=${p#package:}; case \"$p\" in *'\n'*) exit 24;; esac; printf '%s\\n' \"$p\"; sha256sum \"$p\"",
+    "dumpsys package com.videokit.app | awk '/^[ ]*(userId=|versionCode=|User 0:)/ {print}'",
+    "p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 23;; esac; p=${p#package:}; case \"$p\" in *'\n'*) exit 24;; esac; printf '%s\\n' \"$p\"; sha256sum \"$p\"",
+    "dumpsys package com.videokit.app.test | awk '/^[ ]*(userId=|versionCode=|User 0:)/ {print}'",
+    "p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 23;; esac; p=${p#package:}; case \"$p\" in *'\n'*) exit 24;; esac; printf '%s\\n' \"$p\"; sha256sum \"$p\"",
+    "dumpsys package com.videokit.e13.sender | awk '/^[ ]*(userId=|versionCode=|User 0:)/ {print}'"
+  ],
+  "originalPcClients": 1,
+  "extraJavaWrappers": 0,
+  "maxCombinedOriginalTextBytes": 65536,
+  "recordOutputUpperBound": 27588,
+  "originalResponseSeconds": 55,
+  "records": [
+    {
+      "label": "SERIAL",
+      "maxBytes": 64,
+      "private": false
+    },
+    {
+      "label": "MODEL",
+      "maxBytes": 128,
+      "private": false
+    },
+    {
+      "label": "API",
+      "maxBytes": 16,
+      "private": false
+    },
+    {
+      "label": "ABI",
+      "maxBytes": 128,
+      "private": false
+    },
+    {
+      "label": "CURRENT_USER",
+      "maxBytes": 16,
+      "private": false
+    },
+    {
+      "label": "USER0_STATE",
+      "maxBytes": 512,
+      "private": false
+    },
+    {
+      "label": "RELATED_PS",
+      "maxBytes": 4096,
+      "private": false
+    },
+    {
+      "label": "INSTRUMENTATION",
+      "maxBytes": 4096,
+      "private": false
+    },
+    {
+      "label": "APP_SERVICES",
+      "maxBytes": 4096,
+      "private": false
+    },
+    {
+      "label": "FIXTURE_SERVICES",
+      "maxBytes": 4096,
+      "private": false
+    },
+    {
+      "label": "APK_APP",
+      "maxBytes": 1024,
+      "private": false
+    },
+    {
+      "label": "PKG_APP",
+      "maxBytes": 2048,
+      "private": false
+    },
+    {
+      "label": "APK_TEST",
+      "maxBytes": 1024,
+      "private": false
+    },
+    {
+      "label": "PKG_TEST",
+      "maxBytes": 2048,
+      "private": false
+    },
+    {
+      "label": "APK_FIXTURE",
+      "maxBytes": 1024,
+      "private": false
+    },
+    {
+      "label": "PKG_FIXTURE",
+      "maxBytes": 2048,
+      "private": false
+    },
+    {
+      "label": "DATA_APP",
+      "maxBytes": 128,
+      "private": false
+    },
+    {
+      "label": "DATA_TEST",
+      "maxBytes": 128,
+      "private": false
+    }
+  ],
+  "mediaPayloadReads": 0,
+  "recordTruncationAllowed": false
+}

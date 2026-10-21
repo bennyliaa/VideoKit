@@ -1,0 +1,13 @@
+{
+  "fixtureQualification": "HOST_CONTAINER only, not Android",
+  "fileComparison": "source exact8849/hash; output wholefile hash recorded, NEVER equal-to-source requirement",
+  "sampleComparison": "actual Media3 AnnexB4 one IDR NAL1340B, exact six independent qualification AnnexB digests; flags exactlykeyframe1,PTS0..1000000 step200000; samples actual not golden-filled",
+  "csdComparison": "actual Media3 initializationData each AnnexB4; concatenate in actual order;20B digest f6dc...a8, original extraction and fMP4 reopen same; grouping may be1 or2 arrays, no injected SPS/PPS",
+  "eos": "existing E6Muxer empty size0 EOS flag4 at1200000; never7th payload. Reopened actual SeekMap or TrackOutput duration must1200000",
+  "dts": "Media3 TrackOutput exposes presentation timestamps, no independent DTS output. Host qualified noCTTS/noedits DTS=PTS facts are independent host evidence; Android receipt declares capability gap rather than fabricate DTS",
+  "seek": "actual point position/time/ranges/epoch and replay hashes recorded; no manifest-filled seek points",
+  "nativeOwnership": "CREATE_NEW O_EXCL O_NOFOLLOW0600, same E4Owned synchronous FD sync/close then read-only before parser; reused grant only after original writer/host tasks returned",
+  "retention": "new runId root preserved as private evidence after success; existing roots reject before writes. No old file removal",
+  "deadline": "body completion recorded after cleanup; completed-start must be nonnegative and strictly<60s plus actual original worker join; equality or late return sticky UNKNOWN, no process-disappearance inference",
+  "currentEvidence": "20 nonmedia parent groups including inherited8; actual Android extraction/mux/reopen/FD sync=NOT_RUN"
+}

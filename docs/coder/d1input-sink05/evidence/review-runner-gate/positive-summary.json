@@ -1,0 +1,265 @@
+{
+  "candidate": "d1input-sink05",
+  "frozenCandidate": false,
+  "sealSha256": null,
+  "toolSha256": "9c6b9835b8cb912e1df83778a5ae3c8c7762e78a64a53c14a048de8d6477ada0",
+  "entryToolSha256": "51d95b3916476710ea3b8f0a3e909d0f966b3b86c78e2a6a784451a1231bf785",
+  "productionJarSha256": "6fbf307a4f0a06f45606ad9a162fcad95330924c2f220b5f68cec1e851916b0b",
+  "sourcePinsSha256": "c74f121d506f91bf6d6917b4c6423a4c7dd01b3e45b73accc90fd5a43828f9b7",
+  "runs": [
+    {
+      "name": "documented-entry",
+      "exitCode": 0,
+      "mode": "compile-and-source-core"
+    },
+    {
+      "name": "original17-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "tester12-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "readback-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "latecancel-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "input-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-WRITE-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-FLUSH-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-CLOSE-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-REOPEN-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-VALIDATE-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-COMMIT-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "history-ABORT-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "history-QUERY-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "history-ABORT_ERROR-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "matrix-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "independent-authority-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "independent-cancel-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "results-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "transitions-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "query-original-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "original-responses-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "orders-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "coordinator-orders-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "independent-host-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "core-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "original17-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "tester12-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "readback-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "latecancel-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "input-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-WRITE-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-FLUSH-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-CLOSE-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-REOPEN-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-VALIDATE-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-COMMIT-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "history-ABORT-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "history-QUERY-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "history-ABORT_ERROR-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "matrix-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "independent-authority-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "independent-cancel-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "results-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "transitions-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "query-original-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "original-responses-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "orders-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "coordinator-orders-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "independent-host-production",
+      "exitCode": 0,
+      "mode": "production"
+    }
+  ],
+  "allOriginalProcessesReturned": true,
+  "independentVerdict": "NOT_IMPLIED_BY_RUNNING_CODER_CHECKS",
+  "preFreezeRun": "CODER_SELF_CHECK",
+  "deviceSdkFieldOperations": 0
+}

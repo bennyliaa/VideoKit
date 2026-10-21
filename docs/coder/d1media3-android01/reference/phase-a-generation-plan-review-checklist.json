@@ -1,0 +1,29 @@
+{
+  "status": "PREPARED_REVIEW_CHECKLIST_NOT_A_GENERATION_PERMIT",
+  "concreteCoderPlanReviewed": false,
+  "executionAuthorized": false,
+  "exactTool": null,
+  "toolVersion": null,
+  "toolHash": null,
+  "input": null,
+  "output": null,
+  "commandOrApiSequence": null,
+  "requiredFields": [
+    "proposer/owner and decision id",
+    "exact tool name/version/build hash or exact Android codec component plus build fingerprint/API and version source",
+    "official source/license/patent or distribution scope as applicable and transitive/native dependencies",
+    "self-authored synthetic content ownership OR exact licensed derivative source hash and attribution/modification obligations",
+    "exact literal command or API-call parameter sequence; no placeholder tool substitution or PATH fallback",
+    "new private output location, never original overwrite; canonical path and no symlink/URL fallback",
+    "AVC256x144 rotation0 single unencrypted track, no audio, six real access units",
+    "PTS us 0,200000,400000,600000,800000,1000000; no B frame/reordering unless separately qualified; first sample keyframe",
+    "SPS/PPS/CSD actual bytes/hash and declared AnnexB/AVCC representation; per-sample size/hash/flags/keyframe/PTS/timebase and payload count",
+    "max6*262144 payload bytes and <=65536 total nonempty CSD; input8MiB cumulative/output16MiB/block65536/source2 inFlight1 queue0; library overhead and reread actual accounting",
+    "E6 exactly6 payload then empty flags4 EOS at1200000; fragment3000ms; actual timescale/rounding and final duration oracle",
+    "bounded worker ownership, actual original encoder/parser/FD/observer threads return, explicit deadline and cancellation policy",
+    "on failure/timeout stop admission, retain first error/UNKNOWN and exact original resources; no force-stop/kill/second close/refund/retry substitution",
+    "separate generation approval followed by immutable byte size/SHA manifest and independent qualification before mux; no current MediaCodec/ffmpeg execution"
+  ],
+  "knownConstraint": "C13 ordinary-isolated public AVC configure failures remain; new empty sameUID test package is no P0/J11 isolation proof and cannot be used to relabel old failure",
+  "decision": "Missing concrete exact tool/version/rights/owner/return/budget fields blocks generation; report gap, never auto-select encoder"
+}

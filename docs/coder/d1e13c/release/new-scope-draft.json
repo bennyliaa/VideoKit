@@ -1,0 +1,113 @@
+{
+  "status": "DRAFT_NOT_APPROVAL",
+  "actualScope": null,
+  "scopeId": null,
+  "sourceReview": null,
+  "runtimeSchema": [
+    "kind",
+    "batch",
+    "scopeId",
+    "sourceAcceptance",
+    "sourceApp",
+    "sourceTest",
+    "app",
+    "test",
+    "fixture",
+    "fixtureSigner",
+    "sourceReview",
+    "methods",
+    "budget"
+  ],
+  "releaseSchema": [
+    "kind",
+    "head",
+    "catalog",
+    "app",
+    "test",
+    "signer",
+    "role",
+    "abi",
+    "version",
+    "sourceReview",
+    "environment",
+    "sourceAcceptance",
+    "scope"
+  ],
+  "configSchema": [
+    "kind",
+    "plan",
+    "planSha",
+    "authorization",
+    "review",
+    "registryPath",
+    "head",
+    "dispatchRecord",
+    "scopePath",
+    "scopeSha"
+  ],
+  "fixedOnceBasename": "e13a-activation-deployment.once",
+  "oncePathTemplate": "D:/CodexProjects/VideoKit/docs/tester/D1_E13C_TABLET_EXECUTION/<NEW_SCOPE_UUID>/deployment/e13a-activation-deployment.once",
+  "productBatchUnchanged": "D1-E13A-SOURCE-20261018",
+  "hostJar": {
+    "path": "docs/coder/d1e13c/artifacts/e13c-host-tools.jar",
+    "bytes": 299629,
+    "sha256": "9c36d04a728a5a5b6db04ab1ffbe3f5be051b84f249d8bdf868212ed03ef774c"
+  },
+  "targetApks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/app-debug.apk",
+      "bytes": 10692238,
+      "sha256": "962d903ff4dbe2ccf767a6adb9bd7845c4cbfd025ebee249caad4d0517483aad",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/app-debug-androidTest.apk",
+      "bytes": 2770225,
+      "sha256": "83109c13d76d635024add5575c1bf77606a05c3400b71ae3f6247acf18949f13",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/fixture-debug.apk",
+      "bytes": 65609,
+      "sha256": "868f581538d4a92908870d9066d5dfce18d847a5d9559e827e24cbb3ca3544d8",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "metadataManifest": {
+    "path": "docs/coder/d1e13b/release/metadata/three-client-manifest.json",
+    "bytes": 136231,
+    "sha256": "223e0d42a045fce01df8c4564945221276fbe78120fa7dad60641a10a2985af5"
+  },
+  "budgetProposal": {
+    "successfulPathOperations": 48,
+    "deploymentEntry": 1,
+    "deploymentChildren": 32,
+    "caseJavaEntries": 6,
+    "caseInstrumentChildren": 6,
+    "metadataClients": 3,
+    "additionalPreDeployOccupiedM1Rechecks": 2,
+    "maximumOperations": 50,
+    "recheckSpacingMinimumMinutes": 30,
+    "rechecksRequireEnvironmentWaitOnly": true,
+    "recoveryOperations": 0,
+    "extraPcQueries": 0,
+    "textTotal": 2097152,
+    "successfulPathAllocatedText": 1638400,
+    "twoOccupiedM1TextReserve": 131072,
+    "totalTextAllocated": 1769472,
+    "remainingText": 327680,
+    "oldBatch37of56BalanceInherited": false,
+    "environmentFailurePolicy": "Stop for coordinator; no implicit recovery/start-server/extra attempt",
+    "inFlightUnknownPolicy": "Stop dependencies, retain original authority/custodian; never reuse reservation as a retry"
+  },
+  "runtimeBudgetLiteralUnchanged": "source4096/read65536/open8/close16/process48/text2097152/output0",
+  "outerExecutionScopeOccupancyReserve": 2,
+  "sourceReviewMustBeIndependentE13CReview": true,
+  "realOnceCreated": false
+}

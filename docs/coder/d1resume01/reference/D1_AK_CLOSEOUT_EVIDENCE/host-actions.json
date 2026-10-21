@@ -1,0 +1,102 @@
+[
+  {
+    "role": "K_JAVA",
+    "pid": 51664,
+    "state": "EXTERNAL_TERMINATION_ENTERED_ON_RETAINED_HANDLE",
+    "atUtc": "2026-10-18T14:25:35.7918417Z",
+    "terminationCalls": 1
+  },
+  {
+    "role": "K_JAVA",
+    "pid": 51664,
+    "atUtc": "2026-10-18T14:25:35.7861880Z",
+    "naturalWaitMilliseconds": 0,
+    "terminationCalls": 1,
+    "killEntered": true,
+    "killReturned": true,
+    "osWaitReturned": true,
+    "exitCode": -1,
+    "state": "TERMINATED_WITHOUT_RETURN",
+    "originalJavaReturn": false,
+    "internalReaderSocketAndroidAck": "UNPROVEN",
+    "error": null
+  },
+  {
+    "role": "K_LAUNCHER",
+    "pid": 6648,
+    "atUtc": "2026-10-18T14:25:35.8289160Z",
+    "naturalWaitMilliseconds": 10000,
+    "terminationCalls": 0,
+    "killEntered": false,
+    "killReturned": false,
+    "osWaitReturned": true,
+    "exitCode": 0,
+    "state": "OS_EXIT_OBSERVED_NO_ORIGINAL_ACK",
+    "originalJavaReturn": false,
+    "internalReaderSocketAndroidAck": "UNPROVEN",
+    "error": null
+  },
+  {
+    "role": "A_JAVA",
+    "pid": 38056,
+    "state": "EXTERNAL_TERMINATION_ENTERED_ON_RETAINED_HANDLE",
+    "atUtc": "2026-10-18T14:25:46.1587936Z",
+    "terminationCalls": 1
+  },
+  {
+    "role": "A_JAVA",
+    "pid": 38056,
+    "atUtc": "2026-10-18T14:25:36.1472156Z",
+    "naturalWaitMilliseconds": 10000,
+    "terminationCalls": 1,
+    "killEntered": true,
+    "killReturned": true,
+    "osWaitReturned": true,
+    "exitCode": -1,
+    "state": "TERMINATED_WITHOUT_RETURN",
+    "originalJavaReturn": false,
+    "internalReaderSocketAndroidAck": "UNPROVEN",
+    "error": null
+  },
+  {
+    "role": "A_ADB_CLIENT",
+    "state": "IDENTITY_OR_HANDLE_INSUFFICIENT_NOT_TOUCHED",
+    "terminationCalls": 0,
+    "originalJavaReturn": false
+  },
+  {
+    "role": "A_POWERSHELL",
+    "pid": 39560,
+    "atUtc": "2026-10-18T14:25:46.1985288Z",
+    "naturalWaitMilliseconds": 10000,
+    "terminationCalls": 0,
+    "killEntered": false,
+    "killReturned": false,
+    "osWaitReturned": true,
+    "exitCode": 0,
+    "state": "OS_EXIT_OBSERVED_NO_ORIGINAL_ACK",
+    "originalJavaReturn": false,
+    "internalReaderSocketAndroidAck": "UNPROVEN",
+    "error": null
+  },
+  {
+    "role": "A_POWERSHELL",
+    "administrativeHandleDisposed": true,
+    "notOriginalProtocolAck": true
+  },
+  {
+    "role": "A_JAVA",
+    "administrativeHandleDisposed": true,
+    "notOriginalProtocolAck": true
+  },
+  {
+    "role": "K_JAVA",
+    "administrativeHandleDisposed": true,
+    "notOriginalProtocolAck": true
+  },
+  {
+    "role": "K_LAUNCHER",
+    "administrativeHandleDisposed": true,
+    "notOriginalProtocolAck": true
+  }
+]

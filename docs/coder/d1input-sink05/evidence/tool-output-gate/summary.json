@@ -1,0 +1,55 @@
+{
+  "candidate": "d1input-sink05",
+  "toolSha256": "51d95b3916476710ea3b8f0a3e909d0f966b3b86c78e2a6a784451a1231bf785",
+  "positiveActualJdkCompileAnd20Groups": true,
+  "positiveDirectory": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK05_REVIEW_EVIDENCE\\coder-tool-positive-001",
+  "positiveContext": "CODER_SELF_CHECK_UNFROZEN_NOT_INDEPENDENT_REVIEW",
+  "positivePinsMatchFinalLocal005": true,
+  "derivedRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK05_REVIEW_EVIDENCE",
+  "negativeCases": [
+    {
+      "case": "old04",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE\\coder-tool-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "old03",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK03_REVIEW_EVIDENCE\\coder-tool-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "candidate",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink05\\evidence\\tool-negative-denied",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "prefix-sibling",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK05_REVIEW_EVIDENCE_extra\\coder-negative",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "traversal",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK05_REVIEW_EVIDENCE\\..\\D1_INPUT_SINK04_REVIEW_EVIDENCE\\coder-tool-traversal-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "root-itself",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK05_REVIEW_EVIDENCE",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "relative",
+      "target": "docs\\tester\\D1_INPUT_SINK05_REVIEW_EVIDENCE\\coder-relative-negative",
+      "expectedDenied": true,
+      "targetCreated": false
+    }
+  ],
+  "oldEvidenceUnmodified": true,
+  "noTemporaryOverride": true
+}

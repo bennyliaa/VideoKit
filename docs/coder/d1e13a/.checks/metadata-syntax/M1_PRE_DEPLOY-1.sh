@@ -1,0 +1,1 @@
+dumpsys user | awk '/UserInfo/ {want=($0 ~ /UserInfo\{0:/)} want && /UserInfo|State:/ {print}'

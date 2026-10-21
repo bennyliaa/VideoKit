@@ -1,0 +1,50 @@
+{
+  "kind": "ENVIRONMENT_OBSERVATION_PLAN_NOT_PRODUCT_RELEASE",
+  "scopeId": "f0be73d2-01d2-4775-be6d-b6e55b8b77b3",
+  "authority": {
+    "path": "docs/coder/d1env03/release/environment-authorization.json",
+    "bytes": 2355,
+    "sha256": "dcc163aa7f4764a7cef146b33dadf1e5c86793be987efc95aefc1c315fcec44c"
+  },
+  "budget": {
+    "path": "docs/coder/d1env03/release/budget.json",
+    "bytes": 1092,
+    "sha256": "91761a4db08d2526290959f8b598cd9752ea22619cf8fb6f759db7a145136580"
+  },
+  "captureEntry": {
+    "path": "docs/coder/d1env03/tools/capture_metadata.ps1",
+    "bytes": 20118,
+    "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+  },
+  "captureReview": {
+    "path": "docs/coder/d1env03/reference/D1_RESUME01_CAPTURE_REVIEW_REPORT_V1.0.md",
+    "bytes": 11062,
+    "sha256": "ad306682e27cdf1dec67955d9cb7f57bf99cd1451ab3b413963ee03439c6caf9"
+  },
+  "sourceHistory": {
+    "path": "docs/coder/d1env03/reference/D1_RESUME02_ACTIVATION_EXECUTION_REPORT_V1.0.md",
+    "bytes": 6686,
+    "sha256": "0ccfb39bd348e4f77635055c7b5f64e9bef14018ee1732ed2d4cfd3b84394782"
+  },
+  "sourceFreeze": {
+    "path": "docs/coder/d1env03/reference/source-activation-freeze.json",
+    "bytes": 7368,
+    "sha256": "f5ae97ca7714472601a338786b833e497820f3776569e2a9125814f8a7cd920a"
+  },
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\f0be73d2-01d2-4775-be6d-b6e55b8b77b3\\outputs",
+  "authorizedRequestIds": [
+    "ENV03_M1_identity",
+    "ENV03_M1_global"
+  ],
+  "inactiveTemplateIds": [
+    "UNAUTHORIZED:ENV03_M1_ps",
+    "UNAUTHORIZED:ENV03_M2_identity",
+    "UNAUTHORIZED:ENV03_M2_global"
+  ],
+  "purpose": "One read-only identity/global occupancy recheck; stop after these two regardless of result.",
+  "oldStaticNotConsumedLabelDoesNotAuthorizeReplay": true,
+  "old388818BytesPreserved": true,
+  "sourceEntryFixedIdRegex": "^[A-Za-z0-9_]{1,80}$",
+  "inactiveTemplateMechanism": "Each last-three policy ID contains colon, which the unchanged entry rejects for any matching request. Other valid IDs fail exact slot lookup. No request/command is published for those templates.",
+  "productDeploymentAuthorized": false
+}

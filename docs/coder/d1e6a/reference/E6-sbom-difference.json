@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "baseline": "D1-20261017-E5B",
+  "baselineLockSha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a",
+  "currentLockSha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a",
+  "coordinates": 35,
+  "coordinateDelta": [],
+  "nativeDelta": [
+    {
+      "name": "libvideokit_cpu.so",
+      "before": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so",
+        "bytes": 18552,
+        "sha256": "ed02feb238b26ea2ac53b6ae2eafca3d3131d74ebfdfd52c39ff3a925648e9a7"
+      },
+      "after": {
+        "path": "docs/coder/d1e6/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so",
+        "bytes": 20104,
+        "sha256": "2547b07d7d4b298e8b455c5f24d0d1fbcdf7068b016527edbf5f80f31d16191a"
+      },
+      "relationship": "CHANGED_PROJECT_WRAPPER"
+    }
+  ],
+  "nativeLibraries": 7,
+  "unchangedNativeLibraries": 6,
+  "media3": "1.9.3",
+  "ffmpeg": "8.0.3",
+  "newDependencies": false,
+  "downloads": 0,
+  "sbomNativeComponentsUpdated": [
+    "VideoKit CPU JNI/quota project glue"
+  ],
+  "scope": "Project libvideokit_cpu wrapper changed; six other natives and third-party config/version/license unchanged; not vulnerability/legal clearance",
+  "notice": "upstream-c14/notice-assets/NOTICE-E6.txt",
+  "correspondingSource": "native/cpu.c + native/e6_verify.h + exact verified headers/config + original full C14 corresponding-source container"
+}

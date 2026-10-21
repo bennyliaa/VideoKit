@@ -1,0 +1,7 @@
+# RESUME02_ACTIVATION 最终绑定开发要求
+
+2026-10-20；RESUME02_ACTIVATION。负责人接受prepared独立报告75380086d04cfcefa6b1ed6b67307386b3e56f0a19b16366e9be8b55aa47f582，已依据用户持续真机授权在 D1_RESUME02_ACTIVATION_EXECUTION_AUTHORIZATION_V1.0.json 签发本批条件执行派发记录。该记录是负责人范围决定，不是用户新签名或密码学签章。准确scope仍20b08d64-6fd0-4a88-8b72-c80615e58258，基础文件和预算不变。
+
+正式派发：按已审activation-delta在全新coder overlay目录一次完成最终绑定；复制原capture入口与参考字节，policy改PRODUCTION并绑定负责人授权实际path/hash，五request更新policySHA，两observer首null改真实授权并更新overlay capture/policy/request pins，runtime契约两个实际路径更新。base/scope/release/config/JAR仍引用冻结prepared原路径/hash，不能回写或造哈希环。最终issued permit/manifest/ZIP/seal全部准确绑定授权和前层来源，独立报告置seal外。
+
+有限离线核新pins、图/路径/schema、完整预算、原字节和无预造proof；不得为了验证授权态启动SDK/Java生产child或查询现场root。零host/Android构建，不设备/5037/现场registry/claim/旧handle，不创建执行root/once/disposition。完整冻结报告主动交负责人；tester最终机械PASS且授权列出的新鲜前置门通过后才同批执行，coder不执行。无新框架/功能变更。

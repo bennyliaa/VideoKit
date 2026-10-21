@@ -1,0 +1,87 @@
+{
+  "status": "DECLARATIVE_EXPECTATIONS_NOT_EXECUTED_IO_TESTS",
+  "definitions": {
+    "A": "sum each pre-reserved native write requested count including partial continuation/header rewrites; no refunds",
+    "R": "sum valid returned native counts; no durability/disk-write claim",
+    "extent": "max positively observed end, distinct from total attempts; exception may make later physical state UNKNOWN"
+  },
+  "examples": [
+    {
+      "id": "EX01",
+      "sequence": [
+        "position0 request10 return3",
+        "same buffer remaining request7 return7"
+      ],
+      "expected": {
+        "A": 17,
+        "R": 10,
+        "knownExtent": 10,
+        "knownPosition": 10
+      }
+    },
+    {
+      "id": "EX02",
+      "sequence": [
+        "EX01",
+        "setPosition0 no write",
+        "request8 return8 header rewrite"
+      ],
+      "expected": {
+        "A": 25,
+        "R": 18,
+        "knownExtent": 10,
+        "knownPosition": 8
+      }
+    },
+    {
+      "id": "EX03",
+      "sequence": [
+        "request10 return3",
+        "remaining request7 throws without reliable amount"
+      ],
+      "expected": {
+        "A": 17,
+        "RKnownLowerBound": 3,
+        "additionalPhysical": "UNKNOWN",
+        "actualPosition": "UNKNOWN",
+        "retryAllowed": false,
+        "refund": 0
+      }
+    },
+    {
+      "id": "EX04",
+      "priorA": 16777208,
+      "sequence": [
+        "request8 return8",
+        "next request1"
+      ],
+      "expected": {
+        "A": 16777216,
+        "nextNativeInvoked": false
+      }
+    },
+    {
+      "id": "EX05",
+      "sequence": [
+        "nonempty request10 native returns0"
+      ],
+      "expected": {
+        "A": 10,
+        "R": 0,
+        "unboundedRetryAllowed": false,
+        "wholeWriteSuccess": false
+      }
+    },
+    {
+      "id": "EX06",
+      "sequence": [
+        "zero-length caller write"
+      ],
+      "expected": {
+        "nativeInvoked": false,
+        "attemptIncrement": 0,
+        "returnCount": 0
+      }
+    }
+  ]
+}

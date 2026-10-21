@@ -1,0 +1,27 @@
+--- frozen-android02/instrumentation/com/videokit/d1media3/android02/test/Media3Instrumentation.java
++++ recovery01/instrumentation/com/videokit/d1media3/android02/test/Media3Instrumentation.java
+@@ -22,7 +22,7 @@
+    public void finish(int code,Object saved)throws Exception{
+     Bundle b=new Bundle((Bundle)saved);ExperimentJob j=job;String requested=b.getString("status","UNKNOWN_REQUESTED_STATUS");
+     int finalCode=code;
+-    if(j!=null){JSONObject r=new JSONObject(j.receipt(true)).put("requestedStatus",requested).put("runnerFinishGate","SAME_ORIGINAL_CASE_AND_E13_RETURNED");if(finishOwner.failed())r.put("status","UNKNOWN_RUNNER_FINALIZER_FAILURE");else if(requested.startsWith("UNKNOWN"))r.put("status",requested);String text=bounded(r.toString());String semantic=new JSONObject(text).optString("status","UNKNOWN_RECEIPT_STATUS");b.putString("receipt",text);b.putString("status",semantic);if(!isObservation(semantic))finalCode=Activity.RESULT_CANCELED;}
++    if(j!=null){JSONObject r=new JSONObject(j.receipt(true)).put("requestedStatus",requested).put("runnerFinishGate","SAME_ORIGINAL_CASE_AND_E13_RETURNED");if(finishOwner.failed())r.put("status","UNKNOWN_RUNNER_FINALIZER_FAILURE");else if(requested.startsWith("UNKNOWN"))r.put("status",requested);String text=bounded(r.toString());String semantic=new JSONObject(text).optString("status","UNKNOWN_RECEIPT_STATUS");j.reserveReceiptEmission(text);b.putString("receipt",text);b.putString("status",semantic);if(!isObservation(semantic))finalCode=Activity.RESULT_CANCELED;}
+     // This is the sole platform finish. Neither timer nor process disappearance
+     // reaches it before the existing original-return finalizer accepts the port.
+     Media3Instrumentation.super.finish(finishOwner.failed()?Activity.RESULT_CANCELED:finalCode,b);
+@@ -43,12 +43,12 @@
+  @Override public void onStart(){
+   ExperimentJob j=job;if(j==null)return;
+   try{Thread worker=new Thread(j::run,"d1media3-android02-"+j.method.name());j.originalWorker=worker;worker.setUncaughtExceptionHandler((t,e)->{j.fail("UNCAUGHT_ORIGINAL_WORKER_UNKNOWN");E13ReturnEvents.returned();});j.startedNano=System.nanoTime();worker.start();worker.join(ExperimentContract.METHOD_DEADLINE_MS);
+-   if(worker.isAlive()||!j.workerBodyReturned||j.completedNano-j.startedNano<0||j.completedNano-j.startedNano>=60000000000L){j.deadline();Bundle pending=new Bundle();pending.putString("status","UNKNOWN_DEADLINE_ORIGINAL_RETURN_PENDING");pending.putString("receipt",bounded(j.receipt(false)));sendStatus(-2,pending);finish(Activity.RESULT_CANCELED,pending);return;}
+-   Bundle result=new Bundle();String text=bounded(j.receipt(false));String status=j.canFinish()?new JSONObject(text).optString("status","UNKNOWN_RECEIPT_STATUS"):"UNKNOWN_ORIGINAL_RETURN_PENDING";result.putString("status",status);result.putString("receipt",text);if(!j.canFinish())sendStatus(-2,result);finish(isObservation(status)?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
++   if(worker.isAlive()||!j.workerBodyReturned||j.completedNano-j.startedNano<0||j.completedNano-j.startedNano>=60000000000L){j.deadline();Bundle pending=new Bundle();pending.putString("status","UNKNOWN_DEADLINE_ORIGINAL_RETURN_PENDING");String pendingText=bounded(j.receipt(false));j.reserveReceiptEmission(pendingText);pending.putString("receipt",pendingText);sendStatus(-2,pending);finish(Activity.RESULT_CANCELED,pending);return;}
++   Bundle result=new Bundle();String text=bounded(j.receipt(false));String status=j.canFinish()?new JSONObject(text).optString("status","UNKNOWN_RECEIPT_STATUS"):"UNKNOWN_ORIGINAL_RETURN_PENDING";result.putString("status",status);result.putString("receipt",text);if(!j.canFinish()){j.reserveReceiptEmission(text);sendStatus(-2,result);}finish(isObservation(status)?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
+   }catch(Throwable e){j.fail("RUNNER_ORIGINAL_WAIT_UNKNOWN");Bundle b=new Bundle();b.putString("status","UNKNOWN_RUNNER_ORIGINAL_WAIT");sendStatus(-2,b);finish(Activity.RESULT_CANCELED,b);}
+  }
+  private static boolean isObservation(String status){return status.equals("OBSERVED_ALL_SCOPE_HOST_STRUCTURE_ONLY")||status.equals("OBSERVED_HOST_STRUCTURE_ONLY")||status.equals("OBSERVED_HOST_MUX_STRUCTURE_ONLY")||status.equals("PREOPEN_GUARDS_OBSERVED");}
+- private static String bounded(String text){if(text.getBytes(StandardCharsets.UTF_8).length<=ExperimentContract.RECEIPT_UTF8_MAX)return text;return "{\"status\":\"FAILED_RECEIPT_BYTE_BUDGET\",\"observationComplete\":false}";}
++ private static String bounded(String text){if(text.getBytes(StandardCharsets.UTF_8).length>ExperimentContract.RECEIPT_UTF8_MAX)throw new IllegalStateException("RECEIPT_BYTE_BUDGET");return text;}
+  @Override public void finish(int code,Bundle result){if(finishOwner==null)throw new IllegalStateException("ORIGINAL_FINALIZER_MISSING");Bundle copy=result==null?new Bundle():new Bundle(result);if(copy.hasFileDescriptors())throw new IllegalArgumentException("RESULT_DESCRIPTORS_FORBIDDEN");finishOwner.request(code,copy);}
+  @Override public boolean onException(Object object,Throwable error){ExperimentJob j=job;if(j!=null)j.fail("ANDROID_RUNTIME_ORIGINAL_UNKNOWN");if(finishOwner==null)return false;finishOwner.fail("ANDROID_RUNTIME_ORIGINAL_UNKNOWN");Bundle b=new Bundle();b.putString("status","UNKNOWN_ANDROID_RUNTIME_ORIGINAL");sendStatus(-2,b);finish(Activity.RESULT_CANCELED,b);return true;}
+ }

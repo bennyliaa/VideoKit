@@ -1,0 +1,15 @@
+{
+  "result": "PASS_STRICT_METADATA_REJECTION_CONTROL",
+  "positiveExitCode": 0,
+  "negativeExitCode": 1,
+  "expectedSha256": "6e11986ea7250b51f847157e2dc937f32a306804dfce0007a5e81ddb9b95c579",
+  "tamperedSha256": "a3695c58500ed69d89389fc719161af1feaeacb9d48f86fcde66fbc536879e27",
+  "specificArtifact": "com.google.guava:guava-parent:33.3.1-android POM",
+  "actualMismatchReport": "negative-checksum-report.html",
+  "canonicalMirrorUnchanged": true,
+  "earlierInvalidProbes": [
+    "metadata-rejection: variant selection failed both branches",
+    "metadata-rejection-002: unrelated missing transitive checker-qual both branches"
+  ],
+  "scope": "Forced Maven POM parser, no transitive artifact download, strict=true, verifyMetadata=true. Independent provenance acceptance remains pending."
+}

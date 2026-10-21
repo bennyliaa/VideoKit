@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <permission android:name="com.videokit.worker.spike.BIND_MEDIA_WORKER" android:protectionLevel="signature" />
+    <queries><package android:name="com.videokit.app" /></queries>
+    <application android:label="VideoKit D1 worker" android:allowBackup="false" android:supportsRtl="true">
+        <!-- Ordinary app UID can call public MediaCodec/GPU APIs; a DIFFERENT package UID protects host data. -->
+        <service android:name="com.videokit.spike.c06.IsolatedMediaService"
+            android:exported="true" android:permission="com.videokit.worker.spike.BIND_MEDIA_WORKER"
+            android:process=":d1_codec_worker_0" />
+        <service android:name="com.videokit.spike.c06.CodecWorkerSlot1"
+            android:exported="true" android:permission="com.videokit.worker.spike.BIND_MEDIA_WORKER"
+            android:process=":d1_codec_worker_1" />
+    </application>
+</manifest>

@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="com.videokit.worker.spike.BIND_MEDIA_WORKER" />
+    <queries><package android:name="com.videokit.worker.spike" /></queries>
+    <application>
+        <service android:name="com.videokit.spike.c14.CpuIsolatedService"
+            android:exported="false" android:isolatedProcess="true" android:process=":d1_cpu_worker" />
+        <activity android:name="com.videokit.spike.c14.ProbeActivity" android:exported="true" />
+        <service android:name="com.videokit.spike.c14.IsolatedWorker"
+            android:exported="false" android:isolatedProcess="true" android:process=":d1_worker" />
+        <service android:name="com.videokit.spike.c14.IsolatedMediaService"
+            android:exported="false" android:isolatedProcess="true" android:process=":d1_media_worker" />
+        <service android:name="com.videokit.spike.c14.RecoveryHostService"
+            android:exported="false" android:process=":d1_recovery_host" />
+    </application>
+</manifest>

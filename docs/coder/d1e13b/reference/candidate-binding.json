@@ -1,0 +1,45 @@
+{
+  "status": "DRAFT_NOT_APPROVAL",
+  "candidate": "D1-20261018-E13A",
+  "version": 17,
+  "role": "ACTIVATION",
+  "abi": 1,
+  "acceptedSourceVersion": 15,
+  "sourceAcceptance": "60eb18e88e346e49ec34491083f2b67da21670d7cd5fde40ce3b72ba8246b635",
+  "targetApks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/app-debug.apk",
+      "bytes": 10692238,
+      "sha256": "962d903ff4dbe2ccf767a6adb9bd7845c4cbfd025ebee249caad4d0517483aad",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/app-debug-androidTest.apk",
+      "bytes": 2770225,
+      "sha256": "83109c13d76d635024add5575c1bf77606a05c3400b71ae3f6247acf18949f13",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/fixture-debug.apk",
+      "bytes": 65609,
+      "sha256": "868f581538d4a92908870d9066d5dfce18d847a5d9559e827e24cbb3ca3544d8",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "hostJar": {
+    "path": "docs/coder/d1e13a/artifacts/D1-20261018-E13A/delivery/e13a-host-tools.jar",
+    "bytes": 298510,
+    "sha256": "a0ff822bb9097106322bfccfc6a9c95d2bc1c701928da1be3feef5f01122614f"
+  },
+  "actualApprovedScope": null,
+  "actualRelease": null,
+  "actualOnce": null,
+  "onceBasename": "e13a-activation-deployment.once",
+  "batch": "D1-E13A-SOURCE-20261018"
+}

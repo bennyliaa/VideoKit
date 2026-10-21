@@ -1,0 +1,392 @@
+{
+  "stage": "A_FROZEN_BASELINE_ONLY",
+  "cases": [
+    {
+      "id": "M2A01",
+      "area": "authority stages",
+      "oracle": "A only frozen baseline; B offline after full freeze; actual device only exact new scope. Persistent tablet permission does not authorize unbound methods/tools/device batch",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A02",
+      "area": "immutability",
+      "oracle": "Old Android01/Container02/QUAL03 failures and UNKNOWN frozen; no active suites001 access or unknown session attach; future candidate isolated new root/version",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A03",
+      "area": "fixture identity",
+      "oracle": "Exact8849B/hash19e815a4...778a9c readonly benign fixture, actual host qualification reference/hash; no regeneration or substituted media",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A04",
+      "area": "asset and private copy",
+      "oracle": "Exact APK asset and actual private-copy EOF/hash/read-only after original flush-sync-close; fixed path CREATE_NEW/no overwrite; each phase evidence independent",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A05",
+      "area": "empty app identity",
+      "oracle": "Dedicated app/test/process/version/cert, zero permissions/business/native/data exposure; sameUID empty sandbox is not RCE/J11/P0 isolation",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A06",
+      "area": "strict inputs and roles",
+      "oracle": "Only fixed fixtureSha/runId/case; no arbitrary path/URI or runtime fixture registration. BBB only old extract role, never parameters adapted for mux",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A07",
+      "area": "source rights",
+      "oracle": "Synthetic project pixels/known provenance, no external fonts/audio/BBB rights substitution; old notices/model/FFmpeg/release gates unchanged",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A08",
+      "area": "real backend",
+      "oracle": "Actual pinned Media31.9.3/strict locks/metadata closure; no JCodec/fork classes/JAR/decoder/transcoder or JVM platform stubs in APK/product",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A09",
+      "area": "capability before open",
+      "oracle": "Unsupported capability/container/invalid seek or unqualified fixture rejects before DataSource creation/open, actual provider/native open and parser/mux allocation; distinguish any factory identity registration/quota from physical opens, never falsely claim all source counters0",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A10",
+      "area": "known short unknown",
+      "oracle": "Genuine native requested/returned/EOF for known, max3 short and unknown declaredlength; no synthetic EOF or inferred physical bytes, same semantic capture expected under predeclared representation",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A11",
+      "area": "mature extractor lifecycle",
+      "oracle": "Actual Mp4Extractor/DefaultExtractorInput or FragmentedMp4Extractor, sniff result/peekreset/endTracks/parserEOF separate; no fake callback/golden observation",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A12",
+      "area": "actual Media3 format",
+      "oracle": "Actual1 AVC video/0audio,256x144/rotation0/drm absent, real ids/track count not copied host manifest",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A13",
+      "area": "capture six payloads",
+      "oracle": "Real sampleData plus sampleMetadata complete boundary,size/offset/hash, six bounded encoded copies, no synthetic NAL/seventh payload",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A14",
+      "area": "CSD representation",
+      "oracle": "Actual Media3 initializationData array count/boundaries/bytes/hash. Host payload7/3 and normalizedAnnexB20 are distinct; do not copy three host hash records as Media3 arrays",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A15",
+      "area": "sample and flags representation",
+      "oracle": "Actual AVCC vs AnnexB documented before run. Use mature admitted normalization only; host1340 normalized reference not raw1360. Raw Media3 flags recorded, do not fill all1 from JCodec keybool; allowed flag semantics predeclared",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A16",
+      "area": "actual PTS",
+      "oracle": "Actual Media3 PTS0..1000000 step200000/ordered six, integer units explicit; no rounding or manifest-filled timestamps",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A17",
+      "area": "seek1second",
+      "oracle": "Use actual SeekMap.first point byte/time and new source epoch plus real replay, not requested1s treated as point or synthetic counter; unsupported stays UNSUPPORTED",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A18",
+      "area": "DTS API capability",
+      "oracle": "Current TrackOutput observation exposes only timeUs, not independent DTS. Host stts DTS reference kept separate; media3ActualDts null/UNPROVEN unless genuine mature API evidence; allI/monotonePTS not independent DTS proof",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A19",
+      "area": "capture ownership",
+      "oracle": "Before mux, complete actual input EOF/hash/format/samples and original reader/extractor/observer return; bounded immutable encoded copies, no partial capture admitted",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A20",
+      "area": "manifest not observation",
+      "oracle": "Host manifest only eligibility/reference; actual Media3 getters/callbacks observed fresh and compared, never assignment of golden to fake actual receipt or validated/READY flag",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A21",
+      "area": "mature mux path",
+      "oracle": "Actual MatureMuxerBinding→FragmentedMp4Muxer1.9.3→original Sink; actual returned track token/calls/FD identity; no encoder or alternate backend",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A22",
+      "area": "EOS contract",
+      "oracle": "Exactly6 nonempty payloads then one emptyEOS flags4/time1200000 from original E6 rule, not seventh encoded frame; actual EOS/mux return, not just plan text",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A23",
+      "area": "fragment bounds",
+      "oracle": "Original fragmentDuration3000ms/sampleCopying contract retained; no fragment-boundary duration extrapolation or parameter changes to force success",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A24",
+      "area": "actual reopened duration",
+      "oracle": "Actual fMP4 SeekMap/TrackOutput reported duration or approved mature duration evidence1200000, separate callback source and C.TIME_UNSET; expectedEOS/lastPTS+step not substitute; unavailable stays NOT_PROVEN",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A25",
+      "area": "reopened CSD",
+      "oracle": "Real FragmentedMp4Extractor CSD arrays/hashes before/after compared under declared representation; no posthoc PS insertion/splitting/tolerance to get green",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A26",
+      "area": "reopened samples",
+      "oracle": "Actual6 fMP4 payloads hash/size/PTS/key/encryption/EOS semantics compare capture in same representation; actual decoder not needed or allowed",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A27",
+      "area": "container identity",
+      "oracle": "Output wholehash and size actual new facts, not equal input filehash requirement; parser class/sniff proves fMP4 chain not filename suffix",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A28",
+      "area": "output digest and extent",
+      "oracle": "Actual sequential digest/extent vs readback wholeEOF/hash, outputattempt includes all partial/rewrite reservations. Known lower bound/physical unknown separate, no size-as-attempt/refund",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A29",
+      "area": "original owner before allocation",
+      "oracle": "Register original asset/FD/writer/provider/worker/mux owner before native allocation; fixed UID/PID/source/task/run identity, no orphan on constructor failure",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A30",
+      "area": "flush sync close",
+      "oracle": "Capability supports vs actual flush/FD.sync or force/close returned distinct; channel producerClosed/muxerClose not native writer close or crash durability/COMMIT",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A31",
+      "area": "original response and observers",
+      "oracle": "ACK/Future completed/counter0 are not native/caller/observer return; same original invocation evidence and correct identity before releasing permits",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A32",
+      "area": "MC-B01 regression",
+      "oracle": "Writer/original REOPEN response/observer pending keeps admission wait without first error or inspection-consumption; sameProvider REOPEN1 continues only after actual return; real failures remain sticky",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A33",
+      "area": "late return cancel",
+      "oracle": "Cancel/deadline closes admission and retains original resources; benign controlled late original return joined, no success-upgrade/retry/new writer/second parser or early cleanup",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A34",
+      "area": "all EOF and release layers",
+      "oracle": "Whole raw EOF/hash, extractor EOF, ds.close/extractor.release, provider FDclose and original task/observer returns separately; no EOF at fileposition shortcut",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A35",
+      "area": "global source quota",
+      "oracle": "Within scope HostInput sources2/per-source1/queue0; copy/writer/readback native FD owners and peaks separately recorded with phase ordering and shared input/output ledger; no newfactory quota reset or treating FD count as identical to source slots",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A36",
+      "area": "platform finalizer",
+      "oracle": "Same caseworker/E13 resources return and actual platform finish original return externally proven; receipt finalizerOwner1 cannot claim whole runner returned. If evidence unavailable stays UNPROVEN",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A37",
+      "area": "whole input budget",
+      "oracle": "One authorized scope cumulative8MiB includes copy/hash(native actual extra reads only)/sniff/parse/seek/reopen/EOF allphase; per-layer requested vs native requested vs returned explicit; no reset per factory/case without new declared scope allocation",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A38",
+      "area": "whole output budget",
+      "oracle": "16MiB native-attempt incl partial/unknown/rewrite, block64KiB/sample262144/CSD64KiB/sixAVC; original callbacks reserve-before-call and no refunds/resends, metadata0 counted separately",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A39",
+      "area": "outer operation and transfer budget",
+      "oracle": "New frozen full plan exact N operations/cases, APK input bytes/framing, stdout+stderr/allpending-final, proof/log/binary output/cleanup budgets predeclared; do not inherit old14ops by assumption",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A40",
+      "area": "cancel stage coverage",
+      "oracle": "Finite benign gates before open/during read/after original WRITE-before-ACK/before REOPEN/observer pending; no malicious atom/resource/blockedFD probes. Normalcancel success is resource return, not mediaPASS",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A41",
+      "area": "fixture mismatch guards",
+      "oracle": "Wrong sha/role/args or unsupported metadata rejects before parser/write. Controlled benign wrong metadata only with explicit scope, no mutating frozen media or fuzz input",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A42",
+      "area": "deadline last point",
+      "oracle": "Same original monotonic body-last-controlled-point after cleanup/signaling plus actual join; equality late/earlierUNKNOWN sticky. Android01 join+isAlive alone insufficient, FT-B02 tool fix not automatically Android proof",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A43",
+      "area": "first failure and cache",
+      "oracle": "True first failure/cancel/timeout unknown sticky. Pre-inspection admission wait not error. Success cache reused only after original return/no second REOPEN/parser, not fresh task for retry",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A44",
+      "area": "stop and cleanup",
+      "oracle": "Any UNKNOWN/receipt overflow/budget/identity/failure stops all later cases, preserve original Job/handles/dirs/streams; cleanup new app/files only after original return proof, no forced uninstall/kill",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A45",
+      "area": "new offline artifacts",
+      "oracle": "Full candidate app/test source→Android javac→JAR→DEX/manifest/signature/assets/dependency actual consumption; no Gradle/device in A; B static actualmethod bodies not just strings",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A46",
+      "area": "no host fork in APK",
+      "oracle": "Audit whole APK/DEX dependencies and test-only exclusions/JCodec/fork absence/platformstubs; classpath actual Media3 only. Do not blanket reject inherited android build classes",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A47",
+      "area": "fresh exact device plan",
+      "oracle": "New app/test/runner/version/cert/APKhash/case/runId/scope/deviceSerial/build/capturetool/freshidle allbound after offline B. Existing device permission persists, no A device/otherproject occupancy queries",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    },
+    {
+      "id": "M2A48",
+      "area": "classification",
+      "oracle": "Max actualMedia3 container-structure chain within proven contract; no HOST_ISOLATED_FORMAT_V1/validated/READY/COMMIT/playback/RCE/J11/P0/globalD1 PASS from host fixture or finite tests",
+      "status": "PREPARED_NOT_RUN",
+      "actualNewCandidateRead": false,
+      "actualDeviceRun": false
+    }
+  ],
+  "newCandidateIdentity": null,
+  "fixtureContainerQualification": "HOST_CONTAINER_QUALIFICATION_ONLY_ALREADY_PROVEN",
+  "media3Qualification": "NOT_RUN"
+}

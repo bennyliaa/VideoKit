@@ -1,0 +1,134 @@
+[
+  {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_E13J_R1_G_SUPPLEMENT_EVIDENCE\\E13J-R1-SUPPLEMENT-ONCE-receipt.json",
+    "bytes": 966,
+    "sha256": "5290b2de747687ed80353ee9ce338ed171962644ec22f5afc1c1f7e62ebb27a2",
+    "copy": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_AK_CLOSEOUT_EVIDENCE\\after-E13J-R1-SUPPLEMENT-ONCE-receipt.json",
+    "record": {
+      "pid": 51664,
+      "allOriginalProcessAndPipesReturned": true,
+      "originalBytes": 671,
+      "receiptOwnCloseNotProvenByThisFile": true,
+      "responseTimedOut": true,
+      "id": "E13J-R1-SUPPLEMENT-ONCE",
+      "originalStdinClosed": true,
+      "recordingFailures": [],
+      "allOriginalResourcesReturned": null,
+      "originalProcessDisposed": true,
+      "scope": "116c978327fc2240dbe04a9ead566165d231b88d14166776e03938a40b76aaef",
+      "overflow": false,
+      "originalWaitReturned": true,
+      "exitCode": -1,
+      "readers": [
+        {
+          "pipeClosed": true,
+          "readReturned": true,
+          "eof": true,
+          "recordFailed": false,
+          "archiveClosed": true,
+          "role": "stdout",
+          "rawBytes": 317,
+          "savedBytes": 317
+        },
+        {
+          "pipeClosed": true,
+          "readReturned": true,
+          "eof": true,
+          "recordFailed": false,
+          "archiveClosed": true,
+          "role": "stderr",
+          "rawBytes": 354,
+          "savedBytes": 354
+        }
+      ]
+    }
+  },
+  {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_E13C_TABLET_EXECUTION\\aeefe32f-816d-4c0b-aca7-16f76dbd45ff\\evidence\\04-ordinarySenderCannotBindCodec-receipt.json",
+    "bytes": 996,
+    "sha256": "30a43c4add512d4f75280f3d32f260bdc4aeb369e21038aed289f39e61883501",
+    "copy": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_AK_CLOSEOUT_EVIDENCE\\after-04-ordinarySenderCannotBindCodec-receipt.json",
+    "record": {
+      "id": "04-ordinarySenderCannotBindCodec",
+      "atUtc": "2026-10-18T08:48:05.6692683Z",
+      "endedAtUtc": "2026-10-18T14:25:46.3089533Z",
+      "elapsedSeconds": 20260.62375,
+      "pid": 38056,
+      "toolHostPid": 39560,
+      "exitCode": -1,
+      "stdinClosed": true,
+      "originalWaitReturned": true,
+      "stdoutReaderReturned": true,
+      "stderrReaderReturned": true,
+      "stdoutClosed": true,
+      "stderrClosed": true,
+      "originalProcessReturned": true,
+      "bothOriginalPipesReturned": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 1285,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "47126f12da89dd4b4a912a8b4a1378347d299a0f7fc486d6806218f433d2b29d",
+      "responseTimedOut": true,
+      "overflow": false,
+      "originalClientCount": 1,
+      "extraJavaPythonWrappers": 0,
+      "originalTargetDirect": true,
+      "nestedTextCharged": 65536,
+      "nestedTextAmountProven": false,
+      "cumulativeOriginalAllocation": 37,
+      "cumulativeOriginalTextBytes": 180826
+    }
+  },
+  {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_E13C_TABLET_EXECUTION\\aeefe32f-816d-4c0b-aca7-16f76dbd45ff\\evidence\\live-resource-ledger.json",
+    "bytes": 1206,
+    "sha256": "cc5b22ce1b63cd2af093558f4625e22e46cd22c8edb97c9a21ab90ec0c54a41a",
+    "copy": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_AK_CLOSEOUT_EVIDENCE\\after-live-resource-ledger.json",
+    "record": {
+      "scope": "aeefe32f-816d-4c0b-aca7-16f76dbd45ff",
+      "maxOriginalOperations": 50,
+      "chargedOriginalOperations": 37,
+      "maxTextBytes": 2097152,
+      "originalTextBytes": 180826,
+      "hostReadOperations": 0,
+      "startServerOperations": 0,
+      "occupancyRetries": 0,
+      "pcControlConnections": 0,
+      "initialChargeExplanation": "New independent E13C batch; no prior balance or ENV recovery inherited",
+      "events": [
+        {
+          "id": "01-M1_PRE_DEPLOY",
+          "role": "METADATA",
+          "charge": 1,
+          "entered": true,
+          "state": "ORIGINAL_RETURNED",
+          "nestedTextReservation": 0
+        },
+        {
+          "id": "02-DEPLOY",
+          "role": "DEPLOY",
+          "charge": 33,
+          "entered": true,
+          "state": "ORIGINAL_RETURNED",
+          "nestedTextReservation": 524288
+        },
+        {
+          "id": "03-M2_POST_DEPLOY_PRE_CASE",
+          "role": "METADATA",
+          "charge": 1,
+          "entered": true,
+          "state": "ORIGINAL_RETURNED",
+          "nestedTextReservation": 0
+        },
+        {
+          "id": "04-ordinarySenderCannotBindCodec",
+          "role": "CASE",
+          "charge": 2,
+          "entered": true,
+          "state": "ORIGINAL_RETURNED",
+          "nestedTextReservation": 65536
+        }
+      ]
+    }
+  }
+]

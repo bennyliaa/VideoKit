@@ -1,0 +1,2 @@
+param([string]$InputFile)
+$ErrorActionPreference='Stop';$a=Get-Content -LiteralPath $InputFile -Raw|ConvertFrom-Json;$plan=Get-Content -LiteralPath $a.plan -Raw|ConvertFrom-Json;$policy=@{runId='D1MA02-INDEPENDENT'};. ([scriptblock]::Create([IO.File]::ReadAllText($a.source)));@{negativeAccountingAndFirstFailure=(RoleSemantic 'scope_all' $a.receipt $false);globalUnknown=(RoleSemantic 'global_idle' $a.unknown $true);packagePresent=(RoleSemantic 'app_absence' $a.present $true);started=$false;classification='PURE_LOCAL_FUNCTION_POLICY_NOT_ANDROID'}|ConvertTo-Json -Compress

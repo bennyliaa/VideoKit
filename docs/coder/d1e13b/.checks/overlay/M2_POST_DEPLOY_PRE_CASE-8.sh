@@ -1,0 +1,1 @@
+dumpsys package com.videokit.e13.sender | sed -n '/^[ ]*userId=/p; /^[ ]*versionCode=/p; /^[ ]*User 0:/p' 

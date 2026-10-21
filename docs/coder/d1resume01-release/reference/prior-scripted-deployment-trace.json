@@ -1,0 +1,488 @@
+{
+  "children": [
+    {
+      "operation": 1,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "run-as",
+        "com.videokit.app",
+        "stat",
+        "-c",
+        "%u:%i",
+        "."
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 2,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "run-as",
+        "com.videokit.app.test",
+        "stat",
+        "-c",
+        "%u:%i",
+        "."
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 3,
+      "maxBytes": 65536,
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt.exe",
+        "dump",
+        "badging",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-app.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 4,
+      "maxBytes": 65536,
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt.exe",
+        "dump",
+        "badging",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-test.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 5,
+      "maxBytes": 32768,
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-jar",
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\lib\\apksigner.jar",
+        "verify",
+        "--print-certs",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-app.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 6,
+      "maxBytes": 32768,
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-jar",
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\lib\\apksigner.jar",
+        "verify",
+        "--print-certs",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-test.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 7,
+      "maxBytes": 65536,
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt.exe",
+        "dump",
+        "xmltree",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-app.apk",
+        "AndroidManifest.xml"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 8,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 9,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "/data/app/com.videokit.app/base.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 10,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app.test"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 11,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "/data/app/com.videokit.app.test/base.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 12,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 13,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app.test"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 14,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,UID,NAME"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 15,
+      "maxBytes": 32768,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-r",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-app.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 16,
+      "maxBytes": 32768,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-r",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-test.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 17,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 18,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "/data/app/com.videokit.app/base.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 19,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app.test"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 20,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "/data/app/com.videokit.app.test/base.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 21,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 22,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app.test"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 23,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,UID,NAME"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 24,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "run-as",
+        "com.videokit.app",
+        "stat",
+        "-c",
+        "%u:%i",
+        "."
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 25,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "run-as",
+        "com.videokit.app.test",
+        "stat",
+        "-c",
+        "%u:%i",
+        "."
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 26,
+      "maxBytes": 65536,
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt.exe",
+        "dump",
+        "badging",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-fixture.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 27,
+      "maxBytes": 32768,
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-jar",
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\lib\\apksigner.jar",
+        "verify",
+        "--print-certs",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-fixture.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 28,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "list",
+        "packages",
+        "com.videokit.e13.sender"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 29,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.e13.sender"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 30,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "/data/app/com.videokit.e13.sender/base.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 31,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.e13.sender"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 32,
+      "maxBytes": 32768,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-r",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01\\evidence\\build-001\\local-fixtures-repair\\fake-fixture.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 33,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.e13.sender"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 34,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "/data/app/com.videokit.e13.sender/base.apk"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    },
+    {
+      "operation": 35,
+      "maxBytes": 196608,
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.e13.sender"
+      ],
+      "executed": "SCRIPTED_PORT_ONLY_NO_SDK"
+    }
+  ],
+  "total": 35,
+  "scope": "real E9HostDeployment methods with local scripted outputs; no registry or actual Android install success claim"
+}

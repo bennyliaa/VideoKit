@@ -1,0 +1,616 @@
+[
+  {
+    "case": "success-two-requests",
+    "status": "PASS_LOCAL_FIXTURE",
+    "console": {
+      "readers": [
+        {
+          "savedBytes": 17,
+          "readerToken": "fde6b21c-7dfe-4f32-be98-c7e3242b20f6",
+          "streamToken": 60262365,
+          "fileCloseEntered": true,
+          "fileCloseReturned": true,
+          "eof": true,
+          "readTaskReturned": true,
+          "rawBytes": 17,
+          "pipeCloseReturned": true,
+          "role": "stdout"
+        },
+        {
+          "savedBytes": 0,
+          "readerToken": "442267af-2eb2-4867-8c45-16ea9c32cec6",
+          "streamToken": 12944113,
+          "fileCloseEntered": true,
+          "fileCloseReturned": true,
+          "eof": true,
+          "readTaskReturned": true,
+          "rawBytes": 0,
+          "pipeCloseReturned": true,
+          "role": "stderr"
+        }
+      ],
+      "processDisposed": true,
+      "externalControllerExitProofStillRequired": true,
+      "recordWriteBytesKnown": 1915,
+      "processToken": 28924289,
+      "allOriginalResourcesReturnedAtConsole": true,
+      "firstFailure": null,
+      "childPid": 31200,
+      "waitReturned": true,
+      "captureQualified": true,
+      "rawBytesKnown": 17,
+      "started": true,
+      "captureReceiptSha256": "0df1a2ac7b56cc348f0b6cd4746c465c367141a25c2eb5f79e7390acd2e74cc2",
+      "metadata": [
+        {
+          "writeReturned": true,
+          "name": "LOCAL_0-entered.json",
+          "closeEntered": true,
+          "openUnknown": false,
+          "opened": true,
+          "closed": true,
+          "writeFailed": false
+        },
+        {
+          "writeReturned": true,
+          "name": "LOCAL_0-receipt.json",
+          "closeEntered": true,
+          "openUnknown": false,
+          "opened": true,
+          "closed": true,
+          "writeFailed": false
+        }
+      ],
+      "owner": "bbbb14ab-48a1-4e15-9f39-0d24dfd47b93",
+      "scope": "5cf1ac99817b7aace044cbd6e6e7c9944af9732236e9c62df2359a44a6849f61",
+      "controllerPid": 22316,
+      "id": "LOCAL_0",
+      "rawAmountUnknown": false,
+      "schema": "RESUME01_CAPTURE_CONSOLE_V1"
+    }
+  },
+  {
+    "case": "success-two-requests",
+    "status": "PASS_LOCAL_FIXTURE",
+    "console": {
+      "recordWriteBytesKnown": 1912,
+      "childPid": 12588,
+      "allOriginalResourcesReturnedAtConsole": true,
+      "processDisposed": true,
+      "firstFailure": null,
+      "owner": "eea335fb-177f-4d40-a2ea-29b38ca78f9b",
+      "scope": "5cf1ac99817b7aace044cbd6e6e7c9944af9732236e9c62df2359a44a6849f61",
+      "readers": [
+        {
+          "role": "stdout",
+          "fileCloseReturned": true,
+          "savedBytes": 17,
+          "eof": true,
+          "streamToken": 28581509,
+          "rawBytes": 17,
+          "fileCloseEntered": true,
+          "pipeCloseReturned": true,
+          "readTaskReturned": true,
+          "readerToken": "ab029c82-4813-4b0b-a825-ad7625baed26"
+        },
+        {
+          "role": "stderr",
+          "fileCloseReturned": true,
+          "savedBytes": 0,
+          "eof": true,
+          "streamToken": 66266548,
+          "rawBytes": 0,
+          "fileCloseEntered": true,
+          "pipeCloseReturned": true,
+          "readTaskReturned": true,
+          "readerToken": "4654998a-aeda-4343-b3a7-85c158bc3594"
+        }
+      ],
+      "started": true,
+      "schema": "RESUME01_CAPTURE_CONSOLE_V1",
+      "captureQualified": true,
+      "rawAmountUnknown": false,
+      "controllerPid": 6360,
+      "externalControllerExitProofStillRequired": true,
+      "rawBytesKnown": 17,
+      "id": "LOCAL_1",
+      "waitReturned": true,
+      "processToken": 1314609,
+      "captureReceiptSha256": "9c025dad2b003949e3c6be5e9ce31764d6697cfca9e94fee4f201baf84437873",
+      "metadata": [
+        {
+          "openUnknown": false,
+          "writeFailed": false,
+          "writeReturned": true,
+          "closeEntered": true,
+          "closed": true,
+          "opened": true,
+          "name": "LOCAL_1-entered.json"
+        },
+        {
+          "openUnknown": false,
+          "writeFailed": false,
+          "writeReturned": true,
+          "closeEntered": true,
+          "closed": true,
+          "opened": true,
+          "name": "LOCAL_1-receipt.json"
+        }
+      ]
+    }
+  },
+  {
+    "case": "stderr",
+    "status": "PASS_LOCAL_FIXTURE",
+    "console": {
+      "childPid": 27708,
+      "schema": "RESUME01_CAPTURE_CONSOLE_V1",
+      "allOriginalResourcesReturnedAtConsole": true,
+      "processToken": 25151569,
+      "id": "LOCAL_0",
+      "scope": "7e6b710b765404cccbad9eedcff7615fc37b269d6db12cd81a58be541d93083c",
+      "firstFailure": "STDERR_REQUIRES_STOP",
+      "recordWriteBytesKnown": 3041,
+      "captureQualified": false,
+      "processDisposed": true,
+      "metadata": [
+        {
+          "closed": true,
+          "openUnknown": false,
+          "name": "LOCAL_0-entered.json",
+          "opened": true,
+          "writeFailed": false,
+          "writeReturned": true,
+          "closeEntered": true
+        },
+        {
+          "closed": true,
+          "openUnknown": false,
+          "name": "capture-halted.json",
+          "opened": true,
+          "writeFailed": false,
+          "writeReturned": true,
+          "closeEntered": true
+        },
+        {
+          "closed": true,
+          "openUnknown": false,
+          "name": "LOCAL_0-receipt.json",
+          "opened": true,
+          "writeFailed": false,
+          "writeReturned": true,
+          "closeEntered": true
+        }
+      ],
+      "started": true,
+      "waitReturned": true,
+      "captureReceiptSha256": "7e705fbb2de36db30f6082a96064cb7f41d4edda888ac572856dcee60989ba74",
+      "controllerPid": 19584,
+      "owner": "db7ac6f5-356b-451b-9931-23e75cce038f",
+      "externalControllerExitProofStillRequired": true,
+      "readers": [
+        {
+          "readerToken": "dd110e19-6bf0-410e-b91d-b069638c5d92",
+          "readTaskReturned": true,
+          "role": "stdout",
+          "fileCloseEntered": true,
+          "streamToken": 60262365,
+          "pipeCloseReturned": true,
+          "rawBytes": 4,
+          "fileCloseReturned": true,
+          "eof": true,
+          "savedBytes": 4
+        },
+        {
+          "readerToken": "47c3927a-5a21-473e-aab1-0bdc8bed81d5",
+          "readTaskReturned": true,
+          "role": "stderr",
+          "fileCloseEntered": true,
+          "streamToken": 12944113,
+          "pipeCloseReturned": true,
+          "rawBytes": 13,
+          "fileCloseReturned": true,
+          "eof": true,
+          "savedBytes": 13
+        }
+      ],
+      "rawBytesKnown": 17,
+      "rawAmountUnknown": false
+    }
+  },
+  {
+    "case": "chunk-overrun",
+    "status": "PASS_LOCAL_FIXTURE",
+    "console": {
+      "allOriginalResourcesReturnedAtConsole": true,
+      "recordWriteBytesKnown": 3057,
+      "childPid": 16472,
+      "externalControllerExitProofStillRequired": true,
+      "id": "LOCAL_0",
+      "started": true,
+      "waitReturned": true,
+      "processToken": 25151569,
+      "captureReceiptSha256": "2774de5c09bdb988c2a2b3e8cfc01dfe3bf4ff592084ac416a548db0745b2973",
+      "captureQualified": false,
+      "rawAmountUnknown": false,
+      "owner": "52cc86e4-60f6-4919-b2f4-adb4e3f7aedf",
+      "readers": [
+        {
+          "readerToken": "5002ead7-0cfe-4985-8738-a6d4f08c1642",
+          "savedBytes": 64,
+          "fileCloseEntered": true,
+          "role": "stdout",
+          "readTaskReturned": true,
+          "streamToken": 60262365,
+          "eof": true,
+          "rawBytes": 192,
+          "pipeCloseReturned": true,
+          "fileCloseReturned": true
+        },
+        {
+          "readerToken": "7ffdf5e9-e667-444c-9b4d-0131f3d57df3",
+          "savedBytes": 0,
+          "fileCloseEntered": true,
+          "role": "stderr",
+          "readTaskReturned": true,
+          "streamToken": 12944113,
+          "eof": true,
+          "rawBytes": 0,
+          "pipeCloseReturned": true,
+          "fileCloseReturned": true
+        }
+      ],
+      "firstFailure": "RAW_QUALIFIER_EXCEEDED",
+      "controllerPid": 14972,
+      "schema": "RESUME01_CAPTURE_CONSOLE_V1",
+      "processDisposed": true,
+      "metadata": [
+        {
+          "writeReturned": true,
+          "closeEntered": true,
+          "openUnknown": false,
+          "opened": true,
+          "name": "LOCAL_0-entered.json",
+          "writeFailed": false,
+          "closed": true
+        },
+        {
+          "writeReturned": true,
+          "closeEntered": true,
+          "openUnknown": false,
+          "opened": true,
+          "name": "capture-halted.json",
+          "writeFailed": false,
+          "closed": true
+        },
+        {
+          "writeReturned": true,
+          "closeEntered": true,
+          "openUnknown": false,
+          "opened": true,
+          "name": "LOCAL_0-receipt.json",
+          "writeFailed": false,
+          "closed": true
+        }
+      ],
+      "rawBytesKnown": 192,
+      "scope": "bace7be9b48e66dc73a5c818354cec4b8c77b1f2caa337703db7321f4fe6af9f"
+    }
+  },
+  {
+    "case": "qualification-timeout",
+    "status": "PASS_LOCAL_FIXTURE",
+    "console": {
+      "rawBytesKnown": 19,
+      "metadata": [
+        {
+          "opened": true,
+          "writeReturned": true,
+          "closed": true,
+          "openUnknown": false,
+          "writeFailed": false,
+          "name": "LOCAL_0-entered.json",
+          "closeEntered": true
+        },
+        {
+          "opened": true,
+          "writeReturned": true,
+          "closed": true,
+          "openUnknown": false,
+          "writeFailed": false,
+          "name": "capture-halted.json",
+          "closeEntered": true
+        },
+        {
+          "opened": true,
+          "writeReturned": true,
+          "closed": true,
+          "openUnknown": false,
+          "writeFailed": false,
+          "name": "LOCAL_0-receipt.json",
+          "closeEntered": true
+        }
+      ],
+      "schema": "RESUME01_CAPTURE_CONSOLE_V1",
+      "captureQualified": false,
+      "rawAmountUnknown": false,
+      "owner": "e58aeadb-4753-484f-846d-dad8ac61a308",
+      "readers": [
+        {
+          "fileCloseEntered": true,
+          "rawBytes": 19,
+          "eof": true,
+          "role": "stdout",
+          "readerToken": "478a3e6e-bd0d-46dc-a8a2-028bd8ad0a82",
+          "savedBytes": 19,
+          "fileCloseReturned": true,
+          "streamToken": 51532718,
+          "pipeCloseReturned": true,
+          "readTaskReturned": true
+        },
+        {
+          "fileCloseEntered": true,
+          "rawBytes": 0,
+          "eof": true,
+          "role": "stderr",
+          "readerToken": "69fe26b9-6e47-4985-8054-f880397c6dab",
+          "savedBytes": 0,
+          "fileCloseReturned": true,
+          "streamToken": 4541755,
+          "pipeCloseReturned": true,
+          "readTaskReturned": true
+        }
+      ],
+      "firstFailure": "QUALIFICATION_TIMEOUT_NO_TERMINATION",
+      "processDisposed": true,
+      "allOriginalResourcesReturnedAtConsole": true,
+      "externalControllerExitProofStillRequired": true,
+      "waitReturned": true,
+      "recordWriteBytesKnown": 3085,
+      "started": true,
+      "id": "LOCAL_0",
+      "processToken": 24037055,
+      "childPid": 12860,
+      "scope": "2d3733e9151e7a31999e9e051eb4f3fddee065f3d00cc1da5a1317e1c33069d7",
+      "captureReceiptSha256": "05dc8c59e61958fc7b29e38a7326884b82e606fc905f75ecabc058ec62a167b2",
+      "controllerPid": 7520
+    }
+  },
+  {
+    "case": "writer-fault",
+    "status": "PASS_LOCAL_FIXTURE",
+    "console": {
+      "waitReturned": true,
+      "processDisposed": true,
+      "externalControllerExitProofStillRequired": true,
+      "readers": [
+        {
+          "eof": true,
+          "streamToken": 60262365,
+          "fileCloseReturned": true,
+          "fileCloseEntered": true,
+          "role": "stdout",
+          "pipeCloseReturned": true,
+          "savedBytes": 0,
+          "readerToken": "fbdaa033-edf5-4edb-a201-060d19192433",
+          "rawBytes": 17,
+          "readTaskReturned": true
+        },
+        {
+          "eof": true,
+          "streamToken": 12944113,
+          "fileCloseReturned": true,
+          "fileCloseEntered": true,
+          "role": "stderr",
+          "pipeCloseReturned": true,
+          "savedBytes": 0,
+          "readerToken": "6eaba4e4-54cf-4636-a5d7-f3555f0a08e5",
+          "rawBytes": 0,
+          "readTaskReturned": true
+        }
+      ],
+      "controllerPid": 14928,
+      "scope": "f3bb8cc28478aa0ce8e807cad60369ad1141fa47593ff08c03b766eac34520f2",
+      "captureQualified": false,
+      "captureReceiptSha256": "7bcba62b918054c04a2961462f64b5d8d150ad7c202873c50e4608b610fade17",
+      "childPid": 14184,
+      "owner": "4f3b0025-7e9a-4f78-9ff4-18d4d4311d64",
+      "id": "LOCAL_0",
+      "rawAmountUnknown": false,
+      "allOriginalResourcesReturnedAtConsole": true,
+      "processToken": 25450601,
+      "rawBytesKnown": 17,
+      "metadata": [
+        {
+          "openUnknown": false,
+          "name": "LOCAL_0-entered.json",
+          "writeFailed": false,
+          "opened": true,
+          "closed": true,
+          "writeReturned": true,
+          "closeEntered": true
+        },
+        {
+          "openUnknown": false,
+          "name": "capture-halted.json",
+          "writeFailed": false,
+          "opened": true,
+          "closed": true,
+          "writeReturned": true,
+          "closeEntered": true
+        },
+        {
+          "openUnknown": false,
+          "name": "LOCAL_0-receipt.json",
+          "writeFailed": false,
+          "opened": true,
+          "closed": true,
+          "writeReturned": true,
+          "closeEntered": true
+        }
+      ],
+      "schema": "RESUME01_CAPTURE_CONSOLE_V1",
+      "started": true,
+      "firstFailure": "RAW_FILE_WRITE_FAILED",
+      "recordWriteBytesKnown": 3039
+    }
+  },
+  {
+    "case": "reader-fault-unknown",
+    "status": "PASS_LOCAL_FIXTURE",
+    "console": {
+      "processDisposed": true,
+      "allOriginalResourcesReturnedAtConsole": true,
+      "started": true,
+      "metadata": [
+        {
+          "writeReturned": true,
+          "closed": true,
+          "closeEntered": true,
+          "openUnknown": false,
+          "writeFailed": false,
+          "name": "LOCAL_0-entered.json",
+          "opened": true
+        },
+        {
+          "writeReturned": true,
+          "closed": true,
+          "closeEntered": true,
+          "openUnknown": false,
+          "writeFailed": false,
+          "name": "capture-halted.json",
+          "opened": true
+        },
+        {
+          "writeReturned": true,
+          "closed": true,
+          "closeEntered": true,
+          "openUnknown": false,
+          "writeFailed": false,
+          "name": "LOCAL_0-receipt.json",
+          "opened": true
+        }
+      ],
+      "readers": [
+        {
+          "fileCloseEntered": true,
+          "role": "stdout",
+          "pipeCloseReturned": true,
+          "readTaskReturned": true,
+          "rawBytes": 0,
+          "streamToken": 9645200,
+          "savedBytes": 0,
+          "fileCloseReturned": true,
+          "eof": false,
+          "readerToken": "07c9c4a4-5280-4a3b-a849-1a8fd6d587c0"
+        },
+        {
+          "fileCloseEntered": true,
+          "role": "stderr",
+          "pipeCloseReturned": true,
+          "readTaskReturned": true,
+          "rawBytes": 0,
+          "streamToken": 10388018,
+          "savedBytes": 0,
+          "fileCloseReturned": true,
+          "eof": true,
+          "readerToken": "c6d9b539-2756-43d3-afc6-46e48813f406"
+        }
+      ],
+      "rawAmountUnknown": true,
+      "processToken": 43379359,
+      "externalControllerExitProofStillRequired": true,
+      "recordWriteBytesKnown": 3076,
+      "scope": "e04021fcefde1e1ad24487ed20dbc17c84d4c98bc4095e9ff8731db2b76fecab",
+      "captureReceiptSha256": "153aee2424ae2e6d20a6b22ffcadb2119ee212a8e05ee48b106b5622ac8964d0",
+      "owner": "fc0c4fe1-5276-4c82-9243-f14495bd4abf",
+      "childPid": 14864,
+      "firstFailure": "ORIGINAL_READ_FAULT_UNKNOWN_AMOUNT",
+      "schema": "RESUME01_CAPTURE_CONSOLE_V1",
+      "captureQualified": false,
+      "waitReturned": true,
+      "id": "LOCAL_0",
+      "rawBytesKnown": 0,
+      "controllerPid": 23556
+    }
+  },
+  {
+    "case": "child-exception",
+    "status": "PASS_LOCAL_FIXTURE",
+    "console": {
+      "rawAmountUnknown": false,
+      "scope": "47387e34a2fc3064e50524d7b4276bdbb06867d8033ba4d700400775dc1d2cbc",
+      "externalControllerExitProofStillRequired": true,
+      "processToken": 34148466,
+      "captureQualified": false,
+      "childPid": 7184,
+      "captureReceiptSha256": "af900671e12ab5252734db6aa479f670fd84826c88bf02b4906d4bdfb1922614",
+      "allOriginalResourcesReturnedAtConsole": true,
+      "controllerPid": 30996,
+      "firstFailure": "CHILD_NONZERO_EXIT",
+      "processDisposed": true,
+      "id": "LOCAL_0",
+      "schema": "RESUME01_CAPTURE_CONSOLE_V1",
+      "started": true,
+      "readers": [
+        {
+          "fileCloseEntered": true,
+          "role": "stdout",
+          "readerToken": "c6dde04a-948a-4953-aaaf-630fa75f10a2",
+          "streamToken": 36746003,
+          "pipeCloseReturned": true,
+          "rawBytes": 0,
+          "readTaskReturned": true,
+          "fileCloseReturned": true,
+          "savedBytes": 0,
+          "eof": true
+        },
+        {
+          "fileCloseEntered": true,
+          "role": "stderr",
+          "readerToken": "18873172-0ff6-4813-9654-1528a49a7f5d",
+          "streamToken": 22863606,
+          "pipeCloseReturned": true,
+          "rawBytes": 25,
+          "readTaskReturned": true,
+          "fileCloseReturned": true,
+          "savedBytes": 25,
+          "eof": true
+        }
+      ],
+      "metadata": [
+        {
+          "writeReturned": true,
+          "opened": true,
+          "closeEntered": true,
+          "name": "LOCAL_0-entered.json",
+          "openUnknown": false,
+          "writeFailed": false,
+          "closed": true
+        },
+        {
+          "writeReturned": true,
+          "opened": true,
+          "closeEntered": true,
+          "name": "capture-halted.json",
+          "openUnknown": false,
+          "writeFailed": false,
+          "closed": true
+        },
+        {
+          "writeReturned": true,
+          "opened": true,
+          "closeEntered": true,
+          "name": "LOCAL_0-receipt.json",
+          "openUnknown": false,
+          "writeFailed": false,
+          "closed": true
+        }
+      ],
+      "recordWriteBytesKnown": 3037,
+      "rawBytesKnown": 25,
+      "waitReturned": true,
+      "owner": "478da822-1698-49f6-b0de-8068354d1cf4"
+    }
+  }
+]

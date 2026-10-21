@@ -1,0 +1,89 @@
+{
+  "result": "PASS_OFFLINE_FIXTURES_ONLY",
+  "cases": [
+    {
+      "case": "normal",
+      "status": "PASS",
+      "outerExit": 0,
+      "firstFailure": null
+    },
+    {
+      "case": "binary",
+      "status": "PASS",
+      "outerExit": 0,
+      "firstFailure": null
+    },
+    {
+      "case": "stdin_exact",
+      "status": "PASS",
+      "outerExit": 0,
+      "firstFailure": null
+    },
+    {
+      "case": "binary_stderr",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "STDERR_REQUIRES_STOP"
+    },
+    {
+      "case": "text_overrun",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "TEXT_QUALIFIER_EXCEEDED"
+    },
+    {
+      "case": "binary_overrun",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "BINARY_QUALIFIER_EXCEEDED"
+    },
+    {
+      "case": "write_fault",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "RAW_FILE_WRITE_FAILED"
+    },
+    {
+      "case": "read_fault",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "ORIGINAL_READ_FAULT_UNKNOWN_AMOUNT"
+    },
+    {
+      "case": "stdin_write_fault",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "ORIGINAL_STDIN_WRITE_FAULT_UNKNOWN_AMOUNT"
+    },
+    {
+      "case": "late_original",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "QUALIFICATION_TIMEOUT_NO_TERMINATION"
+    },
+    {
+      "case": "stdin_close_gate",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "QUALIFICATION_TIMEOUT_NO_TERMINATION"
+    },
+    {
+      "case": "file_close_gate",
+      "status": "PASS",
+      "outerExit": 2,
+      "firstFailure": "QUALIFICATION_TIMEOUT_NO_TERMINATION"
+    },
+    {
+      "case": "preparation_reject",
+      "status": "PASS",
+      "outerExit": 1,
+      "firstFailure": null
+    }
+  ],
+  "sdkChildren": 0,
+  "deviceOperations": 0,
+  "productChanges": 0,
+  "ownersNaturallyReturned": 16,
+  "screenshotEffect": "NOT_RUN",
+  "noKillOrTimeoutTermination": true
+}

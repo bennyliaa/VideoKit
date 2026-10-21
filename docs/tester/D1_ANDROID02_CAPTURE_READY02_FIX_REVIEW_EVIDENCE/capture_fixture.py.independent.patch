@@ -1,0 +1,11 @@
+--- READY01/selfchecks/capture_fixture.py
++++ READY02/selfchecks/capture_fixture.py
+@@ -19,7 +19,7 @@
+  expected=4096 if mode=='payload_app' else 2048;data=sys.stdin.buffer.read(65537);assert len(data)==expected
+  print('LOCAL_PAYLOAD '+json.dumps({'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'fixtureOnly':True},separators=(',',':')))
+ elif mode=='instrument':
+- receipt={'fixtureOnly':True,'scopeEntry':'scopeAll','candidate':'D1-MEDIA3-ANDROID02-FIX02','status':'OBSERVED_ALL_SCOPE_HOST_STRUCTURE_ONLY','completedCaseCount':10,'expectedCaseCount':10,'originalResourcesReturned':True,'workerActuallyJoined':True,'timelyOriginalBody':True,'lastControlledReturnSignalBeforeMarker':True,'sourceKeepers':0,'outputKeepers':0,'runnerFinalizerOwnerAtReceipt':1,'runnerFinishReturn':'EXTERNAL_ORIGINAL_CAPTURE_REQUIRED'}
++ receipt={'firstFailure':None,'fixtureOnly':True,'scopeEntry':'scopeAll','candidate':'D1-MEDIA3-ANDROID02-FIX02','status':'OBSERVED_ALL_SCOPE_HOST_STRUCTURE_ONLY','completedCaseCount':10,'expectedCaseCount':10,'originalResourcesReturned':True,'workerActuallyJoined':True,'timelyOriginalBody':True,'lastControlledReturnSignalBeforeMarker':True,'sourceKeepers':0,'outputKeepers':0,'runnerFinalizerOwnerAtReceipt':1,'runnerFinishReturn':'EXTERNAL_ORIGINAL_CAPTURE_REQUIRED'}
+  print('INSTRUMENTATION_STATUS: receipt='+json.dumps({'fixtureOnly':True,'status':'LOCAL_PARTIAL_HISTORY','caseReceipts':[{'case':'preopenAdmission'}]},separators=(',',':')))
+  print('INSTRUMENTATION_RESULT: receipt='+json.dumps(receipt,separators=(',',':'))+'\nINSTRUMENTATION_CODE: -1')
+ elif mode=='late':

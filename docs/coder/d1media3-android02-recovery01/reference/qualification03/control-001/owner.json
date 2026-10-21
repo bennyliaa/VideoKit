@@ -1,0 +1,42 @@
+{
+  "scope": "D1QUAL03-CANDIDATE-001",
+  "registeredUtc": "2026-10-21T03:05:02.194985+00:00",
+  "registeredBeforePreflightAndPopen": true,
+  "state": "ORIGINAL_NATURAL_RETURN",
+  "processInvocations": 1,
+  "originalProcessReturned": true,
+  "stdoutHandleClosed": true,
+  "stderrHandleClosed": true,
+  "controllerTimeoutUnknownSticky": false,
+  "outputLimitUnknownSticky": false,
+  "killInterruptSecondCloseRetryRefundActions": 0,
+  "oldSessionQueriesOrInterventions": 0,
+  "argv": [
+    "D:/Android/Android Studio/jbr/bin/java.exe",
+    "-Xmx256m",
+    "-XX:-UsePerfData",
+    "-Xlog:class+load=info:file=loaded-classes.log:uptime,level,tags",
+    "-cp",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes;D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support;D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar",
+    "com.videokit.fixturetool.Six01ContainerQualifier03",
+    "--expected-sha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+    "--expected-bytes=8849",
+    "--scope=D1QUAL03-CANDIDATE-001"
+  ],
+  "cwd": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_CONTAINER_QUALIFICATION03\\control-001",
+  "environmentInjectionKeysCleared": {
+    "JAVA_TOOL_OPTIONS": true,
+    "JDK_JAVA_OPTIONS": true,
+    "_JAVA_OPTIONS": true,
+    "JDK_JAVAC_OPTIONS": true,
+    "CLASSPATH": true
+  },
+  "temp": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_CONTAINER_QUALIFICATION03\\control-001\\temp",
+  "observeSeconds": 60,
+  "combinedStdoutStderrUtf8Cap": 1048576,
+  "startUtc": "2026-10-21T03:05:02.536453+00:00",
+  "pid": 33176,
+  "exitCode": 0,
+  "endUtc": "2026-10-21T03:05:02.855133+00:00",
+  "elapsedSeconds": 0.3120000000053551
+}

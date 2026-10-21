@@ -1,0 +1,100 @@
+{
+  "schema": "ENV03_DISPATCH_V1",
+  "authority": {
+    "path": "docs/coder/d1env03/release/environment-authorization.json",
+    "bytes": 2355,
+    "sha256": "dcc163aa7f4764a7cef146b33dadf1e5c86793be987efc95aefc1c315fcec44c"
+  },
+  "scopeId": "f0be73d2-01d2-4775-be6d-b6e55b8b77b3",
+  "scope": "ff23db7cdba88db95af9e9e39af8738fea4be9ec90b3cd9fb73402996051b27d",
+  "policy": {
+    "path": "docs/coder/d1env03/release/capture-policy.json",
+    "bytes": 6219,
+    "sha256": "a32081b68c811497b122cac63d042816423c1776852bfda7ecfc301f3fb17ee8"
+  },
+  "budget": {
+    "path": "docs/coder/d1env03/release/budget.json",
+    "bytes": 1092,
+    "sha256": "91761a4db08d2526290959f8b598cd9752ea22619cf8fb6f759db7a145136580"
+  },
+  "entry": {
+    "path": "docs/coder/d1env03/tools/capture_metadata.ps1",
+    "bytes": 20118,
+    "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+  },
+  "requests": [
+    {
+      "path": "docs/coder/d1env03/release/requests/ENV03_M1_identity.json",
+      "bytes": 1765,
+      "sha256": "5c1b849c916e069db4b9a8eccf0e775dbd28bda46a6b72fc26cd968d89962766"
+    },
+    {
+      "path": "docs/coder/d1env03/release/requests/ENV03_M1_global.json",
+      "bytes": 601,
+      "sha256": "6f9c1a77776245ef1066956bb4ee7d9efebb0264ec64ee3ef4e5012245249eff"
+    }
+  ],
+  "commands": [
+    {
+      "id": "ENV03_M1_identity",
+      "request": {
+        "path": "docs/coder/d1env03/release/requests/ENV03_M1_identity.json",
+        "bytes": 1765,
+        "sha256": "5c1b849c916e069db4b9a8eccf0e775dbd28bda46a6b72fc26cd968d89962766"
+      },
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1env03\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1env03\\release\\requests\\ENV03_M1_identity.json"
+      ],
+      "scope": "ff23db7cdba88db95af9e9e39af8738fea4be9ec90b3cd9fb73402996051b27d"
+    },
+    {
+      "id": "ENV03_M1_global",
+      "request": {
+        "path": "docs/coder/d1env03/release/requests/ENV03_M1_global.json",
+        "bytes": 601,
+        "sha256": "6f9c1a77776245ef1066956bb4ee7d9efebb0264ec64ee3ef4e5012245249eff"
+      },
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1env03\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1env03\\release\\requests\\ENV03_M1_global.json"
+      ],
+      "scope": "ff23db7cdba88db95af9e9e39af8738fea4be9ec90b3cd9fb73402996051b27d",
+      "predecessor": {
+        "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\f0be73d2-01d2-4775-be6d-b6e55b8b77b3\\outputs\\ENV03_M1_identity-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "sha": "Only formed by trusted tester in a later call after actual original identity tool/streams returned and identity semantics pass."
+      }
+    }
+  ],
+  "maxOperations": 2,
+  "stopAfterSecondRegardlessOfOccupancy": true,
+  "completionProofAfterGlobalNotAuthorized": true,
+  "thirdSlotRuntimeAdmission": false,
+  "forbidden": [
+    "M1 ps",
+    "deployment",
+    "M2",
+    "instrumentation",
+    "product methods",
+    "force-stop/kill/server restart/clear-data",
+    "automatic retry",
+    "reuse stopped RESUME02 scope or balance"
+  ],
+  "independentMechanicalReview": null,
+  "freshLocalGates": null,
+  "conditionsSatisfied": false,
+  "executeDuringCoderPreparation": false
+}

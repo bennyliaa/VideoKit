@@ -1,0 +1,85 @@
+{
+  "origin": "Offsets relative to original ByteBuffer.position on entry, not whole-file offsets. Variable SPS/PPS locations follow original library only; no new parser.",
+  "fields": [
+    {
+      "box": "dref",
+      "field": "full_version_flags_word",
+      "position": "relative0..3",
+      "originalOperation": "one original input.getInt()",
+      "oracle": "retain raw32 word; version unsigned top8/flags low24 derivable from same word; not from child/FullBox defaults",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "box": "dref",
+      "field": "declared_entry_count_unsigned",
+      "position": "relative4..7",
+      "originalOperation": "one original input.getInt()",
+      "oracle": "retain unsigned32 as long0..4294967295; never actual children.size, never allocate from count",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "box": "stsd",
+      "field": "full_version_flags_word",
+      "position": "relative0..3",
+      "originalOperation": "one original input.getInt()",
+      "oracle": "same raw32 evidence and version/flags derivation, not regenerated doWrite0",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "box": "stsd",
+      "field": "declared_entry_count_unsigned",
+      "position": "relative4..7",
+      "originalOperation": "one original input.getInt()",
+      "oracle": "same unsigned32 retention; doWrite max(1,boxes.size) never original count",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "box": "avcC",
+      "field": "configuration_version",
+      "position": "relative0",
+      "originalOperation": "original NIOUtils.skip(input,1)",
+      "oracle": "retain exactly consumed unsigned byte; equal-consumption get permitted but zero-remaining/exception state must remain baseline-equivalent",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "box": "avcC",
+      "field": "raw_nal_length_size_byte",
+      "position": "relative4",
+      "originalOperation": "original input.get() assigned flags then masked0x03",
+      "oracle": "retain full unsigned raw byte, reserved top6 separately derivable; keep legacy nalLengthSize=(raw&3)+1",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "box": "avcC",
+      "field": "raw_sps_count_byte",
+      "position": "relative5",
+      "originalOperation": "original input.get() masked0x1f",
+      "oracle": "retain full unsigned raw byte incl top3 reserved; declaredSps=(raw&31) not spsList.size",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "box": "avcC",
+      "field": "declared_pps_count",
+      "position": "after original SPS-length/payload loop",
+      "originalOperation": "original input.get()&0xff",
+      "oracle": "retain same consumed uint8; not ppsList.size; no new seek/read or extra NAL parse",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "box": "all3",
+      "field": "observation_complete",
+      "position": "after same original full parse body normal return",
+      "originalOperation": "no additional input read",
+      "oracle": "reset before first possible failure, publish complete only after original parse returns; not validation of full structure/EOF/reserved/count equality",
+      "status": "PREPARED_NOT_RUN"
+    }
+  ],
+  "legacyReadSequence": {
+    "dref": "getInt4,getInt4,NodeBox.parse",
+    "stsd": "getInt4,getInt4,NodeBox.parse",
+    "avcC": "skip<=1,getU8 profile,getU8compat,getU8level,getU8rawLength,getU8rawSpsCount,original SPS loop(getShort signed,getNALheader masked,original NIOUtils.read length-1),getU8ppsCount,original PPS loop"
+  },
+  "apiNames": "UNBOUND until actual frozen fork; do not invent getters or fake interfaces",
+  "newObservationGetters": "readonly primitive/immutable snapshots; if complete false getters must reject or explicitly absent/untrusted, never display default0 as successful observation",
+  "extraObservedFields": "Only if derived from already consumed bytes in allowed three sources and documented, no extra structural parse/reads; otherwise out of scope and blocked"
+}

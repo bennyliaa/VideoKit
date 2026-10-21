@@ -1,0 +1,20 @@
+--- docs/coder/d1e13f/tools/E13HostActivationSession.java
++++ docs/coder/d1resume01/tools/E13HostActivationSession.java
+@@ -2,7 +2,7 @@
+ import java.io.IOException;
+ import java.nio.file.*;
+ import java.util.*;
+-/** Offline v17->v18 lifecycle candidate. Fixed custody disposition pin is ABSENT: no dispatch. */
++/** Reviewed-source v17->v19 deployment; single-method scope, fresh device authorization still required. */
+ public final class E13HostActivationSession {
+     public static byte[] pinned(Path p,String sha,int max)throws Exception {
+         E9Record.digest(sha);if(Files.isSymbolicLink(p)||!Files.isRegularFile(p,LinkOption.NOFOLLOW_LINKS)||Files.size(p)>max)throw new IOException("E13_PINNED_FILE_ROLE");byte[] b=Files.readAllBytes(p);if(!E9Record.sha(b).equals(sha))throw new IOException("E13_PINNED_BYTES");return b;
+@@ -10,7 +10,7 @@
+     public static E9Record scope(byte[] raw)throws Exception {
+         E9Record s=E9Record.parse(raw,8192);s.exact("kind","batch","scopeId","sourceAcceptance","sourceApp","sourceTest","app","test","fixture","fixtureSigner","sourceReview","methods","budget");
+         E9DeploymentGate.PackageInfo old=E9DeploymentGate.e13eInstalledPredecessor();
+-        if(!s.get("kind").equals("e13DispatchScope") || !s.get("batch").equals(E13Selection.BATCH) || !s.get("sourceAcceptance").equals(E9DeploymentGate.E13E_SOURCE_DEPLOYMENT) || !s.get("sourceApp").equals(old.appSha)||!s.get("sourceTest").equals(old.testSha)||!s.get("methods").equals(String.join(",",new TreeSet<>(E13Selection.METHODS))) || !s.get("budget").equals("source4096/read65536/open8/close16/process51/text2097152/output0"))throw new IOException("E13_SCOPE_BINDING");
++        if(!s.get("kind").equals("e13DispatchScope") || !s.get("batch").equals(E13Selection.BATCH) || !s.get("sourceAcceptance").equals(E9DeploymentGate.E13E_SOURCE_DEPLOYMENT) || !s.get("sourceApp").equals(old.appSha)||!s.get("sourceTest").equals(old.testSha)||!s.get("methods").equals("ordinarySenderCannotBindCodec") || !s.get("budget").equals("source4096/read65536/open8/close16/process43/text3145728/output0"))throw new IOException("E13_SCOPE_BINDING");
+         E9Record.uuid(s.get("scopeId"));for(String k:List.of("app","test","fixture","fixtureSigner","sourceReview"))E9Record.digest(s.get(k));if(s.get("fixtureSigner").equals(old.signer))throw new IOException("E13_FIXTURE_SIGNER");return s;
+     }
+     public static void main(String[] a)throws Exception {

@@ -1,0 +1,21 @@
+--- frozen-android02/src/com/videokit/d1input/TemporaryOutput.java
++++ recovery01/src/com/videokit/d1input/TemporaryOutput.java
+@@ -149,7 +149,8 @@
+  }
+  /** Separate read-only host evidence. NEVER enters validation/READY/COMMIT states or
+   * issues HOST_ISOLATED_FORMAT_V1. Same reopen authority and original worker joins. */
+- public HostMp4Inspection.Evidence inspectHostMp4Structure(HostMp4Inspection.Container container)throws IOException {enter();try{
++ public HostMp4Inspection.Evidence inspectHostMp4Structure(HostMp4Inspection.Container container)throws IOException {return inspectHostMp4Structure(container,HostMp4Inspection.NO_PHASES);}
++ public HostMp4Inspection.Evidence inspectHostMp4Structure(HostMp4Inspection.Container container,HostMp4Inspection.Phases phases)throws IOException {enter();try{
+   HostMp4Inspection.requireAdmission(container,true,-1);
+   hostInspectionAdmission();
+   if(hostInspectionAttempted){if(hostStructure==null||hostInspectionContainer!=container)throw new IOException("OUTPUT_NOT_VALIDATABLE");return hostStructure;}
+@@ -159,7 +160,7 @@
+   reopenedInput=f;reopenedInputClosed=false;hostInspectionContainer=container;hostInspectionAttempted=true;hostInspectionActive=true;
+   try{
+    if(cancelled.get()){f.close();throw new IOException("CANCELLED");}
+-   HostMp4Inspection.Evidence fact=HostMp4Inspection.inspect(f,container,true,-1,false);
++   HostMp4Inspection.Evidence fact=HostMp4Inspection.inspect(f,container,true,-1,false,phases);
+    if(cancelled.get())throw new IOException("CANCELLED");
+    if(!fact.fullReadEof||!fact.extractorEof||fact.bytes!=extent||!random&&!fact.sha256.equals(expectedSequentialSha))throw new IOException("OUTPUT_HOST_STRUCTURE_MISMATCH");
+    hostStructure=fact;

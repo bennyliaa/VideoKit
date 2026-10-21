@@ -1,0 +1,152 @@
+--- official-0.2.5/source/org/jcodec/codecs/h264/mp4/AvcCBox.java
++++ 0.2.5-videokit-observation01/source/org/jcodec/codecs/h264/mp4/AvcCBox.java
+@@ -20,6 +20,23 @@
+  * 
+  */
+ public class AvcCBox extends Box {
++
++    // VideoKit observation01: raw bytes from the same original parse positions.
++    // This is not additional AVC syntax validation or a reconstructed avcC.
++    private boolean originalParseObserved;
++    private int originalConfigurationVersion;
++    private int originalLengthSizeByte;
++    private int originalSpsCountByte;
++    private int originalPpsCountByte;
++
++    public boolean hasOriginalParseObservation() { return originalParseObserved; }
++    private void requireOriginalParseObservation() {
++        if (!originalParseObserved) throw new IllegalStateException("ORIGINAL_PARSE_NOT_OBSERVED");
++    }
++    public int getOriginalConfigurationVersion() { requireOriginalParseObservation(); return originalConfigurationVersion; }
++    public int getOriginalLengthSizeByte() { requireOriginalParseObservation(); return originalLengthSizeByte; }
++    public int getOriginalSpsCountByte() { requireOriginalParseObservation(); return originalSpsCountByte; }
++    public int getOriginalPpsCountByte() { requireOriginalParseObservation(); return originalPpsCountByte; }
+ 
+     private int profile;
+     private int profileCompat;
+@@ -63,14 +80,21 @@
+ 
+     @Override
+     public void parse(ByteBuffer input) {
+-        NIOUtils.skip(input, 1);
++        originalParseObserved = false;
++        originalConfigurationVersion = 0;
++        originalLengthSizeByte = 0;
++        originalSpsCountByte = 0;
++        originalPpsCountByte = 0;
++        originalConfigurationVersion = input.get() & 0xff;
+         profile = input.get() & 0xff;
+         profileCompat = input.get() & 0xff;
+         level = input.get() & 0xff;
+         int flags = input.get() & 0xff;
++        originalLengthSizeByte = flags;
+         nalLengthSize = (flags & 0x03) + 1;
+ 
+-        int nSPS = input.get() & 0x1f; // 3 bits reserved + 5 bits number of
++        originalSpsCountByte = input.get() & 0xff;
++        int nSPS = originalSpsCountByte & 0x1f; // 3 bits reserved + 5 bits number of
+                                        // sps
+         for (int i = 0; i < nSPS; i++) {
+             int spsSize = input.getShort();
+@@ -79,11 +103,13 @@
+         }
+ 
+         int nPPS = input.get() & 0xff;
++        originalPpsCountByte = nPPS;
+         for (int i = 0; i < nPPS; i++) {
+             int ppsSize = input.getShort();
+             checkState(0x28 == (input.get() & 0x3f));
+             ppsList.add(NIOUtils.read(input, ppsSize - 1));
+         }
++        originalParseObserved = true;
+     }
+ 
+     @Override
+@@ -181,4 +207,4 @@
+     //            return null;
+     //        return new AvcCBox(sps.profile_idc, 0, sps.level_idc, spsList, ppsList);
+     //    }
+-}+}
+--- official-0.2.5/source/org/jcodec/containers/mp4/boxes/DataRefBox.java
++++ 0.2.5-videokit-observation01/source/org/jcodec/containers/mp4/boxes/DataRefBox.java
+@@ -10,6 +10,20 @@
+  *
+  */
+ public class DataRefBox extends NodeBox {
++
++    // VideoKit observation01: parse provenance only, no policy or write change.
++    private boolean originalParseObserved;
++    private int originalVersionFlagsWord;
++    private long originalDeclaredEntryCount;
++
++    public boolean hasOriginalParseObservation() { return originalParseObserved; }
++    private void requireOriginalParseObservation() {
++        if (!originalParseObserved) throw new IllegalStateException("ORIGINAL_PARSE_NOT_OBSERVED");
++    }
++    public int getOriginalVersionFlagsWord() { requireOriginalParseObservation(); return originalVersionFlagsWord; }
++    public int getOriginalVersion() { requireOriginalParseObservation(); return originalVersionFlagsWord >>> 24; }
++    public int getOriginalFlags() { requireOriginalParseObservation(); return originalVersionFlagsWord & 0xffffff; }
++    public long getOriginalDeclaredEntryCount() { requireOriginalParseObservation(); return originalDeclaredEntryCount; }
+ 
+     public static String fourcc() {
+         return "dref";
+@@ -25,9 +39,13 @@
+ 
+     @Override
+     public void parse(ByteBuffer input) {
+-        input.getInt();
+-        input.getInt();
++        originalParseObserved = false;
++        originalVersionFlagsWord = 0;
++        originalDeclaredEntryCount = 0;
++        originalVersionFlagsWord = input.getInt();
++        originalDeclaredEntryCount = input.getInt() & 0xffffffffL;
+         super.parse(input);
++        originalParseObserved = true;
+     }
+ 
+     @Override
+--- official-0.2.5/source/org/jcodec/containers/mp4/boxes/SampleDescriptionBox.java
++++ 0.2.5-videokit-observation01/source/org/jcodec/containers/mp4/boxes/SampleDescriptionBox.java
+@@ -10,6 +10,20 @@
+  *
+  */
+ public class SampleDescriptionBox extends NodeBox {
++
++    // VideoKit observation01: original consumed header, never builder defaults.
++    private boolean originalParseObserved;
++    private int originalVersionFlagsWord;
++    private long originalDeclaredEntryCount;
++
++    public boolean hasOriginalParseObservation() { return originalParseObserved; }
++    private void requireOriginalParseObservation() {
++        if (!originalParseObserved) throw new IllegalStateException("ORIGINAL_PARSE_NOT_OBSERVED");
++    }
++    public int getOriginalVersionFlagsWord() { requireOriginalParseObservation(); return originalVersionFlagsWord; }
++    public int getOriginalVersion() { requireOriginalParseObservation(); return originalVersionFlagsWord >>> 24; }
++    public int getOriginalFlags() { requireOriginalParseObservation(); return originalVersionFlagsWord & 0xffffff; }
++    public long getOriginalDeclaredEntryCount() { requireOriginalParseObservation(); return originalDeclaredEntryCount; }
+ 
+     public static String fourcc() {
+         return "stsd";
+@@ -30,9 +44,13 @@
+ 
+     @Override
+     public void parse(ByteBuffer input) {
+-        input.getInt();
+-        input.getInt();
++        originalParseObserved = false;
++        originalVersionFlagsWord = 0;
++        originalDeclaredEntryCount = 0;
++        originalVersionFlagsWord = input.getInt();
++        originalDeclaredEntryCount = input.getInt() & 0xffffffffL;
+         super.parse(input);
++        originalParseObserved = true;
+     }
+ 
+     @Override
+@@ -47,4 +65,4 @@
+     public int estimateSize() {
+         return 8 + super.estimateSize();
+     }
+-}+}

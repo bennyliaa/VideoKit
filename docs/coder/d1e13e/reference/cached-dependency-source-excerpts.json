@@ -1,0 +1,61 @@
+{
+  "networkRequests": 0,
+  "downloads": 0,
+  "versionAuthority": {
+    "path": "docs/coder/d1e13a/app/gradle.lockfile",
+    "bytes": 3947,
+    "sha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a"
+  },
+  "scope": "Matching declared locked dependency source only; not vendor API31 thread evidence or a new runtime test",
+  "dependencies": [
+    {
+      "cachedArchive": {
+        "path": "C:/Users/benny/.gradle/caches/modules-2/files-2.1/androidx.test/runner/1.7.0/98be1207f313bdf344a95ac60c576d578e36bc17/runner-1.7.0-sources.jar",
+        "bytes": 241449,
+        "sha256": "22d99db01579e249e415802fb7926dfbb04bf8b89d5ea62cba1459ccb0ff0628"
+      },
+      "entry": "androidx/test/runner/AndroidJUnitRunner.java",
+      "entryBytes": 30734,
+      "entrySha256": "bbb08fc59aec23fbb1709918203370c096301dd02c77abef8da2ddcb43b257ad",
+      "excerpts": [
+        {
+          "firstLine": 445,
+          "lastLine": 477,
+          "text": "445:   public void onStart() {\n446:     Log.d(LOG_TAG, \"onStart is called.\");\n447:     Trace.beginSection(\"AndroidJUnitRunner#onStart\");\n448:     Bundle results = new Bundle();\n449:     try {\n450:       setJsBridgeClassName(\"androidx.test.espresso.web.bridge.JavaScriptBridge\");\n451:       super.onStart();\n452: \n453:       Request testRequest = buildRequest(runnerArgs, getArguments());\n454: \n455:       if (runnerArgs.remoteMethod != null) {\n456:         invokeRemoteMethod();\n457:       }\n458: \n459:       // TODO(b/162075422): using deprecated isPrimaryInstrProcess(argsProcessName) method\n460:       if (!isPrimaryInstrProcess(runnerArgs.targetProcess)) {\n461:         Log.i(LOG_TAG, \"Runner is idle...\");\n462:         return;\n463:       }\n464: \n465:       TestExecutor.Builder executorBuilder = new TestExecutor.Builder(this);\n466:       addListeners(runnerArgs, executorBuilder);\n467:       results = executorBuilder.build().execute(testRequest);\n468:     } catch (Throwable t) {\n469:       final String msg = \"Fatal exception when running tests\";\n470:       Log.e(LOG_TAG, msg, t);\n471:       onException(this, t);\n472:     } finally {\n473:       Trace.endSection();\n474:     }\n475:     // finish kills the process, so this needs to happen after Trace.endSection\n476:     finish(Activity.RESULT_OK, results);\n477:   }"
+        },
+        {
+          "firstLine": 599,
+          "lastLine": 638,
+          "text": "599:   public boolean onException(Object obj, Throwable e) {\n600:     Throwable cause = unwrapException(e);\n601:     if (appExceptionsHandled.contains(cause)) {\n602:       Log.d(\n603:           LOG_TAG,\n604:           String.format(\n605:               \"We've already handled this exception %s. Ignoring.\", cause.getClass().getName()));\n606:       return false;\n607:     }\n608: \n609:     Log.w(LOG_TAG, \"An unhandled exception was thrown by the app.\", e);\n610:     appExceptionsHandled.add(cause);\n611: \n612:     // Report better error message back to Instrumentation results.\n613:     InstrumentationResultPrinter instResultPrinter = getInstrumentationResultPrinter();\n614:     // If the app crashes before instrumentation has started, instrumentationResultPrinter could\n615:     // be null\n616:     if (instResultPrinter != null) {\n617:       if (instResultPrinter.getInstrumentation() == null) {\n618:         // App could crash before #onCreate(Bundle) is called, where the instrumentation instance is\n619:         // not properly set yet. Setting the Instrumentation here rather than in the constructor to\n620:         // minimize the dependencies during initialization.\n621:         instResultPrinter.setInstrumentation(this);\n622:       }\n623: \n624:       // Allows DISK_WRITE as `sendStatus` writes to standard output.\n625:       final StrictMode.ThreadPolicy oldPolicy = StrictMode.allowThreadDiskWrites();\n626:       try {\n627:         instResultPrinter.reportProcessCrash(e);\n628:       } catch (Throwable t) {\n629:         // It is possible for the test infrastructure to get sufficiently messed up that even this\n630:         // can fail (with a NoSuchMethodError from Failure.getTrace()!). Don't let that get in the\n631:         // way of sending events reporting the problems, since that can make the difference between\n632:         // \"test failed with a useful error message\" and \"test mysteriously timed out and the\n633:         // developer has to go spelunking in the system logcat\".\n634:         Log.e(LOG_TAG, \"Failed to report process crash.\", t);\n635:       } finally {\n636:         StrictMode.setThreadPolicy(oldPolicy);\n637:       }\n638:     }"
+        }
+      ]
+    },
+    {
+      "cachedArchive": {
+        "path": "C:/Users/benny/.gradle/caches/modules-2/files-2.1/androidx.test/monitor/1.8.0/c901f94f9f176d3a922d88e1a24a3a16ac085ece/monitor-1.8.0-sources.jar",
+        "bytes": 96045,
+        "sha256": "4b0663b951d9771f2b75dc2ff994285e6eacaae965ff6319020bc6698d84c3e9"
+      },
+      "entry": "androidx/test/runner/MonitoringInstrumentation.java",
+      "entryBytes": 42793,
+      "entrySha256": "5373efbc7e2e9333037c5d92fc0d2da3e0eb07cc3363fa1ac4c8cc2d49409b4c",
+      "excerpts": [
+        {
+          "firstLine": 349,
+          "lastLine": 379,
+          "text": "349:   public void onStart() {\n350:     super.onStart();\n351: \n352:     if (jsBridgeClassName != null) {\n353:       tryLoadingJsBridge(jsBridgeClassName);\n354:     }\n355: \n356:     // Due to the way Android initializes instrumentation - all instrumentations have the\n357:     // possibility of seeing the Application and its classes in an inconsistent state.\n358:     // Specifically ActivityThread creates Instrumentation first, initializes it, and calls\n359:     // instrumentation.onCreate(). After it does that, it calls\n360:     // instrumentation.callApplicationOnCreate() which ends up calling the application's\n361:     // onCreateMethod.\n362:     //\n363:     // So, Android's InstrumentationTestRunner's onCreate method() spawns a separate thread to\n364:     // execute tests. This causes tests to start accessing the application and its classes while\n365:     // the ActivityThread is calling callApplicationOnCreate() in its own thread.\n366:     //\n367:     // This makes it possible for tests to see the application in a state that is normally never\n368:     // visible: pre-application.onCreate() and during application.onCreate()).\n369:     //\n370:     // *phew* that sucks! Here we waitForOnIdleSync() to ensure onCreate has completed before we\n371:     // start executing tests.\n372:     waitForIdleSync();\n373: \n374:     // If the user has not yet set up a ContextClassLoader, they may need one set up for them\n375:     // now.  They cannot see the one we set up in onCreate() because that took place on a\n376:     // different thread.\n377:     setupDexmakerClassloader();\n378: \n379:     InstrumentationConnection.getInstance().init(this, new ActivityFinisher());"
+        },
+        {
+          "firstLine": 391,
+          "lastLine": 453,
+          "text": "391:   public void finish(int resultCode, Bundle results) {\n392:     if (finished) {\n393:       Log.w(TAG, \"finish called 2x!\");\n394:       return;\n395:     } else {\n396:       finished = true;\n397:     }\n398: \n399:     Trace.beginSection(\"MonitoringInstrumentation#finish\");\n400:     if (shouldWaitForActivitiesToComplete()) {\n401:       handlerForMainLooper.post(new ActivityFinisher());\n402:       waitForActivitiesToComplete();\n403:     }\n404:     ActivityLifecycleMonitorRegistry.registerInstance(null);\n405:     restoreUncaughtExceptionHandler();\n406:     Trace.endSection();\n407: \n408:     // super.finish kills the current process, so this needs to be called last\n409:     super.finish(resultCode, results);\n410:   }\n411: \n412:   protected boolean shouldWaitForActivitiesToComplete() {\n413:     // TODO(b/72831103): default this argument to false in a future release\n414:     return Boolean.parseBoolean(\n415:         InstrumentationRegistry.getArguments().getString(\"waitForActivitiesToComplete\", \"true\"));\n416:   }\n417: \n418:   /**\n419:    * Ensures we've onStopped() all activities which were onStarted().\n420:    *\n421:    * <p>According to Activity's contract, the process is not killable between onStart and onStop.\n422:    * Breaking this contract (which finish() will if you let it) can cause bad behaviour (including a\n423:    * full restart of system_server).\n424:    *\n425:    * <p>We give the app 2 seconds to stop all its activities, then we proceed.\n426:    *\n427:    * <p>This should never be run on the main thread.\n428:    */\n429:   protected void waitForActivitiesToComplete() {\n430:     if (Looper.getMainLooper() == Looper.myLooper()) {\n431:       throw new IllegalStateException(\"Cannot be called from main thread!\");\n432:     }\n433: \n434:     long endTime = System.currentTimeMillis() + MILLIS_TO_WAIT_FOR_ACTIVITY_TO_STOP;\n435:     int currentActivityCount = startedActivityCounter.get();\n436:     while (currentActivityCount > 0 && System.currentTimeMillis() < endTime) {\n437:       try {\n438:         Log.i(TAG, \"Unstopped activity count: \" + currentActivityCount);\n439:         Thread.sleep(MILLIS_TO_POLL_FOR_ACTIVITY_STOP);\n440:         currentActivityCount = startedActivityCounter.get();\n441:       } catch (InterruptedException ie) {\n442:         Log.i(TAG, \"Abandoning activity wait due to interruption.\", ie);\n443:         break;\n444:       }\n445:     }\n446: \n447:     if (currentActivityCount > 0) {\n448:       dumpThreadStateToOutputs(\"ThreadState-unstopped.txt\");\n449:       Log.w(\n450:           TAG,\n451:           String.format(\n452:               \"Still %s activities active after waiting %s ms.\",\n453:               currentActivityCount, MILLIS_TO_WAIT_FOR_ACTIVITY_TO_STOP));"
+        },
+        {
+          "firstLine": 717,
+          "lastLine": 745,
+          "text": "717:   public boolean onException(Object obj, Throwable e) {\n718:     String error =\n719:         String.format(\n720:             \"Exception encountered by: %s. Dumping thread state to \"\n721:                 + \"outputs and pining for the fjords.\",\n722:             obj);\n723:     Log.e(TAG, error, e);\n724:     dumpThreadStateToOutputs(\"ThreadState-onException.txt\");\n725:     Log.e(TAG, \"Dying now...\");\n726:     return super.onException(obj, e);\n727:   }\n728: \n729:   protected void dumpThreadStateToOutputs(String outputFileName) {\n730:     String threadState = getThreadState();\n731:     Log.e(\"THREAD_STATE\", threadState);\n732:   }\n733: \n734:   protected String getThreadState() {\n735:     Set<Map.Entry<Thread, StackTraceElement[]>> threads = Thread.getAllStackTraces().entrySet();\n736:     StringBuilder threadState = new StringBuilder();\n737:     for (Map.Entry<Thread, StackTraceElement[]> threadAndStack : threads) {\n738:       StringBuilder threadMessage = new StringBuilder(\"  \").append(threadAndStack.getKey());\n739:       threadMessage.append(\"\\n\");\n740:       for (StackTraceElement ste : threadAndStack.getValue()) {\n741:         threadMessage.append(\"    \");\n742:         threadMessage.append(ste.toString());\n743:         threadMessage.append(\"\\n\");\n744:       }\n745:       threadMessage.append(\"\\n\");"
+        }
+      ]
+    }
+  ]
+}

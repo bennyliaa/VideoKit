@@ -1,0 +1,2050 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "D1-20261020-RENDER02",
+  "createdUtc": "2026-10-20T13:41:40.383741+00:00",
+  "status": "FROZEN_PENDING_TESTER_CONCENTRATED_REVIEW",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "runtimeExecution": "NOT_RUN",
+  "metadataVerification": true,
+  "verificationMode": "strict",
+  "newMetadataAdmission": "PENDING_TESTER_REVIEW_NOT_HISTORICAL_APPROVAL",
+  "actualArtifacts": 327,
+  "actualMetadata": 192,
+  "finalBuildAttempt": "005",
+  "fullFreshBuildAttempt": "003",
+  "render01AllFrozenFilesPreserved": 477,
+  "nativeFixtureHostRebuilds": 0,
+  "runtimeLockedComponents": 35,
+  "newBinaryDownloads": 0,
+  "noExecutionAuthorityCreated": true,
+  "files": [
+    {
+      "path": "docs/coder/D1_RENDER02_FIX_DELIVERY_V1.0.md",
+      "bytes": 9134,
+      "sha256": "6417dcab0a33b42e4e70aa3cccc493ad71056451b3510db73eb6c557ef80e2e0"
+    },
+    {
+      "path": "docs/coder/D1_RENDER02_FIX_DEVICE_PLAN_V1.0.md",
+      "bytes": 6249,
+      "sha256": "450660741edd79f6115871254ae450abbba78001d253bac14e298c5b8cc7a97c"
+    },
+    {
+      "path": "docs/coder/D1_RENDER02_FIX_TECHNICAL_DECISIONS_V1.0.md",
+      "bytes": 1854,
+      "sha256": "a5274cb4ec57a5a4109b5c485e044e144afb96cee8b5568b6141bcb7156a95db"
+    },
+    {
+      "path": "docs/coder/d1render02/android/com/videokit/d1present/PlatformAudio.java",
+      "bytes": 6723,
+      "sha256": "e839cef12d40a980268e8045aec2c1b5d06fa9ad24f3a2c0a4e30fca18ef90ec"
+    },
+    {
+      "path": "docs/coder/d1render02/android/com/videokit/d1present/PlatformRenderer.java",
+      "bytes": 7211,
+      "sha256": "5aee7418efa224cb5aa863e52e9a15dcd397bfd91cfdd1299f7d5548ecbea993"
+    },
+    {
+      "path": "docs/coder/d1render02/android/com/videokit/d1present/PresentationActivity.java",
+      "bytes": 6934,
+      "sha256": "1cf92ac7fd8162f491ac0554c14ff0ce1705ccf7bf96a0f162f2c8fd4c25746e"
+    },
+    {
+      "path": "docs/coder/d1render02/android/com/videokit/d1present/RawSources.java",
+      "bytes": 5555,
+      "sha256": "9fc85e876c15cada29e653757f452db80f359f8bc913b3e7b0d7fdfb6eadcf16"
+    },
+    {
+      "path": "docs/coder/d1render02/app/build.gradle.kts",
+      "bytes": 1867,
+      "sha256": "f0580d542babf686b437a65682a519c40625c2c39104aff55a55b682ceccf44a"
+    },
+    {
+      "path": "docs/coder/d1render02/app/gradle.lockfile",
+      "bytes": 3947,
+      "sha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a"
+    },
+    {
+      "path": "docs/coder/d1render02/app/src/androidTest/AndroidManifest.xml",
+      "bytes": 291,
+      "sha256": "1c39cf8b999b7f9f448eb84d6d0fec273cfb22bdb8cb1087648979bfdee7999b"
+    },
+    {
+      "path": "docs/coder/d1render02/app/src/androidTest/java/com/videokit/d1present/RenderDeviceTests.java",
+      "bytes": 8011,
+      "sha256": "1d2b010ec3e93dc31d3ed9e54f5348857afcbd40cfbac0c9e082d1a7dabb1181"
+    },
+    {
+      "path": "docs/coder/d1render02/app/src/androidTest/java/com/videokit/d1present/RenderInstrumentation.java",
+      "bytes": 1568,
+      "sha256": "6be974d39c077f6f2a55b48a970f32083b4a08604672a976347940b8954edfdd"
+    },
+    {
+      "path": "docs/coder/d1render02/app/src/debug/AndroidManifest.xml",
+      "bytes": 523,
+      "sha256": "3bbceddfc3f99da81bf92cec9b2871c9543fffe54479792d728f5009b03846fb"
+    },
+    {
+      "path": "docs/coder/d1render02/app/src/main/AndroidManifest.xml",
+      "bytes": 185,
+      "sha256": "55b4fa4798dc5eb3b4deddb1a0dbd61e414c6b98bd1f077b6910d457e7fe2a19"
+    },
+    {
+      "path": "docs/coder/d1render02/artifacts/app-debug-androidTest.apk",
+      "bytes": 2695613,
+      "sha256": "88241afd1cfe50fee41be95d788d76948bdee24cec14a26329040f69970e63cb"
+    },
+    {
+      "path": "docs/coder/d1render02/artifacts/app-debug.apk",
+      "bytes": 10480388,
+      "sha256": "2f6e1cf02d85d8b0bd32ca0c475aea9e182a8b3b55e17a6da066a6ddfc5e2d94"
+    },
+    {
+      "path": "docs/coder/d1render02/build.gradle.kts",
+      "bytes": 64,
+      "sha256": "4297e5b86c4de65b42a58a3a169a0c5bd1f0b4ed32cc6fc2f4db8470ccfa0a54"
+    },
+    {
+      "path": "docs/coder/d1render02/checks/com/videokit/d1present/LocalSelfCheck.java",
+      "bytes": 13108,
+      "sha256": "1be865379b383102a481afa1f8d8327b10bf5222ee522117121b9889c21d4da8"
+    },
+    {
+      "path": "docs/coder/d1render02/checks/com/videokit/spike/c14/RuntimeOriginalThreadCheck.java",
+      "bytes": 1935,
+      "sha256": "43820ce7ad94e0f5829e6387c0f8d3ea48fef73dd74d0a9c98ffb5d638b3074a"
+    },
+    {
+      "path": "docs/coder/d1render02/completion-matrix.json",
+      "bytes": 2651,
+      "sha256": "5247a1b27b1d52f87a47adc2bbcdeb4215ebed07b4d4e66b700a828c79270f36"
+    },
+    {
+      "path": "docs/coder/d1render02/controlled-regression/android/graphics/Bitmap.java",
+      "bytes": 392,
+      "sha256": "088b77f36a0620f46d2b1b7701e0fa80f8de5b4a182c2c7a33d007905a1ff0a2"
+    },
+    {
+      "path": "docs/coder/d1render02/controlled-regression/android/graphics/Canvas.java",
+      "bytes": 430,
+      "sha256": "df44f7e6edcd9f956563047ab615eeb774f1f119f70312f6a1a5cdd4557dc6a0"
+    },
+    {
+      "path": "docs/coder/d1render02/controlled-regression/android/graphics/Color.java",
+      "bytes": 95,
+      "sha256": "94f2fbf69f2a65b70361f597e9c2d04d74267b59725612946c8c764b4b60bc05"
+    },
+    {
+      "path": "docs/coder/d1render02/controlled-regression/android/graphics/SurfaceTexture.java",
+      "bytes": 120,
+      "sha256": "e2f00f277932f78e953043621d0ef3f2cf6b433db7f020796a6a19839737b64a"
+    },
+    {
+      "path": "docs/coder/d1render02/controlled-regression/android/view/Surface.java",
+      "bytes": 908,
+      "sha256": "b71a9f5d46dc47780d218904a8a8ef6ad01ee7a21872aa7071897730ca2a03ab"
+    },
+    {
+      "path": "docs/coder/d1render02/controlled-regression/com/videokit/d1present/Render02Check.java",
+      "bytes": 5292,
+      "sha256": "6fb2c7be536df64d877c8d9fe9e373c83518364d7643c2ac84d53aa75a9c8b26"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/artifacts.json",
+      "bytes": 161422,
+      "sha256": "96ad12e77bb61d0e0c1f439f4377ea6664d948f9a7c415f76bd1a1e368b1b1ae"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/annotation/annotation/1.6.0/annotation-1.6.0.module",
+      "bytes": 3811,
+      "sha256": "6146b6138643b2ac0590df509dd51abaea769c79fd7602eb217168fe5af78cd2"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/annotation/annotation/1.7.0/annotation-1.7.0.module",
+      "bytes": 15363,
+      "sha256": "530708656d380605077ea8bca9ae1372fbd1af38e375f411d4e43263bd510c3c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/annotation/annotation-experimental/1.3.1/annotation-experimental-1.3.1.module",
+      "bytes": 3143,
+      "sha256": "9b6974a7dfe26d3c209dd63e16f8ee2461b57a091789160ca1eb492bb1bf3f84"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/annotation/annotation-jvm/1.6.0/annotation-jvm-1.6.0.module",
+      "bytes": 2322,
+      "sha256": "3f5a8faa19de667e63dca9730ff8ef0e478e4bafb5feeb8258e5c086246dc90c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/annotation/annotation-jvm/1.7.0/annotation-jvm-1.7.0.module",
+      "bytes": 3230,
+      "sha256": "07ce60c377ab94e47c8c902589b9776030064fd1a7e4d5a01a38d700e35e5db4"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/concurrent/concurrent-futures/1.2.0/concurrent-futures-1.2.0.module",
+      "bytes": 5448,
+      "sha256": "afd7094d3a07422be2e991bc87048542ae9724a5c42bd54b5cae3029c7970a1d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/concurrent/concurrent-futures-ktx/1.2.0/concurrent-futures-ktx-1.2.0.module",
+      "bytes": 6079,
+      "sha256": "823f469acd984adfd30b3d0a577eb4f7796a03742a526ef70c1583b594b43b80"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/databinding/databinding-common/9.3.3/databinding-common-9.3.3.pom",
+      "bytes": 931,
+      "sha256": "21d9c32cd0bc87455bde8deb0e8b838d96d5e7afc51a7a57e9c1f46ac87805c1"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/databinding/databinding-compiler-common/9.3.3/databinding-compiler-common-9.3.3.pom",
+      "bytes": 3034,
+      "sha256": "1ed8f4ee55dc759c8854706cb9c68a1aa04411c4a8396aac6342d7064c0d95a9"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/lifecycle/lifecycle-common/2.3.1/lifecycle-common-2.3.1.module",
+      "bytes": 3140,
+      "sha256": "5fb7c8514d8c56cada5e29ef89dc0289e71942ab4cb0b2e6dca137b9dcb8fdd4"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/media3/media3-common/1.9.3/media3-common-1.9.3.module",
+      "bytes": 10349,
+      "sha256": "49d110c2075e31ce289965b45e7ff3002f674543472dc0c78a9b073224f582eb"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/media3/media3-container/1.9.3/media3-container-1.9.3.module",
+      "bytes": 3268,
+      "sha256": "2a8ba7fb563fa41addda6b73962a90c93d054b4547967a40695d9b5930f61978"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/media3/media3-muxer/1.9.3/media3-muxer-1.9.3.module",
+      "bytes": 3406,
+      "sha256": "6d819812d3520d253bbf368948b363f599bea57780debc8bd4b8a6229710732a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/test/core/1.7.0/core-1.7.0.pom",
+      "bytes": 2522,
+      "sha256": "b97dd112cd684ad3686f5ccf581b92b106ca76565cf02ccfece060af3bc50743"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/test/espresso/espresso-core/3.7.0/espresso-core-3.7.0.pom",
+      "bytes": 3775,
+      "sha256": "b6e7f43cb396b89a4ce329a7e5acef79d375203a87a11a7639d18c0e6de50b56"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/test/espresso/espresso-idling-resource/3.7.0/espresso-idling-resource-3.7.0.pom",
+      "bytes": 1061,
+      "sha256": "72c5f3dff213bd143cdfa2eb416d1bde1ced6656d9c54b69efca8f74a2cc831d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/test/ext/junit/1.3.0/junit-1.3.0.pom",
+      "bytes": 2100,
+      "sha256": "92af7f253e5eabe2caec5c56f308312653d123042b22754d6ff664e1752dcf3f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/test/monitor/1.8.0/monitor-1.8.0.pom",
+      "bytes": 1582,
+      "sha256": "681cf08c41700c73b146953867c0ac826da9c2a810bd2a4a8f878ea11c64d40c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/test/runner/1.7.0/runner-1.7.0.pom",
+      "bytes": 1915,
+      "sha256": "622831c6d31666fb3438cb0d2ee1fbbbc78cabcd49717699578d92550062207f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/test/services/storage/1.6.0/storage-1.6.0.pom",
+      "bytes": 1400,
+      "sha256": "8e5d72e2bceef6ef807bc38834dbc7aa53177fd20da349f53dce5a4f2a028bbf"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/androidx/tracing/tracing/1.1.0/tracing-1.1.0.module",
+      "bytes": 2822,
+      "sha256": "b1fed4309623b6f20bc817d8fbd70e4ea7085e40647694cd399ae58d2f0049e3"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/application/com.android.application.gradle.plugin/9.3.3/com.android.application.gradle.plugin-9.3.3.pom",
+      "bytes": 1328,
+      "sha256": "cd1870bfe6af076e4b6804411ff9eb104ab7f74f22ce8f9ac29172212d5db587"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/databinding/baseLibrary/9.3.3/baseLibrary-9.3.3.pom",
+      "bytes": 923,
+      "sha256": "e8023752b4ad93adb2c25b9569ee26fc2396dbaeb02aba1b8105f965dd248e33"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/signflinger/9.3.3/signflinger-9.3.3.pom",
+      "bytes": 1437,
+      "sha256": "8770b63d3e5d15d19846c40a376a64f912ce17d9b64b5f557ccefc24a858a44c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/analytics-library/crash/32.3.3/crash-32.3.3.pom",
+      "bytes": 1873,
+      "sha256": "67f5150edade3b9735e099800c6f969965f44607cddbf7ee4e61d87b11875d75"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/analytics-library/protos/32.3.3/protos-32.3.3.pom",
+      "bytes": 1139,
+      "sha256": "f6ea792699001b2a902d5f84511b865979e13977f738b2a7606e4ce01f260e36"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/analytics-library/shared/32.3.3/shared-32.3.3.pom",
+      "bytes": 2434,
+      "sha256": "064b57c95f0559bb80ac4c423f1d7c10659eb48e2581694b17ac5924ba455480"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/analytics-library/tracker/32.3.3/tracker-32.3.3.pom",
+      "bytes": 2443,
+      "sha256": "373a0a2fbdf5f54ea7bfc8d592af2d853788293d70607994058762a320996238"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/annotations/32.3.3/annotations-32.3.3.pom",
+      "bytes": 822,
+      "sha256": "d11185200a26255d15a3675885628c712f2c77c2aa5ae1e0b24b2c973655b6a1"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/common/32.3.3/common-32.3.3.pom",
+      "bytes": 1664,
+      "sha256": "71643e03d1186a16225a90d5363557dffa34a307dd9c2227fc6bb0a22b3ef533"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/ddms/ddmlib/32.3.3/ddmlib-32.3.3.pom",
+      "bytes": 1637,
+      "sha256": "42cca2f4c5c903089401d11996072fb9f586d2badf5c4b4e31c7c928fd225d8e"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/dvlib/32.3.3/dvlib-32.3.3.pom",
+      "bytes": 1110,
+      "sha256": "1580ba0129a3aad412a586fa751fe7d104b8d5f862d4449353e0bf74bb9d53bf"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/layoutlib/layoutlib-api/32.3.3/layoutlib-api-32.3.3.pom",
+      "bytes": 1670,
+      "sha256": "03bfe1a4456ae74a0de9fc7a2e5202b044fbe8d88294a449cfcacba23b266ea3"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/lint/lint-model/32.3.3/lint-model-32.3.3.pom",
+      "bytes": 2184,
+      "sha256": "1e29417b6b932d02e870cae77e0339adc754be9a2e77feab7508e329fb9dbec4"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/lint/lint-typedef-remover/32.3.3/lint-typedef-remover-32.3.3.pom",
+      "bytes": 1491,
+      "sha256": "b2c3540701362625e6f3965bdaeebcc3422f1ff99553ed64fd3232f52712f6e6"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/repository/32.3.3/repository-32.3.3.pom",
+      "bytes": 2248,
+      "sha256": "186e56920aaab06306e850ebd2fc1a4c8276b3d99be8d06520a34fb2990c7430"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/sdk-common/32.3.3/sdk-common-32.3.3.pom",
+      "bytes": 4063,
+      "sha256": "8134ee2b325a67da5a5a31a1a60c1119e354ba0b476c9870bb5346685da653f2"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/sdklib/32.3.3/sdklib-32.3.3.pom",
+      "bytes": 2575,
+      "sha256": "869350c798e644465ecd07ae7f778e1388611266c83e07c52e06e8e5059cb6ee"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/tools/utp/gradle-work-action-api/32.3.3/gradle-work-action-api-32.3.3.module",
+      "bytes": 4201,
+      "sha256": "0a8ba9ab58aa506640fb8bbf18fbfe3412b8a8c8cb4fd38ea91d5d721d47b67c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/android/zipflinger/9.3.3/zipflinger-9.3.3.pom",
+      "bytes": 1110,
+      "sha256": "83495309791193a6c47b84a5437e64ae401ab970daf20bdb116ea495e494552d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/auto/auto-parent/6/auto-parent-6.pom",
+      "bytes": 6307,
+      "sha256": "05f740c6648165db00cf618dd56c200c4725e358e6d54f5853e0bec15734ea0a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/auto/value/auto-value-annotations/1.6.2/auto-value-annotations-1.6.2.pom",
+      "bytes": 2505,
+      "sha256": "1c76cd462fc96e7aa96dc70ce82f0d54063d6df16db35c9c7d9cc0d1a99d3fff"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/auto/value/auto-value-parent/1.6.2/auto-value-parent-1.6.2.pom",
+      "bytes": 1689,
+      "sha256": "27b640c82179f5cff62009c0b72033d9bc60f60e9902a66802274b7fe37fc81c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.pom",
+      "bytes": 4286,
+      "sha256": "19889dbdf1b254b2601a5ee645b8147a974644882297684c798afe5d63d78dfe"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/code/gson/gson/2.11.0/gson-2.11.0.pom",
+      "bytes": 11821,
+      "sha256": "c0e547bea998888e6e25c5886a90e762272bc88b5275343dd2c05ded6ca2e360"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/code/gson/gson-parent/2.11.0/gson-parent-2.11.0.pom",
+      "bytes": 26017,
+      "sha256": "8acb1f3b72a6f026916ac0735bad9aab0293d527edb7b365327def13a9367b7a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/crypto/tink/tink/1.7.0/tink-1.7.0.pom",
+      "bytes": 3336,
+      "sha256": "2aee3523715f8f2cd10b2603c8d19e561ac758310b7e2c9853946d2c5e7b4bf7"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/dagger/dagger/2.28.3/dagger-2.28.3.pom",
+      "bytes": 2320,
+      "sha256": "265ba959a8e13c3a06133f04b539169c1018daffd4d33f53c453ab4cb386f570"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.pom",
+      "bytes": 2159,
+      "sha256": "920135797dcca5917b5a5c017642a58d340a4cd1bcd12f56f892a5663bd7bddc"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_annotations/2.27.0/error_prone_annotations-2.27.0.pom",
+      "bytes": 4252,
+      "sha256": "4ca5a35d61235e16549ac346d1e34551cdf0fe27e84aa57e03cbeb255ea4e5da"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_annotations/2.3.1/error_prone_annotations-2.3.1.pom",
+      "bytes": 1784,
+      "sha256": "3edce6b711ba368efe16b9b7aacb0214fbd648414cb9b965953a2e7ed89a819a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_annotations/2.30.0/error_prone_annotations-2.30.0.pom",
+      "bytes": 4252,
+      "sha256": "f713849c23b34953e854565dce8aa795cae0c1416611b720c21461322c795f86"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_annotations/2.36.0/error_prone_annotations-2.36.0.pom",
+      "bytes": 4252,
+      "sha256": "d79cfd37c85f76d6b754c7501ee1dc8447b7b2642c2382d778252166bd331e9c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_parent/2.18.0/error_prone_parent-2.18.0.pom",
+      "bytes": 11080,
+      "sha256": "47f22e99c7bf466391def16f8377985e5d3ba6f5bbcf65853644805513e15fad"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_parent/2.27.0/error_prone_parent-2.27.0.pom",
+      "bytes": 13124,
+      "sha256": "fa81829d049559df6927f9c9a6fd6bbd09f8b50e6d4736ae72c8300b6c3d7654"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_parent/2.3.1/error_prone_parent-2.3.1.pom",
+      "bytes": 4952,
+      "sha256": "767525d9a81129cd081968382980336327be4162b1e2251a182911daa733c123"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_parent/2.30.0/error_prone_parent-2.30.0.pom",
+      "bytes": 13083,
+      "sha256": "5e8834ccc0e5ed0c72f306c250b518e6ad10d075a9b7b910cf695cba1ee02a2d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/errorprone/error_prone_parent/2.36.0/error_prone_parent-2.36.0.pom",
+      "bytes": 15958,
+      "sha256": "3a4cfc8a6bed61eb48e969796fc31ea0d270b63e670599946a61883adb7094dc"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/flatbuffers/flatbuffers-java/1.12.0/flatbuffers-java-1.12.0.pom",
+      "bytes": 4568,
+      "sha256": "cb226baf546260770f21e8152a6aa88ba15230d739f750df480f2a668d43e0eb"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.pom",
+      "bytes": 3339,
+      "sha256": "19ebc6f4bdb4edbb3d07b6ee994f846b54ef295582a9b5634719ffa9f31d03b2"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/guava/guava/33.3.1-android/guava-33.3.1-android.module",
+      "bytes": 7867,
+      "sha256": "6971614ddeee003e54d2b69c6b0c94ce8a5b5eba980d16455c81df9089a7acb7"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/guava/guava/33.4.0-jre/guava-33.4.0-jre.module",
+      "bytes": 7839,
+      "sha256": "820e817e86c493aa7affd6cbb991ee60925b6c8b74541f742cb22070f6f20459"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/guava/guava-parent/26.0-android/guava-parent-26.0-android.pom",
+      "bytes": 10180,
+      "sha256": "f8698ab46ca996ce889c1afc8ca4f25eb8ac6b034dc898d4583742360016cc04"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.pom",
+      "bytes": 2278,
+      "sha256": "18d4b1db26153d4e55079ce1f76bb1fe05cdb862ef9954a88cbcc4ff38b8679b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.pom",
+      "bytes": 2921,
+      "sha256": "37f87798b18385113c918bfa9e1276fe50735ef8fa849b5800c519d54dbf11f8"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.pom",
+      "bytes": 5057,
+      "sha256": "23b3d039e168ad89dd114698e6dd7be383f4a2c577b8877d82c73a6515e74a17"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/jimfs/jimfs/1.1/jimfs-1.1.pom",
+      "bytes": 4147,
+      "sha256": "efa86e5cd922f17b472fdfcae57234d8d4ac3e148b6250737dfce454af7a7a44"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/jimfs/jimfs-parent/1.1/jimfs-parent-1.1.pom",
+      "bytes": 7282,
+      "sha256": "c71555751e57e0ef912870e8ac9625ae782502a6a5b9c19ccf83b2a97d8b26bd"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/protobuf/protobuf-bom/3.25.5/protobuf-bom-3.25.5.pom",
+      "bytes": 3728,
+      "sha256": "080e2984173238b50e064c226afffbb1b0233520295c790a7fd3d6ae4593f063"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/protobuf/protobuf-java/3.25.5/protobuf-java-3.25.5.pom",
+      "bytes": 1554,
+      "sha256": "e752032157a7a39be9be3786684075452a46cd586b2865abd33e707568a4c8af"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/protobuf/protobuf-java-util/3.25.5/protobuf-java-util-3.25.5.pom",
+      "bytes": 2456,
+      "sha256": "a09d190eaa6a79616bc5f4b5404e94b0cab559803a98c8a090c4099962f41f92"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/google/protobuf/protobuf-parent/3.25.5/protobuf-parent-3.25.5.pom",
+      "bytes": 9028,
+      "sha256": "64cc0e3ad6e85f5aec8f9dcf9341d1379e9525364ff53e23e16d8d5824673ef7"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/googlecode/juniversalchardet/juniversalchardet/1.0.3/juniversalchardet-1.0.3.pom",
+      "bytes": 1463,
+      "sha256": "7846399b35c7cd642a9b3a000c3e2d62d04eb37a4547b6933cc8b18bcc2f086b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/squareup/javapoet/1.13.0/javapoet-1.13.0.pom",
+      "bytes": 4849,
+      "sha256": "54a34fa8502a46bc90efdb49262600591fa80bf9a34f5a4c798311aec16ca977"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/squareup/javawriter/2.5.0/javawriter-2.5.0.pom",
+      "bytes": 2881,
+      "sha256": "e1abd7f1116cf5e0c59947693e2189208ec94296b2a3394c959e3511d399a7b0"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/activation/all/1.2.1/all-1.2.1.pom",
+      "bytes": 18095,
+      "sha256": "360883bf64486ecef161b8f282f6503536dd1a670d53a0a871c8fb20170e6795"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/istack/istack-commons/3.0.8/istack-commons-3.0.8.pom",
+      "bytes": 18639,
+      "sha256": "a0f0517e8512f0fbcc7b8295c12f6566a3d0c2d86d655639dc662ef8c0c7ebe5"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/istack/istack-commons-runtime/3.0.8/istack-commons-runtime-3.0.8.pom",
+      "bytes": 3555,
+      "sha256": "c2e014d34cb84ed287d064986c45c305a4124228a7337eccf6c421d14d708f1c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/xml/bind/jaxb-bom-ext/2.3.2/jaxb-bom-ext-2.3.2.pom",
+      "bytes": 3144,
+      "sha256": "1a7dec2b27e7e055744cdb8cf1b90def4fd473acd1b804eff098139358959bd7"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/xml/bind/mvn/jaxb-parent/2.3.2/jaxb-parent-2.3.2.pom",
+      "bytes": 29746,
+      "sha256": "20dd6dc34ab7549ac40da1d82e92222ec4347ad0ec0cb118ef6c5703bed53a18"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/xml/bind/mvn/jaxb-runtime-parent/2.3.2/jaxb-runtime-parent-2.3.2.pom",
+      "bytes": 1133,
+      "sha256": "b24f8d51f184a68bc1b86d48c0e3cfefeb21a44ede1c5f7303c58ae0488533ec"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/xml/bind/mvn/jaxb-txw-parent/2.3.2/jaxb-txw-parent-2.3.2.pom",
+      "bytes": 1144,
+      "sha256": "b55d3efa9b158f483a30e92c78ccb600f93314733d089eba9b74436f01b314a4"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/xml/fastinfoset/FastInfoset/1.2.16/FastInfoset-1.2.16.pom",
+      "bytes": 5262,
+      "sha256": "e147d258ab6e6691f70599a952400e6e6c7558f8c9c028dbe1be23178308e830"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/com/sun/xml/fastinfoset/fastinfoset-project/1.2.16/fastinfoset-project-1.2.16.pom",
+      "bytes": 15176,
+      "sha256": "90582425adc1f40b41362dafb95173931225acaa5e79620d5e6bd52f646292ba"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/commons-codec/commons-codec/1.17.1/commons-codec-1.17.1.pom",
+      "bytes": 17776,
+      "sha256": "7fa0db4d8150daf932958b8aea89ee24abb4d18e2316a5de535278fc131512a0"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/commons-io/commons-io/2.16.1/commons-io-2.16.1.pom",
+      "bytes": 19623,
+      "sha256": "5777d292251c7895c04a4c57015683ec3b353a12486c9b3e7178e9b0b3c38fff"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/commons-logging/commons-logging/1.2/commons-logging-1.2.pom",
+      "bytes": 19206,
+      "sha256": "c91ab5aa570d86f6fd07cc158ec6bc2c50080402972ee9179fe24100739fbb20"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/jakarta/activation/jakarta.activation-api/1.2.1/jakarta.activation-api-1.2.1.pom",
+      "bytes": 4572,
+      "sha256": "42585cb07dda7f23aa04eb5e0940061944a246a67ad3d16942fbe569ff03cd31"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/jakarta/xml/bind/jakarta.xml.bind-api/2.3.2/jakarta.xml.bind-api-2.3.2.pom",
+      "bytes": 15997,
+      "sha256": "b537b388dbab4cc0690b9d2fb0c74124d672531734567acf6e53130eab131ad6"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/jakarta/xml/bind/jakarta.xml.bind-api-parent/2.3.2/jakarta.xml.bind-api-parent-2.3.2.pom",
+      "bytes": 7659,
+      "sha256": "15a55b7d537c9f9970aead28d2af97c059f65ff6102f76bbd29f1247dd8a6dfb"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/javax/inject/javax.inject/1/javax.inject-1.pom",
+      "bytes": 612,
+      "sha256": "943e12b100627804638fa285805a0ab788a680266531e650921ebfe4621a8bfa"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/junit/junit/4.13.2/junit-4.13.2.pom",
+      "bytes": 27018,
+      "sha256": "569b6977ee4603c965c1c46c3058fa6e969291b0160eb6964dd092cd89eadd94"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/net/java/dev/jna/jna/5.6.0/jna-5.6.0.pom",
+      "bytes": 1580,
+      "sha256": "5fe81b0255978f24616d37b10608b79498a5f3073e1d9b2038d8736a831f2608"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/net/java/dev/jna/jna-platform/5.6.0/jna-platform-5.6.0.pom",
+      "bytes": 1800,
+      "sha256": "1beb35cb4184e6c906a7e32eaebd852dd3da0a263962e99134ab945832394e28"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/net/sf/jopt-simple/jopt-simple/4.9/jopt-simple-4.9.pom",
+      "bytes": 13963,
+      "sha256": "7af7e2d8b24b4798f04c2b7da24c9fbd1b7557b4e017c2054481565916079092"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.pom",
+      "bytes": 1490,
+      "sha256": "31ce606f4e9518936299bb0d27c978fa61e185fd1de7c9874fe959a53e34a685"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/apache/13/apache-13.pom",
+      "bytes": 13974,
+      "sha256": "ff513db0361fd41237bef4784968bc15aae478d4ec0a9496f811072ccaf3841d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/apache/18/apache-18.pom",
+      "bytes": 15667,
+      "sha256": "7831307285fd475bbc36b20ae38e7882f11c3153b1d5930f852d44eda8f33c17"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/apache/21/apache-21.pom",
+      "bytes": 17107,
+      "sha256": "af10c108da014f17cafac7b52b2b4b5a3a1c18265fa2af97a325d9143537b380"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/apache/31/apache-31.pom",
+      "bytes": 23531,
+      "sha256": "555d0c9eaa69c042aff924927b9381e8f8174136d355eead445224452e6291cc"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/apache/32/apache-32.pom",
+      "bytes": 24184,
+      "sha256": "cfd872c0ec27f53ae68f43dbc0fecded8add773079a53afbd390e407b42ce72f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/apache/33/apache-33.pom",
+      "bytes": 24184,
+      "sha256": "d78bd8524c5f8380a190a6525686629a95dfe512df21111383a6d8c0923a4415"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/commons/commons-compress/1.27.1/commons-compress-1.27.1.pom",
+      "bytes": 23045,
+      "sha256": "df8cc1a8387d4ce842363b7209fdc6d35df9763839fd3fcab558a0f83f9d841c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/commons/commons-lang3/3.16.0/commons-lang3-3.16.0.pom",
+      "bytes": 31259,
+      "sha256": "e280383956c2e72c1deb3a307b3b75f05ee43649b7d43f0215f7b6c7b15eea2c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/commons/commons-parent/34/commons-parent-34.pom",
+      "bytes": 55943,
+      "sha256": "3a2e69d06d641d1f3b293126dc9e2e4ea6563bf8c36c87e0ab6fa4292d04b79c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/commons/commons-parent/69/commons-parent-69.pom",
+      "bytes": 77006,
+      "sha256": "d50da9c39bdca823d618d1b4a03b73f196497fcb8616fd0da727c8623592a9bb"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/commons/commons-parent/71/commons-parent-71.pom",
+      "bytes": 77771,
+      "sha256": "95b7be70f316ae4ca22f6fbdd08de2182e87cd874a650de7c3d3386a747a82a3"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/commons/commons-parent/72/commons-parent-72.pom",
+      "bytes": 77942,
+      "sha256": "4345debfc767b1aeac68abdd72fc67d18b521d4b390372a11b63ff0c586b2320"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/httpcomponents/httpclient/4.5.14/httpclient-4.5.14.pom",
+      "bytes": 6623,
+      "sha256": "f18355af4cf80a8a4ef04ebd742a47e90a7eaf080c725b2095dbc4fc5dbdefb7"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/httpcomponents/httpcomponents-client/4.5.14/httpcomponents-client-4.5.14.pom",
+      "bytes": 15277,
+      "sha256": "5bad1de4f101447659f89d089868ccbad64a68cc503d2d65410b51f6904aa061"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/httpcomponents/httpcomponents-client/4.5.6/httpcomponents-client-4.5.6.pom",
+      "bytes": 15489,
+      "sha256": "b042b41f2391edb00d35f7f4e509aed2123648c1d246ce58d0f7b905c9fe1f73"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/httpcomponents/httpcomponents-core/4.4.16/httpcomponents-core-4.4.16.pom",
+      "bytes": 11949,
+      "sha256": "f2d75a2c2d423ad18539bf21656d56f88a4091944a662fcaf159d5ae283db7f7"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/httpcomponents/httpcomponents-parent/10/httpcomponents-parent-10.pom",
+      "bytes": 33654,
+      "sha256": "caaf967d94afb21753f36082c6086206bd1f48825ff596932cceba72b65d39fa"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/httpcomponents/httpcomponents-parent/11/httpcomponents-parent-11.pom",
+      "bytes": 34695,
+      "sha256": "a901f87b115c55070c7ee43efff63e20e7b02d30af2443ae292bf1f4e532d3aa"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.pom",
+      "bytes": 4967,
+      "sha256": "3cbad849b35dacfe6cec31adada2c623c026c3261141b0d26eec7e399c6cd7fa"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/apache/httpcomponents/httpmime/4.5.6/httpmime-4.5.6.pom",
+      "bytes": 5236,
+      "sha256": "dfbfd6ffe2a784ca9817c46365aa7f8a578320b805bde39d6f55a0b09d8aa8ca"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/bitbucket/b_c/jose4j/0.9.5/jose4j-0.9.5.pom",
+      "bytes": 8856,
+      "sha256": "bad024180a1b469cbd94e5f2db12841bcac5443d9545607f673cfde677c1d872"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/bouncycastle/bcpkix-jdk18on/1.79/bcpkix-jdk18on-1.79.pom",
+      "bytes": 1641,
+      "sha256": "35e49f4134de2ac326c3a50a25762cbb4db56f3802fa3f730cc85b653ad0987b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/bouncycastle/bcprov-jdk18on/1.79/bcprov-jdk18on-1.79.pom",
+      "bytes": 1141,
+      "sha256": "d8f1a06b149d746e9d98de54e2f7aa9b2eb613fb35ca67d8ae396ceaac661ee4"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/bouncycastle/bcutil-jdk18on/1.79/bcutil-jdk18on-1.79.pom",
+      "bytes": 1320,
+      "sha256": "e24c1fb4cf1605405a6988e9e4d6e4b2e1f4393fc73a89a9452ae625ee311d02"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/checkerframework/checker-qual/2.5.8/checker-qual-2.5.8.pom",
+      "bytes": 2398,
+      "sha256": "33ac6a0f1341ae96647c7d4465f4aa3d24fe97d2697bcee2ceae6fc8b5ef2c3c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/checkerframework/checker-qual/3.43.0/checker-qual-3.43.0.module",
+      "bytes": 3498,
+      "sha256": "f8163327245ab8625532948c72a930548cd97f34d6c3fe860fa6aec5a34d79b4"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/eclipse/ee4j/project/1.0.2/project-1.0.2.pom",
+      "bytes": 11603,
+      "sha256": "7495a07a797e88e43c3bc1a87421bd8b1fc55e32291fa18e4e32d8031ddc873f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/eclipse/ee4j/project/1.0.5/project-1.0.5.pom",
+      "bytes": 13168,
+      "sha256": "916b4794d8d8220a59a3fdf6a64dbe794aeb23395e888b81ae36a9b5a2c591a6"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/glassfish/jaxb/jaxb-bom/2.3.2/jaxb-bom-2.3.2.pom",
+      "bytes": 8018,
+      "sha256": "a1018bb54678ed9f5acb2f7a4084e385ff510201f4e9dbf5f75dc6a675f66be7"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/glassfish/jaxb/jaxb-runtime/2.3.2/jaxb-runtime-2.3.2.pom",
+      "bytes": 5573,
+      "sha256": "9448a5ad7fa68a6083dfbe4f42c8c83e082b9202a105401fc68e944c26548b34"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/glassfish/jaxb/txw2/2.3.2/txw2-2.3.2.pom",
+      "bytes": 2766,
+      "sha256": "a79dd002fb038183ff286a2635be2e68c103b87e0e64717d8d44bfd017fd33ea"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.pom",
+      "bytes": 766,
+      "sha256": "fde386a7905173a1b103de6ab820727584b50d0e32282e2797787c20a64ffa93"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.pom",
+      "bytes": 820,
+      "sha256": "1ceb4bfb0f098ae29b935044b2363e11323313fe3ed2055df8b79737d5056277"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/hamcrest/hamcrest-parent/1.3/hamcrest-parent-1.3.pom",
+      "bytes": 1972,
+      "sha256": "6d535f94efb663bdb682c9f27a50335394688009642ba7a9677504bc1be4129b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jdom/jdom2/2.0.6/jdom2-2.0.6.pom",
+      "bytes": 4598,
+      "sha256": "47b23a79fe336b741b82434c6e049d68165256e405e75c10921fd72fa8a65d8d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/annotations/13.0/annotations-13.0.pom",
+      "bytes": 4930,
+      "sha256": "965aeb2bedff369819bdde1bf7a0b3b89b8247dd69c88b86375d76163bb8c397"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/annotations/23.0.0/annotations-23.0.0.pom",
+      "bytes": 1354,
+      "sha256": "c9490f655132328df2cfbcfdf743f53fc3916d6c1d10437175a6ca6e3a67771c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/abi-tools-api/2.2.10/abi-tools-api-2.2.10.pom",
+      "bytes": 1131,
+      "sha256": "c6f377dcf03cdb7385fa082ca11c8d2d0892753f22eabe5d53b1ae8b01af2d62"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/fus-statistics-gradle-plugin/2.2.10/fus-statistics-gradle-plugin-2.2.10.module",
+      "bytes": 59676,
+      "sha256": "1ccdc7960dcba31e3a7dc8885b89c4347c7a85685bcd664d55bf89347b96176c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-bom/1.8.0/kotlin-bom-1.8.0.pom",
+      "bytes": 9337,
+      "sha256": "681f9878548c0a149c678092fd8b1f4cc7c5c41ba1b24397101c1073a6c76dda"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-build-statistics/2.2.10/kotlin-build-statistics-2.2.10.pom",
+      "bytes": 1573,
+      "sha256": "524f0679cc96597a02bed5dc3a68e2802968925aa7536aba0db394416bd44dee"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-build-tools-api/2.2.10/kotlin-build-tools-api-2.2.10.pom",
+      "bytes": 1158,
+      "sha256": "03839cac3ed75ca1b39cafca9c2dc978d4a648a361a4afeb39315091d2d299fd"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-compiler-runner/2.2.10/kotlin-compiler-runner-2.2.10.pom",
+      "bytes": 1945,
+      "sha256": "f1f161e1071304f55ee6b942576c26bfe94541d86f7e3b80dc302fb733545b2e"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-daemon-client/2.2.10/kotlin-daemon-client-2.2.10.pom",
+      "bytes": 1374,
+      "sha256": "3d3cf92935b16ceefdd9b2143d5ccd2c5d5476a4f4df054eaba06d10bef82ebc"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-gradle-plugin/2.2.10/kotlin-gradle-plugin-2.2.10.module",
+      "bytes": 169250,
+      "sha256": "d0aa54915c5b57407a3c1740b0c530cf9657bf587d6d1018b79a8fa67f6a8821"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/2.2.10/kotlin-gradle-plugin-annotations-2.2.10.pom",
+      "bytes": 1513,
+      "sha256": "d68b80360f231a17be162cd6d5f74c777561b0b96c0758a36e16275206579ead"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-gradle-plugin-api/2.2.10/kotlin-gradle-plugin-api-2.2.10.module",
+      "bytes": 128566,
+      "sha256": "d1e1306a627f8e2766423312892bd627acfe565ba9e31ab1d86bfddbd8c0d530"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-gradle-plugin-idea/2.2.10/kotlin-gradle-plugin-idea-2.2.10.module",
+      "bytes": 7383,
+      "sha256": "bf692dff0af33f4199b828303add8318c93bcf8b5e51d87ca06cdcb79d91fb52"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-gradle-plugin-idea-proto/2.2.10/kotlin-gradle-plugin-idea-proto-2.2.10.pom",
+      "bytes": 1419,
+      "sha256": "935bfa694894e99f8dd5630cd3781f01ae1900d63dd9f6ed21455c9789ef4710"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-gradle-plugin-model/2.2.10/kotlin-gradle-plugin-model-2.2.10.module",
+      "bytes": 61883,
+      "sha256": "a831bbebeec454793a3dceae0137eec4cb1080c7dc1fd76f46da28cec6398dc6"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/2.2.10/kotlin-gradle-plugins-bom-2.2.10.module",
+      "bytes": 6691,
+      "sha256": "e4b7dd0b5570aa7ae6597d1f479bcea94e78e12735fa86f80afa95e7014efed6"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/2.2.10/kotlin-gradle-plugins-bom-2.2.10.pom",
+      "bytes": 4623,
+      "sha256": "c0a5a21a4e6eec4d8bb6a2c491fac42f35ab9f08dd2af6bedb085715ac805296"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-klib-commonizer-api/2.2.10/kotlin-klib-commonizer-api-2.2.10.pom",
+      "bytes": 1593,
+      "sha256": "578a716f344221e85396e793876a4853992f275cfe5590f09e328662af2223ec"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-native-utils/2.2.10/kotlin-native-utils-2.2.10.pom",
+      "bytes": 1887,
+      "sha256": "00c77adf6f1afa278af18d2d3c43944188c6e88a342bcca863a73ac4d28ea73d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-reflect/2.3.20/kotlin-reflect-2.3.20.pom",
+      "bytes": 1351,
+      "sha256": "8b00bd2feb2bb5538df396954174d9ddc0ec540d3412586303539b1e9655c333"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-stdlib/2.2.10/kotlin-stdlib-2.2.10.module",
+      "bytes": 12430,
+      "sha256": "db78df08283591cb67c8b9d2796109eb52b6088d4dfe102b545f20118249713f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-stdlib/2.3.20/kotlin-stdlib-2.3.20.module",
+      "bytes": 12430,
+      "sha256": "f4eb344fc4d1e3a28ae16c086ec3e42f52373b466d4308182fb386e392c0efa3"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.2.10/kotlin-stdlib-jdk7-2.2.10.pom",
+      "bytes": 1389,
+      "sha256": "be494907e0e19c78bb821154afa1776d5ad7a058b4ab30090f74354b0e1338de"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.2.10/kotlin-stdlib-jdk8-2.2.10.pom",
+      "bytes": 1581,
+      "sha256": "2569cf5a980724f140157501db36dffab919cd0d443d2e14b5a35a2f96f84fac"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-tooling-core/2.2.10/kotlin-tooling-core-2.2.10.pom",
+      "bytes": 1149,
+      "sha256": "41ab85d6788048f1922defb240d351ac3fe1882c70bab03ae6aee5209f2773d9"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-util-io/2.2.10/kotlin-util-io-2.2.10.pom",
+      "bytes": 1356,
+      "sha256": "bd6437f55351786336098c28a60b9cc4c7b055a7f64a7e7251cc5957bc0c7388"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-util-klib/2.2.10/kotlin-util-klib-2.2.10.pom",
+      "bytes": 1563,
+      "sha256": "3a3f4de603e5c1912d5a22b9bddc169543e44c57375b41b8bf3dd0d3eb22cc18"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlin/kotlin-util-klib-metadata/2.2.10/kotlin-util-klib-metadata-2.2.10.pom",
+      "bytes": 1780,
+      "sha256": "5d364eec2d4af72fac5e6fec3acb5f975d64a629703277754435400dbbc3bf4d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.9.0/kotlinx-coroutines-bom-1.9.0.pom",
+      "bytes": 4291,
+      "sha256": "bea5511e9001f2c593ab5080df131b219ab5e2085cc5979ce583eacd4946fd78"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.9.0/kotlinx-coroutines-core-1.9.0.module",
+      "bytes": 45570,
+      "sha256": "ad534034a953b4e12cbeeb874c66adf8b1ca14df15fe0d2e6547aa34e86dfeca"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.9.0/kotlinx-coroutines-core-jvm-1.9.0.module",
+      "bytes": 4438,
+      "sha256": "b321a899e40d3ce345707aa2cfda9983ad0dcc69fea74a9b8bf906a16c1cf8a9"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/junit/junit-bom/5.10.2/junit-bom-5.10.2.pom",
+      "bytes": 5649,
+      "sha256": "169dd904a4b0f6520cffe658cc62292bfe9f3c14a989fa92120724cde43a9968"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/junit/junit-bom/5.11.0-M2/junit-bom-5.11.0-M2.pom",
+      "bytes": 5706,
+      "sha256": "4a3ffc4a4edcfec2cb5d619922706a9407161798571939f854dfda73e4e17cc8"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/jvnet/staxex/stax-ex/1.8.1/stax-ex-1.8.1.pom",
+      "bytes": 15152,
+      "sha256": "8fc84f36ce6da6ce8c893b6538199a7f69a69a0706d9b17a3ee6a3a09452eed6"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/ow2/asm/asm/9.9/asm-9.9.pom",
+      "bytes": 2370,
+      "sha256": "cf861ef1e745d57154af79ae14df340ed5341e5dcd0157cefcd2eb7f1aa05c57"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/ow2/asm/asm-analysis/9.9/asm-analysis-9.9.pom",
+      "bytes": 2621,
+      "sha256": "909f24a710c728e0e5d643ec0b4834a63cb3d30022100d583d5dd6a26e35cda6"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/ow2/asm/asm-commons/9.9/asm-commons-9.9.pom",
+      "bytes": 2788,
+      "sha256": "18a5d3ef1377e7544b3ca3210f261396b987f6010ef591d3872adae63119ee43"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/ow2/asm/asm-tree/9.9/asm-tree-9.9.pom",
+      "bytes": 2592,
+      "sha256": "d01788ed8e6e8e24acaf6cb4a7bdcc2733416252faa00232959e3e2e9df1bf44"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/ow2/asm/asm-util/9.9/asm-util-9.9.pom",
+      "bytes": 2938,
+      "sha256": "a98593fda1c53a9e70d7660f416720e308d24db8e1c456fa17e76ba78d272b6b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/ow2/ow2/1.5.1/ow2-1.5.1.pom",
+      "bytes": 11290,
+      "sha256": "321ddbb7ee6fe4f53dea6b4cd6db74154d6bfa42391c1f763b361b9f485acf05"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.pom",
+      "bytes": 3835,
+      "sha256": "7e0747751e9b67e19dcb5206f04ea22cc03d250c422426402eadd03513f2c314"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/slf4j/slf4j-parent/1.7.30/slf4j-parent-1.7.30.pom",
+      "bytes": 13806,
+      "sha256": "11647956e48a0c5bfb3ac33f6da7e83f341002b6857efd335a505b687be34b75"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/sonatype/oss/oss-parent/7/oss-parent-7.pom",
+      "bytes": 4824,
+      "sha256": "b51f8867c92b6a722499557fc3a1fdea77bdf9ef574722fe90ce436a29559454"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/sonatype/oss/oss-parent/9/oss-parent-9.pom",
+      "bytes": 6569,
+      "sha256": "fb40265f982548212ff82e362e59732b2187ec6f0d80182885c14ef1f982827a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/metadata/org/tensorflow/tensorflow-lite-metadata/0.2.0/tensorflow-lite-metadata-0.2.0.pom",
+      "bytes": 1988,
+      "sha256": "0fe31326e83b7622cbcd9c75d467b291f01ffe3cc6e3e76651ac05a1c1c7a360"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/parent-bom-declarations.json",
+      "bytes": 14089,
+      "sha256": "58bc56d14d5f2346f64f68ff5788839fcd3791e17e221c783b4ef2e9f40cd2cd"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/actual-consumption/summary.json",
+      "bytes": 977,
+      "sha256": "aebdca9b3b57965ca178033ced4d1f14968226aff2088cc4f163fc9be20ac354"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/apk-audit/app-merged.xml",
+      "bytes": 1129,
+      "sha256": "a313ee5ff699cb3f9260d69a55e34a8922905967316a25d08d9a399e6587afa8"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/apk-audit/artifact-audit.json",
+      "bytes": 7306,
+      "sha256": "277e6b39cf4887adae10ba1b2b0fed511919893599fe4b46bd2b73cb344f8dd8"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/apk-audit/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/apk-audit/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/apk-audit/signer-verification.json",
+      "bytes": 1576,
+      "sha256": "f37e869d55f979436b955d62a4c8ef007d624310a7b8230b0d38e651b3800a88"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/apk-audit/test-merged.xml",
+      "bytes": 2206,
+      "sha256": "21517164f9ca1a40b28343c15cdec4c3c558c3ca680da9bd6201f438bd5b6a7a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/apk-audit/verify.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/apk-audit/verify.stdout",
+      "bytes": 242,
+      "sha256": "3c36ba71e7589531608db133fa83fbee71e0b1b3f717844db6ba459699ded517"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-attempts.json",
+      "bytes": 1172,
+      "sha256": "a80a363bed4d1d07b9a6dfb49efc5ac6af2934ad6cebbb9c59793c59a44e306d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-inputs-final.json",
+      "bytes": 227662,
+      "sha256": "05aa74cf46ef8f134a9144982a8178e8cdda451fa99243fe6942010f19e9d30f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-001/gradle.log",
+      "bytes": 5571,
+      "sha256": "7d1ee2fc83dba17f5795dc3898beef6f03ed9a2c0ce9f6076409655a52482738"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-001/receipt.json",
+      "bytes": 409,
+      "sha256": "6859de072aac5bbfbe0328e42f324bed79a63d9648aaf16b3900fac194591d57"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-002/consumption.jsonl",
+      "bytes": 6561,
+      "sha256": "fbf043db0289d8500b26c62ce1c10a9dd1e20a511c71398053256923bfeac07a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-002/gradle.log",
+      "bytes": 1230,
+      "sha256": "25844b34726227058cd7b725a01176f60ff3069b15fe34a6fa7c131ddfb385fd"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-002/receipt.json",
+      "bytes": 409,
+      "sha256": "93fc25234033b6c36ef197e90496e3fb16a493aa4ca5f0e06263c4a6329de7bf"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-003/consumption.jsonl",
+      "bytes": 201792,
+      "sha256": "d06833f7d98df671386599816d671274b444ae6735d963898d6718fcc8188a71"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-003/gradle.log",
+      "bytes": 4954,
+      "sha256": "312e832fdf3fd0bbf5027101381a056ed472c771c15e79caed8918177dadb368"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-003/receipt.json",
+      "bytes": 409,
+      "sha256": "ac2e7de21c8e6abaaac718e8a000ec55b1c1cc8a0928ce5ae80835029540d323"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-004/consumption.jsonl",
+      "bytes": 200804,
+      "sha256": "07779f9306e9098729f5b282cccf8f975cfa46ecb98c42bbeaecdc62232dbd75"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-004/gradle.log",
+      "bytes": 4521,
+      "sha256": "c652c9bfec164e2be6fc8ab4e4a243f3f1b5e390dc0a38de2adc9a99946e4e51"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-004/receipt.json",
+      "bytes": 409,
+      "sha256": "87fa2cb20e2c7d5a45bc598c5f6afda9dc297fd253442de1608e004fcef45519"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-005/consumption.jsonl",
+      "bytes": 200804,
+      "sha256": "ff0f5a865c6541d9ef94c59f72319f5da528438702848453554d7c83519e2d8e"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-005/gradle.log",
+      "bytes": 4521,
+      "sha256": "cb9949fcd39f8a154fdab03a45ed0604d495283135a2195ff3a5bcb525e62565"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/build-main-005/receipt.json",
+      "bytes": 409,
+      "sha256": "e898fcf7425deab70e3fa62e7273841be87ab900b90f83f2b3653cdbf35006b6"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/controlled-regression-001/compile.json",
+      "bytes": 422,
+      "sha256": "569c807b58c8ca6cdda27c5a207edc6ec1bb9e34dc34ac44e8c8c22345ee9cb2"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/controlled-regression-001/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/controlled-regression-001/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/controlled-regression-001/javac.args",
+      "bytes": 2405,
+      "sha256": "2a79838ca8d8d884a4e4db1e7c0069d9656e3bbc3b9a3384936ee365a9d2dcbb"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/controlled-regression-001/run.json",
+      "bytes": 295,
+      "sha256": "541fdf07e5def3c1fcc299eef54e6276d9e293486c50f8d74864722462d06f67"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/controlled-regression-001/run.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/controlled-regression-001/run.stdout",
+      "bytes": 1181,
+      "sha256": "3868d376ec2bc8946cc539f6993e221e2e5493bc4a0aa94f5ce9b93e01055557"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/controlled-regression-001/source-pins.json",
+      "bytes": 3802,
+      "sha256": "265e300d5ccf9ece54a879a11d1f81edadbcdb0d74e1b8aedb07376f5ffef851"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/delivery-verification.json",
+      "bytes": 5583,
+      "sha256": "59c9741d07f8430a49be2cce57b6a086ec562030e94e4e8255e830d517843fca"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/guava-official-source/guava-parent-33.3.1-android.pom",
+      "bytes": 20632,
+      "sha256": "6e11986ea7250b51f847157e2dc937f32a306804dfce0007a5e81ddb9b95c579"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/guava-official-source/guava-parent-33.3.1-android.pom.asc",
+      "bytes": 488,
+      "sha256": "fc04e229a99628c91a82fd6ca0fb96da5bca1ca792f5a989d75f2094e83f82cc"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/guava-official-source/guava-parent-33.3.1-android.pom.md5",
+      "bytes": 32,
+      "sha256": "530c93cdc286c511b1d50787c75daca90257929714e20bc37ef8220d3c7fb011"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/guava-official-source/guava-parent-33.3.1-android.pom.sha1",
+      "bytes": 40,
+      "sha256": "408c617db002ffdae3b68ece2b58f488e521cdcc865f66046b5bdbf40ee40d03"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/guava-official-source/source-receipt.json",
+      "bytes": 6769,
+      "sha256": "50c2a82e56a43d734e7cf59982df8c5f260f73fb92d3569929ee94671ba5bcc0"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/compile.receipt.json",
+      "bytes": 539,
+      "sha256": "bd223651657efe6206dbe1475a89ab1abbe74773c1dc10cadc8f20f454c1bc73"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/core.receipt.json",
+      "bytes": 551,
+      "sha256": "5c9d735fa9c068132b939ac44ad9688f1a1147e193b56ff08d7219dff7de4e7f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/core.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/core.stdout",
+      "bytes": 967,
+      "sha256": "20912b00050230e72f3d1ee0fb3ae16780fb8d3721ba096b3ea2b9b188b6be89"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/generated-pcm16.raw",
+      "bytes": 576000,
+      "sha256": "268d0e111f05ef5ad7ba405df6b78e5e8f6b3a43ebd926c48429d139a27da4ff"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/javac.args",
+      "bytes": 1886,
+      "sha256": "5b1f92b38fea768fead4d4b5bca4d2b95d3649057f2984e1bff097b7f5661f50"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/local-001/source-pins.json",
+      "bytes": 2993,
+      "sha256": "717df5b5519aae027d97436cabd714944f83fa9f7804770532d4ea148d6eb916"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/negative/build.gradle",
+      "bytes": 477,
+      "sha256": "2a162561ad8a4ac723027e3b0d5a1076dadbdaba64416cdc0ed25879f5ef0a54"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/negative/gradle/verification-metadata.xml",
+      "bytes": 268168,
+      "sha256": "69eb53a1de03e6945528745377e31b2669db3f9f6aae1d6db18bed5621d5bc6f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/negative/gradle.log",
+      "bytes": 1807,
+      "sha256": "950d0e6f55f9dfa426dcf22fd5cda4a6584a6f3e74fd2ba3dfbc6b56a47e4ce1"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/negative/overlay/com/google/guava/guava-parent/33.3.1-android/guava-parent-33.3.1-android.pom",
+      "bytes": 20694,
+      "sha256": "a3695c58500ed69d89389fc719161af1feaeacb9d48f86fcde66fbc536879e27"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/negative/probe-input.json",
+      "bytes": 275,
+      "sha256": "83c382fdec17d76ab7dd1c105d54420507503f74477004db5e019f4d4389472b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/negative/receipt.json",
+      "bytes": 227,
+      "sha256": "e26ad16b3a1b67b5ec55e9a4931c0d442a88256820c027884f4f198708d0cda7"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/negative/settings.gradle",
+      "bytes": 46,
+      "sha256": "3a9a516e7d8b237536c28150801370b8c4faec097f89b85f022259731930a647"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/positive/build.gradle",
+      "bytes": 477,
+      "sha256": "2a162561ad8a4ac723027e3b0d5a1076dadbdaba64416cdc0ed25879f5ef0a54"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/positive/gradle/verification-metadata.xml",
+      "bytes": 268168,
+      "sha256": "69eb53a1de03e6945528745377e31b2669db3f9f6aae1d6db18bed5621d5bc6f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/positive/gradle.log",
+      "bytes": 1807,
+      "sha256": "8eb0c31ea062264d800cb7f003304c1ebdd29d1a69e9c57e3e66da6ae04a5ecb"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/positive/overlay/com/google/guava/guava-parent/33.3.1-android/guava-parent-33.3.1-android.pom",
+      "bytes": 20632,
+      "sha256": "6e11986ea7250b51f847157e2dc937f32a306804dfce0007a5e81ddb9b95c579"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/positive/probe-input.json",
+      "bytes": 275,
+      "sha256": "117baf24e822401b5932b8f9c0c0a6a002d35a46b3ca4487f662a2806e6db141"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/positive/receipt.json",
+      "bytes": 227,
+      "sha256": "c345f5d829a0d53814178b0afac962ce373f3295e9ccc3d57767787494b8b232"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection/positive/settings.gradle",
+      "bytes": 46,
+      "sha256": "3a9a516e7d8b237536c28150801370b8c4faec097f89b85f022259731930a647"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/negative/build.gradle",
+      "bytes": 494,
+      "sha256": "3a3d94d13f456e44a5e2257200a9606c9f9f802b8499eeecedcd74669ddbf711"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/negative/gradle/verification-metadata.xml",
+      "bytes": 268168,
+      "sha256": "69eb53a1de03e6945528745377e31b2669db3f9f6aae1d6db18bed5621d5bc6f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/negative/gradle.log",
+      "bytes": 1142,
+      "sha256": "b6e2a4787815c94d3935d98d1de07c06b2f6bf0d7655a5cbfca1c2ab3ecb7565"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/negative/overlay/com/google/guava/guava-parent/33.3.1-android/guava-parent-33.3.1-android.pom",
+      "bytes": 20694,
+      "sha256": "a3695c58500ed69d89389fc719161af1feaeacb9d48f86fcde66fbc536879e27"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/negative/probe-input.json",
+      "bytes": 275,
+      "sha256": "83c382fdec17d76ab7dd1c105d54420507503f74477004db5e019f4d4389472b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/negative/receipt.json",
+      "bytes": 227,
+      "sha256": "b2c28360d4ab5fac3d7969161dab9671ec21562b04335d254c77c015733aa987"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/negative/settings.gradle",
+      "bytes": 46,
+      "sha256": "3a9a516e7d8b237536c28150801370b8c4faec097f89b85f022259731930a647"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/positive/build.gradle",
+      "bytes": 494,
+      "sha256": "3a3d94d13f456e44a5e2257200a9606c9f9f802b8499eeecedcd74669ddbf711"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/positive/gradle/verification-metadata.xml",
+      "bytes": 268168,
+      "sha256": "69eb53a1de03e6945528745377e31b2669db3f9f6aae1d6db18bed5621d5bc6f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/positive/gradle.log",
+      "bytes": 1142,
+      "sha256": "9e33c7933506445f8ffed3e842be37bce4486da23b979260fc794f6895571b21"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/positive/overlay/com/google/guava/guava-parent/33.3.1-android/guava-parent-33.3.1-android.pom",
+      "bytes": 20632,
+      "sha256": "6e11986ea7250b51f847157e2dc937f32a306804dfce0007a5e81ddb9b95c579"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/positive/probe-input.json",
+      "bytes": 275,
+      "sha256": "117baf24e822401b5932b8f9c0c0a6a002d35a46b3ca4487f662a2806e6db141"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/positive/receipt.json",
+      "bytes": 227,
+      "sha256": "e49c66b89e420ba05af41898eb08bca61167cd140f34734c58c6081c4c5dfd7b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-002/positive/settings.gradle",
+      "bytes": 46,
+      "sha256": "3a9a516e7d8b237536c28150801370b8c4faec097f89b85f022259731930a647"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/negative/build.gradle",
+      "bytes": 516,
+      "sha256": "801f1a3b24b3c13922bbf87621d084ce9117b338f39d8e8e4cf128b90c7cc72e"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/negative/gradle/verification-metadata.xml",
+      "bytes": 268168,
+      "sha256": "69eb53a1de03e6945528745377e31b2669db3f9f6aae1d6db18bed5621d5bc6f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/negative/gradle.log",
+      "bytes": 1552,
+      "sha256": "3facb9bf4e121a049a695f1cb7070688ed0296b6981a13881ed7806bbb5703fd"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/negative/overlay/com/google/guava/guava-parent/33.3.1-android/guava-parent-33.3.1-android.pom",
+      "bytes": 20694,
+      "sha256": "a3695c58500ed69d89389fc719161af1feaeacb9d48f86fcde66fbc536879e27"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/negative/probe-input.json",
+      "bytes": 275,
+      "sha256": "83c382fdec17d76ab7dd1c105d54420507503f74477004db5e019f4d4389472b"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/negative/receipt.json",
+      "bytes": 227,
+      "sha256": "7325cdb95940803b700969ae754d80b5cdd39caa2d8925a94b0cd3f10e8f0cad"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/negative/settings.gradle",
+      "bytes": 46,
+      "sha256": "3a9a516e7d8b237536c28150801370b8c4faec097f89b85f022259731930a647"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/negative-checksum-report.html",
+      "bytes": 9413,
+      "sha256": "6bacf7e19d957d392b8066d78828371303e61ed7e533cd1d10cf316ae974db6c"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/positive/build.gradle",
+      "bytes": 516,
+      "sha256": "801f1a3b24b3c13922bbf87621d084ce9117b338f39d8e8e4cf128b90c7cc72e"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/positive/gradle/verification-metadata.xml",
+      "bytes": 268168,
+      "sha256": "69eb53a1de03e6945528745377e31b2669db3f9f6aae1d6db18bed5621d5bc6f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/positive/gradle.log",
+      "bytes": 536,
+      "sha256": "bd9da3268009e310023880e0fc60bf72fb852080ac7253e6a561d49d39794ac9"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/positive/overlay/com/google/guava/guava-parent/33.3.1-android/guava-parent-33.3.1-android.pom",
+      "bytes": 20632,
+      "sha256": "6e11986ea7250b51f847157e2dc937f32a306804dfce0007a5e81ddb9b95c579"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/positive/probe-input.json",
+      "bytes": 275,
+      "sha256": "117baf24e822401b5932b8f9c0c0a6a002d35a46b3ca4487f662a2806e6db141"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/positive/receipt.json",
+      "bytes": 227,
+      "sha256": "2fe215f342849ad4f468f6107910de889a83b2b3b0f79c73af567c9169dfaeaf"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/positive/settings.gradle",
+      "bytes": 46,
+      "sha256": "3a9a516e7d8b237536c28150801370b8c4faec097f89b85f022259731930a647"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/metadata-rejection-003/summary.json",
+      "bytes": 809,
+      "sha256": "10401e2bb8300750c6b652863a1221321923f24770458ae9df9b845d9278362a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/new-metadata-pin.json",
+      "bytes": 445,
+      "sha256": "9e9cdfa2a241672bc75fd618a3cec51828bcbfaa907931a3c99c9f1bffae4558"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/offline-repository.json",
+      "bytes": 225273,
+      "sha256": "ea2bfc4afd9a841697cdb6aa95a2ec9b19abace3977793b33acfba3ff1f23c6a"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/production-source-index.json",
+      "bytes": 6243,
+      "sha256": "f64f2555a9d1019e4eadea1187b64a5e7d72b375b15f5b39003171e3bb4c16ce"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/render01-preservation.json",
+      "bytes": 229,
+      "sha256": "5f25413e3af2c700bdaffcd35d2c5106b9e69a158d4d0d5cc0004a922880df47"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/requirement-pins.json",
+      "bytes": 1220,
+      "sha256": "a1ff121097733e2b804a22af05a8701eb92c83552336738f8da3c2b53f2b362e"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/reused-binary-lock-identity.json",
+      "bytes": 2104,
+      "sha256": "96657fdaf9cc536718cba9964921278c9a6563b955e65441f1a42cf5d7ad4b16"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/reused-render01-inputs.json",
+      "bytes": 18098,
+      "sha256": "5414ebf943ed67769d1b9360ea759f61080b1a607a37d250ba0ce6d6d2815a5d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/review-baseline/compile.json",
+      "bytes": 402,
+      "sha256": "4bc92d580b2c3ec9ee6db00da19704d960db84b647fbc997f6dd1e9facdec82f"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/review-baseline/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/review-baseline/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/review-baseline/javac.args",
+      "bytes": 2288,
+      "sha256": "b989878f887b9f6b6cd2af0973a9e517d6735cbba2b1613a9199b5e0ef9a07da"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/review-baseline/run.json",
+      "bytes": 294,
+      "sha256": "6d2e585ad7f1bc2942ec6d93317952ea660c391b54452fab6bbe4fbf4432b54d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/review-baseline/run.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/review-baseline/run.stdout",
+      "bytes": 238,
+      "sha256": "cf204dd17658b920a30636b4bf2c7d53080886091e040237be212e1d9e92775d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/review-baseline/source-pins.json",
+      "bytes": 4297,
+      "sha256": "ddd7ea3714f6dfec4dc8a9134bd5cac3917385e69ef7ea4e3e7eca41a6fcde3d"
+    },
+    {
+      "path": "docs/coder/d1render02/evidence/runtime-35-actual-binary-identity.json",
+      "bytes": 14814,
+      "sha256": "9af16c428679b3fb7fd1a813ad87952204d530eb1ffdecaf02a5d3ccf7b33192"
+    },
+    {
+      "path": "docs/coder/d1render02/fixture-assets/d1/generated-pcm16.raw",
+      "bytes": 576000,
+      "sha256": "268d0e111f05ef5ad7ba405df6b78e5e8f6b3a43ebd926c48429d139a27da4ff"
+    },
+    {
+      "path": "docs/coder/d1render02/gradle/libs.versions.toml",
+      "bytes": 2199,
+      "sha256": "3cbaf8686f13f72fb37dba6e7cd4a8a79c5e0bdab7c36245bb22dbfac13564b8"
+    },
+    {
+      "path": "docs/coder/d1render02/gradle/verification-metadata.xml",
+      "bytes": 268168,
+      "sha256": "69eb53a1de03e6945528745377e31b2669db3f9f6aae1d6db18bed5621d5bc6f"
+    },
+    {
+      "path": "docs/coder/d1render02/gradle/wrapper/gradle-wrapper.jar",
+      "bytes": 45457,
+      "sha256": "76805e32c009c0cf0dd5d206bddc9fb22ea42e84db904b764f3047de095493f3"
+    },
+    {
+      "path": "docs/coder/d1render02/gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 378,
+      "sha256": "6e08173adac183e04444f7625ef7591285a740b125bbef7b7c35f05172b47b68"
+    },
+    {
+      "path": "docs/coder/d1render02/gradle.properties",
+      "bytes": 113,
+      "sha256": "cdc45d1fab2bd2950acc381d555792d6abc68af511ec2fac20fd416c6c04b868"
+    },
+    {
+      "path": "docs/coder/d1render02/gradlew.bat",
+      "bytes": 2937,
+      "sha256": "1d297e00bd21de3ace22b4d7f2de1f9dfa858883d66bbf7c1ccbecccec8f4f3b"
+    },
+    {
+      "path": "docs/coder/d1render02/local.properties",
+      "bytes": 419,
+      "sha256": "7b834250bc1e65b441629201b56a801b6463a87b982745747544dd974e568e96"
+    },
+    {
+      "path": "docs/coder/d1render02/native-libs/arm64-v8a/libavcodec.so",
+      "bytes": 1949608,
+      "sha256": "7b514a39a1c314e99fca52e05c8a909a1902ff93af89ba6f132f0cf765190765"
+    },
+    {
+      "path": "docs/coder/d1render02/native-libs/arm64-v8a/libavformat.so",
+      "bytes": 445504,
+      "sha256": "8fa2c6f5ee62ffa56265b1e128a8e01756db4e9b12631701629104674c11a8ca"
+    },
+    {
+      "path": "docs/coder/d1render02/native-libs/arm64-v8a/libavutil.so",
+      "bytes": 725296,
+      "sha256": "ad6cc7d3a1a0a57c4cc1dd3440c1b93990bfc8526537b82b66ba614114086ad2"
+    },
+    {
+      "path": "docs/coder/d1render02/native-libs/arm64-v8a/libswscale.so",
+      "bytes": 925464,
+      "sha256": "0ca0747d81190bff0b29c287dda09bfff46249167b9745caadd8a5b2e9ee35c6"
+    },
+    {
+      "path": "docs/coder/d1render02/native-libs/arm64-v8a/libvideokit_alloc.so",
+      "bytes": 9768,
+      "sha256": "f085b9cbcdfc758e052f3d4bfe66651278c32ffaa0f99eff6ae173416472252b"
+    },
+    {
+      "path": "docs/coder/d1render02/native-libs/arm64-v8a/libvideokit_cpu.so",
+      "bytes": 18552,
+      "sha256": "ed02feb238b26ea2ac53b6ae2eafca3d3131d74ebfdfd52c39ff3a925648e9a7"
+    },
+    {
+      "path": "docs/coder/d1render02/native-libs/arm64-v8a/libvideokit_d1_lease.so",
+      "bytes": 7232,
+      "sha256": "2ec60d4605df87ea9bdabaf5f40822c32c57fa300201f647b2b88158c7dcf4e9"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/adler32.c.NOTICE.txt",
+      "bytes": 1053,
+      "sha256": "70ddef7969524eaadee88543594406e826a12b053fc4fbe1ecce4ccc82a8da03"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/avsscanf.c.NOTICE.txt",
+      "bytes": 1154,
+      "sha256": "b35f5dc8036915c332dc7e781b40559f2c9e369e4c0094c4b8e5ceb8b6896e06"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/COPYING.GPLv2",
+      "bytes": 18092,
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/COPYING.GPLv3",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/COPYING.LGPLv2.1",
+      "bytes": 26517,
+      "sha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/COPYING.LGPLv3",
+      "bytes": 7651,
+      "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/faandct.c.NOTICE.txt",
+      "bytes": 965,
+      "sha256": "c904cc087bb68dd1f5ef80fb66b803a56dff554e918e011f69e3a9e3cd9a7d14"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/jfdctfst.c.NOTICE.txt",
+      "bytes": 3451,
+      "sha256": "af24d925b579b49b5b3b35ba59088a45fe35d4173241ffc217a2ef780d8a2004"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/jfdctint_template.c.NOTICE.txt",
+      "bytes": 2992,
+      "sha256": "5659ab0ee159b87cc85334d6f5956130d029a9701339cb0472714d676ed0d03c"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/jrevdct.c.NOTICE.txt",
+      "bytes": 3093,
+      "sha256": "0769bcee5748f7db39823d9ef58af280d60281a343a35a92a9d6e0a2f80ddc21"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/LICENSE.md",
+      "bytes": 4346,
+      "sha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af"
+    },
+    {
+      "path": "docs/coder/d1render02/notice-assets/licenses/NOTICE-C14.txt",
+      "bytes": 2870,
+      "sha256": "b8af2a29a147d50ffb305fdd940fe2ad0f32075cb5af7eb466b2eb7c2fdd79b0"
+    },
+    {
+      "path": "docs/coder/d1render02/reference/consolidated-findings.json",
+      "bytes": 2828,
+      "sha256": "27f01fb526ebd4cfd17f8b11edb0aa3258588e16dbf4344e7d70b8aec2ff33f5"
+    },
+    {
+      "path": "docs/coder/d1render02/reference/D1_RENDER01_OFFLINE_REVIEW_REPORT_V1.0.md",
+      "bytes": 15856,
+      "sha256": "c92a0b89b49180fac2db74524dbf7e043cfda6c7ea984074b9b90fe13ba3aed8"
+    },
+    {
+      "path": "docs/coder/d1render02/reference/D1_RENDER02_FIX_CODER_REQUIREMENTS_V1.0.md",
+      "bytes": 2516,
+      "sha256": "1de78840c56453e2c66bb638a99252d52710dffbf54aab912fbb29849bd7a9fb"
+    },
+    {
+      "path": "docs/coder/d1render02/reference/D1_RENDER02_FIX_TESTER_REQUIREMENTS_V1.0.md",
+      "bytes": 1363,
+      "sha256": "8469cda4ccf2c01df8d26f0fbf413d55dc6b3c94ab62bbfc125c33f575cb0d8d"
+    },
+    {
+      "path": "docs/coder/d1render02/reference/metadata-parent-bom-closure-audit.json",
+      "bytes": 45013,
+      "sha256": "6a0f3af3ab6b50ecd1d1ae497eed010c23cec76c0503ac9eef9b76bd25a1c63a"
+    },
+    {
+      "path": "docs/coder/d1render02/render02-sbom.cdx.json",
+      "bytes": 52822,
+      "sha256": "f5d651d05225cd7cc7407e3f40c8b2f4b9b560c181ba11290f220eaff94f0d8d"
+    },
+    {
+      "path": "docs/coder/d1render02/reused-native-source/cpu.c",
+      "bytes": 12500,
+      "sha256": "2390ee347e847485c536e845b38562e338f83570f927346f2a73605faf1ff58d"
+    },
+    {
+      "path": "docs/coder/d1render02/reused-native-source/lease.c",
+      "bytes": 1462,
+      "sha256": "51ac213c4efdd7015007174e3298fcedaf2d66ff49ea804f6ef6c055f2218bf0"
+    },
+    {
+      "path": "docs/coder/d1render02/reused-native-source/quota.c",
+      "bytes": 3167,
+      "sha256": "694c41e7dbedb6c14298446c40aa78a0a289cf08a232c94dda981e9bc5ea1771"
+    },
+    {
+      "path": "docs/coder/d1render02/review-regression/android/graphics/Bitmap.java",
+      "bytes": 392,
+      "sha256": "088b77f36a0620f46d2b1b7701e0fa80f8de5b4a182c2c7a33d007905a1ff0a2"
+    },
+    {
+      "path": "docs/coder/d1render02/review-regression/android/graphics/Canvas.java",
+      "bytes": 430,
+      "sha256": "df44f7e6edcd9f956563047ab615eeb774f1f119f70312f6a1a5cdd4557dc6a0"
+    },
+    {
+      "path": "docs/coder/d1render02/review-regression/android/graphics/Color.java",
+      "bytes": 95,
+      "sha256": "94f2fbf69f2a65b70361f597e9c2d04d74267b59725612946c8c764b4b60bc05"
+    },
+    {
+      "path": "docs/coder/d1render02/review-regression/android/graphics/SurfaceTexture.java",
+      "bytes": 120,
+      "sha256": "e2f00f277932f78e953043621d0ef3f2cf6b433db7f020796a6a19839737b64a"
+    },
+    {
+      "path": "docs/coder/d1render02/review-regression/android/view/Surface.java",
+      "bytes": 606,
+      "sha256": "b7fdc6e3170cb294f88e4b3d3a32fb0e786c5fa9ad840b7fd7e2f304fe05fdff"
+    },
+    {
+      "path": "docs/coder/d1render02/review-regression/com/videokit/d1present/IndependentReviewCheck.java",
+      "bytes": 3923,
+      "sha256": "eafab45bf41940bc298b3e959de83bb5ff53df5cd9330b10b3d850d1dbd8e825"
+    },
+    {
+      "path": "docs/coder/d1render02/settings.gradle.kts",
+      "bytes": 382,
+      "sha256": "5d5d9b0f419fb4006eea0f8ae58c95e4185fae107b19d0459e30b8dce6b11ca0"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/AudioFocusPolicy.java",
+      "bytes": 1006,
+      "sha256": "78e6386a8ca626efb738fa48849f18eb8d175571e6aa4b01e274293b6d708891"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/Lane.java",
+      "bytes": 1460,
+      "sha256": "22722a38e6b7e6845622edaeb8c175d1806f5392a9c813e1c74b6bd24826f04f"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/Limits.java",
+      "bytes": 1221,
+      "sha256": "d9b18e656900721a5fc045547246f77c7f1cb5824a2ee62c03549e119f72fb58"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/ManualListenWindow.java",
+      "bytes": 1217,
+      "sha256": "945dc8f52b9d1c1c69636700d3e1085700a3d01138b91562433edf8694c18ed7"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/PcmFixture.java",
+      "bytes": 1463,
+      "sha256": "b689a83f779b314b6d7621c26697484e767ef1686c74a93c3590b99c9afb1c9f"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/PlaybackGate.java",
+      "bytes": 2038,
+      "sha256": "f19621ca576deab54cc2a1e6d881f1f03b53218a0ddea7c4638265dddde6d692"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/PresentationSource.java",
+      "bytes": 3387,
+      "sha256": "98e004bb6ccd051c03ceef1e5b5520d0937e596d87042829a067a826896046f5"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/RawFrame.java",
+      "bytes": 2128,
+      "sha256": "22b5b505b395824233e8662a45ffd4a5e201fbdef1d0a574c55367c49757bc4c"
+    },
+    {
+      "path": "docs/coder/d1render02/src/com/videokit/d1present/WorkSession.java",
+      "bytes": 13852,
+      "sha256": "46999f554496c6b4eec8ac7aa001745597c97fd92c75b241907e218952eea1ce"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/audit_artifacts.py",
+      "bytes": 6192,
+      "sha256": "acff9723dcf3d2487c1f9eb7375a04138ce000d222e04e733b44bc3cbb81e460"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/audit_consumption.py",
+      "bytes": 4231,
+      "sha256": "e0cab964362dc0a6ef5a4ad5bd6fb837269939295f7483b61c7109d796b1f7ab"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/build_candidate.ps1",
+      "bytes": 1698,
+      "sha256": "4c1fe08c74dce4dbc90b57b353cb8cb734796e30555a9a815b7dcb6b3e0c9b7c"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/consumption.init.gradle",
+      "bytes": 1334,
+      "sha256": "44b84de4c0c8bd80531f34a5eebc5d059b1c1d5e91dd6ec9c2ed746f703866f4"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/finalize_evidence.py",
+      "bytes": 6684,
+      "sha256": "e57a2b0cf51521d220ff4a1926e03a01c5ff3d2cf85da05cc9048babb5026021"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/freeze_delivery.py",
+      "bytes": 5031,
+      "sha256": "869d4f7e5c30a9adb726e8a953d372c743845872aa320971be40296c5d6b76f8"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/local_check.py",
+      "bytes": 2039,
+      "sha256": "cea1e23fdc034037c66bbdfc8816d8ca04979f3832f7a4fa2090ac2c939a8631"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/pin_new_parent.py",
+      "bytes": 1656,
+      "sha256": "aab413baa1436b262a22aad9659596538ac781a82535b49019f23f41b651313d"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/prepare_audit.py",
+      "bytes": 4629,
+      "sha256": "12c1161a45d1747141550be6c5f9846f2c762af996b24db7fe63adb956b10b20"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/prepare_metadata_rejection.py",
+      "bytes": 1578,
+      "sha256": "fd4d821e272c3eedcae577527c3dd69f2d2bad5553569a492ecb16fe9ca7591d"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/prepare_regression.py",
+      "bytes": 1132,
+      "sha256": "30ee07cd8f81012e345467fdffff994ba39825ed7a040eeaa02156ed0ac79f92"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/run_metadata_rejection.ps1",
+      "bytes": 1111,
+      "sha256": "f30cf5333a7cbf6ef1bfda435294a0a7638540ad7fe66afc08ac1dcf0e987ecb"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/run_render02_regression.py",
+      "bytes": 1557,
+      "sha256": "a3c9124e0ae44feb1e7e49899f6aef23b84aa631e0b9a39ab9f81dab9be17120"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/run_review_baseline.py",
+      "bytes": 1600,
+      "sha256": "825e98df0b5024071b42d20f316dabaf3e4fd20e221383a68ffdc332d707a4cc"
+    },
+    {
+      "path": "docs/coder/d1render02/tools/VerifyApk.java",
+      "bytes": 1012,
+      "sha256": "dbe6976ac1112c76a0187c8e17f18ba2cd53e0251d1c8d99c5b201aef3cc4722"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/AsyncReadBridge.java",
+      "bytes": 12217,
+      "sha256": "bedaf4044f26b4df9d12066129da1f590a874f870cfc064c6d38f713d1486eba"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/BindingRevocation.java",
+      "bytes": 1616,
+      "sha256": "2f242d1fa0d30d9dbf78bec174b007473d0877a583ac419941a74b7cd92f08a5"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/CpuControlRules.java",
+      "bytes": 1422,
+      "sha256": "63958d752962c1b3dfadedd9c9b2df0c37449c3c9f040763566dd30262073e5f"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/CpuDiagnostics.java",
+      "bytes": 2088,
+      "sha256": "898472c2f819ac91a7cbd2df635456ce3e8701f2b3ddf2e8055f817b59738dad"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/CpuEnvironment.java",
+      "bytes": 2509,
+      "sha256": "8655fcb770ec9a32d8e7560f5a6028eb20f369e6e737385e660f0bc0a6818dbd"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/CpuFrameRules.java",
+      "bytes": 3290,
+      "sha256": "a23692cd530f2b4fe8579187670e2e84e617ec840b7e67ac89e29e39950f8502"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/CpuIsolatedService.java",
+      "bytes": 16851,
+      "sha256": "246b458b98aeb2bca32141e83f6b11e311684619d49d5296dccc2b9a64e8e2ac"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/CpuLifecycle.java",
+      "bytes": 3365,
+      "sha256": "acfbf0316121ca7458c618362083dc60d240ce5a62c479556c675583290659cd"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/CpuProtocol.java",
+      "bytes": 908,
+      "sha256": "d249b4c25d2090713cfbd7d0917338979ebf38a1332104241cc0dd2c1bb6ab08"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/CpuTaskClient.java",
+      "bytes": 51247,
+      "sha256": "4995d6f4582009c6709389e6381a82ea5394a4dc9dc3921950390fb87d54fe61"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/HostFixtures.java",
+      "bytes": 3696,
+      "sha256": "a1f847e8bf29856e89d49dc8b72a41ceb665c6d776ff1b6ae3c2e98504685afe"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/LeaseRegistry.java",
+      "bytes": 3233,
+      "sha256": "544661933156d1e25e744b65474ef56201b7dc251e80f28673e55d3dc42a1edb"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/NativeCpu.java",
+      "bytes": 747,
+      "sha256": "22804b955f01a16d9cc2e78bf7b89c84eaf0dcef1afb88039ee246892c471cfb"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/NativeFault.java",
+      "bytes": 299,
+      "sha256": "b47f520300188717bc0d84e9b0adfb7046be8245f5f96d002c92438996a858e5"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/PipelineRules.java",
+      "bytes": 5606,
+      "sha256": "959cd841e62468bcb53461518b08b4a67045d73d8f17901a1603330b2d26d8c6"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/RegistrationProtocol.java",
+      "bytes": 2823,
+      "sha256": "47349c0de98952bb650dd5f868b265bd2e995bd8ee30505813f7a95751e1a126"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/SourceAdmission.java",
+      "bytes": 622,
+      "sha256": "a3e7fcdab7d61f71ac825a5f175d4aea14a076ef3451affb30d8b199ed5a62c2"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/StageLog.java",
+      "bytes": 1567,
+      "sha256": "9b3b306c018c8918357b7db90d39bfcfb3342f47f82e0a56e5fd40a519d10432"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/c14/WorkerGenerations.java",
+      "bytes": 3849,
+      "sha256": "6df6cd8c585354b4f1c5efffb716094342db951ab95d163eef7db29cd5764a6b"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/e4/E13BindingOwner.java",
+      "bytes": 4225,
+      "sha256": "eb57098cf295400dca43359ceb277478c299d31e772a61fea736cd81dc8f8696"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/e4/E13FinishOwner.java",
+      "bytes": 3505,
+      "sha256": "f400c820f11be9b177b8338987b3b95a61547dbaa0ec5494dbc0e88b74227837"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/e4/E13ReturnEvents.java",
+      "bytes": 865,
+      "sha256": "44576bbb0c0fdd555ad3044e5645b5de3ae250c0172399098388964adcf53118"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/e4/E13SourceGroup.java",
+      "bytes": 6352,
+      "sha256": "a080e2faee80d6d467a12d07be33897ca4f3a30d33901e76dfde217fbcb24c38"
+    },
+    {
+      "path": "docs/coder/d1render02/upstream/com/videokit/spike/e4/E13Stages.java",
+      "bytes": 2496,
+      "sha256": "dc6b12e47b3331e577a03b97cdc5216b80cea08fd2fb2f7ebce0cc2483462cd1"
+    },
+    {
+      "path": "docs/coder/D1-20261020-RENDER02-source.zip",
+      "bytes": 8222906,
+      "sha256": "1b595b74f7fd02982806e251edbaf5261674a87e7de2599f3346fa21b7ea215b"
+    }
+  ],
+  "archiveMembers": 403,
+  "archive": {
+    "path": "docs/coder/D1-20261020-RENDER02-source.zip",
+    "bytes": 8222906,
+    "sha256": "1b595b74f7fd02982806e251edbaf5261674a87e7de2599f3346fa21b7ea215b"
+  },
+  "excluded": "offline-maven, Gradle caches/build outputs/tool runtimes/private keys; complete input pin manifest and consumed metadata retained"
+}

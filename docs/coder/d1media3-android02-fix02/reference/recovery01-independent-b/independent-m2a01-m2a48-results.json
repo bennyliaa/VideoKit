@@ -1,0 +1,487 @@
+{
+  "cases": [
+    {
+      "id": "M2A01",
+      "area": "authority stages",
+      "originalOracle": "A only frozen baseline; B offline after full freeze; actual device only exact new scope. Persistent tablet permission does not authorize unbound methods/tools/device batch",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "正式新B范围；设备未派。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A02",
+      "area": "immutability",
+      "originalOracle": "Old Android01/Container02/QUAL03 failures and UNKNOWN frozen; no active suites001 access or unknown session attach; future candidate isolated new root/version",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "新728/旧seal及所有baseline身份保持；旧UNKNOWN未触碰。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A03",
+      "area": "fixture identity",
+      "originalOracle": "Exact8849B/hash19e815a4...778a9c readonly benign fixture, actual host qualification reference/hash; no regeneration or substituted media",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "APK实际asset8849/hash与QUAL03一致。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A04",
+      "area": "asset and private copy",
+      "originalOracle": "Exact APK asset and actual private-copy EOF/hash/read-only after original flush-sync-close; fixed path CREATE_NEW/no overwrite; each phase evidence independent",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "APK字节已核；copy/EOF/sync/read-only只源码，FD保管R01-B04。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A05",
+      "area": "empty app identity",
+      "originalOracle": "Dedicated app/test/process/version/cert, zero permissions/business/native/data exposure; sameUID empty sandbox is not RCE/J11/P0 isolation",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "真实AXML/签名身份/零权限组件native已核；同UID不宣称隔离。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A06",
+      "area": "strict inputs and roles",
+      "originalOracle": "Only fixed fixtureSha/runId/case; no arbitrary path/URI or runtime fixture registration. BBB only old extract role, never parameters adapted for mux",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "唯一scopeAll三参数准入纯政策通过；十directcase拒；BBB不mux。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A07",
+      "area": "source rights",
+      "originalOracle": "Synthetic project pixels/known provenance, no external fonts/audio/BBB rights substitution; old notices/model/FFmpeg/release gates unchanged",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "准确source/license资产/继承metadata与SBOM；无新权利清场。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A08",
+      "area": "real backend",
+      "originalOracle": "Actual pinned Media31.9.3/strict locks/metadata closure; no JCodec/fork classes/JAR/decoder/transcoder or JVM platform stubs in APK/product",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "strict真实300/17与Media31.9.3，DEX无JCodec/fork/host helper。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A09",
+      "area": "capability before open",
+      "originalOracle": "Unsupported capability/container/invalid seek or unqualified fixture rejects before DataSource creation/open, actual provider/native open and parser/mux allocation; distinguish any factory identity registration/quota from physical opens, never falsely claim all source counters0",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "源preopen guards/政策拒，native open实际NOT_RUN。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A10",
+      "area": "known short unknown",
+      "originalOracle": "Genuine native requested/returned/EOF for known, max3 short and unknown declaredlength; no synthetic EOF or inferred physical bytes, same semantic capture expected under predeclared representation",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "short3 native限定存在，分层requested不足R01-B02；无Android样本。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A11",
+      "area": "mature extractor lifecycle",
+      "originalOracle": "Actual Mp4Extractor/DefaultExtractorInput or FragmentedMp4Extractor, sniff result/peekreset/endTracks/parserEOF separate; no fake callback/golden observation",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "真实Extractor/DefaultInput的DEX实现及源链存在，运行未证。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A12",
+      "area": "actual Media3 format",
+      "originalOracle": "Actual1 AVC video/0audio,256x144/rotation0/drm absent, real ids/track count not copied host manifest",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "真实format源getter/资格比较存在；actual值未运行。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A13",
+      "area": "capture six payloads",
+      "originalOracle": "Real sampleData plus sampleMetadata complete boundary,size/offset/hash, six bounded encoded copies, no synthetic NAL/seventh payload",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "实际sampleData/Metadata代码与capture门存在；实际six未运行。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A14",
+      "area": "CSD representation",
+      "originalOracle": "Actual Media3 initializationData array count/boundaries/bytes/hash. Host payload7/3 and normalizedAnnexB20 are distinct; do not copy three host hash records as Media3 arrays",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "实际initData逐buffer长度/hash及concat规范化，不写host三数组；真实数组未运行。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A15",
+      "area": "sample and flags representation",
+      "originalOracle": "Actual AVCC vs AnnexB documented before run. Use mature admitted normalization only; host1340 normalized reference not raw1360. Raw Media3 flags recorded, do not fill all1 from JCodec keybool; allowed flag semantics predeclared",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "A02-S01源码政策已修/17host政策通过，真实flags未运行。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A16",
+      "area": "actual PTS",
+      "originalOracle": "Actual Media3 PTS0..1000000 step200000/ordered six, integer units explicit; no rounding or manifest-filled timestamps",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "比较实际timeUs与0..1e6；Android callback未发生。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A17",
+      "area": "seek1second",
+      "originalOracle": "Use actual SeekMap.first point byte/time and new source epoch plus real replay, not requested1s treated as point or synthetic counter; unsupported stays UNSUPPORTED",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "实际SeekMap.first/epoch/replay代码；真实seek支持未证。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A18",
+      "area": "DTS API capability",
+      "originalOracle": "Current TrackOutput observation exposes only timeUs, not independent DTS. Host stts DTS reference kept separate; media3ActualDts null/UNPROVEN unless genuine mature API evidence; allI/monotonePTS not independent DTS proof",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "NO_INDEPENDENT_DTS_API显式保留，actualDTS不填PTS。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A19",
+      "area": "capture ownership",
+      "originalOracle": "Before mux, complete actual input EOF/hash/format/samples and original reader/extractor/observer return; bounded immutable encoded copies, no partial capture admitted",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "完整capture/release/immutable copy源门；原mux keeper新增R01-B05。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A20",
+      "area": "manifest not observation",
+      "originalOracle": "Host manifest only eligibility/reference; actual Media3 getters/callbacks observed fresh and compared, never assignment of golden to fake actual receipt or validated/READY flag",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "manifest只作参考；源码真实getters比较，未以golden填actual。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A21",
+      "area": "mature mux path",
+      "originalOracle": "Actual MatureMuxerBinding→FragmentedMp4Muxer1.9.3→original Sink; actual returned track token/calls/FD identity; no encoder or alternate backend",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "实际mux类DEX/调用存在，原mux异常保管R01-B05，调用NOT_RUN。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A22",
+      "area": "EOS contract",
+      "originalOracle": "Exactly6 nonempty payloads then one emptyEOS flags4/time1200000 from original E6 rule, not seventh encoded frame; actual EOS/mux return, not just plan text",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "原E6 six+emptyEOS4/1200000未改；真实EOS/close未运行。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A23",
+      "area": "fragment bounds",
+      "originalOracle": "Original fragmentDuration3000ms/sampleCopying contract retained; no fragment-boundary duration extrapolation or parameter changes to force success",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "原3000ms/copying配置未改；实际fragment未运行。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A24",
+      "area": "actual reopened duration",
+      "originalOracle": "Actual fMP4 SeekMap/TrackOutput reported duration or approved mature duration evidence1200000, separate callback source and C.TIME_UNSET; expectedEOS/lastPTS+step not substitute; unavailable stays NOT_PROVEN",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "真实SeekMap/TrackOutput duration==1200000，TIME_UNSET拒；实际能力UNPROVEN。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A25",
+      "area": "reopened CSD",
+      "originalOracle": "Real FragmentedMp4Extractor CSD arrays/hashes before/after compared under declared representation; no posthoc PS insertion/splitting/tolerance to get green",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "真实CSD concat相等门；实际fMP4 arrays未运行。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A26",
+      "area": "reopened samples",
+      "originalOracle": "Actual6 fMP4 payloads hash/size/PTS/key/encryption/EOS semantics compare capture in same representation; actual decoder not needed or allowed",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "同框架key/PTS/size/hash + declaredraw政策源门，实测无。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A27",
+      "area": "container identity",
+      "originalOracle": "Output wholehash and size actual new facts, not equal input filehash requirement; parser class/sniff proves fMP4 chain not filename suffix",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "输出extent/hash/实际class与sniff门；没有输出文件/实际parser结果。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A28",
+      "area": "output digest and extent",
+      "originalOracle": "Actual sequential digest/extent vs readback wholeEOF/hash, outputattempt includes all partial/rewrite reservations. Known lower bound/physical unknown separate, no size-as-attempt/refund",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "sequentialdigest/extent-readback匹配及writeAttempt门继承；真实output未写。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A29",
+      "area": "original owner before allocation",
+      "originalOracle": "Register original asset/FD/writer/provider/worker/mux owner before native allocation; fixed UID/PID/source/task/run identity, no orphan on constructor failure",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "原rawFD异常R01-B04，原mux异常R01-B05；不冒原owner已闭。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A30",
+      "area": "flush sync close",
+      "originalOracle": "Capability supports vs actual flush/FD.sync or force/close returned distinct; channel producerClosed/muxerClose not native writer close or crash durability/COMMIT",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "实际Os/FDsync方法编译入DEX不代真实关闭API依据/返回。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A31",
+      "area": "original response and observers",
+      "originalOracle": "ACK/Future completed/counter0 are not native/caller/observer return; same original invocation evidence and correct identity before releasing permits",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "Future/计数与E13返回分门；平台/原mux全返回未证。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A32",
+      "area": "MC-B01 regression",
+      "originalOracle": "Writer/original REOPEN response/observer pending keeps admission wait without first error or inspection-consumption; sameProvider REOPEN1 continues only after actual return; real failures remain sticky",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "MC-B01源完全同旧已修，不重跑旧未知套件；原同grant/REOPEN1保留。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A33",
+      "area": "late return cancel",
+      "originalOracle": "Cancel/deadline closes admission and retains original resources; benign controlled late original return joined, no success-upgrade/retry/new writer/second parser or early cleanup",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "controlled cancellation源与旧有限非媒体事实继承，wholedeadline marker R01-B03。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A34",
+      "area": "all EOF and release layers",
+      "originalOracle": "Whole raw EOF/hash, extractor EOF, ds.close/extractor.release, provider FDclose and original task/observer returns separately; no EOF at fileposition shortcut",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "rawEOF/parserEOF/release/dsclose/FDclose分项源；本机17政策不验证。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A35",
+      "area": "global source quota",
+      "originalOracle": "Within scope HostInput sources2/per-source1/queue0; copy/writer/readback native FD owners and peaks separately recorded with phase ordering and shared input/output ledger; no newfactory quota reset or treating FD count as identical to source slots",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "source2/oneinflight源门；真实FD峰值/完整phase/SDK分层需R01-B02补齐。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A36",
+      "area": "platform finalizer",
+      "originalOracle": "Same caseworker/E13 resources return and actual platform finish original return externally proven; receipt finalizerOwner1 cannot claim whole runner returned. If evidence unavailable stays UNPROVEN",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "sameworker join及E13 canFinish门；receipt finalizer owner1与外finishreturn分列，原mux缺R01-B05。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A37",
+      "area": "whole input budget",
+      "originalOracle": "One authorized scope cumulative8MiB includes copy/hash(native actual extra reads only)/sniff/parse/seek/reopen/EOF allphase; per-layer requested vs native requested vs returned explicit; no reset per factory/case without new declared scope allocation",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "同Job native/copy预算累计不reset，SDK/phase缺R01-B02。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A38",
+      "area": "whole output budget",
+      "originalOracle": "16MiB native-attempt incl partial/unknown/rewrite, block64KiB/sample262144/CSD64KiB/sixAVC; original callbacks reserve-before-call and no refunds/resends, metadata0 counted separately",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "同Job outputAttempt累计含controlled4/真实muxattempt，无退款；native实际未跑。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A39",
+      "area": "outer operation and transfer budget",
+      "originalOracle": "New frozen full plan exact N operations/cases, APK input bytes/framing, stdout+stderr/allpending-final, proof/log/binary output/cleanup budgets predeclared; do not inherit old14ops by assumption",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "新6logicalops/双APK7590909/出入文本上界计划已核，ADB framing/tool/wholewall/cleanup仍待准确设备合同。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A40",
+      "area": "cancel stage coverage",
+      "originalOracle": "Finite benign gates before open/during read/after original WRITE-before-ACK/before REOPEN/observer pending; no malicious atom/resource/blockedFD probes. Normalcancel success is resource return, not mediaPASS",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "cancelLateRead/writerPending仅controlledHOST源；其余阶段实际未跑且当前非全面故障覆盖。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A41",
+      "area": "fixture mismatch guards",
+      "originalOracle": "Wrong sha/role/args or unsupported metadata rejects before parser/write. Controlled benign wrong metadata only with explicit scope, no mutating frozen media or fuzz input",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "17policy含scopeonly/10directreject；wrongfixture源guard存在，无媒体fuzz。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A42",
+      "area": "deadline last point",
+      "originalOracle": "Same original monotonic body-last-controlled-point after cleanup/signaling plus actual join; equality late/earlierUNKNOWN sticky. Android01 join+isAlive alone insufficient, FT-B02 tool fix not automatically Android proof",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "R01-B03源码标记次序不符，等界迟/unknownsticky虽存在不能代。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A43",
+      "area": "first failure and cache",
+      "originalOracle": "True first failure/cancel/timeout unknown sticky. Pre-inspection admission wait not error. Success cache reused only after original return/no second REOPEN/parser, not fresh task for retry",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "pending不sticky/真firstfailure源门保留，partial导出R01-B01。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A44",
+      "area": "stop and cleanup",
+      "originalOracle": "Any UNKNOWN/receipt overflow/budget/identity/failure stops all later cases, preserve original Job/handles/dirs/streams; cleanup new app/files only after original return proof, no forced uninstall/kill",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "同scope停止源；partial外账缺R01-B01及muxkeeperR01-B05；无自动kill/删除旧。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A45",
+      "area": "new offline artifacts",
+      "originalOracle": "Full candidate app/test source→Android javac→JAR→DEX/manifest/signature/assets/dependency actual consumption; no Gradle/device in A; B static actualmethod bodies not just strings",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "728/86/真实DEX方法/双APK/v2/300strict已核。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A46",
+      "area": "no host fork in APK",
+      "originalOracle": "Audit whole APK/DEX dependencies and test-only exclusions/JCodec/fork absence/platformstubs; classpath actual Media3 only. Do not blanket reject inherited android build classes",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "实际wholeAPK/DEX无JCodec/JAAD/fork/check；平台定义与旧继承集精确同。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A47",
+      "area": "fresh exact device plan",
+      "originalOracle": "New app/test/runner/version/cert/APKhash/case/runId/scope/deviceSerial/build/capturetool/freshidle allbound after offline B. Existing device permission persists, no A device/otherproject occupancy queries",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "scope/serial/freshidle/capture null，当前不是执行计划；持续设备许可不重复询问。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    },
+    {
+      "id": "M2A48",
+      "area": "classification",
+      "originalOracle": "Max actualMedia3 container-structure chain within proven contract; no HOST_ISOLATED_FORMAT_V1/validated/READY/COMMIT/playback/RCE/J11/P0/globalD1 PASS from host fixture or finite tests",
+      "phaseAStatusUnchanged": "PREPARED_NOT_RUN",
+      "independentBResult": "COMPLETE_OFFLINE_REVIEW_WITH_SOURCE_BLOCKERS_AND_PLATFORM_NOT_RUN",
+      "notes": "本结论有限静态/政策，不签容器实测或D1/M0/READY/播放。",
+      "actualAndroidStatus": "NOT_RUN",
+      "runtimePass": false
+    }
+  ],
+  "globalAndroidRuns": 0,
+  "policyHelperCasesOnly": 17,
+  "doesNotReclassifyA": true
+}

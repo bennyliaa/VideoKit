@@ -1,0 +1,63 @@
+{
+  "status": "NEW02_TOOL_FROZEN_FOR_REVIEW_NOT_GENERATION_APPROVAL",
+  "toolJar": "artifacts/videokit-fixture-tool02.jar",
+  "bytes": 1954730,
+  "sha256": "c4ed36f31cab8381bc47c0aea4c3f3d8a9c2afab09991a04a83102877f1bfecd",
+  "generationAuthorized": false,
+  "newGenerationScope": null,
+  "futureProposedArguments": [
+    "D:/Android/Android Studio/jbr/bin/java.exe",
+    "-Xmx256m",
+    "-XX:-UsePerfData",
+    "-jar",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1fixture-tool02\\artifacts\\videokit-fixture-tool02.jar",
+    "--generate-six",
+    "--scope=D1GEN01-CANDIDATE-001"
+  ],
+  "scopeLabelIsAuthorization": false,
+  "output": "D:/CodexProjects/VideoKit/docs/coder/d1fixture-six01/new-output/avc6-candidate.mp4",
+  "actualOutputCreatedByThisBatch": false,
+  "currentMediaHash": null,
+  "currentAuOrCsdGolden": null,
+  "deadlineContract": {
+    "clock": "System.nanoTime in production; injected LongSupplier only in controlled checks",
+    "start": "Registered original thread before start, duration60000000000ns",
+    "completion": "Same original worker LAST controlled statement after native cleanup and body-state adoption; NOT OS-thread-exit timestamp",
+    "return": "Actual external join on that exact original thread required separately; marker alone never grants completion/success",
+    "timely": "0<=completion-start<duration in modular signed half-range; equality is late",
+    "observation": "Timely recorded completion remains timely even if observer samples later. Incomplete at observed deadline, actual late completion, invalid half-range/regression or explicit unknown => sticky UNKNOWN. No isAlive-derived time.",
+    "sourceBindings": [
+      "WorkerDeadline.bodyCompletedByOriginal",
+      "WorkerDeadline.awaitBodyWindow",
+      "WorkerDeadline.joinSameOriginal",
+      "SixFrameDriver.Job finally",
+      "SixFrameDriver.main"
+    ]
+  },
+  "nativeSnapshotContract": "Any original native/observer/adoption pending operation gives UNKNOWN actual physical position/extent; lastAcknowledged fields separate. Snapshot after adopted close is explicitly LAST_CONFIRMED_BEFORE_ORIGINAL_CLOSE, not a current open FD measurement. Allocation/close states remain original FileOwner facts, no fresh handle query.",
+  "limits": {
+    "generationHeapBytes": 268435456,
+    "generationBodyDeadlineMs": 60000,
+    "inputCumulativeBytes": 8388608,
+    "outputAttemptedBytes": 16777216,
+    "chunkMax": 65536,
+    "samples": 6,
+    "sampleBytesMax": 262144,
+    "payloadTotalMax": 1572864,
+    "csdMax": 65536,
+    "sourcesMax": 2,
+    "perSourceInFlight": 1,
+    "queue": 0,
+    "operationEvidenceEventsMax": 512,
+    "terminalCloseRecordMax": 1,
+    "receiptUtf8Max": 1048576
+  },
+  "unchangedGenerator": "Original project YUV420J256x144 six frames/5fps/pts0..1000000; actual keyflag/IDR/csd gates; JCodec Packet timescale5 duration1/finish, later Media3 E6 emptyEOS1200000 separate; original MovieHeader Date remains, no repeat media hash promise",
+  "nextGates": [
+    "Coordinator/tester complete02 independent review before closing either P2",
+    "Any controlled recheck uses frozen review_checks.py and NEW exact reviewer root only under separately authorized scope, no new compiler/Main/Job/encoder",
+    "Generation still needs separate exact tool/scope/budget/original owner approval; old local UNKNOWN is not host-idle proof",
+    "Actual generated immutable media/AU/CSD/NAL/timebase/hash manifest, then separate real Media3 qualification/new Android mux candidate"
+  ],
+  "oldLocalSessions": "48945/17257 UNKNOWN untouched; no collection/attach/diagnosis/intervention"
+}

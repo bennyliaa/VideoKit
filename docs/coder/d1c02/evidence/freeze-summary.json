@@ -1,0 +1,288 @@
+{
+  "candidateId": "D1-20261005-C02",
+  "frozen_at": "2026-10-05T05:22:25.933017+08:00",
+  "state": "BLOCKED / NOT_READY_FOR_FORMAL_ACCEPTANCE",
+  "git_commit": null,
+  "source_manifest_sha256": "d3ea63da205a96cf7edd6c975f992c6a4c024145e3205859a02ea272b98ee517",
+  "artifacts": [
+    {
+      "path": "docs/coder/d1c02/artifacts/D1-20261005-C02/app-debug-androidTest.apk",
+      "bytes": 2297041,
+      "sha256": "427d4285625843c7868c01d997a9522a43bf41a89da9d7968fa0fd56f8381d05"
+    },
+    {
+      "path": "docs/coder/d1c02/artifacts/D1-20261005-C02/app-debug.apk",
+      "bytes": 40623190,
+      "sha256": "f06b368f9ccf0b173080da6919e353577a84fdf498413fd0206b20c4499ebe88"
+    },
+    {
+      "path": "docs/coder/d1c02/artifacts/D1-20261005-C02/app-release-unsigned.apk",
+      "bytes": 21607782,
+      "sha256": "71aa8b8b25e1e94d14a6f2939b536b71eea6d043974397120fafad35ebc5f03e"
+    },
+    {
+      "path": "docs/coder/d1c02/artifacts/D1-20261005-C02/D1-20261005-C02-source.zip",
+      "bytes": 341919,
+      "sha256": "99c713633c946f52e6ab0dcd4ef041119b4ee6042eeaa256d3f7412c327f8f56"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/coder/d1c02/evidence/apk-audit.json",
+      "bytes": 1738,
+      "sha256": "7fcae2878d3053972def67dd6dd20b6fce36e2a39988baaa7c0c911e2253ce59"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/app-debug-androidTest.apk.badging.txt",
+      "bytes": 1138,
+      "sha256": "02bb3caa213fbe43947b0a91e5db20622d68fef89fd8aadfe4bad96ca55c38eb"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/app-debug-androidTest.apk.manifest.txt",
+      "bytes": 3562,
+      "sha256": "839f8e3f35c1b5cf9b9cdd364e48d95a4ac90671307403ec828da573c803276a"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/app-debug.apk.badging.txt",
+      "bytes": 5054,
+      "sha256": "1e38fa92b0f6711fe75e9a3a3d0813618cd1704c27ac5b7287207ef9ef8d89e4"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/app-debug.apk.manifest.txt",
+      "bytes": 6790,
+      "sha256": "82decbb5ae88fafc22f078f8ae855ed315f723c8e9f4bbdb9a787e4a18f562e8"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/app-release-unsigned.apk.badging.txt",
+      "bytes": 4614,
+      "sha256": "cb253dfe525066dda9155be42ea7303cebe413a42e96eeda7c0fb700acd9221a"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/app-release-unsigned.apk.manifest.txt",
+      "bytes": 5353,
+      "sha256": "29098ba753d51c781a3767dcdda89d266c07fef2d5a1a26d4c7f971a6fe1473a"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/bouncycastle-1.79-license.snapshot",
+      "bytes": 1175,
+      "sha256": "edbbb10380b1271998b867a2e36b1cbee226e03d438726e1a91f80c5dde11849"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/candidate-self-review.json",
+      "bytes": 1134,
+      "sha256": "015956b6a11a049918fe87f98865c1db07ca7281807fce6aecdef734e47e79cd"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/cluster-build.log",
+      "bytes": 911225,
+      "sha256": "28e6a29758f8f1ed06a1f8d2a19372415e0f00b857a4dad363913350f5f7fda4"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/contract-probe.log",
+      "bytes": 2057,
+      "sha256": "b0824050a934dc3821e62b8d5905b3d685f3bdce8df94b340799ac63b3dff9ae"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/final-cluster-build.log",
+      "bytes": 79294,
+      "sha256": "80686276e0c7fe4f1e02befdd07de610a7669745feb108d8023ba5c18841fae0"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/final-supply-review.log",
+      "bytes": 2788,
+      "sha256": "52a7c1fd53da7097b154a6afe56d21b70f48784081b05a9ab67fd016f75d9465"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/guava-listenable-source.snapshot",
+      "bytes": 4021,
+      "sha256": "3d1bd8d4a39b293612a40e547ec51d9ce34fa638d7adeae83871cdbe2923b161"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/guava-parent-26-license.snapshot",
+      "bytes": 10180,
+      "sha256": "f8698ab46ca996ce889c1afc8ca4f25eb8ac6b034dc898d4583742360016cc04"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/integrity-check.json",
+      "bytes": 21679,
+      "sha256": "3ca7777e91bb1f19f63c3beaf2744ae8dbd5d5d56417716d3a12333c58b26004"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/javax-inject-sources.snapshot",
+      "bytes": 10928,
+      "sha256": "c4b87ee2911c139c3daf498a781967f1eb2e75bc1a8529a2e7b328a15d0e433e"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/kxml2-2.3.0-sources.snapshot",
+      "bytes": 44383,
+      "sha256": "85495366666158b58961e8911ced0f6f3bc92f1ebee865518b493fdb90760250"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/media-inventory.json",
+      "bytes": 47610,
+      "sha256": "326eb12fc3f7d8b62f3d6c6a7d57251a00e2f6a9b7917e8816d4f1414eae10d8"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/coil-license.txt",
+      "bytes": 11347,
+      "sha256": "5ade6484903351f6661e791504c50ad1a24cab3a75950c1b2a7be3eb336b6ba9"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/media3-license.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/opencv-license.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/opencv-zoo-commit.txt",
+      "bytes": 42,
+      "sha256": "e84e28935204cc063ade88cf2ce2ea52a89cf87cb72d00f664a5007b2ef98ad1"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/ort-license.txt",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/vittrack-license.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/vittrack-pointer.txt",
+      "bytes": 131,
+      "sha256": "b4799b5f104a10d70a57959d924e12aebfdcfe63cdf7e99bd62d255abb779307"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/vittrack-readme.txt",
+      "bytes": 3399,
+      "sha256": "bce8dc59e6e93c0e71039b127300fce91ea3e7e0bfbde8e39005f3947d024b4b"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/yunet-license.txt",
+      "bytes": 1085,
+      "sha256": "c83b8120c50ccbd4c4f96edf53141bdd566ebb8f8e9227e415326aa1b1aba958"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/yunet-pointer.txt",
+      "bytes": 131,
+      "sha256": "0b6ceccb83e3d6cb38ae9a92499469937eb210e0267f26f7e68c5a13b53818c3"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/model-baseline/yunet-readme.txt",
+      "bytes": 3221,
+      "sha256": "a140c9e9574ff99d3dc1c435d5e8b5e60690dc91597e66387cbbb52be12cce4c"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/osv-results.json",
+      "bytes": 61976,
+      "sha256": "64b2902d95eef8ffcecc86f88cd02556da22ac36ea39105e0c998eccb15ca26c"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/package-audit.log",
+      "bytes": 1502,
+      "sha256": "3f7082725dafe18b673175565906e9f3d27302212ac346ff62a87409f9b75bbc"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/rights-fetch.log",
+      "bytes": 455,
+      "sha256": "5f65f0e2740ddf1c4c5b8c3b55ec22cc73e250b23110308e2aabd33a2f880574"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/source-manifest.json",
+      "bytes": 20495,
+      "sha256": "d3ea63da205a96cf7edd6c975f992c6a4c024145e3205859a02ea272b98ee517"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/strict-offline-build.log",
+      "bytes": 7069,
+      "sha256": "80f51558b34d7dfce411ebbfd26da6d4caf7c0993a21d0b5a46185fc780e1a88"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/supply-audit.log",
+      "bytes": 2964,
+      "sha256": "cce87c55129cf6f4c465887a12880beae6c8f7e99b4cc8b6c856aa90a281a6c5"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/supply-inventory.json",
+      "bytes": 2794310,
+      "sha256": "8bd2e2fb7379f3bd9ddc0ed18388f7d4a53c95589789afbe3bb6b4b9db1d0b3f"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/supply-review-refined.log",
+      "bytes": 2788,
+      "sha256": "52a7c1fd53da7097b154a6afe56d21b70f48784081b05a9ab67fd016f75d9465"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/THIRD_PARTY_NOTICE_RUNTIME.md",
+      "bytes": 1179409,
+      "sha256": "baacddec2a5e282b646cf8435c0a68d6c98503458d2f40e7a2bc11f0dd23a620"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/THIRD_PARTY_NOTICE_TOOLS.md",
+      "bytes": 1074199,
+      "sha256": "34565762fea983ae2096faf181c5285671f9849aafae67ea1c94553fc2558700"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/traditional-tracking.log",
+      "bytes": 316,
+      "sha256": "fbfd496c4cfa217c1ae4986dbbda0f6da0a0e440f6353a848c22a97efda8d1db"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/vittrack-author-repos.json",
+      "bytes": 9666,
+      "sha256": "7e48abf564d5509a6fc78afccf08d3f4e2ddd87ead6edf59b47855dec321259b"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/vittrack-hf-card.txt",
+      "bytes": 3399,
+      "sha256": "bce8dc59e6e93c0e71039b127300fce91ea3e7e0bfbde8e39005f3947d024b4b"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/vittracker-training-commit.txt",
+      "bytes": 42,
+      "sha256": "ea39c3f96b5fe40081bf05fd2dc2b202d1ba6b7b4c6536c5f3836f55c126580c"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/vittracker-training-config.txt",
+      "bytes": 1701,
+      "sha256": "a7dd9a7b66fedd29aea59129748ad0f865e9cb761af0003022244d9c27848561"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/vittracker-training-readme.txt",
+      "bytes": 2667,
+      "sha256": "fdb4ee445b58146e3977866313a29c57b8a6895af13222e52b59d5c1ee518b2d"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/vittracker-training-tree.json",
+      "bytes": 30608,
+      "sha256": "ee80af317e38d98aae3555a84f95724028f064d4761040dcb851b64511537155"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/VULNERABILITY_MATCHES.md",
+      "bytes": 9071,
+      "sha256": "c77ba5ee8574714104735c14912e3ab193f79a3c54ad20ce3d1b11faf44e068a"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/widerface-official-http.snapshot",
+      "bytes": 10128,
+      "sha256": "65c0d107ba7d8941524eb96961c84eaad8c5f10876003ae5effaeab9bcbdd9c9"
+    },
+    {
+      "path": "docs/coder/d1c02/evidence/yunet-training-fixed.txt",
+      "bytes": 3911,
+      "sha256": "70c41741df544c1ca10ea79f5e825aebb18d82d2ebebb044456cbee56ff590c3"
+    }
+  ],
+  "required_remaining": [
+    "Phone/tablet actual playback, encoding, sink fault and isolated death runs",
+    "Full native media/model pipeline migration into isolated worker and real OOM/adversarial proof",
+    "Commercial model training/pretrain/redistribution evidence or qualified replacement and labeled quality evaluation",
+    "Tool vulnerability review/mitigation approval, final packaged notices review",
+    "SourceDisconnected/network providers and richer coverage fixtures"
+  ]
+}

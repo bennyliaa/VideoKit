@@ -1,0 +1,58 @@
+{
+  "phases": [
+    {
+      "phase": "asset-copy",
+      "owner": "registered original input+dest",
+      "requiredFacts": "exact asset/private destination EOF/hash, actual byte reservations, same flush/sync/close, readonly",
+      "gate": "no capture/parser admission before eligibility",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "phase": "mp4-capture",
+      "owner": "same readonly provider/DataSource+Mp4Extractor",
+      "requiredFacts": "actualfullEOF/hash/sniff/peek/endTracks/6bounded samples/Format+CSD+parserEOF/release/ds/FD/observer returns",
+      "gate": "no writer if source or original returns unproven",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "phase": "fmp4-mux",
+      "owner": "captured encoded copies+real FragmentedMp4Muxer/Sink/writer",
+      "requiredFacts": "actualaddTrack token/6samplewrites/emptyEOS/muxClose/producerClosed/writeattempt and originalFDflushclose",
+      "gate": "no READY/COMMIT or read-only REOPEN before originalwriter/observerreturn",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "phase": "readonly-reopen",
+      "owner": "same original REOPEN capability/provider once",
+      "requiredFacts": "actual grant after originalwriter close, exact fileEOF/hash/extent, FragmentedMp4Extractor realCSD/samplePTS/duration/returns",
+      "gate": "MC-B01 pre-admission wait without failed/consumed; real failure sticky",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "phase": "runner-finish",
+      "owner": "same original caseworker/E13 finalizer/outercapture",
+      "requiredFacts": "last body timestamp/actualjoin/allnative and observers, actualplatformfinish original return and bothouterstreams",
+      "gate": "counter0/Future.isDone/finalizerOwnerAtReceipt1 not complete proof",
+      "status": "PREPARED_NOT_RUN"
+    },
+    {
+      "phase": "cleanup",
+      "owner": "only new owned root/app",
+      "requiredFacts": "only after original resources and finalizer/capture return fact; no orphan/unknown/secondclose",
+      "gate": "ifunknown retain all and stop; no uninstall/force-stop/kill/retry",
+      "status": "PREPARED_NOT_RUN"
+    }
+  ],
+  "forbiddenSyntheticEvidence": [
+    "host fixture manifest as Media3 actual Format/sample",
+    "configuration flags as actual fsync return",
+    "mux close/channel close as native writerclose",
+    "file size as cumulative outputattempt",
+    "parserEOF as nativeEOF/hash",
+    "nativecallbackACK as observer/callerreturn",
+    "counter0 as all original returns",
+    "sourcePTS as actual DTS",
+    "emptyEOS or lastPTS step as observed duration",
+    "platform receipt created before finalizer return as finalizer returned"
+  ]
+}

@@ -1,0 +1,1260 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "VideoKit E6 bounded mux/validator diagnostic fix",
+      "version": "D1-20261017-E6"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "FFmpeg",
+      "version": "8.0.3",
+      "purl": "pkg:generic/ffmpeg@8.0.3",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6136812ea6d4e68bdba27e33c2a94382711cdf4f8602ffef056ff792bd6f9818"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LGPL-2.1-or-later AND IJG AND ISC AND MIT AND Zlib"
+        }
+      ],
+      "properties": [
+        {
+          "name": "scope",
+          "value": "debug only; full object/header map ffmpeg-object-source-license-map.json"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "VideoKit CPU JNI/quota project glue",
+      "version": "D1-20261017-E6",
+      "properties": [
+        {
+          "name": "source",
+          "value": "native/cpu.c and native/quota.c; source/dependency/build/hash maps retained"
+        }
+      ],
+      "components": [
+        {
+          "type": "library",
+          "name": "libvideokit_cpu.so",
+          "version": "D1-20261017-E6",
+          "hashes": [
+            {
+              "alg": "SHA-256",
+              "content": "2547b07d7d4b298e8b455c5f24d0d1fbcdf7068b016527edbf5f80f31d16191a"
+            }
+          ],
+          "properties": [
+            {
+              "name": "correspondingSource",
+              "value": "native/cpu.c + native/e6_verify.h; exact source/header/build map packaged"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.annotation",
+      "name": "annotation-experimental",
+      "version": "1.3.1",
+      "purl": "pkg:maven/androidx.annotation/annotation-experimental@1.3.1",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugCompileClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":1947,\"cacheRelative\":\"androidx.annotation/annotation-experimental/1.3.1/4c57bb306e1f588ed7a31a9b4cd1bc46e8a0c3cc/annotation-experimental-1.3.1.pom\",\"name\":\"annotation-experimental-1.3.1.pom\",\"sha256\":\"426f94310b47bdf004dc2038daeaa943c5ce4f4b063e86f78bc536e232e3ddfc\"},{\"bytes\":36833,\"cacheRelative\":\"androidx.annotation/annotation-experimental/1.3.1/96a98340221569e1c2deb3da92de5ca6e3389a65/annotation-experimental-1.3.1.aar\",\"name\":\"annotation-experimental-1.3.1.aar\",\"sha256\":\"e4d49dc3880b7b7437ea54ce71461e02897faa4e1ecc53e63ecadb1a14c20c9c\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e4d49dc3880b7b7437ea54ce71461e02897faa4e1ecc53e63ecadb1a14c20c9c"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.annotation",
+      "name": "annotation-jvm",
+      "version": "1.6.0",
+      "purl": "pkg:maven/androidx.annotation/annotation-jvm@1.6.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestRuntimeClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":55218,\"cacheRelative\":\"androidx.annotation/annotation-jvm/1.6.0/a7257339a052df0f91433cf9651231bbb802b502/annotation-jvm-1.6.0.jar\",\"name\":\"annotation-jvm-1.6.0.jar\",\"sha256\":\"60b10b5ef5769b79570172e015b8159405c92f034ba88b9391a977589c9deb4e\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "60b10b5ef5769b79570172e015b8159405c92f034ba88b9391a977589c9deb4e"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.annotation",
+      "name": "annotation-jvm",
+      "version": "1.7.0",
+      "purl": "pkg:maven/androidx.annotation/annotation-jvm@1.7.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":1742,\"cacheRelative\":\"androidx.annotation/annotation-jvm/1.7.0/7da65a91f0267c9311d086be64af2406da749f9b/annotation-jvm-1.7.0.pom\",\"name\":\"annotation-jvm-1.7.0.pom\",\"sha256\":\"2d3fcc12e707886992039266237f451140caa8f94c1e62e7fc4d602de345b0d7\"},{\"bytes\":55232,\"cacheRelative\":\"androidx.annotation/annotation-jvm/1.7.0/920472d40adcdef5e18708976b3e314f9a636fcd/annotation-jvm-1.7.0.jar\",\"name\":\"annotation-jvm-1.7.0.jar\",\"sha256\":\"e36b8e4b8393a4adc74e3d4ab22ad5a36396f0cea2e40b5734eae14937dfd224\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e36b8e4b8393a4adc74e3d4ab22ad5a36396f0cea2e40b5734eae14937dfd224"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.annotation",
+      "name": "annotation",
+      "version": "1.6.0",
+      "purl": "pkg:maven/androidx.annotation/annotation@1.6.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestRuntimeClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[]"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.annotation",
+      "name": "annotation",
+      "version": "1.7.0",
+      "purl": "pkg:maven/androidx.annotation/annotation@1.7.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":1924,\"cacheRelative\":\"androidx.annotation/annotation/1.7.0/f8d966aafc67a9e05d35f526af9c0d7575df6207/annotation-1.7.0.pom\",\"name\":\"annotation-1.7.0.pom\",\"sha256\":\"21c618ac8c7092dd95193f05c0b196183a7ce8f1366a7a912c800ebee368a858\"}]"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.concurrent",
+      "name": "concurrent-futures-ktx",
+      "version": "1.2.0",
+      "purl": "pkg:maven/androidx.concurrent/concurrent-futures-ktx@1.2.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":15903,\"cacheRelative\":\"androidx.concurrent/concurrent-futures-ktx/1.2.0/13b49fdb58c74bdfb12eb131b5e22d6d09683e30/concurrent-futures-ktx-1.2.0.jar\",\"name\":\"concurrent-futures-ktx-1.2.0.jar\",\"sha256\":\"e1f3e17bb4358ccd6c77ca45f70635c9aba237261f19eaa4f64a0218c00e2a3e\"},{\"bytes\":2516,\"cacheRelative\":\"androidx.concurrent/concurrent-futures-ktx/1.2.0/b65a884b990aed528c5cde26c1e53e243c18327c/concurrent-futures-ktx-1.2.0.pom\",\"name\":\"concurrent-futures-ktx-1.2.0.pom\",\"sha256\":\"7869d39aa7a7754a4f311771abfd9d95ccbd7ffb27e970f8cb15fdf5b5355b6d\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e1f3e17bb4358ccd6c77ca45f70635c9aba237261f19eaa4f64a0218c00e2a3e"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.concurrent",
+      "name": "concurrent-futures",
+      "version": "1.2.0",
+      "purl": "pkg:maven/androidx.concurrent/concurrent-futures@1.2.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":26311,\"cacheRelative\":\"androidx.concurrent/concurrent-futures/1.2.0/6a1dfd69226e148898410721f4b14315343d1429/concurrent-futures-1.2.0.jar\",\"name\":\"concurrent-futures-1.2.0.jar\",\"sha256\":\"4810315a798690b5d3bb40c92bcd41c045fd2c36bbfc50b27cbac3d6a0eda190\"},{\"bytes\":2265,\"cacheRelative\":\"androidx.concurrent/concurrent-futures/1.2.0/825ffa6adf75533983b4fdb0918dbc6fad5c100e/concurrent-futures-1.2.0.pom\",\"name\":\"concurrent-futures-1.2.0.pom\",\"sha256\":\"6be9a98d6cd75a787eeae2a1a0a3440ebe1ab4639740df9ec028094ab59b622f\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4810315a798690b5d3bb40c92bcd41c045fd2c36bbfc50b27cbac3d6a0eda190"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.lifecycle",
+      "name": "lifecycle-common",
+      "version": "2.3.1",
+      "purl": "pkg:maven/androidx.lifecycle/lifecycle-common@2.3.1",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":23505,\"cacheRelative\":\"androidx.lifecycle/lifecycle-common/2.3.1/fc466261d52f4433863642fb40d12441ae274a98/lifecycle-common-2.3.1.jar\",\"name\":\"lifecycle-common-2.3.1.jar\",\"sha256\":\"15848fb56db32f4c7cdc72b324003183d52a4884d6bf09be708ac7f587d139b5\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "15848fb56db32f4c7cdc72b324003183d52a4884d6bf09be708ac7f587d139b5"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.media3",
+      "name": "media3-common",
+      "version": "1.9.3",
+      "purl": "pkg:maven/androidx.media3/media3-common@1.9.3",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugCompileClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":589654,\"cacheRelative\":\"androidx.media3/media3-common/1.9.3/2cd41faa198d6e278b7e49c7dbff86c54dad83a5/media3-common-1.9.3.aar\",\"name\":\"media3-common-1.9.3.aar\",\"sha256\":\"b7650e8aef0cdfe1846c04901c9b4bffa3eae8fbbc62a883618340b4b217df4b\"},{\"bytes\":8043,\"cacheRelative\":\"androidx.media3/media3-common/1.9.3/bccf2aa590231528bd4c0902672aa1213fe4c38f/media3-common-1.9.3.pom\",\"name\":\"media3-common-1.9.3.pom\",\"sha256\":\"2cbd4100066fc4126b0c5909b3028557219958072c0ac95e60dc653ee30f4117\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b7650e8aef0cdfe1846c04901c9b4bffa3eae8fbbc62a883618340b4b217df4b"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.media3",
+      "name": "media3-container",
+      "version": "1.9.3",
+      "purl": "pkg:maven/androidx.media3/media3-container@1.9.3",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":1776,\"cacheRelative\":\"androidx.media3/media3-container/1.9.3/91442be0e7c51e535fba06e4bff27470f221ea37/media3-container-1.9.3.pom\",\"name\":\"media3-container-1.9.3.pom\",\"sha256\":\"675cef7be79e9e31e0aa6e0eb307bdc911d5c048815740c37edd847f175310d6\"},{\"bytes\":55657,\"cacheRelative\":\"androidx.media3/media3-container/1.9.3/fe43a74e9a0996b17d5f38eaa1d38d49387114cd/media3-container-1.9.3.aar\",\"name\":\"media3-container-1.9.3.aar\",\"sha256\":\"f73cea4fe8a2bf9eb6462bfb7a547d1aaf55395d0007eed6fadb129b56927c0d\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f73cea4fe8a2bf9eb6462bfb7a547d1aaf55395d0007eed6fadb129b56927c0d"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.media3",
+      "name": "media3-muxer",
+      "version": "1.9.3",
+      "purl": "pkg:maven/androidx.media3/media3-muxer@1.9.3",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugCompileClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":1971,\"cacheRelative\":\"androidx.media3/media3-muxer/1.9.3/1df0ca53754adb15f736d03353461dd2812c3f6b/media3-muxer-1.9.3.pom\",\"name\":\"media3-muxer-1.9.3.pom\",\"sha256\":\"3b670a32eeb70f93a1d63db5893021684b27c27f590bd12e70d3cf8063377939\"},{\"bytes\":96117,\"cacheRelative\":\"androidx.media3/media3-muxer/1.9.3/fe0330d72da17eaebb9949dc96b04f24928b8e0/media3-muxer-1.9.3.aar\",\"name\":\"media3-muxer-1.9.3.aar\",\"sha256\":\"ba5a69b754adad29fe1ef26aa0d200b3fe9d11c16e5910dc1988bd97048f8586\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ba5a69b754adad29fe1ef26aa0d200b3fe9d11c16e5910dc1988bd97048f8586"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.test.espresso",
+      "name": "espresso-core",
+      "version": "3.7.0",
+      "purl": "pkg:maven/androidx.test.espresso/espresso-core@3.7.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":3775,\"cacheRelative\":\"androidx.test.espresso/espresso-core/3.7.0/21e7bfdb5e10db344b6572253fdc6a81893a8a97/espresso-core-3.7.0.pom\",\"name\":\"espresso-core-3.7.0.pom\",\"sha256\":\"b6e7f43cb396b89a4ce329a7e5acef79d375203a87a11a7639d18c0e6de50b56\"},{\"bytes\":472033,\"cacheRelative\":\"androidx.test.espresso/espresso-core/3.7.0/9f54800d1df0414ce8584a05637f8004b344bd12/espresso-core-3.7.0.aar\",\"name\":\"espresso-core-3.7.0.aar\",\"sha256\":\"5dd90e366838bf044cb52eae06474debd285df18a7a77c40441ac8e8951bb00f\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5dd90e366838bf044cb52eae06474debd285df18a7a77c40441ac8e8951bb00f"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.test.espresso",
+      "name": "espresso-idling-resource",
+      "version": "3.7.0",
+      "purl": "pkg:maven/androidx.test.espresso/espresso-idling-resource@3.7.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":5441,\"cacheRelative\":\"androidx.test.espresso/espresso-idling-resource/3.7.0/70b1e522e90b228d9d1aad1b22409ebb7657f43e/espresso-idling-resource-3.7.0.aar\",\"name\":\"espresso-idling-resource-3.7.0.aar\",\"sha256\":\"5ff62326b49c308c1d060466ae3cf4aa0e3deaf9295f077a6886048dda3e9b14\"},{\"bytes\":1061,\"cacheRelative\":\"androidx.test.espresso/espresso-idling-resource/3.7.0/aee1945eb84b557c2ea7486e001541f37d5a78c5/espresso-idling-resource-3.7.0.pom\",\"name\":\"espresso-idling-resource-3.7.0.pom\",\"sha256\":\"72c5f3dff213bd143cdfa2eb416d1bde1ced6656d9c54b69efca8f74a2cc831d\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5ff62326b49c308c1d060466ae3cf4aa0e3deaf9295f077a6886048dda3e9b14"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.test.ext",
+      "name": "junit",
+      "version": "1.3.0",
+      "purl": "pkg:maven/androidx.test.ext/junit@1.3.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":10493,\"cacheRelative\":\"androidx.test.ext/junit/1.3.0/1461515f981eb6342553074fc9ffa0528c083f86/junit-1.3.0.aar\",\"name\":\"junit-1.3.0.aar\",\"sha256\":\"3363df84da4540ba8daff02c3f7cd65471037a6a5370591a7e6deba377b36e7f\"},{\"bytes\":2100,\"cacheRelative\":\"androidx.test.ext/junit/1.3.0/e3539beed5f67f696dc68374ad02677732f5597c/junit-1.3.0.pom\",\"name\":\"junit-1.3.0.pom\",\"sha256\":\"92af7f253e5eabe2caec5c56f308312653d123042b22754d6ff664e1752dcf3f\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3363df84da4540ba8daff02c3f7cd65471037a6a5370591a7e6deba377b36e7f"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.test.services",
+      "name": "storage",
+      "version": "1.6.0",
+      "purl": "pkg:maven/androidx.test.services/storage@1.6.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":17607,\"cacheRelative\":\"androidx.test.services/storage/1.6.0/25ee07e80508898ef0fb74ddec44f56fd7221011/storage-1.6.0.aar\",\"name\":\"storage-1.6.0.aar\",\"sha256\":\"f97e3cf6aaf4e3fb97ef219d37a9c0a0720183c1f6db87b37642521e26fb6d30\"},{\"bytes\":1400,\"cacheRelative\":\"androidx.test.services/storage/1.6.0/88f6d8460ad54c2e5202fbc68eadefa6e167a950/storage-1.6.0.pom\",\"name\":\"storage-1.6.0.pom\",\"sha256\":\"8e5d72e2bceef6ef807bc38834dbc7aa53177fd20da349f53dce5a4f2a028bbf\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f97e3cf6aaf4e3fb97ef219d37a9c0a0720183c1f6db87b37642521e26fb6d30"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.test",
+      "name": "core",
+      "version": "1.7.0",
+      "purl": "pkg:maven/androidx.test/core@1.7.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":83477,\"cacheRelative\":\"androidx.test/core/1.7.0/442a8eec92a3a26cd48e9605b161611520efd586/core-1.7.0.aar\",\"name\":\"core-1.7.0.aar\",\"sha256\":\"f4dacd8edceeec48e0c76ecf28339b28f4b4f6b74f8e34e9e59b472c27d9eb81\"},{\"bytes\":2522,\"cacheRelative\":\"androidx.test/core/1.7.0/f7ed84a7ceb8db2fe7123a188856ff7d153a5d2/core-1.7.0.pom\",\"name\":\"core-1.7.0.pom\",\"sha256\":\"b97dd112cd684ad3686f5ccf581b92b106ca76565cf02ccfece060af3bc50743\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f4dacd8edceeec48e0c76ecf28339b28f4b4f6b74f8e34e9e59b472c27d9eb81"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.test",
+      "name": "monitor",
+      "version": "1.8.0",
+      "purl": "pkg:maven/androidx.test/monitor@1.8.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":103877,\"cacheRelative\":\"androidx.test/monitor/1.8.0/3b49e700fa301ccfc2126d60d0a2064836cfec85/monitor-1.8.0.aar\",\"name\":\"monitor-1.8.0.aar\",\"sha256\":\"56cb7496a06d9f2dca7d3ff76c50a8a30bd18e00a24a3b267d5a31437b278e67\"},{\"bytes\":1582,\"cacheRelative\":\"androidx.test/monitor/1.8.0/ca5088a458e73129956622342efeb4cdd612d434/monitor-1.8.0.pom\",\"name\":\"monitor-1.8.0.pom\",\"sha256\":\"681cf08c41700c73b146953867c0ac826da9c2a810bd2a4a8f878ea11c64d40c\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "56cb7496a06d9f2dca7d3ff76c50a8a30bd18e00a24a3b267d5a31437b278e67"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.test",
+      "name": "runner",
+      "version": "1.7.0",
+      "purl": "pkg:maven/androidx.test/runner@1.7.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":1915,\"cacheRelative\":\"androidx.test/runner/1.7.0/76befae08159601e1062fa5350b22ce5952511d2/runner-1.7.0.pom\",\"name\":\"runner-1.7.0.pom\",\"sha256\":\"622831c6d31666fb3438cb0d2ee1fbbbc78cabcd49717699578d92550062207f\"},{\"bytes\":288955,\"cacheRelative\":\"androidx.test/runner/1.7.0/ad0c5f9cec6021f875a7bd1ed9599083b144f58d/runner-1.7.0.aar\",\"name\":\"runner-1.7.0.aar\",\"sha256\":\"970311c47119928a2e406a88892a3d270387cc5a49a181a1c44511105b41b818\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "970311c47119928a2e406a88892a3d270387cc5a49a181a1c44511105b41b818"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "androidx.tracing",
+      "name": "tracing",
+      "version": "1.1.0",
+      "purl": "pkg:maven/androidx.tracing/tracing@1.1.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":5149,\"cacheRelative\":\"androidx.tracing/tracing/1.1.0/cdc41b1335c3857e4136d399f6a7962663d05e5e/tracing-1.1.0.aar\",\"name\":\"tracing-1.1.0.aar\",\"sha256\":\"5b78e2c618fc10b3d14decc01df76158f15954ad746aacf0607766721da081f6\"},{\"bytes\":1717,\"cacheRelative\":\"androidx.tracing/tracing/1.1.0/f47db550fed0a0bbe853d1230422fef98a9bc546/tracing-1.1.0.pom\",\"name\":\"tracing-1.1.0.pom\",\"sha256\":\"f1db502b5d539d94dfb6c659deb76872b1e9d8266d7aa4083868a29c33c22917\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5b78e2c618fc10b3d14decc01df76158f15954ad746aacf0607766721da081f6"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "com.google.code.findbugs",
+      "name": "jsr305",
+      "version": "3.0.2",
+      "purl": "pkg:maven/com.google.code.findbugs/jsr305@3.0.2",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":19936,\"cacheRelative\":\"com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar\",\"name\":\"jsr305-3.0.2.jar\",\"sha256\":\"766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "com.google.errorprone",
+      "name": "error_prone_annotations",
+      "version": "2.30.0",
+      "purl": "pkg:maven/com.google.errorprone/error_prone_annotations@2.30.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":4252,\"cacheRelative\":\"com.google.errorprone/error_prone_annotations/2.30.0/847765ac955397a29f39553e742b60d8f317b544/error_prone_annotations-2.30.0.pom\",\"name\":\"error_prone_annotations-2.30.0.pom\",\"sha256\":\"f713849c23b34953e854565dce8aa795cae0c1416611b720c21461322c795f86\"},{\"bytes\":19367,\"cacheRelative\":\"com.google.errorprone/error_prone_annotations/2.30.0/ff171acb7fb9cbe2b9f50b391e1d52459d30ee62/error_prone_annotations-2.30.0.jar\",\"name\":\"error_prone_annotations-2.30.0.jar\",\"sha256\":\"144f3aefbd6e27daec55d3753b2c6b13c1afdaf0cf04816cdb564588ed92f1bd\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "144f3aefbd6e27daec55d3753b2c6b13c1afdaf0cf04816cdb564588ed92f1bd"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "com.google.guava",
+      "name": "failureaccess",
+      "version": "1.0.2",
+      "purl": "pkg:maven/com.google.guava/failureaccess@1.0.2",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugCompileClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":4740,\"cacheRelative\":\"com.google.guava/failureaccess/1.0.2/c4a06a64e650562f30b7bf9aaec1bfed43aca12b/failureaccess-1.0.2.jar\",\"name\":\"failureaccess-1.0.2.jar\",\"sha256\":\"8a8f81cf9b359e3f6dfa691a1e776985c061ef2f223c9b2c80753e1b458e8064\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8a8f81cf9b359e3f6dfa691a1e776985c061ef2f223c9b2c80753e1b458e8064"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "com.google.guava",
+      "name": "guava",
+      "version": "33.3.1-android",
+      "purl": "pkg:maven/com.google.guava/guava@33.3.1-android",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugCompileClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":2918070,\"cacheRelative\":\"com.google.guava/guava/33.3.1-android/36162b3b4e9df67dae90db62a2c54616ca42c1bd/guava-33.3.1-android.jar\",\"name\":\"guava-33.3.1-android.jar\",\"sha256\":\"2c3e41d1b380f2044d257947a3aa82dabf3ae4b978622745254aa18b6cf89ab0\"},{\"bytes\":3079289,\"cacheRelative\":\"com.google.guava/guava/33.3.1-android/852f8b363da0111e819460021ca693cacca3e8db/guava-33.3.1-jre.jar\",\"name\":\"guava-33.3.1-jre.jar\",\"sha256\":\"4bf0e2c5af8e4525c96e8fde17a4f7307f97f8478f11c4c8e35a0e3298ae4e90\"},{\"bytes\":9321,\"cacheRelative\":\"com.google.guava/guava/33.3.1-android/d06497aead4f2c87559a3149eefbb00c72ece9f0/guava-33.3.1-android.pom\",\"name\":\"guava-33.3.1-android.pom\",\"sha256\":\"c728db6f2705ca3ea6a3cf2cf1260dbeff3a4524249a1b1b900edcfe9d72142f\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2c3e41d1b380f2044d257947a3aa82dabf3ae4b978622745254aa18b6cf89ab0"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "4bf0e2c5af8e4525c96e8fde17a4f7307f97f8478f11c4c8e35a0e3298ae4e90"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "com.google.guava",
+      "name": "listenablefuture",
+      "version": "9999.0-empty-to-avoid-conflict-with-guava",
+      "purl": "pkg:maven/com.google.guava/listenablefuture@9999.0-empty-to-avoid-conflict-with-guava",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath,debugCompileClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":2199,\"cacheRelative\":\"com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar\",\"name\":\"listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar\",\"sha256\":\"b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "javax.inject",
+      "name": "javax.inject",
+      "version": "1",
+      "purl": "pkg:maven/javax.inject/javax.inject@1",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":2497,\"cacheRelative\":\"javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar\",\"name\":\"javax.inject-1.jar\",\"sha256\":\"91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "junit",
+      "name": "junit",
+      "version": "4.13.2",
+      "purl": "pkg:maven/junit/junit@4.13.2",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":384581,\"cacheRelative\":\"junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar\",\"name\":\"junit-4.13.2.jar\",\"sha256\":\"8e495b634469d64fb8acfa3495a065cbacc8a0fff55ce1e31007be4c16dc57d3\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8e495b634469d64fb8acfa3495a065cbacc8a0fff55ce1e31007be4c16dc57d3"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.hamcrest",
+      "name": "hamcrest-core",
+      "version": "1.3",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-core@1.3",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":45024,\"cacheRelative\":\"org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar\",\"name\":\"hamcrest-core-1.3.jar\",\"sha256\":\"66fdef91e9739348df7a096aa384a5685f4e875584cce89386a7a47251c4d8e9\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "66fdef91e9739348df7a096aa384a5685f4e875584cce89386a7a47251c4d8e9"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.hamcrest",
+      "name": "hamcrest-library",
+      "version": "1.3",
+      "purl": "pkg:maven/org.hamcrest/hamcrest-library@1.3",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":53070,\"cacheRelative\":\"org.hamcrest/hamcrest-library/1.3/4785a3c21320980282f9f33d0d1264a69040538f/hamcrest-library-1.3.jar\",\"name\":\"hamcrest-library-1.3.jar\",\"sha256\":\"711d64522f9ec410983bd310934296da134be4254a125080a0416ec178dfad1c\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "711d64522f9ec410983bd310934296da134be4254a125080a0416ec178dfad1c"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-bom",
+      "version": "1.8.0",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-bom@1.8.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":9337,\"cacheRelative\":\"org.jetbrains.kotlin/kotlin-bom/1.8.0/a253c3d63fcb05f163a105ea92a35d9ba2f71ce6/kotlin-bom-1.8.0.pom\",\"name\":\"kotlin-bom-1.8.0.pom\",\"sha256\":\"681f9878548c0a149c678092fd8b1f4cc7c5c41ba1b24397101c1073a6c76dda\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.jetbrains.kotlin",
+      "name": "kotlin-stdlib",
+      "version": "2.2.10",
+      "purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.2.10",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath,debugCompileClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":1750374,\"cacheRelative\":\"org.jetbrains.kotlin/kotlin-stdlib/2.2.10/30de6faa127a4a012db8e71bf1b9c0a99b1402b2/kotlin-stdlib-2.2.10.jar\",\"name\":\"kotlin-stdlib-2.2.10.jar\",\"sha256\":\"9c67cc79efd6b9215b49d2a4308f5f3433537376c7c88e89bdd6729bd096e61a\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9c67cc79efd6b9215b49d2a4308f5f3433537376c7c88e89bdd6729bd096e61a"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-bom",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-bom@1.9.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":4291,\"cacheRelative\":\"org.jetbrains.kotlinx/kotlinx-coroutines-bom/1.9.0/11a86a1aa2fb0ecb72e865e4e0b421be56eb30fb/kotlinx-coroutines-bom-1.9.0.pom\",\"name\":\"kotlinx-coroutines-bom-1.9.0.pom\",\"sha256\":\"bea5511e9001f2c593ab5080df131b219ab5e2085cc5979ce583eacd4946fd78\"}]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core-jvm",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm@1.9.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":1463587,\"cacheRelative\":\"org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.9.0/9beade4c1c1569e4f36cbd2c37e02e3e41502601/kotlinx-coroutines-core-jvm-1.9.0.jar\",\"name\":\"kotlinx-coroutines-core-jvm-1.9.0.jar\",\"sha256\":\"ad89c2892235e670f222d819cb3d81188143cb19a05b59df9889ae4269f5c70a\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ad89c2892235e670f222d819cb3d81188143cb19a05b59df9889ae4269f5c70a"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.jetbrains.kotlinx",
+      "name": "kotlinx-coroutines-core",
+      "version": "1.9.0",
+      "purl": "pkg:maven/org.jetbrains.kotlinx/kotlinx-coroutines-core@1.9.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath,debugAndroidTestRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[]"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.jetbrains",
+      "name": "annotations",
+      "version": "13.0",
+      "purl": "pkg:maven/org.jetbrains/annotations@13.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestRuntimeClasspath,debugCompileClasspath,debugRuntimeClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "debug app runtime"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":17536,\"cacheRelative\":\"org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar\",\"name\":\"annotations-13.0.jar\",\"sha256\":\"ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "org.jetbrains",
+      "name": "annotations",
+      "version": "23.0.0",
+      "purl": "pkg:maven/org.jetbrains/annotations@23.0.0",
+      "properties": [
+        {
+          "name": "gradleConfigurations",
+          "value": "debugAndroidTestCompileClasspath"
+        },
+        {
+          "name": "scope",
+          "value": "instrumentation/compile only"
+        },
+        {
+          "name": "source",
+          "value": "Existing local Maven cache; no download; prior C14 package family"
+        },
+        {
+          "name": "cachedArtifactEvidence",
+          "value": "[{\"bytes\":29371,\"cacheRelative\":\"org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar\",\"name\":\"annotations-23.0.0.jar\",\"sha256\":\"7b0f19724082cbfcbc66e5abea2b9bc92cf08a1ea11e191933ed43801eb3cd05\"}]"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7b0f19724082cbfcbc66e5abea2b9bc92cf08a1ea11e191933ed43801eb3cd05"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "name": "scope",
+      "value": "Local-only Debug prototype; no production release or Android device acceptance"
+    },
+    {
+      "name": "correspondingNativeSource",
+      "value": "upstream-c14/D1-20261016-C14-source.zip retains full original signed source/configuration/license maps"
+    },
+    {
+      "name": "licenseGate",
+      "value": "Inherited NOTICE and native license evidence retained; incomplete Maven license declarations are not license clearance"
+    }
+  ]
+}

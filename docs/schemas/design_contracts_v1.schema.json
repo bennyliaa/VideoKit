@@ -1,0 +1,359 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:videokit:design-contracts:v1",
+  "title": "VideoKit design-only contract fragments",
+  "description": "Draft design fragments, not frozen product ABI or exhaustive media schema. Cross-field PTS ordering, authorization and real-return invariants require semantic checks. No current artifact migration.",
+  "type": "object",
+  "$defs": {
+    "TypedArgs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "integer",
+          "number",
+          "boolean"
+        ]
+      }
+    },
+    "StructuredError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "suggestedAction": {
+          "type": "string",
+          "minLength": 1
+        },
+        "typedArgs": {
+          "$ref": "#/$defs/TypedArgs"
+        },
+        "resourceContractVersion": {
+          "const": 1
+        },
+        "redactedDiagnostic": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sessionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requestId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "taskId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "stage",
+        "retryable",
+        "suggestedAction",
+        "typedArgs",
+        "resourceContractVersion"
+      ],
+      "additionalProperties": false
+    },
+    "RecognitionSegment": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bindingGeneration": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "timelineEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "taskId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "segmentId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recognitionConfigRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "text": {
+          "type": "string"
+        },
+        "languageTag": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "startUs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "endUs": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "finality": {
+          "enum": [
+            "PARTIAL",
+            "FINAL"
+          ]
+        },
+        "qualityFlags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "sessionId",
+        "bindingGeneration",
+        "timelineEpoch",
+        "taskId",
+        "segmentId",
+        "recognitionConfigRevision",
+        "revision",
+        "text",
+        "languageTag",
+        "startUs",
+        "endUs",
+        "finality",
+        "qualityFlags"
+      ],
+      "additionalProperties": false
+    },
+    "TranslationResult": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bindingGeneration": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "timelineEpoch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "taskId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "translationConfigRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "sourceCueId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceCueRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "targetLanguageTag": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "PARTIAL",
+            "COMPLETED",
+            "CANCELLED",
+            "FAILED"
+          ]
+        },
+        "modelRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "qualityFlags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "sessionId",
+        "bindingGeneration",
+        "timelineEpoch",
+        "taskId",
+        "translationConfigRevision",
+        "sourceCueId",
+        "sourceCueRevision",
+        "targetLanguageTag",
+        "text",
+        "status",
+        "modelRef",
+        "qualityFlags"
+      ],
+      "additionalProperties": false
+    },
+    "Clip": {
+      "type": "object",
+      "properties": {
+        "clipId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceInUs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "sourceOutUs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9223372036854775807
+        },
+        "outputOrder": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "transformRef": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "clipId",
+        "sourceId",
+        "sourceInUs",
+        "sourceOutUs",
+        "outputOrder",
+        "transformRef"
+      ],
+      "additionalProperties": false
+    },
+    "OutputStatus": {
+      "type": "object",
+      "properties": {
+        "exportId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "handleId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "logicalState": {
+          "enum": [
+            "OPEN",
+            "WRITING",
+            "FINALIZING",
+            "VALIDATING",
+            "READY",
+            "ABORT_REQUESTED",
+            "ABORTED",
+            "FAILED"
+          ]
+        },
+        "originalReturnState": {
+          "enum": [
+            "PENDING",
+            "RETURNED",
+            "UNKNOWN"
+          ]
+        },
+        "cleanupState": {
+          "enum": [
+            "NOT_REQUESTED",
+            "PENDING",
+            "DONE",
+            "UNKNOWN"
+          ]
+        },
+        "outputTokenId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "validationRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "exportId",
+        "handleId",
+        "logicalState",
+        "originalReturnState",
+        "cleanupState",
+        "outputTokenId",
+        "validationRef"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "StructuredError": {
+      "$ref": "#/$defs/StructuredError"
+    },
+    "RecognitionSegment": {
+      "$ref": "#/$defs/RecognitionSegment"
+    },
+    "TranslationResult": {
+      "$ref": "#/$defs/TranslationResult"
+    },
+    "Clip": {
+      "$ref": "#/$defs/Clip"
+    },
+    "OutputStatus": {
+      "$ref": "#/$defs/OutputStatus"
+    }
+  },
+  "additionalProperties": false
+}

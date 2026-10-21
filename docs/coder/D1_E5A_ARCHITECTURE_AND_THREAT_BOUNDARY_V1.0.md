@@ -1,0 +1,45 @@
+# D1 E5A 架构、线性化与威胁边界 V1.0
+
+2026-10-17。修复E5-F01/F02，不改既定框架、真实编码/验证门和既有权限边界。独立Kit/未来Flutter控制边界保持，压缩解析在普通isolated CPU，RGBA不跨Dart；同APK :e4_codec 同UID仅是故障进程边界，不是权限/RCE沙箱。N2实际唯一根因仍UNKNOWN，原FAIL不改。
+
+## F01：持久负向阻断与活正向证明
+
+E5尾部窗口成立：完成文件完整字节已可见，不证明force/实际close/最后目录sync或目录FDclose已返回。E5进程内ACTIVE不保护新host。E5A的原N2固定预算730a73e1-50e1-4198-a515-047104f00e31在生产reserve中始终要求E5AAdmission活证明；恢复目录、归档marker或completion任何一个存在也触发该门。标记全缺也不解除这个固定账户的阻断。改UUID会与原anchor不符，计划亦禁止换账户/路径/清数据。
+
+活证明仅可从本次E5N2Recovery或E5AFinalObservation原操作实例发布，绑定准确budget绝对路径，逐原holder/目录barrier/预算校验FD全部CLOSED、非poison/failed、ACTIVE已移除；不能由文件内容、字符串返回、receipt语法或caller布尔制造。它只存当前进程内存，不持久化成新最后自证文件。原操作的所有force/close/目录sync真正返回后，移除ACTIVE并发布证明，是当前进程准入线性化点。任何尾部异常/不返回无证明，原对象强引用；新的进程证明恒为空。
+
+原恢复仍严格固定N2 task86cafdb3-0fc4-447d-920b-b19c884bf494、epoch5131975343750146374/gen1、service775a5ee9-fff3-4340-a03b-97751099c0c4、host24853/codec24873/UID10221、原batch/lease/R链。QUERY不锁/fence/hash输出。ABORT仍核两个真实唯一退出记录和/proc ENOENT、原owner/worker实际排他flock、完整前像/原ledger锁、fence/ABORT_PENDING→ABORTED/readback、保留输出实际SHA/字节、唯一S/fsync/readback/实际关闭，再归档marker和完成内容。完成文件只是后续观察的候选状态，不是许可。
+
+归档内新增recovery.owner是fence之前写入并同步的实际writer身份：E5A_N2_RECOVERY_OWNER_V1、随机attempt UUID、真实PID/UID/主进程名、记录墙钟时间。它不声称操作完成。旧E5或任意部分状态缺该身份时拒绝，不倒填记录、不从任意PID参数构造证据。
+
+## 明确的独立最终观察
+
+这是另一次正式派发的操作，而不是重启自动继承许可，也不重做原ABORT/S。当前适配器要求原包/UID10221与主进程com.videokit.app、无活动Session/slot；从固定私有owner记录取得唯一原writer身份，要求本进程PID不同、ApplicationExitInfo最多8条中原PID/UID/name且timestamp在owner记录之后至当前各唯一有效匹配，/proc原PID为ENOENT。实际writer还活着、PID复用可见、记录歧义/不可用均拒绝。
+
+随后取得原N2 owner/worker实际排他lease；核四份before images、原identity、ABORTED journal/新fence、原proof的两个原N2退出字段/原closeACK=false、唯一S及其链、当前稳定anchor、归档marker0B、完整completion。用生产E4OutputBudget.inspect核完整累计账链且无在途R；任何新的普通任务pending同样拒绝，不能借旧N2观察清别的任务账。
+
+观察对现有14个有界文件执行本次force和实际close，包括原保留输出≤2MiB并重算SHA与唯一S一致；对archive/output/budget三个目录实际fsync/close，再独立读回整套metadata，最后实际关闭原排他lease/owner。文件内容、journal、R/S、marker、完成文件均不改写；没有第二份S，没有新增observer-complete文件。只有本次全部真正返回才发布当前进程活证明。若观察force/close/sync未知，本次强引用并BLOCKED；新进程仍默认拒绝，不能因旧文件可见洗成许可。
+
+这里证明的是“原writer已经实际死亡，当前观察到的确定状态经本次独立同步和资源归还后可在本host使用”，不是补写旧force返回，不把旧BLOCKED/FAIL或原closeACK改成成功，不宣称绝对抗掉电。只依赖Android公开退出信息与文件系统fsync正常返回契约；这些证据实际是否可得仍待设备正式检验。
+
+每次独立instrumentation结束活证明消失。下一次正常方法在同一新host、任何fixture读取之前，以明确e5aObservation派发参数和独立结算报告标识执行新的实际观察。独立观察报告本身不持久授权未来host。Android主进程/UID及受控FD拓扑是协议边界；不抵抗恶意同UID任意文件修改/RCE。
+
+E5ADirectoryBarrier在打开原目录FD之前注册Slot；open返回的FD先写入Slot再做fstat/force，close只由原holder执行。UNKNOWN/CLOSING不重试。恢复最多32个holder/16目录barrier，观察最多48个holder，另保validationBudget所有原holder及至多16目录barrier；任何未归还metadata/预算/目录FD会继续保原排他guard。有限metadata读取，不递归扫描；observer两次固定metadata快照，ledger每份≤128KiB、owner≤256B、proof≤2048B、输出hash≤2MiB。
+
+## F02：同一原任务的终局与时限
+
+E5ALifecycle由生产E4Session直接使用。start时设原产品60秒看门；首次失败/取消只设一次cancelAt及cancelAt+30秒绝对截止，并在触及平台取消前安装截止事件。原协商12秒、STARTED15秒、实际六帧/isolated验证门保持。控制请求仍计原E4ReturnGate，callback/native/Image/FD不因计时器扣账。
+
+失败初轮advanceCleanup返回后，不先完成Future，也不先unbind原service/标owner完成。同一单线程executor至多排一次continuation，并核仍为原Thread；原窗口内接续有限QUERY/实际close/abort。最后finisher执行真实unbind、原owner标志、CONTROL归还栅栏、唯一预算结算；该回调真正返回后且所有实际资源/预算都已归还才完成失败Future。正常成功也经同一实际终局门。finishEntries与originalOwnerReturned分开，不把进入finisher当已归还。
+
+即使计时任务调度迟到，resourcesChanged也按原绝对时钟判断；到截止后才完成实际归还时，原计数可如实为0但终局资格仍失败，Report保持PENDING，所有device released断言必须另核ACTUAL_OWNERS_RETURNED及originalOwnerReturned。不能把迟到采样时raw resourcesReleased=true当按时通过。若原调用/close/CONTROL到首次30秒截止仍未返回，时钟仅完成一个明确PENDING/ORIGINAL_CANCEL_DEADLINE_PENDING报告，保原in-flight、对象、slot、R/marker；不假造归还、不调用通用reset。迟到实际归还可产生事实更新，但不能升级已封存的原PENDING/FAIL。原首错AtomicReference保持，Report失败永不因cleanup成功改READY。
+
+Session.await超时转同一finishForInstrumentation；非UI AutoCloseable.close和JUnit @After也调用该门。positive/negative/cancel、await异常/中断均不能先终结仪器；等待被中断时继续同一门，最后恢复中断标志。外部start/Future投影被cancel/complete不会控制私有内部终局。UI close只请求取消，仪器入口明确非UI。
+
+90秒仪器外壳只是卡住时取诊断，不延长产品60/12/15或首次取消30秒。截止时结束并报告UNKNOWN允许系统结束进程，但系统死亡不是原protocol closeACK，也不将本批原任务计通过。原native永不返回时仍可在明确截止报告PENDING，未还原资源均保留。
+
+## 验证范围
+
+直接执行生产recovery、Admission、OutputBudget、DirectoryBarrier与Lifecycle；自有文件/真实JVM进程、真实FileChannel及单owner/CONTROL线程。八个完成尾部场景和新host reserve均有独立日志；未返时实际FD open/ACTIVE=1；真实旧writer JVM退出之后另观察现有状态并实际force/close，旧结果保持。另以只复制原anchor/ledger、不带任何恢复标记的新host副本证明固定账户仍拒绝，不删除原现场。
+
+生命周期用虚拟单调时钟推进边界，实际执行原close、CONTROL finally和账本S，证明初轮后同owner排队、截止前迟到、截止UNKNOWN、唯一finish/S与中断等待/外部Future取消。它不是Android Handler/Binder/进程结束或实际30秒墙钟实验。目录FD本机替身是实际自有FileChannel，不能据此声称Android目录fsync、codec或掉电已通过。

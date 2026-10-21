@@ -1,0 +1,145 @@
+{
+  "batch": "D1-E4A-T6P-TABLET-20261017",
+  "status": "ASCII_STREAM_DECODE_AND_RAW_SHA_VERIFIED_NOT_A_MEDIA_FIXTURE",
+  "priorRemoteOwnership": "UNKNOWN_NOT_CLEARED",
+  "metadataCommands": 6,
+  "producerAttempts": 1,
+  "rawSource": {
+    "expectedBytes": 256,
+    "expectedSha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+    "prehash": {
+      "rawBytes": 256,
+      "rawSha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+      "encodedBytes": 344,
+      "encodedSha256": "ab7727e21f4bbba6508dd72804d97435a78eb44a1e277af1c0f65a8522de382e"
+    },
+    "streamBytes": 256,
+    "streamSha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+    "streamReachedDeclaredEnd": true,
+    "actualRawCloseReturned": true,
+    "rawChunkCap": 24576,
+    "peakTrackedBufferBytes": 853
+  },
+  "encoding": {
+    "type": "BASE64_STANDARD_NO_LF",
+    "expectedBytes": 344,
+    "expectedSha256": "ab7727e21f4bbba6508dd72804d97435a78eb44a1e277af1c0f65a8522de382e",
+    "actualSubmittedBytes": 344,
+    "actualSubmittedSha256": "ab7727e21f4bbba6508dd72804d97435a78eb44a1e277af1c0f65a8522de382e",
+    "noEncodedDiskCopy": true
+  },
+  "receiverObservation": {
+    "BEGIN": {
+      "uid": "10221",
+      "pwd": "/data/user/0/com.videokit.app",
+      "pid": "23033",
+      "path": "files/e4_diag_T6P_TABLET_20261017_once/payload256.bin"
+    },
+    "DECODE": {
+      "rc": "0"
+    },
+    "END": {
+      "uid": "10221",
+      "pwd": "/data/user/0/com.videokit.app",
+      "pid": "23033",
+      "path": "files/e4_diag_T6P_TABLET_20261017_once/payload256.bin",
+      "decoderRc": "0",
+      "statRc": "0",
+      "bytes": "256"
+    }
+  },
+  "receiverProof": {
+    "BEGIN": {
+      "uid": "10221",
+      "pwd": "/data/user/0/com.videokit.app",
+      "pid": "23033",
+      "path": "files/e4_diag_T6P_TABLET_20261017_once/payload256.bin"
+    },
+    "DECODE": {
+      "rc": "0"
+    },
+    "END": {
+      "uid": "10221",
+      "pwd": "/data/user/0/com.videokit.app",
+      "pid": "23033",
+      "path": "files/e4_diag_T6P_TABLET_20261017_once/payload256.bin",
+      "decoderRc": "0",
+      "statRc": "0",
+      "bytes": "256"
+    }
+  },
+  "independentProof": {
+    "uid": "10221",
+    "pwd": "/data/user/0/com.videokit.app",
+    "path": "files/e4_diag_T6P_TABLET_20261017_once/payload256.bin",
+    "bytes": "256",
+    "sha": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+    "before": "64522,19424,256,10221,8180,1792206618",
+    "after": "64522,19424,256,10221,8180,1792206618"
+  },
+  "records": [
+    {
+      "stage": "features",
+      "file": "00-features.json",
+      "status": "PROCESS_IO_COMPLETE_ONLY",
+      "ownership": "RETURNED"
+    },
+    {
+      "stage": "original-context",
+      "file": "01-original-context.json",
+      "status": "PROCESS_IO_COMPLETE_ONLY",
+      "ownership": "RETURNED"
+    },
+    {
+      "stage": "uid-snapshot",
+      "file": "02-uid-snapshot.json",
+      "status": "PROCESS_IO_COMPLETE_ONLY",
+      "ownership": "RETURNED"
+    },
+    {
+      "stage": "new-private-directory",
+      "file": "03-new-private-directory.json",
+      "status": "PROCESS_IO_COMPLETE_ONLY",
+      "ownership": "RETURNED"
+    },
+    {
+      "stage": "one-byte-sequential-file-probe",
+      "file": "04-one-byte-sequential-file-probe.json",
+      "status": "PROCESS_IO_COMPLETE_ONLY",
+      "ownership": "RETURNED"
+    },
+    {
+      "stage": "one-base64-receiver",
+      "file": "05-one-base64-receiver.json",
+      "status": "PROCESS_IO_COMPLETE_ONLY",
+      "ownership": "RETURNED"
+    },
+    {
+      "stage": "independent-raw-proof",
+      "file": "06-independent-raw-proof.json",
+      "status": "PROCESS_IO_COMPLETE_ONLY",
+      "ownership": "RETURNED"
+    }
+  ],
+  "nextMediaOrProductAuthorized": false,
+  "priorProcessObservation": "ONE_UID_SNAPSHOT_NOT_ALL_RESOURCE_RETURN",
+  "decoderProbe": {
+    "originalEndpointRc": {
+      "printf": "0",
+      "decoder": "0",
+      "od": "0"
+    },
+    "proof": {
+      "uid": "10221",
+      "pwd": "/data/user/0/com.videokit.app",
+      "parentPid": "23019",
+      "mode": "SEQUENTIAL_FILES",
+      "asciiStatRc": "0",
+      "rawStatRc": "0",
+      "asciiBytes": "4",
+      "rawBytes": "1",
+      "hex": " 00"
+    }
+  },
+  "retainedLocalOwners": 0
+}

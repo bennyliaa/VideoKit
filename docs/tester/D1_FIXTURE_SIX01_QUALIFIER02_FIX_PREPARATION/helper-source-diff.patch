@@ -1,0 +1,52 @@
+--- frozen_original/Six01ContainerQualifier.java
++++ new_only/Six01ContainerQualifier02.java
+@@ -8,7 +8,7 @@
+ /** PREPARATION: compile only. A later exact scope must pin expected file bytes/hash
+  * and all helper/dependency class identities before ONE read-only invocation.
+  * Mature JCodec raw demux/boxes/AVC utility APIs only. No MP4 or AVC byte parser. */
+-public final class Six01ContainerQualifier {
++public final class Six01ContainerQualifier02 {
+  static final Path INPUT=Paths.get("D:/CodexProjects/VideoKit/docs/coder/d1fixture-six01/new-output/avc6-candidate.mp4").toAbsolutePath().normalize();
+  static final long READ_BUDGET=1048576,WINDOW_NS=60000000000L;static final int BLOCK=65536,SAMPLE_MAX=262144,CSD_MAX=65536;
+  static final AtomicReference<Job> RETAINED=new AtomicReference<>();
+@@ -57,7 +57,7 @@
+ 
+  static final class Job implements Runnable {
+   final String scope,expectedSha;final long expectedBytes;final InputOwner input=new InputOwner(this);final WorkerDeadline timing=new WorkerDeadline(System::nanoTime,WINDOW_NS);
+-  Thread worker;volatile boolean stopped,joined,bodyReturned,uncertain,libraryFacadeCloseReturned,wholeHashEof,containerObserved;volatile String firstError,wholeHash;volatile Map<String,Object> observation;
++  Thread worker;volatile boolean stopped,joined,bodyReturned,uncertain,libraryFacadeCloseReturned,wholeHashEof,containerObserved;volatile String firstError,wholeHash;volatile Map<String,Object> observation;volatile Map<String,Object> dataReferenceObservation;
+   Job(String scope,String sha,long bytes){this.scope=scope;expectedSha=sha;expectedBytes=bytes;}
+   synchronized void fail(String s){if(firstError==null)firstError=s;stopped=true;}
+   void admission()throws IOException{if(stopped)throw new IOException("ADMISSION_CLOSED");if(timing.observeUnknown()){uncertain=true;fail("CHECKER_DEADLINE_UNKNOWN");throw new IOException("CHECKER_DEADLINE_UNKNOWN");}}
+@@ -74,7 +74,12 @@
+     AbstractMP4DemuxerTrack abstractTrack=demux.getTracks().get(0);check(abstractTrack instanceof MP4DemuxerTrack,"RAW_FRAME_TRACK_API_REQUIRED");MP4DemuxerTrack track=(MP4DemuxerTrack)abstractTrack;TrakBox trak=track.getBox();check(trak.isVideo()&&!trak.isAudio()&&track.getFrameCount()==6,"ACTUAL_TRACK_AND_SAMPLE_COUNT_UNPROVEN");
+     List<String> boxNames=new ArrayList<>();walk(movie,0,0,boxNames);identityMatrix(trak.getTrackHeader().getMatrix());MovieHeaderBox mvhd=NodeBox.findFirst(movie,MovieHeaderBox.class,"mvhd");check(mvhd!=null,"MOVIE_HEADER_UNPROVEN");identityMatrix(mvhd.getMatrix());check(trak.getEdits()==null||trak.getEdits().isEmpty(),"EDIT_TIMELINE_NOT_ADMITTED");
+     SampleEntry[] entries=track.getSampleEntries();check(entries!=null&&entries.length==1&&entries[0] instanceof VideoSampleEntry&&"avc1".equals(entries[0].getFourcc()),"SINGLE_UNPROTECTED_AVC1_ENTRY_UNPROVEN");VideoSampleEntry entry=(VideoSampleEntry)entries[0];check(entry.getWidth()==256&&entry.getHeight()==144&&entry.getDrefInd()==1,"ACTUAL_VIDEO_ENTRY_DIMENSIONS_UNPROVEN");
+-    DataRefBox refs=NodeBox.findFirstPath(trak,DataRefBox.class,Box.path("mdia.minf.dinf.dref"));check(refs!=null&&refs.getBoxes().size()==1&&refs.getBoxes().get(0) instanceof UrlBox,"SELF_CONTAINED_DREF_UNPROVEN");UrlBox url=(UrlBox)refs.getBoxes().get(0);check(url.getUrl()==null&&(url.getFlags()&1)!=0,"EXTERNAL_MEDIA_REFERENCE_FORBIDDEN");
++    DataRefBox refs=NodeBox.findFirstPath(trak,DataRefBox.class,Box.path("mdia.minf.dinf.dref"));
++    dataReferenceObservation=map();DataReferencePolicy.inspect(refs,entry.getDrefInd(),dataReferenceObservation);
++    // Mandatory original dref container version/flags and declared entry_count
++    // are discarded by the frozen DataRefBox API. Never serialize parsed boxes
++    // or substitute actual child count to manufacture these original facts.
++    DataReferencePolicy.requireOriginalContainerMetadata(dataReferenceObservation);
+     AvcCBox avcc=H264Utils.parseAVCC(entry);check(avcc!=null&&avcc.getNalLengthSize()==4,"AVCC_NAL_LENGTH_UNPROVEN");List<Map<String,Object>> config=csd(avcc);
+     SampleSizesBox stsz=trak.getStsz();check(stsz!=null&&stsz.getDefaultSize()==0&&stsz.getCount()==6&&stsz.getSizes()!=null&&stsz.getSizes().length==6,"ACTUAL_SAMPLE_SIZES_UNPROVEN");int[] sizes=stsz.getSizes();for(int size:sizes)check(size>0&&size<=SAMPLE_MAX,"SAMPLE_SIZE_LIMIT");
+     long scale=track.getTimescale();check(scale>0&&scale==trak.getTimescale(),"TRACK_TIMEBASE_UNPROVEN");TimeToSampleBox stts=trak.getStts();check(stts!=null&&stts.getEntries().length>0&&stts.getEntries().length<=6,"STTS_UNPROVEN");long[] dts=new long[6],duration=new long[6];int samples=0;long total=0;for(TimeToSampleBox.TimeToSampleEntry e:stts.getEntries()){check(e.getSampleCount()>0&&e.getSampleCount()<=6-samples&&e.getSampleDuration()>0,"STTS_SCOPE");for(int j=0;j<e.getSampleCount();j++){dts[samples]=total;duration[samples]=e.getSampleDuration();total=Math.addExact(total,duration[samples]);samples++;}}check(samples==6,"STTS_COUNT_UNPROVEN");
+@@ -89,14 +94,14 @@
+    }finally{if(demux!=null){demux.close();libraryFacadeCloseReturned=true;}}
+   }
+   @Override public void run(){try{admission();preflight();input.open();hashOriginal();inspect();}catch(Throwable e){fail(e.getMessage()!=null&&e.getMessage().matches("[A-Z0-9_]{1,100}")?e.getMessage():"QUALIFICATION_FIELD_OR_API_UNPROVEN");}finally{try{input.close();}catch(Throwable e){uncertain=true;fail("ORIGINAL_INPUT_CLOSE_UNKNOWN");}bodyReturned=true;timing.bodyCompletedByOriginal();}}
+-  Map<String,Object> receipt(boolean pending){boolean returned=joined&&bodyReturned&&input.originalReturned();String status=timing.observeUnknown()||uncertain?"UNKNOWN_ORIGINAL_OR_DEADLINE":firstError!=null?"BLOCKED_OR_FAILED_UNPROVEN_FIELD":returned&&containerObserved&&wholeHashEof&&timing.timelyAndJoined()?"HOST_CONTAINER_QUALIFICATION":"UNKNOWN_RETURN_PENDING";Map<String,Object> r=map("helper","SIX01_QUALIFIER_PREPARATION_COMPILED_NOT_YET_AUTHORIZED_TO_READ","scopeLabelNotAuthority",scope,"inputPath",INPUT.toString(),"expectedBytes",expectedBytes,"expectedSha256",expectedSha,"wholeHash",wholeHash,"wholeHashEof",wholeHashEof,"status",status,"firstError",firstError,"sameOriginalCheckerThreadJoined",joined,"originalInputAndLibraryReaderReturn",returned&&libraryFacadeCloseReturned,"originalInputOwner",input.receipt(joined&&!pending),"workerDeadline",timing.receipt(),"receiptUtf8Max",1048576,"classificationBoundary","HOST_CONTAINER_ONLY_NOT_HOST_ISOLATED_FORMAT_V1_READY_COMMIT_DECODE_MEDIA3","oldSessionsTouched",false);if(!pending&&joined)r.put("actualContainerObservation",observation);return r;}
++  Map<String,Object> receipt(boolean pending){boolean returned=joined&&bodyReturned&&input.originalReturned();String status=timing.observeUnknown()||uncertain?"UNKNOWN_ORIGINAL_OR_DEADLINE":firstError!=null?"BLOCKED_OR_FAILED_UNPROVEN_FIELD":returned&&containerObserved&&wholeHashEof&&timing.timelyAndJoined()?"HOST_CONTAINER_QUALIFICATION":"UNKNOWN_RETURN_PENDING";Map<String,Object> r=map("helper","SIX01_QUALIFIER02_FIX_PREPARED_WHOLE_METADATA_BLOCKED","scopeLabelNotAuthority",scope,"inputPath",INPUT.toString(),"expectedBytes",expectedBytes,"expectedSha256",expectedSha,"wholeHash",wholeHash,"wholeHashEof",wholeHashEof,"status",status,"firstError",firstError,"sameOriginalCheckerThreadJoined",joined,"originalInputAndLibraryReaderReturn",returned&&libraryFacadeCloseReturned,"originalInputOwner",input.receipt(joined&&!pending),"workerDeadline",timing.receipt(),"receiptUtf8Max",1048576,"classificationBoundary","HOST_CONTAINER_ONLY_NOT_HOST_ISOLATED_FORMAT_V1_READY_COMMIT_DECODE_MEDIA3","oldSessionsTouched",false);if(!pending&&joined){r.put("actualContainerObservation",observation);r.put("actualDataReferenceChildObservation",dataReferenceObservation);}return r;}
+  }
+  static void emit(Map<String,Object> r){try{System.out.println(ReceiptJson.json(r));}catch(Throwable e){System.out.println("{\"status\":\"UNKNOWN_RECEIPT_UNPROVEN\",\"qualifiedFixture\":false}");}}
+  public static void main(String[] args)throws Exception {
+-  check(args.length==3&&args[0].matches("--expected-sha256=[0-9a-f]{64}")&&args[1].matches("--expected-bytes=[0-9]{1,7}")&&args[2].matches("--scope=[A-Za-z0-9_-]{1,64}"),"FUTURE_EXACT_FROZEN_IDENTITY_ARGUMENTS_REQUIRED");long bytes=Long.parseLong(args[1].substring(17));check(bytes>0&&bytes<=READ_BUDGET,"FIXED_FILE_SIZE_LIMIT");Job j=new Job(args[2].substring(8),args[0].substring(18),bytes);check(RETAINED.compareAndSet(null,j),"SAME_ORIGINAL_CHECKER_RETAINED");Thread t=new Thread(j,"six01-original-readonly-qualifier");j.worker=t;t.setDaemon(false);j.timing.begin(t);
++  check(args.length==3&&args[0].matches("--expected-sha256=[0-9a-f]{64}")&&args[1].matches("--expected-bytes=[0-9]{1,7}")&&args[2].matches("--scope=[A-Za-z0-9_-]{1,64}"),"FUTURE_EXACT_FROZEN_IDENTITY_ARGUMENTS_REQUIRED");long bytes=Long.parseLong(args[1].substring(17));check(bytes>0&&bytes<=READ_BUDGET,"FIXED_FILE_SIZE_LIMIT");Job j=new Job(args[2].substring(8),args[0].substring(18),bytes);check(RETAINED.compareAndSet(null,j),"SAME_ORIGINAL_CHECKER_RETAINED");Thread t=new Thread(j,"six01-qualifier02-original-readonly");j.worker=t;t.setDaemon(false);j.timing.begin(t);
+   try{t.start();j.timing.awaitBodyWindow();if(j.timing.observeUnknown()){j.stopped=true;j.uncertain=true;emit(j.receipt(true));}j.timing.joinSameOriginal();j.joined=true;if(j.timing.observeUnknown()){j.stopped=true;j.uncertain=true;}emit(j.receipt(false));if(!j.uncertain&&j.input.originalReturned()&&j.timing.timelyAndJoined())RETAINED.compareAndSet(j,null);}
+   catch(InterruptedException e){j.stopped=true;j.uncertain=true;j.timing.forceUnknown();emit(j.receipt(true));}
+   catch(Throwable e){j.fail("ORIGINAL_CHECKER_START_OR_WAIT_UNKNOWN");j.uncertain=true;j.timing.forceUnknown();emit(j.receipt(true));}
+  }
+- private Six01ContainerQualifier(){}
++ private Six01ContainerQualifier02(){}
+ }

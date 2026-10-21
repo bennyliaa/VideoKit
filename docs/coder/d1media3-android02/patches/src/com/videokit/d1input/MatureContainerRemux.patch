@@ -1,0 +1,20 @@
+--- frozen-android01/src\com\videokit\d1input\MatureContainerRemux.java
++++ android02/src/com/videokit/d1input/MatureContainerRemux.java
+@@ -9,6 +9,7 @@
+   int configBytes=0;for(byte[] config:track.format.initializationData){if(config.length==0||config.length>65536-configBytes)throw new IOException("MP4_CAPTURE_CONFIG");configBytes+=config.length;}
+   // Validate every encoded capture and timestamp before creating the writer.
+   long last=-1;for(HostMp4Inspection.Sample sample:track.samples){if(sample.timeUs<0||sample.timeUs>2000000||sample.timeUs<=last||sample.size<1||sample.size>262144||(sample.flags&(C.BUFFER_FLAG_ENCRYPTED|C.BUFFER_FLAG_END_OF_STREAM))!=0||sample.encodedCopy().length!=sample.size)throw new IOException("MP4_REMUX_INPUT_UNPROVEN");last=sample.timeUs;}
++  com.videokit.d1android.QualifiedObservation.require(input,true);
+   MatureMuxerBinding binding=new MatureMuxerBinding(output);int token=binding.addTrack(track.format);
+   for(HostMp4Inspection.Sample sample:track.samples)binding.sample(token,ByteBuffer.wrap(sample.encodedCopy()),new BufferInfo(sample.timeUs,sample.size,sample.flags));
+   binding.finishWriter();HostMp4Inspection.Evidence reopened=output.inspectHostMp4Structure(HostMp4Inspection.Container.FRAGMENTED_MP4);
+@@ -16,8 +17,7 @@
+   if(!"video/avc".equals(actual.format.sampleMimeType)||actual.format.width!=256||actual.format.height!=144||actual.format.rotationDegrees!=0||actual.samples.size()!=6){output.rejectHostStructure();throw new IOException("MP4_REOPEN_TRACK_MISMATCH");}
+   // Conservative oracle: the same library's Annex-B sample output and exact CSD
+   // arrays, integer microsecond PTS. No undeclared prefix/timescale tolerance.
+-  if(actual.format.initializationData.size()!=track.format.initializationData.size()){output.rejectHostStructure();throw new IOException("MP4_REOPEN_CONFIG_MISMATCH");}
+-  for(int i=0;i<track.format.initializationData.size();i++)if(!Arrays.equals(actual.format.initializationData.get(i),track.format.initializationData.get(i))){output.rejectHostStructure();throw new IOException("MP4_REOPEN_CONFIG_MISMATCH");}
++  if(!com.videokit.d1android.QualifiedObservation.csdHash(actual).equals(com.videokit.d1android.QualifiedObservation.csdHash(track))){output.rejectHostStructure();throw new IOException("MP4_REOPEN_CONFIG_MISMATCH");}
+   for(int i=0;i<6;i++)if(actual.samples.get(i).timeUs!=track.samples.get(i).timeUs||actual.samples.get(i).size!=track.samples.get(i).size||!actual.samples.get(i).sha256.equals(track.samples.get(i).sha256)){output.rejectHostStructure();throw new IOException("MP4_REOPEN_SAMPLE_MISMATCH");}
+   return reopened;
+  }

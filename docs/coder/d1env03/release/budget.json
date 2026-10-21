@@ -1,0 +1,29 @@
+{
+  "status": "ENV03_NEW_TWO_OPERATION_AUTHORIZATION",
+  "authority": {
+    "path": "docs/coder/d1env03/release/environment-authorization.json",
+    "bytes": 2355,
+    "sha256": "dcc163aa7f4764a7cef146b33dadf1e5c86793be987efc95aefc1c315fcec44c"
+  },
+  "operations": 2,
+  "textBytes": 1048576,
+  "archiveBytes": 1048576,
+  "rawReadReserve": 589824,
+  "captureControlReserve": 55296,
+  "localPreludeRecordsAndConsole": 16384,
+  "finalReportAndResultReserve": 32768,
+  "totalAssigned": 694272,
+  "unassignedNotAdditionalPermission": 354304,
+  "physicalReadHardBoundClaimed": false,
+  "rawCaps": [
+    65536,
+    524288
+  ],
+  "qualificationSeconds": 15,
+  "unknownPolicy": "Count actual successful raw reads, all forwarding/control bytes; pending/read faults/partial writes retain UNKNOWN and entire corresponding reservation. Preserve original owner, no kill or refund.",
+  "oldScope": "20b08d64-6fd0-4a88-8b72-c80615e58258",
+  "oldSdkReadBytes": 388818,
+  "oldExecutionUnitsEntered": 2,
+  "oldUnknownsAnd8192HeldSeparately": true,
+  "oldBalanceInherited": false
+}

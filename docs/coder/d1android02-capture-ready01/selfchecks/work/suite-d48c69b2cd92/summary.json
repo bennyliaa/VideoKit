@@ -1,0 +1,235 @@
+{
+  "schema": "ANDROID02_READY01_LOCAL_SELFCHECK_V1",
+  "candidateEntrySha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13",
+  "producerSha256": "b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed",
+  "planSha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199",
+  "runRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready01\\selfchecks\\work\\suite-d48c69b2cd92",
+  "elapsedSeconds": 26.155999999988126,
+  "suiteWithin30Seconds": true,
+  "totalOuterTextBytes": 47502,
+  "mockPayloadBytes": 6144,
+  "outerControllers": 23,
+  "localProducerStarts": 11,
+  "sdkChildren": 0,
+  "deviceQueries": 0,
+  "serverQueries": 0,
+  "kills": 0,
+  "retries": 0,
+  "results": [
+    {
+      "name": "seven-role-chain",
+      "pass": true,
+      "detail": {
+        "groups": [
+          {
+            "instrument": 0,
+            "control": 11739,
+            "payload": 0,
+            "install": 0,
+            "command": 377,
+            "preflight": 105
+          },
+          {
+            "preflight": 501,
+            "instrument": 0,
+            "command": 757,
+            "control": 26074,
+            "payload": 0,
+            "install": 0
+          },
+          {
+            "preflight": 546,
+            "instrument": 0,
+            "install": 0,
+            "control": 40467,
+            "payload": 0,
+            "command": 1137
+          },
+          {
+            "preflight": 593,
+            "install": 0,
+            "instrument": 0,
+            "payload": 0,
+            "control": 54875,
+            "command": 1518
+          },
+          {
+            "command": 1898,
+            "payload": 4096,
+            "instrument": 0,
+            "control": 69561,
+            "install": 125,
+            "preflight": 593
+          },
+          {
+            "control": 84262,
+            "payload": 6144,
+            "install": 250,
+            "preflight": 593,
+            "command": 2279,
+            "instrument": 0
+          },
+          {
+            "instrument": 634,
+            "payload": 6144,
+            "control": 98809,
+            "command": 2658,
+            "install": 250,
+            "preflight": 593
+          }
+        ],
+        "finalSemantic": "PASS_LIMITED_APP_RECEIPT_INTERNAL_FINISH_UNPROVEN",
+        "actualSdkChildren": 0,
+        "localProducers": 7
+      },
+      "seconds": 9.328000000008615
+    },
+    {
+      "name": "entry-pin",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "187199d7391bcaa17d7993101b46b78a9e0223edc6dedbe8604be798dc891ff2"
+      },
+      "seconds": 0.8429999999934807
+    },
+    {
+      "name": "plan-pin",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "64496866915e035322f85ac0c308f0e772fa114537be4dc960da24dd6aae4fe1"
+      },
+      "seconds": 0.8289999999979045
+    },
+    {
+      "name": "product-pin",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "6ecb0a6e8aff3ced8764dfc5356e91871a9d76c27dd95757b3bcef1006034dc8"
+      },
+      "seconds": 0.8120000000053551
+    },
+    {
+      "name": "producer-pin",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "4080d7dc6b5037640b5facce3092b2a78fc12374dee59883537eb975f9ad4e41"
+      },
+      "seconds": 0.8910000000032596
+    },
+    {
+      "name": "sdk-argv-in-fixture",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "be5ffe525422233e86323d1bc2569be9f34262a56a6ca79a49d8ad7ee6e9e370"
+      },
+      "seconds": 0.875
+    },
+    {
+      "name": "argv-extra",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "2b059a93191aba14a5557f5b968dd47190cc9e4f9a24354d7e0a02c43d17e981"
+      },
+      "seconds": 0.8589999999967404
+    },
+    {
+      "name": "request-type",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "5b573d3a2fc18c15fb2593fbba3de7a60ed4c1ea42022c5be26cd3fed7270b45"
+      },
+      "seconds": 0.8589999999967404
+    },
+    {
+      "name": "duplicate-request-field",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "4f5564337020d57cc17512d1445571282d6ab21638f93edd9130c78ce8e2830a"
+      },
+      "seconds": 0.8440000000118744
+    },
+    {
+      "name": "reordered-role",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "f1f8bfbcf222f0ca30fa40698c68356f0d6301673b24b8b5f560d3f058dbdae9"
+      },
+      "seconds": 0.875
+    },
+    {
+      "name": "eighth-role",
+      "pass": true,
+      "detail": {
+        "rejectedBeforeContext": true,
+        "sdkChildren": 0,
+        "stderrSha256": "72346b13da2e99cb4ec9a11a9b6968b6bb529193da21bd396952c9fdaf623710"
+      },
+      "seconds": 2.062999999994645
+    },
+    {
+      "name": "counter-reset",
+      "pass": true,
+      "detail": "Counter reset rejected before reentry",
+      "seconds": 0.875
+    },
+    {
+      "name": "busy-halts-successor",
+      "pass": true,
+      "detail": {
+        "envWaitStopped": true,
+        "forgedTrueLabelsRejected": true,
+        "sdkChildren": 0
+      },
+      "seconds": 3.4059999999881256
+    },
+    {
+      "name": "overrun-sticky",
+      "pass": true,
+      "detail": {
+        "failure": "TEXT_QUALIFIER_EXCEEDED",
+        "originalReturned": true,
+        "gateObservedPending": false,
+        "rawBytes": 192,
+        "savedBytes": 64.0
+      },
+      "seconds": 1.187000000005355
+    },
+    {
+      "name": "stderr-stops",
+      "pass": true,
+      "detail": {
+        "failure": "STDERR_REQUIRES_STOP",
+        "originalReturned": true,
+        "gateObservedPending": false,
+        "rawBytes": 51,
+        "savedBytes": 51.0
+      },
+      "seconds": 1.6099999999860302
+    },
+    {
+      "name": "invalid-utf8",
+      "pass": false,
+      "detail": "AssertionError('SUITE_ADMISSION_STOP_26_SECONDS_NO_MORE_CHILDREN')",
+      "seconds": 0.0
+    }
+  ],
+  "allPassed": false
+}

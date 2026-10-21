@@ -1,0 +1,19 @@
+--- frozen-android01/instrumentation\com\videokit\d1media3\android01\test\Media3Instrumentation.java
++++ android02/instrumentation/com/videokit/d1media3/android02/test/Media3Instrumentation.java
+@@ -1,4 +1,4 @@
+-package com.videokit.d1media3.android01.test;
++package com.videokit.d1media3.android02.test;
+ import android.app.*;import android.content.*;import android.content.pm.*;import android.os.*;
+ import com.videokit.d1android.*;import com.videokit.d1input.*;import com.videokit.spike.e4.*;
+ import java.nio.charset.StandardCharsets;import java.util.*;import java.util.concurrent.atomic.*;import org.json.*;
+@@ -42,8 +42,8 @@
+  }
+  @Override public void onStart(){
+   ExperimentJob j=job;if(j==null)return;
+-  try{Thread worker=new Thread(j::run,"d1media3-android01-"+j.method.name());j.originalWorker=worker;worker.setUncaughtExceptionHandler((t,e)->{j.fail("UNCAUGHT_ORIGINAL_WORKER_UNKNOWN");E13ReturnEvents.returned();});worker.start();worker.join(ExperimentContract.METHOD_DEADLINE_MS);
+-   if(worker.isAlive()){j.deadline();Bundle pending=new Bundle();pending.putString("status","UNKNOWN_DEADLINE_ORIGINAL_RETURN_PENDING");pending.putString("receipt",bounded(j.receipt(false)));sendStatus(-2,pending);finish(Activity.RESULT_CANCELED,pending);return;}
++  try{Thread worker=new Thread(j::run,"d1media3-android02-"+j.method.name());j.originalWorker=worker;worker.setUncaughtExceptionHandler((t,e)->{j.fail("UNCAUGHT_ORIGINAL_WORKER_UNKNOWN");E13ReturnEvents.returned();});j.startedNano=System.nanoTime();worker.start();worker.join(ExperimentContract.METHOD_DEADLINE_MS);
++   if(worker.isAlive()||!j.workerBodyReturned||j.completedNano-j.startedNano<0||j.completedNano-j.startedNano>=60000000000L){j.deadline();Bundle pending=new Bundle();pending.putString("status","UNKNOWN_DEADLINE_ORIGINAL_RETURN_PENDING");pending.putString("receipt",bounded(j.receipt(false)));sendStatus(-2,pending);finish(Activity.RESULT_CANCELED,pending);return;}
+    Bundle result=new Bundle();String text=bounded(j.receipt(false));String status=j.canFinish()?new JSONObject(text).optString("status","UNKNOWN_RECEIPT_STATUS"):"UNKNOWN_ORIGINAL_RETURN_PENDING";result.putString("status",status);result.putString("receipt",text);if(!j.canFinish())sendStatus(-2,result);finish(isObservation(status)?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
+   }catch(Throwable e){j.fail("RUNNER_ORIGINAL_WAIT_UNKNOWN");Bundle b=new Bundle();b.putString("status","UNKNOWN_RUNNER_ORIGINAL_WAIT");sendStatus(-2,b);finish(Activity.RESULT_CANCELED,b);}
+  }

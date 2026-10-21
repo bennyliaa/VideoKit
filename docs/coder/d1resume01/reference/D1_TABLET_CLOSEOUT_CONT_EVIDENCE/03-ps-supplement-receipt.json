@@ -1,0 +1,37 @@
+{
+  "id": "03-ps-supplement",
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-H",
+    "127.0.0.1",
+    "-P",
+    "5037",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "ps -A -o USER,PID,PPID,NAME,ARGS"
+  ],
+  "cap": 131072,
+  "enteredAtUtc": "2026-10-20T07:19:07.654917+00:00",
+  "bytes": 53297,
+  "state": "COMPLETE",
+  "qualificationSeconds": 15,
+  "clientPid": 27788,
+  "exitCode": 0,
+  "elapsedSeconds": 0.093,
+  "timedOut": false,
+  "streams": {
+    "stdout": {
+      "bytes": 53297,
+      "eof": true
+    },
+    "stderr": {
+      "bytes": 0,
+      "eof": true
+    }
+  },
+  "errors": [],
+  "endedAtUtc": "2026-10-20T07:19:07.754765+00:00",
+  "sharedServerLifecycleActions": 0,
+  "complete": true
+}

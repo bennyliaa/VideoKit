@@ -1,0 +1,170 @@
+{
+  "source": {
+    "path": "docs/coder/d1e6/native/cpu.c",
+    "bytes": 13801,
+    "sha256": "f986311041a5c132252bbce261ad1ac750261240e884d8673b1941f4fa39b7c6"
+  },
+  "sites": [
+    {
+      "line": 17,
+      "source": "#define E6_FAIL(why,err) do {if(!site){site=__LINE__;reason=(why);averror=(err);}goto cleanup;}while(0)"
+    },
+    {
+      "line": 83,
+      "source": "buffer=av_malloc(65536);if(!buffer)E6_FAIL(0,0);"
+    },
+    {
+      "line": 84,
+      "source": "io=avio_alloc_context(buffer,65536,0,&input,read_packet,NULL,seek_input);if(!io)E6_FAIL(0,0);buffer=NULL;"
+    },
+    {
+      "line": 85,
+      "source": "format=avformat_alloc_context();if(!format)E6_FAIL(0,0);"
+    },
+    {
+      "line": 89,
+      "source": "const AVInputFormat *demux=av_find_input_format(kind==1?\"avi\":\"mov\");if(!demux)E6_FAIL(0,0);"
+    },
+    {
+      "line": 90,
+      "source": "int opened_result=avformat_open_input(&format,NULL,demux,&options);if(opened_result<0)E6_FAIL(E6_DEMUX,opened_result);opened=1;"
+    },
+    {
+      "line": 91,
+      "source": "if(stage(&input,1)<0)E6_FAIL(0,0);"
+    },
+    {
+      "line": 93,
+      "source": "if(format->nb_streams>8)E6_FAIL(0,0);"
+    },
+    {
+      "line": 95,
+      "source": "if(index<0)E6_FAIL(0,0);"
+    },
+    {
+      "line": 101,
+      "source": "if((matrix && (matrix->size!=sizeof(identity) || memcmp(matrix->data,identity,sizeof(identity)))) || (rotation && strcmp(rotation->value,\"0\")))E6_FAIL(0,0);"
+    },
+    {
+      "line": 102,
+      "source": "jclass orientation_class=(*e)->GetObjectClass(e,cb);jmethodID orientation=(*e)->GetMethodID(e,orientation_class,\"onOrientation\",\"(I)V\");(*e)->DeleteLocalRef(e,orientation_class);if((*e)->ExceptionCheck(e))E6_FAIL(0,0);"
+    },
+    {
+      "line": 103,
+      "source": "(*e)->CallVoidMethod(e,cb,orientation,0);if((*e)->ExceptionCheck(e))E6_FAIL(0,0);"
+    },
+    {
+      "line": 105,
+      "source": "if(verify && (format->nb_streams!=1 || id!=AV_CODEC_ID_H264 || stream->codecpar->width!=OUT_W || stream->codecpar->height!=OUT_H))E6_FAIL(0,0);"
+    },
+    {
+      "line": 108,
+      "source": "|| stream->codecpar->height>1080 || (int64_t)stream->codecpar->width*stream->codecpar->height>1920LL*1080){stage(&input,6);E6_FAIL(0,0);}"
+    },
+    {
+      "line": 109,
+      "source": "if(stage(&input,2)<0)E6_FAIL(0,0);"
+    },
+    {
+      "line": 110,
+      "source": "const AVCodec *decoder=avcodec_find_decoder(id);if(!decoder)E6_FAIL(0,0);"
+    },
+    {
+      "line": 111,
+      "source": "codec=avcodec_alloc_context3(decoder);if(!codec)E6_FAIL(0,0);int parameters_result=avcodec_parameters_to_context(codec,stream->codecpar);if(parameters_result<0)E6_FAIL(0,parameters_result);"
+    },
+    {
+      "line": 113,
+      "source": "int codec_result=avcodec_open2(codec,decoder,NULL);if(codec_result<0)E6_FAIL(0,codec_result);"
+    },
+    {
+      "line": 114,
+      "source": "if(stage(&input,3)<0)E6_FAIL(0,0);"
+    },
+    {
+      "line": 116,
+      "source": "if(target>0){int seek_result=av_seek_frame(format,index,seek,AVSEEK_FLAG_BACKWARD);if(seek_result<0)E6_FAIL(0,seek_result);}"
+    },
+    {
+      "line": 117,
+      "source": "if(stage(&input,4)<0)E6_FAIL(0,0);"
+    },
+    {
+      "line": 119,
+      "source": "if(!frame || !packet || !rgba)E6_FAIL(0,0);"
+    },
+    {
+      "line": 122,
+      "source": "if(read<0){if(read!=AVERROR_EOF)E6_FAIL(E6_DEMUX,read);input.demux_eof=1;int drained=avcodec_send_packet(codec,NULL);if(drained<0)E6_FAIL(E6_DRAIN,drained);input.drain=1;}"
+    },
+    {
+      "line": 124,
+      "source": "else {input.packets++;int sent=avcodec_send_packet(codec,packet);av_packet_unref(packet);if(sent<0)E6_FAIL(E6_SEND,sent);}"
+    },
+    {
+      "line": 125,
+      "source": "for(;;){int got=avcodec_receive_frame(codec,frame);if(got==AVERROR_EOF){decoder_eof=1;break;}if(got==AVERROR(EAGAIN))break;if(got<0)E6_FAIL(E6_RECEIVE,got);input.decoded++;"
+    },
+    {
+      "line": 126,
+      "source": "int best=frame->pts==AV_NOPTS_VALUE;int64_t raw=best?frame->best_effort_timestamp:frame->pts;if(raw==AV_NOPTS_VALUE)E6_FAIL(E6_MISSING_PTS,0);"
+    },
+    {
+      "line": 128,
+      "source": "if(frame->width<1 || frame->height<1 || frame->width>1920 || frame->height>1080 || (int64_t)frame->width*frame->height>1920LL*1080)E6_FAIL(0,0);"
+    },
+    {
+      "line": 129,
+      "source": "if(pts<target){av_frame_unref(frame);continue;}if(pts>target+2000000 || pts>86400000000LL)E6_FAIL(0,0);"
+    },
+    {
+      "line": 130,
+      "source": "if(verify){int predicate=e6_frame_predicate(verified,frame->width,frame->height,pts,expected);if(predicate)E6_FAIL(predicate,0);}"
+    },
+    {
+      "line": 132,
+      "source": "sws=sws_getContext(frame->width,frame->height,(enum AVPixelFormat)frame->format,OUT_W,OUT_H,AV_PIX_FMT_RGBA,SWS_BILINEAR,NULL,NULL,NULL);if(!sws)E6_FAIL(0,0);"
+    },
+    {
+      "line": 134,
+      "source": "if(sws_scale(sws,(const uint8_t *const*)frame->data,frame->linesize,0,frame->height,planes,strides)!=OUT_H)E6_FAIL(0,0);"
+    },
+    {
+      "line": 135,
+      "source": "struct rusage usage;if(getrusage(RUSAGE_SELF,&usage)!=0 || usage.ru_maxrss<1 || usage.ru_maxrss>262144)E6_FAIL(0,0);"
+    },
+    {
+      "line": 136,
+      "source": "if((!verify || verified==0) && stage(&input,5)<0)E6_FAIL(0,0);"
+    },
+    {
+      "line": 137,
+      "source": "jbyteArray bytes=(*e)->NewByteArray(e,OUT_BYTES);if(!bytes)E6_FAIL(0,0);"
+    },
+    {
+      "line": 141,
+      "source": "(*e)->DeleteLocalRef(e,bytes);if((*e)->ExceptionCheck(e))E6_FAIL(0,0);"
+    },
+    {
+      "line": 144,
+      "source": "if(read==AVERROR_EOF){if(verify){int predicate=e6_eof_predicate(verified,input.demux_eof,decoder_eof);if(predicate)E6_FAIL(predicate,0);result=0;}break;}"
+    },
+    {
+      "line": 147,
+      "source": "if(result!=0 && !site){site=__LINE__;reason=E6_INCOMPLETE_EOF;}"
+    }
+  ],
+  "namedPredicates": {
+    "1": "DIMENSIONS",
+    "2": "EXTRA_FRAME",
+    "3": "PTS",
+    "4": "MISSING_PTS",
+    "5": "DEMUX",
+    "6": "SEND",
+    "7": "RECEIVE",
+    "8": "DRAIN",
+    "9": "INCOMPLETE_EOF"
+  },
+  "siteZero": "Success",
+  "reasonZeroNonzeroSite": "Other exact source predicate at indicated frozen source line"
+}

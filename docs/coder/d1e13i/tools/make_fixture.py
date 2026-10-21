@@ -1,0 +1,2 @@
+from pathlib import Path
+B=Path(__file__).resolve().parents[1];R=B.parents[2];h=(R/'docs/coder/d1e13h/tools/HCheck.java').read_text();s=h[h.index(' static String inventory()'):h.index(' static List<String> child')].replace('E13GReadOnly','E13IIdentity');(B/'tools/IFixtures.java').write_text('package com.videokit.spike.e4;import java.nio.charset.*;final class IFixtures{static byte[] bytes(String s){return s.getBytes(StandardCharsets.UTF_8);}\n'+s+'}\n')

@@ -1,0 +1,9 @@
+{
+  "firstPostprocessorResult": "Static AssertionError treating JVM generated Job$$Lambda source as a physical file URL",
+  "originalCheckerResultUnchanged": "HOST_CONTAINER_QUALIFICATION",
+  "actualLogFact": "Eight physical helper/support class origins are exact directories. One JVM generated Job$$Lambda source is the validated host Six01ContainerQualifier03.",
+  "correction": "Retain original complete log; validate generated lambda host separately from physical artifact CodeSource, without inventing a new class file or fallback JAR.",
+  "actualCheckerJvmInvocations": 1,
+  "checkerRecompiledOrReplayed": false,
+  "productionOrMediaChanged": false
+}

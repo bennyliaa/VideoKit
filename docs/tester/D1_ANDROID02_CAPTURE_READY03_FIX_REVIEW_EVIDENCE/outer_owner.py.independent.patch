@@ -1,0 +1,46 @@
+--- READY02/tools/outer_owner.py
++++ READY03/tools/outer_owner.py
+@@ -36,7 +36,7 @@
+   if digest(self.home/'reference/exact-seven-role-plan.json')!=p['planSha256']:raise ValueError('PLAN_PIN')
+   self.root=Path(p['evidenceRoot']);self.fixture=p['mode']=='OFFLINE_FIXTURE'
+   if self.fixture:
+-   if not (str(self.root).startswith(str(BASE/'selfchecks/work')+os.sep) or str(self.root).startswith('D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY02_FIX_REVIEW_EVIDENCE\\fixtures\\')):raise ValueError('EXACT_FIXTURE_ROOT')
++   if not (str(self.root).startswith(str(BASE/'selfchecks/work')+os.sep) or str(self.root).startswith('D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_ANDROID02_CAPTURE_READY03_FIX_REVIEW_EVIDENCE\\fixtures\\')):raise ValueError('EXACT_FIXTURE_ROOT')
+    self.slots=p['slots'];self.outer=p.get('fixtureOuterSeconds',15);self.proof=p.get('fixtureProofSeconds',2);self.whole=30
+   else:
+    # Controller independently verifies the complete activation again before SDK.
+@@ -46,6 +46,8 @@
+    self.slots=[dict(s,argv=[p['runId'] if v=='@RUN_ID@' else v for v in s['argv']]) for s in self.plan['steps']]
+   if any(type(v) not in (int,float) or not 0<v<=cap for v,cap in [(self.outer,600),(self.proof,30),(self.whole,600)]):raise ValueError('OWNER_WALL_BOUNDS')
+   if not self.fixture and any(type(v) is not int for v in (self.outer,self.proof,self.whole)):raise ValueError('OWNER_WALL_INTEGER_TYPES')
++  if self.fixture and p.get('fixtureProofTailGate','NONE') not in ('NONE','CROSS_SAME_DEADLINE_AFTER_TIMELY_WRITER'):raise ValueError('EXACT_FINITE_TAIL_GATE')
++  if self.fixture and p.get('fixtureProofTailGate','NONE')!='NONE' and self.proof>2:raise ValueError('FINITE_TAIL_GATE_TWO_SECONDS_MAX')
+   if not 1<=len(self.slots)<=7 or [s['id'] for s in self.slots]!=[s['id'] for s in self.plan['steps'][:len(self.slots)]]:raise ValueError('EXACT_ORDER')
+   self.scope_start=time.monotonic();self.last_proof='ABSENT' if self.fixture else a['initialPredecessorProofSha256'];self.last_writer=None
+  def fail(self,code):
+@@ -149,8 +151,24 @@
+   pp=root/(id+'-completion-proof.json');delay=p.get('fixtureProofCloseDelay',0) if self.fixture else 0
+   self.last_writer=self.write_original(pp,encode(proof),proof_start,delay)
+   # Failure after the write is NOT retrospectively changed to approved.
++  tail_gate=None
++  if self.fixture and p.get('fixtureProofTailGate','NONE')=='CROSS_SAME_DEADLINE_AFTER_TIMELY_WRITER' and self.failure is None:
++   # Reach this only AFTER the same original writer was observed timely+closed.
++   entered=time.monotonic();deadline=proof_start+self.proof
++   if not self.last_writer['closeReturned'] or entered>=deadline:self.fail('TAIL_GATE_PRECONDITION_WRITER_NOT_TIMELY')
++   else:
++    tail_gate={'writerReturnedAt':self.last_writer['end'],'writerJoinObservedBy':entered,'deadline':deadline,'writerTimelyBeforeGate':True,'tailGateEnteredAt':entered}
++    gate=threading.Event();self.held.append(gate)
++    # An absolute monotonic target, not a racing relative sleep or state edit.
++    while time.monotonic()<deadline+.005:gate.wait(min(.02,max(0,deadline+.005-time.monotonic())))
++    tail_gate['tailGateReturnedAt']=time.monotonic()
+   self.events.add(event);self.last_proof=digest(pp);self.next+=1
+-  self.records.append({'id':id,'console':co,'outer':native,'proof':proof,'proofWriter':dict(self.last_writer),'stickyFailureAfterWriterReturn':self.failure})
++  self.records.append({'id':id,'console':co,'outer':native,'proof':proof,'proofWriter':dict(self.last_writer),'stickyFailureAfterWriterReturn':self.failure,'tailGate':tail_gate,'lastControlledObservationAboutToStartAt':time.monotonic(),'sharedProofWindowStart':proof_start})
++  # Last controlled handoff point: all required digest/events/next/records work
++  # has returned, including END. Do not reset the previous shared proof clock.
++  # The following failure test/return and interpreter scheduling are explicitly
++  # outside self-observable proof, not an infinite self-certifying return claim.
++  self.observe(proof_start,self.proof,'PROOF_WALL_TIMEOUT_STICKY')
+   if self.failure:raise ValueError('OWNER_STICKY_NO_SUCCESSOR:'+self.failure)
+   return self.records[-1]
+  def run_seven(self):

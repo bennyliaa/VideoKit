@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "scope": "E2B_FIXED_DIAGNOSTIC_SUMMARY",
+  "evidence": "evidence/diagnostic-1792171021038062900.json",
+  "validation": {
+    "schema": 1,
+    "scope": "E2B_DIAGNOSTIC_ADMISSION_ONLY",
+    "valid": true,
+    "eligibleForOneActualSyntheticRegression": true,
+    "realExecutionAllowed": false,
+    "blockers": [],
+    "firstExceedance": {
+      "method": "ADD_TYPE",
+      "stage": "HELLO_SERIALIZED",
+      "metric": "handles",
+      "value": 513,
+      "limit": 512
+    },
+    "absoluteExceedances": [
+      {
+        "method": "ADD_TYPE",
+        "stage": "HELLO_SERIALIZED",
+        "metric": "handles",
+        "value": 513,
+        "limit": 512
+      }
+    ],
+    "candidateHello": {
+      "threads": 24,
+      "handles": 499,
+      "workingSetBytes": 87437312,
+      "privateBytes": 27672576
+    },
+    "candidateHelloWithinApprovedAbsoluteLimits": true,
+    "diagnosticDeltasFromMinimal": {
+      "ADD_TYPE": {
+        "MINIMAL_START": {
+          "threads": 0,
+          "handles": 0,
+          "workingSetBytes": 0,
+          "privateBytes": 0
+        },
+        "LOAD_COMPLETE": {
+          "threads": 1,
+          "handles": 13,
+          "workingSetBytes": 5939200,
+          "privateBytes": 3772416
+        },
+        "INIT_COMPLETE": {
+          "threads": 1,
+          "handles": 13,
+          "workingSetBytes": 7704576,
+          "privateBytes": 4923392
+        },
+        "HELLO_SERIALIZED": {
+          "threads": 1,
+          "handles": 15,
+          "workingSetBytes": 10010624,
+          "privateBytes": 5107712
+        }
+      },
+      "LOAD_FROM": {
+        "MINIMAL_START": {
+          "threads": 0,
+          "handles": 0,
+          "workingSetBytes": 0,
+          "privateBytes": 0
+        },
+        "LOAD_COMPLETE": {
+          "threads": 0,
+          "handles": 0,
+          "workingSetBytes": 573440,
+          "privateBytes": 401408
+        },
+        "INIT_COMPLETE": {
+          "threads": 0,
+          "handles": 0,
+          "workingSetBytes": 2240512,
+          "privateBytes": 1249280
+        },
+        "HELLO_SERIALIZED": {
+          "threads": 0,
+          "handles": 2,
+          "workingSetBytes": 4579328,
+          "privateBytes": 1581056
+        }
+      }
+    },
+    "diagnosticMinimalIsRuntimeBaseline": false,
+    "actualRegressionRBaseline": "ITS_OWN_ORIGINAL_HELLO",
+    "actualRegressionRDeltaLimits": {
+      "threads": 32,
+      "handles": 128,
+      "workingSetBytes": 268435456,
+      "privateBytes": 268435456
+    },
+    "diagnosticSha256": "f3c82bb9d99dbbad68660c88a21f44967a8451b97631cef8accce77c9d55a797"
+  },
+  "diagnosticArtifactBytesIncludingSummary": 20698,
+  "stageCounts": {
+    "ADD_TYPE": 4,
+    "LOAD_FROM": 4
+  },
+  "originalInstancesExited": true
+}

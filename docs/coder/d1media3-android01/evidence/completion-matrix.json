@@ -1,0 +1,424 @@
+{
+  "sourcePhaseAReportSha256": "36c5d4fecfe13b955a96e9194a4f59024df115d85ab3a6292db1794ab205a4cf",
+  "rows": [
+    {
+      "id": "MA01",
+      "stage": "B_OFFLINE",
+      "role": "app/test identity and strict admission",
+      "oracle": "Exact APK hashes/certs/package/version/instrumentation target+runner+process, no sharedUserId/permissions/native surprises; never replace old app",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "artifact-audit.json",
+        "execution-plan.json"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA02",
+      "stage": "B_OFFLINE",
+      "role": "real library binding",
+      "oracle": "Pinned1.9.3 exact classes and runtime closure for app AND androidTest; no same-name Media3/platform standins",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "actual-consumption/configuration-closure-summary.json",
+        "dependency-license-difference.json"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA03",
+      "stage": "B_OFFLINE",
+      "role": "method/argument contract",
+      "oracle": "Freeze actual class#method, runner args and source scope checks; no guessed selector or replay old scope",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "execution-plan.json"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA04",
+      "stage": "FUTURE_DEVICE",
+      "role": "private approved source",
+      "oracle": "Only original349102B/hash copied privately read-only, matching sourceVersion; reject missing/hash/permission before parser/write; no download",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "artifact-audit.json",
+        "fixture-qualification.json"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA05",
+      "stage": "FUTURE_DEVICE",
+      "role": "MP4 known length observation",
+      "oracle": "container=MP4, capability=true, seekUs=-1, capture=false; actual real extractor tracks/formats/samples and EOF/hash separately; no mux",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "ExperimentJob.inspect",
+        "HostMp4Inspection.inspect"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA06",
+      "stage": "FUTURE_DEVICE",
+      "role": "MP4 short read",
+      "oracle": "Same exact benign bytes, bounded host chunk3; normalized track/sample/PTS/hash observations equal MA05, physical reads counted anew",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "inspectKnown",
+        "inspectShort3",
+        "semanticObservationFingerprint"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA07",
+      "stage": "FUTURE_DEVICE",
+      "role": "MP4 unknown length",
+      "oracle": "Same bytes, length null/-1, finite underlying EOF; normalized observations equal MA05 without inventing length",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "inspectUnknown",
+        "semanticObservationFingerprint"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA08",
+      "stage": "FUTURE_DEVICE",
+      "role": "sniff/peek reset",
+      "oracle": "Real sniff/resetPeekPosition then extraction, no lost/duplicate sample bytes; sniff alone is not full validation",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "HostMp4Inspection.sniffMatched",
+        "peekReset"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA09",
+      "stage": "FUTURE_DEVICE",
+      "role": "seek map replay",
+      "oracle": "seekUs=1000000 only if actual map/duration admits; record real map points/absolute byte offset/new epoch and replay; do not require decoded frame exactly1s",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "inspectSeek1s",
+        "SeekObservation",
+        "ReplayObservation"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA10",
+      "stage": "B_OFFLINE_AND_FUTURE_DEVICE",
+      "role": "preopen capability/range rejection",
+      "oracle": "false capability/null container/-2 or2000001 reject before source open/adapter allocation; benign metadata-only negatives",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "preopenAdmission",
+        "AndroidReadyCheck"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA11",
+      "stage": "FUTURE_DEVICE",
+      "role": "raw EOF/parser EOF",
+      "oracle": "Full original size/hash and raw EOF distinct from parser END_OF_INPUT; compare whole file identity; no malicious trailing mutation this batch",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "VerifiedFixtureCopy",
+        "Evidence.rawSha256",
+        "parserEofPositions"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA12",
+      "stage": "B_OFFLINE_AND_FUTURE_DEVICE",
+      "role": "cumulative input budget",
+      "oracle": "8MiB includes hash+sniff+parser+all seek/reopen;65536 per original chunk; no per-reopen reset; no adversarial giant fixture",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "OwnedFiles.reserveInput",
+        "HostDataSource",
+        "ExperimentJob.inputReserved"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA13",
+      "stage": "FUTURE_DEVICE",
+      "role": "original returns",
+      "oracle": "Extractor release vs same DataSource/registry/observer/thread/FD return separately; timeout retains UNKNOWN, no force stop",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "E13FinishOwner",
+        "ExperimentJob.resourcesReturned",
+        "OwnedFiles.E4Owned"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA14",
+      "stage": "B_OFFLINE",
+      "role": "nonmatching fixture gate",
+      "oracle": "Approved320x180+Aac/8sec capture/remux refused before actual output; FIXTURE_BLOCKED and write=0, not skipped-green mux",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "ExperimentContract.QUALIFIED=null",
+        "muxQualified"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA15",
+      "stage": "B_OFFLINE",
+      "role": "generation proposal audit",
+      "oracle": "Exact versioned tool/API/rights/parameters/new path/budget/exit ownership recorded; unapproved generation execution0",
+      "status": "PROPOSAL_PREPARED_UNBUILT_TOOL_HASH_BLOCKS_GENERATION",
+      "actualAndroidSelector": null,
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "generation-proposal.json",
+        "GENERATION_API_SEQUENCE_PROPOSAL.txt"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA16",
+      "stage": "FUTURE_AFTER_FIXTURE_ADMISSION",
+      "role": "genuine six sample capture",
+      "oracle": "SingleAVC256x144 rotation0 noDRM/audio; six real access units with CSD<=65536, size1..262144, firstkeyframe and exact declared PTS",
+      "status": "FIXTURE_BLOCKED_POSITIVE_PATH_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "ExperimentJob.qualifiedCapture",
+        "QualifiedFixture"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA17",
+      "stage": "FUTURE_AFTER_FIXTURE_ADMISSION",
+      "role": "actual mux/finalize",
+      "oracle": "Actual FragmentedMp4Muxer with inherited E6; exactly6payload then emptyEOS1200000; actual writes<=16MiB/65536chunk",
+      "status": "FIXTURE_BLOCKED_POSITIVE_PATH_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "MatureContainerRemux",
+        "MatureMuxerBinding.E6"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA18",
+      "stage": "FUTURE_AFTER_FIXTURE_ADMISSION",
+      "role": "writer to read-only reopen",
+      "oracle": "Same original flush/fsync(if claimed)/close and worker/observer physically returned before same granted Provider readback; one reopen",
+      "status": "FIXTURE_BLOCKED_POSITIVE_PATH_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "OwnedFiles.OutputCapability",
+        "TemporaryOutput"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA19",
+      "stage": "FUTURE_AFTER_FIXTURE_ADMISSION",
+      "role": "actual fMP4 structural reopen",
+      "oracle": "Real FragmentedMp4Extractor of original mux output; oneAVC256x144 six samples/CSD/PTS/size/hash compared under declared representation",
+      "status": "FIXTURE_BLOCKED_POSITIVE_PATH_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "FragmentedMp4Extractor",
+        "HostMp4Inspection"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA20",
+      "stage": "FUTURE_AFTER_FIXTURE_ADMISSION",
+      "role": "duration/NAL oracle",
+      "oracle": "Before run declare AnnexB/AVCC conversion, CSD and exact integer/timebase policy; actual EOS-derived duration1.2s, not claim payload bound2s equals duration",
+      "status": "FIXTURE_BLOCKED_POSITIVE_PATH_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "generation-proposal.json",
+        "actual duration strict gate"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA21",
+      "stage": "B_OFFLINE",
+      "role": "MC-B01 inherited guarantee",
+      "oracle": "Reuse reviewed02 pre-inspection admission fix, originalProvider+RPC1 after actual original observer/worker return; no full baseline rerun in A",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": null,
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "source-differences.json",
+        "ContainerB01Regression",
+        "ContainerPendingOrderCheck"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA22",
+      "stage": "B_OFFLINE",
+      "role": "sameUID and old-data boundary",
+      "oracle": "Empty data no permission, no exported parsing/decode endpoint/no launch/audio/Surface/ordinary-isolated codecGPU probe; sameUID not RCE isolation",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "artifact-audit.json",
+        "execution-plan.json"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA23",
+      "stage": "B_OFFLINE_AND_FUTURE_DEVICE",
+      "role": "classification and stop",
+      "oracle": "No HOST_ISOLATED_FORMAT_V1/validated/READY/COMMIT/playback verdict; first failure/UNKNOWN stops exact future batch; return proof not process disappearance",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": "com.videokit.d1media3.android01.test/com.videokit.d1media3.android01.test.Media3Instrumentation",
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "Media3Instrumentation.isObservation",
+        "TemporaryOutput structural-only path"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    },
+    {
+      "id": "MA24",
+      "stage": "FUTURE_SEPARATE_SCOPE",
+      "role": "execution accounting",
+      "oracle": "Fresh exact device scope/idle gate/operations and text+binary+input/control+outer budget; old stoppedRENDER scope/UNKNOWN not reused or refunded",
+      "status": "CODER_PREPARED_ANDROID_NOT_RUN",
+      "actualAndroidSelector": null,
+      "futureExecutionAuthorized": false,
+      "phaseAStatusPreserved": "PREPARED_NOT_RUN",
+      "bindings": [
+        "execution-plan.json"
+      ],
+      "actualAndroid": "NOT_RUN",
+      "independentNewCandidateVerdict": "PENDING_B_REVIEW",
+      "offlineEvidence": "STATIC_AND_HOST_SELF_CHECK_ONLY"
+    }
+  ],
+  "lanes": {
+    "actualAndroid": "ZERO_RUNS",
+    "host": "Strict app/test builds and JDK regression/identity checks only; see actual receipts",
+    "future": "All methods NOT_RUN; positive mux fixture-blocked; generation unapproved/unbuilt"
+  },
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

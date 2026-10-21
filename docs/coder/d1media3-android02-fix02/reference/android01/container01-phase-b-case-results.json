@@ -1,0 +1,261 @@
+{
+  "overall": "FAIL_NEW_P2_WITH_FUNCTIONAL_SCOPE_OPEN",
+  "cases": [
+    {
+      "id": "MC01",
+      "scope": "dependency",
+      "input": "exact Media3 1.9.3 extractor/decoder AAR,module,POM,license and actual runtime closure",
+      "expected": "official fixed identity/license/strict metadata admitted before artifact execution; actual class origin and consumed coordinates recorded",
+      "status": "PASS_LIMITED",
+      "phaseBEvidence": "新使用两依赖身份、许可和 strict 本地材料核验；不证明平台执行"
+    },
+    {
+      "id": "MC02",
+      "scope": "fixture",
+      "input": "encoded fixture provenance, ownership/license, generator/version/command, immutable hash and byte size",
+      "expected": "missing rights/hash is explicit fixture gap; no network or unapproved encoder; no fabricated valid NAL",
+      "status": "PASS_REFERENCE_ONLY",
+      "phaseBEvidence": "原参考视频权利记录、349102B/hash只读核对；无生成或改写"
+    },
+    {
+      "id": "MC03",
+      "scope": "fixture",
+      "input": "single unencrypted video/avc 256x144 rotation0, six actual access units, codec config and declared timing",
+      "expected": "qualify before use; incompatible file is not adapted by expanding budgets; original reference remains read-only",
+      "status": "OPEN",
+      "phaseBEvidence": "参考视频320x180/含AAC/8秒，不符单AVC256x144六样本条件"
+    },
+    {
+      "id": "MC04",
+      "scope": "capability",
+      "input": "unsupported source seek/reopen/output random or missing required grant capabilities",
+      "expected": "capability reject before source open/output write; no hidden cache/path/network fallback",
+      "status": "PASS_LIMITED",
+      "phaseBEvidence": "capability/container/seek参数在provider和适配器分配前拒绝"
+    },
+    {
+      "id": "MC05",
+      "scope": "extract",
+      "input": "qualified bounded ordinary MP4 through actual HostDataSource and real Mp4Extractor",
+      "expected": "actual DataReader/DefaultExtractorInput chain, track format and TrackOutput sampleData/sampleMetadata proven; no fake Media3 or custom container parser",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "真实Mp4Extractor构造平台链接失败，未提取轨道和样本"
+    },
+    {
+      "id": "MC06",
+      "scope": "extract",
+      "input": "qualified bounded fragmented MP4 through real FragmentedMp4Extractor",
+      "expected": "real framework origin; expected track/sample boundaries and PTS; only explicit MP4 scope",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "真实FragmentedMp4Extractor缺Parcelable，未提取"
+    },
+    {
+      "id": "MC07",
+      "scope": "extract",
+      "input": "same qualified fixture with original host short reads of 1/3 bytes and bounded normal chunks",
+      "expected": "same complete track/sample result; short read not EOF; per-read<=65536, input<=8MiB",
+      "status": "PASS_COMPONENT_ONLY",
+      "phaseBEvidence": "真实DefaultExtractorInput短读3+3+1；同容器样本结果未执行"
+    },
+    {
+      "id": "MC08",
+      "scope": "extract",
+      "input": "same legal fixture with unknown source length",
+      "expected": "length remains unknown; finite real EOF; no guessed length or whole-file cache; source returns",
+      "status": "PASS_COMPONENT_ONLY",
+      "phaseBEvidence": "未知长度/EOF/截断组件边界；同容器未知长度未执行"
+    },
+    {
+      "id": "MC09",
+      "scope": "extract",
+      "input": "sniff/peek/resetPeekPosition then normal extraction",
+      "expected": "logical read vs peek position tracked correctly, no skipped/duplicated caller bytes; sniff alone is not structure validation",
+      "status": "PASS_COMPONENT_ONLY",
+      "phaseBEvidence": "真实peek/reset短读位置及预算通过；sniff实际解析未执行"
+    },
+    {
+      "id": "MC10",
+      "scope": "seek",
+      "input": "actual SeekMap and RESULT_SEEK PositionHolder on qualified all-keyframe fixture",
+      "expected": "reopen exact byte position/new epoch only after old originals return; input position is absolute byte offset, known remaining open length is not blindly reused as absolute stream end; compare against actual seek map; explicitly reject unsupported seeks, no guessed random access",
+      "status": "PASS_COMPONENT_ONLY",
+      "phaseBEvidence": "绝对位置5+remaining68=>end73；真实SeekMap/RESULT_SEEK未执行"
+    },
+    {
+      "id": "MC11",
+      "scope": "seek",
+      "input": "negative/out-of-range/Long overflow sparse logical offsets",
+      "expected": "stable reject before provider or caller mutation; no huge allocation or 32-bit truncation",
+      "status": "PASS_BASELINE_ONLY",
+      "phaseBEvidence": "原范围和溢出拒绝回归；无真实稀疏容器解析"
+    },
+    {
+      "id": "MC12",
+      "scope": "malformed",
+      "input": "bounded truncations and invalid atom/sample sizes, ordinary vs fragmented mismatch",
+      "expected": "stable parse failure or documented unsupported, no spin/overflow/unbounded allocation; no structure receipt/READY",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "无真实损坏atom/sample解析；readFully EOF不替代此项"
+    },
+    {
+      "id": "MC13",
+      "scope": "input fault",
+      "input": "host 0/-2/count+1, permission loss and private cause during real extractor read",
+      "expected": "stable redacted failure, no invalid payload forwarding or retry with another source",
+      "status": "PASS_BASELINE_ONLY",
+      "phaseBEvidence": "原输入异常/脱敏回归；提取器内异常未执行"
+    },
+    {
+      "id": "MC14",
+      "scope": "cancel",
+      "input": "extractor input cancelled while same original read stage or close callback is late",
+      "expected": "caller wakes, late bytes stay original private block, extractor release and DataSource close do not fake full source/worker return",
+      "status": "PASS_COMPONENT_ONLY",
+      "phaseBEvidence": "真实DefaultInput取消后迟到原read/close归还；实际inspect取消未执行"
+    },
+    {
+      "id": "MC15",
+      "scope": "input close",
+      "input": "same source close fails or is pending",
+      "expected": "keep exact original registry/handle/thread; no automatic retry UNKNOWN; existing explicit known-FAILED recovery only",
+      "status": "PASS_BASELINE_ONLY",
+      "phaseBEvidence": "原source close/UNKNOWN保留；实际提取器close未执行"
+    },
+    {
+      "id": "MC16",
+      "scope": "EOF/hash",
+      "input": "parser RESULT_END_OF_INPUT, legal extra boxes or malformed trailing bytes",
+      "expected": "parser end is not full underlying EOF/hash; full bounded original stream consumed and policy explicit, no claim hash equals decoded validation",
+      "status": "PASS_RAW_READ_ONLY",
+      "phaseBEvidence": "源码/JAR各known/unknown完整原视频EOF/hash；parser EOF和尾部语义未执行"
+    },
+    {
+      "id": "MC17",
+      "scope": "mux track",
+      "input": "one legal AVC track and wrong MIME/dimensions/rotation or duplicate track",
+      "expected": "existing track predicate preserved; unsupported before actual sample output; codec initialization data independently qualified",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "真实muxer轨道正反例未运行"
+    },
+    {
+      "id": "MC18",
+      "scope": "mux sample",
+      "input": "legal sample size/ByteBuffer position-limit and invalid 0/over262144/size beyond remaining",
+      "expected": "no invalid sample forwarding; host I/O chunks<=65536; boundary positive requires genuine legal coded data",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "真实合法编码样本/ByteBuffer muxer边界未运行"
+    },
+    {
+      "id": "MC19",
+      "scope": "mux count/EOS",
+      "input": "5/6/7 payload samples and exact original E6 finish marker",
+      "expected": "frozen E6 finish requires exactly6; no seventh media frame; one empty EOS at lastPTS+200000; original finalize once",
+      "status": "PARTIAL_STATIC_AND_PRIOR_GUARD",
+      "phaseBEvidence": "原E6六payload/EOS静态约束和阶段A五项负例保留；真实六样本未运行"
+    },
+    {
+      "id": "MC20",
+      "scope": "timing",
+      "input": "PTS0..2000000 strictly increasing, duplicate/negative/regression/upper+1, final EOS duration",
+      "expected": "existing range rejects invalid; distinguish payload PTS bound vs actual container end; final timescale/rounding oracle declared before comparison",
+      "status": "OPEN",
+      "phaseBEvidence": "真实timescale/舍入/最终EOS时长oracle无正例证据"
+    },
+    {
+      "id": "MC21",
+      "scope": "coded bytes",
+      "input": "actual extractor output NAL representation/config passed to muxer and re-extracted",
+      "expected": "declare AnnexB/AVCC conversion and initialization data; compare under same declared representation; container hash need not equal original; no compressed byte equality claimed as decoded validation",
+      "status": "OPEN",
+      "phaseBEvidence": "无真实NAL表示/CSD转换及重提取比较"
+    },
+    {
+      "id": "MC22",
+      "scope": "real pipeline",
+      "input": "qualified genuine six-sample fixture through mature muxer and original TemporaryOutput",
+      "expected": "actual library executes and emits bounded bytes; not ABI-only or invented encoded fixture; no isolated validator/READY/COMMIT invoked",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "合格fixture缺口与真实muxer平台链接限制"
+    },
+    {
+      "id": "MC23",
+      "scope": "partial UNKNOWN",
+      "input": "ACK3 then original physical7 followed by failure while muxer writes",
+      "expected": "physical10/SDK lower3/caller3/UNKNOWN distinct, sticky failure, no rewind/reissue/refund; cannot reopen-validate a failed write as success",
+      "status": "PASS_BASELINE_ONLY",
+      "phaseBEvidence": "原partial ACK/物理写入/UNKNOWN回归；muxer整链未执行"
+    },
+    {
+      "id": "MC24",
+      "scope": "budget",
+      "input": "input8MiB/output16MiB including container overhead, source2/per-source1/queue0",
+      "expected": "reject before exceeding original grants; no whole-file cache or cross-factory bypass, no hidden new resource budget",
+      "status": "PASS_COMPONENT_ONLY",
+      "phaseBEvidence": "同Reader跨close/reopen累计4+4MiB，下一读provider前拒绝；16MiB/槽位基线通过"
+    },
+    {
+      "id": "MC25",
+      "scope": "output close",
+      "input": "original flush/close exception, early ACK/tail, timeout and late result",
+      "expected": "no blind second close/flush, same private result retained, original physical/observer/SDK worker return required; ACK not fsync device proof",
+      "status": "PASS_BASELINE_ONLY",
+      "phaseBEvidence": "原flush/close异常及尾段回归；真实muxer finalize未执行"
+    },
+    {
+      "id": "MC26",
+      "scope": "reopen order",
+      "input": "writer close ACK early but same original writer task not returned",
+      "expected": "no read-only reopen until original writer return; then use exact granted Provider and new read ownership, no SDK path open",
+      "status": "FAIL_MC_B01",
+      "phaseBEvidence": "新增inspect把原REOPEN暂待归还永久化；源码/JAR双复现；writer前置门静态保留"
+    },
+    {
+      "id": "MC27",
+      "scope": "structure",
+      "input": "reopened actual muxer output via mature extractor",
+      "expected": "expected single AVC256x144/rotation/config, six media samples and declared PTS/EOS duration; full original EOF/size/hash separately recorded",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "真实重开输出结构/六样本/CSD/PTS比较未运行"
+    },
+    {
+      "id": "MC28",
+      "scope": "structure negative",
+      "input": "reopen hash/length/track/sample-count/timing mismatch or corrupt output",
+      "expected": "host structural result fails, no HOST_ISOLATED_FORMAT_V1/READY/COMMIT, original read owners still closed/returned",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "真实输出损坏/hash/track/sample差异解析未运行"
+    },
+    {
+      "id": "MC29",
+      "scope": "ownership",
+      "input": "input parser still owns a source while output readback uses second capability",
+      "expected": "global2/per-source1/queue0 remain; third denied, extractor.release distinct from actual DataSource/registry/thread return",
+      "status": "PASS_BASELINE_ONLY",
+      "phaseBEvidence": "原source全局2/每源1/原任务归还回归；实际提取与重开组合未执行"
+    },
+    {
+      "id": "MC30",
+      "scope": "responses",
+      "input": "same original response pending, observer tail, actual SDK worker alive with count0",
+      "expected": "reuse INPUT_SINK05 limited guards, stable pending/no internal exception, no source/sink release until exact original return",
+      "status": "PARTIAL_FAIL_MC_B01",
+      "phaseBEvidence": "既有response/observer/worker回归通过；新增inspect暂待归还错误见MC-B01"
+    },
+    {
+      "id": "MC31",
+      "scope": "classification",
+      "input": "host structure report success or parser end/hash success",
+      "expected": "explicit host-structure-only result; must not issue HOST_ISOLATED_FORMAT_V1, product READY/COMMIT or playback verdict",
+      "status": "PASS_STATIC_AND_NEGATIVE_ONLY",
+      "phaseBEvidence": "结构类型与validated/READY分离；前置失败无发布；成功结构路径未运行"
+    },
+    {
+      "id": "MC32",
+      "scope": "platform",
+      "input": "actual Android FD/fsync/codec, isolated content/slot/death/timeline, host publication/playback",
+      "expected": "NOT_RUN until separate accurate platform/isolated/business evidence; no fake success or new execution permission",
+      "status": "NOT_RUN",
+      "phaseBEvidence": "Android FD/fsync/codec、隔离内容、业务提交和播放均未执行"
+    }
+  ]
+}

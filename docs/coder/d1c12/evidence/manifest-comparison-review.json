@@ -1,0 +1,10 @@
+{
+  "first_review": "FAILED_RAW_ZIP_TEXT_VS_UNIVERSAL_NEWLINE_TEXT",
+  "exception": "AssertionError in review_c12.py manifest comparison",
+  "cause": "15 CRLF in frozen ZIP decode vs normalized read_text string; no declaration change",
+  "normalized_identity_and_line_endings_equal": true,
+  "old_manifest_sha256": "cb470cee7f5a836b6147334746f554201c48dc79b570023778c24a207a362874",
+  "new_manifest_sha256": "8f67e921a123bad3f95d5cd3991879f60ce96592935cc9efbc062e55a1fad587",
+  "repair": "Only review tool normalizes line endings; no app/source change needed",
+  "device": "NOT_RUN"
+}

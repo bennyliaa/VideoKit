@@ -1,0 +1,11 @@
+from pathlib import Path
+import json,subprocess,hashlib,datetime
+R=Path('D:/CodexProjects/VideoKit');B=R/'docs/coder/d1input-sink04';O=R/'docs/coder/d1input-sink03';D=B/'evidence/input03-reproduction';D.mkdir(exist_ok=False);C=D/'classes';C.mkdir();J=Path('D:/Android/Android Studio/jbr/bin')
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def run(name,argv,expected=0):
+ start=datetime.datetime.now(datetime.timezone.utc).isoformat();p=subprocess.run(argv,stdout=subprocess.PIPE,stderr=subprocess.PIPE);(D/(name+'.stdout')).write_bytes(p.stdout);(D/(name+'.stderr')).write_bytes(p.stderr);(D/(name+'.json')).write_text(json.dumps({'argv':argv,'startUtc':start,'endUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'exitCode':p.returncode,'originalProcessReturned':True,'oldProductionJarSha256':sha(O/'artifacts/input-sink03-classes.jar')},indent=2),encoding='utf-8');assert p.returncode==expected,(name,p.stderr.decode('utf8','replace'));print(name,'expectedExit',p.returncode)
+sources=sorted(p for name in ['src','upstream','checks','platform-fixtures'] for p in (O/name).rglob('*.java'))+[O/'android/com/videokit/d1input/PlatformOutputErrors.java',B/'reference/QueryResultCheck.java']
+(D/'source-pins.json').write_text(json.dumps([{'path':p.relative_to(R).as_posix(),'sha256':sha(p)} for p in sources],indent=2),encoding='utf-8');args=D/'javac.args';args.write_text('\n'.join('"'+p.as_posix()+'"' for p in sources),encoding='utf8');deps=';'.join(map(str,sorted((O/'deps').glob('*.jar'))));run('compile',[str(J/'javac.exe'),'--release','11','-encoding','UTF-8','-cp',deps,'-d',str(C),'@'+str(args)])
+for mode,cp in [('source',str(C)+';'+deps),('production',str(O/'artifacts/input-sink03-classes.jar')+';'+str(C)+';'+deps)]:
+ for case in ['NULL','EMPTY_READY']:run(case.lower()+'-'+mode,[str(J/'java.exe'),'-Xmx256m','-cp',cp,'com.videokit.d1input.QueryResultCheck',case])
+target=R/'docs/tester/D1_INPUT_SINK03_REVIEW_EVIDENCE/coder-c01-baseline-repro';assert not target.exists();run('c01-original-entry',['C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe','-X','utf8','-B',str(O/'tools/local_check.py'),'--review-output',str(target)],1);assert not target.exists();print('Original B05 source/JAR and C01 failures reproduced; no old file writes')

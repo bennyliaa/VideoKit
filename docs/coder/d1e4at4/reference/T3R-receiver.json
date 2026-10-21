@@ -1,0 +1,58 @@
+{
+  "status": "NOT_ADMITTED",
+  "ownership": "RETURNED",
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "-T",
+    "-e",
+    "none",
+    "run-as",
+    "com.videokit.app",
+    "sh",
+    "-c",
+    "'set -eu; u=$(id -u); p=$(pwd); printf \"E4T2_BEGIN|E4T3P_TABLET_20261017_ONCE|uid=%s|pid=%s|pwd=%s|path=files/e4_diag_T3P_TABLET_20261017_once/payload256.bin\\n\" \"$u\" \"$$\" \"$p\"; test \"$u\" = 10221; test \"$p\" = /data/user/0/com.videokit.app; test -d files; test ! -L files; test -d files/e4_diag_T3P_TABLET_20261017_once; test ! -L files/e4_diag_T3P_TABLET_20261017_once; test ! -e files/e4_diag_T3P_TABLET_20261017_once/payload256.bin; test ! -L files/e4_diag_T3P_TABLET_20261017_once/payload256.bin; umask 077; set -C; cat > files/e4_diag_T3P_TABLET_20261017_once/payload256.bin; n=$(/system/bin/toybox stat -c %s -- files/e4_diag_T3P_TABLET_20261017_once/payload256.bin); test \"$n\" = 256; printf \"E4T2_END|E4T3P_TABLET_20261017_ONCE|uid=%s|pid=%s|pwd=%s|path=files/e4_diag_T3P_TABLET_20261017_once/payload256.bin|bytes=%s\\n\" \"$u\" \"$$\" \"$p\" \"$n\"'"
+  ],
+  "expectedBytes": 256,
+  "expectedSha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+  "sourcePrehashBytes": 256,
+  "sourcePrehashSha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+  "sourceStreamReadBytes": 256,
+  "submittedBytes": 256,
+  "submittedSha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+  "flushReturned": true,
+  "stdinCloseReturned": true,
+  "sourceCloseReturned": true,
+  "originalExitCode": 1,
+  "originalExitObserved": true,
+  "terminatedOwnedChild": false,
+  "writerReturned": true,
+  "elapsedSeconds": 0.156,
+  "firstError": "PROCESS_NONZERO_EXIT",
+  "errors": [
+    "PROCESS_NONZERO_EXIT"
+  ],
+  "stdout": {
+    "bytes": 152,
+    "sha256": "acc47e9b4666426a4d488fdab702a1f1bfec6f4b48b737c96091b81ae9a9d5ae",
+    "prefixHex": "453454325f424547494e7c45345433505f5441424c45545f32303236313031375f4f4e43457c7569643d31303232317c7069643d31363634337c7077643d2f646174612f757365722f302f636f6d2e766964656f6b69742e6170707c706174683d66696c65732f65345f646961675f5433505f5441424c45545f32303236313031375f6f6e63652f7061796c6f61643235362e62696e0d0a",
+    "prefixTruncated": false,
+    "closeReturned": true,
+    "error": null
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prefixHex": "",
+    "prefixTruncated": false,
+    "closeReturned": true,
+    "error": null
+  },
+  "remoteFileVerified": false,
+  "stdinOwnerAllocated": true,
+  "stdinCloseAttempted": true,
+  "stdinCloseError": null,
+  "creationUnknown": false
+}

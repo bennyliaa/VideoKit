@@ -1,0 +1,7 @@
+repositories {
+ maven { url=uri('overlay'); content { includeModule('com.google.guava','guava-parent') }; metadataSources { mavenPom() } }
+ maven { url=uri('D:/CodexProjects/VideoKit/docs/coder/d1render02/offline-maven'); metadataSources { mavenPom(); ignoreGradleMetadataRedirection() } }
+}
+configurations { probe }
+dependencies { probe('com.google.guava:guava:33.3.1-android') { transitive=false } }
+tasks.register('resolveProbe') { doLast { configurations.probe.files.each { println('RESOLVED '+it.name) } } }

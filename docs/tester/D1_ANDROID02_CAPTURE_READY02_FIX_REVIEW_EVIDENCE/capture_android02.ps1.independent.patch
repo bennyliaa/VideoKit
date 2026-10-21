@@ -1,0 +1,160 @@
+--- READY01/tools/capture_android02.ps1
++++ READY02/tools/capture_android02.ps1
+@@ -1,6 +1,6 @@
+ [CmdletBinding()]
+-param([Parameter(Mandatory=$true)][string]$RequestPath,[string]$PredecessorProofSha='ABSENT')
+-if(@($PSBoundParameters.Keys|Where-Object {$_ -cnotin @('RequestPath','PredecessorProofSha')}).Count -ne 0){throw 'EXTRA_ENTRY_ARGUMENT_REJECTED'}
++param([Parameter(Mandatory=$true)][string]$RequestPath,[string]$PredecessorProofSha='ABSENT',[string]$OwnerAdmissionSha='ABSENT')
++if(@($PSBoundParameters.Keys|Where-Object {$_ -cnotin @('RequestPath','PredecessorProofSha','OwnerAdmissionSha')}).Count -ne 0){throw 'EXTRA_ENTRY_ARGUMENT_REJECTED'}
+ $ErrorActionPreference='Stop'
+ # Narrow seven-role binding of the frozen RENDER02 capture. Original Process/pumps/lock retained.
+ function ReadJsonExact([string]$Path,[string[]]$Keys,[int]$Max=8192){
+@@ -13,6 +13,40 @@
+ function Digest([string]$Path){return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
+ function SameArgv($A,$B){if($A.Count -ne $B.Count){return $false};for($n=0;$n -lt $A.Count;$n++){if($A[$n] -isnot [string] -or $A[$n] -cne $B[$n]){return $false}};return $true}
+ function NoLinks([string]$Path){$p=if(Test-Path -LiteralPath $Path -PathType Container){[IO.DirectoryInfo]::new($Path)}else{[IO.FileInfo]::new($Path)};while($null -ne $p){if($p.Exists -and ($p.Attributes -band [IO.FileAttributes]::ReparsePoint)){throw 'NO_REPARSE_POINT'};$p=if($p -is [IO.FileInfo]){$p.Directory}else{$p.Parent}}}
++function IntField($Object,[string]$Key,[long]$Max,[long]$Min=0){
++ if($null -eq $Object -or $Object -isnot [pscustomobject]){return $false}
++ $p=$Object.PSObject.Properties[$Key];return $null -ne $p -and ($p.Value -is [int] -or $p.Value -is [long]) -and $p.Value -ge $Min -and $p.Value -le $Max
++}
++function BoolField($Object,[string]$Key,[bool]$Expected){$p=$Object.PSObject.Properties[$Key];return $null -ne $p -and $p.Value -is [bool] -and $p.Value -eq $Expected}
++function StringField($Object,[string]$Key){$p=$Object.PSObject.Properties[$Key];return $null -ne $p -and $p.Value -is [string]}
++function StrictReceipt($p,[bool]$Fixture){
++ if($p -isnot [pscustomobject]){return $false}
++ if($null -eq $p.PSObject.Properties['firstFailure'] -or $null -ne $p.firstFailure){return $false}
++ foreach($k in @('scopeEntry','candidate','status')){if(-not (StringField $p $k)){return $false}}
++ foreach($k in @('originalResourcesReturned','workerActuallyJoined','timelyOriginalBody','lastControlledReturnSignalBeforeMarker')){if(-not (BoolField $p $k $true)){return $false}}
++ foreach($k in @('completedCaseCount','expectedCaseCount')){if(-not (IntField $p $k 10 10)){return $false}}
++ foreach($k in @('sourceKeepers','outputKeepers')){if(-not (IntField $p $k 0)){return $false}}
++ if(-not (IntField $p 'runnerFinalizerOwnerAtReceipt' 1 1) -or -not (StringField $p 'runnerFinishReturn') -or $p.runnerFinishReturn -cne 'EXTERNAL_ORIGINAL_CAPTURE_REQUIRED'){return $false}
++ if($Fixture){return (BoolField $p 'fixtureOnly' $true)}
++ if(-not (StringField $p 'runId') -or -not (BoolField $p 'snapshotOverflow' $false) -or -not (BoolField $p 'scopeBudgetsSharedAcrossAllCases' $true)){return $false}
++ if(-not (IntField $p 'startedNano' ([long]::MaxValue)) -or -not (IntField $p 'completedNano' ([long]::MaxValue)) -or $p.completedNano -lt $p.startedNano -or $p.completedNano-$p.startedNano -ge 60000000000){return $false}
++ if($p.caseReceipts -isnot [array] -or $p.caseReceipts.Count -ne 10){return $false}
++ foreach($c in $p.caseReceipts){if($c -isnot [pscustomobject] -or -not (StringField $c 'case') -or -not (BoolField $c 'caseOriginalResourcesReturned' $true)){return $false}}
++ if($p.identity -isnot [pscustomobject] -or $p.meter -isnot [pscustomobject]){return $false}
++ foreach($k in @('targetPackage','testPackage','processName')){if(-not (StringField $p.identity $k)){return $false}}
++ foreach($pkg in @('com.videokit.d1media3.android02','com.videokit.d1media3.android02.test')){
++  $x=$p.identity.PSObject.Properties[$pkg].Value
++  if(-not (IntField $x 'versionCode' 1 1) -or -not (StringField $x 'versionName') -or -not (StringField $x 'signerSha256')){return $false}
++ }
++ if(-not (IntField $p.meter 'scopeInputReserved' 8388608) -or -not (IntField $p.meter 'scopeOutputRequested' 16777216) -or -not (IntField $p.meter 'scopeOutputAttempted' 16777216)){return $false}
++ foreach($k in @('knownNativeFdActive','assetStreamActive','unknownAllocationOrClose')){if(-not (IntField $p.meter $k 0)){return $false}}
++ $m=$p.caseReceipts[9]
++ if($m.muxerKeeper -isnot [pscustomobject] -or $m.reopened -isnot [pscustomobject]){return $false}
++ foreach($k in @('returned','eosReturned')){if(-not (BoolField $m.muxerKeeper $k $true)){return $false}}
++ if(-not (IntField $m.muxerKeeper 'sampleWritesReturned' 6 6) -or -not (IntField $m 'muxReopenCalls' 1 1) -or -not (IntField $m 'muxReadyCalls' 0) -or -not (BoolField $m 'muxNativeSyncReturned' $true) -or -not (StringField $m.reopened 'actualExtractorClass')){return $false}
++ return $true
++}
++
+ function RoleSemantic([string]$Id,[string]$RawPath,[bool]$IsFixture) {
+  $raw=[IO.File]::ReadAllBytes($RawPath);$text=[Text.UTF8Encoding]::new($false,$true).GetString($raw);$lines=@($text.Trim().Split("`n")|ForEach-Object {$_.TrimEnd("`r")})
+  if($Id -ceq 'identity'){
+@@ -39,7 +73,7 @@
+  }
+  if($Id -ceq 'scope_all'){
+   $receiptMatches=[regex]::Matches($text,'(?m)^INSTRUMENTATION_RESULT: receipt=(.+)\r?$');if($receiptMatches.Count -ne 1 -or $text -cnotmatch '(?m)^INSTRUMENTATION_CODE: -1\s*$'){return 'FINAL_INSTRUMENTATION_RESULT_UNPROVEN'}
+-  $encoded=$receiptMatches[0].Groups[1].Value.TrimEnd("`r");if([Text.Encoding]::UTF8.GetByteCount($encoded) -gt 262144){return 'APP_RECEIPT_BOUND'};$p=$encoded|ConvertFrom-Json
++  $encoded=$receiptMatches[0].Groups[1].Value.TrimEnd("`r");if([Text.Encoding]::UTF8.GetByteCount($encoded) -gt 262144){return 'APP_RECEIPT_BOUND'};$p=$encoded|ConvertFrom-Json;if(-not (StrictReceipt $p $IsFixture)){return 'APP_REQUIRED_TYPES_BOUNDS_OR_FIRST_FAILURE'}
+   if($IsFixture -and $p.fixtureOnly -ne $true){return 'FIXTURE_RECEIPT_REQUIRED'};if(-not $IsFixture -and $p.fixtureOnly){return 'FIXTURE_NOT_PRODUCTION'}
+   if($p.scopeEntry -cne 'scopeAll' -or $p.candidate -cne 'D1-MEDIA3-ANDROID02-FIX02' -or $p.status -cne 'OBSERVED_ALL_SCOPE_HOST_STRUCTURE_ONLY' -or $p.completedCaseCount -ne 10 -or $p.expectedCaseCount -ne 10 -or $p.sourceKeepers -ne 0 -or $p.outputKeepers -ne 0){return 'APP_SCOPE_RESULT_UNPROVEN'}
+   foreach($k in @('originalResourcesReturned','workerActuallyJoined','timelyOriginalBody','lastControlledReturnSignalBeforeMarker')){if($p.$k -isnot [bool] -or -not $p.$k){return 'APP_ORIGINAL_RETURN_OR_DEADLINE_UNPROVEN'}}
+@@ -78,22 +112,24 @@
+ if($request.evidenceRoot -cne $policy.evidenceRoot -or $request.scope -cne $policy.scope -or $policy.scope -cnotmatch '^[a-f0-9]{64}$'){throw 'EXACT_SCOPE_ROOT'}
+ $fixture=$policy.mode -ceq 'OFFLINE_FIXTURE';$inputPin=$null;$payloadPin=$null;$slots=@();$previous=$null
+ if($fixture){
+- $prefix='D:\CodexProjects\VideoKit\docs\coder\d1android02-capture-ready01\selfchecks\work\';$review='D:\CodexProjects\VideoKit\docs\tester\D1_ANDROID02_CAPTURE_READY01_REVIEW_EVIDENCE\fixtures\'
++ $prefix='D:\CodexProjects\VideoKit\docs\coder\d1android02-capture-ready02-fix\selfchecks\work\';$review='D:\CodexProjects\VideoKit\docs\tester\D1_ANDROID02_CAPTURE_READY02_FIX_REVIEW_EVIDENCE\fixtures\'
+  if(-not $root.StartsWith($prefix,[StringComparison]::OrdinalIgnoreCase) -and -not $root.StartsWith($review,[StringComparison]::OrdinalIgnoreCase)){throw 'FIXTURE_ROOT_ONLY'}
+  $slots=@($policy.slots);if($slots.Count -lt 1 -or $slots.Count -gt 7){throw 'EXACT_SEVEN_ROLES_MAX'}
+  for($i=0;$i -lt $slots.Count;$i++){
+-  $s=$slots[$i];if($s.id -cne $plan.steps[$i].id -or $s.argv.Count -ne 8 -or $s.argv[0] -cne 'C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' -or -not (SameArgv @($s.argv[1..4]) @('-I','-X','utf8','-B')) -or $s.argv[5] -cne 'D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready01/selfchecks/capture_fixture.py' -or $s.argv[6] -cnotin @('identity','global_idle','global_busy','global_unknown','app_absence','test_absence','app_present','payload_app','payload_test','instrument','late','overrun','stderr','invalid_utf8','nonzero') -or $s.argv[7] -cne (Join-Path $root 'fixture-gate')){throw 'EXACT_LOCAL_PRODUCER_ONLY'}
++  $s=$slots[$i];if($s.id -cne $plan.steps[$i].id -or $s.argv.Count -ne 8 -or $s.argv[0] -cne 'C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' -or -not (SameArgv @($s.argv[1..4]) @('-I','-X','utf8','-B')) -or $s.argv[5] -cne 'D:/CodexProjects/VideoKit/docs/coder/d1android02-capture-ready02-fix/selfchecks/capture_fixture.py' -or $s.argv[6] -cnotin @('identity','global_idle','global_busy','global_unknown','app_absence','test_absence','app_present','payload_app','payload_test','instrument','late','overrun','stderr','invalid_utf8','nonzero') -or $s.argv[7] -cne (Join-Path $root 'fixture-gate')){throw 'EXACT_LOCAL_PRODUCER_ONLY'}
+   if($s.maxTextBytes -lt 1 -or $s.maxTextBytes -gt $plan.steps[$i].maxTextBytes -or $s.maxBinaryBytes -ne 0 -or $s.qualificationSeconds -le 0 -or $s.qualificationSeconds -gt $plan.steps[$i].qualificationSeconds){throw 'FIXTURE_ROLE_BOUND_ONLY'}
+-  if((Digest $s.argv[5]) -cne 'b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed' -or $policy.fixtureScriptSha256 -cne 'b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed'){throw 'FIXTURE_SCRIPT_PIN'}
++  if((Digest $s.argv[5]) -cne '4b0aea7b372f737ae6d0970374d18d491c2f537c741df3fa7166c5ef654e8d5a' -or $policy.fixtureScriptSha256 -cne '4b0aea7b372f737ae6d0970374d18d491c2f537c741df3fa7166c5ef654e8d5a'){throw 'FIXTURE_SCRIPT_PIN'}
+  }
+  if($policy.fixtureFault -cnotin @('NONE','READ_FAULT_ONCE','WRITE_FAULT_ONCE','STDIN_WRITE_FAULT_ONCE','STDIN_CLOSE_GATE','CLOSE_GATE')){throw 'EXACT_FIXTURE_FAULT'}
+ }else{
+  if($policy.planId -cnotmatch '^[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}$' -or $policy.planId -cin @($plan.forbiddenOldPlanIds) -or $policy.runId -cnotmatch '^D1MA02-[A-Z0-9_-]{1,32}$'){throw 'FRESH_SCOPE_REQUIRED'}
+  if($root -cne ('D:\CodexProjects\VideoKit\docs\tester\D1_ANDROID02_CAPTURE_EXECUTION\'+$policy.planId+'\outputs')){throw 'NEW_EXACT_EXECUTION_ROOT'}
+  foreach($k in @('authorization','independentReview','toolCandidateSeal','freshRouteProof')){if($null -eq $policy.$k -or $policy.$k.sha256 -cnotmatch '^[a-f0-9]{64}$' -or (Digest $policy.$k.path) -cne $policy.$k.sha256){throw 'NEW_ACTIVATION_REVIEW_ROUTE_REQUIRED'}}
+- $activation=ReadJsonExact $policy.authorization.path @('schema','scope','planId','runId','entrySha256','planSha256','toolCandidateSealSha256','productSealSha256','reviewSha256','toolSha256','evidenceRoot','wholeWallSeconds','localProofSeconds','outerSeconds','freshRouteProofSha256','initialPredecessorProofSha256','approvedForExecution')
++ $activation=ReadJsonExact $policy.authorization.path @('schema','scope','planId','runId','entrySha256','planSha256','toolCandidateSealSha256','productSealSha256','reviewSha256','toolSha256','evidenceRoot','wholeWallSeconds','localProofSeconds','outerSeconds','freshRouteProofSha256','initialPredecessorProofSha256','outerOwnerSha256','outerPythonSha256','approvedForExecution')
++ if($activation.outerOwnerSha256 -cne $policy.outerOwnerSha256 -or $activation.outerPythonSha256 -cne $policy.outerPythonSha256){throw 'ACTIVATION_OWNER_SOURCE_PIN'}
+  if($activation.schema -cne 'ANDROID02_CAPTURE_ACTIVATION_V1' -or $activation.approvedForExecution -isnot [bool] -or -not $activation.approvedForExecution -or $activation.scope -cne $policy.scope -or $activation.planId -cne $policy.planId -or $activation.runId -cne $policy.runId -or $activation.entrySha256 -cne $policy.entrySha256 -or $activation.planSha256 -cne (Digest $planPath) -or $activation.toolCandidateSealSha256 -cne $policy.toolCandidateSeal.sha256 -or $activation.productSealSha256 -cne $plan.product.sealSha256 -or $activation.reviewSha256 -cne $policy.independentReview.sha256 -or $activation.toolSha256 -cne $plan.sdkFiles[0].sha256 -or $activation.evidenceRoot -cne $root){throw 'EXACT_NEW_ACTIVATION_BINDING'}
+  # These are approved NEW scope/outer/local-proof ceilings, not the 240s sum or a kill permit.
++ if(-not (IntField $activation 'wholeWallSeconds' 600 1) -or -not (IntField $activation 'localProofSeconds' 30 1) -or -not (IntField $activation 'outerSeconds' 600 1)){throw 'STRICT_ACTIVATION_WALL_TYPES'}
+  if($activation.wholeWallSeconds -lt 1 -or $activation.wholeWallSeconds -gt 600 -or $activation.localProofSeconds -lt 1 -or $activation.localProofSeconds -gt 30 -or $activation.outerSeconds -lt 1 -or $activation.outerSeconds -gt 600){throw 'REVIEWED_WALL_BOUNDS_REQUIRED'}
+  if($activation.freshRouteProofSha256 -cne $policy.freshRouteProof.sha256){throw 'FRESH_ROUTE_AUTHORIZATION_BINDING'}
+  $route=ReadJsonExact $policy.freshRouteProof.path @() 16384;$contract=Join-Path $PSScriptRoot '../reference/legacy-tool-route-contract.json'
+@@ -115,12 +151,24 @@
+ if(-not $fixture -and $request.id -ceq 'install_app'){$payloadPin=$plan.product.app};if(-not $fixture -and $request.id -ceq 'install_test'){$payloadPin=$plan.product.test}
+ if(-not (Test-Path -LiteralPath $root -PathType Container)){throw 'REVIEWED_OUTPUT_PARENT_REQUIRED'}
+ if($global:Android02CaptureCustody -and $global:Android02CaptureCustody.Count -ne 0){throw 'ORIGINAL_CONTEXT_STILL_OWNED'}
++# The pinned original outer owner writes and CLOSES this admission before Popen.
++# It vouches for the previous proof writer AFTER join; proof files alone never do.
++$ownerPath='D:\CodexProjects\VideoKit\docs\coder\d1android02-capture-ready02-fix\tools\outer_owner.py'
++if((Digest $ownerPath) -cne '3aab1fee40b2989e41e3ca4a2750a5a481b0caa5c8691bf287b26900ad192fa3' -or $policy.outerOwnerSha256 -cne '3aab1fee40b2989e41e3ca4a2750a5a481b0caa5c8691bf287b26900ad192fa3' -or (Digest 'C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe') -cne $policy.outerPythonSha256){throw 'EXACT_OUTER_OWNER_SOURCE_PIN'}
++$admissionPath=Join-Path $root ($request.id+'-owner-admission.json');NoLinks $admissionPath
++if($OwnerAdmissionSha -cnotmatch '^[a-f0-9]{64}$' -or (Digest $admissionPath) -cne $OwnerAdmissionSha){throw 'EXACT_OWNER_ADMISSION_REQUIRED'}
++$ad=ReadJsonExact $admissionPath @('schema','id','scope','entrySha256','ownerSha256','requestSha256','predecessorProofSha256','previousProofWriterReturned','previousProofWriterTimely','requestWriteBytes','admissionWriteBytes','ownerPid','proofSeconds','outerSeconds') 4096
++if($ad.schema -cne 'ANDROID02_OWNER_ADMISSION_V1' -or $ad.id -cne $request.id -or $ad.scope -cne $policy.scope -or $ad.entrySha256 -cne $policy.entrySha256 -or $ad.ownerSha256 -cne '3aab1fee40b2989e41e3ca4a2750a5a481b0caa5c8691bf287b26900ad192fa3' -or $ad.requestSha256 -cne (Digest $RequestPath) -or $ad.predecessorProofSha256 -cne $PredecessorProofSha -or -not (BoolField $ad 'previousProofWriterReturned' $true) -or -not (BoolField $ad 'previousProofWriterTimely' $true) -or -not (IntField $ad 'ownerPid' ([int]::MaxValue) 1) -or -not (IntField $ad 'requestWriteBytes' 8192 1) -or -not (IntField $ad 'admissionWriteBytes' 4096 1) -or $ad.requestWriteBytes -ne (Get-Item -LiteralPath $RequestPath).Length -or $ad.admissionWriteBytes -ne (Get-Item -LiteralPath $admissionPath).Length){throw 'OWNER_REQUEST_WRITER_BINDING'}
++if(-not $fixture -and ($ad.proofSeconds -ne $activation.localProofSeconds -or $ad.outerSeconds -ne $activation.outerSeconds)){throw 'OWNER_ACTUAL_WALL_BINDING'}
++$ownerCurrentWriteCost=[long]$ad.requestWriteBytes+[long]$ad.admissionWriteBytes
++$ownerCurrentReadCost=[long]$ad.admissionWriteBytes
++
+ $batchSdkBefore=0;$batchTextBefore=[long]0;$batchBinaryBefore=[long]0;$proofReadBytes=0
+ $groups=@{preflight=[long]0;install=[long]0;instrument=[long]0;control=[long]0;payload=[long]0;command=[long]0};$scopeStartTick=[Environment]::TickCount64
+ if($previous -or -not $fixture){
+  $proofId=if($previous){$previous}else{'pre_sdk_local_gate'};$proofPath=Join-Path $root ($proofId+'-completion-proof.json')
+  if($PredecessorProofSha -cnotmatch '^[a-f0-9]{64}$' -or (Digest $proofPath) -cne $PredecessorProofSha){throw 'ORIGINAL_PREDECESSOR_PROOF_REQUIRED'}
+- $proof=ReadJsonExact $proofPath @('schema','id','nextId','scope','controllerPid','controllerExited','toolStreamsReturned','originalResourcesReturnedAtConsole','captureQualifiedAtConsole','approvedForNext','captureReceiptSha256','semanticDependency','dependencyAccepted','batchSdkChildrenEntered','batchTextChargedBytesKnown','batchBinaryArchiveBytesKnown','batchAmountUnknown','batchGroups','outerReturnSha256','scopeStartTick') 4096;$proofReadBytes=(Get-Item -LiteralPath $proofPath).Length
++ $proof=ReadJsonExact $proofPath @('schema','id','nextId','scope','controllerPid','controllerExited','toolStreamsReturned','originalResourcesReturnedAtConsole','captureQualifiedAtConsole','approvedForNext','captureReceiptSha256','semanticDependency','dependencyAccepted','batchSdkChildrenEntered','batchTextChargedBytesKnown','batchBinaryArchiveBytesKnown','batchAmountUnknown','batchGroups','outerReturnSha256','scopeStartTick','outerDelta','proofWriteBytes','candidateOnlyWriterCloseNotProven') 4096;$proofReadBytes=(Get-Item -LiteralPath $proofPath).Length
+  if($proof.schema -cne 'ANDROID02_CAPTURE_COMPLETION_PROOF_V1' -or $proof.id -cne $proofId -or $proof.nextId -cne $request.id -or $proof.scope -cne $policy.scope){throw 'ORIGINAL_PREDECESSOR_IDENTITY'}
+  foreach($k in @('controllerExited','toolStreamsReturned','originalResourcesReturnedAtConsole','captureQualifiedAtConsole','approvedForNext','dependencyAccepted')){if($proof.$k -isnot [bool] -or -not $proof.$k){throw 'ORIGINAL_PREDECESSOR_UNRETURNED_OR_UNAPPROVED'}}
+  foreach($k in @('batchSdkChildrenEntered','batchTextChargedBytesKnown','batchBinaryArchiveBytesKnown','scopeStartTick')){if(($proof.$k -isnot [long] -and $proof.$k -isnot [int]) -or $proof.$k -lt 0){throw 'EXACT_EXTERNAL_ACCOUNTING'}}
+@@ -135,16 +183,31 @@
+   foreach($k in @('originalControllerWaitReturned','sameOriginalPipeReadersJoined','outerStreamsClosed','originalWindowsProcessHandleCloseReturned')){if($native.$k -isnot [bool] -or -not $native.$k){throw 'EXACT_OUTER_RETURN_TYPES'}}
+   if((Digest $nativePath) -cne $proof.outerReturnSha256 -or $native.controllerPid -ne $prior.controllerPid -or $native.exitCode -ne 0 -or $native.originalControllerWaitReturned -ne $true -or $native.sameOriginalPipeReadersJoined -ne $true -or $native.outerStreamsClosed -ne $true -or $native.originalWindowsProcessHandleCloseReturned -ne $true -or $native.amountUnknown -or $native.scope -cne $policy.scope -or $native.id -cne $previous -or $native.sourceEntrySha256 -cne $policy.entrySha256 -or $native.requestSha256 -cne $prior.bindings.requestSha256){throw 'EXACT_OUTER_ORIGINAL_RETURN_REQUIRED'}
+   if((Digest (Join-Path $root ($previous+'-console.bin'))) -cne $native.stdoutSha256 -or (Digest (Join-Path $root ($previous+'-controller-stderr.bin'))) -cne $native.stderrSha256){throw 'OUTER_CAPTURE_DIGEST_BINDING'}
+-  $co=ReadJsonExact (Join-Path $root ($previous+'-console.bin')) @() 16384;if($co.controllerPid -ne $prior.controllerPid -or $co.captureReceiptSha256 -cne $proof.captureReceiptSha256 -or $co.allOriginalResourcesReturnedAtConsole -ne $true -or $co.captureQualified -ne $true -or $co.batchAmountUnknown -or $co.batchTextChargedBytesKnown -ne $batchTextBefore -or $co.batchSdkChildrenEntered -ne $batchSdkBefore -or $co.scopeStartTick -ne $scopeStartTick){throw 'OUTER_CONSOLE_ORIGINAL_BINDING'}
+-  foreach($k in @('preflight','install','instrument','control','payload','command')){if($co.batchGroups.$k -ne $groups[$k]){throw 'GROUP_RESET_OR_FORGED_ACCOUNTING'}}
++  $co=ReadJsonExact (Join-Path $root ($previous+'-console.bin')) @() 16384;if($co.controllerPid -ne $prior.controllerPid -or $co.captureReceiptSha256 -cne $proof.captureReceiptSha256 -or $co.allOriginalResourcesReturnedAtConsole -ne $true -or $co.captureQualified -ne $true -or $co.batchAmountUnknown -or $co.batchSdkChildrenEntered -ne $batchSdkBefore -or $co.scopeStartTick -ne $scopeStartTick){throw 'OUTER_CONSOLE_ORIGINAL_BINDING'}
++  # Early console remains the immutable BASE, never the complete later ledger.
++  $d=$proof.outerDelta
++  if(-not (BoolField $proof 'candidateOnlyWriterCloseNotProven' $true) -or -not (BoolField $native 'amountUnknown' $false)){throw 'OUTER_DELTA_UNKNOWN_OR_SELF_CERTIFIED'}
++  foreach($k in @('nativeWriteBytes','proofWriteBytes','additionalForwardBytes')){if(-not (IntField $d $k 1048576)){throw 'EXACT_OUTER_DELTA_INTEGER'}}
++  if(-not (IntField $proof 'proofWriteBytes' 4096 1) -or $proof.proofWriteBytes -ne (Get-Item -LiteralPath $proofPath).Length -or $d.proofWriteBytes -ne $proof.proofWriteBytes -or $d.nativeWriteBytes -ne (Get-Item -LiteralPath $nativePath).Length -or $d.additionalForwardBytes -ne 0 -or $d.sourceOwnerSha256 -cne '3aab1fee40b2989e41e3ca4a2750a5a481b0caa5c8691bf287b26900ad192fa3' -or $native.sourceOwnerSha256 -cne '3aab1fee40b2989e41e3ca4a2750a5a481b0caa5c8691bf287b26900ad192fa3' -or $d.baseConsoleSha256 -cne (Digest (Join-Path $root ($previous+'-console.bin'))) -or $native.ownerPid -ne $ad.ownerPid -or -not (BoolField $native 'outerTimely' $true)){throw 'ORIGINAL_OUTER_DELTA_SOURCE_BYTES'}
++  $eventData=$policy.scope+'|'+$previous+'|'+$prior.bindings.requestSha256+'|'+$proof.captureReceiptSha256+'|'+$proof.outerReturnSha256
++  $eventHash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($eventData))).ToLowerInvariant()
++  if($d.eventId -cne $eventHash){throw 'EXACT_ONCE_DELTA_EVENT_BINDING'}
++  $delta=[long]$d.nativeWriteBytes+[long]$d.proofWriteBytes
++  if($co.batchTextChargedBytesKnown+$delta -ne $batchTextBefore){throw 'OUTER_DELTA_RESET_OR_DUPLICATE'}
++  foreach($k in @('preflight','install','instrument','control','payload','command')){
++   $expected=[long]$co.batchGroups.$k;if($k -ceq 'control'){$expected+=$delta}
++   if($expected -ne $groups[$k]){throw 'EXACT_BASE_PLUS_DELTA_REQUIRED'}
++  }
++
+   foreach($reader in $prior.readers){if($reader.sha256 -cnotmatch '^[a-f0-9]{64}$' -or (Digest (Join-Path $root ($previous+'-'+$reader.role+'.bin'))) -cne $reader.sha256 -or $reader.rawBytes -ne $reader.savedBytes -or -not $reader.eof -or -not $reader.fileCloseReturned -or -not $reader.pipeCloseReturned){throw 'PREDECESSOR_FULL_RAW_DIGEST_AND_RETURN_REQUIRED'}}
+-  $expectedOuter=@('C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe','-NoProfile','-NonInteractive','-File',[string]$prior.bindings.entryPath,'-RequestPath',[string]$prior.bindings.requestPath,'-PredecessorProofSha',[string]$prior.bindings.predecessorProofSha)
++  $expectedOuter=@('C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe','-NoProfile','-NonInteractive','-File',[string]$prior.bindings.entryPath,'-RequestPath',[string]$prior.bindings.requestPath,'-PredecessorProofSha',[string]$prior.bindings.predecessorProofSha,'-OwnerAdmissionSha',[string]$prior.bindings.ownerAdmissionSha)
+   if(-not (SameArgv @($native.argv) $expectedOuter)){throw 'EXACT_ORIGINAL_OUTER_ARGV_REQUIRED'}
+   $sem=RoleSemantic $previous (Join-Path $root ($previous+'-stdout.bin')) $fixture;if($sem -cne 'PASS'){throw 'PREDECESSOR_RAW_SEMANTIC_NOT_PASS'}
+  }
+ }
+ if(-not $fixture -and $index -eq 0 -and $PredecessorProofSha -cne $activation.initialPredecessorProofSha256){throw 'INITIAL_ORIGINAL_GATE_AUTHORIZATION_BINDING'}
+ if(-not $fixture){$age=[Environment]::TickCount64-$scopeStartTick;if($age -lt 0 -or $age -ge 1000*$activation.wholeWallSeconds){throw 'SCOPE_WALL_NOT_FRESH_STOP_BEFORE_CHILD'}}
++$groups.control+=$ownerCurrentWriteCost;$batchTextBefore+=$ownerCurrentWriteCost;$proofReadBytes+=$ownerCurrentReadCost
+ $group=[string]$plan.steps[$index].group;$groupCap=if($group -ceq 'preflight'){1048576}elseif($group -ceq 'install'){131072}else{1048576}
+ $payloadCost=if($payloadPin){[long]$payloadPin.bytes}else{[long]0}
+ if($batchSdkBefore+1 -gt 7 -or $groups[$group]+$request.maxTextBytes -gt $groupCap -or $groups.control+65536 -gt 1048576 -or $groups.payload+$payloadCost -gt 7629605 -or $groups.command+$commandBytes -gt 28672 -or $batchTextBefore+$request.maxTextBytes+65536 -gt 3276800){throw 'WHOLE_SEVEN_ROLE_BUDGET_BEFORE_CHILD'}
+@@ -152,7 +215,7 @@
+ if(Test-Path -LiteralPath (Join-Path $root ($request.id+'-entered.json'))){throw 'REQUEST_ALREADY_ENTERED_NO_REPLAY'}
+ $lockPath=Join-Path $root '.capture.lock';NoLinks $lockPath
+ 
+-$c=@{id=$request.id;semanticChecked=$false;semantic='NOT_OBSERVED';scopeStartTick=$scopeStartTick;bindings=@{entrySha256=$policy.entrySha256;planSha256=(Digest $planPath);policySha256=$request.policySha256;productSealSha256=$plan.product.sealSha256;requestSha256=(Digest $RequestPath);entryPath=$PSCommandPath;requestPath=[IO.Path]::GetFullPath($RequestPath);predecessorProofSha=$PredecessorProofSha;producerKind=if($fixture){'OFFLINE_PYTHON_NOT_SDK'}else{'EXACT_ADB'}};scope=$request.scope;owner=[Guid]::NewGuid().ToString();controllerPid=$PID;process=[Diagnostics.Process]::new();started=$false;startEntered=$false;startUnknown=$false;stdinReturned=$false;waitReturned=$false;processDisposed=$false;lock=$null;lockClosed=$false;lockCloseEntered=$false;readers=@();records=@();rawBytes=[long]0;textBytes=[long]0;binaryBytes=[long]0;rawUnknown=$false;firstFailure=$null;haltAttempted=$false;receiptAttempted=$false;recordBytes=0;writeFaultInjected=$false;qualified=$false}
++$c=@{id=$request.id;semanticChecked=$false;semantic='NOT_OBSERVED';scopeStartTick=$scopeStartTick;bindings=@{entrySha256=$policy.entrySha256;planSha256=(Digest $planPath);policySha256=$request.policySha256;productSealSha256=$plan.product.sealSha256;requestSha256=(Digest $RequestPath);entryPath=$PSCommandPath;requestPath=[IO.Path]::GetFullPath($RequestPath);predecessorProofSha=$PredecessorProofSha;ownerAdmissionSha=$OwnerAdmissionSha;outerOwnerSha256=$policy.outerOwnerSha256;producerKind=if($fixture){'OFFLINE_PYTHON_NOT_SDK'}else{'EXACT_ADB'}};scope=$request.scope;owner=[Guid]::NewGuid().ToString();controllerPid=$PID;process=[Diagnostics.Process]::new();started=$false;startEntered=$false;startUnknown=$false;stdinReturned=$false;waitReturned=$false;processDisposed=$false;lock=$null;lockClosed=$false;lockCloseEntered=$false;readers=@();records=@();rawBytes=[long]0;textBytes=[long]0;binaryBytes=[long]0;rawUnknown=$false;firstFailure=$null;haltAttempted=$false;receiptAttempted=$false;recordBytes=0;writeFaultInjected=$false;qualified=$false}
+ if(-not $global:Android02CaptureCustody){$global:Android02CaptureCustody=@{}}
+ $global:Android02CaptureCustody[$c.owner]=$c
+ function Fail([string]$Code){if($null -eq $c.firstFailure){$c.firstFailure=$Code}}

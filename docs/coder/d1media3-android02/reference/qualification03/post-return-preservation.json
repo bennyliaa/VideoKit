@@ -1,0 +1,229 @@
+{
+  "phase": "POST_ORIGINAL_RETURN",
+  "checkedUtc": "2026-10-21T03:05:02.942131+00:00",
+  "generationFrozenRows": 38,
+  "checkerPreparationEvidenceRows": 52,
+  "helperExactClasses": 6,
+  "supportExactClasses": 2,
+  "inputBytes": 8849,
+  "inputSha256": "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+  "readonly": true,
+  "noReparse": true,
+  "fork": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar",
+    "bytes": 1930955,
+    "sha256": "1a7e8601be4ebb5665219f2ccfa6e75476323e7408a6b18824ecf2a37873de86"
+  },
+  "helperClassPins": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes\\com\\videokit\\fixturetool\\DataReferencePolicy03.class",
+      "bytes": 3810,
+      "sha256": "24f96a3a0b522efaed874324a34c2a53a8460c7cf1a96abc3300bcaaa9826e4d",
+      "actualCompilerOutput": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\all-compiled-classes\\com\\videokit\\fixturetool\\DataReferencePolicy03.class",
+      "classInfo": {
+        "className": "com/videokit/fixturetool/DataReferencePolicy03",
+        "sourceFile": "DataReferencePolicy03.java",
+        "major": 55,
+        "methodCodeSha256": {
+          "need(ZLjava/lang/String;)V": "fbd4b6601cff35060f6594a9a751d871abf716f1a152b0924cbe725e1cbe24f4",
+          "inspect(Lorg/jcodec/containers/mp4/boxes/DataRefBox;SLjava/util/Map;)V": "d79b7f0fd1a57ea445d302842f9ef7942b11822362953693baa40e76fcb8bcb2",
+          "<init>()V": "3d672fa016a661d1c6808b258f68ef048cc4f50cd3b77cf40450abacee59b29d"
+        }
+      },
+      "category": "helper"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes\\com\\videokit\\fixturetool\\MetadataPolicy03.class",
+      "bytes": 6150,
+      "sha256": "ade7f14999e60bad3569c7c34f8a03bd74b87e0145e3506464ba921018aaf3bd",
+      "actualCompilerOutput": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\all-compiled-classes\\com\\videokit\\fixturetool\\MetadataPolicy03.class",
+      "classInfo": {
+        "className": "com/videokit/fixturetool/MetadataPolicy03",
+        "sourceFile": "MetadataPolicy03.java",
+        "major": 55,
+        "methodCodeSha256": {
+          "need(ZLjava/lang/String;)V": "79a687eb0ebdf90602e5dbb3b455c9fbe1798afd82bb8672aa36ec0fc40cc913",
+          "parent(Lorg/jcodec/containers/mp4/boxes/NodeBox;IIIJLjava/lang/String;Ljava/util/Map;)V": "87dd02b0eb4dc74c34b9eab3da8898a311565890f5f85ba60beff007a9818158",
+          "dref(Lorg/jcodec/containers/mp4/boxes/DataRefBox;Ljava/util/Map;)V": "12065cac93f68610045b261937a7cb86d77bc3b4e3b9ec340024d9938f0efd4c",
+          "stsd(Lorg/jcodec/containers/mp4/boxes/SampleDescriptionBox;Ljava/util/Map;)V": "21d6d25c39ac9946641f0b57ac041734ba62197529e96a8acd85c2eb09b9c056",
+          "avcc(Lorg/jcodec/codecs/h264/mp4/AvcCBox;Ljava/util/Map;)V": "a5497639bbc00658ac35ef7f9a8d59cadda6fec9d9e014abe306fed91215e750",
+          "<init>()V": "6e51c7327748602fa89e7113b9300f652553fc30cb9be1f687ae186a576605d2"
+        }
+      },
+      "category": "helper"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes\\com\\videokit\\fixturetool\\OriginFence03.class",
+      "bytes": 4057,
+      "sha256": "0a397c6f9bb4ee83b6ad7c26d09392d8141f46e8811f3d478cdc01335b836d9a",
+      "actualCompilerOutput": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\all-compiled-classes\\com\\videokit\\fixturetool\\OriginFence03.class",
+      "classInfo": {
+        "className": "com/videokit/fixturetool/OriginFence03",
+        "sourceFile": "OriginFence03.java",
+        "major": 55,
+        "methodCodeSha256": {
+          "one(Ljava/lang/Class;Ljava/nio/file/Path;)Ljava/util/Map;": "2fb16f0a3ff3d6dba91b723f17c31163968b42ed2bfd45d1218647b4a43862c1",
+          "metadata()Ljava/util/Map;": "2db0edc77c1c6ff56927fcd70304c61c33cb1b8a6e4c275c79f8286b3416ad97",
+          "futureRuntime([Ljava/lang/Class;)Ljava/util/Map;": "90bd855e5eca227750082352ad873763f317bc6cb7c9c6a74a22b343b0e3f28a",
+          "<init>()V": "a0e06edfeb0fc4e765e669f78c78dc0c8530ed7bb06ce67c6ba26097f08cbbde",
+          "<clinit>()V": "57fe8d09d2b5f5dfe5bc8306c9d1b13c4e9033d349d100210782e53659831c6b"
+        }
+      },
+      "category": "helper"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes\\com\\videokit\\fixturetool\\Six01ContainerQualifier03$InputOwner.class",
+      "bytes": 8278,
+      "sha256": "0378bc949eb1ab1ccb5fcff84d7379e2ad34a2c39b3f397e697623ec3995be5a",
+      "actualCompilerOutput": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\all-compiled-classes\\com\\videokit\\fixturetool\\Six01ContainerQualifier03$InputOwner.class",
+      "classInfo": {
+        "className": "com/videokit/fixturetool/Six01ContainerQualifier03$InputOwner",
+        "sourceFile": "Six01ContainerQualifier03.java",
+        "major": 55,
+        "methodCodeSha256": {
+          "<init>(Lcom/videokit/fixturetool/Six01ContainerQualifier03$Job;)V": "f404636ea11a3585577f55e36a295ebfc8188d1c343b31abdc3a91264126e0e7",
+          "worker()V": "a70f46d23b12c43aa7418653f4ed44233b450e80558c7a8133bf65bcc14f22b3",
+          "admission()V": "0cd1528490012b43db6f34ce5fa2268e616960260643f01f028651c450096b20",
+          "open()V": "3ea3e23798c3026fc3f832c3114ebaf30c87d147f16cecfb4fcf040b8b1208fb",
+          "read(Ljava/nio/ByteBuffer;)I": "da282533db1a09500c4bc9ba2e7c1a298ff3e662dfb6685eec49f80e1600a96c",
+          "position()J": "5a2afb0d8d65870f930045d65581820ae0d7a9c7155eb3bfc9ac757c5a20537a",
+          "size()J": "eea7e3cc504954d26c37448c1e80c5c40d1ffe54c34c4aed5b58bd4b8cdb7228",
+          "setPosition(J)Lorg/jcodec/common/io/SeekableByteChannel;": "5664d75a5b34d254706c87cd6e9606151aef391cf35c46e9e06f64231432fbbe",
+          "write(Ljava/nio/ByteBuffer;)I": "89490c9761403cd9d89c145b2abf82381ffafc2a75830b44d35ca0f13b96b603",
+          "truncate(J)Lorg/jcodec/common/io/SeekableByteChannel;": "1b018bc5ed8198c149a6dd0560833559f02b92298d5b303a87713aa74f509fb1",
+          "isOpen()Z": "9b063873975276354f204d461c59a38b7563cc413c9add091037a41765b814e0",
+          "close()V": "daf65d92eaca82823a371aa0c7defe5db37d3860c4902106b710a241ab680e56",
+          "originalReturned()Z": "d36a82639e0f5c3c6992cfcfcb7f9f02225ac852ff86bf5202a7635db0f6aeaa",
+          "receipt(Z)Ljava/util/Map;": "a1f00c0fa92cf428d1abfeda852a5d3645d73f440f3f40002c5c32f9698e898a"
+        }
+      },
+      "category": "helper"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes\\com\\videokit\\fixturetool\\Six01ContainerQualifier03$Job.class",
+      "bytes": 22313,
+      "sha256": "05a13fb374d4c8b98086d4acb496100687c17990342b94bec9bd11f08169d3ca",
+      "actualCompilerOutput": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\all-compiled-classes\\com\\videokit\\fixturetool\\Six01ContainerQualifier03$Job.class",
+      "classInfo": {
+        "className": "com/videokit/fixturetool/Six01ContainerQualifier03$Job",
+        "sourceFile": "Six01ContainerQualifier03.java",
+        "major": 55,
+        "methodCodeSha256": {
+          "<init>(Ljava/lang/String;Ljava/lang/String;J)V": "5a2619436a0939ac2c794bb2d73dc0caf78f86ae5a8aa2a54b9e187c1d3834f7",
+          "fail(Ljava/lang/String;)V": "7218fffc997e0c78788518fd33c433e7714662ed87984c086099efe0f05c29c5",
+          "admission()V": "8d5dcc1a6465ae67257865178a9ca20272510c2d8e21525e1a67da2469ff44c8",
+          "preflight()V": "97f4c12ef3a5ce62b8eeca9e037211c0455dadb212a2fd058e71be4153e3d1a7",
+          "hashOriginal()V": "b2e21136551270c862b30c3d43bb58a94093a2ce7ab6f444cdadac5fdffe7ca9",
+          "rootAtoms()Ljava/util/List;": "2aabc2b4d4d7e000173b0db70f8e2b3c8f8702ea908df76587280364d1906f53",
+          "walk(Lorg/jcodec/containers/mp4/boxes/Box;IILjava/util/List;)I": "555af604f664433dbdfa96f0ad59c75e312c9278743b6d77f2604ee909d04aef",
+          "identityMatrix([I)V": "09d78bab95f8f5fac8c5eb5bf0a003557e647b88ff03d354ba64a536b15b043c",
+          "csd(Lorg/jcodec/codecs/h264/mp4/AvcCBox;)Ljava/util/List;": "95b8e383e27d9f2d59d90a64faa74c4c4316a1b5113e547dcbdce27bd675889a",
+          "inspect()V": "ba4ac1b8884a1db58b9395fd08ef7150211b99c087db50a419ce768823211bc6",
+          "run()V": "f7d5a66d9cd34ebd543e8c7ce47542cedea870e3c749466c4594ce3b56cb5c04",
+          "receipt(Z)Ljava/util/Map;": "cb547d88db605d491469cb2738431646259b2ac0fc76b46d7caefbc24e34de34"
+        }
+      },
+      "category": "helper"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes\\com\\videokit\\fixturetool\\Six01ContainerQualifier03.class",
+      "bytes": 5433,
+      "sha256": "4981ccaa8dd842c917a73176cef18717075e07856b7a8ae7a8332e94f49cc6c5",
+      "actualCompilerOutput": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\all-compiled-classes\\com\\videokit\\fixturetool\\Six01ContainerQualifier03.class",
+      "classInfo": {
+        "className": "com/videokit/fixturetool/Six01ContainerQualifier03",
+        "sourceFile": "Six01ContainerQualifier03.java",
+        "major": 55,
+        "methodCodeSha256": {
+          "map([Ljava/lang/Object;)Ljava/util/Map;": "329647dd0745cd4b8b2d85f06977901fb39871770a7c1c9b3b9f85c75e7b0395",
+          "check(ZLjava/lang/String;)V": "11b5dfe168cfce743dbb9debc2b0c9af5717c25719d11d7413a55fa333ac2579",
+          "copy(Ljava/nio/ByteBuffer;)Ljava/nio/ByteBuffer;": "d358e0d7a72eb539fe960107cc6f049a08f2b4ad8fb51bbe8c2acd58dfadcecf",
+          "us(JJ)J": "b67d4ebeabc5797d67f54d1fde9717de724f20b64edf03167cca56955f44290e",
+          "emit(Ljava/util/Map;)V": "06b04161f1e0ad7dceb2d5dfac03a89d89251fc5f43beb3d11c47762eaa2c666",
+          "main([Ljava/lang/String;)V": "39965ee71cd2fe573bd63c39215877d13264df83379fdddd2b38c8862144e65e",
+          "<init>()V": "a15f9fbb99dfe177fac0c4052a34cf4a0bcdc83a22c00ba3b7f1574933b7c5c8",
+          "<clinit>()V": "1495a83583973be999dc5ac22e243fda62fe1ef1c6101b85cdb3d4080260d045"
+        }
+      },
+      "category": "helper"
+    }
+  ],
+  "supportClassPins": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support\\com\\videokit\\fixturetool\\ReceiptJson.class",
+      "jarEntry": "com/videokit/fixturetool/ReceiptJson.class",
+      "bytes": 3663,
+      "sha256": "9fa908207d31315d8473feb9fcbe92b5b1e5eed4e80f0237e53cd629634f798a",
+      "classInfo": {
+        "className": "com/videokit/fixturetool/ReceiptJson",
+        "sourceFile": "ReceiptJson.java",
+        "major": 55,
+        "methodCodeSha256": {
+          "map([Ljava/lang/Object;)Ljava/util/Map;": "c45c911a0ea6a6f3423cd381658c906a72e7f082cad5ae0dd5941e5b92e50f7c",
+          "hex([B)Ljava/lang/String;": "de5f2461d8055458c9b2bceb8081d4aefcdae006db77660d251dc5d501561286",
+          "bytes(Ljava/nio/ByteBuffer;)[B": "105bcbb919e83d6357fc9ccc2183516ce9fbca0b29c8adb34cf6e4029ce9ee80",
+          "hash(Ljava/nio/ByteBuffer;)Ljava/lang/String;": "159404c088791d29a6949790802b6d8a8db57b0dcad907c6bed4f1a71bd1d13a",
+          "hash([B)Ljava/lang/String;": "4ea959d68cb37c9e980089fe5a9a23ebc37bd0464bc35c665a315d5c87aa4b38",
+          "json(Ljava/lang/Object;)Ljava/lang/String;": "1770b45ddda6616c8ec14e56009b73ffd448748539bc78d0d436192f88cfaa05",
+          "append(Ljava/lang/StringBuilder;Ljava/lang/Object;)V": "157eada155407c627cb1ebb7bf769e4c10ce1165c578039a804c9744dd1489b2",
+          "quote(Ljava/lang/StringBuilder;Ljava/lang/String;)V": "b071f3340bee4d4b4f4ed9492b86d3278f9d27bd602145eeead1ea9496ba9d41",
+          "<init>()V": "aed4e7f796226d2967ddf5e04750dcef35508a0fa1da3ffcc89d2fae68f3eed7"
+        }
+      },
+      "sourcePath": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1fixture-tool02\\driver\\com\\videokit\\fixturetool\\ReceiptJson.java",
+      "sourceSha256": "590bf2a560e2c11f905103ef789574d46806d58338d17519fc2e2248cafde92f"
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support\\com\\videokit\\fixturetool\\WorkerDeadline.class",
+      "jarEntry": "com/videokit/fixturetool/WorkerDeadline.class",
+      "bytes": 3897,
+      "sha256": "37abef9af2a2dce0d3b58196d23d8cce3a6069d8e67491fd734753b5f0604796",
+      "classInfo": {
+        "className": "com/videokit/fixturetool/WorkerDeadline",
+        "sourceFile": "WorkerDeadline.java",
+        "major": 55,
+        "methodCodeSha256": {
+          "<init>(Ljava/util/function/LongSupplier;J)V": "d80e2e3a75a28f1a6a2a61ef95636d2ddea0bb49be3434df2ba05742a50a587f",
+          "begin(Ljava/lang/Thread;)V": "c5647219b8a934dc53428acc38e7a932bbe2a16b0f1f175cadd251315046ffee",
+          "elapsed(J)J": "0d558e970ee6b3dea0710d003155c2b7b8c718450dc8ed3d24d32d639f1c6fb5",
+          "bodyCompletedByOriginal()V": "9c737b2827945bd94104aa04bcf0abf2c1dfe15acae006ea6155393b46e8e802",
+          "observeUnknown()Z": "21dfe210be476da2947f3a9a9d1587ad3c481ebd24059171513d2351c010fff7",
+          "forceUnknown()V": "df02f85fc377f76a895681721cbd5d713f27c5cda9d96429605aa9a7baa42676",
+          "awaitBodyWindow()V": "ef43b08cd7914974df97ac39fb91ac7ec051aaf8c0ab7517ebaffd4be913d83a",
+          "joinSameOriginal()V": "6abe61da775e7056c25bd46c8cabe8819940e1040fac8ccf2db0f117c8e2bb53",
+          "timelyAndJoined()Z": "306c5219c05695bfe925de2fb06b5150e1180981bdb3a014a0c3dd3b6b7aa64a",
+          "receipt()Ljava/util/Map;": "43edbd2528770d01616cb05db474b9b2ccb7f8c7492fc02850473a3e44815a7d"
+        }
+      },
+      "sourcePath": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1fixture-tool02\\driver\\com\\videokit\\fixturetool\\WorkerDeadline.java",
+      "sourceSha256": "6e606506757ae6e65f352ea73d98f952f370a2bf03fac887e4bec7eef01a80e6"
+    }
+  ],
+  "javaIdentity": [
+    {
+      "path": "D:\\Android\\Android Studio\\jbr\\release",
+      "bytes": 1051,
+      "sha256": "2b05d683c613ffae12132bb53211fd6b4bf64769ef6e6d8e5da453457b966ddb"
+    },
+    {
+      "path": "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+      "bytes": 33432,
+      "sha256": "7c00542f70501cabc63903c93259de22de9f2a3a94af350ee3f938302d2c78e5"
+    },
+    {
+      "path": "D:\\Android\\Android Studio\\jbr\\bin\\javac.exe",
+      "bytes": 23704,
+      "sha256": "cd5837842ed4b329b45db94179cfa7976a9f17621f64c78a0455135f29950380"
+    },
+    {
+      "path": "D:\\Android\\Android Studio\\jbr\\bin\\jar.exe",
+      "bytes": 23704,
+      "sha256": "d3a4f800902ce6027c4ac205104c31232cfe6b4442b366e712e56795dc615567"
+    },
+    {
+      "path": "D:\\Android\\Android Studio\\jbr\\lib\\modules",
+      "bytes": 50951030,
+      "sha256": "9200589a5af047912ac9c71de09a7cd8332dee0338746e862db3abc3fbcadea8"
+    }
+  ]
+}

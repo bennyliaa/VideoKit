@@ -1,0 +1,55 @@
+{
+  "candidate": "d1media3-container01",
+  "toolSha256": "ef9cbea19a90783c9ce930c3ca4cfcd9a1e08e74b6f38ac72b7e78a7dfc37b7f",
+  "positiveActualJdkCompileAnd20Groups": true,
+  "positiveDirectory": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_CONTAINER01_REVIEW_EVIDENCE\\coder-tool-positive-001",
+  "positiveContext": "CODER_SELF_CHECK_UNFROZEN_NOT_INDEPENDENT_REVIEW",
+  "positivePinsMatchFinalLocal006": true,
+  "derivedRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_CONTAINER01_REVIEW_EVIDENCE",
+  "negativeCases": [
+    {
+      "case": "old04",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE\\coder-tool-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "old03",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK03_REVIEW_EVIDENCE\\coder-tool-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "candidate",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1media3-container01\\evidence\\tool-negative-denied",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "prefix-sibling",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_CONTAINER01_REVIEW_EVIDENCE_extra\\coder-negative",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "traversal",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_CONTAINER01_REVIEW_EVIDENCE\\..\\D1_INPUT_SINK04_REVIEW_EVIDENCE\\coder-tool-traversal-negative-04",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "root-itself",
+      "target": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_MEDIA3_CONTAINER01_REVIEW_EVIDENCE",
+      "expectedDenied": true,
+      "targetCreated": false
+    },
+    {
+      "case": "relative",
+      "target": "docs\\tester\\D1_MEDIA3_CONTAINER01_REVIEW_EVIDENCE\\coder-relative-negative",
+      "expectedDenied": true,
+      "targetCreated": false
+    }
+  ],
+  "oldEvidenceUnmodified": true,
+  "noTemporaryOverride": true
+}

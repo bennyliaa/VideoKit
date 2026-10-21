@@ -1,0 +1,730 @@
+{
+  "status": "EXACT_SOURCE_EXPANSION_WITH_CORRELATED_RESPONSE_ARGUMENTS",
+  "operations": [
+    {
+      "operation": 1,
+      "group": "preData",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "run-as",
+        "com.videokit.app",
+        "stat",
+        "-c",
+        "%u:%i",
+        "."
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 2,
+      "group": "preData",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "run-as",
+        "com.videokit.app.test",
+        "stat",
+        "-c",
+        "%u:%i",
+        "."
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 3,
+      "group": "artifacts",
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt.exe",
+        "dump",
+        "badging",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 65536,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 4,
+      "group": "artifacts",
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt.exe",
+        "dump",
+        "badging",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug-androidTest.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 65536,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 5,
+      "group": "artifacts",
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-jar",
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\lib\\apksigner.jar",
+        "verify",
+        "--print-certs",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 32768,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 6,
+      "group": "artifacts",
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-jar",
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\lib\\apksigner.jar",
+        "verify",
+        "--print-certs",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug-androidTest.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 32768,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 7,
+      "group": "artifacts",
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt.exe",
+        "dump",
+        "xmltree",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk",
+        "AndroidManifest.xml"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 65536,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 8,
+      "group": "preInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 9,
+      "group": "preInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "RESPONSE_OP_8_EXACT_VALIDATED_BASE_APK_PATH"
+      ],
+      "runtimeArguments": [
+        {
+          "argumentIndex": 5,
+          "fromOperation": 8,
+          "stdoutParser": "Exactly one ^package:([/A-Za-z0-9_.=+~-]+/base[.]apk) line, path starts /data/app/, no duplicate.",
+          "samePackage": "com.videokit.app"
+        }
+      ],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 10,
+      "group": "preInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app.test"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 11,
+      "group": "preInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "RESPONSE_OP_10_EXACT_VALIDATED_BASE_APK_PATH"
+      ],
+      "runtimeArguments": [
+        {
+          "argumentIndex": 5,
+          "fromOperation": 10,
+          "stdoutParser": "Exactly one ^package:([/A-Za-z0-9_.=+~-]+/base[.]apk) line, path starts /data/app/, no duplicate.",
+          "samePackage": "com.videokit.app.test"
+        }
+      ],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 12,
+      "group": "preInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 13,
+      "group": "preInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app.test"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 14,
+      "group": "preInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,UID,NAME"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 15,
+      "group": "pairInstall",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-r",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 32768,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 16,
+      "group": "pairInstall",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-r",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug-androidTest.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 32768,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 17,
+      "group": "postInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 18,
+      "group": "postInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "RESPONSE_OP_17_EXACT_VALIDATED_BASE_APK_PATH"
+      ],
+      "runtimeArguments": [
+        {
+          "argumentIndex": 5,
+          "fromOperation": 17,
+          "stdoutParser": "Exactly one ^package:([/A-Za-z0-9_.=+~-]+/base[.]apk) line, path starts /data/app/, no duplicate.",
+          "samePackage": "com.videokit.app"
+        }
+      ],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 19,
+      "group": "postInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.app.test"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 20,
+      "group": "postInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "RESPONSE_OP_19_EXACT_VALIDATED_BASE_APK_PATH"
+      ],
+      "runtimeArguments": [
+        {
+          "argumentIndex": 5,
+          "fromOperation": 19,
+          "stdoutParser": "Exactly one ^package:([/A-Za-z0-9_.=+~-]+/base[.]apk) line, path starts /data/app/, no duplicate.",
+          "samePackage": "com.videokit.app.test"
+        }
+      ],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 21,
+      "group": "postInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 22,
+      "group": "postInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.app.test"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 23,
+      "group": "postInstalled",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "ps",
+        "-A",
+        "-o",
+        "PID,UID,NAME"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 24,
+      "group": "postData",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "run-as",
+        "com.videokit.app",
+        "stat",
+        "-c",
+        "%u:%i",
+        "."
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 25,
+      "group": "postData",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "run-as",
+        "com.videokit.app.test",
+        "stat",
+        "-c",
+        "%u:%i",
+        "."
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 26,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\aapt.exe",
+        "dump",
+        "badging",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/fixture-debug.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 65536,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 27,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-jar",
+        "D:\\Android\\SDK\\build-tools\\36.0.0\\lib\\apksigner.jar",
+        "verify",
+        "--print-certs",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/fixture-debug.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 32768,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 28,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "list",
+        "packages",
+        "com.videokit.e13.sender"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 29,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.e13.sender"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 30,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "RESPONSE_OP_29_EXACT_VALIDATED_BASE_APK_PATH"
+      ],
+      "runtimeArguments": [
+        {
+          "argumentIndex": 5,
+          "fromOperation": 29,
+          "stdoutParser": "Exactly one ^package:([/A-Za-z0-9_.=+~-]+/base[.]apk) line, path starts /data/app/, no duplicate.",
+          "samePackage": "com.videokit.e13.sender"
+        }
+      ],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 31,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.e13.sender"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 32,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "install",
+        "-r",
+        "D:/CodexProjects/VideoKit/docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/fixture-debug.apk"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 32768,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 33,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "pm",
+        "path",
+        "com.videokit.e13.sender"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 34,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "sha256sum",
+        "RESPONSE_OP_33_EXACT_VALIDATED_BASE_APK_PATH"
+      ],
+      "runtimeArguments": [
+        {
+          "argumentIndex": 5,
+          "fromOperation": 33,
+          "stdoutParser": "Exactly one ^package:([/A-Za-z0-9_.=+~-]+/base[.]apk) line, path starts /data/app/, no duplicate.",
+          "samePackage": "com.videokit.e13.sender"
+        }
+      ],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    },
+    {
+      "operation": 35,
+      "group": "fixture",
+      "argv": [
+        "D:\\Android\\SDK\\platform-tools\\adb.exe",
+        "-s",
+        "HA1Q6WXR",
+        "shell",
+        "dumpsys",
+        "package",
+        "com.videokit.e13.sender"
+      ],
+      "runtimeArguments": [],
+      "individualQualificationMax": 196608,
+      "aggregateSdkRawOutputReserve": 524288,
+      "originalResponseQualifierSeconds": 55,
+      "derivedFromRealProductionPortScriptedTrace": true,
+      "actualExecution": false
+    }
+  ],
+  "noLiteralScriptedRemotePathPermitted": true,
+  "actualResolvedArgvRecordedByOriginalArchiveBeforeChild": true,
+  "instrumentation": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "am",
+    "instrument",
+    "-w",
+    "-r",
+    "-e",
+    "class",
+    "com.videokit.spike.e4.E13DeviceTests#ordinarySenderCannotBindCodec",
+    "-e",
+    "e13Case",
+    "ordinarySenderCannotBindCodec",
+    "-e",
+    "e13Batch",
+    "D1-E13F-LIFECYCLE-20261018",
+    "-e",
+    "e13ScopeSha256",
+    "917d8c1dc57d267a25101355f077e4a0c3ed62b6c93c10d63ec8255def6b1bde",
+    "com.videokit.app.test/com.videokit.spike.e4.E13Instrumentation"
+  ],
+  "children35": true
+}

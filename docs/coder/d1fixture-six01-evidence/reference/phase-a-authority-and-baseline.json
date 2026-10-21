@@ -1,0 +1,54 @@
+{
+  "checkedUtc": "2026-10-21T01:08:56.671383+00:00",
+  "phase": "A_TESTER_PREPARATION_ONLY",
+  "coderExecutionAuthority": "New exact FIXTURE_SIX01_GENERATE requirements approve coder one invocation; not inferred from immutable old plan/scope label",
+  "scope": "D1GEN01-CANDIDATE-001",
+  "exactArguments": [
+    "D:/Android/Android Studio/jbr/bin/java.exe",
+    "-Xmx256m",
+    "-XX:-UsePerfData",
+    "-jar",
+    "D:/CodexProjects/VideoKit/docs/coder/d1fixture-tool02/artifacts/videokit-fixture-tool02.jar",
+    "--generate-six",
+    "--scope=D1GEN01-CANDIDATE-001"
+  ],
+  "toolJarSha256": "c4ed36f31cab8381bc47c0aea4c3f3d8a9c2afab09991a04a83102877f1bfecd",
+  "toolSealSha256": "5dbf3359e0aa9b06a9024cf0ace91bd1e532ddbfdc37ba11d81f0716c01dc51d",
+  "priorReportSha256": "4093db865bf0ed1419245c94a3102578835ce57ecd750da6010645a314176fb4",
+  "priorReviewManifestSha256": "4cf38051ed21b927da639418ef9ef58629219fbe042645f46b0ccf946c900109",
+  "priorReviewEvidenceFilesUnchanged": 36,
+  "runtimePins": [
+    {
+      "path": "D:\\Android\\Android Studio\\jbr\\release",
+      "bytes": 1051,
+      "sha256": "2b05d683c613ffae12132bb53211fd6b4bf64769ef6e6d8e5da453457b966ddb"
+    },
+    {
+      "path": "D:\\Android\\Android Studio\\jbr\\bin\\java.exe",
+      "bytes": 33432,
+      "sha256": "7c00542f70501cabc63903c93259de22de9f2a3a94af350ee3f938302d2c78e5"
+    },
+    {
+      "path": "D:\\Android\\Android Studio\\jbr\\lib\\modules",
+      "bytes": 50951030,
+      "sha256": "9200589a5af047912ac9c71de09a7cd8332dee0338746e862db3abc3fbcadea8"
+    }
+  ],
+  "requirements": [
+    {
+      "path": "docs/milestones/D1_FIXTURE_SIX01_GENERATE_TESTER_REQUIREMENTS_V1.0.md",
+      "bytes": 4336,
+      "sha256": "32e54e973929fb85a92d80af7e74f02dd21ed943305fecd7878ed180913e7ede"
+    },
+    {
+      "path": "docs/milestones/D1_FIXTURE_SIX01_GENERATE_CODER_REQUIREMENTS_V1.0.md",
+      "bytes": 3717,
+      "sha256": "a48e65ebd959a90ec75461d52302fb58267d4ab7e1db0f7e92ebc604b4222283"
+    }
+  ],
+  "oldToolPlanGenerationAuthorized": false,
+  "testerGenerationRuns": 0,
+  "newResultsRead": false,
+  "outputExistenceQueried": false,
+  "oldSessionsQueried": false
+}

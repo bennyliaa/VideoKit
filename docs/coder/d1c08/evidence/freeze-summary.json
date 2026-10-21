@@ -1,0 +1,152 @@
+{
+  "candidateId": "D1-20261005-C08",
+  "frozen_at": "2026-10-05T15:50:37.183046+08:00",
+  "state": "BLOCKED_STRICT_WHITELIST / NOT_READY_FOR_DEVICE_EXECUTION",
+  "git_commit": null,
+  "apk_built": false,
+  "ffmpeg_app_integration": "STOPPED_NOT_ADMITTED",
+  "device_execution": "NOT_RUN",
+  "source_manifest_sha256": "d1b5b837e70c8be973d1ff67a15e26337bfca7e1f965fe8916678143828a0d2b",
+  "artifacts": [
+    {
+      "path": "docs/coder/d1c08/artifacts/D1-20261005-C08/D1-20261005-C08-source.zip",
+      "bytes": 33853717,
+      "sha256": "08e37cf7a2c13d27d8357e5d6fa48cc471a0879157bca9d9b575f237766d56bb"
+    },
+    {
+      "path": "docs/coder/d1c08/artifacts/D1-20261005-C08/ffmpeg-arm64-NOT-ADMITTED.zip",
+      "bytes": 1734404,
+      "sha256": "a1b3b9c5c43d92ed4a98cb03ea8115f1c1a0f69f8e0e1e27dfecf0123a4fe91b"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/coder/d1c08/evidence/candidate-self-review.json",
+      "bytes": 637,
+      "sha256": "95e03420437c5e0da7769348e3ec3735b67c7251c9f1cbe68682b37b5117b03c"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/compile-debug-java.log",
+      "bytes": 1603,
+      "sha256": "8402584f65c14a93bb13282f47ca3b664490c9c0507b8d2aade400e33d354885"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/exit-record-selfcheck.log",
+      "bytes": 58,
+      "sha256": "5995442bd29e642008cb01f849e5218ff7ad0a205c6e7ee3d0a68ec4f1700623"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-build-review.json",
+      "bytes": 3420,
+      "sha256": "005dc6c6ffd44bb4dfaa73b63e11363c8aab5bec3eb87a9f7b59958c40731712"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-compiled-dependencies.json",
+      "bytes": 499150,
+      "sha256": "ab8b7faf97379ac596bec64b92a2132d40f6b8b63c86a4681b9c96638154bee7"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-configure-attempt1.log",
+      "bytes": 360,
+      "sha256": "3e58f3b7c2a31e0d1218ec154c9b125bc26c62fbc16375848abdaffbc1cbe238"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-configure.log",
+      "bytes": 1584,
+      "sha256": "154fa8d1ea6d812a992ed6606dcc70aaa374a5f67222b9509f6e987f60800f69"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-generated/config.h",
+      "bytes": 23610,
+      "sha256": "dbbb6a582f4a341ced65546fd330ce8fffdd0c1acb404eaf3aec53a49d5697e0"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-generated/config.log",
+      "bytes": 478403,
+      "sha256": "fea91a94dcbecc9439e66005f015d202aa3784a3f9cf373d280955a2abf92ddd"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-generated/config.mak",
+      "bytes": 86964,
+      "sha256": "e1b394b66e06983c394420dddf9186448265a333d163675505216e13bcfef159"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-generated/config_components.h",
+      "bytes": 74588,
+      "sha256": "a68c5d84a768282da3e94b612478e3841647f7b0bd38cdd03c8617dc6fea51cd"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-key-import.log",
+      "bytes": 359,
+      "sha256": "4ef1fc8654509129d05929da9858bc9c478e1df33a36def7177dc43fd17eefc3"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-known-vulnerabilities.json",
+      "bytes": 491,
+      "sha256": "5c6531d6f367e4c7cbcf58cadfa37721745c810db9d484c4ba3bd075e7b32356"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-make-attempt1.log",
+      "bytes": 242,
+      "sha256": "2ad20bc68d2b1f9ae9494f87e9c0badb257bb06bf0987dea7969970b3f3cd177"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-make.log",
+      "bytes": 9188,
+      "sha256": "bb4b1926e765d11d7c17acd202043320c9af00bf15557fd8c4919e1e3c8935d3"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-signature.log",
+      "bytes": 1028,
+      "sha256": "9d50e5b8f102cb887eab7661f3ddc2a9be0e6818826bbd288bbbe0141bc91782"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-source-identity.json",
+      "bytes": 2102068,
+      "sha256": "4c3c3adf2b5f55dc67747b41413269a12be13b35b9bdf1655d53d81087f24ba4"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/ffmpeg-source-sbom.cdx.json",
+      "bytes": 1053,
+      "sha256": "7388a9845891947a062a8d7de2b5539ae13daa4b4ee177b1d089d54356f5f16b"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/integrity-check.json",
+      "bytes": 287001,
+      "sha256": "8f0188dde1f9d01dd45717c8d50eeb1ccf52b7a465aa062b344722362e9df9af"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/libavcodec.so.62.readelf.txt",
+      "bytes": 4322,
+      "sha256": "4bb6ac3ee5c3bf07cf7f2c745b7f73ec5e4923f2a25c3f9090e91b2fc250e9f3"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/libavformat.so.62.readelf.txt",
+      "bytes": 4327,
+      "sha256": "ec53bebaaa48025315f48f2b1f793d8c02efec8a2f6b22fc213db3c9482d2270"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/libavutil.so.60.readelf.txt",
+      "bytes": 4313,
+      "sha256": "30eeef5320f365112e621fb33637697817c2a90d6a79fac23a2196e2e59b554a"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/libswscale.so.9.readelf.txt",
+      "bytes": 4370,
+      "sha256": "6cb31a670a56a518bef08437b7efff6dc5f719752c876a0538f637d4d2cc0598"
+    },
+    {
+      "path": "docs/coder/d1c08/evidence/source-manifest.json",
+      "bytes": 2124863,
+      "sha256": "d1b5b837e70c8be973d1ff67a15e26337bfca7e1f965fe8916678143828a0d2b"
+    }
+  ],
+  "required_remaining": [
+    "After explicit user resumption: close H263 decoder/parser whitelist composition and compiled-object license/security audit before any App integration",
+    "Implement opaque AVIO, bounded seek broker, actual PTS frame and task/epoch/UID/PID/byte/queue gates in single-APK ordinary isolated CPU service",
+    "Prepare normal/corrupt/SIGSEGV/hang/actual death/SourceReleased/second-task/host-survival tests; device execution remains NOT_RUN and is not scheduled",
+    "C07 historical FAIL and ordinary UNKNOWN FAIL unchanged; do not automatically rerun or replace evidence",
+    "P0 full pipeline, formal export/quality gates, model rights and product admission remain unresolved"
+  ],
+  "user_pause": "After this blocked delivery closes, stop development/testing/new assignments and wait for explicit user resumption."
+}

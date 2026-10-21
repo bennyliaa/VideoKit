@@ -1,0 +1,295 @@
+{
+  "candidate": "d1media3-container01",
+  "frozenCandidate": false,
+  "sealSha256": null,
+  "toolSha256": "7f9826385662055b3a52c9f8ccd48b50d7c29abe37da12473c09f8f2d1c597d6",
+  "entryToolSha256": "ef9cbea19a90783c9ce930c3ca4cfcd9a1e08e74b6f38ac72b7e78a7dfc37b7f",
+  "productionJarSha256": "d724be874c354174141bf810d810327078727d0921c5c4ab9e3e62964a0f3aaa",
+  "sourcePinsSha256": "1adb097f6df48c78de144f2bf0dce318224cbae4170ad043c43421ba45e0bd46",
+  "runs": [
+    {
+      "name": "documented-entry",
+      "exitCode": 0,
+      "mode": "compile-and-source-core"
+    },
+    {
+      "name": "original17-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "tester12-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "readback-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "latecancel-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "input-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-WRITE-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-FLUSH-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-CLOSE-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-REOPEN-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-VALIDATE-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "cancel-COMMIT-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "history-ABORT-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "history-QUERY-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "history-ABORT_ERROR-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "matrix-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "independent-authority-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "independent-cancel-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "results-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "transitions-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "query-original-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "original-responses-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "orders-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "coordinator-orders-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "independent-host-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "extractor-input-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "approved-read-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "platform-availability-source",
+      "exitCode": 0,
+      "mode": "source"
+    },
+    {
+      "name": "core-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "original17-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "tester12-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "readback-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "latecancel-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "input-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-WRITE-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-FLUSH-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-CLOSE-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-REOPEN-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-VALIDATE-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "cancel-COMMIT-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "history-ABORT-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "history-QUERY-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "history-ABORT_ERROR-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "matrix-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "independent-authority-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "independent-cancel-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "results-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "transitions-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "query-original-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "original-responses-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "orders-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "coordinator-orders-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "independent-host-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "extractor-input-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "approved-read-production",
+      "exitCode": 0,
+      "mode": "production"
+    },
+    {
+      "name": "platform-availability-production",
+      "exitCode": 0,
+      "mode": "production"
+    }
+  ],
+  "allOriginalProcessesReturned": true,
+  "independentVerdict": "NOT_IMPLIED_BY_RUNNING_CODER_CHECKS",
+  "preFreezeRun": "CODER_SELF_CHECK",
+  "deviceSdkFieldOperations": 0
+}

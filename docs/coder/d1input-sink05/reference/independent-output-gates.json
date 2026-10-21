@@ -1,0 +1,258 @@
+{
+  "result": "PASS",
+  "negativeCasesPerTool": 7,
+  "rows": [
+    {
+      "tool": "review_all.py",
+      "case": "old-root",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\review_all.py",
+        "--output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK03_REVIEW_EVIDENCE\\rejected-sink04-gate"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "review_all.py",
+      "case": "candidate",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\review_all.py",
+        "--output",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\rejected-tester-gate"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "review_all.py",
+      "case": "fake-prefix",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\review_all.py",
+        "--output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE_FAKE\\rejected-tester-gate"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "review_all.py",
+      "case": "escape",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\review_all.py",
+        "--output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE\\..\\rejected-tester-escape"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "review_all.py",
+      "case": "relative",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\review_all.py",
+        "--output",
+        "relative-sink04-gate"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "review_all.py",
+      "case": "root",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\review_all.py",
+        "--output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": true,
+      "existsAfter": true,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "review_all.py",
+      "case": "reuse",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\review_all.py",
+        "--output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE\\independent-001"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": true,
+      "existsAfter": true,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "local_check.py",
+      "case": "old-root",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\local_check.py",
+        "--review-output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK03_REVIEW_EVIDENCE\\rejected-sink04-gate"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "local_check.py",
+      "case": "candidate",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\local_check.py",
+        "--review-output",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\rejected-tester-gate"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "local_check.py",
+      "case": "fake-prefix",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\local_check.py",
+        "--review-output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE_FAKE\\rejected-tester-gate"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "local_check.py",
+      "case": "escape",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\local_check.py",
+        "--review-output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE\\..\\rejected-tester-escape"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "local_check.py",
+      "case": "relative",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\local_check.py",
+        "--review-output",
+        "relative-sink04-gate"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": false,
+      "existsAfter": false,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "local_check.py",
+      "case": "root",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\local_check.py",
+        "--review-output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": true,
+      "existsAfter": true,
+      "rejectedWithoutTargetCreation": true
+    },
+    {
+      "tool": "local_check.py",
+      "case": "reuse",
+      "argv": [
+        "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1input-sink04\\tools\\local_check.py",
+        "--review-output",
+        "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_INPUT_SINK04_REVIEW_EVIDENCE\\independent-001"
+      ],
+      "exitCode": 1,
+      "originalProcessReturned": true,
+      "existedBefore": true,
+      "existsAfter": true,
+      "rejectedWithoutTargetCreation": true
+    }
+  ]
+}

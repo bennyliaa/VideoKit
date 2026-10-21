@@ -1,0 +1,15 @@
+{
+  "id": "03-ps-supplement",
+  "maxBytes": 131072,
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-H",
+    "127.0.0.1",
+    "-P",
+    "5037",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "ps -A -o USER,PID,PPID,NAME,ARGS"
+  ]
+}

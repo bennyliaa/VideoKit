@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <instrumentation android:name="com.videokit.d1present.RenderInstrumentation"
+        android:targetPackage="com.videokit.d1present"
+        android:targetProcesses="com.videokit.d1present:presentation" />
+</manifest>

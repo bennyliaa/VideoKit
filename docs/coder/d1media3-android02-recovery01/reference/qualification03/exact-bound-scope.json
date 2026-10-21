@@ -1,0 +1,34 @@
+{
+  "scope": "D1QUAL03-CANDIDATE-001",
+  "argv": [
+    "D:/Android/Android Studio/jbr/bin/java.exe",
+    "-Xmx256m",
+    "-XX:-UsePerfData",
+    "-Xlog:class+load=info:file=loaded-classes.log:uptime,level,tags",
+    "-cp",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes;D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support;D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar",
+    "com.videokit.fixturetool.Six01ContainerQualifier03",
+    "--expected-sha256=19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c",
+    "--expected-bytes=8849",
+    "--scope=D1QUAL03-CANDIDATE-001"
+  ],
+  "originalTemplate": [
+    "D:/Android/Android Studio/jbr/bin/java.exe",
+    "-Xmx256m",
+    "-XX:-UsePerfData",
+    "-Xlog:class+load=info:file=loaded-classes.log:uptime,level,tags",
+    "-cp",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\helper-classes;D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FIXTURE_SIX01_QUALIFIER03_PREPARATION\\support;D:\\CodexProjects\\VideoKit\\docs\\coder\\d1jcodec-observation01\\artifacts\\jcodec-0.2.5-videokit-observation01.jar",
+    "com.videokit.fixturetool.Six01ContainerQualifier03",
+    "--expected-sha256=<NEW_EXACT_AUTHORIZED_HASH>",
+    "--expected-bytes=<NEW_EXACT_AUTHORIZED_SIZE>",
+    "--scope=<NEW_EXACT_AUTHORIZED_SCOPE>"
+  ],
+  "onlyThreeBoundArguments": true,
+  "immutableInput": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1fixture-six01\\new-output\\avc6-candidate.mp4",
+    "bytes": 8849,
+    "sha256": "19e815a413ae8275fe61e917ff9ac3c67d74a4f845df548a6ce2c382c0778a9c"
+  },
+  "requirementsSha256": "eb5b34ebbf07abcabd436d05a884910313d961a3e467f6839f486efda4c403ce"
+}

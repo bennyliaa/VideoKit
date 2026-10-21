@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "status": "DRAFT_REQUIRES_INDEPENDENT_REVIEW_AND_SPECIFIC_DISPATCH",
+  "candidate": "D1-20261018-E13",
+  "version": 16,
+  "role": "ACTIVATION",
+  "abi": 1,
+  "sourceAcceptance": {
+    "path": "docs/tester/D1_E11_FINAL_R1_TABLET_EXECUTION_REPORT_V1.0.md",
+    "bytes": 15274,
+    "sha256": "60eb18e88e346e49ec34491083f2b67da21670d7cd5fde40ce3b72ba8246b635"
+  },
+  "targetApks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13/artifacts/D1-20261018-E13/delivery/app-debug.apk",
+      "bytes": 11043409,
+      "sha256": "6ae468ccd81fce542202af9dd9567c95722505eb795a098557da4c042a716b71",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13/artifacts/D1-20261018-E13/delivery/app-debug-androidTest.apk",
+      "bytes": 2858614,
+      "sha256": "fee6f07f423e6f080eb36adca14d8f1ee3b88a2bbcaed4916216c2e1a2489b13",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13/artifacts/D1-20261018-E13/delivery/fixture-debug.apk",
+      "bytes": 2463895,
+      "sha256": "79929c4f8c0f69f10e8b9eb2c4a10b737759195b0a8a9ae2afe16ee2c0b44640",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "hostJar": {
+    "path": "docs/coder/d1e13/artifacts/D1-20261018-E13/delivery/e13-host-tools.jar",
+    "bytes": 295475,
+    "sha256": "9c57d32e61917671257fbc582eb7c7eed70ad794a7efebedb7248c0b6d7bc397"
+  },
+  "approvedScope": null,
+  "approvedRelease": null,
+  "onceRecord": null,
+  "licenseClearance": "NOT_GRANTED"
+}

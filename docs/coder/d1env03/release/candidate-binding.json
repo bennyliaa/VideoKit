@@ -1,0 +1,83 @@
+{
+  "candidate": "D1-20261020-ENV03",
+  "scopeId": "f0be73d2-01d2-4775-be6d-b6e55b8b77b3",
+  "plan": {
+    "path": "docs/coder/d1env03/release/environment-plan.json",
+    "bytes": 2235,
+    "sha256": "ff23db7cdba88db95af9e9e39af8738fea4be9ec90b3cd9fb73402996051b27d"
+  },
+  "scope": "ff23db7cdba88db95af9e9e39af8738fea4be9ec90b3cd9fb73402996051b27d",
+  "authorization": {
+    "path": "docs/coder/d1env03/release/environment-authorization.json",
+    "bytes": 2355,
+    "sha256": "dcc163aa7f4764a7cef146b33dadf1e5c86793be987efc95aefc1c315fcec44c"
+  },
+  "budget": {
+    "path": "docs/coder/d1env03/release/budget.json",
+    "bytes": 1092,
+    "sha256": "91761a4db08d2526290959f8b598cd9752ea22619cf8fb6f759db7a145136580"
+  },
+  "entry": {
+    "path": "docs/coder/d1env03/tools/capture_metadata.ps1",
+    "bytes": 20118,
+    "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+  },
+  "reference": {
+    "path": "docs/coder/d1env03/reference/frozen-metadata-argv.json",
+    "bytes": 3267,
+    "sha256": "c3bcaa934590ebbf490c4bd57e6af1937f16189620840217a3510107fcbfae2d"
+  },
+  "captureReview": {
+    "path": "docs/coder/d1env03/reference/D1_RESUME01_CAPTURE_REVIEW_REPORT_V1.0.md",
+    "bytes": 11062,
+    "sha256": "ad306682e27cdf1dec67955d9cb7f57bf99cd1451ab3b413963ee03439c6caf9"
+  },
+  "policy": {
+    "path": "docs/coder/d1env03/release/capture-policy.json",
+    "bytes": 6219,
+    "sha256": "a32081b68c811497b122cac63d042816423c1776852bfda7ecfc301f3fb17ee8"
+  },
+  "requests": [
+    {
+      "path": "docs/coder/d1env03/release/requests/ENV03_M1_identity.json",
+      "bytes": 1765,
+      "sha256": "5c1b849c916e069db4b9a8eccf0e775dbd28bda46a6b72fc26cd968d89962766"
+    },
+    {
+      "path": "docs/coder/d1env03/release/requests/ENV03_M1_global.json",
+      "bytes": 601,
+      "sha256": "6f9c1a77776245ef1066956bb4ee7d9efebb0264ec64ee3ef4e5012245249eff"
+    }
+  ],
+  "runtime": {
+    "path": "docs/coder/d1env03/release/two-request-dispatch.json",
+    "bytes": 3898,
+    "sha256": "0b44da06723390f3f5f6aa4f3b76f437a51e5220c5ed1f7c4b9a8b3e92b377f9"
+  },
+  "sourceFreeze": {
+    "path": "docs/coder/d1env03/reference/source-activation-freeze.json",
+    "bytes": 7368,
+    "sha256": "f5ae97ca7714472601a338786b833e497820f3776569e2a9125814f8a7cd920a"
+  },
+  "sourceHistory": {
+    "path": "docs/coder/d1env03/reference/D1_RESUME02_ACTIVATION_EXECUTION_REPORT_V1.0.md",
+    "bytes": 6686,
+    "sha256": "0ccfb39bd348e4f77635055c7b5f64e9bef14018ee1732ed2d4cfd3b84394782"
+  },
+  "authorizedRequests": 2,
+  "totalPolicySlots": 5,
+  "inactiveTemplates": 3,
+  "productReleaseGenerated": false,
+  "productPermitGenerated": false,
+  "productSourcesChanged": 0,
+  "hostBuilds": 0,
+  "androidBuilds": 0,
+  "productionEntryInvoked": false,
+  "sdkCalls": 0,
+  "liveFilesRead": false,
+  "rootCreated": false,
+  "consumed": false,
+  "independentFinalMechanicalReview": null,
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

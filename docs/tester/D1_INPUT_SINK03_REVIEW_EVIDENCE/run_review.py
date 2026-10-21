@@ -1,0 +1,16 @@
+from pathlib import Path
+import subprocess,json,hashlib,datetime
+R=Path('D:/CodexProjects/VideoKit');B=R/'docs/coder/d1input-sink03';E=Path(__file__).resolve().parent;J=Path('D:/Android/Android Studio/jbr/bin');D=E/'independent-001';D.mkdir(exist_ok=False);C=D/'classes';C.mkdir()
+cp=';'.join([str(C)]+[str(p) for p in sorted((B/'deps').glob('*.jar'))]);prod=str(B/'artifacts/input-sink03-classes.jar')+';'+cp
+def run(name,args):
+ start=datetime.datetime.now(datetime.timezone.utc).isoformat();p=subprocess.run(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=55)
+ (E/(name+'.stdout')).write_bytes(p.stdout);(E/(name+'.stderr')).write_bytes(p.stderr);(E/(name+'.json')).write_text(json.dumps(dict(argv=args,startUtc=start,endUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(),exitCode=p.returncode,originalProcessReturned=True,productionJarSha256=hashlib.sha256((B/'artifacts/input-sink03-classes.jar').read_bytes()).hexdigest()),indent=2),encoding='utf8');print(name,'exit',p.returncode,p.stdout.decode('utf8','replace')[-500:],p.stderr.decode('utf8','replace')[-1000:]);assert p.returncode==0
+# Independent reproduction of the documented external entry restriction, preserved separately.
+args=['C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe','-X','utf8','-B',str(B/'tools/local_check.py'),'--review-output',str(E/'documented-entry')];p=subprocess.run(args,stdout=subprocess.PIPE,stderr=subprocess.PIPE);(E/'documented-entry.stderr').write_bytes(p.stderr);(E/'documented-entry.json').write_text(json.dumps(dict(argv=args,exitCode=p.returncode,originalProcessReturned=True),indent=2),encoding='utf8');assert p.returncode==1 and b'INDEPENDENT_TESTER_ROOT_ONLY' in p.stderr
+sources=sorted(p for folder in ['src','upstream','checks','platform-fixtures'] for p in (B/folder).rglob('*.java'))+[B/'android/com/videokit/d1input/PlatformOutputErrors.java'];(D/'source-pins.json').write_text(json.dumps([dict(path=p.relative_to(B).as_posix(),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in sources],indent=2),encoding='utf8')
+args=D/'javac.args';args.write_text('\n'.join('"'+p.as_posix()+'"' for p in sources),encoding='utf8');run('compile-frozen',[str(J/'javac.exe'),'--release','11','-encoding','UTF-8','-cp',cp,'-d',str(C),'@'+str(args)])
+run('compile-tester',[str(J/'javac.exe'),'--release','11','-encoding','UTF-8','-cp',cp,'-d',str(C),str(E/'IndependentAuthorityCheck.java'),str(E/'QueryResultCheck.java')])
+for mode,path in [('source',cp),('production',prod)]:
+ out=E/('core-'+mode);out.mkdir()
+ plan=[('core','InputSinkCheck',[str(out)]),('original17','ReturnBoundaryCheck',[]),('tester12','IndependentFixCheck',[]),('readback','ReadbackReturnCheck',[]),('latecancel','LateCancellationRegression',[]),('input5','InputExceptionCheck',[]),('matrix63','ExceptionMatrixCheck',[]),('independent-authority','IndependentAuthorityCheck',[])]+[('cancel-'+p.lower(),'CancellationRegression',[p]) for p in ['WRITE','FLUSH','CLOSE','REOPEN','VALIDATE','COMMIT']]+[('history-'+p.lower(),'AbortHistoryRegression',[p]) for p in ['ABORT','QUERY','ABORT_ERROR']]+[('invalid-query-'+p.lower(),'QueryResultCheck',[p]) for p in ['NULL','EMPTY_READY']]
+ for name,cls,extra in plan:run(name+'-'+mode,[str(J/'java.exe'),'-Xmx256m','-cp',path,'com.videokit.d1input.'+cls]+extra)

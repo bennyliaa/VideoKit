@@ -1,0 +1,18 @@
+package com.videokit.spike.e4;
+import java.nio.file.*;import java.util.*;import java.util.concurrent.*;import java.util.concurrent.atomic.*;
+/** Bounded tester probe; unchanged shipped JAR, no SDK, Android or original handle. */
+public class FinalJarClosureProbe {
+ public static void main(String[] a)throws Exception{
+  if(a[0].equals("finish-sink")){
+   AtomicBoolean ready=new AtomicBoolean(),locked=new AtomicBoolean();AtomicInteger requestLogs=new AtomicInteger(),failureLogs=new AtomicInteger();CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1),finished=new CountDownLatch(1);AtomicReference<E13FinishOwner> owner=new AtomicReference<>();
+   E13Stages.sink(s->{if(s.contains("stage=FINISH_REQUEST")||s.contains("stage=ORIGINAL_FAILURE")){if(Thread.holdsLock(owner.get())||Thread.holdsLock(E13FinishOwner.class)||Thread.holdsLock(E13Stages.class))locked.set(true);if(s.contains("stage=FINISH_REQUEST"))requestLogs.incrementAndGet();else failureLogs.incrementAndGet();entered.countDown();try{if(!release.await(2,TimeUnit.SECONDS))throw new AssertionError("bounded tester sink");}catch(InterruptedException e){throw new RuntimeException(e);}}});
+   E13FinishOwner f=new E13FinishOwner(new E13FinishOwner.Port(){public boolean canFinish(){return ready.get();}public boolean mainThread(){return false;}public void finish(int c,Object saved){if(!saved.equals("FIRST")||!owner.get().failed())throw new AssertionError("original qualification");finished.countDown();}});owner.set(f);
+   try{f.request(-1,"FIRST");if(!entered.await(2,TimeUnit.SECONDS))throw new AssertionError("sink entered");f.fail("ORIGINAL_FAILURE_PRESERVED");ready.set(true);E13ReturnEvents.returned();if(!finished.await(2,TimeUnit.SECONDS))throw new AssertionError("completion blocked by original diagnostic sink");if(locked.get())throw new AssertionError("sink under owner monitor");System.out.println("PASS finalJar requestAndFailReturned=true completionWhileSinkHeld=true firstPayloadPreserved=true failed=true ownerLocks=false");}finally{release.countDown();}
+   long end=System.nanoTime()+2000000000L;while((requestLogs.get()!=1||failureLogs.get()!=1)&&System.nanoTime()<end)Thread.sleep(2);if(requestLogs.get()!=1||failureLogs.get()!=1)throw new AssertionError("bounded queued facts");
+  }else if(a[0].equals("archive-tail")){
+   CountDownLatch entered=new CountDownLatch(1),release=new CountDownLatch(1);E13ReturnEvents.Listener l=()->{entered.countDown();try{if(!release.await(2,TimeUnit.SECONDS))throw new AssertionError("bounded notification");}catch(InterruptedException e){throw new RuntimeException(e);}};E13ReturnEvents.subscribe(l);Thread writer=null;E13OperationArchive ar=null;
+   try{ar=new E13OperationArchive(Paths.get(a[1]),"tester-final-archive",65536);ar.start("TESTER_ARCHIVE_ONLY",List.of("NO_CHILD_NO_SDK"));ar.started(123);ar.append(new byte[]{1,2,3},3);ar.eof();ar.readerDone();ar.processExit(0);if(!entered.await(2,TimeUnit.SECONDS))throw new AssertionError("original notification entered");var field=E13OperationArchive.class.getDeclaredField("writer");field.setAccessible(true);writer=(Thread)field.get(ar);if(ar.resourcesReturned()||!writer.isAlive())throw new AssertionError("premature return");System.out.println("PASS finalJar tailHeld originalWriterAlive=true resourcesReturned=false syntheticProcessFactsOnly=true");}finally{release.countDown();if(writer!=null)writer.join(2500);E13ReturnEvents.unsubscribe(l);}
+   if(writer==null||writer.isAlive()||!ar.resourcesReturned())throw new AssertionError("same writer physical return");System.out.println("PASS finalJar sameWriterJoined=true resourcesReturnedAfterActualThreadExit=true");
+  }else throw new IllegalArgumentException("finite modes only");
+ }
+}

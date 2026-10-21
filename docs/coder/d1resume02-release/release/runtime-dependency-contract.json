@@ -1,0 +1,163 @@
+{
+  "schema": "RESUME02_RUNTIME_DEPENDENCIES_V1",
+  "currentDeviceExecutionAllowed": false,
+  "commands": [
+    {
+      "id": "RESUME02_M1_identity",
+      "phase": "M1",
+      "request": {
+        "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M1_identity.json",
+        "bytes": 1768,
+        "sha256": "1f0a2722da2453344f1132290b0deadbad3cd57e01d3300a78994ee706abf16e"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\release\\metadata-requests\\RESUME02_M1_identity.json"
+      ],
+      "currentState": "AUTH_PENDING_BLOCKED",
+      "predecessor": null
+    },
+    {
+      "id": "RESUME02_M1_global",
+      "phase": "M1",
+      "request": {
+        "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M1_global.json",
+        "bytes": 604,
+        "sha256": "6716d37f78dcc9f709bc728679d94e89132054faefa72b66b4822ee13e3e7de6"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\release\\metadata-requests\\RESUME02_M1_global.json"
+      ],
+      "currentState": "AUTH_PENDING_BLOCKED",
+      "predecessor": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\RESUME02_M1_identity-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "digest": "Runtime SHA from trusted tester after original tool exit/EOF; not issued now.",
+        "requires": [
+          "same prior request/scope/controllerPid/receipt SHA",
+          "original resources actually returned",
+          "actual original controller/tool ended",
+          "semantic approval before next"
+        ]
+      }
+    },
+    {
+      "id": "RESUME02_M1_ps",
+      "phase": "M1",
+      "request": {
+        "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M1_ps.json",
+        "bytes": 613,
+        "sha256": "e924eaa0da403aee6a7614b4be34a02c3582cfcdedfa13a31f805635b68e3d88"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\release\\metadata-requests\\RESUME02_M1_ps.json"
+      ],
+      "currentState": "AUTH_PENDING_BLOCKED",
+      "predecessor": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\RESUME02_M1_global-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "digest": "Runtime SHA from trusted tester after original tool exit/EOF; not issued now.",
+        "requires": [
+          "same prior request/scope/controllerPid/receipt SHA",
+          "original resources actually returned",
+          "actual original controller/tool ended",
+          "semantic approval before next"
+        ]
+      }
+    },
+    {
+      "id": "RESUME02_M2_identity",
+      "phase": "M2",
+      "request": {
+        "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M2_identity.json",
+        "bytes": 1586,
+        "sha256": "9c0755691f48c433defada373b41816d15c1aa598e1e9132dcd1d3f81c246c8e"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\release\\metadata-requests\\RESUME02_M2_identity.json"
+      ],
+      "currentState": "AUTH_PENDING_BLOCKED",
+      "predecessor": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\RESUME02_M1_ps-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "digest": "Runtime SHA from trusted tester after original tool exit/EOF; not issued now.",
+        "requires": [
+          "same prior request/scope/controllerPid/receipt SHA",
+          "original resources actually returned",
+          "actual original controller/tool ended",
+          "semantic approval before next"
+        ]
+      },
+      "deployment": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\deployment-completion-proof.json",
+        "argument": "-DeploymentProofSha",
+        "scope": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3",
+        "releaseBindingDigest": "134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c",
+        "requires": [
+          "actual deployment passed",
+          "all deployment original objects physically returned"
+        ]
+      }
+    },
+    {
+      "id": "RESUME02_M2_global",
+      "phase": "M2",
+      "request": {
+        "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M2_global.json",
+        "bytes": 604,
+        "sha256": "7532bf3999cc8ee0f5ac0a0d2883a8ac8e2e399195c1d65b508befb3ba68e3a5"
+      },
+      "captureCommand": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\tools\\capture_metadata.ps1",
+        "-RequestPath",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume02-release\\release\\metadata-requests\\RESUME02_M2_global.json"
+      ],
+      "currentState": "AUTH_PENDING_BLOCKED",
+      "predecessor": {
+        "externalProofPath": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs\\RESUME02_M2_identity-completion-proof.json",
+        "argument": "-PredecessorProofSha",
+        "digest": "Runtime SHA from trusted tester after original tool exit/EOF; not issued now.",
+        "requires": [
+          "same prior request/scope/controllerPid/receipt SHA",
+          "original resources actually returned",
+          "actual original controller/tool ended",
+          "semantic approval before next"
+        ]
+      }
+    }
+  ],
+  "newSDKRequests": 0,
+  "rootCreation": "After actual new dispatch and independent final mechanical PASS/local gates, create only approved evidenceRoot before M1; no once/disposition/claim initialization before M1 passes."
+}

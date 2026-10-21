@@ -1,0 +1,3634 @@
+{
+  "result": "STATIC_SOURCE_INVENTORY_ONLY_NOT_TYPECHECK_OR_BUILD",
+  "sourceArchiveSha256": "9945efa92e16b3fbe8eb8bf37f00be53fa0adb52d09ac978a0744ca2ef3697db",
+  "archiveEntries": 807,
+  "javaSourceCount": 708,
+  "javaSourceBytes": 4435752,
+  "bundledPackages": {
+    "net/sourceforge/jaad": 73,
+    "org/jcodec": 635
+  },
+  "nonJavaJcodecImportEntries": 129,
+  "externalImportCandidates": [],
+  "sourceList": [
+    {
+      "entry": "net/sourceforge/jaad/aac/AACDecoderConfig.java",
+      "bytes": 7524,
+      "sha256": "910aa621b869063a1a62c6df544de93e16e37237fce0d3a20a8f691e01a88c44"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/AACException.java",
+      "bytes": 1114,
+      "sha256": "a1a88020f74342fdb13be0365365c1e195b164fa65b9f73ea8c9839b226de495"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/ChannelConfiguration.java",
+      "bytes": 3195,
+      "sha256": "37ebe81d03f62c5301982853760bf577492a35de83cda5d98aacb4f0ee1c1f01"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/Decoder.java",
+      "bytes": 4496,
+      "sha256": "28c39aa3da6eb72abaf40aaafacc221f9342a025842f281c1534afea7b0b699f"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/Profile.java",
+      "bytes": 3880,
+      "sha256": "287bbe958d767605907f0f1b5970deff1e9b26d9ef10c41ab1bf7c23c18d2361"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/SampleBuffer.java",
+      "bytes": 3064,
+      "sha256": "bd5a8912d729992288f0073fedf44af7ff73682029028cadae1f5e05e982ea9c"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/SampleFrequency.java",
+      "bytes": 5735,
+      "sha256": "59092cd9d2c916011e27e465860f793506051a80f4aae65688a0481bfb5abdcb"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/error/BitsBuffer.java",
+      "bytes": 3608,
+      "sha256": "d19edd4264a4aba9d884aef0b54ab97e0a64d1609fd87eb9ee47c4a1781da981"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/error/HCR.java",
+      "bytes": 7935,
+      "sha256": "7cd1bcb52dfa5689f376b937e9d57117eada1dc1cb1b07c11b1b901f1f9742a8"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/error/RVLC.java",
+      "bytes": 3670,
+      "sha256": "ba1123d2a0fd4d8510e1b0c71dbd1fd15f191099b690335a53a9f8ac9bcab394"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/error/RVLCTables.java",
+      "bytes": 2078,
+      "sha256": "46ed439b947eec542da38c6a8295ad88051999b8f74752e6ff5c44bd08641348"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/error/package-info.java",
+      "bytes": 97,
+      "sha256": "1ce8fe1df01e810a45f6f8f0920e4e2d7a34e79c25f07fb6bbdd5255249f34ca"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/filterbank/FFT.java",
+      "bytes": 2976,
+      "sha256": "d1061cb559239e2ba90a125d5ecd4a7acbae69108d19803e8809f52b65e5e8db"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/filterbank/FFTTables.java",
+      "bytes": 46820,
+      "sha256": "42837ea0b229340260e520ed5a86ed0df7419fb018db0728b86a24a53318b6cc"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/filterbank/FilterBank.java",
+      "bytes": 6708,
+      "sha256": "7b8a1209c5efe458d7eb0fc7889cd63809601be277fe162d012f50f3594a3bdc"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/filterbank/KBDWindows.java",
+      "bytes": 50123,
+      "sha256": "053a831e767f0482c96adafcafac4fa944f92b409a495762b6abd62637b62fa7"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/filterbank/MDCT.java",
+      "bytes": 3422,
+      "sha256": "0c800eeb8938a261012e70232670d4665b9e8ac45b138ba6bc780b4340a24510"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/filterbank/MDCTTables.java",
+      "bytes": 49542,
+      "sha256": "b0743c96e420c69c9441b5e2fb4fec9e5a105f3c061ffc4e192db124e1ba6b89"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/filterbank/SineWindows.java",
+      "bytes": 53866,
+      "sha256": "2c0c092d5684ea1238e5e618fc4f9f0a6dcdfb6bedaaa1e9071ce38c062871a3"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/gain/FFT.java",
+      "bytes": 3728,
+      "sha256": "d909a781c2d430291c847b011b78b326177362e9ea50c1349446c1ec38cddb9d"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/gain/GCConstants.java",
+      "bytes": 514,
+      "sha256": "d0dd777ead4b2cfe3d2d5f757eded743b5d4a7014bdf0aab40fbde7fbfa3934a"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/gain/GainControl.java",
+      "bytes": 9095,
+      "sha256": "0b484e765dbf0dd389452f258ab82edd89ecbd08aad33c6f9a31a0146b0f1d38"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/gain/IMDCT.java",
+      "bytes": 5369,
+      "sha256": "c102e4c87e2ebcb15f079e8cb1d22865a33a142cc33b965eb83a9ee69dcac7bd"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/gain/IMDCTTables.java",
+      "bytes": 13019,
+      "sha256": "a928f391754a6e90815d877fffd18679cffe26f16d254cae9bfb1b91183c31c9"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/gain/IPQF.java",
+      "bytes": 1823,
+      "sha256": "f122ff5e9f20600e5f2fd68ad8ad6657c92a2542ae9bc1723d338443228670eb"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/gain/PQFTables.java",
+      "bytes": 3914,
+      "sha256": "ab8cde981955ce06d188660de378d8215e7b7883deae371be235edfe4cca631f"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/gain/Windows.java",
+      "bytes": 13701,
+      "sha256": "c733bcaa43c4ce4b83de23e615a81c32542336993cf0156975dac0f8331e4d39"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/huffman/Codebooks.java",
+      "bytes": 28671,
+      "sha256": "399363476e9f0b3a1a6c8f19ba66dbb8743125abaa3ede15b3e090d66dd10ef9"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/huffman/HCB.java",
+      "bytes": 442,
+      "sha256": "0fbe2404f854006e355919e30525b8f497289db2ddd740cee7d1a403b0abcb2b"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/huffman/Huffman.java",
+      "bytes": 2390,
+      "sha256": "aae897b329bda5c29e0c02a618b4b02fc39553eadd1f1c7efd3162d930d1b1c4"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/ps/PS.java",
+      "bytes": 39005,
+      "sha256": "2ae4f1c8dd17d82473c8dedcccc31688d1813ea0240ac4dbd27a8e165b472552"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/ps/PSConstants.java",
+      "bytes": 448,
+      "sha256": "bd676b126dca95331cbb4583b45cc51b6ce5511e3f653d2bf487584dad4d7335"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/ps/PSFilterbank.java",
+      "bytes": 11864,
+      "sha256": "6f383497b0a16de2850221dc627477a83e18e9b247b58b86581fa98a781ac66b"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/ps/PSHuffmanTables.java",
+      "bytes": 13448,
+      "sha256": "3cca56ac6104c9d8d1b0492eb40064114616724442de5462d6913e2bd5513e0b"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/ps/PSTables.java",
+      "bytes": 38365,
+      "sha256": "198f31dbed407581f32770458db394be464db83192772866d806494b2786456f"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/AnalysisFilterbank.java",
+      "bytes": 2768,
+      "sha256": "195cfb9d04f16171718171de1b50a4bbf759ad7f3dd11651b1a1467f23748474"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/DCT.java",
+      "bytes": 12293,
+      "sha256": "bca76dc684340eaff93420d1e972ffe19500a4612074fb957b59fba4771c373c"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/FBT.java",
+      "bytes": 10296,
+      "sha256": "b36fb997836860a26c4bd7e1b33a3cffeac469d542e09a2dea0844437da5812d"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/FilterbankTable.java",
+      "bytes": 13240,
+      "sha256": "2bbf66d33baa90083a939a3f699195c4965290f24bd6174997179270f07c5455"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/HFAdjustment.java",
+      "bytes": 11977,
+      "sha256": "04d6ea377e530af6f408a79e53e8d19980867d992b10a7d5a500f472317cf109"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/HFGeneration.java",
+      "bytes": 8467,
+      "sha256": "9cfd3b08a1814dbd79531f7ebc8b102b69a570ee256a83deaf0a1377b3438c9e"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/HuffmanTables.java",
+      "bytes": 7524,
+      "sha256": "c37480d37ea4547df52dcd03b8e5f3589091db0fa897c8633da6693989d7c5c5"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/NoiseEnvelope.java",
+      "bytes": 27145,
+      "sha256": "dc027700af8719abe1092c33f09abca5e341b0c05b2b446f5c006addafcfca03"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/NoiseTable.java",
+      "bytes": 22374,
+      "sha256": "be24a1f12f600a6102831f2f9b631c1a98af4d84e2c18d9550810f186da73080"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/SBR.java",
+      "bytes": 34130,
+      "sha256": "8c3a7e1f47c22d3ee0eb1c11a332ace31a8a9a3b3b88a03f611684d0e1b6d714"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/SBRConstants.java",
+      "bytes": 1483,
+      "sha256": "5baec199e656b78fbb16d92e72c9827d288c918792a27d162962b7a363456340"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/SynthesisFilterbank.java",
+      "bytes": 30422,
+      "sha256": "b5dfd593c04d77077beccf27670f2628939286b7ce0042d43a78c776c8d3e441"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/sbr/TFGrid.java",
+      "bytes": 3345,
+      "sha256": "84ebdcfe025fa062e9a7a917e85fdf49be07dd60319de0b820551ec27c38f14e"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/BitStream.java",
+      "bytes": 5606,
+      "sha256": "877d380ea3ee0be1db47190608ab2853f20b7cd1055794268947f2e1b243cbc3"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/CCE.java",
+      "bytes": 4390,
+      "sha256": "6d7d2620b999c05bd3fe3e727a9375d76ed29183314977eb05aa21415283c263"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/CPE.java",
+      "bytes": 2794,
+      "sha256": "63008efaddc52ddaa4d2e5559aa74ca996f1e271a387b6de353072a330b10098"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/DSE.java",
+      "bytes": 739,
+      "sha256": "4e95e86d61b3555e67af85151e29fb915d6154c84bd4e8b8935dc6e7e17d84de"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/Element.java",
+      "bytes": 1076,
+      "sha256": "27a87118fd11238f4ea2b1ccac552444e36ca0d28ad3f03c62d39f94101f3ffe"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/FIL.java",
+      "bytes": 4537,
+      "sha256": "4a6d3a68f24f0018af19174940ecdd768ddf3e97bdfc289874af99af6747aafd"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/IBitStream.java",
+      "bytes": 847,
+      "sha256": "73dab82e929f5f31cceb68ef1cc646225d380008d31f34a78f63bfdd4988e15c"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/ICSInfo.java",
+      "bytes": 11740,
+      "sha256": "9f23f3d6071a80b70acfb93351dc5f574040569361acfe4eac9fca6e957b2b3a"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/ICStream.java",
+      "bytes": 9303,
+      "sha256": "0b5bc0c5095615b8c70e35704863667a6b935eadc3c1ec648e792d599e3aae9e"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/IQTable.java",
+      "bytes": 183771,
+      "sha256": "4081db4312bc5796d7992831aa6ee383f2d8e27f01b37a76a2a100197802f44c"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/NIOBitStream.java",
+      "bytes": 2236,
+      "sha256": "264b6ecf8a778e0c7745e05082f1065802f818660f0689a3f798896d097e2b17"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/PCE.java",
+      "bytes": 4732,
+      "sha256": "bbb37c328bca63e6a623a1e95464827c69e9b2eed50fbc7f09608cdb16da5e4f"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/SCE_LFE.java",
+      "bytes": 705,
+      "sha256": "ed1029ecedfb268332d25f316762cf2dba21c105aadf5d32fda2c74dc2d088b9"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/ScaleFactorBands.java",
+      "bytes": 3594,
+      "sha256": "e9e32912494c2b5cb5abc70a87bda4f80c81a727064c3e4ca2ccb3e40775c017"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/ScaleFactorTable.java",
+      "bytes": 6555,
+      "sha256": "4505f142f7b7dcd5182d94335e291ea9f328285d597870be4266f997c51971bf"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/SyntacticElements.java",
+      "bytes": 14799,
+      "sha256": "75abda68f509b9d4794ee66b93f9065ad4a0c1670ee2c6b281387b475b0fd9cf"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/syntax/SyntaxConstants.java",
+      "bytes": 970,
+      "sha256": "d62d8b2f15089c71348bfa37a49d719438ee5f2e520b11cc7850d68b05bc4053"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/tools/ICPrediction.java",
+      "bytes": 4345,
+      "sha256": "385cb4567978d819414b3407cb344ee610d62351af1c6eb6091c98631ad937cb"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/tools/IS.java",
+      "bytes": 1827,
+      "sha256": "625c403de180bd2543ce1802ef232b951439168c91b2173ae2efd7930e5114cd"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/tools/ISScaleTable.java",
+      "bytes": 6792,
+      "sha256": "3d8f0dbe09d89b4ba62277998bb592b91666ada41e1d4cc6bcaf6b160152b2ba"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/tools/MS.java",
+      "bytes": 1535,
+      "sha256": "1ad0750190a345e26aa1fad9e38412df60304a66a539ba4dd9af6dd2e859e433"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/tools/MSMask.java",
+      "bytes": 420,
+      "sha256": "6118a0a9c3e06e85d6a2ba6b06af1f849708d6a2172d8f75b137e53c18b68e6a"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/tools/TNS.java",
+      "bytes": 2080,
+      "sha256": "5757771217337fba1effb4ddfcf0382ee1a0f42e6b93b98f265f8fcb59c165ac"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/tools/TNSTables.java",
+      "bytes": 1101,
+      "sha256": "9c2e2d7204c9743db92de1f16d4d6b2f142229f0504fe1b6afb25dde56d06c15"
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/transport/ADIFHeader.java",
+      "bytes": 1775,
+      "sha256": "76862cd4a1d593816e220f911b509172d750812def3cdc3c62dbfef210946ed8"
+    },
+    {
+      "entry": "org/jcodec/algo/DataConvert.java",
+      "bytes": 4583,
+      "sha256": "f13a059b78d5b11d8f97c95bd96598c0bec786f94d602c092f403881028bb114"
+    },
+    {
+      "entry": "org/jcodec/algo/SoundFilter.java",
+      "bytes": 7237,
+      "sha256": "b74e93b07059fbad17bc861af9bcc3cc8caedd5373d7427533c167354cbf86f4"
+    },
+    {
+      "entry": "org/jcodec/api/FormatException.java",
+      "bytes": 138,
+      "sha256": "3650edce4e11e805f8bf81b373eca360885c69f564040755a5b8e5fdd0aa2701"
+    },
+    {
+      "entry": "org/jcodec/api/FrameGrab.java",
+      "bytes": 13041,
+      "sha256": "ac0422770882f3cbf047059345a1e57d412a709b620d55936debf95440da414f"
+    },
+    {
+      "entry": "org/jcodec/api/JCodecException.java",
+      "bytes": 297,
+      "sha256": "37e89c518d52803dc1374a5bce5e37fcd3ddbcecc7158d89c25a2b924283b285"
+    },
+    {
+      "entry": "org/jcodec/api/MediaInfo.java",
+      "bytes": 459,
+      "sha256": "392ba7b9ecabce99f0398d1c6e6e286e1020af12fdbc9b3e3e6092e541598f68"
+    },
+    {
+      "entry": "org/jcodec/api/NotImplementedException.java",
+      "bytes": 162,
+      "sha256": "3c1279120a358a7a63e6e6e92145d90b7f7a69cca98401bc12a3c29afc5b3fdc"
+    },
+    {
+      "entry": "org/jcodec/api/NotSupportedException.java",
+      "bytes": 152,
+      "sha256": "3500f0f5713f8b500a5d13318edc9c4281b13596b906dace0966cf04f68c0828"
+    },
+    {
+      "entry": "org/jcodec/api/PictureWithMetadata.java",
+      "bytes": 1237,
+      "sha256": "36c7d04c4fda8f71ef32622cbbf09c990cdf92a3577719229ffed5b1785e3edd"
+    },
+    {
+      "entry": "org/jcodec/api/SequenceEncoder.java",
+      "bytes": 3685,
+      "sha256": "132981bd68eeb1630da5ced4bb709194c2706a3d63293bd803eca86c90fc0591"
+    },
+    {
+      "entry": "org/jcodec/api/UnhandledStateException.java",
+      "bytes": 162,
+      "sha256": "ba8dac35f3ed9f45f1350fbc8e30edfc76530226253038777fcf7c204caf95b0"
+    },
+    {
+      "entry": "org/jcodec/api/UnsupportedFormatException.java",
+      "bytes": 325,
+      "sha256": "6ab1dcaa2bd7d7c5044ae3435f56fbd542b49cefdca71d6db9895d0ba90caf85"
+    },
+    {
+      "entry": "org/jcodec/api/specific/AVCMP4Adaptor.java",
+      "bytes": 3128,
+      "sha256": "eb591ca12ca8d1a237629d7f553b374991cf97368a0eb2634e38936e2b012d7b"
+    },
+    {
+      "entry": "org/jcodec/api/specific/ContainerAdaptor.java",
+      "bytes": 491,
+      "sha256": "fd9c1e95285c330c17f138b7b8146a83977c7d2adfa52e8b80de7eccb64b737a"
+    },
+    {
+      "entry": "org/jcodec/api/specific/GenericAdaptor.java",
+      "bytes": 1105,
+      "sha256": "803d460a6668c4b39aa20bcb2bdea3a59389d865bb97a8af9dc78dc85a49b910"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/AudioFrameWithPacket.java",
+      "bytes": 629,
+      "sha256": "5cfd788159649a171839b03e5194d23a51f6d9c35a5a4ade3944ca2fd16df1e5"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/Filter.java",
+      "bytes": 559,
+      "sha256": "f63760127120eee099895e824985cbda836502777fbda34738453273a8f59f2b"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/Options.java",
+      "bytes": 95,
+      "sha256": "d28350c51c5046ad28a8f6910f60107829d5c474ab891b1d5d9bab753c2bf2ae"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/PacketSink.java",
+      "bytes": 558,
+      "sha256": "fd16eee7bd5ee921c0584621ff6da41a1ca18f21ea2133c731155eca6a1ee066"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/PacketSource.java",
+      "bytes": 337,
+      "sha256": "efa1caeb7c5b5d816457e9e29a8e28abb0557568bc4ff3a2e723276e1f596e2d"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/PixelStore.java",
+      "bytes": 909,
+      "sha256": "a122df02348ca56ab097b1de76a3e269a319514e94eb4e80c2c3ef23506a95c8"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/PixelStoreImpl.java",
+      "bytes": 1152,
+      "sha256": "8c332828afb1d0bffbde95011ce5980654d53a6dff8cf779fa0df1d1f17c5f26"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/Sink.java",
+      "bytes": 1245,
+      "sha256": "656a6747650709cc4a1b747c4ce0fc488dfcfa831769c6dfd2eb900ce4e9c6b2"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/SinkImpl.java",
+      "bytes": 9575,
+      "sha256": "d709bbfebfb132c49ffdd23d071312eae19f3b10ab292e02d0cdd314facd9b34"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/Source.java",
+      "bytes": 2003,
+      "sha256": "99af68c2a0431376485176d994b039af860dfafcc52fd0b881f738fbc7c3a52d"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/SourceImpl.java",
+      "bytes": 20564,
+      "sha256": "71197161a9c8ed28816998ef41eb22de4d95b767912e5180c5e9b4cbad3be82e"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/TranscodeMain.java",
+      "bytes": 20645,
+      "sha256": "1e1bf43f7cf4811c26d1e5efcef1f62cda02f060bf787be852b7be090b10650f"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/Transcoder.java",
+      "bytes": 20398,
+      "sha256": "ee8ec829b3f6488c4e66c1c55875eeb388b5b7cc4e86403f72a9a590896c3802"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/VideoFrameWithPacket.java",
+      "bytes": 980,
+      "sha256": "fe2c381ba5d37ede41ea911d9987938002dd34a73b5c7b11549e78d3b88abbbf"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/filters/ColorTransformFilter.java",
+      "bytes": 1503,
+      "sha256": "5e82f239c68d965719e65972e65b5675820201694a20b12380cd372995349324"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/filters/CropFilter.java",
+      "bytes": 677,
+      "sha256": "751536eea93ad10e82b65b6fef59211ded91bd509e992daae2c94469b880de72"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/filters/DumpMvFilter.java",
+      "bytes": 3703,
+      "sha256": "d835aa402439f316fa1816d00cb50bfc3008a007a3e18d151fbb3dc00fc37939"
+    },
+    {
+      "entry": "org/jcodec/api/transcode/filters/ScaleFilter.java",
+      "bytes": 1904,
+      "sha256": "9731636b326bf846b54f9a4993b4f4a0ffa81b4d04a2fde698102ca1ebc95937"
+    },
+    {
+      "entry": "org/jcodec/audio/Audio.java",
+      "bytes": 2880,
+      "sha256": "f845d530cd853c2480c41ac095761f23d479ebc1c939676790575b5de52e6836"
+    },
+    {
+      "entry": "org/jcodec/audio/AudioFilter.java",
+      "bytes": 377,
+      "sha256": "a85239f96392b7278d7398533cb0e33ecdd53d8c3282a0a91995b9983fbacc89"
+    },
+    {
+      "entry": "org/jcodec/audio/AudioSink.java",
+      "bytes": 330,
+      "sha256": "8626f9f5e82dc99b4d427d5ee9587b09c816687c531cfb38b915c26041df5c58"
+    },
+    {
+      "entry": "org/jcodec/audio/AudioSource.java",
+      "bytes": 398,
+      "sha256": "0490a01e435ae0cf8ce98e848602e9577f523cfeac74b570b8d2fb0c27c7ab19"
+    },
+    {
+      "entry": "org/jcodec/audio/ChannelMerge.java",
+      "bytes": 1985,
+      "sha256": "5adc61f04c56c4f25004a2f9478c0230e91612e2a864f592f16bd620a58e1900"
+    },
+    {
+      "entry": "org/jcodec/audio/ChannelSplit.java",
+      "bytes": 1855,
+      "sha256": "6fcb69925909943bba0bd14e8410da79d70c12bc42a7a38c74196db7d953d09d"
+    },
+    {
+      "entry": "org/jcodec/audio/ConvolutionFilter.java",
+      "bytes": 2078,
+      "sha256": "327873dc63ae3cbc028aad79b71903f5423588497e4f97e3d793a24510c15143"
+    },
+    {
+      "entry": "org/jcodec/audio/FilterGraph.java",
+      "bytes": 4278,
+      "sha256": "14798aa693220fd839731c2626c773ca162e24d954169a149fe14ed2e0fd3543"
+    },
+    {
+      "entry": "org/jcodec/audio/FilterSocket.java",
+      "bytes": 3710,
+      "sha256": "59105289e5e627c1e44c3903652be60f0db1b3253f50fc19a26791bba97f264e"
+    },
+    {
+      "entry": "org/jcodec/audio/LanczosInterpolator.java",
+      "bytes": 2816,
+      "sha256": "083b36a5b78ec8062cbfbbe5e6c2e6f83b632efe72dea03b5159f4dce6e2e03a"
+    },
+    {
+      "entry": "org/jcodec/audio/SincLowPassFilter.java",
+      "bytes": 1914,
+      "sha256": "2718130314a560c192f31f02b2d47d5ab49014eaa81e7c224232747c95b1a4c9"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/AACConts.java",
+      "bytes": 438,
+      "sha256": "e85e4a82b38a8c03e5d30d42cc17994e17beb2be9a2ce685ca7deacda5198c64"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/AACDecoder.java",
+      "bytes": 2797,
+      "sha256": "4fa000bff42e1efd572b1cd5613633e2240e418846f0e31cd822102155b5da48"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/AACUtils.java",
+      "bytes": 4231,
+      "sha256": "a49a5c6dc1132c7e3e48f24729ef7cc2e9651cab465a6989e4fd2a643f5e5015"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/ADTSParser.java",
+      "bytes": 4513,
+      "sha256": "d340b63f9c40ff9eb100cc7c8a19d068a2132efb348a8842c59f4720df5a8a7c"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/BlockReader.java",
+      "bytes": 632,
+      "sha256": "5dc204a3abba054bedccfb897fe4d0255107b3a9c84ec4f7d6f5047927bcfd4c"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/BlockType.java",
+      "bytes": 310,
+      "sha256": "a1c8358b5ec17999f7a45abacb31e7d73ece31790282977dd6b13aee5f99ec94"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/BlockWriter.java",
+      "bytes": 593,
+      "sha256": "e73def251318bc843804c8e8be659a457b55a637a5310a849d34fbe0ba40f3f8"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/ChannelPosition.java",
+      "bytes": 307,
+      "sha256": "a4919e0c704518deb40e8865a6677c5b7b985e9d744dfdc44b822229bc785cf5"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/ObjectType.java",
+      "bytes": 2358,
+      "sha256": "23e91bee1883f32098575d8a204faea80f73898f29644004f43ab6408dc6fb93"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/Profile.java",
+      "bytes": 228,
+      "sha256": "95eed188363b12c8da9ea9bb72570c2567dcb6ac086eb40dd75bb8a82db3ae84"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/AACTab.java",
+      "bytes": 29418,
+      "sha256": "c9f316343c63fb3ca53a0a1c2849d37adfea0291f1608e0502aeb93d33589622"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/Block.java",
+      "bytes": 470,
+      "sha256": "572d789c35cd65063112ec6dd5b48d2b96651661f21bf30fdeac3e4dad63dff4"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/BlockCCE.java",
+      "bytes": 2930,
+      "sha256": "5396a08233fb20ecb0bd6c1a318b0d00ff6a739edfbcb3f0ce6c8df94145a0a9"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/BlockCPE.java",
+      "bytes": 1645,
+      "sha256": "8f8e4112d116304211de28ed293fa8a49afff097ae616ea631ffa13edc89f77d"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/BlockDSE.java",
+      "bytes": 731,
+      "sha256": "0e8bfd04141cb0911e9aafd8cac164265b4694ff44a8d9a826b9a9ddc2b4a6aa"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/BlockFil.java",
+      "bytes": 549,
+      "sha256": "f948607cca3b2a8518079c1aae5d51c38008064119228c719ab84fac265ae007"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/BlockICS.java",
+      "bytes": 21806,
+      "sha256": "30d11a7a3a74d10bdcb30b2932d2474db45bfa0ac803ae12eedd553163c9cd55"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/BlockPCE.java",
+      "bytes": 3507,
+      "sha256": "99f0d334b455ab0f065b1a6d260560e385fba5489b2d6807321013631a75424b"
+    },
+    {
+      "entry": "org/jcodec/codecs/aac/blocks/RawDataBlockType.java",
+      "bytes": 306,
+      "sha256": "5a9e09df622c9a089ca56ac63443533e520cd0b29500f9c85cc70e9556cb5c43"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/BitIO.java",
+      "bytes": 3425,
+      "sha256": "03f4a7775c6c44d5f5550834592823baf969b252d0ed130faa68686f4eaa4af9"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/Context.java",
+      "bytes": 767,
+      "sha256": "6fa2515971856615e6a92810a3d4a1c0143641137cd529b1694db8bceabaa80a"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/MConst.java",
+      "bytes": 1970,
+      "sha256": "ad163758ca45abfe844c16ba2485dac9bda0b1237f953cf8e27f78438e5923ce"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/MDecoder.java",
+      "bytes": 3701,
+      "sha256": "c33966806ef61bb2fd104850a8bbf022f4c5d95fac53ade6051add16ed3d49a6"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/MEncoder.java",
+      "bytes": 3766,
+      "sha256": "acbc5e15c43b00525cef2171706a585bae948cc4ccaf1915dac66f59360f5168"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/MQConst.java",
+      "bytes": 1422,
+      "sha256": "1129cb3ce0caaa7addea2a4ed3dbe7826dfca3fe3b495dee4ae6689bf88abfd2"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/MQDecoder.java",
+      "bytes": 1837,
+      "sha256": "11031bb517af0c2c06016ba7aa846a63c47b8166ecee25eec2d491511a41a9f1"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/MQEncoder.java",
+      "bytes": 3603,
+      "sha256": "397af0a7aa8f9bde1987c1d2e49297208dbb41d3fa74e505ea8862a888096b80"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/Packed4BitList.java",
+      "bytes": 1484,
+      "sha256": "4dd695f8f5f17522f1a8408f27a0fd8f1725efae58f38b3791832d0c23453ac3"
+    },
+    {
+      "entry": "org/jcodec/codecs/common/biari/TreeBinarizer.java",
+      "bytes": 1874,
+      "sha256": "3157c9f411e265b736e026662a71f91a6d0035af2efa8ee1a61b9cde26a170a9"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/BufferH264ES.java",
+      "bytes": 9770,
+      "sha256": "201991235887be71f3d6b531c8610d573e46f1a427644e0632894e40ea9c200e"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/H264Const.java",
+      "bytes": 31657,
+      "sha256": "4bef1bb98290f4ef2d8ac0db9f476ea093d36add03874a103e2e38bd8853bb9e"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/H264Decoder.java",
+      "bytes": 17249,
+      "sha256": "10a0842204f2d6010ae9ba6eef08b972a4aa2c14c8099013b1014a36b3215601"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/H264Encoder.java",
+      "bytes": 14109,
+      "sha256": "33e58733a41bf5e9435133d81a32311f13d9a1a374745daefc848d3bc8fc8737"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/H264Utils.java",
+      "bytes": 36792,
+      "sha256": "b7140694eaf35e3696eecf6b05eaa18a8c3708b38f323e2020af4314332c171f"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/H264Utils2.java",
+      "bytes": 228,
+      "sha256": "0c868c05a8127cd6abd317a223186cdee9ec18e2c5340ef7664d7a247484d824"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/POCManager.java",
+      "bytes": 3389,
+      "sha256": "332f18b787bc852d483037737a16c19bb0830433c3d9739f1c02056eec2208ed"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/BlockInterpolator.java",
+      "bytes": 43265,
+      "sha256": "264a53bdf9e5bb22b33db65f6996f86493aba5d29cfaece5efdd43402311bdb2"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/CABACContst.java",
+      "bytes": 39897,
+      "sha256": "1a1bb8b3329a459430800e6d10e39ab7b91ee8e3ebba473341cc805dc62a0af3"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/CAVLCReader.java",
+      "bytes": 2296,
+      "sha256": "63aaeaf22055bc4c68d1977dd660db2a04ae65765d99f560548b9559cf15a635"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/ChromaPredictionBuilder.java",
+      "bytes": 7524,
+      "sha256": "610b61f4354d065fec08f53d90b777a5e05f3aaf093d49e6eafe885d16b0f23f"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/CoeffTransformer.java",
+      "bytes": 17703,
+      "sha256": "69bae2eeb8877ec9489c0e135694f1b4cb22903d20575613903bd8e1a693f2a1"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/DeblockerInput.java",
+      "bytes": 1453,
+      "sha256": "b19af3549bc282ab43a900dc53c4972dd41e916be7545a94776bef50504224d8"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/DecoderState.java",
+      "bytes": 1314,
+      "sha256": "3866700ae94b8c348eea82d34003e88160bdaa5c412e9cbd39edb79da9340c6e"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/FrameReader.java",
+      "bytes": 4526,
+      "sha256": "f11f48718206fe5c0fb099546064d023e26fa1d7715b647f0fa21ac5de1d4796"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/Intra16x16PredictionBuilder.java",
+      "bytes": 3942,
+      "sha256": "79c8f05edf5f8c6815649a6fc4b8da8dd3f15d27f45908ed03e34ade93723e95"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/Intra4x4PredictionBuilder.java",
+      "bytes": 18806,
+      "sha256": "ef44817135b517ce090ee877bda88a8e92eff8883f4c9546149610ad1c2373ac"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/Intra8x8PredictionBuilder.java",
+      "bytes": 24997,
+      "sha256": "7fc20f10c36edc41d245f7fa37556e64faf3d7975d820fa00ab3475b37d79f43"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlock.java",
+      "bytes": 6832,
+      "sha256": "5dc81851ff37c0fbb69df42e489b17d82ed364a1dc02fda5eafaa5a05b53260d"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockDecoderBDirect.java",
+      "bytes": 16245,
+      "sha256": "051a902dc21845c3c9013afeaa5f988805ec849312245196f8c112c8ec075908"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockDecoderBase.java",
+      "bytes": 9318,
+      "sha256": "0a0a476c9308037624dd2bceb5cf21498bee015960ae59e9694a99b94e142f9f"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockDecoderIPCM.java",
+      "bytes": 804,
+      "sha256": "b82fce8adf9f089b4a13c63717939f8c3d6ae1317a31f776923793e5508d760c"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockDecoderInter.java",
+      "bytes": 17755,
+      "sha256": "ddf8f93caba5877481a09800f384eb9936e69b4949f82b62d97f3686e69ba4ae"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockDecoderInter8x8.java",
+      "bytes": 18915,
+      "sha256": "9e9032191bb28ac4703f57a1f62e4ef0712719d16e15ed1219e951a52a2070b2"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockDecoderIntra16x16.java",
+      "bytes": 2485,
+      "sha256": "4cef044a4f27a882b4b054d044b5857a18eb848104373c82483f224647501682"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockDecoderIntraNxN.java",
+      "bytes": 3376,
+      "sha256": "0376230c509e4d62efdfa34843fa9166cff29c10ffeafc220f543357bbaeaae8"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockDecoderUtils.java",
+      "bytes": 6017,
+      "sha256": "456f25300349fe3a86a9239dc23888a2a322aa28ce7f881c2fdd6a40b3b6e44d"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockReader.java",
+      "bytes": 147,
+      "sha256": "d9344d4eaa6c7ea0f03f78d84be83d1f4fd2ece59b80975a2aacd223e85e659e"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/MBlockSkipDecoder.java",
+      "bytes": 4585,
+      "sha256": "9d309cd051240bc1f93fd2b056ebf611d739a89f7bc15e302afb2c9b43987831"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/PredictionMerger.java",
+      "bytes": 7134,
+      "sha256": "357164aab453bf4bb752fee6e31e48e980c26adeb377760732c245797e1e3767"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/RefListManager.java",
+      "bytes": 5588,
+      "sha256": "c0dd6ed75495afc4b997570468722b37b1c2663ac159334bd413910dc3faf722"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/SliceDecoder.java",
+      "bytes": 8627,
+      "sha256": "00032ceee57958f3d124c9017c0095da069fe1715140484fd041079bcd95de3d"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/SliceHeaderReader.java",
+      "bytes": 12867,
+      "sha256": "e5b1c96e8c31797693242908cebe4441225466e31a92ed4ed30aa14f31e7ec73"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/SliceReader.java",
+      "bytes": 50793,
+      "sha256": "637e2a6b4dae436517beb498e1af436c5bba894483c40cfb4a6fdbdf404fcd75"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/aso/FlatMBlockMapper.java",
+      "bytes": 1653,
+      "sha256": "186db88a73ba22f92c3423f7101c0b7d2da6b2845f2820461292721b027989db"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/aso/MBToSliceGroupMap.java",
+      "bytes": 838,
+      "sha256": "9525dd86b35305a2b23c00f949ecb39b3d05278fe82bba4a72f879fba886eede"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/aso/MapManager.java",
+      "bytes": 5041,
+      "sha256": "58cb2f2b0f898c2611b1a8ce5d0f443376d80a23c5b2c6fed1bfd71d345e7bab"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/aso/Mapper.java",
+      "bytes": 478,
+      "sha256": "58d2be336b8ecc6e549123a2dcf268679f2ddf08e504fb857f49f108cf98f62a"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/aso/PrebuiltMBlockMapper.java",
+      "bytes": 2350,
+      "sha256": "471b4f49bad418c8e162537b7d7636f6ff632c9e8eaca540b27de5049106936d"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/aso/SliceGroupMapBuilder.java",
+      "bytes": 8370,
+      "sha256": "42a0f0a385d2961c0d75f9c8f3ff1929f1159c4c71f8ef0f3c1ed09507c1570f"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/decode/deblock/DeblockingFilter.java",
+      "bytes": 20004,
+      "sha256": "9587651a1f531c794d9ecb9b51cc06a6d5bb6b93e2f7ba0b93046ee938cd6755"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/DumbRateControl.java",
+      "bytes": 1510,
+      "sha256": "bc0e4089f5b08418d855771b0b0d763c298d65becf24fdfe126ed01c8d709a54"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/EncodedMB.java",
+      "bytes": 1119,
+      "sha256": "eb286ea3f76b069f237a16adfbc4f0de53d0cb335c3c7e638deb6ea3059bf73e"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/H264FixedRateControl.java",
+      "bytes": 1521,
+      "sha256": "49cff2a3c5e0547ee043ef5c3ffcf961680a09dd83d4dc8ee663f4a99dabb1f0"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/MBDeblocker.java",
+      "bytes": 16578,
+      "sha256": "b1f20014901c5a694bb7a1ee2353e5932785f42afefc49d6dfbee00c1241c478"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/MBEncoderHelper.java",
+      "bytes": 6736,
+      "sha256": "43b6e15addd721dd47993f3c395484799f9ecae5b160a954ab1292b69c5078c3"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/MBEncoderI16x16.java",
+      "bytes": 12280,
+      "sha256": "9aa8608f21942319a65b69df212ad20939399a70bf7d2c033cee010d69efb08b"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/MBEncoderP16x16.java",
+      "bytes": 9459,
+      "sha256": "29b6bef9f8f3732bca8d8e482d0a99142fb381dd14aaa5e3b64aac9248e0b48e"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/MotionEstimator.java",
+      "bytes": 3069,
+      "sha256": "359861c74543946f20b5f8817abd76546239b12c1fbb77afff64d03fb6dfdd1f"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/encode/RateControl.java",
+      "bytes": 506,
+      "sha256": "1eb45bdf50f329c8256b3a71ed0e9abe2d147dbfad54f698497dc12fc27ee2d3"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/CABAC.java",
+      "bytes": 29898,
+      "sha256": "b97671d727671bbe742a80a1fb8c50161ff2ad9ffbe582f0ef69810075dc9b29"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/CAVLC.java",
+      "bytes": 13374,
+      "sha256": "ddcdcf931542bfb3e0a8a6d15c7690e3c062735f615d3852a191d5c37d857abd"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/AspectRatio.java",
+      "bytes": 674,
+      "sha256": "775dab9972ac3663f0eeef9b1f59754c667f87d054cefb3351b1e4e2261a1107"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/Frame.java",
+      "bytes": 3479,
+      "sha256": "e7f28d2474b1b5d621234f4c150dfef7d8d3d0462494141138d6600e774af156"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/HRDParameters.java",
+      "bytes": 877,
+      "sha256": "4aa58c8a323c0462f333c98184602d98bbb3edc08f49c74ee389a70581e81453"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/MBType.java",
+      "bytes": 2432,
+      "sha256": "ba39e315005b05df9998656dfcb2fb530f1aea96a178a605c2075228851b1d58"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/NALUnit.java",
+      "bytes": 881,
+      "sha256": "12cdd1463f2c52896cb3913e841f49ef2238a5995ea35f562eabab2811a190d6"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/NALUnitType.java",
+      "bytes": 2793,
+      "sha256": "0498982c101b2faf050b8237ea6c1c2bfe5bdc7202c1cabe2241c3eb3ce17d41"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/PictureParameterSet.java",
+      "bytes": 17701,
+      "sha256": "bdf2eb020cb0c244cbab1e4aa0a29aa049f9f09263e400968276755ffd660159"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/PredictionWeightTable.java",
+      "bytes": 795,
+      "sha256": "66db61d1cbe7d879261dfb599d4ce0e61386e0cbfdbb08f9fa52e85c2bd3e4b4"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/RefPicMarking.java",
+      "bytes": 1315,
+      "sha256": "05b04ef8b0208f756b701bb633f61c2cb24c752bd6e2cd2e3574c0a7f776fa7c"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/RefPicMarkingIDR.java",
+      "bytes": 864,
+      "sha256": "cbfee7f66ac51f45c033e1140a55f854f2ff1db9b10b74b8c9c63eb6772e4707"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/SEI.java",
+      "bytes": 2474,
+      "sha256": "342d042e674853c36db0f03001d623cf8127e183eed236824f965ce1ab217a4a"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/SeqParameterSet.java",
+      "bytes": 31284,
+      "sha256": "942692d4d71ad8129a94dc90e8e4207dca4e16f816db0c53ed7d2da392b571a0"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/SeqParameterSetExt.java",
+      "bytes": 2031,
+      "sha256": "f0fec61cef1c0fba1abb0fe4bcdde508441c7f4b26d13765db3e497b2a9270b9"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/SliceHeader.java",
+      "bytes": 2309,
+      "sha256": "4bd25e535a42e1a2a5440c6f064c367a1f8d9bf5a8d92ca5baaeea0146a3050e"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/SliceType.java",
+      "bytes": 1301,
+      "sha256": "1668b38b0a4c98f8171da2ebdc6086fc15ef69df3b0de6bbac483e8c752739db"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/model/VUIParameters.java",
+      "bytes": 2488,
+      "sha256": "3715ecdfbc7e2f5761404cabcb74b97a567da3f11b606f910367cd2ef7d40c77"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/write/CAVLCWriter.java",
+      "bytes": 2410,
+      "sha256": "94520aab5cc861aee566c71bce8c5b5a3872420b63e0d38fde9a5e3bfb642443"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/write/NALUnitWriter.java",
+      "bytes": 1456,
+      "sha256": "0b53dca7d8be8c7d1d435e5e4091c7b674b773cbf07bd361ff0828ca5a391175"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/io/write/SliceHeaderWriter.java",
+      "bytes": 12796,
+      "sha256": "821c13a3941fe29a4fb5add7395d80a506bab7644bd822038a38e52a5193f5df"
+    },
+    {
+      "entry": "org/jcodec/codecs/h264/mp4/AvcCBox.java",
+      "bytes": 5383,
+      "sha256": "a217fe8a9cce8fec9fe5772ab680ebab4a1d7f5cb6003f5361556642af208a45"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/FrameHeader.java",
+      "bytes": 4822,
+      "sha256": "60a5dc98529c74ab1daf59df4fbdde09f8b51a2e9579bcf69b70637a01f4ad13"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/JPEGBitStream.java",
+      "bytes": 2077,
+      "sha256": "aefe08efd52227ead81678a17cc4c5e5b807a75ac9b6fbe5ee2a33198cca38bb"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/JpegConst.java",
+      "bytes": 20864,
+      "sha256": "d98920e03f770dc92d68986cad54b1aaa599ec7f3cee8c5d450936c6d6b0d464"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/JpegDecoder.java",
+      "bytes": 10843,
+      "sha256": "fc29cfd37433851a70ebe08ed673ad97409f553fb1d6ce3d1915ae4c70fb0423"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/JpegToThumb2x2.java",
+      "bytes": 3271,
+      "sha256": "62f52700f3441078d8166fc594a1e657fb7bc6822aa45d61d0109d77b8e1cf10"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/JpegToThumb4x4.java",
+      "bytes": 3653,
+      "sha256": "bf6cd39b597b2bbbfb07b2082f12e3e3fcfdc6b73f77159aff3cb32dc2642ebb"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/ScanHeader.java",
+      "bytes": 6210,
+      "sha256": "e0dd933f144b7f87ab12f6660f912c9e8c0caa8ab53ec48df383645f09fa52d7"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/tools/AssertionException.java",
+      "bytes": 167,
+      "sha256": "1be67b2087e107ef142cca64058d9e42aacb9ea5404923d067c77972ace8ef8e"
+    },
+    {
+      "entry": "org/jcodec/codecs/mjpeg/tools/Asserts.java",
+      "bytes": 1756,
+      "sha256": "d264e582b91297cbf6298b6b474c60a274fef1246c812e322c3279cedd6f9895"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpa/ChannelSynthesizer.java",
+      "bytes": 1433,
+      "sha256": "1eaaf3f9fe28876223c1ad248363cc0d7105349f60a1791ba78fe1d4607b3d9b"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpa/Mp3Bitstream.java",
+      "bytes": 17058,
+      "sha256": "95be91e7f69c3cb5d9b242e2136558b7b7c2805d725b91d43a057422e86923c4"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpa/Mp3Decoder.java",
+      "bytes": 13316,
+      "sha256": "0f0ce8c60bb96f7b1056866d4d70be78d97c5f3bd3d43158e2dafbf3addf6a66"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpa/Mp3Mdct.java",
+      "bytes": 6017,
+      "sha256": "d24461a9afb9544028fd41d8beaa66b2718b7ef00ed0d49ac47bfb962983e9e6"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpa/MpaConst.java",
+      "bytes": 82861,
+      "sha256": "09a14bae08a309a34353882cccdc8e8ac9aa2179d3a5f5058a36a39183b4c944"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpa/MpaHeader.java",
+      "bytes": 4540,
+      "sha256": "f26c4dcb5dcaf376db6759810f574b4b4c74f57eb5351e3b4f65044fc2962f7a"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpa/MpaPqmf.java",
+      "bytes": 10314,
+      "sha256": "1c917d6d062abbc99161ae88127318a658dae0977bb6c94834f329bcfb9e331a"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/FixHLSTimestamps.java",
+      "bytes": 1560,
+      "sha256": "48499d7d2f5316669b3a799afd5eb8469af8e01ae311b08adecfd883946aaa51"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/FixTimestamp.java",
+      "bytes": 3872,
+      "sha256": "b51ece4f78b37a34694d933b8c5ca5d95b4046d2ec04942ed15afef2003be2a6"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/HLSFixPMT.java",
+      "bytes": 3925,
+      "sha256": "00a34432fb7ac7021c80a63e6d376b90eeb21f2f345a9d53cf992babf99420d1"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/HLSRelocatePMT.java",
+      "bytes": 4183,
+      "sha256": "ee3792f7eef016d81f7a21182a8c95d52a206ec22a36a9cf43c5c3e159050537"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGConst.java",
+      "bytes": 24225,
+      "sha256": "a24efa91269849d0ae0431b856b127b9ab942037d9a8779fb816ec6833aaee20"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGDecoder.java",
+      "bytes": 33497,
+      "sha256": "96c32b2078e082ff03390e7af2fba37705012349fef785666c3a788a063e2963"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGES.java",
+      "bytes": 3211,
+      "sha256": "43a1d404089911a9005e6548bb0a9a28cb1d0c235816f0c8327917728e0c0cb3"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGEncoder.java",
+      "bytes": 216,
+      "sha256": "2cc0bd4791c55e9010421744917d6eaee0ecb8a32bcebecbb5ab6ba574b61fa7"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGPred.java",
+      "bytes": 22834,
+      "sha256": "d97d932bbec403d69485a6dc0b9b16197468c498b0336f298dddedaaf0844bce"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGPredDbl.java",
+      "bytes": 718,
+      "sha256": "007d4b709858d42740c4c094c44f6cefbda29a8ebb09c650be48d11123c7b542"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGPredOct.java",
+      "bytes": 10597,
+      "sha256": "b0b19cb55edd83c6e18f60285ccd3187703c980cf4cbe59fb9f848e5f43997f1"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGPredQuad.java",
+      "bytes": 1015,
+      "sha256": "e46f522b29017a8dd0ebfd8beb28505c1c357eb34c09a104d34869c225c930ab"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPEGUtil.java",
+      "bytes": 1937,
+      "sha256": "3c05b7043f2d716c827077900f853d7fa12e329f2f6c195473e4cfd46424e850"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MPSMediaInfo.java",
+      "bytes": 7401,
+      "sha256": "cd20308acee03fdc329739b0d2f986b5e10e285e45fafad2e6d09de16f2d34dc"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/MTSMediaInfo.java",
+      "bytes": 4262,
+      "sha256": "da190eadb739688cf31d60b676ab32cbdfd8c22a24dd5da7d238f8bb03e461b2"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/Mpeg2Thumb2x2.java",
+      "bytes": 8384,
+      "sha256": "fc3c8084c567391abaccb5fb44047a300ae01381bff528f2f033380ca0267e3a"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/Mpeg2Thumb4x4.java",
+      "bytes": 8723,
+      "sha256": "8dbf1b8c30d58308615c3ffb2eee55177037c0d6d689498eeec454d819ebf3f0"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/SegmentReader.java",
+      "bytes": 5570,
+      "sha256": "42cc2f2eace042edb75369f11c6ee0eb3f4b15b23fdee586c66fa8ca0a98e3da"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/SetBaseTimestamp.java",
+      "bytes": 1021,
+      "sha256": "be765780112a526a9a5a2aac9c002d4993b27068645681d99442625e72b7481d"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/TimestampUtil.java",
+      "bytes": 3917,
+      "sha256": "9adc12e71e517b0d006551bc151521207e7fd98b8b529e70e15d312e65e12dcd"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/CopyrightExtension.java",
+      "bytes": 1775,
+      "sha256": "9aae5a7294751baadfe2dca0b578a0dd4647b302128e1c612c8d33d11e5e1c11"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/GOPHeader.java",
+      "bytes": 2075,
+      "sha256": "8facefe6214b8b8fbcda7be79b3ec197645fcfb2c3fbf2c53902cf623522e8b5"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/MPEGHeader.java",
+      "bytes": 289,
+      "sha256": "325756796b2e7275f47f4c21597400fc0f36386d1e229f8721f90d0714cb1366"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/PictureCodingExtension.java",
+      "bytes": 3888,
+      "sha256": "068a6d9cbc6b91fc5508c1c2400e0519e752b1da89a3ff7555f4f1ab49035974"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/PictureDisplayExtension.java",
+      "bytes": 2533,
+      "sha256": "8346d4a2395e5e617c50069b68f20e0ce1fb06fff143b18631327fd5a2654788"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/PictureHeader.java",
+      "bytes": 6105,
+      "sha256": "03210c8ce9867ad36c3d88233a6a4f71dcb18d2068c6da75d2c1c4f8e83fc507"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/PictureSpatialScalableExtension.java",
+      "bytes": 2025,
+      "sha256": "8931d807c3dc4677fa9fca8cea97ee2a8cd140d9adc774fd50ac9efb825b9995"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/PictureTemporalScalableExtension.java",
+      "bytes": 1382,
+      "sha256": "b564fb2317f49039644d5f4c6bb22dd409952b856575548b481d4f5eca3f8f6a"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/QuantMatrixExtension.java",
+      "bytes": 2371,
+      "sha256": "42c41858d08b9c5c0c75029e0a5e9cb9e0db1b0bee05e1e77f522122c0a6300b"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/SequenceDisplayExtension.java",
+      "bytes": 2231,
+      "sha256": "0e9b5d2e2c01f88d194bed299aa97afaff26e7fd234a5739bcbba6142ee2d5eb"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/SequenceExtension.java",
+      "bytes": 3269,
+      "sha256": "1d69d09d276431434042e5c7a23faadbe0db52ac86649c2d2fd0e67dff2f5cc2"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/SequenceHeader.java",
+      "bytes": 5492,
+      "sha256": "36b864473b8d987a84f7432e3ff9724541b4162e9304cdc51cb9753b09171b7a"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg12/bitstream/SequenceScalableExtension.java",
+      "bytes": 5668,
+      "sha256": "dbafa1d314c50364abc5e34da2eab3368fc591bc1d504368490aef66e8ed4ad7"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/MPEG4BiRenderer.java",
+      "bytes": 5665,
+      "sha256": "aed2b5949abb722cfe515cb13d0029800a51a0e6f5cdc6371745befeb0af8ff0"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/MPEG4Bitstream.java",
+      "bytes": 41587,
+      "sha256": "a734013ba9b6f57736fa1512db1e8f587002859a946d172735e752f8455d5aee"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/MPEG4Consts.java",
+      "bytes": 19780,
+      "sha256": "ac6f9984f2659a370adec567b49655e6dec8965566dc69d8b71d923e040c1fe8"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/MPEG4DCT.java",
+      "bytes": 9573,
+      "sha256": "73ed507c7aba7fd7772303b92b13d1eca5a06de96b4b0927befddc9bb885d1b6"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/MPEG4Decoder.java",
+      "bytes": 9855,
+      "sha256": "40a81c7f414f922bdcb04e66d12f54f864f1af3e737eea0a77a9f6828ca73b55"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/MPEG4DecodingContext.java",
+      "bytes": 27890,
+      "sha256": "5bf22a025ae949e00511483f42f91878b8ec393bcbf325f3c773b6afb70c7ad3"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/MPEG4Interpolator.java",
+      "bytes": 28798,
+      "sha256": "3a1c9faf604e2c6e1ce86f0567a984a6cbad55e996be3190e06d1aac65f394a3"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/MPEG4Renderer.java",
+      "bytes": 7964,
+      "sha256": "23909638596bfa20ba0c163d037f1e2cc44c2c78098631f37724aa589027d007"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/Macroblock.java",
+      "bytes": 1994,
+      "sha256": "120b65f6edea0d5f557ea8e12aef3d47a3f995f37f1c96241d9a72dac683c429"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/es/DecoderConfig.java",
+      "bytes": 1357,
+      "sha256": "93981387fe9c51eb034559d7cc095d1d6d60cc5eae6b289fca08f1ce8afad848"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/es/DecoderSpecific.java",
+      "bytes": 648,
+      "sha256": "9db5a3ad0eb5a78cb569175bca8bf84d878b2355f791c4bb7155b73999d07d73"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/es/Descriptor.java",
+      "bytes": 889,
+      "sha256": "13525ba64236b2055eeb9f7b0532f9e1b287e4c7ce14bd6dc7a6970664a090fa"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/es/DescriptorParser.java",
+      "bytes": 2562,
+      "sha256": "c9a03d4c6fc238e48c1ea9e9117e11f47207a54a2db831d2ffc2d1de4ae0a394"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/es/ES.java",
+      "bytes": 713,
+      "sha256": "776385a4debe4980d9c0da556eab78aaa50a0bb573a38203c8f0f14c344f9436"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/es/NodeDescriptor.java",
+      "bytes": 1158,
+      "sha256": "a95bb8e30afa8a7b226df59609459f2e166c9a21b090f271208ad8ddbcc3be7d"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/es/SL.java",
+      "bytes": 507,
+      "sha256": "bde9173ba6f3765ce355b5f92c080f826d66d2f39b4ab82625c0af5a2dc1b192"
+    },
+    {
+      "entry": "org/jcodec/codecs/mpeg4/mp4/EsdsBox.java",
+      "bytes": 3706,
+      "sha256": "66e26eeb4d4e91752241462a64c71a7c768bc1ed59f0312e536816ce333c5020"
+    },
+    {
+      "entry": "org/jcodec/codecs/pcmdvd/PCMDVDDecoder.java",
+      "bytes": 4287,
+      "sha256": "74be0e0f0a556085adaa1af671dbfc6d3e4b47d546e1e17340ebb2e6b65b6a4f"
+    },
+    {
+      "entry": "org/jcodec/codecs/png/IHDR.java",
+      "bytes": 1508,
+      "sha256": "ed8bc065b2d6fced3661b45171deb409d5ee40d58afd7c72ba69553c4854e5ef"
+    },
+    {
+      "entry": "org/jcodec/codecs/png/PNGConsts.java",
+      "bytes": 507,
+      "sha256": "1667fd5b04b682ac02921f578e9eb27d0c17152d579eced5cd573b2b09fa6b20"
+    },
+    {
+      "entry": "org/jcodec/codecs/png/PNGDecoder.java",
+      "bytes": 20994,
+      "sha256": "32b22b0d924ecfecaa6c003dcf324c3a437e9312dceb5966e03026788b5378d8"
+    },
+    {
+      "entry": "org/jcodec/codecs/png/PNGEncoder.java",
+      "bytes": 3774,
+      "sha256": "5194bd15a59ce9c66cbb7eefe9e36a62c01082cd2982b56e2ba5fa09d9ca5506"
+    },
+    {
+      "entry": "org/jcodec/codecs/ppm/PPMEncoder.java",
+      "bytes": 1164,
+      "sha256": "49768c67a8d9447305080581f4a9a9deee103705132e29a533717a473ba594ca"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/Codebook.java",
+      "bytes": 723,
+      "sha256": "89c65686c703ebc6ba10a6e175c8805effd90be233a3d389a0981d17e0394d53"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/ProresConsts.java",
+      "bytes": 6672,
+      "sha256": "2241538b2d4e9b1f7bc3e6034fa56a7515ff25f73110973ca34c52f3eb9ce8ad"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/ProresDecoder.java",
+      "bytes": 19716,
+      "sha256": "cf752af9ed004e73c0059a4924fa33103b68e44b77bf96cec8958dd580e7941e"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/ProresEncoder.java",
+      "bytes": 18224,
+      "sha256": "e51c7c8612a38b476e31399baf0809645998339be25f9f84565926f550d8752d"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/ProresFix.java",
+      "bytes": 10336,
+      "sha256": "8b2f7d5cf7ce38973bb23a4da83a075ae6beb5ad5979c25372af60cb89416a2d"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/ProresToProxy.java",
+      "bytes": 6385,
+      "sha256": "3faf83967ff2fd3ee8d72c6df9939f11bdc529e50f7eb5fa69b082732fb7d375"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/ProresToThumb.java",
+      "bytes": 7266,
+      "sha256": "30862013c07947830b03334a0ec5450c3043d334825f950037c265c99b68d0af"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/ProresToThumb2x2.java",
+      "bytes": 7079,
+      "sha256": "f001194ca9c2188f9f2a58b182f94c85bc2b553f533cfe49d85215192d17426a"
+    },
+    {
+      "entry": "org/jcodec/codecs/prores/ProresToThumb4x4.java",
+      "bytes": 7596,
+      "sha256": "b498e7efba481d0d8ebf79205a7e79498a0c50b33bffd5708d59a025e925f8cf"
+    },
+    {
+      "entry": "org/jcodec/codecs/raw/RAWVideoDecoder.java",
+      "bytes": 1443,
+      "sha256": "da403bfdd1d4d7d158e26a4671ad7b28ba8ed71f6085625e30a0676324220b38"
+    },
+    {
+      "entry": "org/jcodec/codecs/raw/RAWVideoEncoder.java",
+      "bytes": 2264,
+      "sha256": "8c33fc7f6b0238439445329b59d10177a59df49f3e54a54a308333f54cbdf5a5"
+    },
+    {
+      "entry": "org/jcodec/codecs/raw/V210Decoder.java",
+      "bytes": 2082,
+      "sha256": "f021c28acc9d406d0c87462621edc0455e530dcefff1256b3108d2df347833df"
+    },
+    {
+      "entry": "org/jcodec/codecs/raw/V210Encoder.java",
+      "bytes": 2544,
+      "sha256": "8fe336b9dc0d6a631f8b0d060abf817188cd110c8190526ff2a91ed201d47772"
+    },
+    {
+      "entry": "org/jcodec/codecs/s302/S302MDecoder.java",
+      "bytes": 4461,
+      "sha256": "0ee2c72f8dd44a8b792c30d3851fe1ee37d93396d1e5d90851ce969b750fa586"
+    },
+    {
+      "entry": "org/jcodec/codecs/s302/S302MUtils.java",
+      "bytes": 1354,
+      "sha256": "f6f87a9506f293b42a2e20487df15e2c2396e285dfc2ccce14be9c06c37cf912"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/FilterUtil.java",
+      "bytes": 22804,
+      "sha256": "cbcc774373c244b4c227d97c0c8886b32db035843c66fe3ed8e2fe07802c555d"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/IVFMuxer.java",
+      "bytes": 2712,
+      "sha256": "27f1de7df9be7d45a03e66c006c2d14d10c922bf7107d8d563f242733d31fa20"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/NopRateControl.java",
+      "bytes": 628,
+      "sha256": "61db76423f59c9aadead3030d78dfa63f9f5e1c191dea2a5502c16cd6760c621"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/RateControl.java",
+      "bytes": 314,
+      "sha256": "02d93db831351f347433ff58aaedaf02c86ee08d8a1cb827dee6cc52f8c4a8b5"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VP8DCT.java",
+      "bytes": 7130,
+      "sha256": "3718507b6a58a8f264ecc3c919540e65b0213495ee0ced9cb8711551de5667c7"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VP8Decoder.java",
+      "bytes": 15859,
+      "sha256": "17b37ae590cb5f182532856e5799e1266a34dee06461ec7a9c7fb55446507f6f"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VP8Encoder.java",
+      "bytes": 17280,
+      "sha256": "f449e4d60b82a8bb1ea111bde88f94a0254eb78ebacc9d920b5ebf41f9092be2"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VP8FixedRateControl.java",
+      "bytes": 805,
+      "sha256": "6a2deb808b3c1932b2b4dd040b59d6580adea12f810387789bf9ad631b3282f8"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VP8Util.java",
+      "bytes": 45853,
+      "sha256": "68655278e2c9787f2d91dfdc9265df58d2e0ac4416ba54eac9e2f24ead390e93"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VPXBitstream.java",
+      "bytes": 7312,
+      "sha256": "dc6594855d860ca9827df8fe07d05472c085f55f98f45fa1ade706514f637fbd"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VPXBooleanDecoder.java",
+      "bytes": 7802,
+      "sha256": "26e488aecaaa0948fd0205a0b5212ac8da93d2e080c59a157426687dcffc6951"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VPXBooleanEncoder.java",
+      "bytes": 1721,
+      "sha256": "445133974e45d0567a95f8a35c0765f166647cdbd4614cfc35114dadfa6df9a6"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VPXConst.java",
+      "bytes": 15651,
+      "sha256": "8a2dfc03bf9c1b377afc7db7fba401cea9da0962469ec651e2669c5686baf832"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VPXDCT.java",
+      "bytes": 4729,
+      "sha256": "a721388f5aac35fb4d346c14dcdfa6e4d8a8f82a7fea1a237fda9ef51fef0cdc"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VPXMacroblock.java",
+      "bytes": 33145,
+      "sha256": "efcf70eef2a08e29d7bdae59ee1938b24f2fc5244af11ffcf98b31570587c297"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/VPXQuantizer.java",
+      "bytes": 2462,
+      "sha256": "cb709e411506c843deb21ab448678ae43bafa2d26d47f20cc89997d804d59a46"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/CodedBlock.java",
+      "bytes": 1103,
+      "sha256": "69dc10a0645757119ec596e930dcf469b6a08e7c232bd3a39c8e2147f35a4949"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/CodedSuperBlock.java",
+      "bytes": 6966,
+      "sha256": "92b95b187ddc50e3bfe99fa702ed25cc7070a209362f5d7fe4c7afb082cdea5a"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/Consts.java",
+      "bytes": 38823,
+      "sha256": "fc307d1f009bd877a39d9a57bdfc09b878f8d524abfca7e8c6a6f9c96d72f64a"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/DecodingContext.java",
+      "bytes": 67500,
+      "sha256": "624205c1a2bdc68f643f79dabe8f988f3cbe017c8c79755f7f1b2418255fdaba"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/InterModeInfo.java",
+      "bytes": 49360,
+      "sha256": "cb10d725003a76c9f663b39440174ad9aead67779c878cdc2f4363bbc2e17bbf"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/MV.java",
+      "bytes": 482,
+      "sha256": "408393d6f2bd56d979e2ba8dc2a465804eb6b3b42e71373b9798a91ff28c4f43"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/MVList.java",
+      "bytes": 2181,
+      "sha256": "37a2a010779276a506f0b7b592ea0fa2542fe60ac2a0c2277e0995670337bd5b"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/ModeInfo.java",
+      "bytes": 8815,
+      "sha256": "4d17bef650057f6a7094210b6436f03199042303eb8fd2556afc199f58a93c34"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/Probabilities.java",
+      "bytes": 39439,
+      "sha256": "637517568cc3ba4d29274bfeb18bb632fac7919ddf48579828f2e5f327b680c6"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/Residual.java",
+      "bytes": 8875,
+      "sha256": "4e52f48acbb8aa60dcbe29fb45f0a00e9a97778be3286d3bbc3a62e042911f5b"
+    },
+    {
+      "entry": "org/jcodec/codecs/vpx/vp9/Scan.java",
+      "bytes": 49648,
+      "sha256": "173ce5b4eff5642fedd80550fb197fda7eea397ac4c45410c2e82d71d23af986"
+    },
+    {
+      "entry": "org/jcodec/codecs/wav/ReaderLE.java",
+      "bytes": 1452,
+      "sha256": "ac0fa5efdd06f19f180041b19a2cce41474731282c28239f97e1ff7158bb96f6"
+    },
+    {
+      "entry": "org/jcodec/codecs/wav/WavDemuxer.java",
+      "bytes": 2833,
+      "sha256": "e71ba7b72bd95e52359685b89689396787a77afb20aeb48cd7af1199c15ece59"
+    },
+    {
+      "entry": "org/jcodec/codecs/wav/WavHeader.java",
+      "bytes": 14790,
+      "sha256": "03020b5d237f402b62c0333a623a5cca17d26689072129d8ae347f6aaa4acb18"
+    },
+    {
+      "entry": "org/jcodec/codecs/wav/WavInput.java",
+      "bytes": 3066,
+      "sha256": "ef0c8c2000e9feac2d65c89dc4c8d3a5c835295f1328da4a62288b3485c7b8cc"
+    },
+    {
+      "entry": "org/jcodec/codecs/wav/WavMuxer.java",
+      "bytes": 1771,
+      "sha256": "7283b127c9261d518456172c8d42c1640c129c8764ae8be8e8d13c2b51dce104"
+    },
+    {
+      "entry": "org/jcodec/codecs/wav/WavOutput.java",
+      "bytes": 2677,
+      "sha256": "f02d7bfe1fed6a5c3421a67d939524895b4b19655ee3a330c2ca8ca6b2c7983d"
+    },
+    {
+      "entry": "org/jcodec/codecs/wav/WriterLE.java",
+      "bytes": 1082,
+      "sha256": "8fa3dbf853533c6264d84d28fcacb2657a571c3c1ac99e96386d545b5c53e743"
+    },
+    {
+      "entry": "org/jcodec/codecs/y4m/Y4MMuxer.java",
+      "bytes": 1733,
+      "sha256": "0673df024423b9b78f037060c6f7ca347ec9e01d6e8ad6c6213ce92dc0071b10"
+    },
+    {
+      "entry": "org/jcodec/common/ArrayUtil.java",
+      "bytes": 14734,
+      "sha256": "9616bad10176001b7ca85c33cc565a9208f1320273214a18053f088538c2a967"
+    },
+    {
+      "entry": "org/jcodec/common/AudioCodecMeta.java",
+      "bytes": 3802,
+      "sha256": "283adc6d691200cabcd7986f53fd0f2caac53b456eb7da7072e344cdaff54458"
+    },
+    {
+      "entry": "org/jcodec/common/AudioDecoder.java",
+      "bytes": 466,
+      "sha256": "2c04304b5e212c91381ef4d9a350f4a22a8864b3d4a2d5c95232b07be1da3bb6"
+    },
+    {
+      "entry": "org/jcodec/common/AudioEncoder.java",
+      "bytes": 750,
+      "sha256": "61ecaaff349f17f062eb259e843e48a7f04eca3a996102ee30e0169284b1cc96"
+    },
+    {
+      "entry": "org/jcodec/common/AudioFormat.java",
+      "bytes": 5551,
+      "sha256": "f027ac4a7478b849110f704ec8bdb363425ea371a2d50f1961db7d84c84731d1"
+    },
+    {
+      "entry": "org/jcodec/common/AudioUtil.java",
+      "bytes": 11181,
+      "sha256": "caab77e7ab3de4ef87ac0c2f34a336fbfc9aee152390d5b68578a3e93f40c77f"
+    },
+    {
+      "entry": "org/jcodec/common/AutoFileChannelWrapper.java",
+      "bytes": 2863,
+      "sha256": "ea8de1bae24d1ff7b5552870c4f2ff9dab83306bd7cc403e5e4aa68c26eb0746"
+    },
+    {
+      "entry": "org/jcodec/common/ByteArrayList.java",
+      "bytes": 2311,
+      "sha256": "af4a9d8d85dcf03626e17522826e65642f0c6e1ad832ae28c12c26614449b0e6"
+    },
+    {
+      "entry": "org/jcodec/common/Codec.java",
+      "bytes": 4972,
+      "sha256": "cf118fcee4ff52e70110ae17e78134186bc9b0b26399227b97256e13157364a2"
+    },
+    {
+      "entry": "org/jcodec/common/CodecMeta.java",
+      "bytes": 654,
+      "sha256": "af5c6e09244bea6e010093f728eb654a495520e1f583912efaed3f19dd01091b"
+    },
+    {
+      "entry": "org/jcodec/common/Demuxer.java",
+      "bytes": 432,
+      "sha256": "a4f9ef8253a8a0c9512ec3de40cf48c274356d76d62594fcd394c1ed4d3d3f89"
+    },
+    {
+      "entry": "org/jcodec/common/DemuxerTrack.java",
+      "bytes": 362,
+      "sha256": "637e2875cd107409bcaaab3e392da74f727a1d5afdb731abd7488197312e5afe"
+    },
+    {
+      "entry": "org/jcodec/common/DemuxerTrackMeta.java",
+      "bytes": 2429,
+      "sha256": "d0b412e68d0ec5bb8c3af28ad2aa042506cc6476982e2ed45663a1118eb4cfe3"
+    },
+    {
+      "entry": "org/jcodec/common/DictionaryCompressor.java",
+      "bytes": 4368,
+      "sha256": "42afae54bc0202968f93f6d4b36caeb78a52e08954b43d4d988a73270a5ed652"
+    },
+    {
+      "entry": "org/jcodec/common/Format.java",
+      "bytes": 2472,
+      "sha256": "ac26dc038a79e885f5a1a26646877c660067576168f75563360cb27ba981fde7"
+    },
+    {
+      "entry": "org/jcodec/common/Fourcc.java",
+      "bytes": 739,
+      "sha256": "1d49c84b045c088142c929140e7b571f77d07a4d467c7be090e2c86adf3a993d"
+    },
+    {
+      "entry": "org/jcodec/common/IntArrayList.java",
+      "bytes": 2323,
+      "sha256": "e79da6d9461b18978662f07b620e4cf025617d5dde0cdc69a5f2d01637e6c91d"
+    },
+    {
+      "entry": "org/jcodec/common/IntIntHistogram.java",
+      "bytes": 515,
+      "sha256": "77390682ed6947e5324283e9d6dd9c2ed519d2083fe985746f0802d7da47931d"
+    },
+    {
+      "entry": "org/jcodec/common/IntIntMap.java",
+      "bytes": 2210,
+      "sha256": "328c217316d4a8f1b44b93ffc285a41ca95a9a7a1c2e36917fe6a324171088c3"
+    },
+    {
+      "entry": "org/jcodec/common/IntObjectMap.java",
+      "bytes": 1831,
+      "sha256": "013f8d59f98e44ec12c2bae5058f39fb9dabcd37458fe0e33f69230d5b9630a9"
+    },
+    {
+      "entry": "org/jcodec/common/Ints.java",
+      "bytes": 705,
+      "sha256": "0566306d0dc09a295ddfeba6547ef8fb140e8928c3c8519364f9512df92be3b2"
+    },
+    {
+      "entry": "org/jcodec/common/JCodecUtil.java",
+      "bytes": 9404,
+      "sha256": "d6e57a25f1ba4ae57856e8b5cba80436dee6c8d55289f9be61295b09d5e1cd41"
+    },
+    {
+      "entry": "org/jcodec/common/JCodecUtil2.java",
+      "bytes": 1578,
+      "sha256": "dcc0bfb4f24448fee67fc6ac8b97bb2a9cb55b4f7eea94cf86390fb5c458ddb9"
+    },
+    {
+      "entry": "org/jcodec/common/LongArrayList.java",
+      "bytes": 2737,
+      "sha256": "9cbb3ca19a8cad3b7e229b8f793f7ce95e12587ba2f6aec4a576aaa8496a92ae"
+    },
+    {
+      "entry": "org/jcodec/common/Muxer.java",
+      "bytes": 1856,
+      "sha256": "cb1331be13045a0a2ca8851f0878dd27529f1c81bb8ff17c76db26fe684f2287"
+    },
+    {
+      "entry": "org/jcodec/common/MuxerTrack.java",
+      "bytes": 287,
+      "sha256": "fb171c200726af912bbffc3f98ae2a6426c030933b29d6729d756cf47cb7521c"
+    },
+    {
+      "entry": "org/jcodec/common/Preconditions.java",
+      "bytes": 46754,
+      "sha256": "687b078f0f8a8cc01101ead64f21b2649941d679a77841f1dd8925855017e61d"
+    },
+    {
+      "entry": "org/jcodec/common/PriorityCallable.java",
+      "bytes": 306,
+      "sha256": "8da79d40b291ac827e8233300ec0bec2499eda2b07f543300ca73ff961e9e3d6"
+    },
+    {
+      "entry": "org/jcodec/common/RunLength.java",
+      "bytes": 6705,
+      "sha256": "4a06c02a8d93216ecc07002eef604c8fbfe81f31e4d111858bb1c05fabb850ca"
+    },
+    {
+      "entry": "org/jcodec/common/SaveRestore.java",
+      "bytes": 764,
+      "sha256": "ba3681930a38515151d83d10767a42e9d2169a755d80259ff1d3a3d616a89bdf"
+    },
+    {
+      "entry": "org/jcodec/common/SeekableDemuxerTrack.java",
+      "bytes": 1488,
+      "sha256": "4ee6d4d8884eedf63255f6894336c41f9363e8e44c89ce57aee8679a69a1371d"
+    },
+    {
+      "entry": "org/jcodec/common/StringUtils.java",
+      "bytes": 9044,
+      "sha256": "2d179cc84a499f59b8afc4713d3d043647abc99fa7a725c3660fdbb7ef73f243"
+    },
+    {
+      "entry": "org/jcodec/common/TrackType.java",
+      "bytes": 235,
+      "sha256": "7d414bc011e2e3a8020e3e37bd905b8b1d0011209bdf7e0504487be45808e10b"
+    },
+    {
+      "entry": "org/jcodec/common/Tuple.java",
+      "bytes": 8370,
+      "sha256": "62b440576236dc04c73258689b83c3248dfc1962c09e3fe67fac6f89ddecd361"
+    },
+    {
+      "entry": "org/jcodec/common/UsedViaReflection.java",
+      "bytes": 194,
+      "sha256": "a3c14d3fba0c6d5085e688e660936317ae9f83074c41dded9177e42f61b06023"
+    },
+    {
+      "entry": "org/jcodec/common/Vector2Int.java",
+      "bytes": 1200,
+      "sha256": "09aa51ca1f536e7a032e7c95b650f953fc304fed9aad82090e17be529bda9f3e"
+    },
+    {
+      "entry": "org/jcodec/common/Vector4Int.java",
+      "bytes": 1867,
+      "sha256": "ba49091a8b48ab608934394a9b42ada665cf5446cf66e0b3b2fdeea994d2a772"
+    },
+    {
+      "entry": "org/jcodec/common/VideoCodecMeta.java",
+      "bytes": 2121,
+      "sha256": "e3965c5c6a57fcc672f2be3db00d95834470ae74cfdda4418ec24f8696c997ff"
+    },
+    {
+      "entry": "org/jcodec/common/VideoDecoder.java",
+      "bytes": 1214,
+      "sha256": "f2debd7aacf3db56cca8a4e5da53ac8d682ba96ae594201f45263ca1fbff642e"
+    },
+    {
+      "entry": "org/jcodec/common/VideoEncoder.java",
+      "bytes": 3098,
+      "sha256": "c406fe4136f725338310a5c31f9396e2e099e1c26a2cd4a3f202821740a26180"
+    },
+    {
+      "entry": "org/jcodec/common/dct/DCT.java",
+      "bytes": 539,
+      "sha256": "fcace09b57001e3c06c6fa2e48aeeb0ba881cfcc48d2ae1aa8dab880f9a20461"
+    },
+    {
+      "entry": "org/jcodec/common/dct/DCTRef.java",
+      "bytes": 2168,
+      "sha256": "e4e4abcfe451e69e1f98e1ad022f697ac6399ccbcb35fb019062da95770b198a"
+    },
+    {
+      "entry": "org/jcodec/common/dct/FfmpegIntDct.java",
+      "bytes": 36014,
+      "sha256": "509ec9102948c718b5d7f77cd78e9d185b5044b0320ab200ca5a710bcb0177d2"
+    },
+    {
+      "entry": "org/jcodec/common/dct/IDCT2x2.java",
+      "bytes": 631,
+      "sha256": "d7db6eafca32ebbeb9c1239877f2264f29cb66a9bac96026195ce09fadd788f6"
+    },
+    {
+      "entry": "org/jcodec/common/dct/IDCT4x4.java",
+      "bytes": 2310,
+      "sha256": "5d39a0386a61a133b05451f04d60e95ca24fb544474906da58691b8e46dff406"
+    },
+    {
+      "entry": "org/jcodec/common/dct/IntDCT.java",
+      "bytes": 11634,
+      "sha256": "c2ccd2c72a7a8ee4d7623c0a74dc54e22b92f02c5fd3b316c12ccdb8db459ab1"
+    },
+    {
+      "entry": "org/jcodec/common/dct/SimpleIDCT10Bit.java",
+      "bytes": 7690,
+      "sha256": "66355a6f920af4df4533bfc198359d60f0eaf12b41a40373d04078b6cbb3705d"
+    },
+    {
+      "entry": "org/jcodec/common/dct/SlowDCT.java",
+      "bytes": 2553,
+      "sha256": "f73abd316bf7286eee81b3b6f99ef765b4a9975e98c382b4d7213ef927db9de7"
+    },
+    {
+      "entry": "org/jcodec/common/dct/SparseIDCT.java",
+      "bytes": 2168,
+      "sha256": "445c11526848782e72f29ade6bd1acb496e8cbb11c5b2be917049fe533710a1e"
+    },
+    {
+      "entry": "org/jcodec/common/io/AutoPool.java",
+      "bytes": 1791,
+      "sha256": "e64a02ee27ce2afe519314a56619fcd5c61bd096b0ca29d2c136110b08f9c2c9"
+    },
+    {
+      "entry": "org/jcodec/common/io/AutoResource.java",
+      "bytes": 252,
+      "sha256": "d73fb8eb3615d7f31b190cf5d32c99377236eda9ee6ffb00489c35939d5a39f0"
+    },
+    {
+      "entry": "org/jcodec/common/io/BitReader.java",
+      "bytes": 5938,
+      "sha256": "a9a271e510c7f734040fc9d778324524059ff4cab90e3639c619841f84ab083b"
+    },
+    {
+      "entry": "org/jcodec/common/io/BitWriter.java",
+      "bytes": 2252,
+      "sha256": "71144a5974b2c3236c93a150fb42d2b063a6c1797b004dca29bd7fa5911aa214"
+    },
+    {
+      "entry": "org/jcodec/common/io/ByteBufferSeekableByteChannel.java",
+      "bytes": 2650,
+      "sha256": "e8d9982d0d974976366901fc186ad629cce6b03c3e87767baf54e6f752807fee"
+    },
+    {
+      "entry": "org/jcodec/common/io/DataReader.java",
+      "bytes": 3806,
+      "sha256": "f85dd09dca332e6948cf0427d34ddde4ff0c888bf35c91b2660104b6cc76c099"
+    },
+    {
+      "entry": "org/jcodec/common/io/DummyBitstreamReader.java",
+      "bytes": 5295,
+      "sha256": "7013f80e0530880fa215b1f8e58d36fa6bb7d242169a2cfceb9fc2546de39090"
+    },
+    {
+      "entry": "org/jcodec/common/io/FileChannelWrapper.java",
+      "bytes": 1390,
+      "sha256": "1b7109333ccd741bf46404712a2e60202b2f80a7503c8bffc3b0431c0962d4b2"
+    },
+    {
+      "entry": "org/jcodec/common/io/IOUtils.java",
+      "bytes": 3152,
+      "sha256": "4f9a710a7a0eeb84f2428f6fa37a237804b6394c41307c39e7bd09330ccff77c"
+    },
+    {
+      "entry": "org/jcodec/common/io/NIOUtils.java",
+      "bytes": 15569,
+      "sha256": "8f4a8bb8628e4db34fd1b195a1c4a49597c27b76a21e71bd86b52f1f651449a8"
+    },
+    {
+      "entry": "org/jcodec/common/io/SeekableByteChannel.java",
+      "bytes": 741,
+      "sha256": "d3925abda05c260a51d311542c45135cd771a2c628795033831532b04b8bee53"
+    },
+    {
+      "entry": "org/jcodec/common/io/StringReader.java",
+      "bytes": 1187,
+      "sha256": "2dde2adef516bab2cd047460bdaf770e1ac55b04c9e48c56b1d857de1578069b"
+    },
+    {
+      "entry": "org/jcodec/common/io/VLC.java",
+      "bytes": 4754,
+      "sha256": "fd7d7101e71efbef8bed71e26970fd324db4f008ec0170a2ea50a69f368bc4d5"
+    },
+    {
+      "entry": "org/jcodec/common/io/VLCBuilder.java",
+      "bytes": 1880,
+      "sha256": "3e39afe908f2a20fd9feee3193016bf712c41ce0e5b426f6ebea5145982d50ed"
+    },
+    {
+      "entry": "org/jcodec/common/logging/BufferLogSink.java",
+      "bytes": 641,
+      "sha256": "cd04c73a6947f6907d4ad85d966946cc5035d3387e9ecde592a8f905e9b1e943"
+    },
+    {
+      "entry": "org/jcodec/common/logging/LogLevel.java",
+      "bytes": 89,
+      "sha256": "4ad05f5308d7412a701ee4c2145afacb92ad94bde0fa340701084b3c3f67e1ac"
+    },
+    {
+      "entry": "org/jcodec/common/logging/LogSink.java",
+      "bytes": 99,
+      "sha256": "6cb977e3c9c46caf40d67da594a638c33d31e3b29a89644bfef9007209b1659b"
+    },
+    {
+      "entry": "org/jcodec/common/logging/Logger.java",
+      "bytes": 3071,
+      "sha256": "d274e4a0e30d79696b466fedaddd5472f58d8852b34637f25de3e9f169b6db76"
+    },
+    {
+      "entry": "org/jcodec/common/logging/Message.java",
+      "bytes": 1134,
+      "sha256": "beb88359f2ab0347dcb69685c44a259e0147e2a4968e2ddd97ef5d5c8c2fcde7"
+    },
+    {
+      "entry": "org/jcodec/common/logging/OutLogSink.java",
+      "bytes": 2802,
+      "sha256": "963315fa7310d3368be139a0472a3d25e0623d858ce75f4e6db895886cba4ecb"
+    },
+    {
+      "entry": "org/jcodec/common/model/AudioBuffer.java",
+      "bytes": 762,
+      "sha256": "6206e942a86c2d3c6df6275e731407eb32faf34d46568328c88cf60774188680"
+    },
+    {
+      "entry": "org/jcodec/common/model/AudioFrame.java",
+      "bytes": 962,
+      "sha256": "ebe96db5790e9be4a9d40d42b1fb6917cfb782c5b398ad05c79903c513df48fb"
+    },
+    {
+      "entry": "org/jcodec/common/model/ChannelLabel.java",
+      "bytes": 408,
+      "sha256": "bab38ba1bdd33b20fbe5345731d63ea0336f1979002bd2e695ba671d792bf07b"
+    },
+    {
+      "entry": "org/jcodec/common/model/ColorSpace.java",
+      "bytes": 4697,
+      "sha256": "baf04546398e1ce27e5666e1262adf0df5ef0e3ced81f12060a80a199a00d562"
+    },
+    {
+      "entry": "org/jcodec/common/model/Frame.java",
+      "bytes": 1408,
+      "sha256": "5b8ed720396b84fc9467919d426e487c2b82cc0babdea99f39c39afb74ef9f85"
+    },
+    {
+      "entry": "org/jcodec/common/model/Label.java",
+      "bytes": 5854,
+      "sha256": "618bac986d7fa6bae051e35785912c017117a9c24a6814e54573eac62e3ee250"
+    },
+    {
+      "entry": "org/jcodec/common/model/Packet.java",
+      "bytes": 3491,
+      "sha256": "e18b99e5cc6e69701716b775cbc15332bebfcf60163929d031087178304f78b4"
+    },
+    {
+      "entry": "org/jcodec/common/model/Picture.java",
+      "bytes": 12260,
+      "sha256": "0fa16beb266ce137efa507f6375a9db8d541899bfa538e6d4e087e8e4a12ac5b"
+    },
+    {
+      "entry": "org/jcodec/common/model/PictureHiBD.java",
+      "bytes": 7026,
+      "sha256": "15e88a01f78bf1a98fb1fb4bb0102f67570ade3abeafd77ee99bc70940cf7b64"
+    },
+    {
+      "entry": "org/jcodec/common/model/Plane.java",
+      "bytes": 469,
+      "sha256": "2ca0d00d2f073ada77dd05719ba3ef81a9a17737cea9b18bd942241f495bc176"
+    },
+    {
+      "entry": "org/jcodec/common/model/Point.java",
+      "bytes": 374,
+      "sha256": "10c5909727da719f37f7b8861fc6cc36c110e03871b18000d1c198c17d5c4da0"
+    },
+    {
+      "entry": "org/jcodec/common/model/Rational.java",
+      "bytes": 5415,
+      "sha256": "9e2aa62f186b671c7d1803720690a5c16d5d392fe7631b11e31f97b7705a96e1"
+    },
+    {
+      "entry": "org/jcodec/common/model/RationalLarge.java",
+      "bytes": 5024,
+      "sha256": "d909c92ac043cec828d150db3ed16d0c07fc1fc60348eac87568b0acd10963b0"
+    },
+    {
+      "entry": "org/jcodec/common/model/Rect.java",
+      "bytes": 1517,
+      "sha256": "a9f9763af553e489726221a7b0259bbb8a67c09edc2e95ba44a0af29ddbc2175"
+    },
+    {
+      "entry": "org/jcodec/common/model/Size.java",
+      "bytes": 1091,
+      "sha256": "6b3e1a37570cff9d9d98101452b2709bb018674e5aa441cc62d3de56a835d12a"
+    },
+    {
+      "entry": "org/jcodec/common/model/TapeTimecode.java",
+      "bytes": 1988,
+      "sha256": "45180c8c14d06015491b9efc422896fef20ebd03e0ad05303ab6e793894bdc5a"
+    },
+    {
+      "entry": "org/jcodec/common/model/Unit.java",
+      "bytes": 222,
+      "sha256": "a6a1e917022a709d92eb6eafe758420fa4657fd3c2aa98a35b08c6fd0291b138"
+    },
+    {
+      "entry": "org/jcodec/common/tools/Debug.java",
+      "bytes": 2077,
+      "sha256": "ca08fcdcb9b008770744ff2b43e656fa40f4d00bc724f315ac7b73aa68d58c78"
+    },
+    {
+      "entry": "org/jcodec/common/tools/ImageOP.java",
+      "bytes": 2919,
+      "sha256": "71bc800908cc1e41d3b9aff03bfab1c82cdd1e9643b799b57712898307636416"
+    },
+    {
+      "entry": "org/jcodec/common/tools/MD5.java",
+      "bytes": 1368,
+      "sha256": "7de96042386b6792e895afc4805953673a94f19c1c0a33ef74310039ca528ece"
+    },
+    {
+      "entry": "org/jcodec/common/tools/MainUtils.java",
+      "bytes": 19167,
+      "sha256": "8c80dfda1438f3758dd194f4a3c3dca83f6356d82789c4abbf6ee4edd783e0fe"
+    },
+    {
+      "entry": "org/jcodec/common/tools/MathUtil.java",
+      "bytes": 5444,
+      "sha256": "2e0e2cdd74b7c6504e63612dc33ef86cf0128c5b6579923af67d6a13a474d36a"
+    },
+    {
+      "entry": "org/jcodec/common/tools/ToJSON.java",
+      "bytes": 8874,
+      "sha256": "39489ffeddeda37083fe0e78b6ba67ffb0df56b22c3d3ab63491da0340c9e637"
+    },
+    {
+      "entry": "org/jcodec/common/tools/WavMerge.java",
+      "bytes": 3192,
+      "sha256": "23e26c9bd1a018177608ea68462d88a5468d5cd97d344f0d10658f4444692af7"
+    },
+    {
+      "entry": "org/jcodec/common/tools/WavSplit.java",
+      "bytes": 2947,
+      "sha256": "5f3e73243118592547e8a21872df1e8371cb29b67814d534edf2a3ba79aa88fe"
+    },
+    {
+      "entry": "org/jcodec/containers/avi/AVIReader.java",
+      "bytes": 46295,
+      "sha256": "f1c536f23ce3202665d0cce79fdea7dd3045e77ae863134306992d05820405f7"
+    },
+    {
+      "entry": "org/jcodec/containers/dpx/DPXMetadata.java",
+      "bytes": 1374,
+      "sha256": "bdbe89ff7750073920409e1f485fc3199c6461f09bfd8c61ff98a982d2e52245"
+    },
+    {
+      "entry": "org/jcodec/containers/dpx/DPXReader.java",
+      "bytes": 7654,
+      "sha256": "19616a471cd13b8920135308524a0a450cc841cfadc7a592895dafb3b10c8f4f"
+    },
+    {
+      "entry": "org/jcodec/containers/dpx/FileHeader.java",
+      "bytes": 604,
+      "sha256": "81a1c4f8fc6a98c0fd6a4aa5697d6ee2b52778b71a76f8285a7825fde1a5a060"
+    },
+    {
+      "entry": "org/jcodec/containers/dpx/FilmHeader.java",
+      "bytes": 251,
+      "sha256": "29fd9827028cfa66ddaa3290532c7e5ca80f316189a6e843da14313f01a137b6"
+    },
+    {
+      "entry": "org/jcodec/containers/dpx/ImageElement.java",
+      "bytes": 91,
+      "sha256": "e80c31b308b4e7aba1971c206e0c067c72541df43e2d1791475201cb6e5aee37"
+    },
+    {
+      "entry": "org/jcodec/containers/dpx/ImageHeader.java",
+      "bytes": 241,
+      "sha256": "d80716db97a4f8c8a7be32b3b60bcfd244a00be205266a9d785410d740d21edc"
+    },
+    {
+      "entry": "org/jcodec/containers/dpx/ImageSourceHeader.java",
+      "bytes": 446,
+      "sha256": "e764e60c216bc6970a2263a3a1afb888f7fefa2d1eab19ffd1b7a2a1a244bf0b"
+    },
+    {
+      "entry": "org/jcodec/containers/dpx/TelevisionHeader.java",
+      "bytes": 611,
+      "sha256": "67559ece10f748c55685b35159b3bc4090042d8ccd16dec00c61b12059def053"
+    },
+    {
+      "entry": "org/jcodec/containers/flv/FLVMetadata.java",
+      "bytes": 3011,
+      "sha256": "02690622c5b03661475db6d8b36daa53dbe5afcee7dc2c1ab60714aea695c64b"
+    },
+    {
+      "entry": "org/jcodec/containers/flv/FLVReader.java",
+      "bytes": 14765,
+      "sha256": "7424b4c3a87bfaca7df2751c5ddc80db4f5aa757bfc4d331d088917190cabe4e"
+    },
+    {
+      "entry": "org/jcodec/containers/flv/FLVTag.java",
+      "bytes": 3834,
+      "sha256": "e62ec4e7b3a4e69217556155d59fa12fd8d9114b7ee3deac53f4de365b2b4729"
+    },
+    {
+      "entry": "org/jcodec/containers/flv/FLVTool.java",
+      "bytes": 19901,
+      "sha256": "36dba51a135efc4c4f840820d4d8146aab25d0cad4589248c9d2dc18048c021d"
+    },
+    {
+      "entry": "org/jcodec/containers/flv/FLVTrackDemuxer.java",
+      "bytes": 6849,
+      "sha256": "b1d127b17682b87845096da8f91996b0c8886a582b7e9260b09b627ddf7c5e7f"
+    },
+    {
+      "entry": "org/jcodec/containers/flv/FLVWriter.java",
+      "bytes": 2607,
+      "sha256": "44d2f8b2cb328278ace9bad9bcf2ce327f90dd0005fb678fb3a798f4eac34e98"
+    },
+    {
+      "entry": "org/jcodec/containers/imgseq/ImageSequenceDemuxer.java",
+      "bytes": 4537,
+      "sha256": "9518c560d603bb1f7999c4e9369caf3ebaacbda693dd869a0bfe7781d31f70a4"
+    },
+    {
+      "entry": "org/jcodec/containers/imgseq/ImageSequenceMuxer.java",
+      "bytes": 1378,
+      "sha256": "718e4e732110fd8ad5108efa409acad1697eb0bb0c2af34f7fd6c48b9c69bcb3"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/CuesFactory.java",
+      "bytes": 6641,
+      "sha256": "b296882c8d2875d80a265ef5717e02c644114b4cae977904735a1416ae7a106f"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/MKVParser.java",
+      "bytes": 7282,
+      "sha256": "ceeedb1c7bfc854a80885a4e2b278d4196515f9dbd6c1dc862909b3af6a49ee0"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/MKVType.java",
+      "bytes": 55116,
+      "sha256": "b50b573a1f98a3a8c103f1ce3f566d54d6d8e678da2f36821870c912fd32659d"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/SeekHeadFactory.java",
+      "bytes": 4653,
+      "sha256": "e31a5817b4d424b8165fed867aafbb07fa562e189717ee0926c89933e4cf1d6b"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlBase.java",
+      "bytes": 1223,
+      "sha256": "48b39e0627e004485be966e4785eb8df503b75cf92d948ff007cbafd0bf12d3f"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlBin.java",
+      "bytes": 1888,
+      "sha256": "f674000b289fe5d68818697c7bd8cce31a744bbb653d9200b2522a5d1969abd7"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlDate.java",
+      "bytes": 1300,
+      "sha256": "9a666b2bba24e61cb81332532209c80f440bc2595f0d4c5324806aadd85fcd41"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlFloat.java",
+      "bytes": 958,
+      "sha256": "b8acab8d64c7741dc11986f1b3b2f003b73ce597f7a37d9ce828ed37ce796ae8"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlMaster.java",
+      "bytes": 2006,
+      "sha256": "8b83720386c4d71cbccc8e26bf4857209c26f1d9943f8e1a5b0b7e6fdb9ec0f9"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlSint.java",
+      "bytes": 1870,
+      "sha256": "4bb7a869faeef9ed52bb5b72376f2ef2010aad212be92285774ab3565d83f871"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlString.java",
+      "bytes": 1043,
+      "sha256": "a063fb4e2820399131aa4c536a828e0237dfd45ab47aa9eff586f73522c94ecc"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlUint.java",
+      "bytes": 1486,
+      "sha256": "b5859288d9fe8ed10ca932503ce8f2b9440175f9b3a3174bfe39553de0aa3440"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlUlong.java",
+      "bytes": 736,
+      "sha256": "9ae0db8951397a156666167d8a2e4880a63d806593cb9bb525ba780ec3530572"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/EbmlVoid.java",
+      "bytes": 608,
+      "sha256": "7cc2498ad28da1646647d3c9beebd4bb3c79aef8354d404cc14383d508f00d1c"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/MkvBlock.java",
+      "bytes": 12660,
+      "sha256": "4bf21b57e2fa8ab9b7bdad65dfa36b8815f1ba48638b1d09613783cf6282f33b"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/boxes/MkvSegment.java",
+      "bytes": 2121,
+      "sha256": "ec11332f7a62b3a6b0ec0c0ed24547643e8b588e4d8b62c016174d23e3c85a0b"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/demuxer/MKVDemuxer.java",
+      "bytes": 20557,
+      "sha256": "3833f521ad845171f25219acc8a4fa86ac4ecc6c2371e9ce5093996d1fe2764b"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/muxer/MKVMuxer.java",
+      "bytes": 10362,
+      "sha256": "9ea1d0b6da02ff78b6fd5aa0c35a2629737f75304b889c39a9e349c65c4aeaac"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/muxer/MKVMuxerTrack.java",
+      "bytes": 1501,
+      "sha256": "4f963adbaba3b935124c342a92b90f7a0356f4b4301321f644c87ea914ecd1e6"
+    },
+    {
+      "entry": "org/jcodec/containers/mkv/util/EbmlUtil.java",
+      "bytes": 3215,
+      "sha256": "9d8083ea3b371185533d1a4cd6ecd44df115798e868ab796ade7c4b2c591b305"
+    },
+    {
+      "entry": "org/jcodec/containers/mp3/MPEGAudioDemuxer.java",
+      "bytes": 8576,
+      "sha256": "e072f34aa6a0a989c6f33ed6edc6fdcb4395f9320e1c2b00b43b78b7d311fd8d"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/AudioBoxes.java",
+      "bytes": 454,
+      "sha256": "d2b22eec30ab084d666612270bf6d6338928f504ba41dcf6a7113988f9b6f522"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/BoxFactory.java",
+      "bytes": 2571,
+      "sha256": "5fc102233935eed8993c187002be38b990441be35bcd399b66d2d9bf0cdc62ec"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/BoxUtil.java",
+      "bytes": 1916,
+      "sha256": "454c70d5aa2abcbb2b144792c2e55502f43bb5662c5b456786fc9dcdcd095bc5"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/Boxes.java",
+      "bytes": 594,
+      "sha256": "546839c30d2803ef662161675cffb9b94d6de44da3328eac4b06efd60cf3e84c"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/Brand.java",
+      "bytes": 776,
+      "sha256": "890f8255af5e34e12f5e8f1558a99c57bec037d99ab6eba9251640b07a53c9e5"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/Chunk.java",
+      "bytes": 1935,
+      "sha256": "0d6e1fd19790933638820d78fd945767564cdb5dc6c46ec5a459905a91967c9b"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/ChunkReader.java",
+      "bytes": 3720,
+      "sha256": "305f6e78f525832eddb8abc485bcdc85db6fddf8a03ca530136b05bd28900e6b"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/ChunkWriter.java",
+      "bytes": 3100,
+      "sha256": "7894c348a2067e4c4bf5cc32e92efb75544ed223c509ced032b8a6da18233c27"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/DataBoxes.java",
+      "bytes": 360,
+      "sha256": "b68273ce0ed2cd2b884c1cb95725b91840639d5e38e0ec6cd2f8cf3a75cfc16a"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/DefaultBoxes.java",
+      "bytes": 6721,
+      "sha256": "5bd985e45b443e36a258c8e2a450d42dc9db4d8c866d9748fa2cd5ab8a42dbf0"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/IBoxFactory.java",
+      "bytes": 192,
+      "sha256": "6c084aac139d58d2be46b8ee1425eb1803107de9f8bddefcab4452d4ab50438e"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/MP4Packet.java",
+      "bytes": 2320,
+      "sha256": "47ce022ed57e852e8d684e7fbe6978464007de2cb6bf692ea64ad2befdd604fc"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/MP4TrackType.java",
+      "bytes": 2154,
+      "sha256": "081029e9d0a48fc41819749e6133236e30830d361f1a15d69818531c1604f50a"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/MP4Util.java",
+      "bytes": 9951,
+      "sha256": "58a67b62b403f88bb34060750b0adc4916515a4448f79a176ca050fb70f8b81e"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/QTTimeUtil.java",
+      "bytes": 8881,
+      "sha256": "7bbf8d4e9e538f0cb513ff2708fa2ac073d157acd57eed993f46949c46d9d787"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/SampleBoxes.java",
+      "bytes": 4942,
+      "sha256": "5429f7c6dff52e087fb1d677367a6671fc1714c23018aa93576468f3e039bf29"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/SampleOffsetUtils.java",
+      "bytes": 3609,
+      "sha256": "9a689a8be25293c525fabe467575314ff01b4d41a0b6e658b6ec733cc5e4be59"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/TimeUtil.java",
+      "bytes": 908,
+      "sha256": "3140c0a97237ad11f5cc1c4d8af0f0421311801d979803236b27e644ad2db4ea"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/TimecodeBoxes.java",
+      "bytes": 111,
+      "sha256": "b181abc7d46981d48bb771bc93f8f4f8af91a4ecb0dc0ae89be627e38e59a8b4"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/VideoBoxes.java",
+      "bytes": 846,
+      "sha256": "05751d66447a7ea938812e69359d573f569dd0675b5ab96ff06ad72031b7f47f"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/WaveExtBoxes.java",
+      "bytes": 401,
+      "sha256": "9756d2f3da01e3454bb5305dd3c6161cc295252c2cab936c54d41a9f927e5a44"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/WebOptimizedMP4Muxer.java",
+      "bytes": 3181,
+      "sha256": "a214ef22f06a0ec18e38f3c67b74d64379f0acb8dafce77f2ddf8adad9cb4786"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/AVC1Box.java",
+      "bytes": 309,
+      "sha256": "464a754b25b7d66e1b8adb337777ba9b1994bb240110fc6a069a5e2a555cdf06"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/AliasBox.java",
+      "bytes": 5905,
+      "sha256": "72d43ac5ca644e0449daff9944eedad62658110f33533173e21d117759848f11"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/AudioSampleEntry.java",
+      "bytes": 19163,
+      "sha256": "4a3c8acb03e87d47ebdc5aad8bc19ec9c0d2e4bd2c4137df8361a2de155604c3"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/Box.java",
+      "bytes": 3516,
+      "sha256": "cf8bd0f22351bb25e6cdd1169f54c6c9d7434486a219311c9577469d0b3ae5e0"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/ChannelBox.java",
+      "bytes": 3251,
+      "sha256": "c7bc7145db0021b627377285a185663e0443b61143c139bcebd0518f9adad65f"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/ChunkOffsets64Box.java",
+      "bytes": 1503,
+      "sha256": "f798c3b59469d2c7515d85055bf59d57ac0ee622e0cccd4118a57f80b148466a"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/ChunkOffsetsBox.java",
+      "bytes": 1581,
+      "sha256": "588ab83c563e77daf0f3b5d2bd5cc114da7e4c9e483aa1d304b248a22a00d899"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/CleanApertureExtension.java",
+      "bytes": 2551,
+      "sha256": "cd58e5e3b4699263bdcee563028d4367e171f42bf037f4f07b78774cecd28ab8"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/ClearApertureBox.java",
+      "bytes": 1211,
+      "sha256": "885a0c396f4caa3b5df887633920835e509083c182edb8d21d3bbd0b7f030bc3"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/ClipRegionBox.java",
+      "bytes": 1591,
+      "sha256": "aeaa98e59630d375f6b24b67a0858276daf2f846ead90592a26c4114fdce4bc2"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/ColorExtension.java",
+      "bytes": 2506,
+      "sha256": "e507639697dd5080a7e53c58b5986608ceb8176a73f4381fd0f3f8ed87b9d9a0"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/CompositionOffsetsBox.java",
+      "bytes": 2161,
+      "sha256": "8a1d3f8e707215f44c9233410f44ebdbdd651f0cb191001730703437e79d4ca5"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/DataBox.java",
+      "bytes": 1382,
+      "sha256": "f80036c4f1591df445edbd10ce910be1e41dd6c202fe0fba2b5682345f649312"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/DataInfoBox.java",
+      "bytes": 637,
+      "sha256": "61e751450d6ffdf22750c38f2021ed8c5da0a9323dc4c0a4b88cdb031b1a2759"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/DataRefBox.java",
+      "bytes": 891,
+      "sha256": "368d85ca46d2143c38d9d5b2f721971f00b543a2293fd60ed2e9d1ca2c0e51e4"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/Edit.java",
+      "bytes": 995,
+      "sha256": "3f36e90e3d91748c1abdbb7cd91ad7180fd159e8430df1e0bdf82ebe4a481c34"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/EditListBox.java",
+      "bytes": 1549,
+      "sha256": "c0ce99814c1d857d3213e02ba94382a0d8de099fed54345e4d92153b12d60d1e"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/EncodedPixelBox.java",
+      "bytes": 604,
+      "sha256": "9241a3f52d01a92c46c786f04785c0ddec14d5d5fcfcad98b1c989131b9083e9"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/EndianBox.java",
+      "bytes": 1214,
+      "sha256": "e8164fae757e295d79147b607ff6a4a63d608d556588b5e5dc6ab58471df07b2"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/FielExtension.java",
+      "bytes": 1835,
+      "sha256": "00ad81c4050fba0e3c247d4e2f71fae1a54d8222bb6792d15172e8657393f7a4"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/FileTypeBox.java",
+      "bytes": 1958,
+      "sha256": "c461941b6a243756593067971210939970bf24e7f5969a6ba2ab3f037241294b"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/FormatBox.java",
+      "bytes": 974,
+      "sha256": "6b9ce871806c4c02417fc19d1763fb273f2cda9a56e6c18ee498a0bf93ab456b"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/FullBox.java",
+      "bytes": 988,
+      "sha256": "20ae2673577e405b332c57c0625b78d37e6841b2e072b6de83fd28eb2e82beb3"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/GamaExtension.java",
+      "bytes": 989,
+      "sha256": "38b006de1826f79a851565e2544c09e2b06cd51702e4a63a25e34a05305b4d12"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/GenericMediaInfoBox.java",
+      "bytes": 1334,
+      "sha256": "b9e23783279013c57f61e1860b79643193b429cbf65c66853d03047fd86fa29f"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/HandlerBox.java",
+      "bytes": 2733,
+      "sha256": "4c90314051c2746d38b915b7a1f9e20b446568215e98c2260a886c4f15215bbc"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/Header.java",
+      "bytes": 4197,
+      "sha256": "37357756ad1fa998d52ddfae205223bfb1b72fc87cb18d2c90be5ddf6cad1778"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/IListBox.java",
+      "bytes": 2794,
+      "sha256": "ffbb34ec2e9e2eec89f29afd6bebc399f80b09f330358c2e52362c02deec1a82"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/KeysBox.java",
+      "bytes": 1309,
+      "sha256": "1dee2f00a9c5f81eef5adf2787509b042d3ee922a171d38eed9b8afe26800dd4"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/LoadSettingsBox.java",
+      "bytes": 1339,
+      "sha256": "d9050ad62eff2cdf4081aa5f35d2c7cfda090a16322c33ee8b9fa1e3fe3d1534"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MP4ABox.java",
+      "bytes": 575,
+      "sha256": "7a1554fae86eab5107eda510cdaec3fb345bee54ccaf73c3a4fc82eb60352c2c"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MdtaBox.java",
+      "bytes": 1104,
+      "sha256": "c5b3dd2611e55988e0f37de02a70487b6e6731512d32f10c08b96380cce741fd"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MediaBox.java",
+      "bytes": 579,
+      "sha256": "2b4cd9ed74be1f1744a2071785f137ba8ce74754f84189350ec486302e644382"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MediaHeaderBox.java",
+      "bytes": 2711,
+      "sha256": "4b44bda3ec302d4aea3776d7c20360526845fca1e4a586514a91894a78852e95"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MediaInfoBox.java",
+      "bytes": 746,
+      "sha256": "e1ffe7d44cce18c0ccd40e0b5d894095664b9049477884329d82de1a76bacaef"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MetaBox.java",
+      "bytes": 5486,
+      "sha256": "1ae36b69d1dc9cf90a7e58dcb5df524cc649e810816b205beceef88311a228dd"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MetaValue.java",
+      "bytes": 5113,
+      "sha256": "f49537c173677ad791033d61184d47d92c4dd36af2817fe9b66a46c92c0912cf"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MovieBox.java",
+      "bytes": 6395,
+      "sha256": "d640cff5616bdc9b5d8bed234d2e6827a128e21da808c65f29235fec156372b1"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MovieExtendsBox.java",
+      "bytes": 503,
+      "sha256": "9d19eeb817aae7a774e663bcba7cb629fe88881847b19fb53e4776b3dcbb0171"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MovieExtendsHeaderBox.java",
+      "bytes": 1167,
+      "sha256": "810156cf2c36b90f41c4b4138a0a325bda64d567773a9d7aadc4622a0e58bdd1"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MovieFragmentBox.java",
+      "bytes": 1227,
+      "sha256": "7f5a35ae2f77f46754ac8d3e43f4e1922cac46288461c2cb086d575ce57370e6"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MovieFragmentHeaderBox.java",
+      "bytes": 1159,
+      "sha256": "65aff4239036552883687e0759863607dcafd3917548559880dd20e23fe65e32"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/MovieHeaderBox.java",
+      "bytes": 4295,
+      "sha256": "3a3b05db2b4cb2c7e1d1795ce566ec555fb9b1129cfa4b4bdbfd42a68f161ac6"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/NameBox.java",
+      "bytes": 1053,
+      "sha256": "3bee52292fc95eec7d2a7d802112e89039f0a837cc0ee251dd3af8d497fea068"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/NodeBox.java",
+      "bytes": 6717,
+      "sha256": "24286ee4e626f879184b805c39d5b01770f9fbbaf70801c9f712beeb34d772de"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/PartialSyncSamplesBox.java",
+      "bytes": 426,
+      "sha256": "234f3f275536238146db0268151dd997355c9451cb7ff01cec35a83819f635ec"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/PixelAspectExt.java",
+      "bytes": 1331,
+      "sha256": "1117d42f1db3d1c5eb43d9e05b9a38ac2b77975c881a5a7b44e7a44f12f17b83"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/ProductionApertureBox.java",
+      "bytes": 642,
+      "sha256": "bc6a3a1aad5c2a022e8b12fed21e016beb196e8bdc3e6c76e65ff403060830de"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SampleDescriptionBox.java",
+      "bytes": 1230,
+      "sha256": "b2e2da914a4f60f13e689a1b200bc3d13c2c203bdd7f8975be8f23c97b937e20"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SampleEntry.java",
+      "bytes": 1228,
+      "sha256": "f2396333b62ccdffc946638eea7a711d804a84d9866a3012947a0304344625ed"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SampleSizesBox.java",
+      "bytes": 2196,
+      "sha256": "d6dbdb20fc72ca8efbe6bc83cb31edfc5db8d77a2a5b7e7f1a0e0cd1fec75524"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SampleToChunkBox.java",
+      "bytes": 2558,
+      "sha256": "c6019648e3aed10c65ea49dc46ba63b7c15ac25cc0e96662d63f5ce477a641c1"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SegmentIndexBox.java",
+      "bytes": 4421,
+      "sha256": "47a7bdac27d3159f07980bcddd14b0bfa51b8120317818495ac65301e72d523e"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SegmentTypeBox.java",
+      "bytes": 1966,
+      "sha256": "5b8bdb6c7ce62efd3dfa305e4dc078f98903b03c9a7dddf242b615f47d4068b2"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SimpleBoxFactory.java",
+      "bytes": 710,
+      "sha256": "65d695eb81468f0ea21e0cf913d95d7a3ed606f3cefa0243a8627ce44902afdf"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SoundMediaHeaderBox.java",
+      "bytes": 1027,
+      "sha256": "b113ac4d75d93f4290f5656e8cf7bbf4ced61a744bb3dd5281f93d582ef52027"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/SyncSamplesBox.java",
+      "bytes": 1299,
+      "sha256": "644d0e2a061af72b89805a8531a9e695d73d1a1ca26936790b81382ce417ef7b"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TimeToSampleBox.java",
+      "bytes": 2452,
+      "sha256": "0254ea0a9fa9a4772c31f0a603d79113c8121fe1177b3f34d3c58f3d4927e913"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TimecodeMediaInfoBox.java",
+      "bytes": 2171,
+      "sha256": "f29a0b374056c976217c407c76e05f27262405b97e1acaac6fa5ee50b44f091b"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TimecodeSampleEntry.java",
+      "bytes": 2122,
+      "sha256": "78f1fbf9b4023534e005319aef8958c55d684486be2a9486b21a420d68fdea1f"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TrackExtendsBox.java",
+      "bytes": 2504,
+      "sha256": "c4bf9e44c4aae28176cdceb30c43c61d48d15114d8f3e13227e8cb5b0d751d5e"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TrackFragmentBaseMediaDecodeTimeBox.java",
+      "bytes": 3406,
+      "sha256": "0928ed34fc9deaa8ba945ad6fc1351a37f72d2fa72d291b7b6f9c3f09a456306"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TrackFragmentBox.java",
+      "bytes": 962,
+      "sha256": "058bc5a9d53945e20d893c7face4980edff098d51fd745ee02a9f9bb280dc444"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TrackFragmentHeaderBox.java",
+      "bytes": 6508,
+      "sha256": "3899e21d285930d41645e53aa47deab1eec111d24847d29960279e6dab4ffae4"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TrackHeaderBox.java",
+      "bytes": 4935,
+      "sha256": "077118c4fa515fd6bc45facf28b8ea25c02c6cb9c1adaf23fa67b02705763617"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TrakBox.java",
+      "bytes": 10848,
+      "sha256": "948f7574254f4afc6b82378e834bb3beb1ef45f6c98cdc9c06cc5c318978e9ee"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/TrunBox.java",
+      "bytes": 9883,
+      "sha256": "ce8c5c0bb43cf33b33af9530125ed7080fd5176c51d78195396d629cf5d4a129"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/UdtaBox.java",
+      "bytes": 2101,
+      "sha256": "c541347fefdca8502b7b6094e8400fd8b04b680bd75f203d5fc2b3ee4f332889"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/UdtaMetaBox.java",
+      "bytes": 728,
+      "sha256": "a2319e4b1a05ea546b59e167a43889d1d0f0d0741d38212f664e4c3e966b2bdd"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/UrlBox.java",
+      "bytes": 1401,
+      "sha256": "f9be06a8a569c22c55cf10bc29cd4cc497be380b6e3a3c1d206cd62593c50ba4"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/VideoMediaHeaderBox.java",
+      "bytes": 1723,
+      "sha256": "66907f27b15049a7e8acacd5e66a48b6c7c566263294aa1bba886f8873dfb372"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/VideoSampleEntry.java",
+      "bytes": 4234,
+      "sha256": "e189ed58afe5e0d718c95347a70d5dbbee6f7161e1f209c238fa3a02e5b50307"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/WaveExtension.java",
+      "bytes": 417,
+      "sha256": "8b0ca4ff8be06431dbcbb5d0598aeaeab67616224719cc254269e8ec02c84886"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/channel/ChannelLayout.java",
+      "bytes": 11876,
+      "sha256": "cc7ec99f817e6580303c6ea9d5b1b0596ccaf0a3cca329fbead7bc86e4135e76"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/boxes/channel/ChannelUtils.java",
+      "bytes": 230,
+      "sha256": "74ba695d1e6beba6b35dbc88556b5dce08265d94222630cd852617b03296f397"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/demuxer/AbstractMP4DemuxerTrack.java",
+      "bytes": 7948,
+      "sha256": "dc39977ce52a9e9e599ac4d049eadb79a22b737f4a7022c111cdbad8baf23a00"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/demuxer/CodecMP4DemuxerTrack.java",
+      "bytes": 2187,
+      "sha256": "2f5880550c4de4372813e490d0b38e82c2b6c94742d8b188f24eb031e5d2fe5c"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/demuxer/MP4Demuxer.java",
+      "bytes": 6415,
+      "sha256": "41bcb433575e542cf817be978e27755ee1dd5f6fcea99f3bad022f77f3b489f5"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/demuxer/MP4DemuxerTrack.java",
+      "bytes": 6399,
+      "sha256": "7e2e29a1407b0684c56cf462e06a216789702c769782ef4546a06f88c3af029d"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/demuxer/MP4DemuxerTrackMeta.java",
+      "bytes": 5112,
+      "sha256": "b3c2e2190f32f63ac2ca168100133a483553610f148334472e65018bfe58fb5d"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/demuxer/PCMMP4DemuxerTrack.java",
+      "bytes": 4978,
+      "sha256": "0d4fa48a61ce2e1287f557c247bb8b58b0bb4a1814d30b1bb8ddff2b44107dcc"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/demuxer/TimecodeMP4DemuxerTrack.java",
+      "bytes": 7060,
+      "sha256": "74b1fcd86d18e11c9b694235fbab3c83f731f30b0e6e732955b14178c3d05c98"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/muxer/AbstractMP4MuxerTrack.java",
+      "bytes": 7459,
+      "sha256": "e327bfc1d79dd278d23055ae424da2c62e2bb9b3e72ec8c0d635a6fdf23c2a5d"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/muxer/CodecMP4MuxerTrack.java",
+      "bytes": 7726,
+      "sha256": "7aa3864b01fcea6f4550e6760b1c7a58e9213997b75f84baa3767ebc7871db17"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/muxer/MP4Muxer.java",
+      "bytes": 7152,
+      "sha256": "04cbd6aee93e5d34565c28935de86d2216482e4ad449115756f2317cf6f97f82"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/muxer/MP4MuxerTrack.java",
+      "bytes": 10693,
+      "sha256": "ec87dca3fd29f86d9f6ba52843c2dae1186246f8a98097b903f21b96c531649b"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/muxer/PCMMP4MuxerTrack.java",
+      "bytes": 6096,
+      "sha256": "ba316a3f3fb40c494426ae5c2b0a224181b57783f3d46f9ff6729c5297fea358"
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/muxer/TimecodeMP4MuxerTrack.java",
+      "bytes": 6871,
+      "sha256": "8fd5a7ae8a66e2c7a1635f724c25fa0a44354f10f48a3a87c12b0b28d68d41d9"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MPEGDemuxer.java",
+      "bytes": 898,
+      "sha256": "6e41d10d66786355c1eb20cd02b2e7c1744314e67369500ae50aa03ebb8b99f8"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MPEGPacket.java",
+      "bytes": 772,
+      "sha256": "a900e98c545ebab8f86d75f0e9e1ef63616fdea79956a659b97ebc657ca38609"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MPSDemuxer.java",
+      "bytes": 17402,
+      "sha256": "366eab6936e1f77350e40c6758906f42fe4775aa975b3711600aca6d923fbb98"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MPSDump.java",
+      "bytes": 16339,
+      "sha256": "455ede848de62610fb87b53db82627363e993f931143a3dffb8a19e69d386890"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MPSUtils.java",
+      "bytes": 16209,
+      "sha256": "be031e6ca46c9a850a8abca8fcbeba96e7a0e918e5cde4df688ab87a2f32578b"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MTSDemuxer.java",
+      "bytes": 6579,
+      "sha256": "22fa06b8039b73104359ccb76456ee492e5b63f14b817bafda1a94bc1aeab4fe"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MTSDump.java",
+      "bytes": 8092,
+      "sha256": "1e786215c01369870c6314bfc7a4e1649abf6fef0a09ae0ffd5f35b60cb0bbf2"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MTSPktDump.java",
+      "bytes": 3666,
+      "sha256": "fc65f19d8ba3d086361a0a5d099d3d0f80e1263195df38bac970148ef1364c98"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MTSReplacePid.java",
+      "bytes": 3971,
+      "sha256": "384dfc2058d2c3e3197764f46bb55cbabcf179cd184e85fad5c7c8a9b1fda1e9"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MTSStreamType.java",
+      "bytes": 4659,
+      "sha256": "d312a679714386bc5189f50f41a149ed9750127bb8368999d471f842a006d61d"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/MTSUtils.java",
+      "bytes": 6492,
+      "sha256": "d24eb83a200b81b6a99127482927489ef78fab7cf51f40d1d5a71cb7e71010cf"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/PESPacket.java",
+      "bytes": 495,
+      "sha256": "5ab57dabb522d20f6ff4a77d4d53b30e7d42cd39454d4de0f6406fc1813c55a1"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/index/BaseIndexer.java",
+      "bytes": 9458,
+      "sha256": "426b3e266257685c3bb0eda490cba6828738105fb270d07f16c50506fea7538c"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/index/MPSIndex.java",
+      "bytes": 5160,
+      "sha256": "65e1025fffdc08d35b74f8f9a011618f24416109644bdb3da385da2731b4de17"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/index/MPSIndexer.java",
+      "bytes": 2517,
+      "sha256": "45f0697d64e00d8bfb8eeb20b679ad52559ed46e0ea50ca145d176af9a5c5474"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/index/MPSRandomAccessDemuxer.java",
+      "bytes": 6882,
+      "sha256": "c9a353e4d0e86fb40963bdcd85bbba7099c0d458d630bdb953a0fa8a27a2ca6f"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/index/MTSIndex.java",
+      "bytes": 2770,
+      "sha256": "5d15eb5c5b185fc13a408b5f3eb38efd2ec3857c81b16b8b1909644494c792f0"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/index/MTSIndexer.java",
+      "bytes": 5221,
+      "sha256": "dca80534e8b8f47464ebc27910b4c2197f1a4a5f41ac68271f9ef1b731e7c9ac"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/index/MTSRandomAccessDemuxer.java",
+      "bytes": 3194,
+      "sha256": "db3f45f9e6f7a0be2e6ed825e4203b2519fc33ca8da8d9ec0db007a9a4ea27a3"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/index/MTSRandomAccessDemuxerMain.java",
+      "bytes": 2621,
+      "sha256": "4b8ed861f58fa90d2f4b5211a0ced19395dcf7e4e5db30980a8db956822584dd"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/psi/PATSection.java",
+      "bytes": 1557,
+      "sha256": "0aa19b1e5a616af051d2104b5811be391169c2797dc1841febaab66c215349f4"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/psi/PMTSection.java",
+      "bytes": 3997,
+      "sha256": "fee014e17085ae5b13d0066f3204bba4b360958f25acd2847945f088f1d01d32"
+    },
+    {
+      "entry": "org/jcodec/containers/mps/psi/PSISection.java",
+      "bytes": 2174,
+      "sha256": "a56f5e1046d2ba03f2c72f7d6b20b8925a65c3f88068bcc477f9c3ba25103ebe"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/MXFCodec.java",
+      "bytes": 4265,
+      "sha256": "253eb83308eef445b3c4234a706b62f0ce62dde1ee2b9ae8df16b6a9b5f26de6"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/MXFConst.java",
+      "bytes": 6495,
+      "sha256": "c2fe80c05db69de6585b075fe4ebbaca394c25219bd9a3604eee6e214624754d"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/MXFDemuxer.java",
+      "bytes": 22958,
+      "sha256": "3a4f1a056c00f7a2170863a197e56d4eb21547d4a58a5ce3b39b2e2feafdd77c"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/AES3PCMDescriptor.java",
+      "bytes": 2437,
+      "sha256": "1a6d5c097c37cc103be3d6e4ab21feee9735e7b6590bb626a4428a460d0a6751"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/BER.java",
+      "bytes": 2065,
+      "sha256": "df6e7794575050d8cb2a1e4c9f441e0b96f5d0d599355948e28131afc27769ed"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/CDCIEssenceDescriptor.java",
+      "bytes": 3063,
+      "sha256": "df81071eb18b0f783d34c43a9aa44ac7291f13007cde68079ea741007ed368ca"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/ContentStorage.java",
+      "bytes": 1432,
+      "sha256": "9d08c13477e029dec0b25badd75104e2f9bbfa155513a9c9a4c31b3f9aaafd7f"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/DeltaEntries.java",
+      "bytes": 1139,
+      "sha256": "548916bf56f3e3138442697485f9e32247feafef146a0130bdea32f4f439d8ed"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/EssenceContainerData.java",
+      "bytes": 1571,
+      "sha256": "c6f574b6afd4e8dd1f8d1c2c7ba066c52f6dc1d70ef4df0983a41290d89d237a"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/FileDescriptor.java",
+      "bytes": 2074,
+      "sha256": "c09cf5cf58d88608ef0f3a34ddb41832f239e200f70d6b077d5ed1f9148066b4"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/GenericDataEssenceDescriptor.java",
+      "bytes": 1254,
+      "sha256": "bd027c174ca9dbdc071df5e3364a3b9220f0c0de37fd7c4033fd63122bb24a32"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/GenericDescriptor.java",
+      "bytes": 1386,
+      "sha256": "0615891361553ff32c0e5bbd19aee9c86502bb795dc364ad1237f30821e13f36"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/GenericPackage.java",
+      "bytes": 1997,
+      "sha256": "56a203a4b20945329001ed27755e749e6b986ec2ed0ace15a2453d96cc700dc1"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/GenericPictureEssenceDescriptor.java",
+      "bytes": 6574,
+      "sha256": "3587411773a8fcc616a734a0b773c587f24b3f6c511ab7afccff9c836523b8ed"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/GenericSoundEssenceDescriptor.java",
+      "bytes": 2749,
+      "sha256": "610e0574f7fd274a2b96338e3ed0f690cc7626da2c4e5d372bc5f8f688c69adb"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/GenericTrack.java",
+      "bytes": 1700,
+      "sha256": "562ea222df7c3f56e69dd402f28840ffb059e29fda5b7b45d2a30d995891b331"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/Identification.java",
+      "bytes": 2420,
+      "sha256": "2a47ef72aa5aeeadf557765671dd65165f2834a49ede143df0cfcd5374b39afe"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/IndexEntries.java",
+      "bytes": 1860,
+      "sha256": "03434ec77f978040934aab03f4c8365b6d16cb474989cf3a90001a6cb63c42ef"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/IndexSegment.java",
+      "bytes": 3457,
+      "sha256": "3c78468c67f75f802d826bd75498cd56235316aaed33e894d5e35763cf42bfdb"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/J2KPictureDescriptor.java",
+      "bytes": 2654,
+      "sha256": "60dfcf0a3f90f4dd3d6e4bade4e1b6b9acf4085ebf7141155b821b4897639e29"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/KLV.java",
+      "bytes": 2014,
+      "sha256": "37e13b1e288cafea82ebd10fa3715efb7c8fb3962c4cf39e4aa88321e50c0a6f"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/MPEG2VideoDescriptor.java",
+      "bytes": 2982,
+      "sha256": "7122cec5e02a2e02702c43ffc6d7041d160cf7e07ed26837a1426361ef40e986"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/MXFInterchangeObject.java",
+      "bytes": 1527,
+      "sha256": "94381357b635b169b26f162cffdd0556fd0f7a71d5a700770fe0d4a55f4fc9d8"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/MXFMetadata.java",
+      "bytes": 2273,
+      "sha256": "07c1dc2a5a11d0c71e11a213df8e655250dd1f7b6402cdfd3333f3f4123589d2"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/MXFPartition.java",
+      "bytes": 1853,
+      "sha256": "912348b6df55d8755a979557548b4d39e80c3a19c81c73ffe882274462716b83"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/MXFPartitionPack.java",
+      "bytes": 1926,
+      "sha256": "32522912a67d438fcc7505bbddac9a0f4ed1113e511f1616af7e7cd272f522fe"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/MXFStructuralComponent.java",
+      "bytes": 1382,
+      "sha256": "717c752faabdf3453c05b2b3c023bfcbc510eea46355a4f5372bba868f6069cb"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/MXFUtil.java",
+      "bytes": 1978,
+      "sha256": "736e2939b044c37903d81312d5d3967046e3971d3cf48dca8ecc3cf57f0c5cae"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/MaterialPackage.java",
+      "bytes": 314,
+      "sha256": "5529bed70919032679c4664c974d6beaec170ce6b07bf5f865eb838c895896ed"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/Preface.java",
+      "bytes": 1976,
+      "sha256": "5c3f7e0a5662ba699502dadc89331d6010cb05f0ce8bd37d5e683feb03adfb99"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/RGBAEssenceDescriptor.java",
+      "bytes": 2634,
+      "sha256": "33e6ac3173525acfb423977743117f58d634274561cc3a93432b9e024fde3888"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/Sequence.java",
+      "bytes": 1206,
+      "sha256": "a6a654315c326a0ef0df7026dfd46f59047d5e5da03e575977268db4f2f87fd1"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/SourceClip.java",
+      "bytes": 1633,
+      "sha256": "3161f95511a1eb5b96684ac7390e778f618e164d0f9d13a40199d3e0a954614f"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/SourcePackage.java",
+      "bytes": 1309,
+      "sha256": "b06a8011b3ba737508cc4f6e393357e604931c0a4a0fc935a4b89f32d5c19fda"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/TimecodeComponent.java",
+      "bytes": 1543,
+      "sha256": "c481efd441a9a2edb86416f69ee971f935d464d17692e7f8b5829666168308e7"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/TimelineTrack.java",
+      "bytes": 1423,
+      "sha256": "0bfcfa0445a9e4ba49e341edf400c81d208b8b12d52bc66173a57bb72ce2b6bd"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/UL.java",
+      "bytes": 3017,
+      "sha256": "3e16c44972e36ec14354d172109fb8fbadb9dd6d326be6948cf0e3c228f41666"
+    },
+    {
+      "entry": "org/jcodec/containers/mxf/model/WaveAudioDescriptor.java",
+      "bytes": 3734,
+      "sha256": "fbc3e9c9ff66157c98bed92e96d3640c9bf3cd53fc970bd9a22d9edaaf236d02"
+    },
+    {
+      "entry": "org/jcodec/containers/raw/RawMuxer.java",
+      "bytes": 1312,
+      "sha256": "cea023ec82d5d5c2b0b20de8531cc78447a50c0eada35c97bfc48734b731b677"
+    },
+    {
+      "entry": "org/jcodec/containers/webp/WebpDemuxer.java",
+      "bytes": 4294,
+      "sha256": "96b63fb855b1b197313c2f70fbed75e1e505e166eddb63d7c52d168803a21304"
+    },
+    {
+      "entry": "org/jcodec/containers/y4m/Y4MDemuxer.java",
+      "bytes": 4485,
+      "sha256": "60e19cc4d8caeddcf4ce8c70d4ebd3de4c5be3b7a6cb59c77281b06a0b91a38a"
+    },
+    {
+      "entry": "org/jcodec/filters/color/CVTColorFilter.java",
+      "bytes": 1611,
+      "sha256": "97c91675ce4f6ea93832c903e3a03194588d6b304ceee07d5679f36347f088b5"
+    },
+    {
+      "entry": "org/jcodec/movtool/ChangeTimescale.java",
+      "bytes": 1828,
+      "sha256": "d3d02b4f2e35d5fef2809adb63b312c1f51263cfac4bdf954433e0b4a3293947"
+    },
+    {
+      "entry": "org/jcodec/movtool/CompoundMP4Edit.java",
+      "bytes": 914,
+      "sha256": "0a161fd72ab930dd75101edfaa88b1bc427e35d9c77a08309c36d7cab93e0836"
+    },
+    {
+      "entry": "org/jcodec/movtool/Cut.java",
+      "bytes": 7502,
+      "sha256": "8d21d657013a104f9d8d17402dbb239fb428b18065cec3123690cd20b57e4544"
+    },
+    {
+      "entry": "org/jcodec/movtool/Flatten.java",
+      "bytes": 7966,
+      "sha256": "5d40417b5244423a29208b7d78e0ccbd4b795d9aecd9c5aed4dadca41f8d1b1c"
+    },
+    {
+      "entry": "org/jcodec/movtool/InplaceMP4Editor.java",
+      "bytes": 8702,
+      "sha256": "b7616d16404d9d22f618fa07e39f7ecce8c9711afee4fe06d44b1297d35c11c8"
+    },
+    {
+      "entry": "org/jcodec/movtool/MP4Edit.java",
+      "bytes": 674,
+      "sha256": "836c1d8ac4b8f0e916d4a3a3b99a70f22b46df76b7f48128fdde8b0cc2bf6e19"
+    },
+    {
+      "entry": "org/jcodec/movtool/MetadataEditor.java",
+      "bytes": 3848,
+      "sha256": "9c822464725ffecc2db879657353578deb684da818f6bbaf122d6cf5e427b75f"
+    },
+    {
+      "entry": "org/jcodec/movtool/MetadataEditorMain.java",
+      "bytes": 8953,
+      "sha256": "2c3aecd1aadad1b45872d9b5171e5eb35f47224febe72f573a8b087b5a95d2d6"
+    },
+    {
+      "entry": "org/jcodec/movtool/MovDump.java",
+      "bytes": 3480,
+      "sha256": "6d2e9f1547faab006afed5bf4f108512d44ac7f9bb59cf4ec4d4ccbd439ff7b3"
+    },
+    {
+      "entry": "org/jcodec/movtool/Paste.java",
+      "bytes": 9243,
+      "sha256": "eb571db15f8fd36da394610f14c6d76fe12b08692f84b31f8cd3e92aee38b9a0"
+    },
+    {
+      "entry": "org/jcodec/movtool/QTEdit.java",
+      "bytes": 3042,
+      "sha256": "352dded3b5aa6e501e1cb191fa65675d438ccfc81c8bc4462163fd7f9c42d073"
+    },
+    {
+      "entry": "org/jcodec/movtool/QTRefEdit.java",
+      "bytes": 2993,
+      "sha256": "eac33a06233d90807e6db2455f9cee368a13b2e6b2acd973958d2273b5d13dc2"
+    },
+    {
+      "entry": "org/jcodec/movtool/RelocateMP4Editor.java",
+      "bytes": 2591,
+      "sha256": "a239ac622a891f2ba199b4db55877c4af4b82cb55224fd5dea695a77225105e2"
+    },
+    {
+      "entry": "org/jcodec/movtool/ReplaceMP4Editor.java",
+      "bytes": 1292,
+      "sha256": "b994de2648d0cb7ca119b251d06bddeb6c49d3720159223c4b3f195ae035c655"
+    },
+    {
+      "entry": "org/jcodec/movtool/SetFPS.java",
+      "bytes": 3251,
+      "sha256": "f6b2909950c18c25324f933335e98a0de14929503c67b2d9eb010d43fd058cd0"
+    },
+    {
+      "entry": "org/jcodec/movtool/SetPAR.java",
+      "bytes": 2257,
+      "sha256": "4a3b270627e8f8a2fd27bc35a88eb02145730a9d987ca860f152ade65a33e751"
+    },
+    {
+      "entry": "org/jcodec/movtool/Strip.java",
+      "bytes": 8483,
+      "sha256": "6fc293ce1e1705da33d6c77b9e8bac3f41a28d070459dd1b748fc847c3c63c6d"
+    },
+    {
+      "entry": "org/jcodec/movtool/Undo.java",
+      "bytes": 3535,
+      "sha256": "17bc0132fdf87b83b45fe96288dff1e229624fd29b7b6ccf223848cf8344309e"
+    },
+    {
+      "entry": "org/jcodec/movtool/Util.java",
+      "bytes": 11105,
+      "sha256": "0db24a8c585994ef37b44fead38c1cd6046ffa5bf86d2d5fc4d4d3cdcbf58fa0"
+    },
+    {
+      "entry": "org/jcodec/movtool/WebOptimize.java",
+      "bytes": 1358,
+      "sha256": "3291f1fc7c437f520bd08d4f36f309f8a8703744c74c46dc7e9f039ae8033b7b"
+    },
+    {
+      "entry": "org/jcodec/platform/BaseInputStream.java",
+      "bytes": 633,
+      "sha256": "a50ef23ad0b207c692d65912ee613f2f555e0d37567a22b047463dc9fab9e16c"
+    },
+    {
+      "entry": "org/jcodec/platform/BaseOutputStream.java",
+      "bytes": 312,
+      "sha256": "5ddef95ab62471006e346d004c45ff53daa16f4b9fd315b385d1a0e7a0e17632"
+    },
+    {
+      "entry": "org/jcodec/platform/Platform.java",
+      "bytes": 5751,
+      "sha256": "9c46e984d0af4799433e743eb59a6af26cd7825e5ee757de6b45674077aed62b"
+    },
+    {
+      "entry": "org/jcodec/scale/BaseResampler.java",
+      "bytes": 4372,
+      "sha256": "6a5f5ea1ea7f1db59323d197cf9e0012c27a7f0cebb82a1fa3357a3694c8ff7b"
+    },
+    {
+      "entry": "org/jcodec/scale/BicubicResampler.java",
+      "bytes": 2090,
+      "sha256": "8d4e1fc57eb13439a933aa2f3a83dedbd82d503cd53ad6ad0f5f8a419992f6fb"
+    },
+    {
+      "entry": "org/jcodec/scale/ColorUtil.java",
+      "bytes": 3418,
+      "sha256": "71fecb9fcc34c137a1cb689e240a0cd4a3210bc6b99134f79cc5e63bb11e57be"
+    },
+    {
+      "entry": "org/jcodec/scale/ImageConvert.java",
+      "bytes": 4447,
+      "sha256": "f4045b8179744e88827a6ab7276f34018ceed869c2fef9bbc931a8987753126c"
+    },
+    {
+      "entry": "org/jcodec/scale/InterpFilter.java",
+      "bytes": 78,
+      "sha256": "529429273a352b659e08eb7f91cc8ae30899524431e06664e8f5ebaa772793ff"
+    },
+    {
+      "entry": "org/jcodec/scale/LanczosResampler.java",
+      "bytes": 2210,
+      "sha256": "d4179acf639c7216d393dc25d72fcb52a1b6646e94dc01ed5aa66a37cd9f191b"
+    },
+    {
+      "entry": "org/jcodec/scale/RgbToBgr.java",
+      "bytes": 1067,
+      "sha256": "e99f2cb88e1243189029cfc30ef04731aea601f6e82b4bb5aff74b152f13bba3"
+    },
+    {
+      "entry": "org/jcodec/scale/RgbToYuv420j.java",
+      "bytes": 2686,
+      "sha256": "402a89b5f5bff206ce563d5447a466c449da99a369231aff5fcc15011161c423"
+    },
+    {
+      "entry": "org/jcodec/scale/RgbToYuv420p.java",
+      "bytes": 2686,
+      "sha256": "b0afe4827d19ede9a334f9b151290973a170a13646dd4ed7db60e65f2ebcb907"
+    },
+    {
+      "entry": "org/jcodec/scale/RgbToYuv422p.java",
+      "bytes": 1131,
+      "sha256": "1126c415344249256db3b0efbf9bff0160ca525b1d1acf1832c034af145eb1d4"
+    },
+    {
+      "entry": "org/jcodec/scale/Transform.java",
+      "bytes": 360,
+      "sha256": "d034c74fb58c1b93c3e2aa7cee6d3f86d99a1021c0a93a3fa7136038d4a2af3e"
+    },
+    {
+      "entry": "org/jcodec/scale/Yuv420jToRgb.java",
+      "bytes": 3381,
+      "sha256": "388a2f6087851a1a9825220c47d88c697c5e4eb0d9736b2a2572890769ba749d"
+    },
+    {
+      "entry": "org/jcodec/scale/Yuv420pToRgb.java",
+      "bytes": 5661,
+      "sha256": "990017aaf9f9fa9897137863c11ce72c5251f494e4825102b5e885217cf53d06"
+    },
+    {
+      "entry": "org/jcodec/scale/Yuv420pToYuv422p.java",
+      "bytes": 2852,
+      "sha256": "edcdc9bb1637ee115aa61c2ab2cc3ff9d4f3bfa6cd7a6742841010507281e517"
+    },
+    {
+      "entry": "org/jcodec/scale/Yuv422pToRgb.java",
+      "bytes": 1525,
+      "sha256": "15ecee73a39a55beff5a3d14b3c340a54269d12ad01b853f7e7a0baaaff5ca59"
+    },
+    {
+      "entry": "org/jcodec/scale/Yuv422pToYuv420p.java",
+      "bytes": 1102,
+      "sha256": "2581d64ba6e1c10b638af6709e5ef121382b8fdd2d632dd035adb16fcd37967a"
+    },
+    {
+      "entry": "org/jcodec/scale/Yuv444jToYuv420j.java",
+      "bytes": 1107,
+      "sha256": "38fe4d39a78de486aa27f7aad833ba5e0734fc06f14c089b57dcd2def4d74292"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/ColorUtilHiBD.java",
+      "bytes": 4578,
+      "sha256": "b189c17ba4165ad4717ae86fd2a79a9ec359d4cd9ff9848afc48d68abee86e11"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/RgbToBgrHiBD.java",
+      "bytes": 1299,
+      "sha256": "2399620814ee700a89dd48ff6650077c710f3bf512b92736513c12f75dc6c51e"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/RgbToYuv420jHiBD.java",
+      "bytes": 2934,
+      "sha256": "7d13c4eb0c00d5129dd8bad8d31d6079593942168285c8613ec0ece607b1acd0"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/RgbToYuv420pHiBD.java",
+      "bytes": 3255,
+      "sha256": "e148336ddedb585788d4bc5e62c8f8908e634bcabbb390e5aed9d10faec9c2fb"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/RgbToYuv422pHiBD.java",
+      "bytes": 1662,
+      "sha256": "dd108ca498774c4955d043cfc074af08faaf5077c248f3266b8c44019e4bc653"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/TransformHiBD.java",
+      "bytes": 383,
+      "sha256": "1d80c7684c0edd5862beecd6ac28c15e13cc62f26de44a71289366e3cd56273f"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv420jToRgbHiBD.java",
+      "bytes": 3376,
+      "sha256": "93967320cbbc6ead7456f779a7fc4d9fce412554bf50ee7550b473baf9941b02"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv420jToYuv420HiBD.java",
+      "bytes": 1108,
+      "sha256": "d8d95f3bd1893401453ebe0b9bd23c5032808b751da236ab576e10f95715726b"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv420pToRgbHiBD.java",
+      "bytes": 3608,
+      "sha256": "ea99eae0b7f73eab086e87d043edc753bc404b90838f48fff8f6edca76ce9a8e"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv420pToYuv422pHiBD.java",
+      "bytes": 3224,
+      "sha256": "3c8fd2897b010164bdb143c17b6f7ca93484eb3af8aa556b5c1a4006b215865c"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv422jToRgbHiBD.java",
+      "bytes": 1041,
+      "sha256": "2ab96e18134f0091f988fc48dda1e4ab94375e6fddbd0819ee07b9c83911bb7c"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv422jToYuv420pHiBD.java",
+      "bytes": 1337,
+      "sha256": "069772b8ef553e68eec64672cf07621ed46af52ecfe3e98e1ae4d9e193b1ce2e"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv422pToRgbHiBD.java",
+      "bytes": 1908,
+      "sha256": "ab4b20b50fd3492c58808aa64528398341f14a3a4f5904ddd6dc08154a68da80"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv422pToYuv420jHiBD.java",
+      "bytes": 1791,
+      "sha256": "ec51e064c221903b77efc0c4e23b705f069634130ba8810df9f3d4e0ee0d772f"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv422pToYuv420pHiBD.java",
+      "bytes": 2009,
+      "sha256": "a5ca3a1f61db593d2c869f81ead589178c489e44b6d3863e9ab2cd5e4bfb48ad"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv444jToRgbHiBD.java",
+      "bytes": 877,
+      "sha256": "94527263d07bb96431799629b45b66f8f2926c9e22d080f488ce37333578d3d4"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv444jToYuv420pHiBD.java",
+      "bytes": 1509,
+      "sha256": "934e7b0b47728191b9f363700ba10e21572d6086df87dec054fb2b39a744540f"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv444pToRgb.java",
+      "bytes": 1628,
+      "sha256": "f0adc95e0ed465d449a9d3cb86800bcb09381855d6db22f6c58bd0a3968ba78e"
+    },
+    {
+      "entry": "org/jcodec/scale/highbd/Yuv444pToYuv420pHiBD.java",
+      "bytes": 2058,
+      "sha256": "d83f2a747c07a67c8c5a3f4564a03ad7d26bce1edd911b943c894a051e6e3fb6"
+    },
+    {
+      "entry": "org/jcodec/testing/TestTool.java",
+      "bytes": 7145,
+      "sha256": "21b656ae7114a9c21fbf4df9a414584f56c30956a5f39fa2b2cdeefb31e5fe1c"
+    },
+    {
+      "entry": "org/jcodec/testing/VerifyTool.java",
+      "bytes": 3270,
+      "sha256": "0509c65dcf9205a148be2f2e0a8fb86b2f5367d4a117067fe88978955c11ec22"
+    }
+  ],
+  "apiAndNotices": [
+    {
+      "entry": "org/jcodec/containers/mp4/muxer/MP4Muxer.java",
+      "sha256": "04cbd6aee93e5d34565c28935de86d2216482e4ad449115756f2317cf6f97f82",
+      "observations": [
+        {
+          "line": 67,
+          "text": "        buf.putLong(0);\n        buf.flip();\n        output.write(buf);\n    }\n\n    public TimecodeMP4MuxerTrack addTimecodeTrack() {\n        return addTrack(new TimecodeMP4MuxerTrack(nextTrackId++));"
+        },
+        {
+          "line": 125,
+          "text": "        MP4Util.writeMovie(out, movie);\n\n        out.setPosition(mdatOffset);\n        NIOUtils.writeLong(out, mdatSize);\n    }\n\n    public MovieBox finalizeHeader() throws IOException {"
+        },
+        {
+          "line": 179,
+          "text": "        }\n\n        return MovieHeaderBox.createMovieHeaderBox(timescale, duration, 1.0f, 1.0f, new Date().getTime(),\n                new Date().getTime(), new int[] { 0x10000, 0, 0, 0, 0x10000, 0, 0, 0, 0x40000000 }, nextTrackId);\n    }\n\n    public PCMMP4MuxerTrack addPCMAudioTrack(AudioFormat format) {"
+        },
+        {
+          "line": 180,
+          "text": "\n        return MovieHeaderBox.createMovieHeaderBox(timescale, duration, 1.0f, 1.0f, new Date().getTime(),\n                new Date().getTime(), new int[] { 0x10000, 0, 0, 0, 0x10000, 0, 0, 0, 0x40000000 }, nextTrackId);\n    }\n\n    public PCMMP4MuxerTrack addPCMAudioTrack(AudioFormat format) {\n        return addTrack(new PCMMP4MuxerTrack(nextTrackId++, format));"
+        }
+      ]
+    },
+    {
+      "entry": "org/jcodec/containers/mp4/muxer/MP4MuxerTrack.java",
+      "sha256": "ec87dca3fd29f86d9f6ba52843c2dae1186246f8a98097b903f21b96c531649b",
+      "observations": [
+        {
+          "line": 166,
+          "text": "        for (ByteBuffer bs : curChunk) {\n            sampleSizes.add(bs.remaining());\n            out.write(bs);\n        }\n\n        if (samplesInLastChunk == -1 || samplesInLastChunk != curChunk.size()) {\n            samplesInChunks.add(new SampleToChunkEntry(chunkNo + 1, curChunk.size(), entryNo));"
+        },
+        {
+          "line": 194,
+          "text": "        TrackHeaderBox tkhd = TrackHeaderBox.createTrackHeaderBox(trackId,\n                (mvhd.getTimescale() * trackTotalDuration) / _timescale, dd.getWidth(), dd.getHeight(),\n                new Date().getTime(), new Date().getTime(), 1.0f, (short) 0, 0,\n                new int[] { 0x10000, 0, 0, 0, 0x10000, 0, 0, 0, 0x40000000 });\n        tkhd.setFlags(0xf);\n        trak.add(tkhd);\n"
+        },
+        {
+          "line": 203,
+          "text": "        MediaBox media = MediaBox.createMediaBox();\n        trak.add(media);\n        media.add(MediaHeaderBox.createMediaHeaderBox(_timescale, trackTotalDuration, 0, new Date().getTime(),\n                new Date().getTime(), 0));\n\n        HandlerBox hdlr = HandlerBox.createHandlerBox(\"mhlr\", type.getHandler(), \"appl\", 0, 0);\n        media.add(hdlr);"
+        },
+        {
+          "line": 204,
+          "text": "        trak.add(media);\n        media.add(MediaHeaderBox.createMediaHeaderBox(_timescale, trackTotalDuration, 0, new Date().getTime(),\n                new Date().getTime(), 0));\n\n        HandlerBox hdlr = HandlerBox.createHandlerBox(\"mhlr\", type.getHandler(), \"appl\", 0, 0);\n        media.add(hdlr);\n"
+        }
+      ]
+    },
+    {
+      "entry": "org/jcodec/common/io/NIOUtils.java",
+      "sha256": "8f4a8bb8628e4db34fd1b195a1c4a49597c27b76a21e71bd86b52f1f651449a8",
+      "observations": [
+        {
+          "line": 340,
+          "text": "\n    public static void writeLong(WritableByteChannel channel, long value) throws IOException {\n        channel.write((ByteBuffer) ByteBuffer.allocate(8).putLong(value).flip());\n    }\n\n    public static FileChannelWrapper readableChannel(File file) throws FileNotFoundException {\n        return new FileChannelWrapper(new FileInputStream(file).getChannel());"
+        }
+      ]
+    },
+    {
+      "entry": "org/jcodec/common/Preconditions.java",
+      "sha256": "687b078f0f8a8cc01101ead64f21b2649941d679a77841f1dd8925855017e61d",
+      "observations": [
+        {
+          "line": 2,
+          "text": "/*\n * Copyright (C) 2007 The Guava Authors\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except\n * in compliance with the License. You may obtain a copy of the License at\n *"
+        }
+      ]
+    },
+    {
+      "entry": "net/sourceforge/jaad/aac/Decoder.java",
+      "sha256": "28c39aa3da6eb72abaf40aaafacc221f9342a025842f281c1534afea7b0b699f",
+      "observations": [
+        {
+          "line": 14,
+          "text": "/**\n * This class is part of JAAD ( jaadec.sourceforge.net ) that is distributed\n * under the Public Domain license. Code changes provided by the JCodec project\n * are distributed under FreeBSD license.\n * \n * Main AAC decoder class\n * "
+        }
+      ]
+    }
+  ],
+  "licenseInterpretation": "POM/current repository FreeBSD evidence retained; bundled JAAD headers explicitly Public Domain plus JCodec changes FreeBSD, Preconditions Guava Apache2.0 attribution also must survive; not exclusive FreeBSD or distribution clearance",
+  "buildReady": "NOT_IMPLIED",
+  "runtimeLoaded": false
+}

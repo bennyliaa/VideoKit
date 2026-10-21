@@ -1,0 +1,43 @@
+{
+  "schema": "RESUME01_CAPTURE_POLICY_V1",
+  "mode": "OFFLINE_FIXTURE",
+  "planId": "6c74c18f-7a55-4237-b1c7-bc0c7202baba",
+  "scope": "5cf1ac99817b7aace044cbd6e6e7c9944af9732236e9c62df2359a44a6849f61",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01-capture\\selfchecks\\work\\success-two-requests\\outputs",
+  "slots": [
+    {
+      "id": "LOCAL_0",
+      "phase": "M1",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1resume01-capture/selfchecks/capture_fixture.py",
+        "success"
+      ],
+      "maxTextBytes": 512,
+      "qualificationSeconds": 5
+    },
+    {
+      "id": "LOCAL_1",
+      "phase": "M1",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:/CodexProjects/VideoKit/docs/coder/d1resume01-capture/selfchecks/capture_fixture.py",
+        "success"
+      ],
+      "maxTextBytes": 512,
+      "qualificationSeconds": 5
+    }
+  ],
+  "entrySha256": "95bca0b47d2076fd4feeb99069c015634e730bae8adb8d7f9da91f03467a670a",
+  "toolSha256": "abc1aa0b5a63f745804e88789b2dfe6857582ec19ed36b3b5f9dc6b340212344",
+  "fixtureScriptSha256": "09c6c81379bccb55af304a8792e799cd598e7360533ea606ffe2830aa993cedd",
+  "fixtureFault": "NONE",
+  "fixtureGatePath": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1resume01-capture\\selfchecks\\work\\success-two-requests\\outputs\\file-close.gate",
+  "executionPins": []
+}

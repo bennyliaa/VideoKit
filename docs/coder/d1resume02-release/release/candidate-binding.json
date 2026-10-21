@@ -1,0 +1,155 @@
+{
+  "candidate": "D1-20261020-RESUME02-RELEASE",
+  "status": "PREPARED_AUTHORIZATION_PENDING",
+  "scopeId": "20b08d64-6fd0-4a88-8b72-c80615e58258",
+  "productSourceReview": {
+    "path": "docs/coder/d1resume02-release/reference/D1_RESUME01_STATIC_REVIEW_REPORT_V1.0.md",
+    "bytes": 10083,
+    "sha256": "0bad8b95ac7e0308713fdfed2f21c9215d18606f86aaa8e4e1dbd09059640743"
+  },
+  "captureReview": {
+    "path": "docs/coder/d1resume02-release/reference/D1_RESUME01_CAPTURE_REVIEW_REPORT_V1.0.md",
+    "bytes": 11062,
+    "sha256": "ad306682e27cdf1dec67955d9cb7f57bf99cd1451ab3b413963ee03439c6caf9"
+  },
+  "base": {
+    "path": "docs/coder/d1resume02-release/release/base-release-descriptor.json",
+    "bytes": 4518,
+    "sha256": "134e031ab7c24f401db9eb2733cce13d2775bff28cd4b8861ca0a54b43edd16c"
+  },
+  "scope": {
+    "path": "docs/coder/d1resume02-release/release/runtime-scope.json",
+    "bytes": 884,
+    "sha256": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3"
+  },
+  "release": {
+    "path": "docs/coder/d1resume02-release/release/activation-release.json",
+    "bytes": 741,
+    "sha256": "f40bc6a0095b1627a176f13f5edfc6cb297bc31dc32a78ff997bcc8dd6bf3295"
+  },
+  "config": {
+    "path": "docs/coder/d1resume02-release/release/activation-trust-deploy.json",
+    "bytes": 1852,
+    "sha256": "35ee8559baed16d80a041c30f46ac5cf4abfc2806beb11090539835833bd229d"
+  },
+  "registryPlan": {
+    "path": "docs/coder/d1resume02-release/release/registry-plan.json",
+    "bytes": 8621,
+    "sha256": "f6dd30238f551e5d23306ee3b1abab377d00e0195674f7c9486d6323b39cf483"
+  },
+  "hostJar": {
+    "path": "docs/coder/d1resume02-release/artifacts/resume02-host-tools.jar",
+    "bytes": 323124,
+    "sha256": "03a27c74061b740a879e2dfec3341b0b07172c68bf374b9231c20e42a46566c5"
+  },
+  "observer": {
+    "path": "docs/coder/d1resume02-release/tools/observe_original.ps1",
+    "bytes": 9215,
+    "sha256": "0667bc7fe93cf2010cd337eeafaeabd94b7a795efa74059365af3fb83c8485b8"
+  },
+  "captureEntry": {
+    "path": "docs/coder/d1resume02-release/tools/capture_metadata.ps1",
+    "bytes": 20118,
+    "sha256": "fef62cb2a2ddbca49e22b1f041e59387185323539945d86e06dd8823449e25fe"
+  },
+  "capturePolicy": {
+    "path": "docs/coder/d1resume02-release/release/capture-policy.json",
+    "bytes": 5149,
+    "sha256": "f3e03619f6a95ec9a9e531fde4c85978e1df0d2057b7c4dc004e64be0db7ef5a"
+  },
+  "captureRequests": [
+    {
+      "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M1_identity.json",
+      "bytes": 1768,
+      "sha256": "1f0a2722da2453344f1132290b0deadbad3cd57e01d3300a78994ee706abf16e"
+    },
+    {
+      "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M1_global.json",
+      "bytes": 604,
+      "sha256": "6716d37f78dcc9f709bc728679d94e89132054faefa72b66b4822ee13e3e7de6"
+    },
+    {
+      "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M1_ps.json",
+      "bytes": 613,
+      "sha256": "e924eaa0da403aee6a7614b4be34a02c3582cfcdedfa13a31f805635b68e3d88"
+    },
+    {
+      "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M2_identity.json",
+      "bytes": 1586,
+      "sha256": "9c0755691f48c433defada373b41816d15c1aa598e1e9132dcd1d3f81c246c8e"
+    },
+    {
+      "path": "docs/coder/d1resume02-release/release/metadata-requests/RESUME02_M2_global.json",
+      "bytes": 604,
+      "sha256": "7532bf3999cc8ee0f5ac0a0d2883a8ac8e2e399195c1d65b508befb3ba68e3a5"
+    }
+  ],
+  "observerRequests": [
+    {
+      "path": "docs/coder/d1resume02-release/release/observer-deploy-request.pending.json",
+      "bytes": 5951,
+      "sha256": "5eeaf67c07e21f852d96d231451ed712a4af5828f1d0fced00c64cb015854ae3"
+    },
+    {
+      "path": "docs/coder/d1resume02-release/release/observer-case-request.pending.json",
+      "bytes": 5425,
+      "sha256": "550e0291be7f3f71b171d35c34b04e48ce2a495593e5de834e65ee836cdee798"
+    }
+  ],
+  "targetApks": [
+    {
+      "kind": "app",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug.apk",
+      "bytes": 10708622,
+      "sha256": "938d70fbc70fd9bfdbef4ac37d2d83a66d7260e88e8c3c62bb2d022ea427908e",
+      "package": "com.videokit.app",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "test",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/app-debug-androidTest.apk",
+      "bytes": 2774237,
+      "sha256": "4227751bf659fca9efc8a8d2d32d5ce754bcbef9033e15a0c92ab7537dca9dd7",
+      "package": "com.videokit.app.test",
+      "signer": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f"
+    },
+    {
+      "kind": "fixture",
+      "path": "docs/coder/d1e13f/artifacts/D1-20261018-E13F/delivery-final/fixture-debug.apk",
+      "bytes": 80041,
+      "sha256": "a8c86650ae756f682fb2cbaaa896424974893282026525266e7b1912a8dd1867",
+      "package": "com.videokit.e13.sender",
+      "signer": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9"
+    }
+  ],
+  "disposition": {
+    "path": "docs/coder/d1resume02-release/disposition/reviewed-original-disposition.json",
+    "bytes": 610,
+    "sha256": "7270e5c0208d2895394bbd1cd25508b239bbe7a711a40b3e8d2b3d59a37a265d"
+  },
+  "budget": {
+    "path": "docs/coder/d1resume02-release/release/exact-budget.json",
+    "bytes": 1917,
+    "sha256": "70643b37227ef9dd044223767ddbd5bbfc4225a57fcaa7311a8c50141d36076b"
+  },
+  "permitDraft": {
+    "path": "docs/coder/d1resume02-release/release/execution-permit.pending.json",
+    "bytes": 3919,
+    "sha256": "0d03273c26595cac14d232dde7de8909672b24ab8cd2fcaab1f2a7d39cdcdbb2"
+  },
+  "activationDelta": {
+    "path": "docs/coder/d1resume02-release/release/activation-delta.json",
+    "bytes": 5023,
+    "sha256": "27f70184fb6c48b5e728699ee1be7aa76d81ea2c9035167167c0b4f01bc9d61b"
+  },
+  "executionAuthorization": null,
+  "devicePermitIssued": false,
+  "onceConsumed": false,
+  "liveRootCreated": false,
+  "hostBuilds": 0,
+  "androidBuilds": 0,
+  "independentMechanicalReview": "PENDING",
+  "T07": "NOT_RUN",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

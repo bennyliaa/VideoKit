@@ -1,0 +1,15 @@
+# D1 E6B 架构及威胁边界 V1.0
+
+2026-10-17。仅公开validate(Context,...)已知创建前timeline错误携带准确作用域；不扩验证/恢复或接口授权。
+
+公开入口仍先offMain，再执行原PipelineRules.timeline。现在只在该调用外捕获原Exception/Error，直接以同一原对象构造既有E6AFailure：scope VALIDATOR、role mode11、phase TIMELINE、task NOT_CREATED、snapshot null、cleanup空。既有safe方法因此报告start NOT_STARTED与background NOT_COLLECTED；没有制造零native计数或task。session原路由能识别该异常，原在途UNKNOWN不被猜测为已启动或未启动。原首错/cause/throw-site和cleanup隔离规则保持。
+
+捕获发生在TrackedProvider和CpuTaskClient构造前；失败立即返回，不会为拿到task而创建资源。合法timeline沿原TrackedProvider/真实CpuTaskClient/原平台适配器进入原owned validate，后半整段字节相同，公开offMain和其他参数/创建门未更改。生产接口没有test开关、fake输入源或额外Factory；只改一处catch。
+
+本机五个坏timeline直接调用公开Context重载，使用真实生产PipelineRules而非替换timeline函数；观察f.primary与f.getCause()为同一对象、原IOException/type/code及首stack来自PipelineRules.timeline，源diff确认catch变量原样传入。session使用原E6ADiagnosticState先进入UNKNOWN再failure，准确转NOT_STARTED/TIMELINE/NOT_CREATED，源字段保持NOT_STARTED。CPU创建计数/context调用/provider open/digest均0；静态顺序同时证明连TrackedProvider也在预检之后。
+
+合法timeline校准仍调用同公开入口，抵达真实CpuTaskClient构造站点，测试Binder构造tripwire一次抛预先持有的sentinel；既有CREATE包装保相同sentinel及NOT_CREATED。该正向校准证明合法预检继续原创建路径，不是全链成功，也不把该路径说成资源创建0。测试其他Binder方法均抛错，不模拟真实Binder执行。Context/Looper/Log/Binder shim及自检源码只在tools，未进入APK；旧E6A支持类只用于未改依赖类型，新adapter及纯规则从E6B重新编译。
+
+只新增6个定点用例/59断言，无旧20/112或34/270/82模型重跑。无Android/JNI/媒体/导出件，本机tripwire不能当设备创建/FD/owner/death证据。整体原子首份、Java后置失败保native背景、source/validator task/mode/phase归属等E6A修复均字节保持。
+
+原6帧/完整EOF/1000us/thumbnail/content/mapping、原2MiB输出/64MiB及8192readAt、60s/首cancel30s/协商12s/STARTED15s、真实owner/slot/资源归还、guard/recovery/每host实际观察/唯一R/S与稳定预算均保持；53651旧消费/失败产物、原N2结算/closeACKfalse及旧FAIL不改。七native与源码/header/config、JNI ABI及35Maven、原有限编解码/禁网络配置完全继承；无native构建或许可扩张。

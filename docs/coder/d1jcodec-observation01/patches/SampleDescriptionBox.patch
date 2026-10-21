@@ -1,0 +1,44 @@
+--- official-0.2.5/source/org/jcodec/containers/mp4/boxes/SampleDescriptionBox.java
++++ 0.2.5-videokit-observation01/source/org/jcodec/containers/mp4/boxes/SampleDescriptionBox.java
+@@ -10,6 +10,20 @@
+  *
+  */
+ public class SampleDescriptionBox extends NodeBox {
++
++    // VideoKit observation01: original consumed header, never builder defaults.
++    private boolean originalParseObserved;
++    private int originalVersionFlagsWord;
++    private long originalDeclaredEntryCount;
++
++    public boolean hasOriginalParseObservation() { return originalParseObserved; }
++    private void requireOriginalParseObservation() {
++        if (!originalParseObserved) throw new IllegalStateException("ORIGINAL_PARSE_NOT_OBSERVED");
++    }
++    public int getOriginalVersionFlagsWord() { requireOriginalParseObservation(); return originalVersionFlagsWord; }
++    public int getOriginalVersion() { requireOriginalParseObservation(); return originalVersionFlagsWord >>> 24; }
++    public int getOriginalFlags() { requireOriginalParseObservation(); return originalVersionFlagsWord & 0xffffff; }
++    public long getOriginalDeclaredEntryCount() { requireOriginalParseObservation(); return originalDeclaredEntryCount; }
+ 
+     public static String fourcc() {
+         return "stsd";
+@@ -30,9 +44,13 @@
+ 
+     @Override
+     public void parse(ByteBuffer input) {
+-        input.getInt();
+-        input.getInt();
++        originalParseObserved = false;
++        originalVersionFlagsWord = 0;
++        originalDeclaredEntryCount = 0;
++        originalVersionFlagsWord = input.getInt();
++        originalDeclaredEntryCount = input.getInt() & 0xffffffffL;
+         super.parse(input);
++        originalParseObserved = true;
+     }
+ 
+     @Override
+@@ -47,4 +65,4 @@
+     public int estimateSize() {
+         return 8 + super.estimateSize();
+     }
+-}+}

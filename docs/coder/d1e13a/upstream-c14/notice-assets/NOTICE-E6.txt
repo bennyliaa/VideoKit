@@ -1,0 +1,6 @@
+VideoKit E6 project changes, 2026-10-17.
+Project JNI wrapper native/cpu.c: numeric-only bounded diagnostic callback and exact six-frame/PTS/EOF helper native/e6_verify.h.
+Only libvideokit_cpu.so rebuilt with existing NDK 30.0.16248370 / API31 / 16KiB max-page-size; FFmpeg 8.0.3, allocator, codecs/demuxers/protocol/network whitelist unchanged.
+Other six native libraries remain byte identical to the C14/E5B baseline.
+Corresponding project wrapper source, exact diff, build command, headers/config identity and SHA map accompany D1-20261017-E6-source.zip; original full C14 corresponding-source container and original license/NOTICE files retained.
+This notice records provenance, not legal or vulnerability clearance.

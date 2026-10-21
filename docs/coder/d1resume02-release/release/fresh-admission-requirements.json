@@ -1,0 +1,70 @@
+{
+  "state": "FUTURE_FRESH_GATES_NOT_CURRENT_OBSERVATIONS",
+  "scope": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3",
+  "toolCompatibility": {
+    "adbSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+    "beforeAnyClient": "One local existing-listener/source check using existing host APIs, not an extra ADB version/start/query. Require existing 127.0.0.1:5037 listener executable D:/Android/SDK/platform-tools/adb.exe, exact approved on-disk hash, unchanged file predating the current server creation; unresolved provenance blocks.",
+    "noHistoricalPidReuse": true,
+    "environment": "Require default local5037 routing; ADB_SERVER_SOCKET, ANDROID_ADB_SERVER_PORT, ADB_SERVER_PORT must not redirect. Unexplained override blocks.",
+    "serverAbsentOrMismatch": "STOP_NO_START_NO_RESTART_NO_NEW_PROTOCOL"
+  },
+  "expectedM1": {
+    "serial": "HA1Q6WXR",
+    "model": "TB138FC",
+    "api": 31,
+    "user": 0,
+    "appVersion": 17,
+    "fixtureVersion": 1,
+    "appSha256": "962d903ff4dbe2ccf767a6adb9bd7845c4cbfd025ebee249caad4d0517483aad",
+    "testSha256": "83109c13d76d635024add5575c1bf77606a05c3400b71ae3f6247acf18949f13",
+    "fixtureSha256": "868f581538d4a92908870d9066d5dfce18d847a5d9559e827e24cbb3ca3544d8",
+    "appSigner": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+    "fixtureSigner": "45b462a82be4e90ceb60e26ffa5819272947c05d7274801043c1fd57a68114e9",
+    "uids": [
+      10221,
+      10222,
+      10228
+    ],
+    "data": [
+      "10221:6972",
+      "10222:4741"
+    ],
+    "fixtureData": "Capture fresh complete UID:inode and require unchanged in M2."
+  },
+  "expectedM2": {
+    "appVersion": 19,
+    "fixtureVersion": 3,
+    "appSha256": "938d70fbc70fd9bfdbef4ac37d2d83a66d7260e88e8c3c62bb2d022ea427908e",
+    "testSha256": "4227751bf659fca9efc8a8d2d32d5ce754bcbef9033e15a0c92ab7537dca9dd7",
+    "fixtureSha256": "a8c86650ae756f682fb2cbaaa896424974893282026525266e7b1912a8dd1867",
+    "uids": [
+      10221,
+      10222,
+      10228
+    ],
+    "data": [
+      "10221:6972",
+      "10222:4741"
+    ],
+    "fixtureData": "Exactly equal fresh M1 identity."
+  },
+  "localPreflight": [
+    "Pin all inputs and original tool bytes before starting a client; ADB mismatch stops without restarting server.",
+    "Match original accepted registry inventory and exact bytes; do not initialize/copy-replace live registry.",
+    "Reconcile ledger, administrative A/K and independent B/H; do not refund old UNKNOWN.",
+    "Inspect fixed guard root once under authorization; <=32 exact claims, no symlinks; any unresolved claim stops with specific identity, no deletion/reset/admin waiver.",
+    "New deployment once path must not exist. Existing root disposition must match exact approved bytes, or be absent until post-M1 CREATE_NEW installation."
+  ],
+  "occupancy": "Full activity-process and ps records; no other project live tasks or unknown ownership. Absence of instrumentation alone insufficient. If occupied, stop this scope without automatic retry.",
+  "originalReaderRules": "All original successful raw reads are charged even if over cap or not saved; duplicated forwarding/records charged separately. Unknown exact original read count is UNKNOWN, not cap or savedBytes; entire category remains reserved.",
+  "overflow": "Stop all subsequent admission, preserve original owner and first failure; any actual overrun remains explicitly charged, never borrow the unallocated409600B.",
+  "internalSdkReaderOverflow": "If frozen PC/archive does not expose exact overshoot count, record actual UNKNOWN / above qualifier with full category retained; no dependent work or fabricated precise amount.",
+  "historicalReadingsDoNotAuthorize": true,
+  "registryPlan": {
+    "path": "docs/coder/d1resume02-release/release/registry-plan.json",
+    "bytes": 8621,
+    "sha256": "f6dd30238f551e5d23306ee3b1abab377d00e0195674f7c9486d6323b39cf483"
+  },
+  "fixture002": "UNKNOWN_RETAINED; capture review did not query or settle it.",
+  "claimWaiver": false
+}

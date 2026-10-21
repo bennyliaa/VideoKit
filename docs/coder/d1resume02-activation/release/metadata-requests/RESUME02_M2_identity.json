@@ -1,0 +1,16 @@
+{
+  "schema": "RESUME01_CAPTURE_REQUEST_V1",
+  "id": "RESUME02_M2_identity",
+  "policySha256": "6d982a8341168c8d4d839a653aefbefd9e8999a9079828299bd0b4266a52f083",
+  "scope": "662f4239e235608e2bbc39e8ca28fd0284953ee47a18df83153128f7cbe8aec3",
+  "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_RESUME01_CAPTURE_EXECUTION\\20b08d64-6fd0-4a88-8b72-c80615e58258\\outputs",
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "set -e; printf \"M2_identity_BEGIN\\n\"; printf \"M2_identity_PART_1\\n\"; dumpsys package com.videokit.app; printf \"M2_identity_PART_2\\n\"; dumpsys package com.videokit.app.test; printf \"M2_identity_PART_3\\n\"; dumpsys package com.videokit.e13.sender; printf \"M2_identity_PART_4\\n\"; run-as com.videokit.app stat -c %u:%i .; printf \"M2_identity_PART_5\\n\"; run-as com.videokit.app.test stat -c %u:%i .; printf \"M2_identity_PART_6\\n\"; p=$(pm path com.videokit.app); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_7\\n\"; p=$(pm path com.videokit.app.test); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_8\\n\"; p=$(pm path com.videokit.e13.sender); case \"$p\" in package:/data/app/*/base.apk) ;; *) exit 71;; esac; sha256sum \"${p#package:}\"; printf \"M2_identity_PART_9\\n\"; run-as com.videokit.e13.sender stat -c %u:%i .; printf \"M2_identity_COMPLETE\\n\""
+  ],
+  "maxTextBytes": 65536,
+  "qualificationSeconds": 15
+}

@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "state": "NOT_AUTHORIZED_NOT_EXECUTABLE",
+  "deploymentScope": null,
+  "currentPreflight": null,
+  "sourceInstalledVersion": 14,
+  "targetVersion": 15,
+  "targetApks": [
+    {
+      "path": "docs/coder/d1e11/artifacts/D1-20261018-E11/final/app-debug.apk",
+      "bytes": 10659394,
+      "sha256": "2f323c16e896b0535e80cccce05bbcf3051224f0add279a51392312083e89f48"
+    },
+    {
+      "path": "docs/coder/d1e11/artifacts/D1-20261018-E11/final/app-debug-androidTest.apk",
+      "bytes": 2751249,
+      "sha256": "e644dce77be6ccb0e7f99d82f2479fc92238aad682bb022bb95835fc015d0bfb"
+    }
+  ],
+  "sourcePair": [
+    {
+      "path": "docs/coder/d1e10a/artifacts/D1-20261018-E10A/final/app-debug.apk",
+      "bytes": 10659394,
+      "sha256": "611672a9f2a7eab3f08a495832d513e79ee446cb1a9f99001fe323e944f2af54"
+    },
+    {
+      "path": "docs/coder/d1e10a/artifacts/D1-20261018-E10A/final/app-debug-androidTest.apk",
+      "bytes": 2749733,
+      "sha256": "2ee2ada85cbbe6e6a4a8d145a8d7b30a2cebe6a8be4d4c9413f2cd906e36f76b"
+    }
+  ],
+  "role": "ACTIVATION",
+  "gateAbi": 1,
+  "head": "6ce0f654a5bec6527a6773b141f64e49e858d3ef2e51c8c2e52360fd9ce0a4e5",
+  "catalog": "27fe90573f2d8a3a750c270e760f4e19e797fe188287ade5c58268e8c6d911b7",
+  "originalRegistryMustRemainUnchanged": true,
+  "approvedDetachedRelease": null,
+  "caseBatch": "D1-E4A-E11-ACTIVATION-20261018",
+  "normalMp4Receipt": null,
+  "normalAviReceipt": null,
+  "order": [
+    "fresh exact v14/UID/signer/data-inode/idle preflight",
+    "new explicitly approved pinned detached release; one supervised app/test install-r14->15",
+    "post-install exact pair/role/ABI/data preservation/idle proof",
+    "each new test host does actual current observation before product",
+    "normalMp4SixRealFrames; independently accepted receipt1",
+    "normalAviSixRealFrames gated by receipt1; independently accepted receipt2",
+    "capabilityDenialDoesNotOpenSource gated by both same-scope normal receipts",
+    "cancelRejectsWrongEpochOversizeAndLateFrame only after independent acceptance of capability plus both normals and actual idle/original return; no quarantine/death cases"
+  ],
+  "noActualCommandsExecuted": true
+}

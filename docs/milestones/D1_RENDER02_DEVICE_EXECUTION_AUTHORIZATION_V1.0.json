@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "kind": "RESPONSIBLE_COORDINATOR_RENDER02_DEVICE_BATCH",
+  "date": "2026-10-20",
+  "scopeId": "78df082b-ed71-4c34-b032-448c061a299b",
+  "issuerThread": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "deviceExecutionAuthorized": true,
+  "device": {
+    "serial": "HA1Q6WXR",
+    "user": 0
+  },
+  "pins": [
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/tester/D1_RENDER02_FIX_OFFLINE_REVIEW_REPORT_V1.0.md",
+      "bytes": 13128,
+      "sha256": "2b4b437925233728c31996ee7d6fed6b9713504442c243534b971aa180a198d9"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1render02/evidence/render02-freeze.json",
+      "bytes": 94667,
+      "sha256": "a226b5fe0703d31c486ec2deaad1c2f2241169f4c8257701331cd5d9c1a83581"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1render02/artifacts/app-debug.apk",
+      "bytes": 10480388,
+      "sha256": "2f6e1cf02d85d8b0bd32ca0c475aea9e182a8b3b55e17a6da066a6ddfc5e2d94"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/d1render02/artifacts/app-debug-androidTest.apk",
+      "bytes": 2695613,
+      "sha256": "88241afd1cfe50fee41be95d788d76948bdee24cec14a26329040f69970e63cb"
+    },
+    {
+      "path": "D:/CodexProjects/VideoKit/docs/coder/D1_RENDER02_FIX_DEVICE_PLAN_V1.0.md",
+      "bytes": 6249,
+      "sha256": "450660741edd79f6115871254ae450abbba78001d253bac14e298c5b8cc7a97c"
+    }
+  ],
+  "package": "com.videokit.d1present",
+  "testPackage": "com.videokit.d1present.test",
+  "versionCode": 2,
+  "signerSha256": "5e841a04968f3f790f6996ca5e286d8c2734338542486909f9a136717dde808f",
+  "runner": "com.videokit.d1present.test/com.videokit.d1present.RenderInstrumentation",
+  "class": "com.videokit.d1present.RenderDeviceTests",
+  "automaticMethods": [
+    "generatedMutedDualConsumers",
+    "existingMp4RawMutedDualConsumers",
+    "cancelRejectsLateGeneration",
+    "pausedSeekAndSurfaceRecreation"
+  ],
+  "manualMethod": "manualIdleListenThreeSeconds",
+  "manualAllowedOnlyIfObserverReadyBeforeLaunch": true,
+  "noObserverMeans": "NOT_RUN; do not launch manual session or auto-click",
+  "budget": {
+    "sdkChildOperations": 32,
+    "textBytes": 4194304,
+    "binaryArchiveBytes": 16777216,
+    "fixtureBytes": 349102,
+    "screenshotsMax": 3,
+    "screenshotEachMaxBytes": 4194304
+  },
+  "fixture": {
+    "privatePath": "files/d1_render_fixtures/basic.mp4",
+    "bytes": 349102,
+    "sha256": "720957c94b3665ff97bcc2f59ad5407c5ca54f566b59865723be9eecc0a6a1f9"
+  },
+  "conditions": [
+    "Use existing approved same-original client owner capture mechanisms; no new framework",
+    "Record exact finite command plan/operation costs and own scope hash before first SDK; any unsupported lifecycle or budget preflight BLOCKED",
+    "Fresh same-source default-routing and device identity/global process checks; no other project foreground/live test/instrumentation; unresolved current claim blocks",
+    "Only after idle gate install two pinned debug APKs into new experiment package, no uninstall/clear-data/force-stop or old com.videokit.app changes; existing unexpected package/signer/data blocks",
+    "Fixture only exact approved local bytes read-only source, privately copy into new sandbox; verify exact hash, never alter original media",
+    "Each exact method once, separate original tool; physical return evidence required before next",
+    "First failure/UNKNOWN/other project occupation stops all dependents, no automatic retry",
+    "No killing/restarting ADB/forcing finish/second close/clearing accounts or historical unknowns",
+    "Manual sound only with prearranged actual observer and unchanged user volume, no recording/microphone/other-project interference",
+    "Screenshot only on approved experiment target while original session safely retained, otherwise NOT_RUN; no device UI exploration",
+    "Report all results in one batch, no automatic follow-on or M0"
+  ]
+}

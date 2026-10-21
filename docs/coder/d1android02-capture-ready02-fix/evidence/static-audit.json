@@ -1,0 +1,103 @@
+{
+  "schema": "READY02_FIX_STATIC_AUDIT_V1",
+  "allPassed": true,
+  "baselineSeals": [
+    {
+      "seal": "docs/coder/d1android02-capture-ready01/evidence/capture-ready01-freeze.json",
+      "sha256": "3ff8b42d7bd5c31f578bcfdec8bba7286dd32ba90289fcc6556dc338368fa51d",
+      "rows": 756,
+      "bad": []
+    },
+    {
+      "seal": "docs/coder/d1media3-android02-fix02/evidence/fix02-freeze.json",
+      "sha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+      "rows": 874,
+      "bad": []
+    },
+    {
+      "seal": "docs/coder/d1render02-capture/evidence/capture-adapt-freeze.json",
+      "sha256": "65e8413b3e90dd571c22fea7049778b29c0d94221cd490560cdcd5c3cc00ae5a",
+      "rows": 818,
+      "bad": []
+    }
+  ],
+  "pins": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\tools\\capture_android02.ps1",
+      "sha256": "105118bf3d027ce0cb220e9a07ec50dbdedbf316edb15c72b7a93f660a6f3096",
+      "bytes": 56456
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\tools\\outer_owner.py",
+      "sha256": "3aab1fee40b2989e41e3ca4a2750a5a481b0caa5c8691bf287b26900ad192fa3",
+      "bytes": 13954
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\tools\\strict-receipt.ps1.txt",
+      "sha256": "5d1df0caca1cdfd26c2ff86ee135991f4fd670b22502b26c912c79b4fd5e5ba6",
+      "bytes": 3502
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\selfchecks\\capture_fixture.py",
+      "sha256": "4b0aea7b372f737ae6d0970374d18d491c2f537c741df3fa7166c5ef654e8d5a",
+      "bytes": 3066
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\selfchecks\\run_checks.py",
+      "sha256": "c044f7add5ff460a3bfee936995efba2dd6383f4c380c97fa48c6eda0c46af47",
+      "bytes": 13062
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\reference\\exact-seven-role-plan.json",
+      "sha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199",
+      "bytes": 8096
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\release\\capture-policy.json",
+      "sha256": "a82ea4b16b28390139415a92a5a48465306a96b0266186cd63b749cf61cee9f7",
+      "bytes": 1217
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\release\\activation-required.template.json",
+      "sha256": "b7e22bafd32b133ec330c1f272032f5aed9cca950477a58d837b4f5f82446a0f",
+      "bytes": 919
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\reference\\original-outer-owner-contract.md",
+      "sha256": "85142c56034a74ee2ef13913c1e0c03cb931e1641730f0ea0d2f81bca1e1854f",
+      "bytes": 6345
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready02-fix\\reference\\D1_ANDROID02_CAPTURE_READY01_PHASE_B_REVIEW_REPORT_V1.0.md",
+      "sha256": "606205d01c6db42c357ca72f403c6b676ed78b0f7a229f5a210e2c9be8efcfaa",
+      "bytes": 16084
+    }
+  ],
+  "history": [
+    {
+      "path": "selfchecks/work/suite-98eb637cdc/summary.json",
+      "sha256": "ada73ae25cacd6a9b1177adc6d6f41d40f6d65bb19ac3e05c36dcd9437492bd4",
+      "allPassed": true,
+      "seconds": 19.125,
+      "entrySha256": "105118bf3d027ce0cb220e9a07ec50dbdedbf316edb15c72b7a93f660a6f3096",
+      "ownerSha256": "3aab1fee40b2989e41e3ca4a2750a5a481b0caa5c8691bf287b26900ad192fa3"
+    },
+    {
+      "path": "selfchecks/work/suite-eb05047538/summary.json",
+      "sha256": "fe3e9513a87f548cfeaaa349cbff3b8dc9b8cf9b1b84607269c44f5ab035cb63",
+      "allPassed": true,
+      "seconds": 19.062000000005355,
+      "entrySha256": "cc03c100fac577e85879dfca1ab19bb6ece2e099fee37efaa0a4be56e5bf24bc",
+      "ownerSha256": "692a9640ea520eca3f07b32174f4214919ea8d9ae98023d2c73a745f7b67f812"
+    }
+  ],
+  "productAndSdkFilePinsMatch": true,
+  "sdkActions": 0,
+  "deviceActions": 0,
+  "oldUnknownActions": 0,
+  "gradleAndJvmRuns": 0,
+  "scopeRoleCount": 7,
+  "localSuiteSeconds": 19.125,
+  "independentNewB": "PENDING",
+  "Android": "NOT_RUN"
+}

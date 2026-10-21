@@ -1,0 +1,191 @@
+{
+  "schema": "ANDROID02_READY01_LOCAL_SELFCHECK_V1",
+  "candidateEntrySha256": "fce2d454eb036c6278f71b77393656473af3b35dfe16516cb8358bb6e933bc13",
+  "producerSha256": "b281c18e3873fa1c9ba139a581659212e0708fd9006776cd33838a35dfd433ed",
+  "planSha256": "f0309a72789c67e0e0cd4afd54ca9e814384dc07d934241a6c07fe1c75ca7199",
+  "runRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-capture-ready01\\selfchecks\\work\\suite-35ad972aea9e",
+  "elapsedSeconds": 18.453000000008615,
+  "suiteWithin30Seconds": true,
+  "totalOuterTextBytes": 44156,
+  "mockPayloadBytes": 6144,
+  "outerControllers": 13,
+  "localProducerStarts": 11,
+  "sdkChildren": 0,
+  "deviceQueries": 0,
+  "serverQueries": 0,
+  "kills": 0,
+  "retries": 0,
+  "results": [
+    {
+      "name": "seven-role-chain",
+      "pass": true,
+      "detail": {
+        "groups": [
+          {
+            "command": 377,
+            "instrument": 0,
+            "preflight": 105,
+            "control": 11736,
+            "payload": 0,
+            "install": 0
+          },
+          {
+            "payload": 0,
+            "control": 26077,
+            "instrument": 0,
+            "preflight": 501,
+            "command": 757,
+            "install": 0
+          },
+          {
+            "instrument": 0,
+            "preflight": 546,
+            "payload": 0,
+            "install": 0,
+            "command": 1137,
+            "control": 40470
+          },
+          {
+            "install": 0,
+            "payload": 0,
+            "command": 1518,
+            "control": 54875,
+            "instrument": 0,
+            "preflight": 593
+          },
+          {
+            "preflight": 593,
+            "control": 69561,
+            "command": 1898,
+            "instrument": 0,
+            "payload": 4096,
+            "install": 125
+          },
+          {
+            "preflight": 593,
+            "control": 84262,
+            "instrument": 0,
+            "command": 2279,
+            "install": 250,
+            "payload": 6144
+          },
+          {
+            "command": 2658,
+            "install": 250,
+            "control": 98795,
+            "payload": 6144,
+            "preflight": 593,
+            "instrument": 634
+          }
+        ],
+        "finalSemantic": "PASS_LIMITED_APP_RECEIPT_INTERNAL_FINISH_UNPROVEN",
+        "actualSdkChildren": 0,
+        "localProducers": 7
+      },
+      "seconds": 8.98399999999674
+    },
+    {
+      "name": "six-precontext-guards-one-owner",
+      "pass": true,
+      "detail": [
+        {
+          "name": "entry",
+          "expected": "ENTRY_POLICY_PIN",
+          "pass": true,
+          "observed": "ENTRY_POLICY_PIN"
+        },
+        {
+          "name": "preparation",
+          "expected": "PREPARATION_ONLY_NO_EXECUTION_AUTHORIZATION",
+          "pass": true,
+          "observed": "PREPARATION_ONLY_NO_EXECUTION_AUTHORIZATION"
+        },
+        {
+          "name": "sdk",
+          "expected": "EXACT_LOCAL_PRODUCER_ONLY",
+          "pass": true,
+          "observed": "EXACT_LOCAL_PRODUCER_ONLY"
+        },
+        {
+          "name": "duplicate",
+          "expected": "DUPLICATE_JSON_FIELD",
+          "pass": true,
+          "observed": "DUPLICATE_JSON_FIELD"
+        },
+        {
+          "name": "eighth",
+          "expected": "EXACT_SEVEN_ROLES_MAX",
+          "pass": true,
+          "observed": "EXACT_SEVEN_ROLES_MAX"
+        },
+        {
+          "name": "counter",
+          "expected": "EXACT_AGGREGATE_GROUP_SUM",
+          "pass": true,
+          "observed": "EXACT_AGGREGATE_GROUP_SUM"
+        }
+      ],
+      "seconds": 2.10999999998603
+    },
+    {
+      "name": "busy-semantic-original-local-raw",
+      "pass": true,
+      "detail": {
+        "sdkChildren": 0,
+        "started": false,
+        "semantic": "ENV_WAIT_OTHER_PROJECT_OR_TEST_OCCUPIED",
+        "kind": "PURE_LOCAL_SEMANTIC_ONLY"
+      },
+      "seconds": 1.4060000000172295
+    },
+    {
+      "name": "overrun-sticky",
+      "pass": true,
+      "detail": {
+        "failure": "TEXT_QUALIFIER_EXCEEDED",
+        "originalReturned": true,
+        "gateObservedPending": false,
+        "rawBytes": 192,
+        "savedBytes": 64.0
+      },
+      "seconds": 1.6089999999967404
+    },
+    {
+      "name": "stderr-stops",
+      "pass": true,
+      "detail": {
+        "failure": "STDERR_REQUIRES_STOP",
+        "originalReturned": true,
+        "gateObservedPending": false,
+        "rawBytes": 51,
+        "savedBytes": 51.0
+      },
+      "seconds": 1.5789999999979045
+    },
+    {
+      "name": "timeout-keeps-original",
+      "pass": true,
+      "detail": {
+        "failure": "QUALIFICATION_TIMEOUT_NO_TERMINATION",
+        "originalReturned": true,
+        "gateObservedPending": true,
+        "rawBytes": 28,
+        "savedBytes": 28.0
+      },
+      "seconds": 1.5929999999934807
+    },
+    {
+      "name": "file-close-retains-owner",
+      "pass": true,
+      "detail": {
+        "failure": "QUALIFICATION_TIMEOUT_NO_TERMINATION",
+        "originalReturned": true,
+        "gateObservedPending": true,
+        "rawBytes": 105,
+        "savedBytes": 105.0
+      },
+      "seconds": 1.172000000020489
+    }
+  ],
+  "allPassed": true
+}

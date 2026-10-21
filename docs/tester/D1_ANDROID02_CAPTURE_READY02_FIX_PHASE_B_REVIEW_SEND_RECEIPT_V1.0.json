@@ -1,0 +1,22 @@
+{
+  "status": "SENT_SUCCESSFULLY",
+  "recipientThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "sendToolReturnedThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "report": "docs/tester/D1_ANDROID02_CAPTURE_READY02_FIX_PHASE_B_REVIEW_REPORT_V1.0.md",
+  "reportBytes": 13904,
+  "reportSha256": "cffd1476883fcf9a6ebfa924888d16e74c1a0c8633dcedf5b48c8848d36b66bb",
+  "evidenceManifestSha256": "ed9c3f53c28a03d3a15eabc15de08159efd7e2b1260df7f84f850bd09f6234e2",
+  "evidenceFiles": 177,
+  "overall": "BLOCKED_TWO_SOURCE_P2_AND_INCOMPLETE_DYNAMIC_COVERAGE",
+  "concentratedSourceFindings": ["CR2-B01", "CR2-B02"],
+  "sdkAndroidReproductions": 0,
+  "tailAttemptDynamicReproduction": "INCONCLUSIVE_NORMAL_PROOF_TIMEOUT_BEFORE_TARGET",
+  "dynamicCoverage": "6 groups passed; one inconclusive failed check; final strict-policy/delta group NOT_RUN",
+  "suiteSeconds": 18.36,
+  "actualOriginalCaptureControllers": 13,
+  "afterStopNewDynamicCalls": 0,
+  "actualSdkDeviceJvmMediaCalls": 0,
+  "oldUnknownActions": 0,
+  "frozenReportOrEvidenceChangedAfterSend": false,
+  "automaticDeviceActivation": false
+}

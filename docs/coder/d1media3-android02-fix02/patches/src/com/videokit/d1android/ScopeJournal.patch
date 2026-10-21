@@ -1,0 +1,22 @@
+--- frozen-android02/src/com/videokit/d1android/ScopeJournal.java
++++ recovery01/src/com/videokit/d1android/ScopeJournal.java
+@@ -0,0 +1,19 @@
++package com.videokit.d1android;
++import java.io.IOException;import java.nio.charset.StandardCharsets;import java.util.*;
++/** Immutable published JSON values only. Observer never walks a worker-mutated JSON collection. */
++public final class ScopeJournal {
++ public static final int CONTENT_LIMIT=196608,STATUS_LIMIT=262144,OUTBOUND_LIMIT=1048576;
++ private final int contentLimit,statusLimit,outboundLimit;
++ public ScopeJournal(){this(CONTENT_LIMIT,STATUS_LIMIT,OUTBOUND_LIMIT);}
++ public ScopeJournal(int content,int status,int outbound){if(content<1||content>CONTENT_LIMIT||status<content||status>STATUS_LIMIT||outbound<status||outbound>OUTBOUND_LIMIT)throw new IllegalArgumentException("JOURNAL_LIMITS");contentLimit=content;statusLimit=status;outboundLimit=outbound;}
++ private final List<String> completed=new ArrayList<>(10);private String current="{}";private int bytes;private long emittedAttempted;private boolean overflow;
++ private static int size(String s){return s.getBytes(StandardCharsets.UTF_8).length;}
++ public synchronized void current(String immutableJson)throws IOException{if(size(immutableJson)+bytes>contentLimit){overflow=true;throw new IOException("RECEIPT_CONTENT_BUDGET");}current=immutableJson;}
++ public synchronized void completed(String immutableJson)throws IOException{int n=size(immutableJson);if(completed.size()>=10||n+bytes>contentLimit){overflow=true;throw new IOException("RECEIPT_CONTENT_BUDGET");}completed.add(immutableJson);bytes+=n;current="{}";}
++ public synchronized Snapshot snapshot(){return new Snapshot(List.copyOf(completed),current,bytes,emittedAttempted,overflow);}
++ public synchronized void reserveEmission(int utf8Bytes)throws IOException{if(utf8Bytes<1||utf8Bytes>statusLimit||utf8Bytes>outboundLimit-emittedAttempted)throw new IOException("RECEIPT_OUTBOUND_BUDGET");emittedAttempted+=utf8Bytes;}
++ public static final class Snapshot{
++  public final List<String> completed;public final String current;public final int completedBytes;public final long emittedAttempted;public final boolean overflow;
++  private Snapshot(List<String> c,String current,int b,long e,boolean o){completed=c;this.current=current;completedBytes=b;emittedAttempted=e;overflow=o;}
++ }
++}

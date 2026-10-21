@@ -1,0 +1,24 @@
+{
+  "result": "PASS_ACTUAL_STRICT_VERIFICATION_EVENT_INVENTORY",
+  "buildAttempt": "005",
+  "buildExitCode": 0,
+  "operationLogSha256": "ff0f5a865c6541d9ef94c59f72319f5da528438702848453554d7c83519e2d8e",
+  "counts": {
+    "binary": 135,
+    "module": 38,
+    "pom": 154
+  },
+  "actualArtifacts": 327,
+  "actualMetadata": 192,
+  "declaredParentOrBOMEdges": 71,
+  "observedPluginMarkers": [
+    "com.android.application:com.android.application.gradle.plugin:9.3.3"
+  ],
+  "actualGuavaNewParentConsumed": false,
+  "newPinAdmission": "PENDING_INDEPENDENT_REVIEW; official source and separate strict parent probe",
+  "unusedFoojayConsumed": false,
+  "binaryOrVersionDownloads": 0,
+  "method": "Gradle 9.5 actual Dependency verification operation progress names; successful strict build. POM declarations are separately labelled, not assumed consumed; module-first resolution can omit POM parents.",
+  "verificationMode": "strict",
+  "verifyMetadata": true
+}

@@ -1,0 +1,14 @@
+{
+  "testerPolicyCompileAndJvmCalls": 2,
+  "optionalNewPolicyHelperCalls": 0,
+  "newGradleAndroidDeviceMediaParserCalls": 0,
+  "originalPythonAuditFirstExit": 1,
+  "auditCorrection": "Tester assertion assumed versionName occupies an indented standalone line; actual Gradle puts version fields on same line. Changed to exact whole-file old-version->new-version equality. Finalizer first assumed every SBOM coordinate has binary SHA; annotation aggregator and kotlin-bom are metadata-only and correctly have empty binary hashes. Narrowed to applicable binary components plus exact two metadata-only identities. No product change, no JVM/test rerun.",
+  "policyJvmRerunForAuditCorrection": false,
+  "identityReadScope": "finite raw file hashes, ZIP member decompression/CRC, binaryAXML/DEX/classfile and APK signature reads. These DO read media bytes as opaque assets/containing files; no MP4/AVC/Media3 parser/decode.",
+  "logicalAssetPasses": "materials verifier inherited baselines; independent728hash/ZIP728; raw APK asset comparison; post728hash; explicit old-baseline preservation. Not physical disk I/O, not original QUAL03 or future Android8MiB ledger.",
+  "apksigInternalFileReadBytes": "NOT_INSTRUMENTED_DO_NOT_INVENT_ZERO_OR_EXACT_TOTAL",
+  "actualAndroidMediaMethods": "NOT_RUN",
+  "oldUnknownActions": 0,
+  "sameFrozen728After": true
+}

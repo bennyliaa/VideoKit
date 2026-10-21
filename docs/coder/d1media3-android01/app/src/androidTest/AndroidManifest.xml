@@ -1,0 +1,4 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="D1-MEDIA3-ANDROID01-READY">
+ <application android:allowBackup="false" android:usesCleartextTraffic="false" />
+ <instrumentation android:name="com.videokit.d1media3.android01.test.Media3Instrumentation" android:targetPackage="com.videokit.d1media3.android01" android:targetProcesses="com.videokit.d1media3.android01:media3" android:handleProfiling="false" android:functionalTest="true" />
+</manifest>

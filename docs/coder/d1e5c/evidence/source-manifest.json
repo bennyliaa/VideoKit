@@ -1,0 +1,697 @@
+{
+  "schema": 1,
+  "candidateId": "D1-20261017-E5C",
+  "files": [
+    {
+      "path": "docs/coder/D1_E5C_ARCHITECTURE_AND_THREAT_BOUNDARY_V1.0.md",
+      "bytes": 4468,
+      "sha256": "e0fa93abf20b1b0c138de155d51d7d1acac4144dd584ebebaf1c809544613ddf"
+    },
+    {
+      "path": "docs/coder/D1_E5C_DELIVERY_V1.0.md",
+      "bytes": 3575,
+      "sha256": "854e21d81cc4e8cfce05313077c7cdc73b4a3d889c6905cc409e47536966441c"
+    },
+    {
+      "path": "docs/coder/D1_E5C_DEVICE_EXECUTION_APPENDIX_V1.0.md",
+      "bytes": 3541,
+      "sha256": "2d7b96d6f52cdeeef9175c267094f941ded565e1b69f7cdb8f8db9597bfe97f7"
+    },
+    {
+      "path": "docs/coder/D1_E5C_REMAINING_GATE_REVIEW_V1.0.md",
+      "bytes": 1863,
+      "sha256": "eb56c2737b63ffa4f0915be4532bc09746c766f267b7db524e3afc292190c456"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/c14/AndroidLease.java",
+      "bytes": 1923,
+      "sha256": "9dc92154622c2b859dd1cbbc460ba8d689968f6d3e3a851870a083e988fd1ec1"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/c14/E4CpuAdapter.java",
+      "bytes": 8993,
+      "sha256": "40b1d8cfd0d3fb4bfd0aa7e3ee249847288ef63bd10572881451d784a271a3e8"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/c14/E4DebugFaultBoundary.java",
+      "bytes": 470,
+      "sha256": "3f268560107448778075a8c6fe669fe3f4f03c4fc2780a8c5aa6b196a91e44ef"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E4CodecService.java",
+      "bytes": 22995,
+      "sha256": "9404ce42a7e4f1c0ac0eca1ca63ef408cb5396adf43a60631ad28b2079d20819"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E4CodecSink.java",
+      "bytes": 6028,
+      "sha256": "1bf66b50cc58cff1cb7579f32c8c68028aa01d38e61ec12cfa6c511b695564e1"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E4CodecWire.java",
+      "bytes": 3847,
+      "sha256": "ab16cd9b40559c0f5102e98c1f631825c1520c3afa6b7017eb1c10b2f7bd2bf7"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E4Encoder.java",
+      "bytes": 16091,
+      "sha256": "0bf0f352af0dcf5e7a6bed821813797c314cb596ff8cd3119bc0aa20ca29b17b"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E4EncoderCapabilities.java",
+      "bytes": 3187,
+      "sha256": "f46ae4e5d87345af8d54806b0a406ffd205a6155c4252785103a27784c504cea"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E4EncoderNegotiation.java",
+      "bytes": 7006,
+      "sha256": "45cbd0e7c8108ae7fca0fa5b1b250b6388dd46759750f42c865f13e6c896b730"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E4Session.java",
+      "bytes": 37340,
+      "sha256": "a234f3db1c0ed12965bc93d45cfbd82b16b705873eae0de312de06138c9c07e9"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E5BAndroidGuardIO.java",
+      "bytes": 3008,
+      "sha256": "7ad92008cf0839ebc99f8bd21b53e08466ef4d46e6db53eea7ed434857d196ef"
+    },
+    {
+      "path": "docs/coder/d1e5b/android/com/videokit/spike/e4/E5N2RecoveryAndroid.java",
+      "bytes": 5077,
+      "sha256": "443bcca04442ac5e0c8c97b6b218a799fd161ba91b7568a965c86c8e328bce18"
+    },
+    {
+      "path": "docs/coder/d1e5b/app/src/androidTest/java/com/videokit/spike/e4/E4DeviceTests.java",
+      "bytes": 26195,
+      "sha256": "bbbb8db05488bf930532f87c546f573cd3506b57c30f68ab665cd02e9c9cf2a4"
+    },
+    {
+      "path": "docs/coder/d1e5b/app/src/androidTest/java/com/videokit/spike/e4/E5RecoveryDeviceTests.java",
+      "bytes": 2080,
+      "sha256": "c6554f86417b575ac14ebbc9159bae96f04e5d99fd19ecb883b53609e86495db"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E4Broker.java",
+      "bytes": 21452,
+      "sha256": "a675d656b3d532206a4543dee794cd9ec3328045eff45c5f34abfb3e765ff93e"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E4FencedTask.java",
+      "bytes": 6851,
+      "sha256": "63cd8cc97ece750f8d148cf5a4f83fcb5f1f3fc51f5a2d3118bee844e0692c74"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E4OutputBudget.java",
+      "bytes": 12914,
+      "sha256": "53ee6115668948ebfed38835a68e8dd088c04ca5b7da7c7f1ad60ef98e27366d"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E4Owned.java",
+      "bytes": 2311,
+      "sha256": "aee54f13e6eb548006a0fe355d59c22521a407df632210d104e739ccecd83626"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E4Protocol.java",
+      "bytes": 4866,
+      "sha256": "8df1eeb0ce6d3d331fda20223eabd4fdac04835ff22bc61e21e33ba44b12080b"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E4ReturnGate.java",
+      "bytes": 1056,
+      "sha256": "4db732831b72a6b689a3bf7e0077547c13191bbf6aad0369c62f01b642ac91c5"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5AAdmission.java",
+      "bytes": 1188,
+      "sha256": "40f07cd141e764a99699d96a5d44d98b0863eed6503ef7749a746f18f83175de"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5ADirectoryBarrier.java",
+      "bytes": 1187,
+      "sha256": "6aeb0e14f9529977eb0c1f5bd3af487c9ea5624faa9a3768ab689a7b2809594e"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5AFinalObservation.java",
+      "bytes": 11725,
+      "sha256": "a98375bb2d67c2e54576a3c7f739ce3bc19dd90ab9b7b64c33109f4e8bb89434"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5ALifecycle.java",
+      "bytes": 6053,
+      "sha256": "45194760de0c293f0ebe0946921fd9677de8f3e0dabc4e5b17dc3550af273302"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5AOwner.java",
+      "bytes": 1405,
+      "sha256": "13d91dba720c8263c561714434ddf145cf1e0ad32046998b5704d461a7a2e3c1"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5BFileId.java",
+      "bytes": 1598,
+      "sha256": "17856cc84a231379761cb70daa0a336c2d2b28cbb070a3eb5933f2899c118d6f"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5BGuard.java",
+      "bytes": 4930,
+      "sha256": "d5f9128ea60eb2db59c13250fe2949d7f794beda2b877072e580153f1bb18235"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5CallbackGate.java",
+      "bytes": 1610,
+      "sha256": "4e29cb214e1a956338302c8704560a9a627b2ab6681f3cf26a07eba27eff2b2a"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5N2Recovery.java",
+      "bytes": 15309,
+      "sha256": "142f49099508026490a5571db80954079781f444d9bdfd2d37646d553ec32683"
+    },
+    {
+      "path": "docs/coder/d1e5b/src/com/videokit/spike/e4/E5Trace.java",
+      "bytes": 1395,
+      "sha256": "69fb3b14a0771c578596efb97aeb04fd7a9feaa4c69b9973478cb0331a32fe0e"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/AndroidLease.java.orig",
+      "bytes": 2545,
+      "sha256": "9fa806bc3f2b81d9f48886231436c0867bb73db1ba14e7b18cfad59568827923"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/CpuEnvironment.java",
+      "bytes": 2509,
+      "sha256": "8655fcb770ec9a32d8e7560f5a6028eb20f369e6e737385e660f0bc0a6818dbd"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/CpuIsolatedService.java",
+      "bytes": 16851,
+      "sha256": "246b458b98aeb2bca32141e83f6b11e311684619d49d5296dccc2b9a64e8e2ac"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/CpuProtocol.java",
+      "bytes": 908,
+      "sha256": "d249b4c25d2090713cfbd7d0917338979ebf38a1332104241cc0dd2c1bb6ab08"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/CpuTaskClient.java",
+      "bytes": 50767,
+      "sha256": "ebfa74945b7dca154572778fabd7efb1f4578bdea90cdac57be1fef143b55d48"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/NativeCpu.java",
+      "bytes": 747,
+      "sha256": "22804b955f01a16d9cc2e78bf7b89c84eaf0dcef1afb88039ee246892c471cfb"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/NativeFault.java",
+      "bytes": 299,
+      "sha256": "b47f520300188717bc0d84e9b0adfb7046be8245f5f96d002c92438996a858e5"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/PipelineValidationReceipt.java",
+      "bytes": 2075,
+      "sha256": "840f01623e2947fb9d48aa764b8f0052a4492f71827552d9b31d381143d906cd"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/android/com/videokit/spike/c14/StageLog.java",
+      "bytes": 1567,
+      "sha256": "9b3b306c018c8918357b7db90d39bfcfb3342f47f82e0a56e5fd40a519d10432"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/c14-sbom.cdx.json",
+      "bytes": 2520,
+      "sha256": "aa241e5178e086adebe5f30a1c1acdc54fc51ea466d6b21d02c12876e68dc9e6"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/D1-20261016-C14-source.zip",
+      "bytes": 16240588,
+      "sha256": "69ca847d7c1947ae65eb3ed6e79d8ab50e21ac9463a1a686cdeda6cfef2d683d"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/freeze-summary.json",
+      "bytes": 31876,
+      "sha256": "880b38f3896df2f6bed2657d54c7fb8a954d3d05d8c730faf1b11278726e7155"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/native-libs/arm64-v8a/libavcodec.so",
+      "bytes": 1949608,
+      "sha256": "7b514a39a1c314e99fca52e05c8a909a1902ff93af89ba6f132f0cf765190765"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/native-libs/arm64-v8a/libavformat.so",
+      "bytes": 445504,
+      "sha256": "8fa2c6f5ee62ffa56265b1e128a8e01756db4e9b12631701629104674c11a8ca"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/native-libs/arm64-v8a/libavutil.so",
+      "bytes": 725296,
+      "sha256": "ad6cc7d3a1a0a57c4cc1dd3440c1b93990bfc8526537b82b66ba614114086ad2"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/native-libs/arm64-v8a/libswscale.so",
+      "bytes": 925464,
+      "sha256": "0ca0747d81190bff0b29c287dda09bfff46249167b9745caadd8a5b2e9ee35c6"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/native-libs/arm64-v8a/libvideokit_alloc.so",
+      "bytes": 9768,
+      "sha256": "f085b9cbcdfc758e052f3d4bfe66651278c32ffaa0f99eff6ae173416472252b"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/native-libs/arm64-v8a/libvideokit_cpu.so",
+      "bytes": 18552,
+      "sha256": "ed02feb238b26ea2ac53b6ae2eafca3d3131d74ebfdfd52c39ff3a925648e9a7"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/native-libs/arm64-v8a/libvideokit_d1_lease.so",
+      "bytes": 7232,
+      "sha256": "2ec60d4605df87ea9bdabaf5f40822c32c57fa300201f647b2b88158c7dcf4e9"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/adler32.c.NOTICE.txt",
+      "bytes": 1053,
+      "sha256": "70ddef7969524eaadee88543594406e826a12b053fc4fbe1ecce4ccc82a8da03"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/avsscanf.c.NOTICE.txt",
+      "bytes": 1154,
+      "sha256": "b35f5dc8036915c332dc7e781b40559f2c9e369e4c0094c4b8e5ceb8b6896e06"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/COPYING.GPLv2",
+      "bytes": 18092,
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/COPYING.GPLv3",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/COPYING.LGPLv2.1",
+      "bytes": 26517,
+      "sha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/COPYING.LGPLv3",
+      "bytes": 7651,
+      "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/faandct.c.NOTICE.txt",
+      "bytes": 965,
+      "sha256": "c904cc087bb68dd1f5ef80fb66b803a56dff554e918e011f69e3a9e3cd9a7d14"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/jfdctfst.c.NOTICE.txt",
+      "bytes": 3451,
+      "sha256": "af24d925b579b49b5b3b35ba59088a45fe35d4173241ffc217a2ef780d8a2004"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/jfdctint_template.c.NOTICE.txt",
+      "bytes": 2992,
+      "sha256": "5659ab0ee159b87cc85334d6f5956130d029a9701339cb0472714d676ed0d03c"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/jrevdct.c.NOTICE.txt",
+      "bytes": 3093,
+      "sha256": "0769bcee5748f7db39823d9ef58af280d60281a343a35a92a9d6e0a2f80ddc21"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/LICENSE.md",
+      "bytes": 4346,
+      "sha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/notice-assets/licenses/NOTICE-C14.txt",
+      "bytes": 2870,
+      "sha256": "b8af2a29a147d50ffb305fdd940fe2ad0f32075cb5af7eb466b2eb7c2fdd79b0"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/source-manifest.json",
+      "bytes": 67896,
+      "sha256": "e8d11944ab3db621088de093041a7754408f2961cafe67cfee303dcb24ed2583"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/AsyncReadBridge.java",
+      "bytes": 10912,
+      "sha256": "63e68a710bbc014af5fb0899fd078dc003f8a2afe64675340a9ad142e079ce31"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/BindingRevocation.java",
+      "bytes": 1616,
+      "sha256": "2f242d1fa0d30d9dbf78bec174b007473d0877a583ac419941a74b7cd92f08a5"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/BoundedOutputChannel.java",
+      "bytes": 1059,
+      "sha256": "216069c054dc78839bc1c7c9e9d33ef49911f55ef292fb14d402995b1cb869cc"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/CpuControlRules.java",
+      "bytes": 1422,
+      "sha256": "63958d752962c1b3dfadedd9c9b2df0c37449c3c9f040763566dd30262073e5f"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/CpuDiagnostics.java",
+      "bytes": 2088,
+      "sha256": "898472c2f819ac91a7cbd2df635456ce3e8701f2b3ddf2e8055f817b59738dad"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/CpuFrameRules.java",
+      "bytes": 3290,
+      "sha256": "a23692cd530f2b4fe8579187670e2e84e617ec840b7e67ac89e29e39950f8502"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/CpuLifecycle.java",
+      "bytes": 3365,
+      "sha256": "acfbf0316121ca7458c618362083dc60d240ce5a62c479556c675583290659cd"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/FencedTask.java",
+      "bytes": 9013,
+      "sha256": "b45719f1ff329985d3c0cf106f7e3b2e02e7c7f464057c0bfb5f13f213d4b7c0"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/HostFixtures.java",
+      "bytes": 3696,
+      "sha256": "a1f847e8bf29856e89d49dc8b72a41ceb665c6d776ff1b6ae3c2e98504685afe"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/LeaseRegistry.java",
+      "bytes": 3111,
+      "sha256": "9d16bb8b3950b9d1c5ff09d7193af0da4ed44886442ad70377cac5a9aa3370c5"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/PipelinePacket.java",
+      "bytes": 1426,
+      "sha256": "ad2f98554d3848aeaaa9876dae4b2cd43f29b5d146d3d6ae838d09cc48b3c8a3"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/PipelineRules.java",
+      "bytes": 5606,
+      "sha256": "959cd841e62468bcb53461518b08b4a67045d73d8f17901a1603330b2d26d8c6"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/RegistrationProtocol.java",
+      "bytes": 2823,
+      "sha256": "47349c0de98952bb650dd5f868b265bd2e995bd8ee30505813f7a95751e1a126"
+    },
+    {
+      "path": "docs/coder/d1e5b/upstream-c14/src/com/videokit/spike/c14/WorkerGenerations.java",
+      "bytes": 3849,
+      "sha256": "6df6cd8c585354b4f1c5efffb716094342db951ab95d163eef7db29cd5764a6b"
+    },
+    {
+      "path": "docs/coder/d1e5c/app/build.gradle.kts",
+      "bytes": 2334,
+      "sha256": "3b8ac64222aa7e9612b5e1cedc06cdd95856bbaec8d4e9028dd988b9a439c90b"
+    },
+    {
+      "path": "docs/coder/d1e5c/app/gradle.lockfile",
+      "bytes": 3947,
+      "sha256": "c1ef0cb7a164efb3bfc8abc488df01a4f6213fe578a7e454c912cb7b075a164a"
+    },
+    {
+      "path": "docs/coder/d1e5c/app/src/androidTest/java/com/videokit/spike/e4/E5CFixtureBounds.java",
+      "bytes": 749,
+      "sha256": "6ba5da5c90d51f641713386c07a746cdecf1e89b5f2dc189e7e6715d82d6525b"
+    },
+    {
+      "path": "docs/coder/d1e5c/app/src/androidTest/java/com/videokit/spike/e4/E5CGuardFixtureTests.java",
+      "bytes": 17072,
+      "sha256": "109b57300f7cb064b81c78342e166d9573fba7ca14e880045fec1ee4ba92f40b"
+    },
+    {
+      "path": "docs/coder/d1e5c/app/src/debug/AndroidManifest.xml",
+      "bytes": 434,
+      "sha256": "b27ef2666210ca9b882acaa2fdd23f35d13ee83dd7c0224a98551d332322c19d"
+    },
+    {
+      "path": "docs/coder/d1e5c/app/src/main/AndroidManifest.xml",
+      "bytes": 201,
+      "sha256": "d8c71f25fa5b5d571ecc409a7f22598f103c10bbce14e0c1b7e00bd8af5123a9"
+    },
+    {
+      "path": "docs/coder/d1e5c/build.gradle.kts",
+      "bytes": 64,
+      "sha256": "4297e5b86c4de65b42a58a3a169a0c5bd1f0b4ed32cc6fc2f4db8470ccfa0a54"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/androidTest-badging.txt",
+      "bytes": 649,
+      "sha256": "918ded522ae9485bafb2f64752df146f3819f63ea77a736f9648746d05a26f66"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/androidTest-signing.txt",
+      "bytes": 972,
+      "sha256": "467bbd9b5bc780b23346e32cee8941af77fd25815d392f6e978d74354eea4f68"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/apk-audit.json",
+      "bytes": 6269,
+      "sha256": "1e48dacb64d9a42c054f281a3b573251f87c41f519340ac8bd1bce45b257087c"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/app-debug-badging.txt",
+      "bytes": 695,
+      "sha256": "dd3e3854f09fd9d0cf40e0310146943733a60726050d280b8644f50538d3a3f1"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/app-debug-signing.txt",
+      "bytes": 972,
+      "sha256": "467bbd9b5bc780b23346e32cee8941af77fd25815d392f6e978d74354eea4f68"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/app-manifest-xmltree.txt",
+      "bytes": 2391,
+      "sha256": "97484adf37efd9bac18749c7c85d127037bc99f43b5fc9298c756e4d69440f16"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/build-attempts/main-001/attempt-result.json",
+      "bytes": 742,
+      "sha256": "9f943165171de8c55b72d679d101d6435e812f180eececec9f313aaa93765ec1"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/build-attempts/main-001/gradle.log",
+      "bytes": 7112,
+      "sha256": "f879c97b66a4ac6c9a293d3cb06bfaf65e2e821bafdd5c60c5f30580f5aa8218"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/build-attempts/repair-001/attempt-result.json",
+      "bytes": 864,
+      "sha256": "1077c0679a3221adc549f93dd3a0b87faae5c9dcbf555c1cb9875976947d18cd"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/build-attempts/repair-001/gradle.log",
+      "bytes": 6600,
+      "sha256": "470a97c23c09383d40a651a55b52943daa2bcdee741453c8aac95604bdddb2ae"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/build-main-reservation.json",
+      "bytes": 107,
+      "sha256": "7025b95a6f87d549042f67ace917ce9ad1dc34205e9c1397f787bb98e64ea185"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/build-results-before-repair-001.json",
+      "bytes": 1039,
+      "sha256": "376a18f9a1f90030d7eb69d38cfafa9cb32f342e698a9afde511e0a8cb3ca21f"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/build-results.json",
+      "bytes": 2009,
+      "sha256": "fe73b13efb785d63270eee7867969ab660155b4dffbbb897f440beb9b7830120"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/delivery-consistency.json",
+      "bytes": 662,
+      "sha256": "18acd50337467bc5f85496c7513b70a745f959c34d43cf9f13d66d09fa66747b"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/external-readonly-verification.json",
+      "bytes": 350,
+      "sha256": "09fe88e3948aebf72bc355de0dd97f6be3d6fc907973200e2838aa86a3b99aeb"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/final-build-inputs.json",
+      "bytes": 18365,
+      "sha256": "6af5f97db1f2e74ac35627fc3a46bc6b2b74037f495b422d3af522987827bd36"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/local-0.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/local-1.log",
+      "bytes": 62,
+      "sha256": "ff998eea37156da49a699742146b89ecd9134bc4a2c21c57bc8d4477345d5a7e"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/local-check-results.json",
+      "bytes": 2759,
+      "sha256": "24da3768af53dc7879d5d6f5b3465c1687236c698a013f11956868cde083297f"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/pre-debug-manifest-repair/androidTest-badging.txt",
+      "bytes": 649,
+      "sha256": "918ded522ae9485bafb2f64752df146f3819f63ea77a736f9648746d05a26f66"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/pre-debug-manifest-repair/androidTest-signing.txt",
+      "bytes": 972,
+      "sha256": "467bbd9b5bc780b23346e32cee8941af77fd25815d392f6e978d74354eea4f68"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/pre-debug-manifest-repair/app-debug-badging.txt",
+      "bytes": 679,
+      "sha256": "10bb33e5e4dbb0de870a1ead02ea59a1ff749a782ee912c2c5d0d77ff0eb05a9"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/pre-debug-manifest-repair/app-debug-signing.txt",
+      "bytes": 972,
+      "sha256": "467bbd9b5bc780b23346e32cee8941af77fd25815d392f6e978d74354eea4f68"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/pre-debug-manifest-repair/app-manifest-xmltree.txt",
+      "bytes": 1501,
+      "sha256": "14d26593cbf1464f2bc5e8849fc546d1e15b41ce9a53ff9daaab859e013f53fe"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/pre-debug-manifest-repair/audit-failure.json",
+      "bytes": 428,
+      "sha256": "dff10bd9350c92714da75eb58936c32c2e1471731440dcd32f7130d2bd3635ca"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/pre-debug-manifest-repair/final-build-inputs.json",
+      "bytes": 18181,
+      "sha256": "7a4be484c2a116b54ed381ddc4f8102668ad0b3b267c002a086057fcacf681cb"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/sbom-difference.json",
+      "bytes": 493,
+      "sha256": "e4db3596da0c52e377b91e88287479667162b1fecd71ea5bb76133c8c2a2e59a"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/sbom.json",
+      "bytes": 46473,
+      "sha256": "0d1bf1298467cbe5fa7cbdc4dab2956687f496e0bb546316ca6073a032f190f7"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/source-provenance-before-debug-manifest.json",
+      "bytes": 16393,
+      "sha256": "13ae7d749f36263de40580f3fba589a285f5343132e773e808a8fdbee1cf5a7b"
+    },
+    {
+      "path": "docs/coder/d1e5c/evidence/source-provenance.json",
+      "bytes": 17353,
+      "sha256": "dc08826a64845132e9d49ddb920a9730503ffb0f87ed7678918a06e942b26664"
+    },
+    {
+      "path": "docs/coder/d1e5c/gradle/libs.versions.toml",
+      "bytes": 2199,
+      "sha256": "3cbaf8686f13f72fb37dba6e7cd4a8a79c5e0bdab7c36245bb22dbfac13564b8"
+    },
+    {
+      "path": "docs/coder/d1e5c/gradle/wrapper/gradle-wrapper.jar",
+      "bytes": 45457,
+      "sha256": "76805e32c009c0cf0dd5d206bddc9fb22ea42e84db904b764f3047de095493f3"
+    },
+    {
+      "path": "docs/coder/d1e5c/gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 378,
+      "sha256": "6e08173adac183e04444f7625ef7591285a740b125bbef7b7c35f05172b47b68"
+    },
+    {
+      "path": "docs/coder/d1e5c/gradle.properties",
+      "bytes": 113,
+      "sha256": "cdc45d1fab2bd2950acc381d555792d6abc68af511ec2fac20fd416c6c04b868"
+    },
+    {
+      "path": "docs/coder/d1e5c/gradlew",
+      "bytes": 8728,
+      "sha256": "3238afb2aed5cb16eb7d6718077e7138059108f007b54179e9cc157c5a6e0e89"
+    },
+    {
+      "path": "docs/coder/d1e5c/gradlew.bat",
+      "bytes": 2937,
+      "sha256": "1d297e00bd21de3ace22b4d7f2de1f9dfa858883d66bbf7c1ccbecccec8f4f3b"
+    },
+    {
+      "path": "docs/coder/d1e5c/reference/E5B-freeze.json",
+      "bytes": 376268,
+      "sha256": "3c55e0c83517e8937799b72d327dcab98b9d23965dc41813a5d18756640aceee"
+    },
+    {
+      "path": "docs/coder/d1e5c/reference/E5B-review.md",
+      "bytes": 12738,
+      "sha256": "82256c9b94bcb2b5c1a02bfc8c9674fab44a5b7c486c6437827b42c3168360f5"
+    },
+    {
+      "path": "docs/coder/d1e5c/reference/E5B-sbom-difference.json",
+      "bytes": 722,
+      "sha256": "4eb6e7cf6a48af0de136075165ff4723035cb1a54eccb52eacf279267fd720a4"
+    },
+    {
+      "path": "docs/coder/d1e5c/reference/E5B-sbom.json",
+      "bytes": 46471,
+      "sha256": "03f59475a1932b29b412f0c286762400259b0c3b94a1a0974089c6d2d6fdffb6"
+    },
+    {
+      "path": "docs/coder/d1e5c/reference/E5B-source-manifest.json",
+      "bytes": 373412,
+      "sha256": "d1620a511951d0d5640cfe5844501ac0492030507cd153991f40fdb849319211"
+    },
+    {
+      "path": "docs/coder/d1e5c/reference/E5B-upstream-copy-map.json",
+      "bytes": 23107,
+      "sha256": "22baf482514b45216b01b1b9ab2139725cbb5e3ce0299d5673b924df25a01371"
+    },
+    {
+      "path": "docs/coder/d1e5c/reference/E5C-requirements.md",
+      "bytes": 3498,
+      "sha256": "ddfc7465749c6d037fff12795e3cfe57a36091fa21a6c5d9416c9c42727a987f"
+    },
+    {
+      "path": "docs/coder/d1e5c/settings-gradle.lockfile",
+      "bytes": 198,
+      "sha256": "e58bb2ed80db9f829601a658d7c33b9802eb7d2191c31e79c28e01f14c225926"
+    },
+    {
+      "path": "docs/coder/d1e5c/settings.gradle.kts",
+      "bytes": 287,
+      "sha256": "9eedb256a9e9d2e4e0494afed3646ac62bef37ffa4bca6fd5eb93f072f373788"
+    },
+    {
+      "path": "docs/coder/d1e5c/tools/audit_apks.py",
+      "bytes": 6632,
+      "sha256": "5d1c02dd50f437d34c0ff1424c3ae616eb357866e25398265e4ba4eedc626095"
+    },
+    {
+      "path": "docs/coder/d1e5c/tools/build_local.ps1",
+      "bytes": 6489,
+      "sha256": "770dc1aedfb32a9496b6a9358e6fd1003520d0cf239a6a41dbc0582150f204d3"
+    },
+    {
+      "path": "docs/coder/d1e5c/tools/device_plan.json",
+      "bytes": 6328,
+      "sha256": "90465bf5e5ce659191712391fe2452f47ff136758290f30ad011387185d7c154"
+    },
+    {
+      "path": "docs/coder/d1e5c/tools/e5c_package.py",
+      "bytes": 10698,
+      "sha256": "3dfb17413812b36c3f5223d679f0f46639e484215a67a0fc17e976d434cfce24"
+    },
+    {
+      "path": "docs/coder/d1e5c/tools/FixtureBoundsSelfCheck.java",
+      "bytes": 1196,
+      "sha256": "8f42eb064abd6b3afc26426fd07aecbbf7c8a44c8f88ef8f0760584738ca0109"
+    },
+    {
+      "path": "docs/coder/d1e5c/tools/write_delivery.py",
+      "bytes": 18154,
+      "sha256": "d5c17cc8c53ae7d2571fd08df6d32ba0f703c6090b05c8089207d65c28a3695c"
+    }
+  ],
+  "scope": "Complete small overlay and exact necessary E5B production/Android sources/native/license container at original relative paths; no old self-check trees, cache, signing key, local.properties, media"
+}

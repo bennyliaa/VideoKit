@@ -1,0 +1,56 @@
+[
+  {
+    "area": "fixture",
+    "implementation": "exact source asset and report/hash bound",
+    "evidence": "instrumentation-assets/qualified-fixture.json",
+    "status": "PREPARED_NOT_ANDROID_RUN"
+  },
+  {
+    "area": "Media3 extraction",
+    "implementation": "actual pinned Mp4Extractor,short/unknown/seek,shared job input budget",
+    "evidence": "source + execution-plan",
+    "status": "IMPLEMENTED_UNCOMPILED_ANDROID"
+  },
+  {
+    "area": "mux/reopen",
+    "implementation": "capture6 binding/E6 EOS/temp sink/native ownership/fMP4 extractor",
+    "evidence": "source + comparison contract",
+    "status": "IMPLEMENTED_UNCOMPILED_ANDROID"
+  },
+  {
+    "area": "admission/cancellation/writer return",
+    "implementation": "controlled nonmedia real futures/threads/owners",
+    "evidence": "nonmedia-001/metadata.stdout",
+    "status": "PASS_LIMITED_NONMEDIA"
+  },
+  {
+    "area": "MC-B01",
+    "implementation": "inherited exact8 nonmedia regression",
+    "evidence": "nonmedia-001/metadata.stdout",
+    "status": "PASS_LIMITED_NONMEDIA"
+  },
+  {
+    "area": "strict app/test build",
+    "implementation": "one exact offline invocation, client exit1 before connection",
+    "evidence": "build-main-001",
+    "status": "BLOCKED_DAEMON_CONNECT"
+  },
+  {
+    "area": "APK/signature/DEX/JAR consumption",
+    "implementation": "no new artifact produced",
+    "evidence": "artifact-status.json",
+    "status": "NOT_BUILT_NOT_AUDITED"
+  },
+  {
+    "area": "real Android functional cases",
+    "implementation": "ten finite method entries ready as source, no execution permission",
+    "evidence": "execution-plan.json",
+    "status": "NOT_RUN"
+  },
+  {
+    "area": "P0/J11/isolated format/READY/COMMIT/playback",
+    "implementation": "no claim or implementation expansion",
+    "evidence": "baseline + source restrictions",
+    "status": "OPEN"
+  }
+]

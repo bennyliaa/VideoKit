@@ -1,0 +1,27 @@
+{
+  "atUtc": "2026-10-20T07:15:56.8593682Z",
+  "hostReadOnlyConfirmationCount": 1,
+  "listeners": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 5037,
+      "OwningProcess": 6804
+    }
+  ],
+  "owners": [
+    {
+      "pid": 6804,
+      "parentPid": 7560,
+      "creationUtc": "2026-10-20T06:36:37.7827030Z",
+      "executable": "D:\\Android\\SDK\\platform-tools\\adb.exe",
+      "commandLine": "adb -L tcp:5037 fork-server server --reply-fd 708",
+      "fileBytes": 8273560,
+      "fileLastWriteUtc": "2026-09-15T20:07:58.9155086Z",
+      "fileOlderThanServer": true,
+      "fileSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+      "fileVersion": null
+    }
+  ],
+  "serverLifecycleActions": 0,
+  "oldHostTerminationRepeated": false
+}
