@@ -1,0 +1,1567 @@
+{
+  "schema": "FACTS_V2_PHASE_A_ORACLE_PROPOSAL_V1",
+  "status": "PLANNED_NOT_RUN",
+  "candidateCodeReadOrTested": false,
+  "qualificationSchema": "GLOBAL_IDLE_QUALIFICATION_V2",
+  "proposedClosedFields": [
+    "schema",
+    "mode",
+    "fixtureOnly",
+    "targetScope",
+    "targetRunId",
+    "targetSourceSealSha256",
+    "targetPlanSha256",
+    "factScope",
+    "factPlanId",
+    "factRunId",
+    "factNonce",
+    "factPreauthSha256",
+    "factRuntimeBindingSha256",
+    "factCaptureReceiptSha256",
+    "factOuterReturnSha256",
+    "collectorSourceSha256",
+    "binderSourceSha256",
+    "gateSourcesSha256",
+    "factPlanSha256",
+    "rawSha256",
+    "rawBytes",
+    "routeProofSha256",
+    "initialProofSha256",
+    "sdkSha256",
+    "collectedAtUtc",
+    "expiresAtUtc",
+    "originalReturn",
+    "grammar",
+    "serial",
+    "model",
+    "api",
+    "fingerprint",
+    "user",
+    "home",
+    "services",
+    "systemPackages",
+    "reviewEvidenceSha256"
+  ],
+  "finalFieldAuthority": "Developer must freeze one Schema/field table with source-gate-plan pins before independent B; these names are independent recommendations, not implemented API claims",
+  "maps": [
+    {
+      "field": "factPreauthSha256",
+      "evidence": "capture.externalPreauthSha256 = binding.preauthSha256 = hash(original approved template bytes)",
+      "rule": "External digest is trusted launch input; no human identity proof"
+    },
+    {
+      "field": "factRuntimeBindingSha256",
+      "evidence": "capture.runtimeBindingSha256 = hash(original binding bytes)",
+      "rule": "Do not regenerate binding from changed fields"
+    },
+    {
+      "field": "factScope/factPlanId/factRunId/factNonce",
+      "evidence": "capture.scope + original binding.scope/planId/runId/nonce + preauth template",
+      "rule": "Capture does not itself carry every plan/run/nonce field"
+    },
+    {
+      "field": "routeProofSha256/initialProofSha256",
+      "evidence": "capture + original binding + same Gate receipt/proof hashes",
+      "rule": "No file stand-in may assert original object return"
+    },
+    {
+      "field": "collector/binder/gate/source pins",
+      "evidence": "source20 seal + immutable receipts + exact frozen future target pins",
+      "rule": "Future candidate target pins PLANNED; do not read floating source"
+    },
+    {
+      "field": "rawSha256/rawBytes/items",
+      "evidence": "original raw stdout + capture/fixed seven-query plan",
+      "rule": "Reparse bytes; reject raw/status/time/order mismatch"
+    },
+    {
+      "field": "factOuterReturnSha256/originalReturn",
+      "evidence": "hash exact outer Observer receipt; original H identity/creation/image/argv/nonce + wait/readers/streams/close",
+      "rule": "Body flags, controllerReturned, empty custody or exit file alone insufficient"
+    },
+    {
+      "field": "home/services/systemPackages",
+      "evidence": "facts model/api/firmware/user + exact HOME role/resolve/UID + external narrow review evidence",
+      "rule": "systemFlag or OEM/issuer string alone cannot approve a service"
+    },
+    {
+      "field": "targetScope/targetRunId/targetSourceSealSha256/targetPlanSha256",
+      "evidence": "trusted target context; exact reviewed source/plan",
+      "rule": "factScope != targetScope; no automatic install/media authority"
+    },
+    {
+      "field": "collectedAtUtc/expiresAtUtc",
+      "evidence": "original host collection instant; never review/export time",
+      "rule": "0 <= now-collected < expiry-collected <= 300; now < expiry"
+    },
+    {
+      "field": "reviewEvidenceSha256",
+      "evidence": "explicit external approved raw review bytes + facts/outer/target/HOME/service digests",
+      "rule": "Candidate export is always approved=false/REQUIRES_REVIEW"
+    }
+  ],
+  "originalReturnClosedFields": [
+    "waitReturned",
+    "stdoutEOF",
+    "stderrEOF",
+    "originalPipesClosed",
+    "originalHandleClosed",
+    "controllerReturned",
+    "unknown",
+    "exitCode"
+  ],
+  "serviceClosedFields": [
+    "packages",
+    "process",
+    "user",
+    "uid",
+    "kind",
+    "state",
+    "category",
+    "firmware",
+    "evidenceSha256",
+    "factScope",
+    "validFromUtc",
+    "validToUtc",
+    "range"
+  ],
+  "rules": [
+    "strict type, no bool/float as integer, no duplicate/case duplicate/extra keys",
+    "Default export is not issuance; no real approval generated here",
+    "Review must bind original evidence and exact target, not a caller issuer label",
+    "V1 retains authority/approval; V2 must not synthesize them",
+    "Unknown and global rejection preserve once/budgets; no rearm",
+    "Original proof10/gate30 and facts90/15/SDK1 remain unchanged"
+  ],
+  "cases": [
+    {
+      "id": "Q-schema-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "schema",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-schema-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "schema",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-schema-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "schema",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-mode-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "mode",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-mode-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "mode",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-mode-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "mode",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-fixtureOnly-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "fixtureOnly",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-fixtureOnly-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "fixtureOnly",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-fixtureOnly-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "fixtureOnly",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetScope-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetScope",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetScope-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetScope",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetScope-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetScope",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetRunId-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetRunId",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetRunId-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetRunId",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetRunId-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetRunId",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetSourceSealSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetSourceSealSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetSourceSealSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetSourceSealSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetSourceSealSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetSourceSealSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetPlanSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetPlanSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetPlanSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetPlanSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-targetPlanSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "targetPlanSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factScope-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factScope",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factScope-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factScope",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factScope-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factScope",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPlanId-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPlanId",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPlanId-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPlanId",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPlanId-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPlanId",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factRunId-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factRunId",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factRunId-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factRunId",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factRunId-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factRunId",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factNonce-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factNonce",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factNonce-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factNonce",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factNonce-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factNonce",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPreauthSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPreauthSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPreauthSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPreauthSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPreauthSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPreauthSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factRuntimeBindingSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factRuntimeBindingSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factRuntimeBindingSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factRuntimeBindingSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factRuntimeBindingSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factRuntimeBindingSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factCaptureReceiptSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factCaptureReceiptSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factCaptureReceiptSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factCaptureReceiptSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factCaptureReceiptSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factCaptureReceiptSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factOuterReturnSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factOuterReturnSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factOuterReturnSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factOuterReturnSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factOuterReturnSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factOuterReturnSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-collectorSourceSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "collectorSourceSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-collectorSourceSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "collectorSourceSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-collectorSourceSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "collectorSourceSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-binderSourceSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "binderSourceSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-binderSourceSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "binderSourceSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-binderSourceSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "binderSourceSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-gateSourcesSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "gateSourcesSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-gateSourcesSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "gateSourcesSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-gateSourcesSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "gateSourcesSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPlanSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPlanSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPlanSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPlanSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-factPlanSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "factPlanSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-rawSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "rawSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-rawSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "rawSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-rawSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "rawSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-rawBytes-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "rawBytes",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-rawBytes-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "rawBytes",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-rawBytes-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "rawBytes",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-routeProofSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "routeProofSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-routeProofSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "routeProofSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-routeProofSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "routeProofSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-initialProofSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "initialProofSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-initialProofSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "initialProofSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-initialProofSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "initialProofSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-sdkSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "sdkSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-sdkSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "sdkSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-sdkSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "sdkSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-collectedAtUtc-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "collectedAtUtc",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-collectedAtUtc-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "collectedAtUtc",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-collectedAtUtc-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "collectedAtUtc",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-expiresAtUtc-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "expiresAtUtc",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-expiresAtUtc-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "expiresAtUtc",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-expiresAtUtc-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "expiresAtUtc",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-originalReturn-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "originalReturn",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-originalReturn-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "originalReturn",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-originalReturn-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "originalReturn",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-grammar-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "grammar",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-grammar-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "grammar",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-grammar-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "grammar",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-serial-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "serial",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-serial-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "serial",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-serial-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "serial",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-model-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "model",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-model-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "model",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-model-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "model",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-api-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "api",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-api-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "api",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-api-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "api",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-fingerprint-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "fingerprint",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-fingerprint-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "fingerprint",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-fingerprint-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "fingerprint",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-user-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "user",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-user-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "user",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-user-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "user",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-home-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "home",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-home-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "home",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-home-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "home",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-services-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "services",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-services-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "services",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-services-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "services",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-systemPackages-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "systemPackages",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-systemPackages-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "systemPackages",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-systemPackages-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "systemPackages",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-reviewEvidenceSha256-delete",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "reviewEvidenceSha256",
+        "operation": "delete"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-reviewEvidenceSha256-null",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "reviewEvidenceSha256",
+        "operation": "null"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "Q-reviewEvidenceSha256-wrong-type",
+      "layer": "QUALIFICATION_CLOSED_FIELDS",
+      "mutation": {
+        "field": "reviewEvidenceSha256",
+        "operation": "wrong-type"
+      },
+      "expected": "REJECT_AT_SCHEMA_OR_TYPE_BEFORE_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "export-default",
+      "layer": "CANDIDATE_EXPORT",
+      "expected": "REQUIRES_REVIEW_APPROVED_FALSE_NO_QUALIFICATION",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "no-external-review",
+      "layer": "EXTERNAL_REVIEW",
+      "expected": "REJECT_UNAPPROVED",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "review-self-hash",
+      "layer": "EXTERNAL_REVIEW",
+      "expected": "REJECT_WITHOUT_TRUSTED_LAUNCH_INPUT",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "review-raw-tamper",
+      "layer": "EXTERNAL_REVIEW",
+      "expected": "REJECT_HASH",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "review-semantics-wrong-target",
+      "layer": "SYNTHETIC_REVIEW_SEMANTICS",
+      "expected": "REJECT_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "raw-one-byte",
+      "layer": "EVIDENCE",
+      "expected": "REJECT_RAW_SHA",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "raw-size",
+      "layer": "EVIDENCE",
+      "expected": "REJECT_RAW_BYTES",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "seven-query-order",
+      "layer": "EVIDENCE",
+      "expected": "REJECT_FIXED_PLAN",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "receipt-body-only",
+      "layer": "ORIGINAL_RETURN",
+      "expected": "REJECT_WITHOUT_OUTER_ORIGINAL",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "self-controllerReturned",
+      "layer": "ORIGINAL_RETURN",
+      "expected": "REJECT_UNBACKED_FLAG",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "empty-custody",
+      "layer": "ORIGINAL_RETURN",
+      "expected": "REJECT_UNBACKED_FLAG",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "unknown",
+      "layer": "ORIGINAL_RETURN",
+      "expected": "REJECT_NO_REARM",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "wrong-outer-original",
+      "layer": "ORIGINAL_RETURN",
+      "expected": "REJECT_CREATION_IMAGE_ARGV_BINDING",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "cross-scope",
+      "layer": "BINDING",
+      "expected": "REJECT_FACT_SCOPE",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "cross-nonce",
+      "layer": "BINDING",
+      "expected": "REJECT_NONCE",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "cross-generation",
+      "layer": "BINDING",
+      "expected": "REJECT_ORIGINAL_GATE",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "wrong-preauth",
+      "layer": "BINDING",
+      "expected": "REJECT_PREAUTH",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "wrong-route-proof",
+      "layer": "BINDING",
+      "expected": "REJECT_ROUTE_PROOF",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "wrong-source",
+      "layer": "SOURCE",
+      "expected": "REJECT_FROZEN_PIN",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "wrong-target-plan",
+      "layer": "TARGET",
+      "expected": "REJECT_EXACT_PLAN",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "fact-equals-target",
+      "layer": "TARGET",
+      "expected": "REJECT_SCOPE_SEPARATION",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "home-ambiguous",
+      "layer": "NARROW_REVIEW",
+      "expected": "REJECT_HOME",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "home-uid-mismatch",
+      "layer": "NARROW_REVIEW",
+      "expected": "REJECT_HOME_SYSTEM_UID",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "service-systemFlag-only",
+      "layer": "NARROW_REVIEW",
+      "expected": "REJECT_SERVICE_UNPROVEN",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "service-oem-or-issuer-only",
+      "layer": "NARROW_REVIEW",
+      "expected": "REJECT_SERVICE_UNPROVEN",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "service-wrong-process",
+      "layer": "NARROW_REVIEW",
+      "expected": "REJECT_EXACT_SNAPSHOT",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "service-wrong-state",
+      "layer": "NARROW_REVIEW",
+      "expected": "REJECT_EXACT_SNAPSHOT",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "service-timestamp-extended",
+      "layer": "NARROW_REVIEW",
+      "expected": "REJECT_WINDOW",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "service-wildcard",
+      "layer": "NARROW_REVIEW",
+      "expected": "REJECT_WILDCARD",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "instrumentation-plus-valid-policy",
+      "layer": "PRIORITY",
+      "expected": "BLOCKED_INSTRUMENTATION_FIRST",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "competing-TOP-plus-valid-policy",
+      "layer": "PRIORITY",
+      "expected": "BLOCKED_OCCUPIED_FIRST",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "unknown-record",
+      "layer": "GRAMMAR",
+      "expected": "REJECT_UNPARSED_RECORD",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "decimal-state",
+      "layer": "GRAMMAR",
+      "expected": "REJECT_STRICT_INTEGER",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "APP-PERS-own-missing",
+      "layer": "GRAMMAR",
+      "expected": "REJECT_FIELD_COVERAGE",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "V1-into-V2",
+      "layer": "VERSION",
+      "expected": "REJECT_SCHEMA",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "V2-into-V1",
+      "layer": "VERSION",
+      "expected": "REJECT_SCHEMA",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "legacy-fields-in-V2",
+      "layer": "VERSION",
+      "expected": "REJECT_EXTRA_FIELD",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "missing-V2-auth-kind",
+      "layer": "VERSION",
+      "expected": "REJECT_AUTHORIZATION_KIND",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "positive-e2e",
+      "layer": "SYNTHETIC_OFFLINE",
+      "expected": "ALLOW_ONLY_WITH_FULL_EVIDENCE_EXTERNAL_FIXTURE_REVIEW_AND_EXACT_TARGET",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time--1-300",
+      "layer": "FRESHNESS",
+      "ageSeconds": -1,
+      "windowSeconds": 300,
+      "expected": "REJECT_FUTURE",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-0-300",
+      "layer": "FRESHNESS",
+      "ageSeconds": 0,
+      "windowSeconds": 300,
+      "expected": "ACCEPT_OTHER_GATES_REQUIRED",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-299.999-300",
+      "layer": "FRESHNESS",
+      "ageSeconds": 299.999,
+      "windowSeconds": 300,
+      "expected": "ACCEPT_OTHER_GATES_REQUIRED",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-300-300",
+      "layer": "FRESHNESS",
+      "ageSeconds": 300,
+      "windowSeconds": 300,
+      "expected": "REJECT_EXPIRED",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-300.001-300",
+      "layer": "FRESHNESS",
+      "ageSeconds": 300.001,
+      "windowSeconds": 300,
+      "expected": "REJECT_EXPIRED",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-1-301",
+      "layer": "FRESHNESS",
+      "ageSeconds": 1,
+      "windowSeconds": 301,
+      "expected": "REJECT_WINDOW_OVER_300",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-0-0",
+      "layer": "FRESHNESS",
+      "ageSeconds": 0,
+      "windowSeconds": 0,
+      "expected": "REJECT_NONPOSITIVE_WINDOW",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-1--1",
+      "layer": "FRESHNESS",
+      "ageSeconds": 1,
+      "windowSeconds": -1,
+      "expected": "REJECT_REVERSED_WINDOW",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-1.0-300",
+      "layer": "FRESHNESS",
+      "ageSeconds": "1.0",
+      "windowSeconds": 300,
+      "expected": "REJECT_CLOCK_TYPE",
+      "status": "PLANNED_NOT_RUN"
+    },
+    {
+      "id": "time-true-300",
+      "layer": "FRESHNESS",
+      "ageSeconds": true,
+      "windowSeconds": 300,
+      "expected": "REJECT_CLOCK_TYPE",
+      "status": "PLANNED_NOT_RUN"
+    }
+  ],
+  "legacyRegression": {
+    "original45": "PLANNED_NOT_RUN_ON_V2",
+    "independent17": "PLANNED_NOT_RUN_ON_V2",
+    "source20AcceptedEvidence": "ENV02 only; does not pass new V2 implementation"
+  }
+}

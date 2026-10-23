@@ -1,0 +1,514 @@
+{
+  "original31": 31,
+  "oldKeyRoundtrips": [
+    {
+      "originalKey": "tools\\admission_checks.ps1",
+      "canonicalKey": "candidate/tools/admission_checks.ps1",
+      "sha256": "0caae62fe362bb6c10546a5d52539a8e80b1484461fe3726ea68102709b57fc0",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\capture_android02.ps1",
+      "canonicalKey": "candidate/tools/capture_android02.ps1",
+      "sha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\entry_gates.py",
+      "canonicalKey": "candidate/tools/entry_gates.py",
+      "sha256": "0ced5e0901db4ce3311a42e7e5aa88bc0ef81dfe7b94272985da22191eca29e1",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\facts_entry.py",
+      "canonicalKey": "candidate/tools/facts_entry.py",
+      "sha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\fact_collector.py",
+      "canonicalKey": "candidate/tools/fact_collector.py",
+      "sha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\fact_preauth.py",
+      "canonicalKey": "candidate/tools/fact_preauth.py",
+      "sha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\outer_owner.py",
+      "canonicalKey": "candidate/tools/outer_owner.py",
+      "sha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\production_runner.py",
+      "canonicalKey": "candidate/tools/production_runner.py",
+      "sha256": "4daa59f9bc46a67185c7bb0b6be08531ee1364c5b51c96f892b2bb1795620780",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\runtime_binding.py",
+      "canonicalKey": "candidate/tools/runtime_binding.py",
+      "sha256": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "tools\\win32_route.py",
+      "canonicalKey": "candidate/tools/win32_route.py",
+      "sha256": "42dac295bd5ed85f6a94e4775b907860c17e6802ecce6540e83683cf9e6a6bed",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\capture_fixture.py",
+      "canonicalKey": "candidate/selfchecks/capture_fixture.py",
+      "sha256": "e3cca23ab4f1584da7bc411282751f75d14d225e0dfdedeb739f92eda5cf5311",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\contract03_cases.py",
+      "canonicalKey": "candidate/selfchecks/contract03_cases.py",
+      "sha256": "f341c344ee7ba52b2a913f92fd689fdca8d5eb9fd8d916fa1c29bf4e0eb08563",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\contract_cases.py",
+      "canonicalKey": "candidate/selfchecks/contract_cases.py",
+      "sha256": "2bb9ca7c4c439d556b649b596aa89d76462c0a6d61040450b56a4db6428a4214",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\fact_fixture.py",
+      "canonicalKey": "candidate/selfchecks/fact_fixture.py",
+      "sha256": "7317770d5d49c213771c7f9beb937d4b0db6e2a147c712849d61917ec20dafc6",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\fixture_inputs.py",
+      "canonicalKey": "candidate/selfchecks/fixture_inputs.py",
+      "sha256": "cdff47dadfea852fc874edc5fc3bd35e86b20e24df2baadf82c016d7841a6c94",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\independent_cases_original.py",
+      "canonicalKey": "candidate/selfchecks/independent_cases_original.py",
+      "sha256": "c58acecded04ebca9de22abfbe6bb62318a158553df21f54ac7a3365ca68123c",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\prestart_lifetimes.ps1",
+      "canonicalKey": "candidate/selfchecks/prestart_lifetimes.ps1",
+      "sha256": "4febdd993638a435a9862d6b90537676ca7b17446089e34a325e9267479931b7",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\review_semantics.ps1",
+      "canonicalKey": "candidate/selfchecks/review_semantics.ps1",
+      "sha256": "f0e035b6e645f61dadf0416be16398ea36da5f8cec17f1acf9e518ff5edf00f8",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\route_fixture.py",
+      "canonicalKey": "candidate/selfchecks/route_fixture.py",
+      "sha256": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfchecks\\route_model.py",
+      "canonicalKey": "candidate/selfchecks/route_model.py",
+      "sha256": "85d777b24d7b746ccb3ed9f46ad2997141e0ebffaae6e7d24cf8954216f1a04d",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "driver\\owned_capture.py",
+      "canonicalKey": "candidate/driver/owned_capture.py",
+      "sha256": "3740e00b758b66d471df4c56ea2cfa3481e1f663b7e95e9d8d902b9e546a091e",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "driver\\reuse\\capture_policy.py",
+      "canonicalKey": "candidate/driver/reuse/capture_policy.py",
+      "sha256": "596456c4b603b54235f16b798a8a1867e5ccf29c8defb801024d8c089514d0c8",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "driver\\reuse\\evidence_io.py",
+      "canonicalKey": "candidate/driver/reuse/evidence_io.py",
+      "sha256": "ffeac99ea5b071a6fb3700277556907ee55969ae479831bf70f5381d512c4bf0",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "driver\\reuse\\native_identity.py",
+      "canonicalKey": "candidate/driver/reuse/native_identity.py",
+      "sha256": "094539b62d0c8e6876921c678914c98e6d20d453771091c8819c44eecb64b2a0",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "driver\\reuse\\owned_child.ps1",
+      "canonicalKey": "candidate/driver/reuse/owned_child.ps1",
+      "sha256": "ad4385f95e54ae966c634988fe9e78823273cdbee0f2798485a9a9bb2d0bd5e6",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "driver\\reuse\\owned_child.py",
+      "canonicalKey": "candidate/driver/reuse/owned_child.py",
+      "sha256": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "build_candidate.py",
+      "canonicalKey": "candidate/build_candidate.py",
+      "sha256": "1a1aa0716eae1521e504eaf473c7e9fbe52ac37994ee07df3cb487e2d626fbc3",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "driver_guard.py",
+      "canonicalKey": "candidate/driver_guard.py",
+      "sha256": "2e6366ddfc46943be9422bd333fc33089d87c5c8265fd0540c3a06408ec23eae",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "prepare_driver.py",
+      "canonicalKey": "candidate/prepare_driver.py",
+      "sha256": "f90abeded483adccf77598e42170247157ca9521b309489f0ed1f84b9b59e33b",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "prepare_schema.py",
+      "canonicalKey": "candidate/prepare_schema.py",
+      "sha256": "5e1424c3f14457f179edc0e45b35ab93ccab00c446e08ad7cad16d67e6679507",
+      "roundtrip": true
+    },
+    {
+      "originalKey": "selfcheck.py",
+      "canonicalKey": "candidate/selfcheck.py",
+      "sha256": "6bbe05b8e20efb7b5c989d1cccbbde062fc365105cbb2ce9a8088d632262947a",
+      "roundtrip": true
+    }
+  ],
+  "allPins": 41,
+  "pinRowsBad": 0,
+  "allPlannedCalls": 12,
+  "uniqueCallTuples": 10,
+  "positiveTuples": [
+    {
+      "label": "qualification-python-ok",
+      "sourceKey": "driver/driver/reuse/owned_child.py",
+      "tupleId": "98c014786dc29b6ff180307655b33675bb48eeb42913a248db79dce445ed894f",
+      "accepted": true
+    },
+    {
+      "label": "qualification-python-fail",
+      "sourceKey": "driver/driver/reuse/owned_child.py",
+      "tupleId": "616cfb12d41a639f653e58ea3531c0238dace8cf5d21ef707869060f1cfa0fd6",
+      "accepted": true
+    },
+    {
+      "label": "qualification-PS0",
+      "sourceKey": "driver/driver/reuse/owned_child.ps1",
+      "tupleId": "441c0e7b1e3276e0e34959771a534078a9d63a44bb45de67d51b1f2a4d2f7ce0",
+      "accepted": true
+    },
+    {
+      "label": "semantic",
+      "sourceKey": "candidate/selfchecks/review_semantics.ps1",
+      "tupleId": "3021d080d9aa029a08905295397f214a4de24f2df1196f55f24505ae3c1cbfd8",
+      "accepted": true
+    },
+    {
+      "label": "preStart13",
+      "sourceKey": "candidate/selfchecks/prestart_lifetimes.ps1",
+      "tupleId": "b2b158f488ef18b5e666feebaffbba688f802325c4e344261be77eae2e94a994",
+      "accepted": true
+    },
+    {
+      "label": "new-original-route",
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "tupleId": "7a471f1a6f5b592637a196f3b68f25d42aeac288f75e7bf021ecd8ca514e4099",
+      "accepted": true
+    },
+    {
+      "label": "new-original-facts",
+      "sourceKey": "candidate/selfchecks/fact_fixture.py",
+      "tupleId": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c",
+      "accepted": true
+    },
+    {
+      "label": "legacy-original-route",
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "tupleId": "8d1605d774dcc43475fcae724867a9a551e6dfa96740cd0e069c43e6d7ae592f",
+      "accepted": true
+    },
+    {
+      "label": "legacy-original-facts",
+      "sourceKey": "candidate/selfchecks/fact_fixture.py",
+      "tupleId": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c",
+      "accepted": true
+    },
+    {
+      "label": "explicit-cli-route",
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "tupleId": "940d017788f84f0b19bd35cf1fb09ee86cfd89dd5699e39d3008672748fea8f6",
+      "accepted": true
+    },
+    {
+      "label": "explicit-cli-facts",
+      "sourceKey": "candidate/selfchecks/fact_fixture.py",
+      "tupleId": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c",
+      "accepted": true
+    },
+    {
+      "label": "explicit-cli",
+      "sourceKey": "candidate/tools/facts_entry.py",
+      "tupleId": "6f0809442db11f313889de1de6610c07dd5f9131ca40ebe7aa4a0ac6cb72113a",
+      "accepted": true
+    }
+  ],
+  "negative": [
+    {
+      "key": "driver/../x",
+      "reason": "PIN_NONCANONICAL_RELATIVE_POSIX"
+    },
+    {
+      "key": "driver/./x",
+      "reason": "PIN_NONCANONICAL_RELATIVE_POSIX"
+    },
+    {
+      "key": "driver//x",
+      "reason": "PIN_NONCANONICAL_RELATIVE_POSIX"
+    },
+    {
+      "key": "/driver/x",
+      "reason": "PIN_NONCANONICAL_RELATIVE_POSIX"
+    },
+    {
+      "key": "D:/x",
+      "reason": "PIN_NONCANONICAL_RELATIVE_POSIX"
+    },
+    {
+      "key": "driver\\x",
+      "reason": "PIN_NONCANONICAL_RELATIVE_POSIX"
+    },
+    {
+      "key": "outside/x",
+      "reason": "PIN_NAMESPACE"
+    },
+    {
+      "case": "duplicate-or-case-collision",
+      "reason": "PIN_DUPLICATE_OR_COLLISION"
+    },
+    {
+      "case": "duplicate-or-case-collision",
+      "reason": "PIN_DUPLICATE_OR_COLLISION"
+    },
+    {
+      "case": "absolute-outside-root",
+      "reason": "PIN_OUTSIDE_ROOT"
+    },
+    {
+      "case": "wrong-content-pin-static",
+      "reason": "PROFILE_SOURCE"
+    },
+    {
+      "case": "extra:qualification-python-ok",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:qualification-python-ok",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:qualification-python-ok",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:qualification-python-ok",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:qualification-python-fail",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:qualification-python-fail",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:qualification-python-fail",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:qualification-python-fail",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:qualification-PS0",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:qualification-PS0",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:qualification-PS0",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:qualification-PS0",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:semantic",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:semantic",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:semantic",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:semantic",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:preStart13",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:preStart13",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:preStart13",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:preStart13",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:new-original-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:new-original-route",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:new-original-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:new-original-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:new-original-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:new-original-facts",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:new-original-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:new-original-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:legacy-original-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:legacy-original-route",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:legacy-original-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:legacy-original-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:legacy-original-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:legacy-original-facts",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:legacy-original-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:legacy-original-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:explicit-cli-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:explicit-cli-route",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:explicit-cli-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:explicit-cli-route",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:explicit-cli-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:explicit-cli-facts",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:explicit-cli-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:explicit-cli-facts",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "extra:explicit-cli",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-program:explicit-cli",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "case": "wrong-cwd:explicit-cli",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "case": "wrong-env:explicit-cli",
+      "reason": "PROFILE_EXACT_TUPLE"
+    }
+  ],
+  "actualPopen": 0,
+  "actualCapture": 0,
+  "actualGate": 0,
+  "actualClaim": 0,
+  "actualOnce": 0,
+  "original56Bad": [],
+  "profileSha256": "ebac6a7879078d8380e5d2129a55f889a9258830afb77b858433bd55f44c0604"
+}

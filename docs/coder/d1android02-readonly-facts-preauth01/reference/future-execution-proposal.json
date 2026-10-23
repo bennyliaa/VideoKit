@@ -1,0 +1,77 @@
+{
+  "schema": "READONLY_FACTS_PREAUTH01_FUTURE_EXECUTION_PROPOSAL_V1",
+  "approvedForExecution": false,
+  "status": "BLOCKED_DEVELOPER_QUALIFICATION_NOT_PASSED",
+  "candidate": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01",
+  "sourceSeal": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\reference\\runner-source-seal.json",
+    "sha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df"
+  },
+  "gateSources": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\reference\\gate-sources.json",
+    "sha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192"
+  },
+  "collector": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\fact_collector.py",
+    "sha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4"
+  },
+  "binder": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\fact_preauth.py",
+    "sha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768"
+  },
+  "entry": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+    "sha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d"
+  },
+  "schemaReference": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\reference\\fact-preauth-schema.json",
+    "sha256": "1a448871f07b1c2884c5cfd5c68441fe62a94a84d3c64c361633df37bebab36f"
+  },
+  "factPlan": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\reference\\fact-plan.json",
+    "sha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d"
+  },
+  "runtimeIdentity": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\reference\\current-runtime-identity.json",
+    "sha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48"
+  },
+  "targetSevenRolePlan": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\reference\\exact-seven-role-plan.json",
+    "sha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8"
+  },
+  "templateSchema": "GLOBAL_IDLE_FACT_PREAUTH_V1",
+  "runtimeBindingSchema": "GLOBAL_IDLE_FACT_RUNTIME_BINDING_V1",
+  "receiptSchema": "GLOBAL_IDLE_FACT_CAPTURE_V2",
+  "externalApprovedTemplateSha256": null,
+  "scope": null,
+  "planId": null,
+  "runId": null,
+  "nonce": null,
+  "mode": "LIVE_NOT_RUN",
+  "limits": {
+    "wholeSeconds": 90,
+    "gateSeconds": 30,
+    "qualificationSeconds": 15,
+    "outerSeconds": 30,
+    "proofSeconds": 10,
+    "sdkChildren": 1,
+    "concurrency": 1,
+    "retry": 0,
+    "stdoutBytes": 139264,
+    "stderrBytes": 8192,
+    "combinedBytes": 147456
+  },
+  "requires": [
+    "new exact driver/profile qualification and complete offline batch",
+    "coordinator review then independent complete B",
+    "separately issued exact LIVE batch and externally approved template digest",
+    "original local metadata authorization and original Gate/claim",
+    "no inherited ADB overrides; SDK pin and fixed queries"
+  ],
+  "qualificationAdapter": "NOT_IMPLEMENTED_NOT_AUTHORIZED_BY_FACT_PREAUTH",
+  "externalSignatureKeysIPC": "NOT_IMPLEMENTED",
+  "actualSDK": 0,
+  "actualDevice": 0,
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

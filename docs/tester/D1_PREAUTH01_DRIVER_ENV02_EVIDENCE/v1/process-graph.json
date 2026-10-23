@@ -1,0 +1,25 @@
+{
+  "parentWorkerPopen": 20,
+  "childCliPopen": 2,
+  "powerShellDotNetChildren": [
+    {
+      "parent": "preStart13",
+      "program": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "argv": [
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "-c",
+        "print(\"LOCAL_PRESTART_STATE_THREE\")"
+      ],
+      "sourceKey": "candidate/selfchecks/prestart_lifetimes.ps1",
+      "sourcePin": "4febdd993638a435a9862d6b90537676ca7b17446089e34a325e9267479931b7",
+      "expectedOriginalWaitReadersStreamsDispose": true
+    }
+  ],
+  "outerWorker": 1,
+  "totalActualProcessUpper": 24,
+  "popenTuples": 22,
+  "note": "CLI route/fact are child-local, not parent registry calls. Outer worker full argv derived from final order SHA and fixed before its constructor."
+}

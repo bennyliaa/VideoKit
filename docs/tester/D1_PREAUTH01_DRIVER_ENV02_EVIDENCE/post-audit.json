@@ -1,0 +1,744 @@
+{
+  "schema": "PREAUTH01_DRIVER_ENV02_POST_AUDIT_V1",
+  "verdict": "PASS_IN_SCOPE_COMPLETE_OFFLINE_B",
+  "utc": "2026-10-23T14:16:52.857974+00:00",
+  "batch": "17a969f7063e4753a61d9a58232830e5",
+  "orderSha256": "4b1e5fcb83086c7d0432708c6024d2492c83e52c38ae01f3dd44578e11789c38",
+  "sourceSeal": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+  "qualificationVersionsUsed": 1,
+  "qualificationVersionsAuthorized": 2,
+  "qualificationActualCalls": 3,
+  "qualification": [
+    {
+      "exitCode": 0,
+      "seconds": 0.06300000002374873,
+      "allOriginalsReturned": true
+    },
+    {
+      "exitCode": 7,
+      "seconds": 0.06299999996554106,
+      "allOriginalsReturned": true
+    },
+    {
+      "exitCode": 0,
+      "seconds": 1.9689999999827705,
+      "allOriginalsReturned": true
+    }
+  ],
+  "qualificationRetriesUsed": 0,
+  "productRetries": 0,
+  "groups": [
+    {
+      "name": "driver-qualification",
+      "status": "PASS",
+      "seconds": 2.1410000000032596
+    },
+    {
+      "name": "developer-template-replay",
+      "status": "PASS",
+      "seconds": 0.0470000000204891
+    },
+    {
+      "name": "independent-two-layer-template",
+      "status": "PASS",
+      "seconds": 0.046999999962281436
+    },
+    {
+      "name": "current-source-346-semantics",
+      "status": "PASS",
+      "seconds": 7.48399999999674
+    },
+    {
+      "name": "original-preStart13",
+      "status": "PASS",
+      "seconds": 1.5
+    },
+    {
+      "name": "actual-original-V2-binding",
+      "status": "PASS",
+      "seconds": 1.4060000000172295
+    },
+    {
+      "name": "actual-wrong-receiver-once",
+      "status": "PASS",
+      "seconds": 0.9380000000237487
+    },
+    {
+      "name": "legacy-V1",
+      "status": "PASS",
+      "seconds": 1.0
+    },
+    {
+      "name": "explicit-CLI-and-replay",
+      "status": "PASS",
+      "seconds": 2.3910000000032596
+    }
+  ],
+  "old57Preserved": true,
+  "old56": {
+    "files": 56,
+    "bytes": 472652,
+    "manifestSha256": "3ce81441d75e8a47368078197fcc43a20ace8eef916f1f3dcbd6f08c3cd8059c",
+    "zipSha256": "e563573ca4d51c428ae7c56d79f4b5b7e03bd6e106157f95286c849a91afed52",
+    "zipMembers": 57,
+    "bad": 0
+  },
+  "developer108": {
+    "files": 108,
+    "bytes": 3707218,
+    "manifestSha256": "2c8c69d8ecec03d7bc339ae8bdb2349bdb942258f0c050b183197f1aa960fe61",
+    "zipSha256": "1a0fb5e9d424e83ed6de8668607a05b28365c401b3d527d55cfaf7f959773b3c",
+    "zipMembers": 109,
+    "bad": 0
+  },
+  "source20Bad": 0,
+  "gate12Bad": 0,
+  "ownOrderSourceBad": 0,
+  "actualHostSnapshot": {
+    "actualCwd": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1",
+    "environmentKeys": [
+      "SYSTEMROOT",
+      "TEMP",
+      "TMP",
+      "WINDIR"
+    ],
+    "canonicalEnvironmentSha256": "4820d78af0910f70dae96e307a570bf7e35c4223d85078f079646f58e9ee69a5",
+    "controlledValueHashes": {
+      "SYSTEMROOT": "4c754b6dc9cd24a7e1a0801560911fbf9a832bf0f5b3bcba0f3844a71356489c",
+      "WINDIR": "4c754b6dc9cd24a7e1a0801560911fbf9a832bf0f5b3bcba0f3844a71356489c",
+      "TEMP": "3fbe2247bf746a10e7c7b4316b0bb6c409ad9edfe9e2b9c39b9a5a0a5c77da09",
+      "TMP": "3fbe2247bf746a10e7c7b4316b0bb6c409ad9edfe9e2b9c39b9a5a0a5c77da09"
+    },
+    "valuesDisclosed": false
+  },
+  "rawPopenEnvironmentPreserved": true,
+  "allFifteenOuterCollectorsReturned": true,
+  "collectorReceipts": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-0\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 17160,
+        "creationFileTime": 134372383881093050,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\driver\\reuse\\owned_child.py",
+          "ok"
+        ],
+        "originalHandleValueForOwnerOnly": 896,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 0,
+      "seconds": 0.06300000002374873,
+      "rawCounts": [
+        25,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-1\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 40620,
+        "creationFileTime": 134372383881909012,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\driver\\reuse\\owned_child.py",
+          "fail"
+        ],
+        "originalHandleValueForOwnerOnly": 932,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 7,
+      "seconds": 0.06299999996554106,
+      "rawCounts": [
+        25,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-10\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 17864,
+        "creationFileTime": 134372384040969448,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py"
+        ],
+        "originalHandleValueForOwnerOnly": 1612,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 2,
+      "seconds": 0.1720000000204891,
+      "rawCounts": [
+        0,
+        250
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-11\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 26548,
+        "creationFileTime": 134372384042947624,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+          "--template",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+          "--policy",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1784,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 2,
+      "seconds": 0.17099999997299165,
+      "rawCounts": [
+        0,
+        228
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-12\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 40324,
+        "creationFileTime": 134372384045049005,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+          "--template",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+          "--approved-template-sha256",
+          "0095c6e31cb4375ad6663ada59bd54290436a87af6566dde9036e28be6ee669c",
+          "--policy",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json",
+          "--run-sdk-now"
+        ],
+        "originalHandleValueForOwnerOnly": 1796,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 2,
+      "seconds": 0.18700000003445894,
+      "rawCounts": [
+        0,
+        201
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-13\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 13744,
+        "creationFileTime": 134372384047214418,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+          "--template",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+          "--approved-template-sha256",
+          "0095c6e31cb4375ad6663ada59bd54290436a87af6566dde9036e28be6ee669c",
+          "--policy",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy-pretty.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1800,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 2,
+      "seconds": 0.20400000002700835,
+      "rawCounts": [
+        71,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-14\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 18924,
+        "creationFileTime": 134372384049495248,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+          "--template",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+          "--approved-template-sha256",
+          "0000000000000000000000000000000000000000000000000000000000000000",
+          "--policy",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1896,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 2,
+      "seconds": 0.23499999998603016,
+      "rawCounts": [
+        59,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-2\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 7300,
+        "creationFileTime": 134372383882673996,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-File",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\driver\\reuse\\owned_child.ps1"
+        ],
+        "originalHandleValueForOwnerOnly": 980,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 0,
+      "seconds": 1.9689999999827705,
+      "rawCounts": [
+        28,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-3\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 40296,
+        "creationFileTime": 134372383903838008,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-File",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\review_semantics.ps1",
+          "-InputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-input-0.json",
+          "-OutputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-results-0.json"
+        ],
+        "originalHandleValueForOwnerOnly": 924,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 0,
+      "seconds": 1.6089999999967404,
+      "rawCounts": [
+        0,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-4\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 35676,
+        "creationFileTime": 134372383920416522,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-File",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\review_semantics.ps1",
+          "-InputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-input-1.json",
+          "-OutputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-results-1.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1040,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 0,
+      "seconds": 1.8119999999762513,
+      "rawCounts": [
+        0,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-5\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 26180,
+        "creationFileTime": 134372383938887780,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-File",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\review_semantics.ps1",
+          "-InputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-input-2.json",
+          "-OutputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-results-2.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1084,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 0,
+      "seconds": 1.625,
+      "rawCounts": [
+        0,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-6\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 34304,
+        "creationFileTime": 134372383955563501,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-File",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\review_semantics.ps1",
+          "-InputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-input-3.json",
+          "-OutputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-results-3.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1080,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 0,
+      "seconds": 2.26500000001397,
+      "rawCounts": [
+        0,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-7\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 39396,
+        "creationFileTime": 134372383978930344,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-File",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\prestart_lifetimes.ps1",
+          "-OutputFile",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\prestart.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1148,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 0,
+      "seconds": 1.452999999979511,
+      "rawCounts": [
+        0,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-8\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 19836,
+        "creationFileTime": 134372384028363208,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+          "--template",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+          "--approved-template-sha256",
+          "0095c6e31cb4375ad6663ada59bd54290436a87af6566dde9036e28be6ee669c",
+          "--policy",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1592,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 0,
+      "seconds": 1.0,
+      "rawCounts": [
+        5215,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\collect-9\\runtime\\outer-original-return.json",
+      "identity": {
+        "pid": 33100,
+        "creationFileTime": 134372384038655274,
+        "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "argv": [
+          "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "-I",
+          "-X",
+          "utf8",
+          "-B",
+          "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+          "--template",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+          "--approved-template-sha256",
+          "0095c6e31cb4375ad6663ada59bd54290436a87af6566dde9036e28be6ee669c",
+          "--policy",
+          "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json"
+        ],
+        "originalHandleValueForOwnerOnly": 1652,
+        "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+        "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+      },
+      "exitCode": 2,
+      "seconds": 0.20300000003771856,
+      "rawCounts": [
+        67,
+        0
+      ]
+    }
+  ],
+  "parentPopen": 20,
+  "parentAuditMatched": 20,
+  "nestedCliPopen": 2,
+  "nestedCliAuditMatched": 2,
+  "dotNetChild": 1,
+  "outerWorker": 1,
+  "wholeActualGraph": 24,
+  "wholePreplannedGraph": 24,
+  "allNewOriginalsReturned": true,
+  "newUnknown": false,
+  "gate": [
+    {
+      "scope": "0bad2fcca4e6c44d70b25cc8414db2cdbdac9406d4dc51568948f602c791eaf7",
+      "generation": "511b4ecc-a849-4ea7-bfa3-666971ac477f",
+      "released": true,
+      "sourceBytes": 8303441,
+      "sourceReads": 45,
+      "leaseClosed": true,
+      "pending": 0
+    },
+    {
+      "scope": "47aca6b6d018801ec02fe6ceaca60cdb2a8be5361b3efd42de2205ccef95869d",
+      "generation": "3c6986e3-3610-4e1c-870e-398d7ae430b9",
+      "released": true,
+      "sourceBytes": 8190682,
+      "sourceReads": 43,
+      "leaseClosed": true,
+      "pending": 0
+    },
+    {
+      "scope": "8c518bc8814fb8d4b44339a3c86d1b3f5a92de7451b5363fdf9c819e065b4a77",
+      "generation": "f98a14cb-54cc-4d42-a961-0382575e2ce5",
+      "released": true,
+      "sourceBytes": 8248145,
+      "sourceReads": 36,
+      "leaseClosed": true,
+      "pending": 0
+    },
+    {
+      "scope": "babc44e90eafe2bd6db72b0bf64f836a14266dc2dbb36faf405441b4eabd2ed3",
+      "sourceBytes": 8310239,
+      "sourceReads": 49,
+      "released": true,
+      "leaseClosed": true,
+      "pending": 0
+    }
+  ],
+  "control": [
+    {
+      "name": "new-original-result.json",
+      "bytes": 20454
+    },
+    {
+      "name": "wrong-receiver-result.json",
+      "bytes": 17546
+    },
+    {
+      "name": "legacy-result.json",
+      "bytes": 11627
+    },
+    {
+      "name": "CLI",
+      "bytes": 20454
+    }
+  ],
+  "bindingAndOnceNegative": 47,
+  "wireNegative": 4,
+  "developerTemplateReplayNegative": 138,
+  "newTemplateCorpus": 193,
+  "newTemplateNegative": 191,
+  "newTemplatePositive": 2,
+  "oldCorpusCountNotAddedAgain": true,
+  "O1": "CONFORMS_CLARIFIED_RAW_BYTE_HASH_CONTRACT",
+  "semanticCases": 346,
+  "semanticConditionalPositive": 42,
+  "semanticIndependentPositive17": true,
+  "preStart13": true,
+  "cliRows": [
+    {
+      "name": "complete",
+      "exitCode": 0,
+      "expectedReason": null,
+      "allOriginalsReturned": true,
+      "rawCounts": [
+        5215,
+        0
+      ]
+    },
+    {
+      "name": "same-home-replay",
+      "exitCode": 2,
+      "expectedReason": "PREAUTH_FRESH_OUTPUT_REQUIRED",
+      "allOriginalsReturned": true,
+      "rawCounts": [
+        67,
+        0
+      ]
+    },
+    {
+      "name": "default",
+      "exitCode": 2,
+      "expectedReason": null,
+      "allOriginalsReturned": true,
+      "rawCounts": [
+        0,
+        250
+      ]
+    },
+    {
+      "name": "missing-external-hash",
+      "exitCode": 2,
+      "expectedReason": null,
+      "allOriginalsReturned": true,
+      "rawCounts": [
+        0,
+        228
+      ]
+    },
+    {
+      "name": "extra-action",
+      "exitCode": 2,
+      "expectedReason": null,
+      "allOriginalsReturned": true,
+      "rawCounts": [
+        0,
+        201
+      ]
+    },
+    {
+      "name": "noncanonical-policy",
+      "exitCode": 2,
+      "expectedReason": "FACT_ENTRY_POLICY_CANONICAL_BYTES",
+      "allOriginalsReturned": true,
+      "rawCounts": [
+        71,
+        0
+      ]
+    },
+    {
+      "name": "wrong-external-hash",
+      "exitCode": 2,
+      "expectedReason": "PREAUTH_EXTERNAL_HASH",
+      "allOriginalsReturned": true,
+      "rawCounts": [
+        59,
+        0
+      ]
+    }
+  ],
+  "workerSeconds": 17.48399999999674,
+  "outerSeconds": 17.53100000001723,
+  "outerRawCounts": [
+    85,
+    0
+  ],
+  "outerWorkerIdentity": {
+    "pid": 24944,
+    "creationFileTime": 134372383877788846,
+    "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\worker.py",
+      "4b1e5fcb83086c7d0432708c6024d2492c83e52c38ae01f3dd44578e11789c38"
+    ],
+    "originalHandleValueForOwnerOnly": 884,
+    "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+    "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+  },
+  "outerObservedReadBytes": 3105577,
+  "outerObservedReadCalls": 40,
+  "knownGateSourceBytes": 33052507,
+  "knownGateSourceReads": 173,
+  "writeGuardRecordedOperations": 250,
+  "writeGuardConservativeReadUpper": 11375592,
+  "ioReservation": {
+    "fourOriginalGateCaps": 1073741824,
+    "pythonAndPSImportControl": 805306368,
+    "driverAndArchive": 67108864,
+    "modelPreparations": 134217728,
+    "total": 2080374784,
+    "meaning": "Conservative reservation; not total physical IO measurement"
+  },
+  "physicalIO": "NOT_GLOBALLY_MEASURED",
+  "filesBeforeFinalFreeze": 181,
+  "bytesBeforeFinalFreeze": 4056880,
+  "maxFileBytes": 897505,
+  "actualSDK": 0,
+  "actualADB": 0,
+  "actualNativeRoute": 0,
+  "actualTCP": 0,
+  "actualDevice": 0,
+  "actualGradle": 0,
+  "actualGit": 0,
+  "oldRuntimeQueries": 0,
+  "qualificationV2": "NOT_IMPLEMENTED_NOT_RUN",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "automaticNextTest": false
+}

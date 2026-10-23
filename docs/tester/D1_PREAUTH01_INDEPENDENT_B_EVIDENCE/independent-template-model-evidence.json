@@ -1,0 +1,1949 @@
+{
+  "cases": [
+    {
+      "case": "independent-valid-offline",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "pass_": true,
+      "inputSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:schema",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "13fe1963e31e57928351854bbf0ae8fcad8aec2382f53b6003aac30576883ddd",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:schema",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "a930b898bec7279335adc9b9df336618b0ba6346ab65dfed2e52aac2c85c3c0f",
+      "approvedSha256": "a930b898bec7279335adc9b9df336618b0ba6346ab65dfed2e52aac2c85c3c0f",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:mode",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "31d9267e0a51bede1d888cab5ffd4d89302f8b6ec98d0ceabeceab888a2a153a",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:mode",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "8dc2a3c8b280479934ce8f1a0abfe6223dad5fb8d9ae97134132ad6edc69645a",
+      "approvedSha256": "8dc2a3c8b280479934ce8f1a0abfe6223dad5fb8d9ae97134132ad6edc69645a",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:sourceThreadId",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "53a043d1d1f681b9a18cd023890b643de3fa024e86b7c77a84bcc4f5862798b3",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:sourceThreadId",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "15c19cd5f87a1c018f2ceb0073997c9e92ff00459e69dd265c8c60ba5ec649a4",
+      "approvedSha256": "15c19cd5f87a1c018f2ceb0073997c9e92ff00459e69dd265c8c60ba5ec649a4",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:sourceTurnId",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "0ae4b828506389f591ac66ec810f85ddb7cddf9d6c850dd17494c6b1b996ab7a",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:sourceTurnId",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "798bba20ee5c8440aa3e4c2513ccd2eb069409147e7d666f6a36ee42d2b5ea41",
+      "approvedSha256": "798bba20ee5c8440aa3e4c2513ccd2eb069409147e7d666f6a36ee42d2b5ea41",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:notBeforeUtc",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "2c02074bf8dae7d5c2300ec67cede8145b92b12aa529909842efafc12222378d",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:notBeforeUtc",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "87981f7838bbbfe1dd818f961aa766a3165e98b065a825cf6c6cd9d308cdaf47",
+      "approvedSha256": "87981f7838bbbfe1dd818f961aa766a3165e98b065a825cf6c6cd9d308cdaf47",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:expiresUtc",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "f1d111567adaf8db9422fb44cc421dea741ceae795228a30df6237d41ec2ece0",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:expiresUtc",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "86745d1c64ffa508e8cc5e7149df99950002f765f93f841258fc71c8d30ab493",
+      "approvedSha256": "86745d1c64ffa508e8cc5e7149df99950002f765f93f841258fc71c8d30ab493",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:scope",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "1dd208acd2fba41833f259a19ec403df38d06f3348d674c7e9ea9e167c22173d",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:scope",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "5e1024b3767cb50f72b37150e1465b07495f92dfed6e4e36cbdcaf3e04b85c71",
+      "approvedSha256": "5e1024b3767cb50f72b37150e1465b07495f92dfed6e4e36cbdcaf3e04b85c71",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:planId",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "a3cc9816635cbe08c2ad50d8ea01d69a4e7f76477fa30dc0cd4a8647a616cf96",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:planId",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "cfce35aeba01d089746ffde61b511d7486a32364f31b96bc136cc7eb75d29964",
+      "approvedSha256": "cfce35aeba01d089746ffde61b511d7486a32364f31b96bc136cc7eb75d29964",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:runId",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "a05b57eaf0596a01ed85bca6117c0e49a38443309e1cae38172da031a344b0ee",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:runId",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "ceccc7161a1c1defd917150e2a714fec0c17cd8200254537033f61bc04688c60",
+      "approvedSha256": "ceccc7161a1c1defd917150e2a714fec0c17cd8200254537033f61bc04688c60",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:nonce",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "07e4130c36fe88a7c62f85ebc4ec5b4a45fb955bb128bce326f7929b0bfb28c2",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:nonce",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "3b397ef33ec99ceb71247b2ef27932d676b229254418a7c6f64b5fdee4ee4987",
+      "approvedSha256": "3b397ef33ec99ceb71247b2ef27932d676b229254418a7c6f64b5fdee4ee4987",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:home",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "b0f11427ad48aff874971c1140a4d465d70db5e8312297048e72dfd8a83553d1",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:home",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "4b6b0e167ee27aab03440620e66ac5cdcb9e0772ea32d785b6ff15ebba8a259e",
+      "approvedSha256": "4b6b0e167ee27aab03440620e66ac5cdcb9e0772ea32d785b6ff15ebba8a259e",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:evidenceRoot",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "0b114b87488a3a8c4f4a59a5a312b0f16234064e38a9687c01aedb5207b4b1c0",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:evidenceRoot",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "469699dd9327af70d4edb16fdd4160705a4a9d07ad098e4d98928345502effc0",
+      "approvedSha256": "469699dd9327af70d4edb16fdd4160705a4a9d07ad098e4d98928345502effc0",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:policySha256",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "88d9de1d059e9a6753e5682f921db4173891f0bf93011f162366ab51be730b0a",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:policySha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "d7255c51fa72ed0f6c96e01e3f03d9275b338867083d03ca03856defe846a6e9",
+      "approvedSha256": "d7255c51fa72ed0f6c96e01e3f03d9275b338867083d03ca03856defe846a6e9",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:sourceSealSha256",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "fadecd8fe6afeb64e889b864c2c47ed4b62ce59ab34797d124f72a8586b5fd0f",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:sourceSealSha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "2fce9688bceef256bad2fe12fada6e50d264172b98ba6acab519642d6c5f508a",
+      "approvedSha256": "2fce9688bceef256bad2fe12fada6e50d264172b98ba6acab519642d6c5f508a",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:gateSourcesSha256",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "840b6382e141491629beee244230facc720d6dc322c84845c3a1ba00ec249edc",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:gateSourcesSha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "2ec872e5533e5789fec0c1196c0e34532070a7ffe21e57f351748ef2bf27daa0",
+      "approvedSha256": "2ec872e5533e5789fec0c1196c0e34532070a7ffe21e57f351748ef2bf27daa0",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:collectorSha256",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "1685ccd0fc7b5dc0c5b9ac733c845961a8f7d99b9a26d63af32a1def5c364558",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:collectorSha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "1b55da782d6bf142ad4da017f2582cca77e67fb2ee2eb336a1db619393e7bffe",
+      "approvedSha256": "1b55da782d6bf142ad4da017f2582cca77e67fb2ee2eb336a1db619393e7bffe",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:binderSha256",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "f5bceff5c785d090562149cfff615e21fd7c87a42988a76992f2dbd34e723bb0",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:binderSha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "b4aec740127eaba6c12e833260785079a6d03a1d62d69ca7f4af968d07c5b405",
+      "approvedSha256": "b4aec740127eaba6c12e833260785079a6d03a1d62d69ca7f4af968d07c5b405",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:entrySha256",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "7b51bf6ef103dfd9a04f3f89e087de3bcfdf6ff6e54f3002c7825c880a36b55a",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:entrySha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "dc4c0b32b994fe5bf567388cbd205405baa11bbed11fa294c238f34d6f04033c",
+      "approvedSha256": "dc4c0b32b994fe5bf567388cbd205405baa11bbed11fa294c238f34d6f04033c",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:runtimeIdentitySha256",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "f9ea7d44fea3653696eca6fd08e2c9c25f4d014425c2e7e5ea26bc4a3e1ed8c9",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:runtimeIdentitySha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "29e373438af18edfb56f4cbde171fa7d785deef092cc5226fbe6aa8950325d51",
+      "approvedSha256": "29e373438af18edfb56f4cbde171fa7d785deef092cc5226fbe6aa8950325d51",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:factPlanSha256",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "e6cfbc72736ae55a6edf7aef68cf5963b1622a9ca95b0608aac78557ad1bbf12",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:factPlanSha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "fb4661eacf0fcf8e3718d7c7cabe1ab492c2df77dd3bd9e98ca9f6145fdf9b51",
+      "approvedSha256": "fb4661eacf0fcf8e3718d7c7cabe1ab492c2df77dd3bd9e98ca9f6145fdf9b51",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:sdk",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "66e1b893e1ef49230b765e9ab74a2f6a06b3e2b28e9bee959d0d5cf42d532a0e",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:sdk",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "bd9b9d0ea303f304599b64e15660942b13b8021572de5f2796d0f147b26f4df0",
+      "approvedSha256": "bd9b9d0ea303f304599b64e15660942b13b8021572de5f2796d0f147b26f4df0",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:device",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "536e24d30d38f9743b37d2c98777c928cd47f25d8e18ff20ecd95c1bfa3a5293",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:device",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "abab33af858363a5c2938eab4de16003fb2315b1972be5a097a9fa74700b9d9a",
+      "approvedSha256": "abab33af858363a5c2938eab4de16003fb2315b1972be5a097a9fa74700b9d9a",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:queries",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "6764bcbd2b8a1d779c6a0fa1bb5eba1e1d3156912083a96b3e2a7f58c89cd047",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:queries",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "7134ca6222d2bda60cae9a6e5fa9328bee535f0797ae222543364a6c60930069",
+      "approvedSha256": "7134ca6222d2bda60cae9a6e5fa9328bee535f0797ae222543364a6c60930069",
+      "pureOnly": true
+    },
+    {
+      "case": "old-approved-hash:limits",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "a8afacd9203787a1fe7440af86a72dec22c85e27093d46a2bf35ed56f115d843",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "closed-field-delete:limits",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "b8ae27a6f3ff6cd6e326c12a0a32c61bd5ed49e300ab2ef384ecc1474155405f",
+      "approvedSha256": "b8ae27a6f3ff6cd6e326c12a0a32c61bd5ed49e300ab2ef384ecc1474155405f",
+      "pureOnly": true
+    },
+    {
+      "case": "forbidden-extra-action",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SCHEMA",
+      "actual": "PREAUTH_SCHEMA",
+      "pass_": true,
+      "inputSha256": "131bf52e93a9ab5319ecf9c3b7a1cdc20d81abcea09492698f4188ae964fb1d5",
+      "approvedSha256": "131bf52e93a9ab5319ecf9c3b7a1cdc20d81abcea09492698f4188ae964fb1d5",
+      "pureOnly": true
+    },
+    {
+      "case": "duplicate-exact",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_DUPLICATE_FIELD",
+      "actual": "PREAUTH_DUPLICATE_FIELD",
+      "pass_": true,
+      "inputSha256": "f8fac44a3993b9dc3e4a5c45c89d02dcdca2729b44cdc5c100bcb5fc7d9529a7",
+      "approvedSha256": "f8fac44a3993b9dc3e4a5c45c89d02dcdca2729b44cdc5c100bcb5fc7d9529a7",
+      "pureOnly": true
+    },
+    {
+      "case": "duplicate-case",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_DUPLICATE_FIELD",
+      "actual": "PREAUTH_DUPLICATE_FIELD",
+      "pass_": true,
+      "inputSha256": "91d826dc876ca9f76b93cdf8a7c675206c7d6d0ca4336852c1b28b0780094b90",
+      "approvedSha256": "91d826dc876ca9f76b93cdf8a7c675206c7d6d0ca4336852c1b28b0780094b90",
+      "pureOnly": true
+    },
+    {
+      "case": "nonfinite",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_NONFINITE",
+      "actual": "PREAUTH_NONFINITE",
+      "pass_": true,
+      "inputSha256": "df38c4379aa2b6d4a7151668f11c6cdf75dc52f52588502956377adddf9e1a26",
+      "approvedSha256": "df38c4379aa2b6d4a7151668f11c6cdf75dc52f52588502956377adddf9e1a26",
+      "pureOnly": true
+    },
+    {
+      "case": "old-hash-pretty-json",
+      "layer": "FIXED_ORIGINAL_HASH",
+      "expected": "PREAUTH_EXTERNAL_HASH",
+      "actual": "PREAUTH_EXTERNAL_HASH",
+      "pass_": true,
+      "inputSha256": "644a8514f529117a30c080f51507a657dd9d9295d2f414f5e023ab4716792e55",
+      "approvedSha256": "20a42baf08100d60ccaed65936584127131fb9320d40e72ec76ece912338551f",
+      "pureOnly": true
+    },
+    {
+      "case": "synthetic-approved-pretty-json",
+      "layer": "RAW_HASH_SERIALIZATION_OBSERVATION",
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "pass_": true,
+      "inputSha256": "644a8514f529117a30c080f51507a657dd9d9295d2f414f5e023ab4716792e55",
+      "approvedSha256": "644a8514f529117a30c080f51507a657dd9d9295d2f414f5e023ab4716792e55",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:sourceSealSha256:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:sourceSealSha256",
+      "actual": "PREAUTH_HASH_TYPE:sourceSealSha256",
+      "pass_": true,
+      "inputSha256": "bbf04f31c9710fc5f87f7bc5a40ba4f0cb7dd2f8f5426c0241737f62f18bc92e",
+      "approvedSha256": "bbf04f31c9710fc5f87f7bc5a40ba4f0cb7dd2f8f5426c0241737f62f18bc92e",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:sourceSealSha256:A",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:sourceSealSha256",
+      "actual": "PREAUTH_HASH_TYPE:sourceSealSha256",
+      "pass_": true,
+      "inputSha256": "acc6b6ca02af13bc6e43586c77a2d228fcd62fc52488cd4da07d5a87d77e970d",
+      "approvedSha256": "acc6b6ca02af13bc6e43586c77a2d228fcd62fc52488cd4da07d5a87d77e970d",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:sourceSealSha256:1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_PIN:sourceSealSha256",
+      "actual": "PREAUTH_PIN:sourceSealSha256",
+      "pass_": true,
+      "inputSha256": "3799457ce25f51182caeb1ebc648cdb08706d7c92d566deef6a9d77fe3cb8bf0",
+      "approvedSha256": "3799457ce25f51182caeb1ebc648cdb08706d7c92d566deef6a9d77fe3cb8bf0",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:gateSourcesSha256:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:gateSourcesSha256",
+      "actual": "PREAUTH_HASH_TYPE:gateSourcesSha256",
+      "pass_": true,
+      "inputSha256": "dc205ee39cad20021b9af34ad37aa90cf1f2224d57fc5b4236993df555211954",
+      "approvedSha256": "dc205ee39cad20021b9af34ad37aa90cf1f2224d57fc5b4236993df555211954",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:gateSourcesSha256:A",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:gateSourcesSha256",
+      "actual": "PREAUTH_HASH_TYPE:gateSourcesSha256",
+      "pass_": true,
+      "inputSha256": "bea8c934e946dd456c3c8f9eebaf02064e5d992eb54966f0f4aef43017e68f85",
+      "approvedSha256": "bea8c934e946dd456c3c8f9eebaf02064e5d992eb54966f0f4aef43017e68f85",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:gateSourcesSha256:1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_PIN:gateSourcesSha256",
+      "actual": "PREAUTH_PIN:gateSourcesSha256",
+      "pass_": true,
+      "inputSha256": "02c65ab6da4e9ad29d70287c82a3312de6fb49f709781a11844298ae923cf9c9",
+      "approvedSha256": "02c65ab6da4e9ad29d70287c82a3312de6fb49f709781a11844298ae923cf9c9",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:collectorSha256:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:collectorSha256",
+      "actual": "PREAUTH_HASH_TYPE:collectorSha256",
+      "pass_": true,
+      "inputSha256": "c2a5f26ae914ae6f2f1786afc720fa7a5606241169ceed7c44ffbf41c92f724d",
+      "approvedSha256": "c2a5f26ae914ae6f2f1786afc720fa7a5606241169ceed7c44ffbf41c92f724d",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:collectorSha256:A",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:collectorSha256",
+      "actual": "PREAUTH_HASH_TYPE:collectorSha256",
+      "pass_": true,
+      "inputSha256": "5f75a3b59ce7e75e1c0966974e7ca0f9d9afceea5515814d13cf4fef17390cec",
+      "approvedSha256": "5f75a3b59ce7e75e1c0966974e7ca0f9d9afceea5515814d13cf4fef17390cec",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:collectorSha256:1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_PIN:collectorSha256",
+      "actual": "PREAUTH_PIN:collectorSha256",
+      "pass_": true,
+      "inputSha256": "214a995951e98025eb450179fa00abbbf72bf1f6fb738ede42371f4f76798d85",
+      "approvedSha256": "214a995951e98025eb450179fa00abbbf72bf1f6fb738ede42371f4f76798d85",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:binderSha256:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:binderSha256",
+      "actual": "PREAUTH_HASH_TYPE:binderSha256",
+      "pass_": true,
+      "inputSha256": "bbc146e32365a4dd1a6be9e91eb558689ca2525b5aed6dfe36b46187c6a4ed98",
+      "approvedSha256": "bbc146e32365a4dd1a6be9e91eb558689ca2525b5aed6dfe36b46187c6a4ed98",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:binderSha256:A",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:binderSha256",
+      "actual": "PREAUTH_HASH_TYPE:binderSha256",
+      "pass_": true,
+      "inputSha256": "31f138eccb5cdef34fa3e9020811af4c336f7cce89ea60accfc66bd2e98b9d78",
+      "approvedSha256": "31f138eccb5cdef34fa3e9020811af4c336f7cce89ea60accfc66bd2e98b9d78",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:binderSha256:1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_PIN:binderSha256",
+      "actual": "PREAUTH_PIN:binderSha256",
+      "pass_": true,
+      "inputSha256": "70f8dd69e368d04458b925990094610221c6d61f5ef2c14093ab1a180a5acb4f",
+      "approvedSha256": "70f8dd69e368d04458b925990094610221c6d61f5ef2c14093ab1a180a5acb4f",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:entrySha256:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:entrySha256",
+      "actual": "PREAUTH_HASH_TYPE:entrySha256",
+      "pass_": true,
+      "inputSha256": "2ab2d9bf00ce60b4470fe0abdca28cc249ee4ba99007c47a5c310e788d575798",
+      "approvedSha256": "2ab2d9bf00ce60b4470fe0abdca28cc249ee4ba99007c47a5c310e788d575798",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:entrySha256:A",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:entrySha256",
+      "actual": "PREAUTH_HASH_TYPE:entrySha256",
+      "pass_": true,
+      "inputSha256": "58895d93864cb54992182ef9bcaabdf8a125d9dfc6d54794ab31c3925f1dd800",
+      "approvedSha256": "58895d93864cb54992182ef9bcaabdf8a125d9dfc6d54794ab31c3925f1dd800",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:entrySha256:1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_PIN:entrySha256",
+      "actual": "PREAUTH_PIN:entrySha256",
+      "pass_": true,
+      "inputSha256": "1db413ff0ef676fbae3a1c449dd11fd5352bd664272e4373f1183a3beadfbc08",
+      "approvedSha256": "1db413ff0ef676fbae3a1c449dd11fd5352bd664272e4373f1183a3beadfbc08",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:runtimeIdentitySha256:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:runtimeIdentitySha256",
+      "actual": "PREAUTH_HASH_TYPE:runtimeIdentitySha256",
+      "pass_": true,
+      "inputSha256": "a96867bc3b111338096f17b6d2a63761330a630305340ce8f548213b61abe49c",
+      "approvedSha256": "a96867bc3b111338096f17b6d2a63761330a630305340ce8f548213b61abe49c",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:runtimeIdentitySha256:A",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:runtimeIdentitySha256",
+      "actual": "PREAUTH_HASH_TYPE:runtimeIdentitySha256",
+      "pass_": true,
+      "inputSha256": "47a484f2116b2d12780bf377655d1dae8462c06d7eefa776d9fd93bb321ea5a4",
+      "approvedSha256": "47a484f2116b2d12780bf377655d1dae8462c06d7eefa776d9fd93bb321ea5a4",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:runtimeIdentitySha256:1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_PIN:runtimeIdentitySha256",
+      "actual": "PREAUTH_PIN:runtimeIdentitySha256",
+      "pass_": true,
+      "inputSha256": "71884ebf2329229b341f4270ea55e0def166442aef6dfee88c6d3aefabd38297",
+      "approvedSha256": "71884ebf2329229b341f4270ea55e0def166442aef6dfee88c6d3aefabd38297",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:factPlanSha256:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:factPlanSha256",
+      "actual": "PREAUTH_HASH_TYPE:factPlanSha256",
+      "pass_": true,
+      "inputSha256": "840e0cea51de941ef7080d33fd61419ca2eea5c8f29ce19656a3665d7bacda54",
+      "approvedSha256": "840e0cea51de941ef7080d33fd61419ca2eea5c8f29ce19656a3665d7bacda54",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:factPlanSha256:A",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HASH_TYPE:factPlanSha256",
+      "actual": "PREAUTH_HASH_TYPE:factPlanSha256",
+      "pass_": true,
+      "inputSha256": "7398334b526869996ac862251d4a5cfbdacda8e04b8910d7aa6a38e2fc672e29",
+      "approvedSha256": "7398334b526869996ac862251d4a5cfbdacda8e04b8910d7aa6a38e2fc672e29",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-pin:factPlanSha256:1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_PIN:factPlanSha256",
+      "actual": "PREAUTH_PIN:factPlanSha256",
+      "pass_": true,
+      "inputSha256": "f48f9aeceb9b34e07ec866eb8dc0244479d65464d13e72006aa4511b21773e62",
+      "approvedSha256": "f48f9aeceb9b34e07ec866eb8dc0244479d65464d13e72006aa4511b21773e62",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:wholeSeconds:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "21b0f9a3c7b5f946cffd5bbb23fedfccd87f947d9989d1ae64a95e3a9dd13f6b",
+      "approvedSha256": "21b0f9a3c7b5f946cffd5bbb23fedfccd87f947d9989d1ae64a95e3a9dd13f6b",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:wholeSeconds:90.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "c09af92a7420a0c562f3ad7a6079a09abca2a2e674b4b6fbc70d2004c7994c19",
+      "approvedSha256": "c09af92a7420a0c562f3ad7a6079a09abca2a2e674b4b6fbc70d2004c7994c19",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:wholeSeconds:91",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "57afe95526abd340b421265cc95d14213fa09cef761a236a3db4e5271716a90a",
+      "approvedSha256": "57afe95526abd340b421265cc95d14213fa09cef761a236a3db4e5271716a90a",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:wholeSeconds:89",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "cc433cc5e311eeb4eecec2677ccf6872481d5cecdfa42e4724c40b56da7bb7b1",
+      "approvedSha256": "cc433cc5e311eeb4eecec2677ccf6872481d5cecdfa42e4724c40b56da7bb7b1",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:gateSeconds:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "1c7fb58afe3930b91d059c474f1a9f7c6ebd73ab7419b531ac3bfaf8ec94b972",
+      "approvedSha256": "1c7fb58afe3930b91d059c474f1a9f7c6ebd73ab7419b531ac3bfaf8ec94b972",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:gateSeconds:30.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "e634e1f18b6f525157123a78ba0f07d4f1eb84cdae9b4dccd2183f09cec7606f",
+      "approvedSha256": "e634e1f18b6f525157123a78ba0f07d4f1eb84cdae9b4dccd2183f09cec7606f",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:gateSeconds:31",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "6bf03d3271c04b221f20e293254609849293df2b829f8263506664377b011487",
+      "approvedSha256": "6bf03d3271c04b221f20e293254609849293df2b829f8263506664377b011487",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:gateSeconds:29",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "af4c939ed081ce7d2df92cb5c744d22602274e87c619ce0fbd0dd02d8e46f194",
+      "approvedSha256": "af4c939ed081ce7d2df92cb5c744d22602274e87c619ce0fbd0dd02d8e46f194",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:qualificationSeconds:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "ee418ac63b643ab9e3020db81e23088e58401e14b353f664e53e7783e66398ea",
+      "approvedSha256": "ee418ac63b643ab9e3020db81e23088e58401e14b353f664e53e7783e66398ea",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:qualificationSeconds:15.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "5243901488355a93a9d0bc2198e7b33a8c1c1272545f6016d3682714f9cbb983",
+      "approvedSha256": "5243901488355a93a9d0bc2198e7b33a8c1c1272545f6016d3682714f9cbb983",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:qualificationSeconds:16",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "9ecb8bffc80993c70e8fcee1ae31b476cb00de5314104c24631f4fc4661874e7",
+      "approvedSha256": "9ecb8bffc80993c70e8fcee1ae31b476cb00de5314104c24631f4fc4661874e7",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:qualificationSeconds:14",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "79a3d89aa13217a778a60920ec3edbc598f3fca90af39b8950e56b149d4c58f4",
+      "approvedSha256": "79a3d89aa13217a778a60920ec3edbc598f3fca90af39b8950e56b149d4c58f4",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:outerSeconds:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "103317e14a22ca1a92dc13a059b996bbcc8e7d716d134cdab8ef36c8176139c7",
+      "approvedSha256": "103317e14a22ca1a92dc13a059b996bbcc8e7d716d134cdab8ef36c8176139c7",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:outerSeconds:30.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "2f47ffca1361b17cf9d1a43c916f52bb296543b3697d05ff48adfc1cc6bb774f",
+      "approvedSha256": "2f47ffca1361b17cf9d1a43c916f52bb296543b3697d05ff48adfc1cc6bb774f",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:outerSeconds:31",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "adfd06198aa0843f6a1ffceeda58ce1e96fddc2a7d188f6bbb2faca4e2a81d5d",
+      "approvedSha256": "adfd06198aa0843f6a1ffceeda58ce1e96fddc2a7d188f6bbb2faca4e2a81d5d",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:outerSeconds:29",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "10c9a551a6c8ffde87133835cf133e03dcdd906d59263a918656f5c83aa90f12",
+      "approvedSha256": "10c9a551a6c8ffde87133835cf133e03dcdd906d59263a918656f5c83aa90f12",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:proofSeconds:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "cfd2ed6ac5d999f2564c96d150ec5652b5f371794858b1a8acef58b7896b9e1a",
+      "approvedSha256": "cfd2ed6ac5d999f2564c96d150ec5652b5f371794858b1a8acef58b7896b9e1a",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:proofSeconds:10.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "20dbd88999915f1606a406696aee8df6a325cfce061cd83f982723555ebb6165",
+      "approvedSha256": "20dbd88999915f1606a406696aee8df6a325cfce061cd83f982723555ebb6165",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:proofSeconds:11",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "dcacd7aa2007b516a3b0eed0957190f2942c17632305e1d6297260ddbce3f7c4",
+      "approvedSha256": "dcacd7aa2007b516a3b0eed0957190f2942c17632305e1d6297260ddbce3f7c4",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:proofSeconds:9",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "a192a3b4c2180d4beaecf2d48a13d1909d50527a2d28608683d313b260309967",
+      "approvedSha256": "a192a3b4c2180d4beaecf2d48a13d1909d50527a2d28608683d313b260309967",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:sdkChildren:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "46bd01989dd9fd38d5e65ba94daf78be8082ddc7cef9f65d059f6ebae9edf6d2",
+      "approvedSha256": "46bd01989dd9fd38d5e65ba94daf78be8082ddc7cef9f65d059f6ebae9edf6d2",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:sdkChildren:1.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "709bd2a1423d1e140faf64501036a4524129524bf5d11c9052961f61bec9127f",
+      "approvedSha256": "709bd2a1423d1e140faf64501036a4524129524bf5d11c9052961f61bec9127f",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:sdkChildren:2",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "a6ad21ef7b1cedd2823d59c34c981c8573a6e5690546977422cb436732872c2b",
+      "approvedSha256": "a6ad21ef7b1cedd2823d59c34c981c8573a6e5690546977422cb436732872c2b",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:sdkChildren:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "1ef15d2d823487a06df0d308063372fa6ba1459e395fbe1e12a5766520cefde4",
+      "approvedSha256": "1ef15d2d823487a06df0d308063372fa6ba1459e395fbe1e12a5766520cefde4",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:stdoutBytes:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "a7dc70f654e7840490489700275b282493c087a0691c874d2956ed0d3d8ff9d8",
+      "approvedSha256": "a7dc70f654e7840490489700275b282493c087a0691c874d2956ed0d3d8ff9d8",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:stdoutBytes:139264.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "77f734a8b7a5cf82932460aa67ea972fd0672309e28a478265caa961634f4281",
+      "approvedSha256": "77f734a8b7a5cf82932460aa67ea972fd0672309e28a478265caa961634f4281",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:stdoutBytes:139265",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "44f5d9307e97f1865329154690a9326389c69c6a54809f8adf518bf71245ffbc",
+      "approvedSha256": "44f5d9307e97f1865329154690a9326389c69c6a54809f8adf518bf71245ffbc",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:stdoutBytes:139263",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "7ffff0c04a3318e7f2f3b216e0adf18a77010dc8e642123f720639b0ce429471",
+      "approvedSha256": "7ffff0c04a3318e7f2f3b216e0adf18a77010dc8e642123f720639b0ce429471",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:stderrBytes:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "fc09517f74e66b20d144b70267ea9e2ca7fb73b2780272f5e9b917d55b7390c8",
+      "approvedSha256": "fc09517f74e66b20d144b70267ea9e2ca7fb73b2780272f5e9b917d55b7390c8",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:stderrBytes:8192.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "f2d87d331e7b04a94c05eee9465f7c7241c500049740b6b2214f3402a5af69c5",
+      "approvedSha256": "f2d87d331e7b04a94c05eee9465f7c7241c500049740b6b2214f3402a5af69c5",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:stderrBytes:8193",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "8bf2999bd0737eb66a57f2199dc0c2741570dee192b5e3e268e7e02b987312da",
+      "approvedSha256": "8bf2999bd0737eb66a57f2199dc0c2741570dee192b5e3e268e7e02b987312da",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:stderrBytes:8191",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "e8b4a2773865a68343f844aba2d86c4bd9ffb3bc4fd786d6bc5beb141effa816",
+      "approvedSha256": "e8b4a2773865a68343f844aba2d86c4bd9ffb3bc4fd786d6bc5beb141effa816",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:combinedBytes:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "a0ccc1d95baa4566e0333bce29c591aef6ef6dcbdc9357d2c3e8197f2c9dfd61",
+      "approvedSha256": "a0ccc1d95baa4566e0333bce29c591aef6ef6dcbdc9357d2c3e8197f2c9dfd61",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:combinedBytes:147456.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "8fffbbe2baaf15a3b21ccad220185de71c680a32ad6834ef6919e329abea1ffc",
+      "approvedSha256": "8fffbbe2baaf15a3b21ccad220185de71c680a32ad6834ef6919e329abea1ffc",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:combinedBytes:147457",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "58f05d1e11956ab675d4d21c982cdc720f99ad71526710edc63ddf02d0d0d0b6",
+      "approvedSha256": "58f05d1e11956ab675d4d21c982cdc720f99ad71526710edc63ddf02d0d0d0b6",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:combinedBytes:147455",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "7c1c13f37e06e872267c02fdab5cecdc8dd47dab5d57cbac68763f968c4408ce",
+      "approvedSha256": "7c1c13f37e06e872267c02fdab5cecdc8dd47dab5d57cbac68763f968c4408ce",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:concurrency:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "313d40a26a00c5e01b9beef3d1d0496365296ae965a8db32f73f9d817d32b01e",
+      "approvedSha256": "313d40a26a00c5e01b9beef3d1d0496365296ae965a8db32f73f9d817d32b01e",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:concurrency:1.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "2749d47b7f26a65a5e3d41a312f9a30e95116383743c8c5b72f42d4b1e3663b0",
+      "approvedSha256": "2749d47b7f26a65a5e3d41a312f9a30e95116383743c8c5b72f42d4b1e3663b0",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:concurrency:2",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "7fef29606aa1e9781486ac5c019240aaf82c981dd2eb21d2ddf2fe24d4858a03",
+      "approvedSha256": "7fef29606aa1e9781486ac5c019240aaf82c981dd2eb21d2ddf2fe24d4858a03",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:concurrency:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "1d6a49d18329ea671ba1bbde0d6ba3a4e5a362718292a4fa05fe7a7ff44c2777",
+      "approvedSha256": "1d6a49d18329ea671ba1bbde0d6ba3a4e5a362718292a4fa05fe7a7ff44c2777",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:retry:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "779a17e3e29ce265ea8a1bc6ffd1ba0247682ca74a5f61043587f239110b50be",
+      "approvedSha256": "779a17e3e29ce265ea8a1bc6ffd1ba0247682ca74a5f61043587f239110b50be",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:retry:0.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "c60d47230e48f0d94d5cb46dc8b7bbf709efd6dcb80b3f5d694f59cb3f67ac5a",
+      "approvedSha256": "c60d47230e48f0d94d5cb46dc8b7bbf709efd6dcb80b3f5d694f59cb3f67ac5a",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:retry:1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "7bd0d191567ea71d828723588a2e2842bf636dd3f7edd6f462ee7c362be2f801",
+      "approvedSha256": "7bd0d191567ea71d828723588a2e2842bf636dd3f7edd6f462ee7c362be2f801",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-budget:retry:-1",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_LIMITS",
+      "actual": "PREAUTH_LIMITS",
+      "pass_": true,
+      "inputSha256": "31b9efd5f85ca28c9ca3564081872f2eb12e10ba54d22b04a0a598d67500ceca",
+      "approvedSha256": "31b9efd5f85ca28c9ca3564081872f2eb12e10ba54d22b04a0a598d67500ceca",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:sdk:path:None",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "49dfeee455213450e3f9760f3f7a17e675bd3de940309eb338504d0ecbf0c92d",
+      "approvedSha256": "49dfeee455213450e3f9760f3f7a17e675bd3de940309eb338504d0ecbf0c92d",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:sdk:path:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "3fdcc1ca8dd7ce3696bd08c738b3d36e9e58b6842b76046589e60273a4f7aaad",
+      "approvedSha256": "3fdcc1ca8dd7ce3696bd08c738b3d36e9e58b6842b76046589e60273a4f7aaad",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:sdk:path:1.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "9b290a59d08a3f487625bf81e8779d506bbba73542a855a60a6358b69d2c02b8",
+      "approvedSha256": "9b290a59d08a3f487625bf81e8779d506bbba73542a855a60a6358b69d2c02b8",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:sdk:path:'EXTRA'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "9467c41d71ac271eb7b106b9a54a155e575ebb57072aaea8e6c7301d43fb9618",
+      "approvedSha256": "9467c41d71ac271eb7b106b9a54a155e575ebb57072aaea8e6c7301d43fb9618",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:sdk:sha256:None",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "b1e082cf7e41bbaa9b5c1f2405ec53739566fa08d0692033a772b64aabbbfd80",
+      "approvedSha256": "b1e082cf7e41bbaa9b5c1f2405ec53739566fa08d0692033a772b64aabbbfd80",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:sdk:sha256:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "19ec42e5fcf40fafd151aa6f555438db67122fd511f4804f877ddff42ac0bcda",
+      "approvedSha256": "19ec42e5fcf40fafd151aa6f555438db67122fd511f4804f877ddff42ac0bcda",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:sdk:sha256:1.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "2d24ff103244be772d5a0f904a631ec5b9e4614f1840fe81461200eb40e900a9",
+      "approvedSha256": "2d24ff103244be772d5a0f904a631ec5b9e4614f1840fe81461200eb40e900a9",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:sdk:sha256:'EXTRA'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "9bd3b6b6bf69be415cca0fe53ff8103a1f306677a18a0f4d8b0eb3adcd7602e8",
+      "approvedSha256": "9bd3b6b6bf69be415cca0fe53ff8103a1f306677a18a0f4d8b0eb3adcd7602e8",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:serial:None",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "6b24c80b173bd07612c8d25f1efcc0a0f426dd6e177f58bcae1cbf27fe97f5b7",
+      "approvedSha256": "6b24c80b173bd07612c8d25f1efcc0a0f426dd6e177f58bcae1cbf27fe97f5b7",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:serial:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "009a1faa9fddb0234bc8d8368eded094c09bda031d801effd7a973627a94529b",
+      "approvedSha256": "009a1faa9fddb0234bc8d8368eded094c09bda031d801effd7a973627a94529b",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:serial:1.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "7db348d0aaadb691c5578e04bbec0efb3ecfcab3df515116a536e6430fb8b473",
+      "approvedSha256": "7db348d0aaadb691c5578e04bbec0efb3ecfcab3df515116a536e6430fb8b473",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:serial:'EXTRA'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "adb1ebb6ae36a1b53739b360c04a20519263520fcd8d355b6f5c30f5d40e8641",
+      "approvedSha256": "adb1ebb6ae36a1b53739b360c04a20519263520fcd8d355b6f5c30f5d40e8641",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:model:None",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "d7a26cdf4695630fa80a8ef52a277cbcd0a9344fcc305ea187cfd72d9bbb4707",
+      "approvedSha256": "d7a26cdf4695630fa80a8ef52a277cbcd0a9344fcc305ea187cfd72d9bbb4707",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:model:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "27400959b3086004a713a539ae94febafa04884fa2438c4328c5fd725b3e9338",
+      "approvedSha256": "27400959b3086004a713a539ae94febafa04884fa2438c4328c5fd725b3e9338",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:model:1.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "9305dcdf8dede7f4d95051395656bf6a65dda0534f80ba05d2316628accd7857",
+      "approvedSha256": "9305dcdf8dede7f4d95051395656bf6a65dda0534f80ba05d2316628accd7857",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:model:'EXTRA'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "392fa418da4162e51a0f41acded0e4a6ea31b79c6d94b0820982b26700b654a6",
+      "approvedSha256": "392fa418da4162e51a0f41acded0e4a6ea31b79c6d94b0820982b26700b654a6",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:api:None",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "1524191213be43c7c70bdc62ddb97db39e2ac17dc6fd4ca381672f327fea6e23",
+      "approvedSha256": "1524191213be43c7c70bdc62ddb97db39e2ac17dc6fd4ca381672f327fea6e23",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:api:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "43f72545408c4c7de3400608cf1687b26f6517c07c87405cbbed758a3f467a78",
+      "approvedSha256": "43f72545408c4c7de3400608cf1687b26f6517c07c87405cbbed758a3f467a78",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:api:1.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "ab23a929d16d0fc1c0d94fb0f5e5fea154f8fd26277fbefacba1f3e24f40ddd7",
+      "approvedSha256": "ab23a929d16d0fc1c0d94fb0f5e5fea154f8fd26277fbefacba1f3e24f40ddd7",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:api:'EXTRA'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "1bc63d4c3e31e10fa85e17e89b9b2e328970fe4dc94dd67d7dd6e07dea52b00c",
+      "approvedSha256": "1bc63d4c3e31e10fa85e17e89b9b2e328970fe4dc94dd67d7dd6e07dea52b00c",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:user:None",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "3b7b0d71a70898b6e3d4cd321cd1db714496a49fd36f60df2ab3fe1789b90bef",
+      "approvedSha256": "3b7b0d71a70898b6e3d4cd321cd1db714496a49fd36f60df2ab3fe1789b90bef",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:user:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "68e285d5dabdc62894bbe6d981c1572519fe4f8d931a7b5e41a3d9eec1ec91f5",
+      "approvedSha256": "68e285d5dabdc62894bbe6d981c1572519fe4f8d931a7b5e41a3d9eec1ec91f5",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:user:1.0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "ff4e467be0defce8df204afc583db183539de3766a4699d126cc2dc9a70f8785",
+      "approvedSha256": "ff4e467be0defce8df204afc583db183539de3766a4699d126cc2dc9a70f8785",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-fixed:device:user:'EXTRA'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SDK_DEVICE",
+      "actual": "PREAUTH_SDK_DEVICE",
+      "pass_": true,
+      "inputSha256": "98fee8e27138779caf68ce83f75d6a508eb1e747f633fcbcb760f0769e0b95c0",
+      "approvedSha256": "98fee8e27138779caf68ce83f75d6a508eb1e747f633fcbcb760f0769e0b95c0",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:0:delete",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "f1f425729280af56cf83d54ff726906228d2f404608bb1d7eba1fc6d4ae7aa82",
+      "approvedSha256": "f1f425729280af56cf83d54ff726906228d2f404608bb1d7eba1fc6d4ae7aa82",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:0:extra",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "3bbb72b6c29f9cbeab965a805f35a6754378727060319cf490d0cbfd9dda7e49",
+      "approvedSha256": "3bbb72b6c29f9cbeab965a805f35a6754378727060319cf490d0cbfd9dda7e49",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:0:command",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "2f5bd5c4d8f730f216fddcc0b7c10ce16b2114ea7888fe0bf10f0766f40ff08d",
+      "approvedSha256": "2f5bd5c4d8f730f216fddcc0b7c10ce16b2114ea7888fe0bf10f0766f40ff08d",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:0:id",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "b58eb1a941ebb2a8c1ddd91aad9350524316863acd41b6d5d7bd836c527210ee",
+      "approvedSha256": "b58eb1a941ebb2a8c1ddd91aad9350524316863acd41b6d5d7bd836c527210ee",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:1:delete",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "a8a62f438df3718c235e7f4b5fe1e7d82eebe8f868ed8fb547f1df782ad658c5",
+      "approvedSha256": "a8a62f438df3718c235e7f4b5fe1e7d82eebe8f868ed8fb547f1df782ad658c5",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:1:extra",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "2dcc9837c6c020194d5461a0fe3dfa39bd95319c50bfaf0a2e272729f4b01705",
+      "approvedSha256": "2dcc9837c6c020194d5461a0fe3dfa39bd95319c50bfaf0a2e272729f4b01705",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:1:command",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "d3189dedcdb689a75d27424967014362c77072826e8f8086d11cb3e58c1dd4ae",
+      "approvedSha256": "d3189dedcdb689a75d27424967014362c77072826e8f8086d11cb3e58c1dd4ae",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:1:id",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "57d808bef196c18e444805ef0f94f634a0d53bb05f1f87a692121d01033eafe7",
+      "approvedSha256": "57d808bef196c18e444805ef0f94f634a0d53bb05f1f87a692121d01033eafe7",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:2:delete",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "27a746f0cc90294487e5d5ddd4d946aadab98786fa52eb4f62453c5612ff032b",
+      "approvedSha256": "27a746f0cc90294487e5d5ddd4d946aadab98786fa52eb4f62453c5612ff032b",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:2:extra",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "b40422b5a1d5d56ecbd456fb1588800fcb9cdadae5d80cbd8df60bef44a527c5",
+      "approvedSha256": "b40422b5a1d5d56ecbd456fb1588800fcb9cdadae5d80cbd8df60bef44a527c5",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:2:command",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "8066d892132807019a6a9b2bf38af1689116a04423b4e903b444cf8ce73f893e",
+      "approvedSha256": "8066d892132807019a6a9b2bf38af1689116a04423b4e903b444cf8ce73f893e",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:2:id",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "8838c17710cc23a996dc6992b3b9137789c2f00a326c68a1790194bed3a3dfaf",
+      "approvedSha256": "8838c17710cc23a996dc6992b3b9137789c2f00a326c68a1790194bed3a3dfaf",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:3:delete",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "de3479695d239f2d6b7cb02e8c7856fcfc44addb9236d829d313e22f04521a66",
+      "approvedSha256": "de3479695d239f2d6b7cb02e8c7856fcfc44addb9236d829d313e22f04521a66",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:3:extra",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "d1bc60652e5f6726610832810de1beed57ed02f7b81e3093d95c96470987dc88",
+      "approvedSha256": "d1bc60652e5f6726610832810de1beed57ed02f7b81e3093d95c96470987dc88",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:3:command",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "591f5eaabe072bc95f2d5fe0d5e78b3cddc7574949e5da66acf5f6cc765aa4ec",
+      "approvedSha256": "591f5eaabe072bc95f2d5fe0d5e78b3cddc7574949e5da66acf5f6cc765aa4ec",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:3:id",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "e7efa1afbb86631b26f29f2747442bffefdd570fbada72ded997ec8042bd95fe",
+      "approvedSha256": "e7efa1afbb86631b26f29f2747442bffefdd570fbada72ded997ec8042bd95fe",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:4:delete",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "4d67e2cc195b293d032a2557f39cf87b97d14df527204d241bd28a1317c2ac53",
+      "approvedSha256": "4d67e2cc195b293d032a2557f39cf87b97d14df527204d241bd28a1317c2ac53",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:4:extra",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "2061d0d2f3c7ae36dbbf49ba70b8af4f87602b22119e8e597f8c6778e07b87d6",
+      "approvedSha256": "2061d0d2f3c7ae36dbbf49ba70b8af4f87602b22119e8e597f8c6778e07b87d6",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:4:command",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "34739e25ac0fbeabee39a27f3772cbdebefad81dc190cd7ecc4598d4e43ad959",
+      "approvedSha256": "34739e25ac0fbeabee39a27f3772cbdebefad81dc190cd7ecc4598d4e43ad959",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:4:id",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "ce2416f844561cc8e525cafc0e0a0953e7c3a125d1435ee667bd0189cab482a2",
+      "approvedSha256": "ce2416f844561cc8e525cafc0e0a0953e7c3a125d1435ee667bd0189cab482a2",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:5:delete",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "91392c3febd7d2489d98d8c64f3b2f5a2c8b25186a19a909233ba5a709cf8df6",
+      "approvedSha256": "91392c3febd7d2489d98d8c64f3b2f5a2c8b25186a19a909233ba5a709cf8df6",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:5:extra",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "cd2858ec65b0e4920abe683920dbc8704b125136752a746e040d75a7fc4b43a5",
+      "approvedSha256": "cd2858ec65b0e4920abe683920dbc8704b125136752a746e040d75a7fc4b43a5",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:5:command",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "68d2ec6bf0981b3c9a1f94fbd4cec09acdc061382c838a4ce06a2efa8de2999e",
+      "approvedSha256": "68d2ec6bf0981b3c9a1f94fbd4cec09acdc061382c838a4ce06a2efa8de2999e",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:5:id",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "8b1b4363684754bb74ed328a56befaea73f80d4088cf7b585226361ebfb0a67e",
+      "approvedSha256": "8b1b4363684754bb74ed328a56befaea73f80d4088cf7b585226361ebfb0a67e",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:6:delete",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "2d2f4e5704c50bb7d5b6b8cb1df2ce198532bf518ff608558ac80e3e5de8d23b",
+      "approvedSha256": "2d2f4e5704c50bb7d5b6b8cb1df2ce198532bf518ff608558ac80e3e5de8d23b",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:6:extra",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "94bbf681e7858d585b513171b175d99f354408bb7145630656b01916676715e9",
+      "approvedSha256": "94bbf681e7858d585b513171b175d99f354408bb7145630656b01916676715e9",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:6:command",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "911de36e94ec163ab73cc23abf0c091fa149acc90ff06902607c0168928464a1",
+      "approvedSha256": "911de36e94ec163ab73cc23abf0c091fa149acc90ff06902607c0168928464a1",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-query:6:id",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_QUERIES",
+      "actual": "PREAUTH_QUERIES",
+      "pass_": true,
+      "inputSha256": "d81964fe0c719934cc366dadf9515f2a7c7303a7d55e0e0041c7421b2caecb07",
+      "approvedSha256": "d81964fe0c719934cc366dadf9515f2a7c7303a7d55e0e0041c7421b2caecb07",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-utc:'2026-10-23T00:00:00Z'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_UTC",
+      "actual": "PREAUTH_UTC",
+      "pass_": true,
+      "inputSha256": "037ddf6e95f85cfc24ffcdffdab422410912f6d46530927099d1893551901cf2",
+      "approvedSha256": "037ddf6e95f85cfc24ffcdffdab422410912f6d46530927099d1893551901cf2",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-utc:'2026-10-23T00:00:00'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_UTC",
+      "actual": "PREAUTH_UTC",
+      "pass_": true,
+      "inputSha256": "6e04646a81e24ef735e314b9a790fcd54e247cbd92b4e024962978ce969bc4fb",
+      "approvedSha256": "6e04646a81e24ef735e314b9a790fcd54e247cbd92b4e024962978ce969bc4fb",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-utc:'2026-10-23T00:00:00+01:00'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_UTC",
+      "actual": "PREAUTH_UTC",
+      "pass_": true,
+      "inputSha256": "a038c45d723ec149575025e75fcf081a605cb82f6a6f0feb37f871d8969618c2",
+      "approvedSha256": "a038c45d723ec149575025e75fcf081a605cb82f6a6f0feb37f871d8969618c2",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-utc:'2026-10-23T00:00:00.1234567+00:00'",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_UTC",
+      "actual": "PREAUTH_UTC",
+      "pass_": true,
+      "inputSha256": "23c2ac6ac02329b1857d20b60d1bfb211e95a783b5dcbc90a6058ee6fe67cc54",
+      "approvedSha256": "23c2ac6ac02329b1857d20b60d1bfb211e95a783b5dcbc90a6058ee6fe67cc54",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-utc:True",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_UTC",
+      "actual": "PREAUTH_UTC",
+      "pass_": true,
+      "inputSha256": "c3efa0bf5207bc0d63dea51b68f7ad8e40b07616104684a70e03e634d473602b",
+      "approvedSha256": "c3efa0bf5207bc0d63dea51b68f7ad8e40b07616104684a70e03e634d473602b",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-utc:0",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_UTC",
+      "actual": "PREAUTH_UTC",
+      "pass_": true,
+      "inputSha256": "e6ee9b4ae7b789c44c288f80a6a80f9963279438fac76c8fe89945b1662b6732",
+      "approvedSha256": "e6ee9b4ae7b789c44c288f80a6a80f9963279438fac76c8fe89945b1662b6732",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-window:expired",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_WINDOW",
+      "actual": "PREAUTH_WINDOW",
+      "pass_": true,
+      "inputSha256": "bc2f273662f61af8f44da48d39cdc7471ece957a2a666d94ce0da1846f6ed99e",
+      "approvedSha256": "bc2f273662f61af8f44da48d39cdc7471ece957a2a666d94ce0da1846f6ed99e",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-window:future",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_WINDOW",
+      "actual": "PREAUTH_WINDOW",
+      "pass_": true,
+      "inputSha256": "6fe772a0fe6067c061bdaead60034682646b0eb3af859c243cef3ebb087944ce",
+      "approvedSha256": "6fe772a0fe6067c061bdaead60034682646b0eb3af859c243cef3ebb087944ce",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-window:over90",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_WINDOW",
+      "actual": "PREAUTH_WINDOW",
+      "pass_": true,
+      "inputSha256": "c7a2cf0e3c39b971cc7945a4656d35d5c6d7422164b17d907dd897a3c7e8fc82",
+      "approvedSha256": "c7a2cf0e3c39b971cc7945a4656d35d5c6d7422164b17d907dd897a3c7e8fc82",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-window:zero",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_WINDOW",
+      "actual": "PREAUTH_WINDOW",
+      "pass_": true,
+      "inputSha256": "1bf81a6e7c026a330a28baa0c4ba99cd60ceb7821d548b18bf733cade9f19815",
+      "approvedSha256": "1bf81a6e7c026a330a28baa0c4ba99cd60ceb7821d548b18bf733cade9f19815",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-window:reverse",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_WINDOW",
+      "actual": "PREAUTH_WINDOW",
+      "pass_": true,
+      "inputSha256": "fddfcebe9157f630fc6fcbf9f3917829366d2d793d2ac2eff4c97b1ec9bebf05",
+      "approvedSha256": "fddfcebe9157f630fc6fcbf9f3917829366d2d793d2ac2eff4c97b1ec9bebf05",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:schema",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_KIND_MODE",
+      "actual": "PREAUTH_KIND_MODE",
+      "pass_": true,
+      "inputSha256": "c14328e526ab6bb5a76759487bf611939e16b9f27ce3087b4d2a20bfab4d1a7a",
+      "approvedSha256": "c14328e526ab6bb5a76759487bf611939e16b9f27ce3087b4d2a20bfab4d1a7a",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:mode",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_POLICY_MODE",
+      "actual": "PREAUTH_POLICY_MODE",
+      "pass_": true,
+      "inputSha256": "5b4698b01dcb2bd70440ec56cef13cea7f5041b6315e81291d0bac4db630f963",
+      "approvedSha256": "5b4698b01dcb2bd70440ec56cef13cea7f5041b6315e81291d0bac4db630f963",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:sourceThreadId",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SOURCE",
+      "actual": "PREAUTH_SOURCE",
+      "pass_": true,
+      "inputSha256": "bfaa4e9d8228a785ec83bae6df5482ffa91276a81aab7f8617ae67dc97f8600a",
+      "approvedSha256": "bfaa4e9d8228a785ec83bae6df5482ffa91276a81aab7f8617ae67dc97f8600a",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:sourceTurnId",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_SOURCE",
+      "actual": "PREAUTH_SOURCE",
+      "pass_": true,
+      "inputSha256": "56fddbd8b7da23b5ba75ee1c7ba5de8b33c78a52a893524f30cbc2134648c122",
+      "approvedSha256": "56fddbd8b7da23b5ba75ee1c7ba5de8b33c78a52a893524f30cbc2134648c122",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:nonce",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_NONCE_PLAN",
+      "actual": "PREAUTH_NONCE_PLAN",
+      "pass_": true,
+      "inputSha256": "967bfd46ce906752e7d41f2fce5f821489a501983f2634aff73b7060ed1525ef",
+      "approvedSha256": "967bfd46ce906752e7d41f2fce5f821489a501983f2634aff73b7060ed1525ef",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:planId",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_NONCE_PLAN",
+      "actual": "PREAUTH_NONCE_PLAN",
+      "pass_": true,
+      "inputSha256": "1e25d78af97ed95f4d131494fc4fab2caa7a727068ffdf6580f25764a39eec48",
+      "approvedSha256": "1e25d78af97ed95f4d131494fc4fab2caa7a727068ffdf6580f25764a39eec48",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:runId",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_RUN",
+      "actual": "PREAUTH_RUN",
+      "pass_": true,
+      "inputSha256": "bd0c8084d31300cfc1d6d71335208def2a07ae251be26ec58d9cbbe2b4396b77",
+      "approvedSha256": "bd0c8084d31300cfc1d6d71335208def2a07ae251be26ec58d9cbbe2b4396b77",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:scope",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_POLICY_ID:scope",
+      "actual": "PREAUTH_POLICY_ID:scope",
+      "pass_": true,
+      "inputSha256": "9262b02bbc498f10812d59ee056110d3ec08c77213df19b6d221b4bcf1f2c577",
+      "approvedSha256": "9262b02bbc498f10812d59ee056110d3ec08c77213df19b6d221b4bcf1f2c577",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:policySha256",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_POLICY",
+      "actual": "PREAUTH_POLICY",
+      "pass_": true,
+      "inputSha256": "e1ab556790b22ddf18b8ab8fbb06e26b026653d6328ff57ddae4df5cc9204e7e",
+      "approvedSha256": "e1ab556790b22ddf18b8ab8fbb06e26b026653d6328ff57ddae4df5cc9204e7e",
+      "pureOnly": true
+    },
+    {
+      "case": "internal-identity:home",
+      "layer": "INTERNAL_SYNTHETIC_OFFLINE_HASH",
+      "expected": "PREAUTH_HOME",
+      "actual": "PREAUTH_HOME",
+      "pass_": true,
+      "inputSha256": "7a734a65b47b5885ca1e51d62a31767815a94aec4e5ba61ed780634a781b0a86",
+      "approvedSha256": "7a734a65b47b5885ca1e51d62a31767815a94aec4e5ba61ed780634a781b0a86",
+      "pureOnly": true
+    }
+  ],
+  "total": 193,
+  "bad": [],
+  "productConstructors": 0,
+  "allExternalApprovals": "SYNTHETIC_OFFLINE_ONLY",
+  "signaturesOrHumanIdentityProven": false,
+  "executionMode": "POST_FILE_ONLY_REPLAY_EXPLICIT_VALIDATE_NOW",
+  "modelNow": "2026-10-23T13:45:54.271383+00:00",
+  "originalPreflight": {
+    "total": 193,
+    "bad": [],
+    "actualGate": 0,
+    "actualOnce": 0
+  },
+  "countsPolicy": "One corpus193, not386; runtime worker group did not execute",
+  "clockOrProductGuardModified": false
+}

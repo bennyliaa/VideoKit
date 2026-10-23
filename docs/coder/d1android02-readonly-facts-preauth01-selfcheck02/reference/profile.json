@@ -1,0 +1,767 @@
+{
+  "schema": "PREAUTH01_SELFCHECK02_PROFILE_V1",
+  "hostCwd": "D:\\CodexProjects\\VideoKit",
+  "qualificationCwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+  "qualificationEnv": {
+    "SystemRoot": "C:\\Windows",
+    "WINDIR": "C:\\Windows",
+    "TEMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+    "TMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification"
+  },
+  "inheritedEnvSha256": "905c6c1e28feab5c632fe57e8348b7559cbee6e7e2c38619f2c069beba4bc6f2",
+  "driverRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02",
+  "candidateRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01",
+  "candidateOwnedOutput": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-17e0cdfbda30",
+  "pinRows": [
+    {
+      "key": "candidate/tools/admission_checks.ps1",
+      "sha256": "0caae62fe362bb6c10546a5d52539a8e80b1484461fe3726ea68102709b57fc0"
+    },
+    {
+      "key": "candidate/tools/capture_android02.ps1",
+      "sha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70"
+    },
+    {
+      "key": "candidate/tools/entry_gates.py",
+      "sha256": "0ced5e0901db4ce3311a42e7e5aa88bc0ef81dfe7b94272985da22191eca29e1"
+    },
+    {
+      "key": "candidate/tools/facts_entry.py",
+      "sha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d"
+    },
+    {
+      "key": "candidate/tools/fact_collector.py",
+      "sha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4"
+    },
+    {
+      "key": "candidate/tools/fact_preauth.py",
+      "sha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768"
+    },
+    {
+      "key": "candidate/tools/outer_owner.py",
+      "sha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba"
+    },
+    {
+      "key": "candidate/tools/production_runner.py",
+      "sha256": "4daa59f9bc46a67185c7bb0b6be08531ee1364c5b51c96f892b2bb1795620780"
+    },
+    {
+      "key": "candidate/tools/runtime_binding.py",
+      "sha256": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982"
+    },
+    {
+      "key": "candidate/tools/win32_route.py",
+      "sha256": "42dac295bd5ed85f6a94e4775b907860c17e6802ecce6540e83683cf9e6a6bed"
+    },
+    {
+      "key": "candidate/selfchecks/capture_fixture.py",
+      "sha256": "e3cca23ab4f1584da7bc411282751f75d14d225e0dfdedeb739f92eda5cf5311"
+    },
+    {
+      "key": "candidate/selfchecks/contract03_cases.py",
+      "sha256": "f341c344ee7ba52b2a913f92fd689fdca8d5eb9fd8d916fa1c29bf4e0eb08563"
+    },
+    {
+      "key": "candidate/selfchecks/contract_cases.py",
+      "sha256": "2bb9ca7c4c439d556b649b596aa89d76462c0a6d61040450b56a4db6428a4214"
+    },
+    {
+      "key": "candidate/selfchecks/fact_fixture.py",
+      "sha256": "7317770d5d49c213771c7f9beb937d4b0db6e2a147c712849d61917ec20dafc6"
+    },
+    {
+      "key": "candidate/selfchecks/fixture_inputs.py",
+      "sha256": "cdff47dadfea852fc874edc5fc3bd35e86b20e24df2baadf82c016d7841a6c94"
+    },
+    {
+      "key": "candidate/selfchecks/independent_cases_original.py",
+      "sha256": "c58acecded04ebca9de22abfbe6bb62318a158553df21f54ac7a3365ca68123c"
+    },
+    {
+      "key": "candidate/selfchecks/prestart_lifetimes.ps1",
+      "sha256": "4febdd993638a435a9862d6b90537676ca7b17446089e34a325e9267479931b7"
+    },
+    {
+      "key": "candidate/selfchecks/review_semantics.ps1",
+      "sha256": "f0e035b6e645f61dadf0416be16398ea36da5f8cec17f1acf9e518ff5edf00f8"
+    },
+    {
+      "key": "candidate/selfchecks/route_fixture.py",
+      "sha256": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411"
+    },
+    {
+      "key": "candidate/selfchecks/route_model.py",
+      "sha256": "85d777b24d7b746ccb3ed9f46ad2997141e0ebffaae6e7d24cf8954216f1a04d"
+    },
+    {
+      "key": "candidate/driver/owned_capture.py",
+      "sha256": "3740e00b758b66d471df4c56ea2cfa3481e1f663b7e95e9d8d902b9e546a091e"
+    },
+    {
+      "key": "candidate/driver/reuse/capture_policy.py",
+      "sha256": "596456c4b603b54235f16b798a8a1867e5ccf29c8defb801024d8c089514d0c8"
+    },
+    {
+      "key": "candidate/driver/reuse/evidence_io.py",
+      "sha256": "ffeac99ea5b071a6fb3700277556907ee55969ae479831bf70f5381d512c4bf0"
+    },
+    {
+      "key": "candidate/driver/reuse/native_identity.py",
+      "sha256": "094539b62d0c8e6876921c678914c98e6d20d453771091c8819c44eecb64b2a0"
+    },
+    {
+      "key": "candidate/driver/reuse/owned_child.ps1",
+      "sha256": "ad4385f95e54ae966c634988fe9e78823273cdbee0f2798485a9a9bb2d0bd5e6"
+    },
+    {
+      "key": "candidate/driver/reuse/owned_child.py",
+      "sha256": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe"
+    },
+    {
+      "key": "candidate/build_candidate.py",
+      "sha256": "1a1aa0716eae1521e504eaf473c7e9fbe52ac37994ee07df3cb487e2d626fbc3"
+    },
+    {
+      "key": "candidate/driver_guard.py",
+      "sha256": "2e6366ddfc46943be9422bd333fc33089d87c5c8265fd0540c3a06408ec23eae"
+    },
+    {
+      "key": "candidate/prepare_driver.py",
+      "sha256": "f90abeded483adccf77598e42170247157ca9521b309489f0ed1f84b9b59e33b"
+    },
+    {
+      "key": "candidate/prepare_schema.py",
+      "sha256": "5e1424c3f14457f179edc0e45b35ab93ccab00c446e08ad7cad16d67e6679507"
+    },
+    {
+      "key": "candidate/selfcheck.py",
+      "sha256": "6bbe05b8e20efb7b5c989d1cccbbde062fc365105cbb2ce9a8088d632262947a"
+    },
+    {
+      "key": "driver/derive.py",
+      "sha256": "6a0f681341bea60f4d24f4c0d3cf4ae49c414e74fb04836efc7cb86808e10377"
+    },
+    {
+      "key": "driver/driver_guard.py",
+      "sha256": "3d695aec76e3adff1a29a81452eff0a2982107858fab7f075c980b8151474839"
+    },
+    {
+      "key": "driver/prepare.py",
+      "sha256": "b50ced09fef80702326e83a73f02389fd3568c31b6c29b81a90de4d130f0c5f8"
+    },
+    {
+      "key": "driver/worker.py",
+      "sha256": "6091314d6fba8855d3029bc68b2cff54fdbb5e653412904c9fa7bcd93f0e3ed3"
+    },
+    {
+      "key": "driver/driver/owned_capture.py",
+      "sha256": "3740e00b758b66d471df4c56ea2cfa3481e1f663b7e95e9d8d902b9e546a091e"
+    },
+    {
+      "key": "driver/driver/reuse/capture_policy.py",
+      "sha256": "596456c4b603b54235f16b798a8a1867e5ccf29c8defb801024d8c089514d0c8"
+    },
+    {
+      "key": "driver/driver/reuse/evidence_io.py",
+      "sha256": "ffeac99ea5b071a6fb3700277556907ee55969ae479831bf70f5381d512c4bf0"
+    },
+    {
+      "key": "driver/driver/reuse/native_identity.py",
+      "sha256": "094539b62d0c8e6876921c678914c98e6d20d453771091c8819c44eecb64b2a0"
+    },
+    {
+      "key": "driver/driver/reuse/owned_child.ps1",
+      "sha256": "ad4385f95e54ae966c634988fe9e78823273cdbee0f2798485a9a9bb2d0bd5e6"
+    },
+    {
+      "key": "driver/driver/reuse/owned_child.py",
+      "sha256": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe"
+    }
+  ],
+  "scriptPins": {
+    "candidate/tools/admission_checks.ps1": "0caae62fe362bb6c10546a5d52539a8e80b1484461fe3726ea68102709b57fc0",
+    "candidate/tools/capture_android02.ps1": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+    "candidate/tools/entry_gates.py": "0ced5e0901db4ce3311a42e7e5aa88bc0ef81dfe7b94272985da22191eca29e1",
+    "candidate/tools/facts_entry.py": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+    "candidate/tools/fact_collector.py": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+    "candidate/tools/fact_preauth.py": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+    "candidate/tools/outer_owner.py": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+    "candidate/tools/production_runner.py": "4daa59f9bc46a67185c7bb0b6be08531ee1364c5b51c96f892b2bb1795620780",
+    "candidate/tools/runtime_binding.py": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982",
+    "candidate/tools/win32_route.py": "42dac295bd5ed85f6a94e4775b907860c17e6802ecce6540e83683cf9e6a6bed",
+    "candidate/selfchecks/capture_fixture.py": "e3cca23ab4f1584da7bc411282751f75d14d225e0dfdedeb739f92eda5cf5311",
+    "candidate/selfchecks/contract03_cases.py": "f341c344ee7ba52b2a913f92fd689fdca8d5eb9fd8d916fa1c29bf4e0eb08563",
+    "candidate/selfchecks/contract_cases.py": "2bb9ca7c4c439d556b649b596aa89d76462c0a6d61040450b56a4db6428a4214",
+    "candidate/selfchecks/fact_fixture.py": "7317770d5d49c213771c7f9beb937d4b0db6e2a147c712849d61917ec20dafc6",
+    "candidate/selfchecks/fixture_inputs.py": "cdff47dadfea852fc874edc5fc3bd35e86b20e24df2baadf82c016d7841a6c94",
+    "candidate/selfchecks/independent_cases_original.py": "c58acecded04ebca9de22abfbe6bb62318a158553df21f54ac7a3365ca68123c",
+    "candidate/selfchecks/prestart_lifetimes.ps1": "4febdd993638a435a9862d6b90537676ca7b17446089e34a325e9267479931b7",
+    "candidate/selfchecks/review_semantics.ps1": "f0e035b6e645f61dadf0416be16398ea36da5f8cec17f1acf9e518ff5edf00f8",
+    "candidate/selfchecks/route_fixture.py": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411",
+    "candidate/selfchecks/route_model.py": "85d777b24d7b746ccb3ed9f46ad2997141e0ebffaae6e7d24cf8954216f1a04d",
+    "candidate/driver/owned_capture.py": "3740e00b758b66d471df4c56ea2cfa3481e1f663b7e95e9d8d902b9e546a091e",
+    "candidate/driver/reuse/capture_policy.py": "596456c4b603b54235f16b798a8a1867e5ccf29c8defb801024d8c089514d0c8",
+    "candidate/driver/reuse/evidence_io.py": "ffeac99ea5b071a6fb3700277556907ee55969ae479831bf70f5381d512c4bf0",
+    "candidate/driver/reuse/native_identity.py": "094539b62d0c8e6876921c678914c98e6d20d453771091c8819c44eecb64b2a0",
+    "candidate/driver/reuse/owned_child.ps1": "ad4385f95e54ae966c634988fe9e78823273cdbee0f2798485a9a9bb2d0bd5e6",
+    "candidate/driver/reuse/owned_child.py": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe",
+    "candidate/build_candidate.py": "1a1aa0716eae1521e504eaf473c7e9fbe52ac37994ee07df3cb487e2d626fbc3",
+    "candidate/driver_guard.py": "2e6366ddfc46943be9422bd333fc33089d87c5c8265fd0540c3a06408ec23eae",
+    "candidate/prepare_driver.py": "f90abeded483adccf77598e42170247157ca9521b309489f0ed1f84b9b59e33b",
+    "candidate/prepare_schema.py": "5e1424c3f14457f179edc0e45b35ab93ccab00c446e08ad7cad16d67e6679507",
+    "candidate/selfcheck.py": "6bbe05b8e20efb7b5c989d1cccbbde062fc365105cbb2ce9a8088d632262947a",
+    "driver/derive.py": "6a0f681341bea60f4d24f4c0d3cf4ae49c414e74fb04836efc7cb86808e10377",
+    "driver/driver_guard.py": "3d695aec76e3adff1a29a81452eff0a2982107858fab7f075c980b8151474839",
+    "driver/prepare.py": "b50ced09fef80702326e83a73f02389fd3568c31b6c29b81a90de4d130f0c5f8",
+    "driver/worker.py": "6091314d6fba8855d3029bc68b2cff54fdbb5e653412904c9fa7bcd93f0e3ed3",
+    "driver/driver/owned_capture.py": "3740e00b758b66d471df4c56ea2cfa3481e1f663b7e95e9d8d902b9e546a091e",
+    "driver/driver/reuse/capture_policy.py": "596456c4b603b54235f16b798a8a1867e5ccf29c8defb801024d8c089514d0c8",
+    "driver/driver/reuse/evidence_io.py": "ffeac99ea5b071a6fb3700277556907ee55969ae479831bf70f5381d512c4bf0",
+    "driver/driver/reuse/native_identity.py": "094539b62d0c8e6876921c678914c98e6d20d453771091c8819c44eecb64b2a0",
+    "driver/driver/reuse/owned_child.ps1": "ad4385f95e54ae966c634988fe9e78823273cdbee0f2798485a9a9bb2d0bd5e6",
+    "driver/driver/reuse/owned_child.py": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe"
+  },
+  "tuples": [
+    {
+      "label": "qualification-python-ok",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\driver\\reuse\\owned_child.py",
+        "ok"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+        "env": {
+          "SystemRoot": "C:\\Windows",
+          "WINDIR": "C:\\Windows",
+          "TEMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+          "TMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification"
+        },
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "driver/driver/reuse/owned_child.py",
+      "id": "98c014786dc29b6ff180307655b33675bb48eeb42913a248db79dce445ed894f",
+      "plannedMultiplicity": 1
+    },
+    {
+      "label": "qualification-python-fail",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\driver\\reuse\\owned_child.py",
+        "fail"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+        "env": {
+          "SystemRoot": "C:\\Windows",
+          "WINDIR": "C:\\Windows",
+          "TEMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+          "TMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification"
+        },
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "driver/driver/reuse/owned_child.py",
+      "id": "616cfb12d41a639f653e58ea3531c0238dace8cf5d21ef707869060f1cfa0fd6",
+      "plannedMultiplicity": 1
+    },
+    {
+      "label": "qualification-PS0",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\driver\\reuse\\owned_child.ps1"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+        "env": {
+          "SystemRoot": "C:\\Windows",
+          "WINDIR": "C:\\Windows",
+          "TEMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+          "TMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification"
+        },
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "driver/driver/reuse/owned_child.ps1",
+      "id": "441c0e7b1e3276e0e34959771a534078a9d63a44bb45de67d51b1f2a4d2f7ce0",
+      "plannedMultiplicity": 1
+    },
+    {
+      "label": "semantic",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\review_semantics.ps1",
+        "-InputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\semantics-input.json",
+        "-OutputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\semantics-results.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "cwd": null,
+        "env": null,
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "candidate/selfchecks/review_semantics.ps1",
+      "id": "3021d080d9aa029a08905295397f214a4de24f2df1196f55f24505ae3c1cbfd8",
+      "plannedMultiplicity": 1
+    },
+    {
+      "label": "preStart13",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\prestart_lifetimes.ps1",
+        "-OutputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\prestart.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "cwd": null,
+        "env": null,
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "candidate/selfchecks/prestart_lifetimes.ps1",
+      "id": "b2b158f488ef18b5e666feebaffbba688f802325c4e344261be77eae2e94a994",
+      "plannedMultiplicity": 1
+    },
+    {
+      "label": "new-original-route",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-17e0cdfbda30\\new-original\\home\\outputs\\gate-context.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1
+      },
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "id": "7a471f1a6f5b592637a196f3b68f25d42aeac288f75e7bf021ecd8ca514e4099",
+      "plannedMultiplicity": 1
+    },
+    {
+      "label": "new-original-facts",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\fact_fixture.py",
+        "COMPLETE"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "shell": false
+      },
+      "sourceKey": "candidate/selfchecks/fact_fixture.py",
+      "id": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c",
+      "plannedMultiplicity": 3
+    },
+    {
+      "label": "legacy-original-route",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-17e0cdfbda30\\legacy-original\\home\\outputs\\gate-context.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1
+      },
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "id": "8d1605d774dcc43475fcae724867a9a551e6dfa96740cd0e069c43e6d7ae592f",
+      "plannedMultiplicity": 1
+    },
+    {
+      "label": "explicit-cli-route",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-17e0cdfbda30\\explicit-cli\\home\\outputs\\gate-context.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1
+      },
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "id": "940d017788f84f0b19bd35cf1fb09ee86cfd89dd5699e39d3008672748fea8f6",
+      "plannedMultiplicity": 1
+    },
+    {
+      "label": "explicit-cli",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+        "--template",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\explicit-inputs\\template.json",
+        "--approved-template-sha256",
+        "2c3b8300b88b755844e61c989e7633a45a3694197d25404d0de408ef1d5b20e6",
+        "--policy",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\explicit-inputs\\policy.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "cwd": null,
+        "env": null,
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "candidate/tools/facts_entry.py",
+      "id": "6f0809442db11f313889de1de6610c07dd5f9131ca40ebe7aa4a0ac6cb72113a",
+      "plannedMultiplicity": 1
+    }
+  ],
+  "allPlannedCalls": [
+    {
+      "label": "qualification-python-ok",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\driver\\reuse\\owned_child.py",
+        "ok"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+        "env": {
+          "SystemRoot": "C:\\Windows",
+          "WINDIR": "C:\\Windows",
+          "TEMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+          "TMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification"
+        },
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "driver/driver/reuse/owned_child.py",
+      "id": "98c014786dc29b6ff180307655b33675bb48eeb42913a248db79dce445ed894f"
+    },
+    {
+      "label": "qualification-python-fail",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\driver\\reuse\\owned_child.py",
+        "fail"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+        "env": {
+          "SystemRoot": "C:\\Windows",
+          "WINDIR": "C:\\Windows",
+          "TEMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+          "TMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification"
+        },
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "driver/driver/reuse/owned_child.py",
+      "id": "616cfb12d41a639f653e58ea3531c0238dace8cf5d21ef707869060f1cfa0fd6"
+    },
+    {
+      "label": "qualification-PS0",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\driver\\reuse\\owned_child.ps1"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+        "env": {
+          "SystemRoot": "C:\\Windows",
+          "WINDIR": "C:\\Windows",
+          "TEMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification",
+          "TMP": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\qualification"
+        },
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "driver/driver/reuse/owned_child.ps1",
+      "id": "441c0e7b1e3276e0e34959771a534078a9d63a44bb45de67d51b1f2a4d2f7ce0"
+    },
+    {
+      "label": "semantic",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\review_semantics.ps1",
+        "-InputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\semantics-input.json",
+        "-OutputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\semantics-results.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "cwd": null,
+        "env": null,
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "candidate/selfchecks/review_semantics.ps1",
+      "id": "3021d080d9aa029a08905295397f214a4de24f2df1196f55f24505ae3c1cbfd8"
+    },
+    {
+      "label": "preStart13",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\prestart_lifetimes.ps1",
+        "-OutputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\prestart.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "cwd": null,
+        "env": null,
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "candidate/selfchecks/prestart_lifetimes.ps1",
+      "id": "b2b158f488ef18b5e666feebaffbba688f802325c4e344261be77eae2e94a994"
+    },
+    {
+      "label": "new-original-route",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-17e0cdfbda30\\new-original\\home\\outputs\\gate-context.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1
+      },
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "id": "7a471f1a6f5b592637a196f3b68f25d42aeac288f75e7bf021ecd8ca514e4099"
+    },
+    {
+      "label": "new-original-facts",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\fact_fixture.py",
+        "COMPLETE"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "shell": false
+      },
+      "sourceKey": "candidate/selfchecks/fact_fixture.py",
+      "id": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c"
+    },
+    {
+      "label": "legacy-original-route",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-17e0cdfbda30\\legacy-original\\home\\outputs\\gate-context.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1
+      },
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "id": "8d1605d774dcc43475fcae724867a9a551e6dfa96740cd0e069c43e6d7ae592f"
+    },
+    {
+      "label": "legacy-original-facts",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\fact_fixture.py",
+        "COMPLETE"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "shell": false
+      },
+      "sourceKey": "candidate/selfchecks/fact_fixture.py",
+      "id": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c"
+    },
+    {
+      "label": "explicit-cli-route",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-17e0cdfbda30\\explicit-cli\\home\\outputs\\gate-context.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1
+      },
+      "sourceKey": "candidate/selfchecks/route_fixture.py",
+      "id": "940d017788f84f0b19bd35cf1fb09ee86cfd89dd5699e39d3008672748fea8f6"
+    },
+    {
+      "label": "explicit-cli-facts",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\fact_fixture.py",
+        "COMPLETE"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "shell": false
+      },
+      "sourceKey": "candidate/selfchecks/fact_fixture.py",
+      "id": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c"
+    },
+    {
+      "label": "explicit-cli",
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+        "--template",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\explicit-inputs\\template.json",
+        "--approved-template-sha256",
+        "2c3b8300b88b755844e61c989e7633a45a3694197d25404d0de408ef1d5b20e6",
+        "--policy",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\explicit-inputs\\policy.json"
+      ],
+      "kwargs": {
+        "stdin": -3,
+        "stdout": -1,
+        "stderr": -1,
+        "executable": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "cwd": null,
+        "env": null,
+        "shell": false,
+        "close_fds": true
+      },
+      "sourceKey": "candidate/tools/facts_entry.py",
+      "id": "6f0809442db11f313889de1de6610c07dd5f9131ca40ebe7aa4a0ac6cb72113a"
+    }
+  ],
+  "inputPins": {
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\reference\\prepared-inputs.json": "746217f0dfdddfc80d894586f1862cb8a0f62e1c4b8f39d5244f2478ebf55270",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\explicit-inputs\\template.json": "2c3b8300b88b755844e61c989e7633a45a3694197d25404d0de408ef1d5b20e6",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02\\work\\batch-17e0cdfbda30\\explicit-inputs\\policy.json": "24de8986621ad89b094a64116b1a618edcbd9da2787ee5ef66be307b49fda135"
+  },
+  "audit": "MEMORY_OBSERVATION_ONLY",
+  "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df"
+}

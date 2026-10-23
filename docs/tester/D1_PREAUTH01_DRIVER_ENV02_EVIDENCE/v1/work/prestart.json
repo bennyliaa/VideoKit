@@ -1,0 +1,97 @@
+{
+  "sdk": 0,
+  "schema": "GLOBAL_IDLE_REVISION02_PRESTART_LIFETIME_V1",
+  "allPassed": true,
+  "actualUnknownCreated": false,
+  "results": [
+    {
+      "pinnedSourceClosedOnce": true,
+      "noPipeCreated": true,
+      "originalProcessDisposedOnce": true,
+      "rawFilesClosedOnce": 0,
+      "case": "known-prestart-0-raw",
+      "noSDKStart": true
+    },
+    {
+      "pinnedSourceClosedOnce": true,
+      "noPipeCreated": true,
+      "originalProcessDisposedOnce": true,
+      "rawFilesClosedOnce": 1,
+      "case": "known-prestart-1-raw",
+      "noSDKStart": true
+    },
+    {
+      "pinnedSourceClosedOnce": true,
+      "noPipeCreated": true,
+      "originalProcessDisposedOnce": true,
+      "rawFilesClosedOnce": 2,
+      "case": "known-prestart-2-raw",
+      "noSDKStart": true
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_START_ENTERED_NOT_ESTABLISHED",
+      "case": "Start-entered-no-established-return"
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_PROCESS_CREATE_UNKNOWN",
+      "case": "Process-create-unreturned"
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_RAW_OPEN_UNKNOWN",
+      "case": "raw-create-unreturned"
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_RAW_CLOSE_UNKNOWN",
+      "case": "raw-close-unreturned"
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_PROCESS_DISPOSE_UNKNOWN",
+      "case": "Process-dispose-unreturned"
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_LOCK_OPEN_UNKNOWN",
+      "case": "lock-create-unreturned"
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_INPUT_CREATE_OR_HASH_UNKNOWN",
+      "case": "input-create-unreturned"
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_INPUT_CREATE_OR_HASH_UNKNOWN",
+      "case": "hash-dispose-unreturned"
+    },
+    {
+      "actualUnknownCreated": false,
+      "pureStateOnly": true,
+      "state": "RETAIN_INPUT_IO_UNKNOWN",
+      "case": "source-close-unreturned"
+    },
+    {
+      "sdk": 0,
+      "case": "actual-started-local-original",
+      "nativeClaim": 0,
+      "streamsAndFilesClosedOnce": true,
+      "exitCode": 0,
+      "originalProcessDisposed": true,
+      "waitAndReadersActuallyReturned": true,
+      "prestartHelperDidNotCloseAnything": true
+    }
+  ],
+  "nativeClaim": 0
+}

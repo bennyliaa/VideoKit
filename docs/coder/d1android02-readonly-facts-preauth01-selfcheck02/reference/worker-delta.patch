@@ -1,0 +1,77 @@
+--- PREAUTH01/selfcheck.py
++++ SELFCHECK02/worker.py
+@@ -2,14 +2,14 @@
+ from pathlib import Path
+ from datetime import datetime,timezone,timedelta
+ import sys,os,json,time,copy,uuid,threading,subprocess,hashlib
+-B=Path(__file__).resolve().parent;sys.path[:0]=[str(B),str(B/'tools'),str(B/'selfchecks'),str(B/'driver'),str(B/'driver/reuse')]
+-from driver_guard import Registry,PY,PS,ORIGINAL,sha
++H=Path(__file__).resolve().parent;B=H.parent/'d1android02-readonly-facts-preauth01';sys.path[:0]=[str(H),str(B/'tools'),str(B/'selfchecks'),str(H/'driver'),str(H/'driver/reuse')]
++from driver_guard import Registry,PY,PS,ORIGINAL,sha,resolve_key
+ from owned_capture import Capture,CUSTODY as AUX
+ from evidence_io import Journal
+ from fact_preauth import PreparedFacts,validate,load_pins,encode,decode,LIMITS,binding_bytes
+ from entry_gates import GateSession,CUSTODY as GATES
+ from fact_collector import OwnedFactCapture,CUSTODY as FACTS,validate_fixture_argv,ENV
+-START=time.monotonic();P=json.loads((B/'reference/profile.json').read_bytes());PLAN=json.loads((B/'reference/batch-plan.json').read_bytes());W=B/'selfchecks/work';W.mkdir(exist_ok=True)
++START=time.monotonic();P=json.loads((H/'reference/profile.json').read_bytes());PLAN=json.loads((H/'reference/batch-plan.json').read_bytes());W=Path(PLAN['driverOutput']);W.mkdir(exist_ok=True);OWN=Path(PLAN['candidateOwnedOutput'])
+ registry=Registry(P,START);results=[];captures=[];stopped=False
+ class Control:
+  def __init__(self):self.stop=False;self.reasons=[]
+@@ -35,20 +35,15 @@
+   while True:time.sleep(.1)
+  return c.exit_code,bytes(c.buffers[0]),bytes(c.buffers[1])
+ def qualify():
+- negatives=[];a=[PY,'-I','-X','utf8','-B',str(B/'driver/reuse/owned_child.py'),'ok'];k=dict(executable=PY,cwd=P['qualificationCwd'],env=P['qualificationEnv'],shell=False,close_fds=True,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
++ negatives=[];a=[PY,'-I','-X','utf8','-B',str(H/'driver/reuse/owned_child.py'),'ok'];k=dict(executable=PY,cwd=P['qualificationCwd'],env=P['qualificationEnv'],shell=False,close_fds=True,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+  registry.check(a,k)
+  for bad in [[PS,*a[1:]],['D:/Android/SDK/platform-tools/adb.exe',*a[1:]],a+['extra']]:negatives.append(reject(lambda bad=bad:registry.check(bad,k)))
+  facts=[]
+- for argv,code in [(a,0),([*a[:-1],'fail'],7),([PS,'-NoProfile','-NonInteractive','-File',str(B/'driver/reuse/owned_child.ps1')],0)]:
++ for argv,code in [(a,0),([*a[:-1],'fail'],7),([PS,'-NoProfile','-NonInteractive','-File',str(H/'driver/reuse/owned_child.ps1')],0)]:
+   c,b,e=child(argv,True);assert c==code and not e and captures[-1].failure is None and time.monotonic()-captures[-1].start<5;facts.append(dict(exitCode=c,originalReturned=True,semantic='PASS' if c==0 else 'KNOWN_NONZERO_FAIL'))
+  return dict(actual=facts,pureWrongPrograms=negatives)
+ def inputs(name):
+- p=json.loads((B/'release/capture-policy.json').read_bytes());s=json.loads((B/'reference/runner-source-seal.json').read_bytes())['sources'];home=W/name/'home';root=home/'outputs';plan=str(uuid.uuid4());run='D1MA02-FACTS_'+uuid.uuid4().hex[:8].upper()
+- scope=sha('|'.join((plan,s['tools/capture_android02.ps1'],p['productSealSha256'],p['planSha256'],run)).encode())
+- p.update(mode='OFFLINE_FIXTURE',scope=scope,planId=plan,runId=run,evidenceRoot=str(root))
+- pins=load_pins(lambda x:Path(x).read_bytes());now=datetime.now(timezone.utc)
+- t=dict(schema='GLOBAL_IDLE_FACT_PREAUTH_V1',mode='OFFLINE_FIXTURE',sourceThreadId='01a107c3-2bf9-7fa0-94a0-234258ca6774',sourceTurnId=str(uuid.uuid4()),notBeforeUtc=(now-timedelta(seconds=1)).isoformat(),expiresUtc=(now+timedelta(seconds=80)).isoformat(),scope=scope,planId=plan,runId=run,nonce=str(uuid.uuid4()),home=str(home),evidenceRoot=str(root),policySha256=sha(encode(p)),**{k:pins[k] for k in ('sourceSealSha256','gateSourcesSha256','collectorSha256','binderSha256','entrySha256','runtimeIdentitySha256','factPlanSha256')},sdk=pins['sdk'],device=dict(serial='HA1Q6WXR',model='TB138FC',api=31,user=0),queries=pins['queries'],limits=dict(LIMITS))
+- return p,t,pins
++ d=json.loads((H/'reference/prepared-inputs.json').read_bytes())[name];return copy.deepcopy(d['policy']),copy.deepcopy(d['template']),copy.deepcopy(d['pins'])
+ def pure_templates():
+  p,t,pins=inputs('pure');raw=encode(t);approved=sha(raw);assert validate(raw,approved,p,pins)==t;cases=[]
+  def check(label,d,expected=None,external=None):
+@@ -128,24 +123,26 @@
+  assert rec['schema']=='GLOBAL_IDLE_FACT_CAPTURE_V1' and rec['authoritySha256']==h and rec['approvalSha256']==ah and 'externalPreauthSha256' not in rec and release['factCaptureQualified'];neg.append(reject(lambda:c.collect(a,g,h),'FACT_ONCE'))
+  save(W/'legacy-result.json',dict(receipt=rec,release=release,negative=neg,sourceBytes=g.source_bytes,sourceReads=g.source_reads));return dict(receipt=rec,release=release,negative=neg,sourceBytes=g.source_bytes)
+ def cli():
+- p,t,pins=inputs('explicit-cli');folder=W/'explicit-inputs';folder.mkdir();save(folder/'template.json',t);save(folder/'policy.json',p)
++ p,t,pins=inputs('explicit-cli');folder=W/'explicit-inputs';assert (folder/'template.json').read_bytes()==encode(t) and (folder/'policy.json').read_bytes()==encode(p)
+  c,b,e=child([PY,'-I','-X','utf8','-B',str(B/'tools/facts_entry.py'),'--template',str(folder/'template.json'),'--approved-template-sha256',sha(encode(t)),'--policy',str(folder/'policy.json')]);assert c==0 and not e,(c,b,e);d=decode(b);assert d['receipt']['schema']=='GLOBAL_IDLE_FACT_CAPTURE_V2' and d['release']['factCaptureQualified'] and d['outerProcessReturnStillRequired'] and d['qualificationIssued'] is False;save(W/'explicit-cli-observed-return.json',dict(originalWaitReadersStreamsHandleReturned=True,result=d));return d
+ def group(name,fn):
+  global stopped
+  if stopped or registry.stop or control.stop or time.monotonic()-START>=320:results.append(dict(name=name,status='NOT_RUN'));return
+  before=time.monotonic()
+  try:detail=fn();results.append(dict(name=name,status='PASS',seconds=time.monotonic()-before,detail=detail))
+- except BaseException as e:results.append(dict(name=name,status='FAIL',seconds=time.monotonic()-before,error=repr(e)));stopped=True
++ except BaseException as e:
++  results.append(dict(name=name,status='FAIL',seconds=time.monotonic()-before,error=repr(e)))
++  if name=='driver-qualification':stopped=True
+  if GATES or FACTS or AUX:stopped=True
+- save(B/'evidence'/('group-'+str(len(results))+'.json'),results[-1])
+-for rel,h in P['scriptPins'].items():assert sha((B/rel).read_bytes())==h,rel
++ save(H/'evidence'/('group-'+str(len(results))+'.json'),results[-1])
++for rel,h in P['scriptPins'].items():assert sha(resolve_key(rel).read_bytes())==h,rel
+ assert not any(k in os.environ for k in ENV)
+ sys.addaudithook(registry.observe);subprocess.Popen=registry.construct
+ try:
+  for name,fn in [('driver-qualification',qualify),('strict-template-models',pure_templates),('original-346-semantic-regression',semantic),('original-preStart13',prestart),('original-new-preauth-capture-release',preauth_owned),('legacy-V1-exact-path',legacy),('explicit-V2-facts-entry-original-return',cli)]:group(name,fn)
+ finally:
+  subprocess.Popen=ORIGINAL
+- post=[r for r,h in P['scriptPins'].items() if sha((B/r).read_bytes())!=h]
+- result=dict(schema='PREAUTH01_BATCH_RESULT_V1',results=results,seconds=time.monotonic()-START,allPassed=bool(results) and all(x['status']=='PASS' for x in results),calls=registry.calls,audit=registry.events,auxOriginalsReturned=all(c.returned for c in captures),auxCustody=len(AUX),gateCustody=len(GATES),factCustody=len(FACTS),stopNew=stopped or control.stop or registry.stop,sourcePinsChanged=post,ioReservation=PLAN['ioReservation'],actualSDK=0,actualNativeRoute=0,actualTCP=0,actualDevice=0,actualGit=0,qualificationV2='NOT_IMPLEMENTED_NOT_RUN_NO_ADAPTER',D1='NOT_PASSED',M0='NOT_STARTED')
++ post=[r for r,h in P['scriptPins'].items() if sha(resolve_key(r).read_bytes())!=h]
++ result=dict(schema='PREAUTH01_SELFCHECK02_BATCH_RESULT_V1',results=results,seconds=time.monotonic()-START,allPassed=bool(results) and all(x['status']=='PASS' for x in results),calls=registry.calls,audit=registry.events,auxOriginalsReturned=all(c.returned for c in captures),auxCustody=len(AUX),gateCustody=len(GATES),factCustody=len(FACTS),stopNew=stopped or control.stop or registry.stop,sourcePinsChanged=post,ioReservation=PLAN['ioReservation'],actualSDK=0,actualNativeRoute=0,actualTCP=0,actualDevice=0,actualGit=0,qualificationV2='NOT_IMPLEMENTED_NOT_RUN_NO_ADAPTER',D1='NOT_PASSED',M0='NOT_STARTED')
+  save(B/'evidence/result.json',result);print(json.dumps(dict(groups=len(results),allPassed=result['allPassed'],seconds=result['seconds'],gateCustody=len(GATES),factCustody=len(FACTS),auxReturned=result['auxOriginalsReturned'])))
+ if not result['allPassed']:raise SystemExit(2)

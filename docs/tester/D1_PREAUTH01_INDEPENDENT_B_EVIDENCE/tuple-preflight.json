@@ -1,0 +1,561 @@
+{
+  "positive": [
+    {
+      "label": "qualify-ok",
+      "tupleId": "c3e91218c6b38b06b099a59ac5642c5ac6d6ac8fcb37d926d783931af052b24d",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "qualify-fail",
+      "tupleId": "6ed0e46bbcc32f63fda63c6dea04c43f3e3d2a48ab5dd68193ffe6d4aef17d71",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "qualify-PS",
+      "tupleId": "7aced49eba3ba198d1df60b391849cdfc20fa2827db5c4e8f3a798adf472cf1f",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "current-semantics-0",
+      "tupleId": "6d7d8dff531fe9de3b04b21ceb647647df392f70b4fb094be77b4d38b9a26bc1",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "current-semantics-1",
+      "tupleId": "01087662e6bb3e1680806392224b1b6fc628b6faf7eab0e73f6e6366534d857c",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "current-semantics-2",
+      "tupleId": "7020c234a68a7367f6f21129402a65cf5b1fc69e4dcc1921c7c7dd520e21397b",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "current-semantics-3",
+      "tupleId": "24665a78f238d8f4d70721214682d674bcf2d0631d941fc7a7e17cad58cdfb88",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "preStart13",
+      "tupleId": "ef4c9589c37b5e2955eb72edde3bb829a5d7d3c380b848a6306b504b8157536c",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "new-original-route",
+      "tupleId": "5c5cde3e60d8810d53a8d559619c24cf8e75e0c11f4cc69bf750260f6190d430",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "new-original-facts",
+      "tupleId": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "wrong-receiver-route",
+      "tupleId": "21dc3efe0b63f3d58f3acf1ff1d5262ab5b27e9d9969194a985e26e71a4dffe4",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "legacy-original-route",
+      "tupleId": "501da7d9d954514a9cad232842c4c589ddeab871d304883a00f15fc32e36244a",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "legacy-original-facts",
+      "tupleId": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "explicit-cli-route",
+      "tupleId": "97c05f0a449ff376a23054d5f299452e23612719bea63860aa5c81c998d26abb",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "explicit-cli-facts",
+      "tupleId": "434deb7563bd9ffc5a22cfac8f20794fdb9e79fbaae099c63e1f1acf8ea8647c",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "CLI-complete",
+      "tupleId": "3bf4797bc44af36477266571bfce7411c83161eabc5a62b068d77cf20a132a96",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "CLI-same-home-replay",
+      "tupleId": "3bf4797bc44af36477266571bfce7411c83161eabc5a62b068d77cf20a132a96",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "CLI-default",
+      "tupleId": "0a280820880db8573bc2fc3d4fd48b0cae5aec7ae951e0940b7089e870eecf1c",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "CLI-missing-external-hash",
+      "tupleId": "8274f380778c556ddebf8d897f00e02d17b2de1af43b7b99214b8c3ba48bb8a2",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "CLI-extra-action",
+      "tupleId": "762326f61834f65ce5e2466024284175f42ecdfaaf3dbcd84761327ddcfa9df5",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "CLI-noncanonical-policy",
+      "tupleId": "329f71aab05a129dea6d2e7a132a48d81e162ea5ac6af8f0282f3601acdb87f3",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    },
+    {
+      "label": "CLI-wrong-external-hash",
+      "tupleId": "6934a3111d5ad861fb9b38e49f5093e13d7e4b5b97e0e982eebf053fbd28f7b2",
+      "futureHostContext": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE"
+    }
+  ],
+  "negative": [
+    {
+      "tuple": "qualify-ok",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "qualify-ok",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "qualify-ok",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "qualify-ok",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "qualify-fail",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "qualify-fail",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "qualify-fail",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "qualify-fail",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "qualify-PS",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "qualify-PS",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "qualify-PS",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "qualify-PS",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-0",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "current-semantics-0",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-0",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-0",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-1",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "current-semantics-1",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-1",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-1",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-2",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "current-semantics-2",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-2",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-2",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-3",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "current-semantics-3",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-3",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "current-semantics-3",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "preStart13",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "preStart13",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "preStart13",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "preStart13",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "new-original-route",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "new-original-route",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "new-original-route",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "new-original-route",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "new-original-facts",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "new-original-facts",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "new-original-facts",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "new-original-facts",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "wrong-receiver-route",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "wrong-receiver-route",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "wrong-receiver-route",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "wrong-receiver-route",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "legacy-original-route",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "legacy-original-route",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "legacy-original-route",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "legacy-original-route",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "legacy-original-facts",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "legacy-original-facts",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "legacy-original-facts",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "legacy-original-facts",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "explicit-cli-route",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "explicit-cli-route",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "explicit-cli-route",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "explicit-cli-route",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "explicit-cli-facts",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "explicit-cli-facts",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "explicit-cli-facts",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "explicit-cli-facts",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-complete",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "CLI-complete",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-complete",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-complete",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-same-home-replay",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "CLI-same-home-replay",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-same-home-replay",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-same-home-replay",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-default",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "CLI-default",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-default",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-default",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-missing-external-hash",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "CLI-missing-external-hash",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-missing-external-hash",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-missing-external-hash",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-extra-action",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "CLI-extra-action",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-extra-action",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-extra-action",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-noncanonical-policy",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "CLI-noncanonical-policy",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-noncanonical-policy",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-noncanonical-policy",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-wrong-external-hash",
+      "case": "wrong-program",
+      "reason": "PROFILE_PROGRAM_ARGV"
+    },
+    {
+      "tuple": "CLI-wrong-external-hash",
+      "case": "extra",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-wrong-external-hash",
+      "case": "cwd",
+      "reason": "PROFILE_EXACT_TUPLE"
+    },
+    {
+      "tuple": "CLI-wrong-external-hash",
+      "case": "env",
+      "reason": "PROFILE_EXACT_TUPLE"
+    }
+  ],
+  "rawWindowsAuditModels": 22,
+  "actualPopen": 0,
+  "actualOnce": 0,
+  "modelHostContextExplicit": true,
+  "runtimeConstructorsUseActualHostCheck": true
+}

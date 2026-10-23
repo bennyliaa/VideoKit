@@ -1,0 +1,32 @@
+[
+  {
+    "case": "new-evidence",
+    "accepted": true,
+    "reason": "ALLOWED_MODEL_ONLY",
+    "pureNoOpenOrMkdir": true
+  },
+  {
+    "case": "new-fixture",
+    "accepted": true,
+    "reason": "ALLOWED_MODEL_ONLY",
+    "pureNoOpenOrMkdir": true
+  },
+  {
+    "case": "old-candidate-evidence",
+    "accepted": false,
+    "reason": "WRITE_OUTSIDE_NEW_BATCH_ROOTS",
+    "pureNoOpenOrMkdir": true
+  },
+  {
+    "case": "old-developer",
+    "accepted": false,
+    "reason": "WRITE_OUTSIDE_NEW_BATCH_ROOTS",
+    "pureNoOpenOrMkdir": true
+  },
+  {
+    "case": "reserved-new-name",
+    "accepted": false,
+    "reason": "WINDOWS_RESERVED_NEW_ARTIFACT",
+    "pureNoOpenOrMkdir": true
+  }
+]

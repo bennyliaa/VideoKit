@@ -1,0 +1,18 @@
+--- frozen-runtime-worker.py
++++ UNEXECUTED-output-routing-draft.py
+@@ -31,7 +31,7 @@
+  j=Journal(root);c=Capture(plan,copy.deepcopy(plan),j,control,registry);captures.append(c);c.launch(registry,5 if qual else 80);disposition=c.collect()
+  save(root/'observation.json',dict(disposition=disposition,returned=c.returned,facts=c.facts,failure=c.failure,elapsed=time.monotonic()-c.start,exitCode=getattr(c,'exit_code',None),identity=getattr(c,'identity',None),journal=j.facts()))
+  if not c.returned or disposition.startswith('RETAIN'):
+-  control.request('NEW_ORIGINAL_UNKNOWN');save(B/'evidence/PENDING_UNKNOWN.json',dict(disposition=disposition))
++  control.request('NEW_ORIGINAL_UNKNOWN');save(H/'evidence/PENDING_UNKNOWN.json',dict(disposition=disposition))
+   while True:time.sleep(.1)
+  return c.exit_code,bytes(c.buffers[0]),bytes(c.buffers[1])
+ def qualify():
+@@ -144,5 +144,5 @@
+  subprocess.Popen=ORIGINAL
+  post=[r for r,h in P['scriptPins'].items() if sha(resolve_key(r).read_bytes())!=h]
+  result=dict(schema='PREAUTH01_SELFCHECK02_BATCH_RESULT_V1',results=results,seconds=time.monotonic()-START,allPassed=bool(results) and all(x['status']=='PASS' for x in results),calls=registry.calls,audit=registry.events,auxOriginalsReturned=all(c.returned for c in captures),auxCustody=len(AUX),gateCustody=len(GATES),factCustody=len(FACTS),stopNew=stopped or control.stop or registry.stop,sourcePinsChanged=post,ioReservation=PLAN['ioReservation'],actualSDK=0,actualNativeRoute=0,actualTCP=0,actualDevice=0,actualGit=0,qualificationV2='NOT_IMPLEMENTED_NOT_RUN_NO_ADAPTER',D1='NOT_PASSED',M0='NOT_STARTED')
+- save(B/'evidence/result.json',result);print(json.dumps(dict(groups=len(results),allPassed=result['allPassed'],seconds=result['seconds'],gateCustody=len(GATES),factCustody=len(FACTS),auxReturned=result['auxOriginalsReturned'])))
++ save(H/'evidence/result.json',result);print(json.dumps(dict(groups=len(results),allPassed=result['allPassed'],seconds=result['seconds'],gateCustody=len(GATES),factCustody=len(FACTS),auxReturned=result['auxOriginalsReturned'])))
+ if not result['allPassed']:raise SystemExit(2)

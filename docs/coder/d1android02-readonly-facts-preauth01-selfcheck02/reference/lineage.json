@@ -1,0 +1,20 @@
+{
+  "originalManifestSha256": "3ce81441d75e8a47368078197fcc43a20ace8eef916f1f3dcbd6f08c3cd8059c",
+  "originalWorkerSha256": "6bbe05b8e20efb7b5c989d1cccbbde062fc365105cbb2ce9a8088d632262947a",
+  "derivedWorkerSha256": "6091314d6fba8855d3029bc68b2cff54fdbb5e653412904c9fa7bcd93f0e3ed3",
+  "matureCaptures": {
+    "driver/owned_capture.py": "3740e00b758b66d471df4c56ea2cfa3481e1f663b7e95e9d8d902b9e546a091e",
+    "driver/reuse/capture_policy.py": "596456c4b603b54235f16b798a8a1867e5ccf29c8defb801024d8c089514d0c8",
+    "driver/reuse/evidence_io.py": "ffeac99ea5b071a6fb3700277556907ee55969ae479831bf70f5381d512c4bf0",
+    "driver/reuse/native_identity.py": "094539b62d0c8e6876921c678914c98e6d20d453771091c8819c44eecb64b2a0",
+    "driver/reuse/owned_child.ps1": "ad4385f95e54ae966c634988fe9e78823273cdbee0f2798485a9a9bb2d0bd5e6",
+    "driver/reuse/owned_child.py": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe"
+  },
+  "changes": [
+    "POSIX source keys shared by profile producer/consumer",
+    "explicit candidateRoot/driverRoot/output roots",
+    "new scope inputs precomputed before dynamic",
+    "all exact tuples checked before constructors",
+    "known-returned failures recorded without skipping independent groups"
+  ]
+}

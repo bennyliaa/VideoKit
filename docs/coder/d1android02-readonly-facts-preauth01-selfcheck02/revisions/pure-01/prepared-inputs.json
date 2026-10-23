@@ -1,0 +1,642 @@
+{
+  "pure": {
+    "policy": {
+      "schema": "ANDROID02_CAPTURE_POLICY_V1",
+      "mode": "OFFLINE_FIXTURE",
+      "entrySha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "planSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+      "productSealSha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+      "scope": "75a5f38345ed125ca6489af47735cb4053196a0fb59696054bf5fba68f1724a5",
+      "planId": "39157035-5e3c-4c5b-a9d1-cd768d632a32",
+      "runId": "D1MA02-FACTS_8CDC8CB4",
+      "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\pure\\home\\outputs",
+      "toolSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+      "authorization": null,
+      "independentReview": null,
+      "toolCandidateSeal": null,
+      "freshRouteProof": null,
+      "sdkChildCap": 7,
+      "allLogicalInbound": 3276800,
+      "binaryPayloadOutbound": 7629605,
+      "maxCommandAll": 28672,
+      "wireBytes": "UNPROVEN",
+      "scopeWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO600_NOT240_SUM",
+      "localProofWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO30",
+      "outerWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO600",
+      "actualSdkChildren": 0,
+      "outerOwnerSha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "outerPythonSha256": "5640e9be2fd33d05a1a9ae1228e2354609a69ab831605995ec4e2bd6da8fff5e",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "runtimeBindingSourceSha256": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "gateAuthorization": null,
+      "runnerSourceSha256": "4daa59f9bc46a67185c7bb0b6be08531ee1364c5b51c96f892b2bb1795620780",
+      "runnerPermit": null,
+      "runnerApproval": null,
+      "runnerSources": null,
+      "routeBackend": "WIN32_OWNER_PID_V1",
+      "globalIdleQualification": null
+    },
+    "template": {
+      "schema": "GLOBAL_IDLE_FACT_PREAUTH_V1",
+      "mode": "OFFLINE_FIXTURE",
+      "sourceThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+      "sourceTurnId": "7cf76dfc-70f8-4b00-9091-e3be1b0943e3",
+      "notBeforeUtc": "2026-10-23T12:59:20.041710+00:00",
+      "expiresUtc": "2026-10-23T13:00:41.041710+00:00",
+      "scope": "75a5f38345ed125ca6489af47735cb4053196a0fb59696054bf5fba68f1724a5",
+      "planId": "39157035-5e3c-4c5b-a9d1-cd768d632a32",
+      "runId": "D1MA02-FACTS_8CDC8CB4",
+      "nonce": "0d47ad8c-83ce-44c1-9ca5-0b6198944e86",
+      "home": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\pure\\home",
+      "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\pure\\home\\outputs",
+      "policySha256": "ff79ef3a2298e4ba1ac2de455898793c9a1bd52bbd513c158e538a8dac276fd1",
+      "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "collectorSha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "binderSha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "entrySha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+      "sdk": {
+        "path": "D:/Android/SDK/platform-tools/adb.exe",
+        "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+      },
+      "device": {
+        "serial": "HA1Q6WXR",
+        "model": "TB138FC",
+        "api": 31,
+        "user": 0
+      },
+      "queries": [
+        {
+          "id": "model",
+          "command": "getprop ro.product.model"
+        },
+        {
+          "id": "api",
+          "command": "getprop ro.build.version.sdk"
+        },
+        {
+          "id": "firmware",
+          "command": "getprop ro.build.fingerprint"
+        },
+        {
+          "id": "user",
+          "command": "am get-current-user"
+        },
+        {
+          "id": "system",
+          "command": "cmd package list packages -s -U --user 0"
+        },
+        {
+          "id": "role",
+          "command": "dumpsys role"
+        },
+        {
+          "id": "home",
+          "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+        }
+      ],
+      "limits": {
+        "wholeSeconds": 90,
+        "gateSeconds": 30,
+        "qualificationSeconds": 15,
+        "outerSeconds": 30,
+        "proofSeconds": 10,
+        "sdkChildren": 1,
+        "stdoutBytes": 139264,
+        "stderrBytes": 8192,
+        "combinedBytes": 147456,
+        "concurrency": 1,
+        "retry": 0
+      }
+    },
+    "pins": {
+      "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "collectorSha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "binderSha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "entrySha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+      "captureSha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "ownerSha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "rolePlanSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+      "sdk": {
+        "path": "D:/Android/SDK/platform-tools/adb.exe",
+        "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+      },
+      "queries": [
+        {
+          "id": "model",
+          "command": "getprop ro.product.model"
+        },
+        {
+          "id": "api",
+          "command": "getprop ro.build.version.sdk"
+        },
+        {
+          "id": "firmware",
+          "command": "getprop ro.build.fingerprint"
+        },
+        {
+          "id": "user",
+          "command": "am get-current-user"
+        },
+        {
+          "id": "system",
+          "command": "cmd package list packages -s -U --user 0"
+        },
+        {
+          "id": "role",
+          "command": "dumpsys role"
+        },
+        {
+          "id": "home",
+          "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+        }
+      ]
+    }
+  },
+  "new-original": {
+    "policy": {
+      "schema": "ANDROID02_CAPTURE_POLICY_V1",
+      "mode": "OFFLINE_FIXTURE",
+      "entrySha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "planSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+      "productSealSha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+      "scope": "cebb7ef25227d3419b6232d172c6a4bb03d60c6bcb1ff59b5c743c7f1ea35fc1",
+      "planId": "d996ce7c-9450-4c8e-bc7a-6758a6e16b53",
+      "runId": "D1MA02-FACTS_48A082EF",
+      "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\new-original\\home\\outputs",
+      "toolSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+      "authorization": null,
+      "independentReview": null,
+      "toolCandidateSeal": null,
+      "freshRouteProof": null,
+      "sdkChildCap": 7,
+      "allLogicalInbound": 3276800,
+      "binaryPayloadOutbound": 7629605,
+      "maxCommandAll": 28672,
+      "wireBytes": "UNPROVEN",
+      "scopeWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO600_NOT240_SUM",
+      "localProofWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO30",
+      "outerWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO600",
+      "actualSdkChildren": 0,
+      "outerOwnerSha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "outerPythonSha256": "5640e9be2fd33d05a1a9ae1228e2354609a69ab831605995ec4e2bd6da8fff5e",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "runtimeBindingSourceSha256": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "gateAuthorization": null,
+      "runnerSourceSha256": "4daa59f9bc46a67185c7bb0b6be08531ee1364c5b51c96f892b2bb1795620780",
+      "runnerPermit": null,
+      "runnerApproval": null,
+      "runnerSources": null,
+      "routeBackend": "WIN32_OWNER_PID_V1",
+      "globalIdleQualification": null
+    },
+    "template": {
+      "schema": "GLOBAL_IDLE_FACT_PREAUTH_V1",
+      "mode": "OFFLINE_FIXTURE",
+      "sourceThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+      "sourceTurnId": "e9effbfb-ec2e-47f2-aaa7-ccd2022a8ea7",
+      "notBeforeUtc": "2026-10-23T12:59:20.044721+00:00",
+      "expiresUtc": "2026-10-23T13:00:41.044721+00:00",
+      "scope": "cebb7ef25227d3419b6232d172c6a4bb03d60c6bcb1ff59b5c743c7f1ea35fc1",
+      "planId": "d996ce7c-9450-4c8e-bc7a-6758a6e16b53",
+      "runId": "D1MA02-FACTS_48A082EF",
+      "nonce": "5224eb5b-b2d4-49f8-9adc-5ecf40eaa2a7",
+      "home": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\new-original\\home",
+      "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\new-original\\home\\outputs",
+      "policySha256": "85f857ce5164f9e022fd0cb99e24015f9f20552fa2a63780754806297e17a507",
+      "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "collectorSha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "binderSha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "entrySha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+      "sdk": {
+        "path": "D:/Android/SDK/platform-tools/adb.exe",
+        "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+      },
+      "device": {
+        "serial": "HA1Q6WXR",
+        "model": "TB138FC",
+        "api": 31,
+        "user": 0
+      },
+      "queries": [
+        {
+          "id": "model",
+          "command": "getprop ro.product.model"
+        },
+        {
+          "id": "api",
+          "command": "getprop ro.build.version.sdk"
+        },
+        {
+          "id": "firmware",
+          "command": "getprop ro.build.fingerprint"
+        },
+        {
+          "id": "user",
+          "command": "am get-current-user"
+        },
+        {
+          "id": "system",
+          "command": "cmd package list packages -s -U --user 0"
+        },
+        {
+          "id": "role",
+          "command": "dumpsys role"
+        },
+        {
+          "id": "home",
+          "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+        }
+      ],
+      "limits": {
+        "wholeSeconds": 90,
+        "gateSeconds": 30,
+        "qualificationSeconds": 15,
+        "outerSeconds": 30,
+        "proofSeconds": 10,
+        "sdkChildren": 1,
+        "stdoutBytes": 139264,
+        "stderrBytes": 8192,
+        "combinedBytes": 147456,
+        "concurrency": 1,
+        "retry": 0
+      }
+    },
+    "pins": {
+      "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "collectorSha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "binderSha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "entrySha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+      "captureSha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "ownerSha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "rolePlanSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+      "sdk": {
+        "path": "D:/Android/SDK/platform-tools/adb.exe",
+        "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+      },
+      "queries": [
+        {
+          "id": "model",
+          "command": "getprop ro.product.model"
+        },
+        {
+          "id": "api",
+          "command": "getprop ro.build.version.sdk"
+        },
+        {
+          "id": "firmware",
+          "command": "getprop ro.build.fingerprint"
+        },
+        {
+          "id": "user",
+          "command": "am get-current-user"
+        },
+        {
+          "id": "system",
+          "command": "cmd package list packages -s -U --user 0"
+        },
+        {
+          "id": "role",
+          "command": "dumpsys role"
+        },
+        {
+          "id": "home",
+          "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+        }
+      ]
+    }
+  },
+  "legacy-original": {
+    "policy": {
+      "schema": "ANDROID02_CAPTURE_POLICY_V1",
+      "mode": "OFFLINE_FIXTURE",
+      "entrySha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "planSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+      "productSealSha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+      "scope": "854324d0441c8a305447e40b0319ec90dd5f604e5f83babc7ebbb13452d9aed5",
+      "planId": "9394cd97-4bf4-42dd-8838-adc35f16cfdc",
+      "runId": "D1MA02-FACTS_865A2B87",
+      "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\legacy-original\\home\\outputs",
+      "toolSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+      "authorization": null,
+      "independentReview": null,
+      "toolCandidateSeal": null,
+      "freshRouteProof": null,
+      "sdkChildCap": 7,
+      "allLogicalInbound": 3276800,
+      "binaryPayloadOutbound": 7629605,
+      "maxCommandAll": 28672,
+      "wireBytes": "UNPROVEN",
+      "scopeWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO600_NOT240_SUM",
+      "localProofWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO30",
+      "outerWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO600",
+      "actualSdkChildren": 0,
+      "outerOwnerSha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "outerPythonSha256": "5640e9be2fd33d05a1a9ae1228e2354609a69ab831605995ec4e2bd6da8fff5e",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "runtimeBindingSourceSha256": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "gateAuthorization": null,
+      "runnerSourceSha256": "4daa59f9bc46a67185c7bb0b6be08531ee1364c5b51c96f892b2bb1795620780",
+      "runnerPermit": null,
+      "runnerApproval": null,
+      "runnerSources": null,
+      "routeBackend": "WIN32_OWNER_PID_V1",
+      "globalIdleQualification": null
+    },
+    "template": {
+      "schema": "GLOBAL_IDLE_FACT_PREAUTH_V1",
+      "mode": "OFFLINE_FIXTURE",
+      "sourceThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+      "sourceTurnId": "c1b0bd80-de43-440d-a12a-31f8e35a16fc",
+      "notBeforeUtc": "2026-10-23T12:59:20.046235+00:00",
+      "expiresUtc": "2026-10-23T13:00:41.046235+00:00",
+      "scope": "854324d0441c8a305447e40b0319ec90dd5f604e5f83babc7ebbb13452d9aed5",
+      "planId": "9394cd97-4bf4-42dd-8838-adc35f16cfdc",
+      "runId": "D1MA02-FACTS_865A2B87",
+      "nonce": "4d8b32fa-5448-40b6-8157-7e8c31d43367",
+      "home": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\legacy-original\\home",
+      "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\legacy-original\\home\\outputs",
+      "policySha256": "900985df9d5777d92cff4b16ed22cffa237fd95258a8abfb02b20d1d598b909c",
+      "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "collectorSha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "binderSha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "entrySha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+      "sdk": {
+        "path": "D:/Android/SDK/platform-tools/adb.exe",
+        "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+      },
+      "device": {
+        "serial": "HA1Q6WXR",
+        "model": "TB138FC",
+        "api": 31,
+        "user": 0
+      },
+      "queries": [
+        {
+          "id": "model",
+          "command": "getprop ro.product.model"
+        },
+        {
+          "id": "api",
+          "command": "getprop ro.build.version.sdk"
+        },
+        {
+          "id": "firmware",
+          "command": "getprop ro.build.fingerprint"
+        },
+        {
+          "id": "user",
+          "command": "am get-current-user"
+        },
+        {
+          "id": "system",
+          "command": "cmd package list packages -s -U --user 0"
+        },
+        {
+          "id": "role",
+          "command": "dumpsys role"
+        },
+        {
+          "id": "home",
+          "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+        }
+      ],
+      "limits": {
+        "wholeSeconds": 90,
+        "gateSeconds": 30,
+        "qualificationSeconds": 15,
+        "outerSeconds": 30,
+        "proofSeconds": 10,
+        "sdkChildren": 1,
+        "stdoutBytes": 139264,
+        "stderrBytes": 8192,
+        "combinedBytes": 147456,
+        "concurrency": 1,
+        "retry": 0
+      }
+    },
+    "pins": {
+      "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "collectorSha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "binderSha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "entrySha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+      "captureSha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "ownerSha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "rolePlanSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+      "sdk": {
+        "path": "D:/Android/SDK/platform-tools/adb.exe",
+        "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+      },
+      "queries": [
+        {
+          "id": "model",
+          "command": "getprop ro.product.model"
+        },
+        {
+          "id": "api",
+          "command": "getprop ro.build.version.sdk"
+        },
+        {
+          "id": "firmware",
+          "command": "getprop ro.build.fingerprint"
+        },
+        {
+          "id": "user",
+          "command": "am get-current-user"
+        },
+        {
+          "id": "system",
+          "command": "cmd package list packages -s -U --user 0"
+        },
+        {
+          "id": "role",
+          "command": "dumpsys role"
+        },
+        {
+          "id": "home",
+          "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+        }
+      ]
+    }
+  },
+  "explicit-cli": {
+    "policy": {
+      "schema": "ANDROID02_CAPTURE_POLICY_V1",
+      "mode": "OFFLINE_FIXTURE",
+      "entrySha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "planSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+      "productSealSha256": "39acf77353697204d0ee94d573708b11d926d4efcfd5b530696a21f52efbe0ad",
+      "scope": "1804e278cbcb43d57fa9c67cc0d287916bfa78d2d2d9e32a3152149786e067cf",
+      "planId": "0b5eb129-5e8e-4889-ad15-72885e27b495",
+      "runId": "D1MA02-FACTS_46A31F8C",
+      "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\explicit-cli\\home\\outputs",
+      "toolSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+      "authorization": null,
+      "independentReview": null,
+      "toolCandidateSeal": null,
+      "freshRouteProof": null,
+      "sdkChildCap": 7,
+      "allLogicalInbound": 3276800,
+      "binaryPayloadOutbound": 7629605,
+      "maxCommandAll": 28672,
+      "wireBytes": "UNPROVEN",
+      "scopeWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO600_NOT240_SUM",
+      "localProofWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO30",
+      "outerWall": "UNASSIGNED_REVIEWED_CEILING_UP_TO600",
+      "actualSdkChildren": 0,
+      "outerOwnerSha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "outerPythonSha256": "5640e9be2fd33d05a1a9ae1228e2354609a69ab831605995ec4e2bd6da8fff5e",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "runtimeBindingSourceSha256": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "gateAuthorization": null,
+      "runnerSourceSha256": "4daa59f9bc46a67185c7bb0b6be08531ee1364c5b51c96f892b2bb1795620780",
+      "runnerPermit": null,
+      "runnerApproval": null,
+      "runnerSources": null,
+      "routeBackend": "WIN32_OWNER_PID_V1",
+      "globalIdleQualification": null
+    },
+    "template": {
+      "schema": "GLOBAL_IDLE_FACT_PREAUTH_V1",
+      "mode": "OFFLINE_FIXTURE",
+      "sourceThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+      "sourceTurnId": "86483503-1c5a-47a2-8d6f-0676bf72dced",
+      "notBeforeUtc": "2026-10-23T12:59:20.049286+00:00",
+      "expiresUtc": "2026-10-23T13:00:41.049286+00:00",
+      "scope": "1804e278cbcb43d57fa9c67cc0d287916bfa78d2d2d9e32a3152149786e067cf",
+      "planId": "0b5eb129-5e8e-4889-ad15-72885e27b495",
+      "runId": "D1MA02-FACTS_46A31F8C",
+      "nonce": "1e78eaa1-3ee2-406b-9286-7d61936c0bba",
+      "home": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\explicit-cli\\home",
+      "evidenceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\selfcheck02-7ad88f9e25bf\\explicit-cli\\home\\outputs",
+      "policySha256": "a489361e0459a30a337c173627bb2495736b558a5d768100ef57378021ce92ba",
+      "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "collectorSha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "binderSha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "entrySha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+      "sdk": {
+        "path": "D:/Android/SDK/platform-tools/adb.exe",
+        "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+      },
+      "device": {
+        "serial": "HA1Q6WXR",
+        "model": "TB138FC",
+        "api": 31,
+        "user": 0
+      },
+      "queries": [
+        {
+          "id": "model",
+          "command": "getprop ro.product.model"
+        },
+        {
+          "id": "api",
+          "command": "getprop ro.build.version.sdk"
+        },
+        {
+          "id": "firmware",
+          "command": "getprop ro.build.fingerprint"
+        },
+        {
+          "id": "user",
+          "command": "am get-current-user"
+        },
+        {
+          "id": "system",
+          "command": "cmd package list packages -s -U --user 0"
+        },
+        {
+          "id": "role",
+          "command": "dumpsys role"
+        },
+        {
+          "id": "home",
+          "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+        }
+      ],
+      "limits": {
+        "wholeSeconds": 90,
+        "gateSeconds": 30,
+        "qualificationSeconds": 15,
+        "outerSeconds": 30,
+        "proofSeconds": 10,
+        "sdkChildren": 1,
+        "stdoutBytes": 139264,
+        "stderrBytes": 8192,
+        "combinedBytes": 147456,
+        "concurrency": 1,
+        "retry": 0
+      }
+    },
+    "pins": {
+      "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+      "gateSourcesSha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192",
+      "collectorSha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4",
+      "binderSha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768",
+      "entrySha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d",
+      "runtimeIdentitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+      "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+      "captureSha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70",
+      "ownerSha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba",
+      "rolePlanSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+      "sdk": {
+        "path": "D:/Android/SDK/platform-tools/adb.exe",
+        "sha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+      },
+      "queries": [
+        {
+          "id": "model",
+          "command": "getprop ro.product.model"
+        },
+        {
+          "id": "api",
+          "command": "getprop ro.build.version.sdk"
+        },
+        {
+          "id": "firmware",
+          "command": "getprop ro.build.fingerprint"
+        },
+        {
+          "id": "user",
+          "command": "am get-current-user"
+        },
+        {
+          "id": "system",
+          "command": "cmd package list packages -s -U --user 0"
+        },
+        {
+          "id": "role",
+          "command": "dumpsys role"
+        },
+        {
+          "id": "home",
+          "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+        }
+      ]
+    }
+  }
+}

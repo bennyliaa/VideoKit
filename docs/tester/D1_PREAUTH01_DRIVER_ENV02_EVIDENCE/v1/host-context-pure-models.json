@@ -1,0 +1,32 @@
+[
+  {
+    "case": "raw-vs-child-key-case",
+    "pass_": true
+  },
+  {
+    "case": "explicit-env-child",
+    "pass_": true
+  },
+  {
+    "case": "None-inherits-parent",
+    "pass_": true
+  },
+  {
+    "case": "None-cwd-inherits",
+    "pass_": true
+  },
+  {
+    "case": "explicit-cwd",
+    "pass_": true
+  },
+  {
+    "case": "duplicate",
+    "reason": "HOST_ENV_CASE_COLLISION",
+    "pass_": true
+  },
+  {
+    "case": "case-collision",
+    "reason": "HOST_ENV_CASE_COLLISION",
+    "pass_": true
+  }
+]

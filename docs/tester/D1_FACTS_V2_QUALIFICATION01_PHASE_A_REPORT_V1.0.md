@@ -1,0 +1,11 @@
+# FACTS_V2_QUALIFICATION01 阶段A报告 V1.0
+
+2026-10-23。STATIC_PREPARATION_COMPLETE：已基于接受的PREAUTH20/ENV02原件形成独立字段映射、建议闭字段、160条PLANNED_NOT_RUN验收矩阵和未来真实交接顺序/固定文件/预算表。没有读取或测试浮动V2源，没有新测试Popen/Gate/claim/SDK/设备。160项是计划数量，不是通过数量。
+
+证据和字段对应覆盖raw七query、facts V2/preauth/runtimeBinding、原H及outer返回、未外批/UNKNOWN、唯一HOME/窄服务、准确target/source/plan、未来/300秒临界过期、V1/V2错配和旧45/17回归。候选导出默认REQUIRES_REVIEW/approved=false；必须另有外部准确review字节hash，不能信systemFlag或issuer字符串。字段名是独立建议，须待开发冻结唯一Schema后对齐，V2实现和真实资格仍NOT_RUN。
+
+原20源02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df、gate12 bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192与ENV02报告309a56d23173a04327af4b80da5b21332f845436ea1f4cf10887bb44755e66cd为准确输入。已接受PREAUTH限定离线9/9保持，原失败/误写恢复/图遗漏/UNKNOWN和完整manifest不改，D1未通过/M0未启。
+
+完整建议见 [oracle与交接表](D:/CodexProjects/VideoKit/docs/tester/D1_FACTS_V2_QUALIFICATION01_PHASE_A_EVIDENCE/ORACLE_AND_HANDOFF.md)、[160条矩阵与字段映射](D:/CodexProjects/VideoKit/docs/tester/D1_FACTS_V2_QUALIFICATION01_PHASE_A_EVIDENCE/oracle-and-matrix.json)。静态原件核验与独立冻结清单同级保存。
+
+同批Git仅纳入已通过PREAUTH代码、ENV02正确驱动、必要历史失败/开发报告和本阶段小型文本，排除新V2浮动目录/工作单、媒体/rawbinary/ZIP/缓存/第三方分发/凭据/Windows保留路径；原本地manifest可继续引用未入Git材料，不声称远端完整复现。新WIP分支从43e58c1派生，草稿PR的base为PR1分支，依赖#1，不合main/PR1或发布。准确commit/PR事实在本批DELIVERY事后报告中集中回交；不追加提交凑自引用，不自动进入新B/现场。

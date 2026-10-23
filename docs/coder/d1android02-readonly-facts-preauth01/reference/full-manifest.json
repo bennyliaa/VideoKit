@@ -1,0 +1,287 @@
+{
+  "schema": "PREAUTH01_BLOCKED_FULL_MANIFEST_V1",
+  "status": "BLOCKED_DRIVER_QUALIFICATION",
+  "sourceSealSha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df",
+  "files": [
+    {
+      "path": "build_candidate.py",
+      "bytes": 5367,
+      "sha256": "1a1aa0716eae1521e504eaf473c7e9fbe52ac37994ee07df3cb487e2d626fbc3"
+    },
+    {
+      "path": "CALL_GRAPH.md",
+      "bytes": 1790,
+      "sha256": "a39d78b3710a6432e2afb0c1b0038048ed3a07b7e6fbd71a2f8b9043581e4ce7"
+    },
+    {
+      "path": "CONTRACT.md",
+      "bytes": 3370,
+      "sha256": "aa9f1db93026759095af2f20c21f749ba8457e1ead6caa66b71751c9fc359563"
+    },
+    {
+      "path": "DELIVERY.md",
+      "bytes": 8103,
+      "sha256": "d170d1bffb784d78624bb753ed5fa341d17f503541f5b680ab6dbc9308bdd413"
+    },
+    {
+      "path": "driver/owned_capture.py",
+      "bytes": 6657,
+      "sha256": "3740e00b758b66d471df4c56ea2cfa3481e1f663b7e95e9d8d902b9e546a091e"
+    },
+    {
+      "path": "driver/reuse/capture_policy.py",
+      "bytes": 8273,
+      "sha256": "596456c4b603b54235f16b798a8a1867e5ccf29c8defb801024d8c089514d0c8"
+    },
+    {
+      "path": "driver/reuse/evidence_io.py",
+      "bytes": 2820,
+      "sha256": "ffeac99ea5b071a6fb3700277556907ee55969ae479831bf70f5381d512c4bf0"
+    },
+    {
+      "path": "driver/reuse/native_identity.py",
+      "bytes": 2392,
+      "sha256": "094539b62d0c8e6876921c678914c98e6d20d453771091c8819c44eecb64b2a0"
+    },
+    {
+      "path": "driver/reuse/owned_child.ps1",
+      "bytes": 171,
+      "sha256": "ad4385f95e54ae966c634988fe9e78823273cdbee0f2798485a9a9bb2d0bd5e6"
+    },
+    {
+      "path": "driver/reuse/owned_child.py",
+      "bytes": 326,
+      "sha256": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe"
+    },
+    {
+      "path": "driver_guard.py",
+      "bytes": 4080,
+      "sha256": "2e6366ddfc46943be9422bd333fc33089d87c5c8265fd0540c3a06408ec23eae"
+    },
+    {
+      "path": "evidence/driver-failure-analysis.json",
+      "bytes": 1522,
+      "sha256": "d8668c9a8562941ebd48dcebf34b3ad018be14352add7f119ec8e7bc8ba09875"
+    },
+    {
+      "path": "evidence/group-1.json",
+      "bytes": 101,
+      "sha256": "052da9052ccf79e8348081e515cd173591932e6c8ddac3b57000ccf1a2b81676"
+    },
+    {
+      "path": "evidence/result.json",
+      "bytes": 1008,
+      "sha256": "d11659b55f31aa5bed06fbd76aff611da4b8588334f97d425dad2d052ce1fc10"
+    },
+    {
+      "path": "evidence/static-post-audit.json",
+      "bytes": 257,
+      "sha256": "056a2cdcb525d0cf25573dc44d9a8564a576fdb983664810e8f0b6794ce89127"
+    },
+    {
+      "path": "freeze_delivery.py",
+      "bytes": 14902,
+      "sha256": "cfc98d6a9fde81ecd359c3c46c8f0788fc5870421ccf30111e83bb14aebfacce"
+    },
+    {
+      "path": "prepare_driver.py",
+      "bytes": 3259,
+      "sha256": "f90abeded483adccf77598e42170247157ca9521b309489f0ed1f84b9b59e33b"
+    },
+    {
+      "path": "prepare_schema.py",
+      "bytes": 3813,
+      "sha256": "5e1424c3f14457f179edc0e45b35ab93ccab00c446e08ad7cad16d67e6679507"
+    },
+    {
+      "path": "reference/batch-plan.json",
+      "bytes": 647,
+      "sha256": "016583931640bf0f60ef25413fda1cc9d5e32e3166fae9a7a5f3cb3a2340fbb0"
+    },
+    {
+      "path": "reference/current-runtime-identity.json",
+      "bytes": 5447,
+      "sha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48"
+    },
+    {
+      "path": "reference/driver-lineage.json",
+      "bytes": 2200,
+      "sha256": "9b440db9a78fe9b35f1e55e521d3d255fa16261d0ac7c3ec8b7c2b57216a1e05"
+    },
+    {
+      "path": "reference/exact-seven-role-plan.json",
+      "bytes": 8495,
+      "sha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8"
+    },
+    {
+      "path": "reference/fact-plan.json",
+      "bytes": 3016,
+      "sha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d"
+    },
+    {
+      "path": "reference/fact-preauth-schema.json",
+      "bytes": 12560,
+      "sha256": "1a448871f07b1c2884c5cfd5c68441fe62a94a84d3c64c361633df37bebab36f"
+    },
+    {
+      "path": "reference/future-execution-proposal.json",
+      "bytes": 3491,
+      "sha256": "0ae3c4138d71bef7538115274296619b232de1f944026494c048e0ffd69e3602"
+    },
+    {
+      "path": "reference/gate-sources.json",
+      "bytes": 1728,
+      "sha256": "bdc8cba37c2157077ad3066709c4a4ca732f525746980521cbcc623203912192"
+    },
+    {
+      "path": "reference/profile-normalized-static-draft.json",
+      "bytes": 4646,
+      "sha256": "d229b027a4b6aea2a9977c61dbc2dd9a19b4c06d89da49562687d433351187a6"
+    },
+    {
+      "path": "reference/profile.json",
+      "bytes": 4587,
+      "sha256": "f0ea99f8f8839a662ebae3f45288da5f8ddc6e8f0ea9c253526ec057b02cdb9b"
+    },
+    {
+      "path": "reference/route-backend-contract.json",
+      "bytes": 3953,
+      "sha256": "b09fcee5985c64bd029df76c47641c558ea3154107d5968adce5b04f5ad0d4c9"
+    },
+    {
+      "path": "reference/runner-source-seal.json",
+      "bytes": 2121,
+      "sha256": "02ac6306cb55b08787cd63d77a2bcdc1be24e522fa5a6480f4ba287df0e708df"
+    },
+    {
+      "path": "reference/source-delta.json",
+      "bytes": 1787,
+      "sha256": "8db869936404fa4f446cc2aef66c01d10a5116b67d347238d484c78e1711c51e"
+    },
+    {
+      "path": "reference/source-delta.patch",
+      "bytes": 41016,
+      "sha256": "f7fc5a32c920d01609240aa08520507b8b6ab9d4ca88330b79b42f80b4797419"
+    },
+    {
+      "path": "reference/static-preparation-failure.json",
+      "bytes": 320,
+      "sha256": "0ccb3bf81f6dc6deb9bb3dfe9103918cfbe45de8e9569ced229d27dd8c66ec56"
+    },
+    {
+      "path": "reference/upstream.json",
+      "bytes": 1857,
+      "sha256": "560d891c2bbc2b32fb55ebbab4805fb458c4309e3cb6ef9cb454cf42311ebc3c"
+    },
+    {
+      "path": "release/capture-policy.json",
+      "bytes": 1747,
+      "sha256": "0c62c088a31d4c169f6354b14fc7cdecac43ecfaff40659540b02f3ead3ace54"
+    },
+    {
+      "path": "selfcheck.py",
+      "bytes": 15904,
+      "sha256": "6bbe05b8e20efb7b5c989d1cccbbde062fc365105cbb2ce9a8088d632262947a"
+    },
+    {
+      "path": "selfchecks/capture_fixture.py",
+      "bytes": 3587,
+      "sha256": "e3cca23ab4f1584da7bc411282751f75d14d225e0dfdedeb739f92eda5cf5311"
+    },
+    {
+      "path": "selfchecks/contract03_cases.py",
+      "bytes": 2325,
+      "sha256": "f341c344ee7ba52b2a913f92fd689fdca8d5eb9fd8d916fa1c29bf4e0eb08563"
+    },
+    {
+      "path": "selfchecks/contract_cases.py",
+      "bytes": 8016,
+      "sha256": "2bb9ca7c4c439d556b649b596aa89d76462c0a6d61040450b56a4db6428a4214"
+    },
+    {
+      "path": "selfchecks/fact_fixture.py",
+      "bytes": 737,
+      "sha256": "7317770d5d49c213771c7f9beb937d4b0db6e2a147c712849d61917ec20dafc6"
+    },
+    {
+      "path": "selfchecks/fixture_inputs.py",
+      "bytes": 4559,
+      "sha256": "cdff47dadfea852fc874edc5fc3bd35e86b20e24df2baadf82c016d7841a6c94"
+    },
+    {
+      "path": "selfchecks/independent_cases_original.py",
+      "bytes": 15923,
+      "sha256": "c58acecded04ebca9de22abfbe6bb62318a158553df21f54ac7a3365ca68123c"
+    },
+    {
+      "path": "selfchecks/prestart_lifetimes.ps1",
+      "bytes": 6569,
+      "sha256": "4febdd993638a435a9862d6b90537676ca7b17446089e34a325e9267479931b7"
+    },
+    {
+      "path": "selfchecks/review_semantics.ps1",
+      "bytes": 807,
+      "sha256": "f0e035b6e645f61dadf0416be16398ea36da5f8cec17f1acf9e518ff5edf00f8"
+    },
+    {
+      "path": "selfchecks/route_fixture.py",
+      "bytes": 1819,
+      "sha256": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411"
+    },
+    {
+      "path": "selfchecks/route_model.py",
+      "bytes": 3534,
+      "sha256": "85d777b24d7b746ccb3ed9f46ad2997141e0ebffaae6e7d24cf8954216f1a04d"
+    },
+    {
+      "path": "tools/admission_checks.ps1",
+      "bytes": 51585,
+      "sha256": "0caae62fe362bb6c10546a5d52539a8e80b1484461fe3726ea68102709b57fc0"
+    },
+    {
+      "path": "tools/capture_android02.ps1",
+      "bytes": 63591,
+      "sha256": "2aa6df137995c921c572b1620472f2c90acbdc14f857c7ea34589c0b61446b70"
+    },
+    {
+      "path": "tools/entry_gates.py",
+      "bytes": 21497,
+      "sha256": "0ced5e0901db4ce3311a42e7e5aa88bc0ef81dfe7b94272985da22191eca29e1"
+    },
+    {
+      "path": "tools/fact_collector.py",
+      "bytes": 15412,
+      "sha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4"
+    },
+    {
+      "path": "tools/fact_preauth.py",
+      "bytes": 11121,
+      "sha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768"
+    },
+    {
+      "path": "tools/facts_entry.py",
+      "bytes": 4328,
+      "sha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d"
+    },
+    {
+      "path": "tools/outer_owner.py",
+      "bytes": 17929,
+      "sha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba"
+    },
+    {
+      "path": "tools/production_runner.py",
+      "bytes": 28025,
+      "sha256": "4daa59f9bc46a67185c7bb0b6be08531ee1364c5b51c96f892b2bb1795620780"
+    },
+    {
+      "path": "tools/runtime_binding.py",
+      "bytes": 2056,
+      "sha256": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982"
+    },
+    {
+      "path": "tools/win32_route.py",
+      "bytes": 25499,
+      "sha256": "42dac295bd5ed85f6a94e4775b907860c17e6802ecce6540e83683cf9e6a6bed"
+    }
+  ]
+}

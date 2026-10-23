@@ -1,5 +1,35 @@
 # D1 手机测试执行安排
 
+<!-- CURRENT_STATUS_PREAUTH_PASS_FACTS_V2_QUALIFICATION01:BEGIN -->
+> **2026-10-23 PREAUTH01完整限定离线B通过，进入FACTS_V2_QUALIFICATION01。** 报告SHA `309a56d23173a04327af4b80da5b21332f845436ea1f4cf10887bb44755e66cd`；负责人核manifest `fd3b676a69da58aa52d1c86ae3073e8b627bf5e3559f46242a976aeb0b230cbc` 184项/4096286B、bad0，9组PASS，资格仅1版/3原返回，全部新资源归还。准确20源`02ac6306…708df`/12gate`bdc8cba3…12192`限定接受；旧blocked、误写恢复、图遗漏、物化过期缺口及所有历史UNKNOWN不改。真实SDK/设备仍未执行，qualification V2仍未实现。
+>
+> coder按[新开发单](../coder/D1_FACTS_V2_QUALIFICATION01_CODER_REQUIREMENTS_V1.0.md)只在新目录实现facts V2证据→未批准候选导出→显式外批review→V2资格/原target接收的薄适配，V1兼容、原返回/窄政策/准确目标/至多300s门保持；不自动信系统标志或批准安装媒体。整批自测冻结后回负责人再交独立B。
+>
+> tester按[阶段A及检查点单](../tester/D1_FACTS_V2_QUALIFICATION01_PHASE_A_CHECKPOINT_TESTER_REQUIREMENTS_V1.0.md)对已冻结20源准备独立oracle/真实交接静态表，并将已验收PREAUTH快照准确提交新WIP分支/草稿PR（base为PR1分支），排除新V2浮动代码。负责人在检查点回报前保持三协调文档此快照；双方不并发共享Git/index或改旧证据。PR1/main原HEAD保持，不合并/发布。
+>
+> 当前无SDK/ADB/Native route/TCP/help/设备/Gradle/媒体或旧对象查询干预；**D1未通过、M0未启动**，主里程碑和Flutter/独立Kit/成熟框架许可/全P0保持。以下旧状态为原时点历史。
+<!-- CURRENT_STATUS_PREAUTH_PASS_FACTS_V2_QUALIFICATION01:END -->
+
+<!-- CURRENT_STATUS_PREAUTH01_DRIVER_ENV02:BEGIN -->
+> **2026-10-23 PREAUTH01独立B在宿主资格前阻塞，已派DRIVER_ENV02。** 原报告SHA `f6938984d184a3f9724ff8aac000f122ac80406cba787757ba4547e04c76c769`；负责人核manifest `992c684578af2da658b7f1f3e179b7e5d6b79c0f8b36891c5788118e6ea37562` 57项/3221324B、bad0。实际worker原返回已证，9个产品runtime组/资格未执行，无新确认产品源码缺陷/资源UNKNOWN。原192纯例+1观察保留，不冒整包通过。
+>
+> tester按[DRIVER_ENV02完整要求](../tester/D1_PREAUTH01_DRIVER_ENV02_TESTER_REQUIREMENTS_V1.0.md)区分raw Popen/audit字典与Windows child键规范后快照，先实际存cwd/键集/hash再判context；同一整批预算最多两版有原返回证据的驱动资格，产品Gate/SDK/once仍一次不重放。资格通过后完成原定独立B，源码20/gate12及coder材料冻结；不为纯准备错误逐错交接，也不构造未知或改产品。
+>
+> O1按[JSON字节契约澄清](../D1_PREAUTH01_JSON_CONTRACT_CLARIFICATION_V1.0.md)裁定：template绑定外部准确原字节hash，可接受明确批准的pretty字节；固定旧hash改字节仍拒绝。CLI policy canonical要求保持。无真实批准人来源鉴别/签名的边界不变，不签LIVE或资格。Git草稿PR #1/commit43e58c1保持，当前新状态尚未随该提交入库。**D1未通过、M0未启动**；SDK/ADB/Native route/设备/Gradle/媒体及Git/index当前0，旧FAIL/UNKNOWN/once和下方历史保留。
+<!-- CURRENT_STATUS_PREAUTH01_DRIVER_ENV02:END -->
+
+<!-- CURRENT_STATUS_CHECKPOINT_DONE_PREAUTH01_B:BEGIN -->
+> **2026-10-23 Git检查点已核，PREAUTH01正式交独立整包B。** [COVERAGE_CHECKPOINT01完整交付](../tester/D1_CONTRACT03_COVERAGE_CHECKPOINT01_DELIVERY_V1.0.md) SHA `c3c90cb84ed201787e7199b4f435f7901a96649e7d7502445c5fcb7fba2f8fc0`；负责人核测试manifest `490e05bb68e5dd5dca14cda40bdf687ebda338bbe4e28ca27d412aaed798fb58` 29项/119921B、bad0。物化中过期因tester许可生成前漏BACKEND而未到目标，原FAIL保留，无新产品源码缺陷/资源UNKNOWN，当前不循环补跑。source门按已接受准确小追加补充覆盖。
+>
+> **私人仓库WIP提交完成**：[草稿PR #1](https://github.com/bennyliaa/VideoKit/pull/1)，分支`review/d1-contract03-offline-20261023-af2619b2`，commit `43e58c12106d8f57d5bd6b46a7d11ec3ba80806e`，base/main仍`1f14c5b92c8174fa0dff6a1819283edc544fa4b4`。负责人核本地HEAD/远端跟踪ref与操作回执一致，已将PR附到负责人任务；1474精确白名单、1473变更，排除媒体/运行时/原始binary/aux等320项。原FAIL/NOT_RUN不改，未纳入PREAUTH浮动代码，不合并main或发布；本段是提交后的新状态记录，尚不属于该commit。
+>
+> **PREAUTH01开发有限通过已审**：[SELFCHECK02报告](../coder/d1android02-readonly-facts-preauth01-selfcheck02/DELIVERY.md) SHA `0a49494fc88b55050229c51e7bf918cac4fc79868c67ec1f02bcc401f3fc70d9`；负责人核108项/3707218B、bad0和ZIP109唯一成员，7功能组通过，原source20`02ac6306…708df`/gate12`bdc8cba3…12192`不变。辅助曾误写旧result、后从原ZIP精确恢复，当前原56项bad0；此事实及进程图漏计1保留，不报整包无缺陷。qualification V2适配未实现/未测。
+>
+> **当前准确派发**：tester执行[PREAUTH01独立B要求](../tester/D1_PREAUTH01_INDEPENDENT_B_TESTER_REQUIREMENTS_V1.0.md)，本条解除该单“待Git检查点后正式派发”的等待条件。独立核模板外部hash层与内部Schema层、同原Gate运行时绑定、原capture/旧V1/newV2 CLI原返回/账本、语义及全部写入根/PS.NET调用图；不用有输出路由缺陷的旧worker，不写冻结原件。coder保持20源及材料冻结，不再自测或Git/index操作，完整B集中回负责人再安排下一批。
+>
+> 本B仅离线，真实SDK/ADB/Native route/TCP/help/设备/Gradle/媒体0，不签真实外部批准或HOME/服务资格，不自动进入目标七角色。旧进程/锁/会话/FAIL/UNKNOWN/once不查不改、不kill/二close/补ACK退款。**D1未通过、M0未启动**；主里程碑和Flutter/独立Kit/既定框架许可/全P0保持。下方旧状态为原时点快照。
+<!-- CURRENT_STATUS_CHECKPOINT_DONE_PREAUTH01_B:END -->
+
 <!-- CURRENT_STATUS_PREAUTH01_COVERAGE_CHECKPOINT01:BEGIN -->
 > **2026-10-23 最新完整B已审，集中派PREAUTH01开发与COVERAGE_CHECKPOINT01。** [CONTRACT03 B报告](../tester/D1_GLOBAL_IDLE_CONTRACT03_INDEPENDENT_B_REPORT_V1.0.md) SHA `f67cdf23cf0132fe6ae1d9ef50976ef91de06035e5e729cf2a77278c1f96925b`；负责人核manifest `19cf9a1e3d8f01c08ed8d8727ca2495bc9b836eb72bc1a7da939a7bd49824bb2` 744项/2668183B、bad0。10组PASS、11故障9精确命中/2未覆盖，无新确认产品源码缺陷或资源UNKNOWN；原FAIL_TARGET_COVERAGE_GAPS保留。接受实际单字节OWNER_SOURCE_PIN_ENTRY补充层作为source门覆盖，原大输入cap场景不改绿；物化中过期的原9s前置失败仍缺目标阶段。
 >

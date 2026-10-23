@@ -1,0 +1,128 @@
+[
+  {
+    "name": "complete",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+      "--template",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+      "--approved-template-sha256",
+      "0095c6e31cb4375ad6663ada59bd54290436a87af6566dde9036e28be6ee669c",
+      "--policy",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json"
+    ],
+    "exitCode": 0,
+    "reason": null
+  },
+  {
+    "name": "same-home-replay",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+      "--template",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+      "--approved-template-sha256",
+      "0095c6e31cb4375ad6663ada59bd54290436a87af6566dde9036e28be6ee669c",
+      "--policy",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json"
+    ],
+    "exitCode": 2,
+    "reason": "PREAUTH_FRESH_OUTPUT_REQUIRED"
+  },
+  {
+    "name": "default",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py"
+    ],
+    "exitCode": 2,
+    "reason": null
+  },
+  {
+    "name": "missing-external-hash",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+      "--template",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+      "--policy",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json"
+    ],
+    "exitCode": 2,
+    "reason": null
+  },
+  {
+    "name": "extra-action",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+      "--template",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+      "--approved-template-sha256",
+      "0095c6e31cb4375ad6663ada59bd54290436a87af6566dde9036e28be6ee669c",
+      "--policy",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json",
+      "--run-sdk-now"
+    ],
+    "exitCode": 2,
+    "reason": null
+  },
+  {
+    "name": "noncanonical-policy",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+      "--template",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+      "--approved-template-sha256",
+      "0095c6e31cb4375ad6663ada59bd54290436a87af6566dde9036e28be6ee669c",
+      "--policy",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy-pretty.json"
+    ],
+    "exitCode": 2,
+    "reason": "FACT_ENTRY_POLICY_CANONICAL_BYTES"
+  },
+  {
+    "name": "wrong-external-hash",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\tools\\facts_entry.py",
+      "--template",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\template.json",
+      "--approved-template-sha256",
+      "0000000000000000000000000000000000000000000000000000000000000000",
+      "--policy",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\explicit-inputs\\policy.json"
+    ],
+    "exitCode": 2,
+    "reason": "PREAUTH_EXTERNAL_HASH"
+  }
+]

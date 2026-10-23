@@ -1,0 +1,844 @@
+--- CONTRACT03/tools/production_runner.py
++++ PREAUTH01/tools/production_runner.py
+@@ -18,7 +18,7 @@
+ LIMITS={'wholeSeconds':600,'gateSeconds':30,'checkerSeconds':20,'proofSeconds':10,'outerSeconds':120,'sdkChildren':7,'concurrency':1,'retry':0,'metadataQueries':4,'controlBytes':1048576,'textBytes':3276800,'payloadBytes':7629605,'commandBytes':28672,'localControlBytes':262144,'minimumHandoffMs':1000}
+ PERMIT_KEYS=set('schema authorizationId mode approvedForExecution notBeforeUtc expiresUtc planId runId scope home evidenceRoot sources sourceSeal review product tools roles operations limits fixtureScenario routeBackend globalIdleQualification'.split())
+ APPROVAL_KEYS=set('schema mode evidenceKind sourceThreadId sourceTurnId instructionText instructionSha256 approvedPermitSha256'.split())
+-SOURCE_FILES=('tools/production_runner.py','tools/entry_gates.py','tools/outer_owner.py','tools/capture_android02.ps1','tools/win32_route.py','tools/runtime_binding.py','reference/current-runtime-identity.json','reference/exact-seven-role-plan.json','reference/gate-sources.json','selfchecks/route_fixture.py','selfchecks/capture_fixture.py','reference/route-backend-contract.json','selfchecks/route_model.py','tools/admission_checks.ps1','tools/fact_collector.py','reference/fact-plan.json','selfchecks/fact_fixture.py')
++SOURCE_FILES=('tools/production_runner.py','tools/entry_gates.py','tools/outer_owner.py','tools/capture_android02.ps1','tools/win32_route.py','tools/runtime_binding.py','reference/current-runtime-identity.json','reference/exact-seven-role-plan.json','reference/gate-sources.json','selfchecks/route_fixture.py','selfchecks/capture_fixture.py','reference/route-backend-contract.json','selfchecks/route_model.py','tools/admission_checks.ps1','tools/fact_collector.py','reference/fact-plan.json','selfchecks/fact_fixture.py','tools/fact_preauth.py','tools/facts_entry.py','reference/fact-preauth-schema.json')
+ RUNNER_CUSTODY=[]
+ def exact(d,keys,code):
+  if type(d) is not dict or set(d)!=set(keys):raise ValueError(code)
+--- CONTRACT03/tools/entry_gates.py
++++ PREAUTH01/tools/entry_gates.py
+@@ -37,7 +37,7 @@
+   p=Path(path)
+   if not p.is_absolute() or p.drive.casefold()!=BASE.drive.casefold() or p.absolute()!=p.resolve():return False
+   no_links(p)
+-  roots=(BASE/'selfchecks/work',Path('D:/CodexProjects/VideoKit/docs/tester/D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE/fixtures'))
++  roots=(BASE/'selfchecks/work',Path('D:/CodexProjects/VideoKit/docs/tester/D1_READONLY_FACTS_PREAUTH01_REVIEW_EVIDENCE/fixtures'))
+   return any(p!=root and p.is_relative_to(root) for root in roots)
+  except (ValueError,OSError):return False
+ 
+--- CONTRACT03/tools/capture_android02.ps1
++++ PREAUTH01/tools/capture_android02.ps1
+@@ -137,7 +137,7 @@
+ if($request.evidenceRoot -cne $policy.evidenceRoot -or $request.scope -cne $policy.scope -or $policy.scope -cnotmatch '^[a-f0-9]{64}$'){throw 'EXACT_SCOPE_ROOT'}
+ $fixture=$policy.mode -ceq 'OFFLINE_FIXTURE';$inputPin=$null;$payloadPin=$null;$slots=@();$previous=$null
+ if($fixture){
+- $prefix='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix\selfchecks\work\';$review='D:\CodexProjects\VideoKit\docs\tester\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\fixtures\'
++ $prefix='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix\selfchecks\work\';$review='D:\CodexProjects\VideoKit\docs\tester\D1_READONLY_FACTS_PREAUTH01_REVIEW_EVIDENCE\fixtures\'
+  if(-not $root.StartsWith($prefix,[StringComparison]::OrdinalIgnoreCase) -and -not $root.StartsWith($review,[StringComparison]::OrdinalIgnoreCase)){throw 'FIXTURE_ROOT_ONLY'}
+  $slots=@($policy.slots);if($slots.Count -lt 1 -or $slots.Count -gt 7){throw 'EXACT_SEVEN_ROLES_MAX'}
+  for($i=0;$i -lt $slots.Count;$i++){
+--- CONTRACT03/reference/gate-sources.json
++++ PREAUTH01/reference/gate-sources.json
+@@ -3,7 +3,7 @@
+   "files": [
+     {
+       "path": "tools/entry_gates.py",
+-      "sha256": "24ebc11d66e115c0a87d44385f90b9b963ae4dbe7a92538a8ae0ad9a6ad27907"
++      "sha256": "0ced5e0901db4ce3311a42e7e5aa88bc0ef81dfe7b94272985da22191eca29e1"
+     },
+     {
+       "path": "tools/win32_route.py",
+@@ -23,11 +23,11 @@
+     },
+     {
+       "path": "tools/admission_checks.ps1",
+-      "sha256": "fc09218ed9094641a7c89b69ae4d06226f758b2909bde84dbd171c4f0edcbd8a"
++      "sha256": "0caae62fe362bb6c10546a5d52539a8e80b1484461fe3726ea68102709b57fc0"
+     },
+     {
+       "path": "tools/fact_collector.py",
+-      "sha256": "177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a"
++      "sha256": "69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4"
+     },
+     {
+       "path": "reference/fact-plan.json",
+@@ -36,6 +36,18 @@
+     {
+       "path": "selfchecks/fact_fixture.py",
+       "sha256": "7317770d5d49c213771c7f9beb937d4b0db6e2a147c712849d61917ec20dafc6"
++    },
++    {
++      "path": "tools/fact_preauth.py",
++      "sha256": "db331d90d2f6aed4824a9b2919c7f6ca39a01787f14ec256e32e34e5080fc768"
++    },
++    {
++      "path": "tools/facts_entry.py",
++      "sha256": "b43c4d55b57d0413c9796b5b28ceac48f47a4bd79d768365384412b62ccb714d"
++    },
++    {
++      "path": "reference/fact-preauth-schema.json",
++      "sha256": "1a448871f07b1c2884c5cfd5c68441fe62a94a84d3c64c361633df37bebab36f"
+     }
+   ]
+ }
+--- CONTRACT03/tools/admission_checks.ps1
++++ PREAUTH01/tools/admission_checks.ps1
+@@ -155,7 +155,7 @@
+ }
+ 
+ 
+-$script:GICollectorSha256='177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a'
++$script:GICollectorSha256='69701c9b28bd338142bb5d5ecbd6d8678b8fb8de5e82d19e5cfd2e879d684ed4'
+ $script:GIFactPlanSha256='f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d'
+ # Passive functions incorporated into the pinned admission_checks.ps1 by build_candidate.py.
+ # A semantic PASS is internal only: the unchanged original outer owner must still
+--- CONTRACT03/tools/fact_collector.py
++++ PREAUTH01/tools/fact_collector.py
+@@ -126,10 +126,14 @@
+   if type(approval) is not dict or set(approval)!=ak or sha(encode(approval))!=approved_approval_sha256 or approval['schema']!='GLOBAL_IDLE_FACT_APPROVAL_V1' or approval['mode']!=authority.get('mode') or approval['sourceThreadId']!='01a107c3-2bf9-7fa0-94a0-234258ca6774' or approval['approvedAuthoritySha256']!=approved_authority_sha256 or approval['instructionText']!=instruction or approval['instructionSha256']!=sha(instruction.encode()):raise ValueError('FACT_EXTERNAL_APPROVAL_CHAIN')
+   keys={'schema','approvedForExecution','scope','planId','mode','notBeforeUtc','expiresUtc','collectorSha256','planSha256','routeProofSha256','sourceThreadId','sourceTurnId'}
+   if type(authority) is not dict or set(authority)!=keys or authority['schema']!='GLOBAL_IDLE_FACT_AUTHORITY_V1' or authority['approvedForExecution'] is not True or authority['sourceThreadId']!='01a107c3-2bf9-7fa0-94a0-234258ca6774':raise ValueError('FACT_AUTHORITY')
+-  if authority['scope']!=gate.scope or authority['planId']!=gate.policy['planId'] or authority['mode']!=('OFFLINE_FIXTURE' if gate.fixture else 'LIVE') or authority['collectorSha256']!=sha(Path(__file__).read_bytes()) or authority['planSha256']!=sha((B/'reference/fact-plan.json').read_bytes()):raise ValueError('FACT_SCOPE_SOURCE_MODE')
++  if authority['scope']!=gate.scope or authority['planId']!=gate.policy['planId'] or authority['mode']!=('OFFLINE_FIXTURE' if gate.fixture else 'LIVE') or authority['collectorSha256']!=sha(gate.source_read(Path(__file__))) or authority['planSha256']!=sha(gate.source_read(B/'reference/fact-plan.json')):raise ValueError('FACT_SCOPE_SOURCE_MODE')
+   if authority['routeProofSha256']!=unique_json(gate.receipt_bytes)['routeSha256']:raise ValueError('FACT_ROUTE_HASH')
+   lo=datetime.fromisoformat(authority['notBeforeUtc']);hi=datetime.fromisoformat(authority['expiresUtc']);now=datetime.now(timezone.utc)
+   if not lo<=now<hi or not 0<(hi-lo).total_seconds()<=90:raise ValueError('FACT_AUTHORITY_STALE')
++  return self._capture_authorized(gate,fixture_argv,authority['mode'],hi,authority['collectorSha256'],authority['planSha256'],authority['routeProofSha256'],dict(authoritySha256=approved_authority_sha256,approvalSha256=approved_approval_sha256))
++ def _capture_authorized(self,gate,fixture_argv,mode,hi,source_sha,plan_sha,route_sha,authorization):
++  # Shared original capture, never manufacture legacy authority/approval.
++  if self.entered:raise ValueError('FACT_ONCE')
+   if any(k in os.environ for k in ENV):raise ValueError('FACT_INHERITED_ENV_OVERRIDE')
+   argv=plan()['argv']
+   if fixture_argv is not None:
+@@ -138,7 +142,7 @@
+    self.fixtureRuntime=verify_fixture_runtime(gate)
+   elif gate.fixture:raise ValueError('FACT_FIXTURE_REQUIRED_NO_ADB')
+   else:
+-   if sha(Path(SDK).read_bytes())!=SDK_SHA:raise ValueError('FACT_SDK_PIN')
++   if sha(gate.source_read(SDK))!=SDK_SHA:raise ValueError('FACT_SDK_PIN')
+   gate.receive(gate.policy,gate.manifest_hash);gate.sdk_owner=self;gate.before_role(self)
+   self.gate=gate;self.entered=True;CUSTODY.append(self);start=time.monotonic();self.captureStart=start;self.startedUtc=datetime.now(timezone.utc).isoformat();self.buf=[bytearray(),bytearray()];self.counts=[0,0];self.eof=[False,False];self.closed=[False,False]
+   try:p=subprocess.Popen(argv,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=False)
+@@ -171,7 +175,8 @@
+   if code or self.counts[1] or self.elapsed>=15 or not self.bodyReturned or datetime.now(timezone.utc)>=hi or time.monotonic()-gate.start>=90:self.failure=self.failure or 'FACT_CAPTURE_UNQUALIFIED'
+   if self.failure:raise ValueError(self.failure)
+   raw=bytes(self.buf[0]);parsed=facts(raw);self.returned=True
+-  return dict(schema='GLOBAL_IDLE_FACT_CAPTURE_V1',scope=gate.scope,mode=authority['mode'],sourceSha256=sha(Path(__file__).read_bytes()),planSha256=authority['planSha256'],routeProofSha256=authority['routeProofSha256'],authoritySha256=approved_authority_sha256,approvalSha256=approved_approval_sha256,initialProofSha256=gate.proof_hash,hostEnvironment='INHERITED_SEVEN_OVERRIDES_ABSENT',rawSha256=sha(raw),rawBytes=len(raw),stdoutBytes=self.counts[0],stderrBytes=self.counts[1],hostElapsedSeconds=self.elapsed,collectedAtUtc=self.startedUtc,originalBodyReturned=True,outerControllerReturnStillRequired=True,facts=parsed)
++  receipt=dict(schema='GLOBAL_IDLE_FACT_CAPTURE_V1',scope=gate.scope,mode=mode,sourceSha256=source_sha,planSha256=plan_sha,routeProofSha256=route_sha,initialProofSha256=gate.proof_hash,hostEnvironment='INHERITED_SEVEN_OVERRIDES_ABSENT',rawSha256=sha(raw),rawBytes=len(raw),stdoutBytes=self.counts[0],stderrBytes=self.counts[1],hostElapsedSeconds=self.elapsed,collectedAtUtc=self.startedUtc,originalBodyReturned=True,outerControllerReturnStillRequired=True,facts=parsed)
++  receipt.update(authorization);return receipt
+  def finish_after_original_collect_return(self,gate):
+   if gate is not getattr(self,'gate',None) or not getattr(self,'bodyReturned',False) or self.unknown or any(isinstance(x,threading.Thread) and x.is_alive() for x in self.held):raise ValueError('FACT_NO_RELEASE_WITH_UNKNOWN')
+   # Known original resources are released even after a deadline; expiry never
+--- CONTRACT03/tools/fact_preauth.py
++++ PREAUTH01/tools/fact_preauth.py
+@@ -0,0 +1,138 @@
++"""Fixed facts preauthorization. External CLI digest is a trust input, not an issuer.
++
++No legacy-authority synthesis; no signing/IPC or qualification issuance.
++"""
++from pathlib import Path
++from datetime import datetime,timezone
++import hashlib,json,re,os,threading,uuid,time
++B=Path(__file__).resolve().parents[1]
++COORDINATOR='01a107c3-2bf9-7fa0-94a0-234258ca6774'
++KEYS=set('schema mode sourceThreadId sourceTurnId notBeforeUtc expiresUtc scope planId runId nonce home evidenceRoot policySha256 sourceSealSha256 gateSourcesSha256 collectorSha256 binderSha256 entrySha256 runtimeIdentitySha256 sdk factPlanSha256 device queries limits'.split())
++LIMITS=dict(wholeSeconds=90,gateSeconds=30,qualificationSeconds=15,outerSeconds=30,proofSeconds=10,sdkChildren=1,stdoutBytes=139264,stderrBytes=8192,combinedBytes=147456,concurrency=1,retry=0)
++USED=set()
++def fail(code):raise ValueError(code)
++def sha(raw):return hashlib.sha256(raw).hexdigest()
++def encode(d):return (json.dumps(d,ensure_ascii=False,separators=(',',':'),allow_nan=False)+'\n').encode()
++def decode(raw):
++ if type(raw) is not bytes or not 1<=len(raw)<=16384:fail('PREAUTH_BYTES')
++ def pairs(xs):
++  d={};seen=set()
++  for k,v in xs:
++   if k.casefold() in seen:fail('PREAUTH_DUPLICATE_FIELD')
++   seen.add(k.casefold());d[k]=v
++  return d
++ return json.loads(raw.decode('utf-8','strict'),object_pairs_hook=pairs,parse_constant=lambda _:fail('PREAUTH_NONFINITE'))
++def same(a,b):
++ if type(a) is not type(b):return False
++ if type(a) is dict:return set(a)==set(b) and all(same(a[k],b[k]) for k in a)
++ if type(a) is list:return len(a)==len(b) and all(same(x,y) for x,y in zip(a,b))
++ return a==b
++def digest(v):return type(v) is str and re.fullmatch('[0-9a-f]{64}',v) is not None and v!='0'*64
++def utc(v):
++ if type(v) is not str or not re.fullmatch(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{1,6})?\+00:00',v):fail('PREAUTH_UTC')
++ return datetime.fromisoformat(v)
++def uuid_text(v):
++ try:return type(v) is str and str(uuid.UUID(v))==v
++ except ValueError:return False
++def validate(raw,approved_template_sha256,policy,pins,now=None):
++ # The trusted invocation supplies this digest, never default to sha(raw).
++ if type(raw) is not bytes or not digest(approved_template_sha256) or sha(raw)!=approved_template_sha256:fail('PREAUTH_EXTERNAL_HASH')
++ t=decode(raw)
++ if type(t) is not dict or set(t)!=KEYS:fail('PREAUTH_SCHEMA')
++ if t['schema']!='GLOBAL_IDLE_FACT_PREAUTH_V1' or t['mode'] not in ('LIVE','OFFLINE_FIXTURE'):fail('PREAUTH_KIND_MODE')
++ if t['sourceThreadId']!=COORDINATOR or not uuid_text(t['sourceTurnId']):fail('PREAUTH_SOURCE')
++ if not uuid_text(t['nonce']) or not uuid_text(t['planId']):fail('PREAUTH_NONCE_PLAN')
++ if type(t['runId']) is not str or not re.fullmatch('D1MA02-[A-Z0-9_-]{1,32}',t['runId']):fail('PREAUTH_RUN')
++ for k in ('scope','policySha256','sourceSealSha256','gateSourcesSha256','collectorSha256','binderSha256','entrySha256','runtimeIdentitySha256','factPlanSha256'):
++  if not digest(t[k]):fail('PREAUTH_HASH_TYPE:'+k)
++ if not same(t['limits'],LIMITS):fail('PREAUTH_LIMITS')
++ if not same(t['sdk'],pins['sdk']) or not same(t['device'],dict(serial='HA1Q6WXR',model='TB138FC',api=31,user=0)):fail('PREAUTH_SDK_DEVICE')
++ if not same(t['queries'],pins['queries']):fail('PREAUTH_QUERIES')
++ for k in ('sourceSealSha256','gateSourcesSha256','collectorSha256','binderSha256','entrySha256','runtimeIdentitySha256','factPlanSha256'):
++  if t[k]!=pins[k]:fail('PREAUTH_PIN:'+k)
++ if type(policy) is not dict or sha(encode(policy))!=t['policySha256']:fail('PREAUTH_POLICY')
++ mode='OFFLINE_FIXTURE' if policy.get('mode')=='OFFLINE_FIXTURE' else 'LIVE' if policy.get('mode')=='PRODUCTION' else None
++ if t['mode']!=mode:fail('PREAUTH_POLICY_MODE')
++ for k in ('scope','planId','runId','evidenceRoot'):
++  if type(t[k]) is not str or t[k]!=policy.get(k):fail('PREAUTH_POLICY_ID:'+k)
++ if t['home']!=str(Path(t['evidenceRoot']).parent) or Path(t['evidenceRoot']).name!='outputs':fail('PREAUTH_HOME')
++ for k in ('home','evidenceRoot'):
++  if type(t[k]) is not str or not Path(t[k]).is_absolute() or str(Path(t[k]).resolve())!=t[k]:fail('PREAUTH_CANONICAL_PATH')
++ for k in ('gateSourcesSha256','runtimeIdentitySha256'):
++  if policy.get(k)!=t[k]:fail('PREAUTH_POLICY_PIN:'+k)
++ if policy.get('entrySha256')!=pins['captureSha256'] or policy.get('outerOwnerSha256')!=pins['ownerSha256'] or policy.get('planSha256')!=pins['rolePlanSha256']:fail('PREAUTH_POLICY_SOURCES')
++ lo=utc(t['notBeforeUtc']);hi=utc(t['expiresUtc']);now=now or datetime.now(timezone.utc)
++ if not 0<(hi-lo).total_seconds()<=90 or not lo<=now<hi:fail('PREAUTH_WINDOW')
++ return t
++def load_pins(read):
++ from fact_collector import QUERIES,SDK,SDK_SHA
++ raw=read(B/'reference/runner-source-seal.json');seal=json.loads(raw);sources=seal['sources']
++ # Gate independently hashes its fixed sources (including this binder+schema+CLI).
++ return dict(sourceSealSha256=sha(raw),gateSourcesSha256=sources['reference/gate-sources.json'],collectorSha256=sources['tools/fact_collector.py'],binderSha256=sources['tools/fact_preauth.py'],entrySha256=sources['tools/facts_entry.py'],runtimeIdentitySha256=sources['reference/current-runtime-identity.json'],factPlanSha256=sources['reference/fact-plan.json'],captureSha256=sources['tools/capture_android02.ps1'],ownerSha256=sources['tools/outer_owner.py'],rolePlanSha256=sources['reference/exact-seven-role-plan.json'],sdk=dict(path=SDK,sha256=SDK_SHA),queries=[dict(id=i,command=c) for i,c in QUERIES])
++def binding_bytes(actual,expected):
++ decode(actual)
++ if type(expected) is not bytes or actual!=expected:fail('PREAUTH_BINDING_ONCE_BYTES')
++ return True
++class PreparedFacts:
++ def __init__(self,raw,approved_template_sha256,policy):
++  self.owner=(os.getpid(),threading.get_ident());self.bytes=raw;self.approved=approved_template_sha256
++  self.policy=decode(encode(policy));self.sourceBytes=0;self.sourceReads=0;self.controlBytes=len(raw)+len(encode(policy));self.gate=None;self.used=False;self.prepareEntered=False;self.binding=None
++  def read(p):
++   from entry_gates import no_links
++   no_links(p);b=Path(p).read_bytes();self.sourceBytes+=len(b);self.sourceReads+=1
++   if self.sourceBytes>268435456 or self.sourceReads>64:fail('PREAUTH_SOURCE_BOUND')
++   return b
++  self.pins=load_pins(read);self.template=validate(raw,approved_template_sha256,self.policy,self.pins)
++  # The actual fixed gate/collector/binder/entry pins are verified before Gate.
++  for rel,k in [('reference/gate-sources.json','gateSourcesSha256'),('tools/fact_collector.py','collectorSha256'),('tools/fact_preauth.py','binderSha256'),('tools/facts_entry.py','entrySha256'),('reference/fact-plan.json','factPlanSha256')]:
++   if sha(read(B/rel))!=self.pins[k]:fail('PREAUTH_CURRENT_SOURCE:'+rel)
++  key=(self.template['scope'],self.template['planId'],self.template['runId'],self.template['nonce'])
++  if key in USED:fail('PREAUTH_REPLAY')
++  USED.add(key) # no refund/rearm, including later known rejection
++ def holder(self):
++  if self.owner!=(os.getpid(),threading.get_ident()):fail('PREAUTH_ORIGINAL_OWNER')
++ def prepare(self):
++  self.holder()
++  if self.prepareEntered or self.used:fail('PREAUTH_PREPARE_ONCE')
++  self.prepareEntered=True
++  validate(self.bytes,self.approved,self.policy,self.pins)
++  from entry_gates import GateSession,no_links
++  home=Path(self.template['home']);no_links(home)
++  if (home/'outputs').exists():fail('PREAUTH_FRESH_OUTPUT_REQUIRED')
++  (home/'outputs').mkdir(parents=True,exist_ok=False)
++  self.gate=GateSession(home,policy=self.policy,pre_events=[dict(event='preauth-template-policy-read',bytes=self.controlBytes)])
++  self.gate.source_bytes+=self.sourceBytes;self.gate.source_reads+=self.sourceReads
++  if self.gate.source_bytes>268435456 or self.gate.source_reads>64:fail('SOURCE_READ_BUDGET')
++  self.gate.whole=90 # narrower facts whole window, no expansion of original gates
++  self.gate.prepare();return self.gate
++ def current(self,gate):
++  from entry_gates import GateSession
++  self.holder()
++  if type(gate) is not GateSession or gate is not self.gate or not gate.prepared or gate.accepted or gate.sdk_owner is not None or gate.released or gate.failure:fail('PREAUTH_ORIGINAL_PREPARED_GATE')
++  if gate.scope!=self.template['scope'] or not same(gate.policy,self.policy):fail('PREAUTH_GATE_IDENTITY')
++  gate.assert_held();gate.observe(gate.proof_start,10);gate.require()
++  validate(self.bytes,self.approved,self.policy,self.pins)
++ def bind(self,gate):
++  self.current(gate)
++  if self.used or self.binding is not None:fail('PREAUTH_BIND_ONCE')
++  self.used=True
++  from entry_gates import decode as gate_decode
++  binding=dict(schema='GLOBAL_IDLE_FACT_RUNTIME_BINDING_V1',mode=self.template['mode'],preauthSha256=self.approved,scope=gate.scope,planId=gate.policy['planId'],runId=gate.policy['runId'],nonce=self.template['nonce'],generation=gate.generation,ownerPid=gate.pid,ownerThread=gate.thread,claimFileId=gate.file_id,scopeStartTick=gate.start_tick,proofStartTick=gate.proof_start_tick,routeProofSha256=gate_decode(gate.receipt_bytes)['routeSha256'],initialProofSha256=gate.proof_hash,gateReceiptSha256=sha(gate.receipt_bytes),sourceSealSha256=self.pins['sourceSealSha256'],gateSourcesSha256=gate.manifest_hash,binderSha256=self.pins['binderSha256'],boundAtUtc=datetime.now(timezone.utc).isoformat())
++  self.binding=encode(binding)
++  gate.charge('preauth-binding-create',len(self.binding));return self.binding
++ def receive(self,gate,binding,capture,fixture_argv=None):
++  self.current(gate)
++  if not self.used or getattr(self,'receiveEntered',False):fail('PREAUTH_BINDING_ONCE_BYTES')
++  binding_bytes(binding,self.binding)
++  self.receiveEntered=True # never refund or rearm
++  d=decode(binding)
++  from entry_gates import decode as gate_decode
++  if d['generation']!=gate.generation or d['ownerPid']!=gate.pid or d['ownerThread']!=gate.thread or d['claimFileId']!=gate.file_id or d['initialProofSha256']!=gate.proof_hash or d['gateReceiptSha256']!=sha(gate.receipt_bytes) or d['routeProofSha256']!=gate_decode(gate.receipt_bytes)['routeSha256'] or d['scopeStartTick']!=gate.start_tick or d['proofStartTick']!=gate.proof_start_tick:fail('PREAUTH_BINDING_ORIGINAL_CHANGED')
++  gate.charge('preauth-template-receiver',len(self.bytes));gate.charge('preauth-binding-receiver',len(binding))
++  # Re-read current source pins using original gate source accounting.
++  for rel,k in [('reference/runner-source-seal.json','sourceSealSha256'),('tools/fact_preauth.py','binderSha256'),('tools/fact_collector.py','collectorSha256'),('tools/facts_entry.py','entrySha256'),('reference/fact-plan.json','factPlanSha256')]:
++   if sha(gate.source_read(B/rel))!=self.pins[k]:fail('PREAUTH_RECEIVER_SOURCE:'+rel)
++  from fact_collector import OwnedFactCapture
++  if type(capture) is not OwnedFactCapture or capture.entered:fail('PREAUTH_ORIGINAL_CAPTURE')
++  result=capture._capture_authorized(gate,fixture_argv,self.template['mode'],utc(self.template['expiresUtc']),self.pins['collectorSha256'],self.pins['factPlanSha256'],d['routeProofSha256'],dict(schema='GLOBAL_IDLE_FACT_CAPTURE_V2',authorizationKind='GLOBAL_IDLE_FACT_PREAUTH_V1',externalPreauthSha256=self.approved,runtimeBindingSha256=sha(binding)))
++  return result
+--- CONTRACT03/tools/facts_entry.py
++++ PREAUTH01/tools/facts_entry.py
+@@ -0,0 +1,68 @@
++"""Explicit externally pinned facts entry. Default denies; no qualification output."""
++from pathlib import Path
++import sys,json,argparse
++sys.path.insert(0,str(Path(__file__).resolve().parent))
++def fixture_guard(ticket):
++ # Two exact original calls in this process. No arbitrary test shell or route.
++ import subprocess,os,hashlib
++ from fact_collector import FIXTURE_PY,B
++ from fact_preauth import encode,sha
++ original=subprocess.Popen;cwd=str(Path.cwd());env=sha(encode(dict(os.environ)));calls=[];events=[];expected=[None]
++ scripts=[B/'selfchecks/route_fixture.py',B/'selfchecks/fact_fixture.py']
++ argv=[[FIXTURE_PY,'-I','-X','utf8','-B',str(scripts[0]),str(Path(ticket.policy['evidenceRoot'])/'gate-context.json')],[FIXTURE_PY,'-I','-X','utf8','-B',str(scripts[1]),'COMPLETE']]
++ def observe(event,args):
++  if event!='subprocess.Popen':return
++  try:events.append(dict(matches=expected[0] is not None and args[0] is None and args[1]==expected[0] and args[2] is None and args[3] is None))
++  except BaseException:events.append(dict(matches=False))
++ def construct(a,*pos,**kw):
++  i=len(calls)
++  if pos or i>=2 or a!=argv[i] or str(Path.cwd())!=cwd or sha(encode(dict(os.environ)))!=env or any(not x['matches'] for x in events):raise ValueError('FACT_ENTRY_FIXTURE_PROFILE')
++  if set(kw)-{'stdin','stdout','stderr','shell'} or kw.get('shell',False) is not False or kw.get('stdin')!=subprocess.DEVNULL or kw.get('stdout')!=subprocess.PIPE or kw.get('stderr')!=subprocess.PIPE:raise ValueError('FACT_ENTRY_FIXTURE_STREAMS')
++  # Gate constructor already pinned script; this additional recheck is charged.
++  seal=json.loads(ticket.gate.source_read(B/'reference/runner-source-seal.json'))
++  if sha(ticket.gate.source_read(scripts[i]))!=seal['sources'][scripts[i].relative_to(B).as_posix()]:raise ValueError('FACT_ENTRY_FIXTURE_SOURCE')
++  expected[0]=subprocess.list2cmdline(a)
++  try:p=original(a,**kw);calls.append(dict(argv=list(a),constructorReturned=True));return p
++  finally:expected[0]=None
++ sys.addaudithook(observe);subprocess.Popen=construct
++ return original,calls,events
++def main(argv=None):
++ from fact_preauth import PreparedFacts,decode,encode
++ from fact_collector import OwnedFactCapture,FIXTURE_PY,B
++ p=argparse.ArgumentParser();p.add_argument('--template',required=True);p.add_argument('--approved-template-sha256',required=True);p.add_argument('--policy',required=True)
++ a=p.parse_args(argv)
++ def bounded(path):
++  from entry_gates import no_links
++  no_links(path)
++  with Path(path).open('rb') as stream:raw=stream.read(16385)
++  if len(raw)>16384:raise ValueError('FACT_ENTRY_INPUT_BOUND')
++  return raw
++ raw=bounded(a.template);policy_raw=bounded(a.policy);policy=decode(policy_raw)
++ if policy_raw!=encode(policy):raise ValueError('FACT_ENTRY_POLICY_CANONICAL_BYTES')
++ ticket=PreparedFacts(raw,a.approved_template_sha256,policy)
++ guard=fixture_guard(ticket) if ticket.template['mode']=='OFFLINE_FIXTURE' else None
++ c=OwnedFactCapture()
++ try:
++  g=ticket.prepare();binding=ticket.bind(g)
++  fixture=[FIXTURE_PY,'-I','-X','utf8','-B',str(B/'selfchecks/fact_fixture.py'),'COMPLETE'] if g.fixture else None
++  receipt=ticket.receive(g,binding,c,fixture)
++ except BaseException:
++  import time
++  if c.unknown:
++   while True:time.sleep(.1) # retain actual unknown originals; no exit/retry/close
++  g=ticket.gate
++  if g is not None:
++   if getattr(c,'bodyReturned',False):c.finish_after_original_collect_return(g)
++   elif not c.entered and not g.released and g.lease is not None and not g.lease.closed:g.release()
++  raise
++ release=c.finish_after_original_collect_return(g)
++ # This original call has returned to its caller. This process's own outer
++ # return is still established by its external original waiter, never itself.
++ out=dict(schema='GLOBAL_IDLE_FACT_ENTRY_RETURN_V2',receipt=receipt,release=release,binding=decode(binding),outerProcessReturnStillRequired=True,qualificationIssued=False,sourceBytes=g.source_bytes,sourceReads=g.source_reads,controlBytes=sum(x['bytes'] for x in g.events)+g.carry)
++ if guard:
++  import subprocess
++  subprocess.Popen=guard[0];out['fixtureConstructorCalls']=guard[1];out['fixtureAudit']=guard[2]
++ sys.stdout.buffer.write(encode(out));return 0
++if __name__=='__main__':
++ try:raise SystemExit(main())
++ except ValueError as e:print(json.dumps(dict(status='REJECTED',reason=str(e))));raise SystemExit(2)
+--- CONTRACT03/reference/fact-preauth-schema.json
++++ PREAUTH01/reference/fact-preauth-schema.json
+@@ -0,0 +1,504 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "urn:videokit:global-idle-fact-preauth:v1",
++  "type": "object",
++  "additionalProperties": false,
++  "required": [
++    "schema",
++    "mode",
++    "sourceThreadId",
++    "sourceTurnId",
++    "notBeforeUtc",
++    "expiresUtc",
++    "scope",
++    "planId",
++    "runId",
++    "nonce",
++    "home",
++    "evidenceRoot",
++    "policySha256",
++    "sourceSealSha256",
++    "gateSourcesSha256",
++    "collectorSha256",
++    "binderSha256",
++    "entrySha256",
++    "runtimeIdentitySha256",
++    "sdk",
++    "factPlanSha256",
++    "device",
++    "queries",
++    "limits"
++  ],
++  "properties": {
++    "schema": {
++      "const": "GLOBAL_IDLE_FACT_PREAUTH_V1"
++    },
++    "mode": {
++      "enum": [
++        "LIVE",
++        "OFFLINE_FIXTURE"
++      ]
++    },
++    "sourceThreadId": {
++      "const": "01a107c3-2bf9-7fa0-94a0-234258ca6774"
++    },
++    "sourceTurnId": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
++    },
++    "notBeforeUtc": {
++      "type": "string",
++      "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?\\+00:00$"
++    },
++    "expiresUtc": {
++      "type": "string",
++      "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?\\+00:00$"
++    },
++    "scope": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "planId": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
++    },
++    "runId": {
++      "type": "string",
++      "pattern": "^D1MA02-[A-Z0-9_-]{1,32}$"
++    },
++    "nonce": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
++    },
++    "home": {
++      "type": "string",
++      "minLength": 1
++    },
++    "evidenceRoot": {
++      "type": "string",
++      "minLength": 1
++    },
++    "policySha256": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "sourceSealSha256": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "gateSourcesSha256": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "collectorSha256": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "binderSha256": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "entrySha256": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "runtimeIdentitySha256": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "sdk": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "path",
++        "sha256"
++      ],
++      "properties": {
++        "path": {
++          "const": "D:/Android/SDK/platform-tools/adb.exe"
++        },
++        "sha256": {
++          "const": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
++        }
++      }
++    },
++    "factPlanSha256": {
++      "type": "string",
++      "pattern": "^[0-9a-f]{64}$",
++      "not": {
++        "const": "0000000000000000000000000000000000000000000000000000000000000000"
++      }
++    },
++    "device": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "serial",
++        "model",
++        "api",
++        "user"
++      ],
++      "properties": {
++        "serial": {
++          "const": "HA1Q6WXR"
++        },
++        "model": {
++          "const": "TB138FC"
++        },
++        "api": {
++          "type": "integer",
++          "const": 31
++        },
++        "user": {
++          "type": "integer",
++          "const": 0
++        }
++      }
++    },
++    "queries": {
++      "type": "array",
++      "minItems": 7,
++      "maxItems": 7,
++      "prefixItems": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "id",
++            "command"
++          ],
++          "properties": {
++            "id": {
++              "const": "model"
++            },
++            "command": {
++              "const": "getprop ro.product.model"
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "id",
++            "command"
++          ],
++          "properties": {
++            "id": {
++              "const": "api"
++            },
++            "command": {
++              "const": "getprop ro.build.version.sdk"
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "id",
++            "command"
++          ],
++          "properties": {
++            "id": {
++              "const": "firmware"
++            },
++            "command": {
++              "const": "getprop ro.build.fingerprint"
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "id",
++            "command"
++          ],
++          "properties": {
++            "id": {
++              "const": "user"
++            },
++            "command": {
++              "const": "am get-current-user"
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "id",
++            "command"
++          ],
++          "properties": {
++            "id": {
++              "const": "system"
++            },
++            "command": {
++              "const": "cmd package list packages -s -U --user 0"
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "id",
++            "command"
++          ],
++          "properties": {
++            "id": {
++              "const": "role"
++            },
++            "command": {
++              "const": "dumpsys role"
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "id",
++            "command"
++          ],
++          "properties": {
++            "id": {
++              "const": "home"
++            },
++            "command": {
++              "const": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
++            }
++          }
++        }
++      ],
++      "items": false
++    },
++    "limits": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "wholeSeconds",
++        "gateSeconds",
++        "qualificationSeconds",
++        "outerSeconds",
++        "proofSeconds",
++        "sdkChildren",
++        "stdoutBytes",
++        "stderrBytes",
++        "combinedBytes",
++        "concurrency",
++        "retry"
++      ],
++      "properties": {
++        "wholeSeconds": {
++          "type": "integer",
++          "const": 90
++        },
++        "gateSeconds": {
++          "type": "integer",
++          "const": 30
++        },
++        "qualificationSeconds": {
++          "type": "integer",
++          "const": 15
++        },
++        "outerSeconds": {
++          "type": "integer",
++          "const": 30
++        },
++        "proofSeconds": {
++          "type": "integer",
++          "const": 10
++        },
++        "sdkChildren": {
++          "type": "integer",
++          "const": 1
++        },
++        "stdoutBytes": {
++          "type": "integer",
++          "const": 139264
++        },
++        "stderrBytes": {
++          "type": "integer",
++          "const": 8192
++        },
++        "combinedBytes": {
++          "type": "integer",
++          "const": 147456
++        },
++        "concurrency": {
++          "type": "integer",
++          "const": 1
++        },
++        "retry": {
++          "type": "integer",
++          "const": 0
++        }
++      }
++    }
++  },
++  "$comment": "Runtime additionally enforces canonical paths, unique casefold keys, exact external digest/pins/policy, actual original object/owner/once, and <=90s UTC validity. Template generation gives no authority. JSON Schema integer semantics alone cannot exclude 1.0; Python exact type validator does.",
++  "$defs": {
++    "runtimeBinding": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "schema",
++        "mode",
++        "preauthSha256",
++        "scope",
++        "planId",
++        "runId",
++        "nonce",
++        "generation",
++        "ownerPid",
++        "ownerThread",
++        "claimFileId",
++        "scopeStartTick",
++        "proofStartTick",
++        "routeProofSha256",
++        "initialProofSha256",
++        "gateReceiptSha256",
++        "sourceSealSha256",
++        "gateSourcesSha256",
++        "binderSha256",
++        "boundAtUtc"
++      ],
++      "properties": {
++        "schema": {
++          "const": "GLOBAL_IDLE_FACT_RUNTIME_BINDING_V1"
++        },
++        "mode": {
++          "enum": [
++            "LIVE",
++            "OFFLINE_FIXTURE"
++          ]
++        },
++        "preauthSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "scope": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "planId": {
++          "type": "string",
++          "minLength": 1
++        },
++        "runId": {
++          "type": "string",
++          "minLength": 1
++        },
++        "nonce": {
++          "type": "string",
++          "minLength": 1
++        },
++        "generation": {
++          "type": "string",
++          "minLength": 1
++        },
++        "ownerPid": {
++          "type": "integer",
++          "minimum": 1
++        },
++        "ownerThread": {
++          "type": "integer",
++          "minimum": 1
++        },
++        "claimFileId": {
++          "type": "integer",
++          "minimum": 1
++        },
++        "scopeStartTick": {
++          "type": "integer",
++          "minimum": 1
++        },
++        "proofStartTick": {
++          "type": "integer",
++          "minimum": 1
++        },
++        "routeProofSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "initialProofSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "gateReceiptSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "sourceSealSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "gateSourcesSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "binderSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "boundAtUtc": {
++          "type": "string",
++          "minLength": 1
++        }
++      }
++    },
++    "captureV2Authorization": {
++      "type": "object",
++      "additionalProperties": false,
++      "required": [
++        "schema",
++        "authorizationKind",
++        "externalPreauthSha256",
++        "runtimeBindingSha256"
++      ],
++      "properties": {
++        "schema": {
++          "const": "GLOBAL_IDLE_FACT_CAPTURE_V2"
++        },
++        "authorizationKind": {
++          "const": "GLOBAL_IDLE_FACT_PREAUTH_V1"
++        },
++        "externalPreauthSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        },
++        "runtimeBindingSha256": {
++          "type": "string",
++          "pattern": "^[0-9a-f]{64}$"
++        }
++      }
++    }
++  }
++}

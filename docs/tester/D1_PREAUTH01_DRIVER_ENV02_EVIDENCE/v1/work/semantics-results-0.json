@@ -1,0 +1,2680 @@
+[
+  {
+    "id": "F01",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "F02",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_FORMAT_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "F03",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_FORMAT_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "F04",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_CAPTURE_RETURN_UNPROVEN",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "F05",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_INVALID_CONTROL_CHARACTER",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "F06",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_PROCESS_HEADERS_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "F07",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_FACT_ORIGINAL_RETURN_UNPROVEN",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P01",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app:worker",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 16,
+        "packages": [
+          "com.fixture.app"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P02",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app:worker:extra",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 16,
+        "packages": [
+          "com.fixture.app"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P03",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "PERS",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.system:worker",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 5,
+        "packages": [
+          "com.fixture.system"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P04",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_PROCESS_HEADERS_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "P05",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_PROCESS_USER_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "P06",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_OTHER_USER_UNPROVEN",
+    "qualified": false,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 1010065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app",
+        "userSpec": "u10a65",
+        "user": 10,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.fixture.app"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P07",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "PERS",
+        "token": "abcde1",
+        "uid": 1000,
+        "pidFromText": 125,
+        "processName": "system",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "android"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P08",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_ISOLATED_OWNER_UNPROVEN",
+    "qualified": false,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app:worker",
+        "userSpec": "u0ai1",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": true,
+        "state": 16,
+        "packages": [
+          "com.fixture.app"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P09",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_SHARED_OWNER_UNPROVEN",
+    "qualified": false,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app:worker",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 16,
+        "packages": [
+          "com.fixture.app",
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P10",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app:worker",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 16,
+        "packages": [
+          "com.fixture.app"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "P11",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_PROCESS_STATE_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "P12",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_PROCESS_STATE_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "P13",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_PROCESS_STATE_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "P14",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_PROCESS_PACKAGE_MAPPING_UNPROVEN",
+    "qualified": false,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app:worker",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 16,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "S01",
+    "expected": "BLOCKED_OCCUPIED",
+    "status": "BLOCKED_OCCUPIED",
+    "reason": "ENV_WAIT_FOREIGN_FOREGROUND",
+    "qualified": false,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.fixture.app"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "S02",
+    "expected": "BLOCKED_OCCUPIED",
+    "status": "BLOCKED_OCCUPIED",
+    "reason": "ENV_WAIT_OTHER_PROJECT_OR_TEST_OCCUPIED",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "S03",
+    "expected": "BLOCKED_OCCUPIED",
+    "status": "BLOCKED_OCCUPIED",
+    "reason": "ENV_WAIT_OTHER_PROJECT_OR_TEST_OCCUPIED",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "S04",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_INSTRUMENTATION_FORMAT_UNPROVEN",
+    "qualified": false,
+    "processCount": 0,
+    "processes": [],
+    "pass": true
+  },
+  {
+    "id": "S05",
+    "expected": "BLOCKED_OCCUPIED",
+    "status": "BLOCKED_OCCUPIED",
+    "reason": "ENV_WAIT_ACTIVE_SERVICE_UNQUALIFIED",
+    "qualified": false,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app:service",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 4,
+        "packages": [
+          "com.fixture.app"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "S06",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_CORE_SERVICE_UNPROVEN",
+    "qualified": false,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "PERS",
+        "token": "abcde1",
+        "uid": 1000,
+        "pidFromText": 125,
+        "processName": "android",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "android"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "S07",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "APP",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.app:worker",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 16,
+        "packages": [
+          "com.fixture.app"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "S08",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "PERS",
+        "token": "abcde1",
+        "uid": 10065,
+        "pidFromText": 125,
+        "processName": "com.fixture.system:worker",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 5,
+        "packages": [
+          "com.fixture.system"
+        ],
+        "sourceDir": [],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "S09",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_HOME_PROCESS_STATE_UNPROVEN",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 16,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "S10",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_CORE_SERVICE_UNPROVEN",
+    "qualified": false,
+    "processCount": 2,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      },
+      {
+        "index": 2,
+        "kind": "PERS",
+        "token": "abcde1",
+        "uid": 1000,
+        "pidFromText": 125,
+        "processName": "android",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "android"
+        ],
+        "sourceDir": [
+          "/system/priv-app/LooksSafe.apk"
+        ],
+        "line": 8
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "R01",
+    "expected": "PASS",
+    "status": "PASS",
+    "reason": "GLOBAL_IDLE_QUALIFIED_INTERNAL_ONLY",
+    "qualified": true,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "R02",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_QUAL_SCHEMA",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "R03",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_RESUME_OR_FOCUS_UNPROVEN",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "R04",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "ENV_WAIT_MULTIPLE_RESUMED_IDENTITIES_UNPROVEN",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "R05",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_FOCUS_RESUME_DISAGREEMENT",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "R06",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "ENV_WAIT_MULTIPLE_RESUMED_IDENTITIES_UNPROVEN",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "R07",
+    "expected": "BLOCKED_OCCUPIED",
+    "status": "BLOCKED_OCCUPIED",
+    "reason": "ENV_WAIT_FOREIGN_RESUMED",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "R08",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_HOME_COMPONENT_UNPROVEN",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "Q01",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_HOME_FACT_UNPROVEN",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "Q02",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_QUAL_SCOPE_OR_SOURCE",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "Q03",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_QUAL_SCHEMA",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "Q04",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_QUAL_SCOPE_OR_SOURCE",
+    "qualified": false,
+    "processCount": 1,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "abcdef",
+        "uid": 10012,
+        "pidFromText": 124,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a12",
+        "user": 0,
+        "appId": 10012,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [],
+        "line": 3
+      }
+    ],
+    "pass": true
+  },
+  {
+    "id": "H01",
+    "expected": "BLOCKED_UNPROVEN",
+    "status": "BLOCKED_UNPROVEN",
+    "reason": "GLOBAL_QUAL_SCHEMA",
+    "qualified": false,
+    "processCount": 68,
+    "processes": [
+      {
+        "index": 1,
+        "kind": "APP",
+        "token": "c43883a",
+        "uid": 10194,
+        "pidFromText": 30048,
+        "processName": "com.sohu.inputmethod.sogou.oem",
+        "userSpec": "u0a194",
+        "user": 0,
+        "appId": 10194,
+        "isolatedOwnerUnproven": false,
+        "state": 7,
+        "packages": [
+          "com.sohu.inputmethod.sogou.oem"
+        ],
+        "sourceDir": [
+          "/system/preinstall/SogouInput/SogouInput.apk"
+        ],
+        "line": 4
+      },
+      {
+        "index": 2,
+        "kind": "PERS",
+        "token": "18aa326",
+        "uid": 1000,
+        "pidFromText": 3726,
+        "processName": "com.factory.mmigroup",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.factory.mmigroup"
+        ],
+        "sourceDir": [
+          "/system/app/MMIGroup/MMIGroup.apk"
+        ],
+        "line": 93
+      },
+      {
+        "index": 3,
+        "kind": "APP",
+        "token": "53b2370",
+        "uid": 10097,
+        "pidFromText": 901,
+        "processName": "com.zui.homesettings",
+        "userSpec": "u0a97",
+        "user": 0,
+        "appId": 10097,
+        "isolatedOwnerUnproven": false,
+        "state": 19,
+        "packages": [
+          "com.zui.homesettings"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiHomeSettings/ZuiHomeSettings.apk"
+        ],
+        "line": 130
+      },
+      {
+        "index": 4,
+        "kind": "PERS",
+        "token": "5e9dd14",
+        "uid": 10096,
+        "pidFromText": 3737,
+        "processName": "com.zui.sdac",
+        "userSpec": "u0a96",
+        "user": 0,
+        "appId": 10096,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.sdac"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiSdac/ZuiSdac.apk"
+        ],
+        "line": 169
+      },
+      {
+        "index": 5,
+        "kind": "PERS",
+        "token": "76769bd",
+        "uid": 10053,
+        "pidFromText": 3744,
+        "processName": "com.zui.xlog",
+        "userSpec": "u0a53",
+        "user": 0,
+        "appId": 10053,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.xlog"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiXlog/ZuiXlog.apk"
+        ],
+        "line": 211
+      },
+      {
+        "index": 6,
+        "kind": "APP",
+        "token": "5dcc14b",
+        "uid": 10065,
+        "pidFromText": 4016,
+        "processName": "com.lenovo.styluspen:accessibility",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 5,
+        "packages": [
+          "com.lenovo.styluspen"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiInstantMemo/ZuiInstantMemo.apk"
+        ],
+        "line": 256
+      },
+      {
+        "index": 7,
+        "kind": "PERS",
+        "token": "67c2703",
+        "uid": 1000,
+        "pidFromText": 3790,
+        "processName": "com.zui.safecenter",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.safecenter"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiSecurity/ZuiSecurity.apk"
+        ],
+        "line": 300
+      },
+      {
+        "index": 8,
+        "kind": "PERS",
+        "token": "1b71375",
+        "uid": 10170,
+        "pidFromText": 3852,
+        "processName": "com.qualcomm.qti.services.systemhelper:systemhelper_service",
+        "userSpec": "u0a170",
+        "user": 0,
+        "appId": 10170,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.qti.services.systemhelper"
+        ],
+        "sourceDir": [
+          "/system_ext/priv-app/com.qualcomm.qti.services.systemhelper/com.qualcomm.qti.services.systemhelper.apk"
+        ],
+        "line": 417
+      },
+      {
+        "index": 9,
+        "kind": "APP",
+        "token": "742b6b7",
+        "uid": 10100,
+        "pidFromText": 32499,
+        "processName": "com.zui.gallery",
+        "userSpec": "u0a100",
+        "user": 0,
+        "appId": 10100,
+        "isolatedOwnerUnproven": false,
+        "state": 19,
+        "packages": [
+          "com.zui.gallery"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiGallery/ZuiGallery.apk"
+        ],
+        "line": 454
+      },
+      {
+        "index": 10,
+        "kind": "APP",
+        "token": "6abeccf",
+        "uid": 10101,
+        "pidFromText": 5031,
+        "processName": "com.lenovo.process.weathercenter",
+        "userSpec": "u0a101",
+        "user": 0,
+        "appId": 10101,
+        "isolatedOwnerUnproven": false,
+        "state": 3,
+        "packages": [
+          "com.lenovo.weathercenter"
+        ],
+        "sourceDir": [
+          "/system/priv-app/WeatherCenter/WeatherCenter.apk"
+        ],
+        "line": 500
+      },
+      {
+        "index": 11,
+        "kind": "APP",
+        "token": "5b91a2e",
+        "uid": 10087,
+        "pidFromText": 5267,
+        "processName": "com.lenovo.levoice_agent",
+        "userSpec": "u0a87",
+        "user": 0,
+        "appId": 10087,
+        "isolatedOwnerUnproven": false,
+        "state": 4,
+        "packages": [
+          "com.lenovo.levoice_agent"
+        ],
+        "sourceDir": [
+          "/system/priv-app/LeVoiceAgent/LeVoiceAgent.apk"
+        ],
+        "line": 548
+      },
+      {
+        "index": 12,
+        "kind": "APP",
+        "token": "dedf996",
+        "uid": 10202,
+        "pidFromText": 5478,
+        "processName": "com.zui.calendar",
+        "userSpec": "u0a202",
+        "user": 0,
+        "appId": 10202,
+        "isolatedOwnerUnproven": false,
+        "state": 10,
+        "packages": [
+          "com.zui.calendar"
+        ],
+        "sourceDir": [
+          "/system/preinstall/XuiCalendar/XuiCalendar.apk"
+        ],
+        "line": 585
+      },
+      {
+        "index": 13,
+        "kind": "APP",
+        "token": "f83d55f",
+        "uid": 10090,
+        "pidFromText": 5087,
+        "processName": "com.zui.bugtogo",
+        "userSpec": "u0a90",
+        "user": 0,
+        "appId": 10090,
+        "isolatedOwnerUnproven": false,
+        "state": 10,
+        "packages": [
+          "com.zui.bugtogo"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiBug2Go/ZuiBug2Go.apk"
+        ],
+        "line": 641
+      },
+      {
+        "index": 14,
+        "kind": "PERS",
+        "token": "611b680",
+        "uid": 10172,
+        "pidFromText": 3812,
+        "processName": "com.dolby.daxservice",
+        "userSpec": "u0a172",
+        "user": 0,
+        "appId": 10172,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.dolby.daxservice"
+        ],
+        "sourceDir": [
+          "/system_ext/priv-app/daxService/daxService.apk"
+        ],
+        "line": 685
+      },
+      {
+        "index": 15,
+        "kind": "PERS",
+        "token": "225e4b9",
+        "uid": 1000,
+        "pidFromText": 3830,
+        "processName": "com.zui.tassistent",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.tassistent"
+        ],
+        "sourceDir": [
+          "/system/app/TAssistent/TAssistent.apk"
+        ],
+        "line": 724
+      },
+      {
+        "index": 16,
+        "kind": "APP",
+        "token": "f49c317",
+        "uid": 10082,
+        "pidFromText": 32567,
+        "processName": "com.lenovo.leos.cloud.sync",
+        "userSpec": "u0a82",
+        "user": 0,
+        "appId": 10082,
+        "isolatedOwnerUnproven": false,
+        "state": 19,
+        "packages": [
+          "com.lenovo.leos.cloud.sync"
+        ],
+        "sourceDir": [
+          "/system/priv-app/XuiEasySync/XuiEasySync.apk"
+        ],
+        "line": 770
+      },
+      {
+        "index": 17,
+        "kind": "APP",
+        "token": "b08a129",
+        "uid": 10096,
+        "pidFromText": 12718,
+        "processName": "com.zui.sdac:cns",
+        "userSpec": "u0a96",
+        "user": 0,
+        "appId": 10096,
+        "isolatedOwnerUnproven": false,
+        "state": 10,
+        "packages": [
+          "com.zui.sdac"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiSdac/ZuiSdac.apk"
+        ],
+        "line": 824
+      },
+      {
+        "index": 18,
+        "kind": "PERS",
+        "token": "4b7e3b3",
+        "uid": 1000,
+        "pidFromText": 3008,
+        "processName": "com.dolby.dolbyvisionservice",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.dolby.dolbyvisionservice"
+        ],
+        "sourceDir": [
+          "/system/app/DolbyVisionOmxService/DolbyVisionOmxService.apk"
+        ],
+        "line": 861
+      },
+      {
+        "index": 19,
+        "kind": "APP",
+        "token": "db5911",
+        "uid": 10067,
+        "pidFromText": 5313,
+        "processName": "com.zui.engine",
+        "userSpec": "u0a67",
+        "user": 0,
+        "appId": 10067,
+        "isolatedOwnerUnproven": false,
+        "state": 6,
+        "packages": [
+          "com.zui.engine"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiServiceEngine/ZuiServiceEngine.apk"
+        ],
+        "line": 897
+      },
+      {
+        "index": 20,
+        "kind": "PERS",
+        "token": "c4c06cb",
+        "uid": 1000,
+        "pidFromText": 1637,
+        "processName": "system",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.android.networkstack.inprocess",
+          "android",
+          "com.android.providers.settings",
+          "com.android.networkstack.tethering.inprocess",
+          "com.android.location.fused"
+        ],
+        "sourceDir": [
+          "/system/framework/framework-res.apk"
+        ],
+        "line": 934
+      },
+      {
+        "index": 21,
+        "kind": "PERS",
+        "token": "f8828e9",
+        "uid": 10183,
+        "pidFromText": 3016,
+        "processName": "com.qualcomm.qtil.aptxacu",
+        "userSpec": "u0a183",
+        "user": 0,
+        "appId": 10183,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.qtil.aptxacu"
+        ],
+        "sourceDir": [
+          "/system_ext/app/aptxacu/aptxacu.apk"
+        ],
+        "line": 1306
+      },
+      {
+        "index": 22,
+        "kind": "PERS",
+        "token": "c3080f",
+        "uid": 10173,
+        "pidFromText": 3034,
+        "processName": "com.qualcomm.qtil.aptxals",
+        "userSpec": "u0a173",
+        "user": 0,
+        "appId": 10173,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.qtil.aptxals"
+        ],
+        "sourceDir": [
+          "/system_ext/priv-app/aptxals/aptxals.apk"
+        ],
+        "line": 1344
+      },
+      {
+        "index": 23,
+        "kind": "APP",
+        "token": "6cfae5b",
+        "uid": 10316,
+        "pidFromText": 842,
+        "processName": "com.lendmanager.flexibletest.test",
+        "userSpec": "u0a316",
+        "user": 0,
+        "appId": 10316,
+        "isolatedOwnerUnproven": false,
+        "state": 18,
+        "packages": [
+          "com.lendmanager.flexibletest.test"
+        ],
+        "sourceDir": [
+          "/data/app/~~rq-oYzQ_Cy6R5qirVrsGAg==/com.lendmanager.flexibletest.test-uxYlPnMZ10bk888AWqLmYQ==/base.apk"
+        ],
+        "line": 1384
+      },
+      {
+        "index": 24,
+        "kind": "APP",
+        "token": "f149c70",
+        "uid": 1000,
+        "pidFromText": 4066,
+        "processName": "com.zui.continuity",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 5,
+        "packages": [
+          "com.zui.continuity"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiContinuity/ZuiContinuity.apk"
+        ],
+        "line": 1421
+      },
+      {
+        "index": 25,
+        "kind": "PERS",
+        "token": "e316aa5",
+        "uid": 1000,
+        "pidFromText": 3069,
+        "processName": "vendor.qti.qesdk.sysservice",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "vendor.qti.qesdk.sysservice"
+        ],
+        "sourceDir": [
+          "/system_ext/app/QesdkSysService/QesdkSysService.apk"
+        ],
+        "line": 1464
+      },
+      {
+        "index": 26,
+        "kind": "APP",
+        "token": "3e61618",
+        "uid": 10081,
+        "pidFromText": 5240,
+        "processName": "com.zui.launchersdk",
+        "userSpec": "u0a81",
+        "user": 0,
+        "appId": 10081,
+        "isolatedOwnerUnproven": false,
+        "state": 3,
+        "packages": [
+          "com.zui.launchersdk"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiLauncherSDK/ZuiLauncherSDK.apk"
+        ],
+        "line": 1497
+      },
+      {
+        "index": 27,
+        "kind": "PERS",
+        "token": "10305f",
+        "uid": 10066,
+        "pidFromText": 3848,
+        "processName": "com.lenovo.family.mdmagent",
+        "userSpec": "u0a66",
+        "user": 0,
+        "appId": 10066,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.lenovo.family.mdmagent"
+        ],
+        "sourceDir": [
+          "/system/priv-app/MdmAgent/MdmAgent.apk"
+        ],
+        "line": 1545
+      },
+      {
+        "index": 28,
+        "kind": "PERS",
+        "token": "1730c21",
+        "uid": 10164,
+        "pidFromText": 3072,
+        "processName": "org.codeaurora.ims",
+        "userSpec": "u0a164",
+        "user": 0,
+        "appId": 10164,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "org.codeaurora.ims"
+        ],
+        "sourceDir": [
+          "/system_ext/priv-app/ims/ims.apk"
+        ],
+        "line": 1580
+      },
+      {
+        "index": 29,
+        "kind": "APP",
+        "token": "25b2676",
+        "uid": 10194,
+        "pidFromText": 1834,
+        "processName": "com.sohu.inputmethod.sogou.oem:push_service",
+        "userSpec": "u0a194",
+        "user": 0,
+        "appId": 10194,
+        "isolatedOwnerUnproven": false,
+        "state": 7,
+        "packages": [
+          "com.sohu.inputmethod.sogou.oem"
+        ],
+        "sourceDir": [
+          "/system/preinstall/SogouInput/SogouInput.apk"
+        ],
+        "line": 1611
+      },
+      {
+        "index": 30,
+        "kind": "PERS",
+        "token": "e346846",
+        "uid": 10185,
+        "pidFromText": 3097,
+        "processName": "com.qti.qualcomm.mstatssystemservice",
+        "userSpec": "u0a185",
+        "user": 0,
+        "appId": 10185,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qti.qualcomm.mstatssystemservice"
+        ],
+        "sourceDir": [
+          "/system_ext/app/MStatsSystemService/MStatsSystemService.apk"
+        ],
+        "line": 1646
+      },
+      {
+        "index": 31,
+        "kind": "PERS",
+        "token": "45f1f0a",
+        "uid": 1000,
+        "pidFromText": 3892,
+        "processName": "com.lenovo.levoice.trigger",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.lenovo.levoice.trigger"
+        ],
+        "sourceDir": [
+          "/system/priv-app/LeVoiceStdSTApp/LeVoiceStdSTApp.apk"
+        ],
+        "line": 1677
+      },
+      {
+        "index": 32,
+        "kind": "PERS",
+        "token": "39ea07",
+        "uid": 1068,
+        "pidFromText": 3128,
+        "processName": "com.android.se",
+        "userSpec": "1068",
+        "user": 0,
+        "appId": 1068,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.android.se"
+        ],
+        "sourceDir": [
+          "/system/app/SecureElement/SecureElement.apk"
+        ],
+        "line": 1716
+      },
+      {
+        "index": 33,
+        "kind": "APP",
+        "token": "906fee9",
+        "uid": 10069,
+        "pidFromText": 18464,
+        "processName": "com.zui.userexperience",
+        "userSpec": "u0a69",
+        "user": 0,
+        "appId": 10069,
+        "isolatedOwnerUnproven": false,
+        "state": 10,
+        "packages": [
+          "com.zui.userexperience"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiUserExperience/ZuiUserExperience.apk"
+        ],
+        "line": 1752
+      },
+      {
+        "index": 34,
+        "kind": "PERS",
+        "token": "3b1737b",
+        "uid": 1000,
+        "pidFromText": 3913,
+        "processName": "com.lenovo.ue.device",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.lenovo.ue.device"
+        ],
+        "sourceDir": [
+          "/system/priv-app/PadUE_PRC/PadUE_PRC.apk"
+        ],
+        "line": 1798
+      },
+      {
+        "index": 35,
+        "kind": "PERS",
+        "token": "5fb991f",
+        "uid": 10129,
+        "pidFromText": 2996,
+        "processName": ".qtidataservices",
+        "userSpec": "u0a129",
+        "user": 0,
+        "appId": 10129,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "vendor.qti.hardware.cacert.server",
+          "com.qualcomm.qti.cne"
+        ],
+        "sourceDir": [
+          "/vendor/app/CACertService/CACertService.apk"
+        ],
+        "line": 1843
+      },
+      {
+        "index": 36,
+        "kind": "APP",
+        "token": "e297a8d",
+        "uid": 10125,
+        "pidFromText": 5413,
+        "processName": "com.zui.weather",
+        "userSpec": "u0a125",
+        "user": 0,
+        "appId": 10125,
+        "isolatedOwnerUnproven": false,
+        "state": 19,
+        "packages": [
+          "com.zui.weather"
+        ],
+        "sourceDir": [
+          "/system/app/ZuiWeather/ZuiWeather.apk"
+        ],
+        "line": 1882
+      },
+      {
+        "index": 37,
+        "kind": "PERS",
+        "token": "e1bbaac",
+        "uid": 10132,
+        "pidFromText": 3850,
+        "processName": ".pasr",
+        "userSpec": "u0a132",
+        "user": 0,
+        "appId": 10132,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qti.pasrservice"
+        ],
+        "sourceDir": [
+          "/vendor/app/pasrservice/pasrservice.apk"
+        ],
+        "line": 1930
+      },
+      {
+        "index": 38,
+        "kind": "PERS",
+        "token": "c59cc57",
+        "uid": 1000,
+        "pidFromText": 3916,
+        "processName": "com.zui.wifip2p",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.wifip2p"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiFileTransfer/ZuiFileTransfer.apk"
+        ],
+        "line": 1965
+      },
+      {
+        "index": 39,
+        "kind": "PERS",
+        "token": "660f734",
+        "uid": 1000,
+        "pidFromText": 3140,
+        "processName": "com.zui.cores",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.cores"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiCoreService/ZuiCoreService.apk"
+        ],
+        "line": 2012
+      },
+      {
+        "index": 40,
+        "kind": "PERS",
+        "token": "c8b344",
+        "uid": 10072,
+        "pidFromText": 3931,
+        "processName": "com.zui.uface",
+        "userSpec": "u0a72",
+        "user": 0,
+        "appId": 10072,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.uface"
+        ],
+        "sourceDir": [
+          "/system/priv-app/UFaceService/UFaceService.apk"
+        ],
+        "line": 2069
+      },
+      {
+        "index": 41,
+        "kind": "APP",
+        "token": "f4720f2",
+        "uid": 10057,
+        "pidFromText": 18188,
+        "processName": "com.lenovo.lsf.device",
+        "userSpec": "u0a57",
+        "user": 0,
+        "appId": 10057,
+        "isolatedOwnerUnproven": false,
+        "state": 10,
+        "packages": [
+          "com.lenovo.lsf.device"
+        ],
+        "sourceDir": [
+          "/system/priv-app/LSF-Device-Phone/LSF-Device-Phone.apk"
+        ],
+        "line": 2108
+      },
+      {
+        "index": 42,
+        "kind": "APP",
+        "token": "1f85ab1",
+        "uid": 1000,
+        "pidFromText": 32564,
+        "processName": "com.android.keychain",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 19,
+        "packages": [
+          "com.android.keychain"
+        ],
+        "sourceDir": [
+          "/system/app/KeyChain/KeyChain.apk"
+        ],
+        "line": 2157
+      },
+      {
+        "index": 43,
+        "kind": "APP",
+        "token": "d35105d",
+        "uid": 10190,
+        "pidFromText": 3242,
+        "processName": "android.ext.services",
+        "userSpec": "u0a190",
+        "user": 0,
+        "appId": 10190,
+        "isolatedOwnerUnproven": false,
+        "state": 5,
+        "packages": [
+          "android.ext.services"
+        ],
+        "sourceDir": [
+          "/apex/com.android.extservices/priv-app/ExtServices/ExtServices.apk"
+        ],
+        "line": 2189
+      },
+      {
+        "index": 44,
+        "kind": "APP",
+        "token": "ea7aa8a",
+        "uid": 10058,
+        "pidFromText": 20083,
+        "processName": "com.android.packageinstaller",
+        "userSpec": "u0a58",
+        "user": 0,
+        "appId": 10058,
+        "isolatedOwnerUnproven": false,
+        "state": 19,
+        "packages": [
+          "com.android.packageinstaller"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiPackageInstaller/ZuiPackageInstaller.apk"
+        ],
+        "line": 2228
+      },
+      {
+        "index": 45,
+        "kind": "PERS",
+        "token": "8d3495d",
+        "uid": 10159,
+        "pidFromText": 3144,
+        "processName": "com.qualcomm.qti.devicestatisticsservice",
+        "userSpec": "u0a159",
+        "user": 0,
+        "appId": 10159,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.qti.devicestatisticsservice"
+        ],
+        "sourceDir": [
+          "/product/app/DeviceStatisticsService/DeviceStatisticsService.apk"
+        ],
+        "line": 2269
+      },
+      {
+        "index": 46,
+        "kind": "PERS",
+        "token": "6ab3c2d",
+        "uid": 10181,
+        "pidFromText": 3940,
+        "processName": "com.qualcomm.qti.workloadclassifier",
+        "userSpec": "u0a181",
+        "user": 0,
+        "appId": 10181,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.qti.workloadclassifier"
+        ],
+        "sourceDir": [
+          "/system_ext/app/workloadclassifier/workloadclassifier.apk"
+        ],
+        "line": 2304
+      },
+      {
+        "index": 47,
+        "kind": "APP",
+        "token": "8543313",
+        "uid": 10127,
+        "pidFromText": 6057,
+        "processName": "com.tencent.soter.soterserver",
+        "userSpec": "u0a127",
+        "user": 0,
+        "appId": 10127,
+        "isolatedOwnerUnproven": false,
+        "state": 6,
+        "packages": [
+          "com.tencent.soter.soterserver"
+        ],
+        "sourceDir": [
+          "/vendor/app/SoterService/SoterService.apk"
+        ],
+        "line": 2344
+      },
+      {
+        "index": 48,
+        "kind": "APP",
+        "token": "d54c039",
+        "uid": 10061,
+        "pidFromText": 4088,
+        "processName": "com.zui.game.service",
+        "userSpec": "u0a61",
+        "user": 0,
+        "appId": 10061,
+        "isolatedOwnerUnproven": false,
+        "state": 4,
+        "packages": [
+          "com.zui.game.service"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiGameHelper/ZuiGameHelper.apk"
+        ],
+        "line": 2377
+      },
+      {
+        "index": 49,
+        "kind": "APP",
+        "token": "b66ce6f",
+        "uid": 10178,
+        "pidFromText": 3362,
+        "processName": "com.android.smspush",
+        "userSpec": "u0a178",
+        "user": 0,
+        "appId": 10178,
+        "isolatedOwnerUnproven": false,
+        "state": 6,
+        "packages": [
+          "com.android.smspush"
+        ],
+        "sourceDir": [
+          "/system_ext/app/WAPPushManager/WAPPushManager.apk"
+        ],
+        "line": 2432
+      },
+      {
+        "index": 50,
+        "kind": "APP",
+        "token": "71f7831",
+        "uid": 10200,
+        "pidFromText": 8599,
+        "processName": "com.lenovo.menu_assistant",
+        "userSpec": "u0a200",
+        "user": 0,
+        "appId": 10200,
+        "isolatedOwnerUnproven": false,
+        "state": 4,
+        "packages": [
+          "com.lenovo.menu_assistant"
+        ],
+        "sourceDir": [
+          "/system/preinstall/LeVoiceAccessbility/LeVoiceAccessbility.apk"
+        ],
+        "line": 2465
+      },
+      {
+        "index": 51,
+        "kind": "APP",
+        "token": "bfcc12b",
+        "uid": 10098,
+        "pidFromText": 4075,
+        "processName": "com.baidu.map.location",
+        "userSpec": "u0a98",
+        "user": 0,
+        "appId": 10098,
+        "isolatedOwnerUnproven": false,
+        "state": 8,
+        "packages": [
+          "com.baidu.map.location"
+        ],
+        "sourceDir": [
+          "/system/priv-app/BaiduNetworkLocation/BaiduNetworkLocation.apk"
+        ],
+        "line": 2521
+      },
+      {
+        "index": 52,
+        "kind": "APP",
+        "token": "77485ec",
+        "uid": 1000,
+        "pidFromText": 3232,
+        "processName": "com.android.settings",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 3,
+        "packages": [
+          "com.android.settings"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiSettings/ZuiSettings.apk"
+        ],
+        "line": 2555
+      },
+      {
+        "index": 53,
+        "kind": "PERS",
+        "token": "c4d6f3",
+        "uid": 10163,
+        "pidFromText": 3973,
+        "processName": "com.qualcomm.location",
+        "userSpec": "u0a163",
+        "user": 0,
+        "appId": 10163,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.location"
+        ],
+        "sourceDir": [
+          "/system_ext/priv-app/com.qualcomm.location/com.qualcomm.location.apk"
+        ],
+        "line": 2629
+      },
+      {
+        "index": 54,
+        "kind": "APP",
+        "token": "70847ce",
+        "uid": 10076,
+        "pidFromText": 5388,
+        "processName": "com.zui.ota",
+        "userSpec": "u0a76",
+        "user": 0,
+        "appId": 10076,
+        "isolatedOwnerUnproven": false,
+        "state": 6,
+        "packages": [
+          "com.zui.ota"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiSystemUpgrade/ZuiSystemUpgrade.apk"
+        ],
+        "line": 2667
+      },
+      {
+        "index": 55,
+        "kind": "PERS",
+        "token": "b052a0",
+        "uid": 1001,
+        "pidFromText": 3147,
+        "processName": "com.android.phone",
+        "userSpec": "1001",
+        "user": 0,
+        "appId": 1001,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.android.providers.telephony",
+          "com.qti.qualcomm.datastatusnotification",
+          "com.android.ons",
+          "com.android.stk",
+          "com.android.cellbroadcastservice",
+          "com.android.phone"
+        ],
+        "sourceDir": [
+          "/system/priv-app/TeleService/TeleService.apk"
+        ],
+        "line": 2713
+      },
+      {
+        "index": 56,
+        "kind": "APP",
+        "token": "9e86e1d",
+        "uid": 10189,
+        "pidFromText": 4113,
+        "processName": "com.android.providers.media.module",
+        "userSpec": "u0a189",
+        "user": 0,
+        "appId": 10189,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.android.providers.media.module"
+        ],
+        "sourceDir": [
+          "/apex/com.android.mediaprovider/priv-app/MediaProvider/MediaProvider.apk"
+        ],
+        "line": 2876
+      },
+      {
+        "index": 57,
+        "kind": "APP",
+        "token": "23f5f06",
+        "uid": 10112,
+        "pidFromText": 6404,
+        "processName": "com.zui.deskclock",
+        "userSpec": "u0a112",
+        "user": 0,
+        "appId": 10112,
+        "isolatedOwnerUnproven": false,
+        "state": 19,
+        "packages": [
+          "com.zui.deskclock"
+        ],
+        "sourceDir": [
+          "/system/app/ZuiAlarm/ZuiAlarm.apk"
+        ],
+        "line": 2920
+      },
+      {
+        "index": 58,
+        "kind": "PERS",
+        "token": "cdcd367",
+        "uid": 10095,
+        "pidFromText": 2817,
+        "processName": "com.android.systemui",
+        "userSpec": "u0a95",
+        "user": 0,
+        "appId": 10095,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.android.systemui"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiSystemUI/ZuiSystemUI.apk"
+        ],
+        "line": 2956
+      },
+      {
+        "index": 59,
+        "kind": "PERS",
+        "token": "3fbfb0",
+        "uid": 1000,
+        "pidFromText": 3994,
+        "processName": "com.qualcomm.qti.services.secureui:sui_service",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.qti.services.secureui"
+        ],
+        "sourceDir": [
+          "/system_ext/app/com.qualcomm.qti.services.secureui/com.qualcomm.qti.services.secureui.apk"
+        ],
+        "line": 3179
+      },
+      {
+        "index": 60,
+        "kind": "PERS",
+        "token": "5caa83b",
+        "uid": 10156,
+        "pidFromText": 2998,
+        "processName": "com.qti.phone",
+        "userSpec": "u0a156",
+        "user": 0,
+        "appId": 10156,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.qti.telephonyservice",
+          "com.qualcomm.qcrilmsgtunnel",
+          "com.qti.xdivert",
+          "com.qti.phone"
+        ],
+        "sourceDir": [
+          "/system_ext/app/QtiTelephonyService/QtiTelephonyService.apk"
+        ],
+        "line": 3216
+      },
+      {
+        "index": 61,
+        "kind": "APP",
+        "token": "aaa1630",
+        "uid": 10073,
+        "pidFromText": 13846,
+        "processName": "com.android.permissioncontroller",
+        "userSpec": "u0a73",
+        "user": 0,
+        "appId": 10073,
+        "isolatedOwnerUnproven": false,
+        "state": 6,
+        "packages": [
+          "com.android.permissioncontroller"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiPermissionController/ZuiPermissionController.apk"
+        ],
+        "line": 3263
+      },
+      {
+        "index": 62,
+        "kind": "APP",
+        "token": "ea8d87",
+        "uid": 10102,
+        "pidFromText": 3199,
+        "processName": "com.lenovo.leos.appstore:daemonprocess",
+        "userSpec": "u0a102",
+        "user": 0,
+        "appId": 10102,
+        "isolatedOwnerUnproven": false,
+        "state": 19,
+        "packages": [
+          "com.lenovo.leos.appstore"
+        ],
+        "sourceDir": [
+          "/system/priv-app/LenovoStore/LenovoStore.apk"
+        ],
+        "line": 3304
+      },
+      {
+        "index": 63,
+        "kind": "APP",
+        "token": "6184e7",
+        "uid": 10078,
+        "pidFromText": 3343,
+        "processName": "com.zui.launcher",
+        "userSpec": "u0a78",
+        "user": 0,
+        "appId": 10078,
+        "isolatedOwnerUnproven": false,
+        "state": 2,
+        "packages": [
+          "com.zui.launcher"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiLauncher/ZuiLauncher.apk"
+        ],
+        "line": 3342
+      },
+      {
+        "index": 64,
+        "kind": "APP",
+        "token": "ec9c872",
+        "uid": 10065,
+        "pidFromText": 5007,
+        "processName": "com.lenovo.styluspen",
+        "userSpec": "u0a65",
+        "user": 0,
+        "appId": 10065,
+        "isolatedOwnerUnproven": false,
+        "state": 4,
+        "packages": [
+          "com.lenovo.styluspen"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiInstantMemo/ZuiInstantMemo.apk"
+        ],
+        "line": 3437
+      },
+      {
+        "index": 65,
+        "kind": "PERS",
+        "token": "87c12ff",
+        "uid": 1000,
+        "pidFromText": 3178,
+        "processName": "com.zui.networkaclr",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.networkaclr"
+        ],
+        "sourceDir": [
+          "/system/app/ZuiNetworkAclr/ZuiNetworkAclr.apk"
+        ],
+        "line": 3482
+      },
+      {
+        "index": 66,
+        "kind": "PERS",
+        "token": "9ac6e29",
+        "uid": 1000,
+        "pidFromText": 4005,
+        "processName": "com.zui.freeform.sidebar",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.freeform.sidebar"
+        ],
+        "sourceDir": [
+          "/system/priv-app/ZuiFreeformBar/ZuiFreeformBar.apk"
+        ],
+        "line": 3536
+      },
+      {
+        "index": 67,
+        "kind": "PERS",
+        "token": "7b184be",
+        "uid": 1001,
+        "pidFromText": 2977,
+        "processName": ".dataservices",
+        "userSpec": "1001",
+        "user": 0,
+        "appId": 1001,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.qualcomm.qti.uceShimService",
+          "com.qualcomm.qti.dynamicddsservice",
+          "com.qti.dpmserviceapp"
+        ],
+        "sourceDir": [
+          "/system_ext/app/uceShimService/uceShimService.apk"
+        ],
+        "line": 3578
+      },
+      {
+        "index": 68,
+        "kind": "PERS",
+        "token": "ad7f8cc",
+        "uid": 1000,
+        "pidFromText": 3220,
+        "processName": "com.zui.net.data.monitor",
+        "userSpec": "1000",
+        "user": 0,
+        "appId": 1000,
+        "isolatedOwnerUnproven": false,
+        "state": 0,
+        "packages": [
+          "com.zui.net.data.monitor"
+        ],
+        "sourceDir": [
+          "/system/priv-app/DataMonitor/DataMonitor.apk"
+        ],
+        "line": 3617
+      }
+    ],
+    "pass": true
+  }
+]

@@ -1,0 +1,97 @@
+{
+  "actualUnknownCreated": false,
+  "results": [
+    {
+      "rawFilesClosedOnce": 0,
+      "noSDKStart": true,
+      "originalProcessDisposedOnce": true,
+      "case": "known-prestart-0-raw",
+      "noPipeCreated": true,
+      "pinnedSourceClosedOnce": true
+    },
+    {
+      "rawFilesClosedOnce": 1,
+      "noSDKStart": true,
+      "originalProcessDisposedOnce": true,
+      "case": "known-prestart-1-raw",
+      "noPipeCreated": true,
+      "pinnedSourceClosedOnce": true
+    },
+    {
+      "rawFilesClosedOnce": 2,
+      "noSDKStart": true,
+      "originalProcessDisposedOnce": true,
+      "case": "known-prestart-2-raw",
+      "noPipeCreated": true,
+      "pinnedSourceClosedOnce": true
+    },
+    {
+      "state": "RETAIN_START_ENTERED_NOT_ESTABLISHED",
+      "actualUnknownCreated": false,
+      "case": "Start-entered-no-established-return",
+      "pureStateOnly": true
+    },
+    {
+      "state": "RETAIN_PROCESS_CREATE_UNKNOWN",
+      "actualUnknownCreated": false,
+      "case": "Process-create-unreturned",
+      "pureStateOnly": true
+    },
+    {
+      "state": "RETAIN_RAW_OPEN_UNKNOWN",
+      "actualUnknownCreated": false,
+      "case": "raw-create-unreturned",
+      "pureStateOnly": true
+    },
+    {
+      "state": "RETAIN_RAW_CLOSE_UNKNOWN",
+      "actualUnknownCreated": false,
+      "case": "raw-close-unreturned",
+      "pureStateOnly": true
+    },
+    {
+      "state": "RETAIN_PROCESS_DISPOSE_UNKNOWN",
+      "actualUnknownCreated": false,
+      "case": "Process-dispose-unreturned",
+      "pureStateOnly": true
+    },
+    {
+      "state": "RETAIN_LOCK_OPEN_UNKNOWN",
+      "actualUnknownCreated": false,
+      "case": "lock-create-unreturned",
+      "pureStateOnly": true
+    },
+    {
+      "state": "RETAIN_INPUT_CREATE_OR_HASH_UNKNOWN",
+      "actualUnknownCreated": false,
+      "case": "input-create-unreturned",
+      "pureStateOnly": true
+    },
+    {
+      "state": "RETAIN_INPUT_CREATE_OR_HASH_UNKNOWN",
+      "actualUnknownCreated": false,
+      "case": "hash-dispose-unreturned",
+      "pureStateOnly": true
+    },
+    {
+      "state": "RETAIN_INPUT_IO_UNKNOWN",
+      "actualUnknownCreated": false,
+      "case": "source-close-unreturned",
+      "pureStateOnly": true
+    },
+    {
+      "exitCode": 0,
+      "streamsAndFilesClosedOnce": true,
+      "waitAndReadersActuallyReturned": true,
+      "nativeClaim": 0,
+      "prestartHelperDidNotCloseAnything": true,
+      "originalProcessDisposed": true,
+      "case": "actual-started-local-original",
+      "sdk": 0
+    }
+  ],
+  "nativeClaim": 0,
+  "allPassed": true,
+  "schema": "GLOBAL_IDLE_REVISION02_PRESTART_LIFETIME_V1",
+  "sdk": 0
+}

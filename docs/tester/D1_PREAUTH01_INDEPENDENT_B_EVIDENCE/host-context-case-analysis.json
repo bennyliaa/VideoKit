@@ -1,0 +1,28 @@
+{
+  "actualGuardFailure": "PROFILE_HOST_ENV_CWD",
+  "actualChildCwdOrEnvironmentSnapshot": "NOT_RECORDED_DO_NOT_SYNTHESIZE",
+  "creatorCwd": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_INDEPENDENT_B_EVIDENCE",
+  "creatorExplicitEnvironmentKeys": [
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "windowsPythonEnvironmentKeysModel": [
+    "SYSTEMROOT",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "creatorCaseSensitiveHash": "215e44cc18aaf475bcb1bae4bf5de431882f90628369677c8113dfafd28422ea",
+  "windowsUppercaseKeysModelHash": "319561e072f11c51d74bbacf7e5e81ecfe030f3cc4ff2d3f23845e8b8825d07c",
+  "hashesMatch": false,
+  "primaryLocalSource": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\os.py",
+  "primaryLocalSourceSha256": "54c43a1fc69c979c70d8f7d097174cee163bfe59937723ee353043dd4a0211e1",
+  "sourceRule": "CPython Windows os._createenviron defines encodekey(key) as encode(key).upper()",
+  "conclusion": "Preflight hashed creator mixed-case SystemRoot dictionary as child os.environ. Windows Python uppercases that key. This is a sufficient static mismatch; the original actual full child environment was not saved.",
+  "futureStaticProposal": "Keep exact raw Popen/audit tuple unchanged; derive separate inherited-child snapshot with Windows key normalization, collision checks, and self cwd/keyset/hash before any qualification admission.",
+  "futureProposalImplemented": false,
+  "futureProposalExecuted": false,
+  "originalOrderOrWorkerModified": false
+}

@@ -1,0 +1,36 @@
+{
+  "driverStartup": [
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\once.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\worker-self.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\worker-admit.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\outer-self.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\runtime"
+  ],
+  "groups": [
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\group-N.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\indb-17a969f7063e\\new-original\\home\\outputs",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\indb-17a969f7063e\\wrong-receiver\\home\\outputs",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\indb-17a969f7063e\\legacy-original\\home\\outputs",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\selfchecks\\work\\indb-17a969f7063e\\explicit-cli\\home\\outputs"
+  ],
+  "finallyAndException": [
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\worker-final.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\stop.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\outer-final.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\runtime\\outer-expired.json"
+  ],
+  "childPS": [
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\semantics-results.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\prestart.json",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_PREAUTH01_DRIVER_ENV02_EVIDENCE\\v1\\work\\prestart-<guid>"
+  ],
+  "childCLI": "Pinned policy restricts original Gate outputs/claim to explicit-cli/home; fixed producer stdout only",
+  "writeGuard": "Parent builtins.open/io.open/os.open/os.mkdir pre-operation whitelist; fixed Popen DEVNULL only inside admitted constructor; no audit rejection",
+  "neverWrite": [
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\evidence",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01\\DELIVERY.md",
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-readonly-facts-preauth01-selfcheck02"
+  ],
+  "historicalWorkerMainExecuted": false
+}
