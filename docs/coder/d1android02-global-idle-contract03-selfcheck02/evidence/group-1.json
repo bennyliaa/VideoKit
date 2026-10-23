@@ -1,0 +1,69 @@
+{
+  "name": "finite-three-call-driver-qualification",
+  "status": "PASS",
+  "seconds": 1.8600000000442378,
+  "detail": {
+    "pure": {
+      "positive": true,
+      "negative": [
+        {
+          "kind": "program",
+          "reason": "PRE_PROGRAM"
+        },
+        {
+          "kind": "extra",
+          "reason": "PRE_UNDECLARED_FULL_ARGV"
+        },
+        {
+          "kind": "cwd",
+          "reason": "PRE_CWD"
+        },
+        {
+          "kind": "env",
+          "reason": "PRE_EXACT_ENV"
+        }
+      ],
+      "pureAuditModels": [
+        {
+          "applicationName": null,
+          "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py ok",
+          "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+          "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+          "matches": true
+        },
+        {
+          "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+          "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py ok",
+          "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+          "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+          "matches": false
+        }
+      ],
+      "wrongProgramsActuallyStarted": 0
+    },
+    "actualThree": [
+      {
+        "name": "python_ok",
+        "exitCode": 0,
+        "semantic": "PASS",
+        "allOriginalsReturned": true,
+        "seconds": 0.0940000000409782
+      },
+      {
+        "name": "python_fail",
+        "exitCode": 7,
+        "semantic": "FAIL",
+        "allOriginalsReturned": true,
+        "seconds": 0.0779999999795109
+      },
+      {
+        "name": "powershell_ok",
+        "exitCode": 0,
+        "semantic": "PASS",
+        "allOriginalsReturned": true,
+        "seconds": 1.6880000000237487
+      }
+    ],
+    "nonzeroClassifiedKnownReturned": true
+  }
+}

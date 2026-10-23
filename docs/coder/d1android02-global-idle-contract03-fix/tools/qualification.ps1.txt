@@ -1,0 +1,39 @@
+# Passive functions incorporated into the pinned admission_checks.ps1 by build_candidate.py.
+# A semantic PASS is internal only: the unchanged original outer owner must still
+# prove this controller's actual return, resource closure, and whole ledger.
+function GIExact($o,[string[]]$keys){
+ if($o -isnot [pscustomobject] -or @(Compare-Object -CaseSensitive @($o.PSObject.Properties.Name|Sort-Object) @($keys|Sort-Object)).Count){throw 'GLOBAL_QUAL_SCHEMA'}
+}
+function GISha($s){return $s -is [string] -and $s -cmatch '^[a-f0-9]{64}$'}
+function GIInt($n,[long]$lo,[long]$hi){return ($n -is [int] -or $n -is [long]) -and $n -ge $lo -and $n -le $hi}
+function GIQualification($q,$ctx){
+ GIExact $ctx @('scope','runId','mode','rawSha256','rawBytes','captureBodyReturned','sourceSealSha256','planSha256','reviewEvidenceSha256','nowUtc')
+ if($ctx.captureBodyReturned -isnot [bool] -or -not $ctx.captureBodyReturned){throw 'GLOBAL_CAPTURE_RETURN_UNPROVEN'}
+ GIExact $q @('schema','mode','fixtureOnly','targetScope','targetRunId','targetSourceSealSha256','targetPlanSha256','factScope','factAuthoritySha256','factApprovalSha256','factCaptureReceiptSha256','factOuterReturnSha256','collectorSourceSha256','factPlanSha256','rawSha256','rawBytes','routeProofSha256','sdkSha256','collectedAtUtc','expiresAtUtc','originalReturn','grammar','serial','model','api','fingerprint','user','home','services','systemPackages','reviewEvidenceSha256')
+ if([Text.Encoding]::UTF8.GetByteCount(($q|ConvertTo-Json -Depth 16 -Compress)) -gt 16384){throw 'GLOBAL_QUAL_BYTE_BOUND'}
+ foreach($k in @('targetScope','targetSourceSealSha256','targetPlanSha256','factScope','factAuthoritySha256','factApprovalSha256','factCaptureReceiptSha256','factOuterReturnSha256','collectorSourceSha256','factPlanSha256','rawSha256','routeProofSha256','sdkSha256','reviewEvidenceSha256')){if(-not (GISha $q.$k)){throw 'GLOBAL_QUAL_HASH'}}
+ if($q.schema -cne 'GLOBAL_IDLE_QUALIFICATION_V1' -or $q.targetScope -cne $ctx.scope -or $q.targetRunId -cne $ctx.runId -or $q.targetSourceSealSha256 -cne $ctx.sourceSealSha256 -or $q.targetPlanSha256 -cne $ctx.planSha256 -or $q.factScope -ceq $q.targetScope -or $q.reviewEvidenceSha256 -cne $ctx.reviewEvidenceSha256){throw 'GLOBAL_QUAL_SCOPE_OR_SOURCE'}
+ if($ctx.mode -cnotin @('LIVE','OFFLINE_FIXTURE') -or $q.mode -cne $ctx.mode -or $q.fixtureOnly -isnot [bool] -or $q.fixtureOnly -ne ($ctx.mode -ceq 'OFFLINE_FIXTURE')){throw 'GLOBAL_FIXTURE_MODE_BINDING'}
+ if($q.collectorSourceSha256 -cne $script:GICollectorSha256 -or $q.factPlanSha256 -cne $script:GIFactPlanSha256 -or $q.sdkSha256 -cne 'b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f'){throw 'GLOBAL_FACT_PRODUCER_PIN'}
+ if(-not (GIInt $q.rawBytes 1 139264) -or $q.grammar -cne 'API31_APP_PERS_V1' -or $q.serial -cne 'HA1Q6WXR' -or $q.model -cne 'TB138FC' -or -not (GIInt $q.api 31 31) -or -not (GIInt $q.user 0 0) -or $q.fingerprint -isnot [string] -or $q.fingerprint.Length -lt 8 -or $q.fingerprint.Length -gt 256){throw 'GLOBAL_FIRMWARE_UNPROVEN'}
+ if($ctx.mode -ceq 'LIVE' -and $q.fingerprint -clike '*FIXTURE*'){throw 'GLOBAL_FIXTURE_NOT_LIVE'}
+ foreach($stamp in @($q.collectedAtUtc,$q.expiresAtUtc)){if($stamp -isnot [string] -or $stamp -cnotmatch '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,7})?(?:Z|\+00:00)$'){throw 'GLOBAL_FACT_UTC_FORMAT'}}
+ $now=[DateTimeOffset]::Parse($ctx.nowUtc);$from=[DateTimeOffset]::Parse($q.collectedAtUtc);$to=[DateTimeOffset]::Parse($q.expiresAtUtc)
+ if($now -lt $from -or $now -ge $to -or ($to-$from).TotalSeconds -gt 300 -or ($to-$from).TotalSeconds -le 0){throw 'GLOBAL_FACT_STALE_OR_FUTURE'}
+ GIExact $q.originalReturn @('waitReturned','stdoutEOF','stderrEOF','originalPipesClosed','originalHandleClosed','controllerReturned','unknown','exitCode')
+ foreach($k in @('waitReturned','stdoutEOF','stderrEOF','originalPipesClosed','originalHandleClosed','controllerReturned')){if($q.originalReturn.$k -isnot [bool] -or -not $q.originalReturn.$k){throw 'GLOBAL_FACT_ORIGINAL_RETURN_UNPROVEN'}}
+ if($q.originalReturn.unknown -isnot [bool] -or $q.originalReturn.unknown -or -not (GIInt $q.originalReturn.exitCode 0 0)){throw 'GLOBAL_FACT_UNKNOWN_OR_FAILED'}
+ GIExact $q.home @('package','component','process','user','uid','systemFlag')
+ if($q.home.package -cnotmatch '^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z0-9_]+)+$' -or $q.home.component -cnotmatch '^[A-Za-z_][A-Za-z0-9_.]*$' -or $q.home.process -cnotmatch '^[A-Za-z_][A-Za-z0-9_.]*(?::[A-Za-z0-9_.]+)*$' -or -not (GIInt $q.home.user 0 0) -or -not (GIInt $q.home.uid 10000 99999) -or $q.home.systemFlag -isnot [bool] -or -not $q.home.systemFlag){throw 'GLOBAL_HOME_FACT_UNPROVEN'}
+ if($q.services -isnot [array] -or $q.services.Count -gt 68 -or $q.systemPackages -isnot [array] -or $q.systemPackages.Count -gt 128){throw 'GLOBAL_POLICY_BOUND'}
+ $seen=[Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+ foreach($p in $q.systemPackages){GIExact $p @('package','uid','systemFlag');if($p.package -cnotmatch '^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z0-9_]+)*$' -or -not (GIInt $p.uid 0 2147483647) -or $p.systemFlag -isnot [bool] -or -not $p.systemFlag -or -not $seen.Add($p.package)){throw 'GLOBAL_SYSTEM_FACT_UNPROVEN'}}
+ if(@($q.systemPackages|Where-Object {$_.package -ceq $q.home.package -and $_.uid -eq $q.home.uid}).Count -ne 1){throw 'GLOBAL_HOME_SYSTEM_UID_UNPROVEN'}
+ $serviceSeen=[Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+ foreach($s in $q.services){
+  GIExact $s @('packages','process','user','uid','kind','state','category','firmware','evidenceSha256','factScope','validFromUtc','validToUtc','range')
+  if($s.packages -isnot [array] -or $s.packages.Count -ne 1 -or $s.process -cnotmatch '^[A-Za-z_.][A-Za-z0-9_.]*(?::[A-Za-z0-9_.]+)*$' -or -not (GIInt $s.user 0 0) -or -not (GIInt $s.uid 0 99999) -or $s.kind -cnotin @('APP','PERS') -or -not (GIInt $s.state 0 6) -or $s.state -cin @(2,3) -or $s.category -cne 'NONCONTENDING_SYSTEM_SERVICE' -or $s.firmware -cne $q.fingerprint -or -not (GISha $s.evidenceSha256) -or $s.factScope -cne $q.factScope -or $s.range -cne 'EXACT_SNAPSHOT' -or $s.validFromUtc -cne $q.collectedAtUtc -or $s.validToUtc -cne $q.expiresAtUtc -or -not $serviceSeen.Add($s.process+'|'+$s.uid)){throw 'GLOBAL_SERVICE_POLICY_UNPROVEN'}
+  if(@($q.systemPackages|Where-Object {$_.package -ceq $s.packages[0] -and $_.uid -eq $s.uid}).Count -ne 1){throw 'GLOBAL_SERVICE_SYSTEM_UID_UNPROVEN'}
+ }
+ return $q
+}

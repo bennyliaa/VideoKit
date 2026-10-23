@@ -1,0 +1,219 @@
+{
+  "name": "original-collector-and-facts-wire",
+  "status": "PASS",
+  "seconds": 10.46799999999348,
+  "detail": {
+    "pure": {
+      "positive": {
+        "items": [
+          {
+            "id": "model",
+            "status": 0,
+            "startEpochSeconds": 1000,
+            "endEpochSeconds": 1000,
+            "bytes": 8,
+            "sha256": "6f308330ff2164a614cd0eb9c8a4397ea404f7d6ba39476996c57357a2ed50fe",
+            "output": "TB138FC\n"
+          },
+          {
+            "id": "api",
+            "status": 0,
+            "startEpochSeconds": 1000,
+            "endEpochSeconds": 1000,
+            "bytes": 3,
+            "sha256": "32c2643e0dc65524c9f1f6f9f00937322fd68d59986bc381d9ff2285d23e353d",
+            "output": "31\n"
+          },
+          {
+            "id": "firmware",
+            "status": 0,
+            "startEpochSeconds": 1000,
+            "endEpochSeconds": 1000,
+            "bytes": 33,
+            "sha256": "c75a935eed7c90f10b2444db7e189c5d6a44ce0f82005a3ee65befcba63a4b43",
+            "output": "SYNTHETIC_FIXTURE_FIRMWARE_API31\n"
+          },
+          {
+            "id": "user",
+            "status": 0,
+            "startEpochSeconds": 1000,
+            "endEpochSeconds": 1000,
+            "bytes": 2,
+            "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+            "output": "0\n"
+          },
+          {
+            "id": "system",
+            "status": 0,
+            "startEpochSeconds": 1000,
+            "endEpochSeconds": 1000,
+            "bytes": 35,
+            "sha256": "6bda2cdb298b49209796a964432fb64c5ef0602ec0d0643caff313133b9ac5a9",
+            "output": "package:com.zui.launcher uid:10012\n"
+          },
+          {
+            "id": "role",
+            "status": 0,
+            "startEpochSeconds": 1000,
+            "endEpochSeconds": 1000,
+            "bytes": 192,
+            "sha256": "020f17d989150d0754be514c422e29a3abe97a1e8d1bbef8ae93578602f8df19",
+            "output": "ROLE STATE (dumpsys role):\n{\n  user_states={\n    user_id=0\n    version=1\n    packages_hash=FIXTURE_HASH\n    roles={\n      name=android.app.role.HOME\n      holders=com.zui.launcher\n    }\n  }\n}\n"
+          },
+          {
+            "id": "home",
+            "status": 0,
+            "startEpochSeconds": 1000,
+            "endEpochSeconds": 1000,
+            "bytes": 27,
+            "sha256": "c588a50d3a7bd560960aa048f4f7ab2c474e8a68a5c4db0d7c4cc5666b66a27c",
+            "output": "com.zui.launcher/.Launcher\n"
+          }
+        ],
+        "model": "TB138FC",
+        "api": 31,
+        "fingerprint": "SYNTHETIC_FIXTURE_FIRMWARE_API31",
+        "user": 0,
+        "systemPackages": [
+          {
+            "package": "com.zui.launcher",
+            "uid": 10012,
+            "systemFlag": true
+          }
+        ],
+        "homeRolePackage": "com.zui.launcher",
+        "homeComponent": "com.zui.launcher.Launcher",
+        "homeUid": 10012
+      },
+      "negative": {
+        "end": "FACT_END_OR_DURATION",
+        "status": "FACT_ITEM_STATUS_TIME_OR_BYTES",
+        "order": "FACT_ORDER_OR_FRAME",
+        "length": "FACT_ORDER_OR_FRAME",
+        "utf8": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+        "nul": "FACT_CONTROL",
+        "time": "FACT_ITEM_STATUS_TIME_OR_BYTES",
+        "tail": "FACT_END_OR_DURATION",
+        "duplicate": "FACT_END_OR_DURATION",
+        "role_duplicate_home": "ROLE_FIELD",
+        "role_multiple_holders": "ROLE_HOME_NOT_UNIQUE",
+        "role_denied": "ROLE_DUMP_HEADER"
+      }
+    },
+    "owned": {
+      "receipt": {
+        "schema": "GLOBAL_IDLE_FACT_CAPTURE_V1",
+        "scope": "2c90f6679a5814dbf605fe01e02a0318f86762dddb7d816f06b857ed63fdab7a",
+        "mode": "OFFLINE_FIXTURE",
+        "sourceSha256": "177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a",
+        "planSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+        "routeProofSha256": "6b07bd216dce4e782b350675cd9b26b008cd4f2a68405c47f89eb5a0919e1320",
+        "authoritySha256": "3c7f8ae1cfd4ac41649fe73faf0632d17753e1c228d9eb2c15caedcb0bb78a84",
+        "approvalSha256": "12c79d1331d28fcee10cc6f6848d08e0d6d623dc55944eb0a31901a2ece8526c",
+        "initialProofSha256": "17f8142c65ebcf062eab3d1d2d51694d37ef36b45a0d14eec1e09f82dc53649a",
+        "hostEnvironment": "INHERITED_SEVEN_OVERRIDES_ABSENT",
+        "rawSha256": "9634b0759c695883b260ae59f7df8f8b63daedcfcc833c9d4a44157e536e8cda",
+        "rawBytes": 532,
+        "stdoutBytes": 532,
+        "stderrBytes": 0,
+        "hostElapsedSeconds": 0.09399999998277053,
+        "collectedAtUtc": "2026-10-23T11:12:30.268108+00:00",
+        "originalBodyReturned": true,
+        "outerControllerReturnStillRequired": true,
+        "facts": {
+          "items": [
+            {
+              "id": "model",
+              "status": 0,
+              "startEpochSeconds": 1000,
+              "endEpochSeconds": 1000,
+              "bytes": 8,
+              "sha256": "6f308330ff2164a614cd0eb9c8a4397ea404f7d6ba39476996c57357a2ed50fe",
+              "output": "TB138FC\n"
+            },
+            {
+              "id": "api",
+              "status": 0,
+              "startEpochSeconds": 1000,
+              "endEpochSeconds": 1000,
+              "bytes": 3,
+              "sha256": "32c2643e0dc65524c9f1f6f9f00937322fd68d59986bc381d9ff2285d23e353d",
+              "output": "31\n"
+            },
+            {
+              "id": "firmware",
+              "status": 0,
+              "startEpochSeconds": 1000,
+              "endEpochSeconds": 1000,
+              "bytes": 33,
+              "sha256": "c75a935eed7c90f10b2444db7e189c5d6a44ce0f82005a3ee65befcba63a4b43",
+              "output": "SYNTHETIC_FIXTURE_FIRMWARE_API31\n"
+            },
+            {
+              "id": "user",
+              "status": 0,
+              "startEpochSeconds": 1000,
+              "endEpochSeconds": 1000,
+              "bytes": 2,
+              "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+              "output": "0\n"
+            },
+            {
+              "id": "system",
+              "status": 0,
+              "startEpochSeconds": 1000,
+              "endEpochSeconds": 1000,
+              "bytes": 35,
+              "sha256": "6bda2cdb298b49209796a964432fb64c5ef0602ec0d0643caff313133b9ac5a9",
+              "output": "package:com.zui.launcher uid:10012\n"
+            },
+            {
+              "id": "role",
+              "status": 0,
+              "startEpochSeconds": 1000,
+              "endEpochSeconds": 1000,
+              "bytes": 192,
+              "sha256": "020f17d989150d0754be514c422e29a3abe97a1e8d1bbef8ae93578602f8df19",
+              "output": "ROLE STATE (dumpsys role):\n{\n  user_states={\n    user_id=0\n    version=1\n    packages_hash=FIXTURE_HASH\n    roles={\n      name=android.app.role.HOME\n      holders=com.zui.launcher\n    }\n  }\n}\n"
+            },
+            {
+              "id": "home",
+              "status": 0,
+              "startEpochSeconds": 1000,
+              "endEpochSeconds": 1000,
+              "bytes": 27,
+              "sha256": "c588a50d3a7bd560960aa048f4f7ab2c474e8a68a5c4db0d7c4cc5666b66a27c",
+              "output": "com.zui.launcher/.Launcher\n"
+            }
+          ],
+          "model": "TB138FC",
+          "api": 31,
+          "fingerprint": "SYNTHETIC_FIXTURE_FIRMWARE_API31",
+          "user": 0,
+          "systemPackages": [
+            {
+              "package": "com.zui.launcher",
+              "uid": 10012,
+              "systemFlag": true
+            }
+          ],
+          "homeRolePackage": "com.zui.launcher",
+          "homeComponent": "com.zui.launcher.Launcher",
+          "homeUid": 10012
+        }
+      },
+      "release": {
+        "originalUnlockCloseReturned": true,
+        "generation": "84147f11-9662-488b-8354-b49d2190c349",
+        "failure": null,
+        "sdkChildrenEntered": 1,
+        "endTick": 329508218,
+        "allTemporaryThreadsJoined": true,
+        "factProofTimely": true,
+        "factCaptureQualified": true,
+        "outerControllerReturnStillRequired": true
+      },
+      "onceReject": "FACT_ONCE"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "DRIVER_CAPTURE_FIX01_BUDGET_PROPOSAL_V1",
+  "status": "PROPOSAL_NOT_DYNAMIC_AUTHORIZATION",
+  "stageNow": "PURE_DATA_AND_STATIC_ONLY",
+  "laterCandidateCalls": 0,
+  "laterTcpCalls": 0,
+  "laterOldPidQueries": 0,
+  "futureProfiles": [
+    "python_ok",
+    "powershell_ok",
+    "python_fail"
+  ],
+  "popenAttempts": 3,
+  "originalWaitCallsPerPopen": 1,
+  "readerAndWaiterThreadsPerPopen": 3,
+  "readerAndWaiterThreadsTotalMax": 9,
+  "auditEventsMax": 16,
+  "auditPayloadBytesMax": 16384,
+  "evidenceRecordBytesMax": 32768,
+  "evidenceChunkBytesMax": 65536,
+  "evidenceFilesMax": 128,
+  "evidenceReservationBytesMax": 4194304,
+  "archiveBytesMax": 8388608,
+  "perProcessPipeBytesCombined": 262144,
+  "perProcessObservationSeconds": 30,
+  "wholeAdmissionSeconds": 120,
+  "outerObservationSeconds": 180,
+  "toolWaitChunkSecondsMax": 60,
+  "sourceBytes": 1073741824,
+  "sourceReadWorkflows": 4096,
+  "stopBytes": 1024,
+  "stopPollsPerComponent": 512,
+  "stopPollIntervalSeconds": 0.25,
+  "concurrency": 1,
+  "retry": 0,
+  "unknown": "Retain originals; bounded admission/stop polls; no kill/attach/second close/late ACK or refund",
+  "staticReviewNow": {
+    "popenCalls": 0,
+    "installedHooks": 0,
+    "ctypesCalls": 0,
+    "candidateImports": 0
+  }
+}

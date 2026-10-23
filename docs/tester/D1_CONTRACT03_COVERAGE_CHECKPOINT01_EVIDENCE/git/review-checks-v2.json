@@ -1,0 +1,57 @@
+{
+  "schema": "CONTRACT03_GIT_PRESTAGE_REVIEW_V2",
+  "utc": "2026-10-23T13:07:52.108721+00:00",
+  "baseHead": "1f14c5b92c8174fa0dff6a1819283edc544fa4b4",
+  "initialBranch": "main",
+  "indexInitiallyEmpty": true,
+  "origin": "https://github.com/bennyliaa/VideoKit.git",
+  "remoteMainVerifiedEqualToHead": true,
+  "remoteReadToolChunk": "6e4d53",
+  "testReportSha256": "c8d1b2af4d8d6c84ec78aff2a6775c450883148fe437edf1882d56db9a487a87",
+  "testManifestSha256": "490e05bb68e5dd5dca14cda40bdf687ebda338bbe4e28ca27d412aaed798fb58",
+  "frozenTestFiles": 29,
+  "dataFiles": 1471,
+  "dataBytes": 8470518,
+  "maxFileBytes": 434269,
+  "inspectedExcludedFiles": 320,
+  "excludedByReason": {
+    "THIRD_PARTY_DISTRIBUTION_OR_RUNTIME_RAW_BINARY_CACHE_OR_MEDIA_ROOT": 25,
+    "NON_WHITELIST_TEXT_TYPE_RAW_BINARY_ARCHIVE_OR_CAPTURE": 256,
+    "OVER_ONE_MIB_PER_TEXT_FILE": 1,
+    "RAW_CAPTURE_OR_LARGE_EMBEDDED_PAYLOAD_RETAINED_LOCAL_ONLY": 4,
+    "WINDOWS_RESERVED_PATH_COMPONENT_GIT_OPEN_UNSUPPORTED_LOCAL_ORIGINAL_PRESERVED": 34
+  },
+  "secretPatternHits": 0,
+  "secretValuesPrinted": false,
+  "attributeFiltersObserved": 0,
+  "coreAutocrlf": "false",
+  "originalBytesPreserved": true,
+  "licenseScope": "Owned frozen files and citation/hash metadata only; upstream/distribution excluded; existing project license policy unchanged",
+  "newPreauthSelected": 0,
+  "productStatus": "WIP_NOT_ACCEPTED",
+  "A": "400_LIMITED_PASS_ACCEPTED",
+  "B": "10_PASS_GROUPS_9_OF_11_EXACT_FAULT_TARGETS_ORIGINAL_FAIL_RETAINED",
+  "coverage": "FAIL_TEST_DRIVER_PRE_PERMIT_TARGET_NOT_COVERED",
+  "devicesAndSDK": "NOT_RUN",
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "noMainMergeForcePushOrRelease": true,
+  "firstStageFailure": "Git unable to open reserved aux component; tool chunk66f3be exit1; no staged changes afterwards",
+  "gitPathProtectionDisabled": false,
+  "originalEvidenceRenamedOrModified": false,
+  "gitOnlyRehashedFiles": [
+    {
+      "path": "docs/tester/D1_CONTRACT03_COVERAGE_CHECKPOINT01_EVIDENCE/git/README.md",
+      "initialSha256": "3e753b3245d213b82fac71a288cdc8acfeef46d1e34beff82371531da6ad07e0",
+      "finalSha256": "78d08cf8fa771b8347ec63a8943afdfe79e7d35e4ecda97dacd0685024eb0a3e",
+      "reason": "Git-only description/verifier adjusted before final stage; outside frozen test manifest"
+    },
+    {
+      "path": "docs/tester/D1_CONTRACT03_COVERAGE_CHECKPOINT01_EVIDENCE/git/verify_stage.py",
+      "initialSha256": "e30d3224b143dc4b38cc859dad27956975801b03082c26b19c22bc3a81fc71b4",
+      "finalSha256": "c95f7ec0b9ef3a4a49620a8d752e63f4a07bc9fa3843d79ca3e1194eb2c4e625",
+      "reason": "Git-only description/verifier adjusted before final stage; outside frozen test manifest"
+    }
+  ],
+  "allOtherDataHashesUnchanged": true
+}

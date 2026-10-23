@@ -1,0 +1,106 @@
+{
+  "schema": "GLOBAL_IDLE_CONTRACT02_FUTURE_FACTS_PROPOSAL_V1",
+  "approvedForExecution": false,
+  "status": "NOT_RUN_INDEPENDENT_B_AND_EXACT_COORDINATOR_ORDER_REQUIRED",
+  "sourceSealSha256": "001a0089ddd9140b7b46cd21c1822579703a1d789062b9bb3b8bed962a226039",
+  "gateSourcesSha256": "2aa021f939a6f19bae6eb4b740592f6c88e83591adca213f2eb44ea38697577e",
+  "collectorSourceSha256": "eaf2a5e16171ab6e69a3147452816c339bc17210508f9144f4c0834244e02421",
+  "factPlan": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract02\\reference\\fact-plan.json",
+    "sha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d"
+  },
+  "authoritySchema": "GLOBAL_IDLE_FACT_AUTHORITY_V1",
+  "approvalSchema": "GLOBAL_IDLE_FACT_APPROVAL_V1",
+  "authorityKeys": [
+    "schema",
+    "approvedForExecution",
+    "scope",
+    "planId",
+    "mode",
+    "notBeforeUtc",
+    "expiresUtc",
+    "collectorSha256",
+    "planSha256",
+    "routeProofSha256",
+    "sourceThreadId",
+    "sourceTurnId"
+  ],
+  "approvalKeys": [
+    "schema",
+    "mode",
+    "sourceThreadId",
+    "sourceTurnId",
+    "approvedAuthoritySha256",
+    "instructionText",
+    "instructionSha256"
+  ],
+  "collectorAPI": "OwnedFactCapture.collect(authority, originalGate, externalAuthoritySha, approval=approval, approved_approval_sha256=externalApprovalSha); after actual collect return, finish_after_original_collect_return(originalGate); external owner actual return proof still mandatory",
+  "nativeAndClaim": "Original GateSession, exact source manifest, already prepared and not consumed, same process/thread, fresh Native original return and canonical shared LIVE claim; no file substitution",
+  "hostProfile": "Original inherited host environment; seven route/vendor/serial overrides must all be absent, no cleaning; no UAC or alternate route",
+  "roles": 1,
+  "queryCount": 7,
+  "next": [
+    "independent whole-package B",
+    "exact fresh fact scope and authority+approval dual external hashes",
+    "single fixed read-only collector under original gate/claim",
+    "original collector/capture/owner and output writer/controller return observed; freeze raw/receipt/outer proof and full actual ledger",
+    "coordinator reviews exact noncontending policy and target scope/source/plan binding while <=300s freshness remains",
+    "new exact seven-role target scope only after review; expired/inconsistent evidence rejects with no fallback"
+  ],
+  "separation": "Not an eighth role; never uses LIVE03 once or rewrites old proof; no automatic cross-scope reuse",
+  "defaults": "No approved live service; no currently collected fresh HOME/system facts",
+  "notAtomic": true,
+  "limits": {
+    "schema": "GLOBAL_IDLE_FACT_PLAN_V1",
+    "argv": [
+      "D:/Android/SDK/platform-tools/adb.exe",
+      "-s",
+      "HA1Q6WXR",
+      "shell",
+      "LC_ALL=C; export LC_ALL; sep=$(printf '\\036'); printf 'GI_FACTS_V1\\n'; a=$(date +%s); r=$(getprop ro.product.model 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|model|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(getprop ro.build.version.sdk 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|api|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(getprop ro.build.fingerprint 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|firmware|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(am get-current-user 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|user|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(cmd package list packages -s -U --user 0 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|system|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(dumpsys role 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|role|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|home|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; printf 'GI_FACTS_END\\n'"
+    ],
+    "queries": [
+      {
+        "id": "model",
+        "command": "getprop ro.product.model"
+      },
+      {
+        "id": "api",
+        "command": "getprop ro.build.version.sdk"
+      },
+      {
+        "id": "firmware",
+        "command": "getprop ro.build.fingerprint"
+      },
+      {
+        "id": "user",
+        "command": "am get-current-user"
+      },
+      {
+        "id": "system",
+        "command": "cmd package list packages -s -U --user 0"
+      },
+      {
+        "id": "role",
+        "command": "dumpsys role"
+      },
+      {
+        "id": "home",
+        "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+      }
+    ],
+    "stdoutBytes": 139264,
+    "stderrBytes": 8192,
+    "combinedBytes": 147456,
+    "qualificationSeconds": 15,
+    "outerSeconds": 30,
+    "proofSeconds": 10,
+    "wholeSeconds": 90,
+    "sdkChildren": 1,
+    "concurrency": 1,
+    "retry": 0,
+    "itemClock": "device date +%s; seconds; host monotonic also required",
+    "perQueryStderr": "merged into that item output; global transport stderr must be empty",
+    "fallback": false
+  }
+}

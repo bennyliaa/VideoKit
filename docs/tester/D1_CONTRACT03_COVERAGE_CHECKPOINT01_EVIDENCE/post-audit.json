@@ -1,0 +1,111 @@
+{
+  "schema": "CONTRACT03_COVERAGE_CHECKPOINT01_POST_AUDIT_V1",
+  "batch": "af2619b2-fd06-4c35-8860-504294d65255",
+  "orderSha256": "7dbd9da8b264892f298336cb22582401397e8f38e0be4aae3fb47a0b7bf9bace",
+  "status": "FAIL_TEST_DRIVER_PRE_PERMIT_TARGET_NOT_COVERED",
+  "error": "NameError: name 'BACKEND' is not defined",
+  "workerExitCode": 1,
+  "outerExitCode": 1,
+  "workerFinalReceiptProduced": false,
+  "dynamicAttempts": 1,
+  "retries": 0,
+  "additionalAttemptsAllowed": 0,
+  "permitGenerated": false,
+  "productConstructorEntered": false,
+  "gatePrepared": false,
+  "materializerProofReadReturned": false,
+  "activationCreated": false,
+  "controllersEntered": 0,
+  "productClaimCreated": false,
+  "productClaimRelease": "NOT_APPLICABLE_NOT_CREATED",
+  "ownWorkerIdentity": {
+    "pid": 18652,
+    "creationFileTime": 134372333676108344,
+    "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_CONTRACT03_COVERAGE_CHECKPOINT01_EVIDENCE\\worker.py",
+      "7dbd9da8b264892f298336cb22582401397e8f38e0be4aae3fb47a0b7bf9bace"
+    ],
+    "originalHandleValueForOwnerOnly": 760,
+    "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+    "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+  },
+  "originalWaitReturnedOnce": true,
+  "readersJoined": true,
+  "streamsAndOriginalHandleCloseReturned": true,
+  "newResourceUnknown": false,
+  "resourceConclusionBasis": "Original H wait/readers/streams/close receipt plus exact unhandled pre-permit exception prefix; no product constructor, observer thread or checker constructed. Not custody emptiness alone.",
+  "outerSeconds": 0.35899999999674037,
+  "workerSeconds": 0.32800000003771856,
+  "stdoutBytes": 0,
+  "stderrBytes": 763,
+  "actualNewAuxiliaryChildren": 1,
+  "routeCheckerChildren": 0,
+  "productSourceFrozen": true,
+  "freezes": {
+    "candidate98": {
+      "manifestSha256": "55e8f1b6a9fc1ccd4111ad4c1a1ddf4324ffc60951892d8f54e8ba636bde3d81",
+      "files": 98,
+      "bytes": 1245040,
+      "bad": 0
+    },
+    "developer484": {
+      "manifestSha256": "ec171260f95bfcfd712d4e2245c68b6612f2a8939631ba79a92f9b7f73b2343a",
+      "files": 484,
+      "bytes": 5286017,
+      "bad": 0
+    },
+    "semanticA408": {
+      "manifestSha256": "8208c09cd12d91c942a9ceadaffe17842ddc0911515b276ccd5c18877210c066",
+      "files": 408,
+      "bytes": 3877819,
+      "bad": 0
+    },
+    "independentB744": {
+      "manifestSha256": "19cf9a1e3d8f01c08ed8d8727ca2495bc9b836eb72bc1a7da939a7bd49824bb2",
+      "files": 744,
+      "bytes": 2668183,
+      "bad": 0
+    }
+  },
+  "archives": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix-blocked-frozen.zip",
+      "sha256": "45fb593f8b7aa916095540275a7287bdf01e524f5a983befc3768e9c9cb4a58c",
+      "members": 99,
+      "allFilesClosed": true
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02-frozen.zip",
+      "sha256": "d3425d18bbf12910ac204bf9d0db7ab03c32687c4f47f95266387aca72af2c65",
+      "members": 485,
+      "allFilesClosed": true
+    }
+  ],
+  "pureAdjudicationModels": 18,
+  "outerObservedReadBytes": 84896,
+  "outerObservedReadCalls": 16,
+  "workerPrefixReconstructedReadBytes": 96980,
+  "workerPrefixReconstructedReadCalls": 19,
+  "workerAccountingBasis": "Deterministic reached self_io prefix; final worker ledger absent; excludes import/runtime/physical IO.",
+  "runtimeInventoryFiles": 25,
+  "runtimeInventoryBytes": 98924,
+  "postReadBytes": 15011782,
+  "postReadCalls": 1759,
+  "postSeconds": 17.5,
+  "actualSDK": 0,
+  "actualADB": 0,
+  "actualNativeRoute": 0,
+  "deviceCalls": 0,
+  "oldRuntimeQueries": 0,
+  "allOwnStartedOriginalsReturned": true,
+  "gitAllowedOnlyAfterReportFreeze": true,
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED",
+  "automaticNextTest": false
+}

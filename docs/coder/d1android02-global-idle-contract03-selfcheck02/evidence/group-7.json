@@ -1,0 +1,47 @@
+{
+  "name": "default-deny",
+  "status": "PASS",
+  "seconds": 1.172000000020489,
+  "detail": {
+    "rejections": [
+      {
+        "status": "REJECTED",
+        "reason": "EXPLICIT_MODE_AND_PREAUTH_REQUIRED",
+        "mode": null,
+        "source": "LOCAL_ROUTE_COMPAT01",
+        "liveCallsNotImplied": true,
+        "metadata": {
+          "started": false,
+          "metadataAmountUnknown": null,
+          "metadataBytesKnown": null
+        }
+      },
+      {
+        "status": "REJECTED",
+        "reason": "EXPLICIT_MODE_AND_PREAUTH_REQUIRED",
+        "mode": "live",
+        "source": "LOCAL_ROUTE_COMPAT01",
+        "liveCallsNotImplied": true,
+        "metadata": {
+          "started": false,
+          "metadataAmountUnknown": null,
+          "metadataBytesKnown": null
+        }
+      },
+      {
+        "status": "REJECTED",
+        "reason": "PERMIT_KIND_APPROVAL",
+        "mode": "live",
+        "source": "LOCAL_ROUTE_COMPAT01",
+        "liveCallsNotImplied": true,
+        "metadata": {
+          "started": false,
+          "metadataAmountUnknown": null,
+          "metadataBytesKnown": null
+        }
+      }
+    ],
+    "protectedQueries": 0,
+    "sdk": 0
+  }
+}

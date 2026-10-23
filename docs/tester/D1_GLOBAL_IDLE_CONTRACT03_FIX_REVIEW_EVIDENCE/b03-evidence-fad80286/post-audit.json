@@ -1,0 +1,126 @@
+{
+  "schema": "CONTRACT03_B_POST_AUDIT_V1",
+  "candidate": {
+    "rows": 98,
+    "bytes": 1245040,
+    "bad": 0,
+    "zipMembers": 99,
+    "zipSHA256": "45fb593f8b7aa916095540275a7287bdf01e524f5a983befc3768e9c9cb4a58c",
+    "zipOriginalFileClosed": true
+  },
+  "developerMaterial": {
+    "rows": 484,
+    "bytes": 5286017,
+    "bad": 0,
+    "zipMembers": 485,
+    "zipSHA256": "d3425d18bbf12910ac204bf9d0db7ab03c32687c4f47f95266387aca72af2c65",
+    "zipOriginalFileClosed": true
+  },
+  "semanticAFiles": 408,
+  "semanticABad": 0,
+  "ownFrozenSourcesBad": 0,
+  "ownAuxReturns": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\b03-evidence-fad80286\\aux\\0\\runtime\\outer-original-return.json",
+      "pid": 29732,
+      "exitCode": 0,
+      "seconds": 2.0160000000032596,
+      "rawCounts": [
+        0,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\b03-evidence-fad80286\\aux\\1\\runtime\\outer-original-return.json",
+      "pid": 36116,
+      "exitCode": 2,
+      "seconds": 0.1720000000204891,
+      "rawCounts": [
+        224,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\b03-evidence-fad80286\\aux\\2\\runtime\\outer-original-return.json",
+      "pid": 26316,
+      "exitCode": 2,
+      "seconds": 0.1720000000204891,
+      "rawCounts": [
+        226,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\b03-evidence-fad80286\\aux\\3\\runtime\\outer-original-return.json",
+      "pid": 2736,
+      "exitCode": 2,
+      "seconds": 0.1720000000204891,
+      "rawCounts": [
+        212,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\b03-evidence-fad80286\\aux\\4\\runtime\\outer-original-return.json",
+      "pid": 25456,
+      "exitCode": 0,
+      "seconds": 23.07799999997951,
+      "rawCounts": [
+        816,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\b03-evidence-fad80286\\aux\\5\\runtime\\outer-original-return.json",
+      "pid": 38616,
+      "exitCode": 2,
+      "seconds": 0.1720000000204891,
+      "rawCounts": [
+        216,
+        0
+      ]
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\b03-evidence-fad80286\\aux\\6\\runtime\\outer-original-return.json",
+      "pid": 10732,
+      "exitCode": 0,
+      "seconds": 2.9839999999967404,
+      "rawCounts": [
+        1338,
+        0
+      ]
+    }
+  ],
+  "workerOriginalIdentity": {
+    "pid": 18256,
+    "creationFileTime": 134372300414254367,
+    "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\b03-evidence-fad80286\\worker.py",
+      "99153c6d38f34034eee118bf939550a363b785c5a4984614f9936d1fc3f50529"
+    ],
+    "originalHandleValueForOwnerOnly": 784,
+    "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+    "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+  },
+  "workerExitCode": 2,
+  "toolExitCode": 1,
+  "actualFaultTargets": 9,
+  "uncovered": [
+    "WRONG_OUTPUT_SOURCE",
+    "EXPIRE_DURING_MATERIALIZE"
+  ],
+  "allNewOriginalsReturned": true,
+  "newUnknown": false,
+  "oldRuntimeQueries": 0,
+  "postReadBytes": 12073275,
+  "postReadCalls": 1024,
+  "seconds": 19.655999999959022,
+  "verdict": "FAIL_TARGET_COVERAGE_GAPS_NO_NEW_CONFIRMED_PRODUCT_SOURCE_DEFECT",
+  "automaticNextTest": false
+}

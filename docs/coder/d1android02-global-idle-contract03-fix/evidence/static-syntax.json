@@ -1,0 +1,120 @@
+{
+  "schema": "CONTRACT03_STATIC_SYNTAX_V1",
+  "pythonFiles": [
+    {
+      "path": "tools\\assemble_proposal.py",
+      "sha256": "08c13d0768959812cc16bda35cf24c2abaf6babdb2b4f44fcfd5a10a4e973d26"
+    },
+    {
+      "path": "tools\\build_candidate.py",
+      "sha256": "c9a0d111943f095ef25ba33cc3b46b2dafdd6661c09d789c949c78cf701c0111"
+    },
+    {
+      "path": "tools\\build_semantics.py",
+      "sha256": "34f5bd9b0e82153b7b65912f441592230ee927292e2273ecbec22e8a847ca83a"
+    },
+    {
+      "path": "tools\\contract03_patches.py",
+      "sha256": "9fbfb21af9a3743b096ed2a3695a3faca9f2f59557609106e0c8ab06a608a595"
+    },
+    {
+      "path": "tools\\entry_gates.py",
+      "sha256": "24ebc11d66e115c0a87d44385f90b9b963ae4dbe7a92538a8ae0ad9a6ad27907"
+    },
+    {
+      "path": "tools\\fact_collector.py",
+      "sha256": "177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a"
+    },
+    {
+      "path": "tools\\fetch_upstream.py",
+      "sha256": "c99a5422a6ec43bd43a3981a37c9724130df3f670d9b91ce4fc3862fb057e5b7"
+    },
+    {
+      "path": "tools\\historical-finalize_delivery.py",
+      "sha256": "606d9a8c2847df02f9fb8c55e9c4facf46a9acfebd1950625c7b631c0539cb4b"
+    },
+    {
+      "path": "tools\\historical-prepare_delivery.py",
+      "sha256": "2e151f11e5d1bd7421f93b7dfe4cf9fa79c87cbeadd8bd1b1a4e551dbcc42c3a"
+    },
+    {
+      "path": "tools\\outer_owner.py",
+      "sha256": "89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba"
+    },
+    {
+      "path": "tools\\patch_prestart.py",
+      "sha256": "0eace14d2bc24ca358d51ab50dfbe84e2a9128092c51be16ad1efc2dfc40ef41"
+    },
+    {
+      "path": "tools\\production_runner.py",
+      "sha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2"
+    },
+    {
+      "path": "tools\\runtime_binding.py",
+      "sha256": "47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982"
+    },
+    {
+      "path": "tools\\win32_route.py",
+      "sha256": "42dac295bd5ed85f6a94e4775b907860c17e6802ecce6540e83683cf9e6a6bed"
+    },
+    {
+      "path": "selfchecks\\build_review.py",
+      "sha256": "d9cc8a154b0fc78d612f5dc183c865ae5ad296634480d1b198c1b32203936b8f"
+    },
+    {
+      "path": "selfchecks\\capture_fixture.py",
+      "sha256": "e3cca23ab4f1584da7bc411282751f75d14d225e0dfdedeb739f92eda5cf5311"
+    },
+    {
+      "path": "selfchecks\\contract03_cases.py",
+      "sha256": "f341c344ee7ba52b2a913f92fd689fdca8d5eb9fd8d916fa1c29bf4e0eb08563"
+    },
+    {
+      "path": "selfchecks\\contract_cases.py",
+      "sha256": "2bb9ca7c4c439d556b649b596aa89d76462c0a6d61040450b56a4db6428a4214"
+    },
+    {
+      "path": "selfchecks\\exact_append.py",
+      "sha256": "8512f67b418221f5a159fd9e4968816e3bae63e977fb2a09dbd1763f4b06e956"
+    },
+    {
+      "path": "selfchecks\\fact_fixture.py",
+      "sha256": "7317770d5d49c213771c7f9beb937d4b0db6e2a147c712849d61917ec20dafc6"
+    },
+    {
+      "path": "selfchecks\\fixture_inputs.py",
+      "sha256": "cdff47dadfea852fc874edc5fc3bd35e86b20e24df2baadf82c016d7841a6c94"
+    },
+    {
+      "path": "selfchecks\\independent_cases_original.py",
+      "sha256": "c58acecded04ebca9de22abfbe6bb62318a158553df21f54ac7a3365ca68123c"
+    },
+    {
+      "path": "selfchecks\\profile_guard_v2_static.py",
+      "sha256": "2094dc96b8e766e469bee34cf3e131fdb5ff7f8449ac4b63a4e654a127c78a8b"
+    },
+    {
+      "path": "selfchecks\\route_fixture.py",
+      "sha256": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411"
+    },
+    {
+      "path": "selfchecks\\route_model.py",
+      "sha256": "85d777b24d7b746ccb3ed9f46ad2997141e0ebffaae6e7d24cf8954216f1a04d"
+    },
+    {
+      "path": "selfchecks\\run_affected.py",
+      "sha256": "61c4d1627c5f5ddf4f29737939f93f0013cf6fea236c8d9a1e01fbe0e0005a18"
+    },
+    {
+      "path": "selfchecks\\run_batch.py",
+      "sha256": "1d4f8726e919b973654c756b043734b3411df35a1e90e351411600e0feeea2a6"
+    },
+    {
+      "path": "selfchecks\\run_contract.py",
+      "sha256": "7d03e25224fbce5e2749770452c30097e299fba2258a2fcfe314ac06672cf879"
+    }
+  ],
+  "powershellCompile": "NOT_RUN_AFTER_AUX_BOUNDARY",
+  "candidateProcessesCreated": 0,
+  "candidateBodyRegression": "NOT_RUN_EXCEPT_GROUP1_PURE_PARAMETER_FUNCTIONS"
+}

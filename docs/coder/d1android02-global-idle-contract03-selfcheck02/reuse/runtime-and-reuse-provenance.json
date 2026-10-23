@@ -1,0 +1,57 @@
+{
+  "schema": "DRIVER_CAPTURE_FIX01_RUNTIME_REUSE_V1",
+  "exactRuntimeSubprocess": {
+    "path": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/Lib/subprocess.py",
+    "sha256": "85d29b2bf0249f5436838298c9a60ee93508b1102e9ac43b001f8a7e7ae8f375",
+    "version": [
+      3,
+      12,
+      14
+    ],
+    "windowsAuditLine": 1534,
+    "createProcessLine": 1538,
+    "meaning": "Local pinned code is exact-version authority. Python 3.12 web docs currently show 3.12.15 and are general API reference only."
+  },
+  "reused": [
+    {
+      "path": "docs/tester/D1_PRODUCTION_RUNNER01_FUTURE_PACKAGE01/native_identity.py",
+      "sha256": "094539b62d0c8e6876921c678914c98e6d20d453771091c8819c44eecb64b2a0",
+      "reuse": "Exact copied inert original-HANDLE identity helper; no calls during this stage."
+    },
+    {
+      "path": "docs/tester/D1_PRODUCTION_RUNNER01_FUTURE_PACKAGE01/managed_capture.py",
+      "sha256": "3af51ce0d938a91921554b378b968035fcb39fb60a553bd6d631fea9bb4bbb50",
+      "reuse": "Adapt original Popen/dual stream/readers/wait/one close. Constructor failure handling replaced; not inherited as unconditional hold."
+    },
+    {
+      "path": "docs/tester/D1_PRODUCTION_RUNNER01_FUTURE_PACKAGE01/failure_exit.py",
+      "sha256": "9d06d8b52f65ea0ef41fac371208558fe664c9792e0c3a6cd56567482ce62914",
+      "reuse": "Known semantic FAIL uses original same-holder return path. Candidate cleanup fields not reused in candidate-free driver."
+    },
+    {
+      "path": "docs/tester/D1_PRODUCTION_RUNNER01_FUTURE_PACKAGE01/control_channel.py",
+      "sha256": "0451f5c6338d20595b1a3c5b5e9b9a59fa090b9931853c67235af9aaa54f6c1a",
+      "reuse": "Adapt bounded scope-local STOP-only channel. No external close or claim release action."
+    }
+  ],
+  "officialReferences": [
+    {
+      "url": "https://docs.python.org/3.12/library/subprocess.html",
+      "purpose": "Explicit executable, Windows sequence conversion, Popen contract"
+    },
+    {
+      "url": "https://docs.python.org/3.12/library/audit_events.html",
+      "purpose": "subprocess.Popen event signature executable,args,cwd,env"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessw",
+      "purpose": "Application name versus command line; access/creation semantics"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/handleapi/nf-handleapi-closehandle",
+      "purpose": "Original handle ownership and unique close"
+    }
+  ],
+  "notSecuritySandbox": true,
+  "notAnOldChainControlPackage": true
+}

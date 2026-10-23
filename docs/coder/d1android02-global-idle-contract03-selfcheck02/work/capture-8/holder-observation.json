@@ -1,0 +1,61 @@
+{
+  "sequence": 8,
+  "disposition": "RETURNED_BOUND",
+  "exitCode": 0,
+  "semantic": "PASS",
+  "facts": {
+    "constructorTempsReturned": true,
+    "otherEvidenceReturned": true,
+    "preflightRejected": false,
+    "phase": "CREATED_ORIGINAL",
+    "originalWaitReturned": true,
+    "readersJoined": true,
+    "streamsClosed": true,
+    "identityBound": true,
+    "handleCloseReturned": true,
+    "popenObjectReturned": true,
+    "auditRejectedBeforeCreate": false,
+    "auditObserved": true
+  },
+  "failure": null,
+  "counts": [
+    816,
+    0
+  ],
+  "returned": true,
+  "identity": {
+    "pid": 28496,
+    "creationFileTime": 134372275873464179,
+    "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+      "--mode",
+      "fixture",
+      "--permit",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\permit.json",
+      "--permit-sha256",
+      "a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec",
+      "--approval",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\approval.json",
+      "--approval-sha256",
+      "e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e"
+    ],
+    "originalHandleValueForOwnerOnly": 1476,
+    "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+    "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+  },
+  "journal": {
+    "bytesKnownLowerBound": 3885,
+    "reservedNotRefunded": 3885,
+    "writeAmountUnknown": false,
+    "files": 4,
+    "errors": [],
+    "returnsKnown": true
+  },
+  "elapsed": 60.5
+}

@@ -1,0 +1,1420 @@
+{
+  "schema": "CONTRACT03_SELFCHECK02_RESULT_V1",
+  "batch": "ce9fcb60366a47be82d447f70a0ac753",
+  "seconds": 261.780999999959,
+  "results": [
+    {
+      "name": "finite-three-call-driver-qualification",
+      "status": "PASS",
+      "seconds": 1.8600000000442378,
+      "detail": {
+        "pure": {
+          "positive": true,
+          "negative": [
+            {
+              "kind": "program",
+              "reason": "PRE_PROGRAM"
+            },
+            {
+              "kind": "extra",
+              "reason": "PRE_UNDECLARED_FULL_ARGV"
+            },
+            {
+              "kind": "cwd",
+              "reason": "PRE_CWD"
+            },
+            {
+              "kind": "env",
+              "reason": "PRE_EXACT_ENV"
+            }
+          ],
+          "pureAuditModels": [
+            {
+              "applicationName": null,
+              "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py ok",
+              "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+              "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+              "matches": true
+            },
+            {
+              "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+              "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py ok",
+              "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+              "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+              "matches": false
+            }
+          ],
+          "wrongProgramsActuallyStarted": 0
+        },
+        "actualThree": [
+          {
+            "name": "python_ok",
+            "exitCode": 0,
+            "semantic": "PASS",
+            "allOriginalsReturned": true,
+            "seconds": 0.0940000000409782
+          },
+          {
+            "name": "python_fail",
+            "exitCode": 7,
+            "semantic": "FAIL",
+            "allOriginalsReturned": true,
+            "seconds": 0.0779999999795109
+          },
+          {
+            "name": "powershell_ok",
+            "exitCode": 0,
+            "semantic": "PASS",
+            "allOriginalsReturned": true,
+            "seconds": 1.6880000000237487
+          }
+        ],
+        "nonzeroClassifiedKnownReturned": true
+      }
+    },
+    {
+      "name": "pure-five-defect-parameters",
+      "status": "PASS",
+      "seconds": 0.01600000000325963,
+      "detail": {
+        "argvNegative": {
+          "adb": "FACT_FIXTURE_ARGV",
+          "other-python": "FACT_FIXTURE_ARGV",
+          "same-name": "FACT_FIXTURE_ARGV",
+          "alias": "FACT_FIXTURE_ARGV",
+          "extra": "FACT_FIXTURE_ARGV",
+          "short": "FACT_FIXTURE_ARGV",
+          "tuple": "FACT_FIXTURE_ARGV",
+          "non-string": "FACT_FIXTURE_ARGV"
+        },
+        "identity": {
+          "identitySha256": "2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48",
+          "programSha256": "5640e9be2fd33d05a1a9ae1228e2354609a69ab831605995ec4e2bd6da8fff5e",
+          "sourceReadBytes": 112759,
+          "sourceReads": 2
+        },
+        "identityMutations": [
+          "FACT_FIXTURE_RUNTIME_METADATA",
+          "FACT_FIXTURE_EXECUTABLE_IDENTITY"
+        ],
+        "roots": {
+          "own": true,
+          "tester": true,
+          "outside": false,
+          "prefix": false,
+          "dotdot": false,
+          "dot": false,
+          "old": false,
+          "namespace": false
+        },
+        "invalidProgramsActuallyStarted": 0
+      }
+    },
+    {
+      "name": "direct-preStart13",
+      "status": "PASS",
+      "seconds": 1.8119999999762513,
+      "detail": {
+        "actualUnknownCreated": false,
+        "results": [
+          {
+            "pinnedSourceClosedOnce": true,
+            "noPipeCreated": true,
+            "noSDKStart": true,
+            "case": "known-prestart-0-raw",
+            "rawFilesClosedOnce": 0,
+            "originalProcessDisposedOnce": true
+          },
+          {
+            "pinnedSourceClosedOnce": true,
+            "noPipeCreated": true,
+            "noSDKStart": true,
+            "case": "known-prestart-1-raw",
+            "rawFilesClosedOnce": 1,
+            "originalProcessDisposedOnce": true
+          },
+          {
+            "pinnedSourceClosedOnce": true,
+            "noPipeCreated": true,
+            "noSDKStart": true,
+            "case": "known-prestart-2-raw",
+            "rawFilesClosedOnce": 2,
+            "originalProcessDisposedOnce": true
+          },
+          {
+            "state": "RETAIN_START_ENTERED_NOT_ESTABLISHED",
+            "pureStateOnly": true,
+            "case": "Start-entered-no-established-return",
+            "actualUnknownCreated": false
+          },
+          {
+            "state": "RETAIN_PROCESS_CREATE_UNKNOWN",
+            "pureStateOnly": true,
+            "case": "Process-create-unreturned",
+            "actualUnknownCreated": false
+          },
+          {
+            "state": "RETAIN_RAW_OPEN_UNKNOWN",
+            "pureStateOnly": true,
+            "case": "raw-create-unreturned",
+            "actualUnknownCreated": false
+          },
+          {
+            "state": "RETAIN_RAW_CLOSE_UNKNOWN",
+            "pureStateOnly": true,
+            "case": "raw-close-unreturned",
+            "actualUnknownCreated": false
+          },
+          {
+            "state": "RETAIN_PROCESS_DISPOSE_UNKNOWN",
+            "pureStateOnly": true,
+            "case": "Process-dispose-unreturned",
+            "actualUnknownCreated": false
+          },
+          {
+            "state": "RETAIN_LOCK_OPEN_UNKNOWN",
+            "pureStateOnly": true,
+            "case": "lock-create-unreturned",
+            "actualUnknownCreated": false
+          },
+          {
+            "state": "RETAIN_INPUT_CREATE_OR_HASH_UNKNOWN",
+            "pureStateOnly": true,
+            "case": "input-create-unreturned",
+            "actualUnknownCreated": false
+          },
+          {
+            "state": "RETAIN_INPUT_CREATE_OR_HASH_UNKNOWN",
+            "pureStateOnly": true,
+            "case": "hash-dispose-unreturned",
+            "actualUnknownCreated": false
+          },
+          {
+            "state": "RETAIN_INPUT_IO_UNKNOWN",
+            "pureStateOnly": true,
+            "case": "source-close-unreturned",
+            "actualUnknownCreated": false
+          },
+          {
+            "nativeClaim": 0,
+            "originalProcessDisposed": true,
+            "waitAndReadersActuallyReturned": true,
+            "sdk": 0,
+            "exitCode": 0,
+            "case": "actual-started-local-original",
+            "prestartHelperDidNotCloseAnything": true,
+            "streamsAndFilesClosedOnce": true
+          }
+        ],
+        "nativeClaim": 0,
+        "sdk": 0,
+        "allPassed": true,
+        "schema": "GLOBAL_IDLE_REVISION02_PRESTART_LIFETIME_V1"
+      }
+    },
+    {
+      "name": "original98-independent175-new73-semantics",
+      "status": "PASS",
+      "seconds": 10.438000000023749,
+      "detail": {
+        "total": 346,
+        "originalDeveloper98": 98,
+        "independentOracleReplay175": 175,
+        "independent45": 45,
+        "independentPositive17": 17,
+        "fixCases": 73,
+        "allExpectedReasonsCheckedWhereSpecified": true,
+        "positive": 42,
+        "historical68": [
+          68,
+          68
+        ]
+      }
+    },
+    {
+      "name": "proposal-static-pins",
+      "status": "PASS",
+      "seconds": 0.01600000000325963,
+      "detail": {
+        "currentProposal": "6ddf166fcbf5a3e9f085fdbcd65321427c39a1c98693cd6c603663162fdbb0ea",
+        "pathAndContentPinsMatched": true,
+        "external": "STATIC_ONLY_PENDING_APPROVAL",
+        "sourceSeal": "4881f18167ab3cdb2d7d376152f5bf1672358b99af9e285dd0ae828533d25e93"
+      }
+    },
+    {
+      "name": "original-collector-and-facts-wire",
+      "status": "PASS",
+      "seconds": 10.46799999999348,
+      "detail": {
+        "pure": {
+          "positive": {
+            "items": [
+              {
+                "id": "model",
+                "status": 0,
+                "startEpochSeconds": 1000,
+                "endEpochSeconds": 1000,
+                "bytes": 8,
+                "sha256": "6f308330ff2164a614cd0eb9c8a4397ea404f7d6ba39476996c57357a2ed50fe",
+                "output": "TB138FC\n"
+              },
+              {
+                "id": "api",
+                "status": 0,
+                "startEpochSeconds": 1000,
+                "endEpochSeconds": 1000,
+                "bytes": 3,
+                "sha256": "32c2643e0dc65524c9f1f6f9f00937322fd68d59986bc381d9ff2285d23e353d",
+                "output": "31\n"
+              },
+              {
+                "id": "firmware",
+                "status": 0,
+                "startEpochSeconds": 1000,
+                "endEpochSeconds": 1000,
+                "bytes": 33,
+                "sha256": "c75a935eed7c90f10b2444db7e189c5d6a44ce0f82005a3ee65befcba63a4b43",
+                "output": "SYNTHETIC_FIXTURE_FIRMWARE_API31\n"
+              },
+              {
+                "id": "user",
+                "status": 0,
+                "startEpochSeconds": 1000,
+                "endEpochSeconds": 1000,
+                "bytes": 2,
+                "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+                "output": "0\n"
+              },
+              {
+                "id": "system",
+                "status": 0,
+                "startEpochSeconds": 1000,
+                "endEpochSeconds": 1000,
+                "bytes": 35,
+                "sha256": "6bda2cdb298b49209796a964432fb64c5ef0602ec0d0643caff313133b9ac5a9",
+                "output": "package:com.zui.launcher uid:10012\n"
+              },
+              {
+                "id": "role",
+                "status": 0,
+                "startEpochSeconds": 1000,
+                "endEpochSeconds": 1000,
+                "bytes": 192,
+                "sha256": "020f17d989150d0754be514c422e29a3abe97a1e8d1bbef8ae93578602f8df19",
+                "output": "ROLE STATE (dumpsys role):\n{\n  user_states={\n    user_id=0\n    version=1\n    packages_hash=FIXTURE_HASH\n    roles={\n      name=android.app.role.HOME\n      holders=com.zui.launcher\n    }\n  }\n}\n"
+              },
+              {
+                "id": "home",
+                "status": 0,
+                "startEpochSeconds": 1000,
+                "endEpochSeconds": 1000,
+                "bytes": 27,
+                "sha256": "c588a50d3a7bd560960aa048f4f7ab2c474e8a68a5c4db0d7c4cc5666b66a27c",
+                "output": "com.zui.launcher/.Launcher\n"
+              }
+            ],
+            "model": "TB138FC",
+            "api": 31,
+            "fingerprint": "SYNTHETIC_FIXTURE_FIRMWARE_API31",
+            "user": 0,
+            "systemPackages": [
+              {
+                "package": "com.zui.launcher",
+                "uid": 10012,
+                "systemFlag": true
+              }
+            ],
+            "homeRolePackage": "com.zui.launcher",
+            "homeComponent": "com.zui.launcher.Launcher",
+            "homeUid": 10012
+          },
+          "negative": {
+            "end": "FACT_END_OR_DURATION",
+            "status": "FACT_ITEM_STATUS_TIME_OR_BYTES",
+            "order": "FACT_ORDER_OR_FRAME",
+            "length": "FACT_ORDER_OR_FRAME",
+            "utf8": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+            "nul": "FACT_CONTROL",
+            "time": "FACT_ITEM_STATUS_TIME_OR_BYTES",
+            "tail": "FACT_END_OR_DURATION",
+            "duplicate": "FACT_END_OR_DURATION",
+            "role_duplicate_home": "ROLE_FIELD",
+            "role_multiple_holders": "ROLE_HOME_NOT_UNIQUE",
+            "role_denied": "ROLE_DUMP_HEADER"
+          }
+        },
+        "owned": {
+          "receipt": {
+            "schema": "GLOBAL_IDLE_FACT_CAPTURE_V1",
+            "scope": "2c90f6679a5814dbf605fe01e02a0318f86762dddb7d816f06b857ed63fdab7a",
+            "mode": "OFFLINE_FIXTURE",
+            "sourceSha256": "177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a",
+            "planSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+            "routeProofSha256": "6b07bd216dce4e782b350675cd9b26b008cd4f2a68405c47f89eb5a0919e1320",
+            "authoritySha256": "3c7f8ae1cfd4ac41649fe73faf0632d17753e1c228d9eb2c15caedcb0bb78a84",
+            "approvalSha256": "12c79d1331d28fcee10cc6f6848d08e0d6d623dc55944eb0a31901a2ece8526c",
+            "initialProofSha256": "17f8142c65ebcf062eab3d1d2d51694d37ef36b45a0d14eec1e09f82dc53649a",
+            "hostEnvironment": "INHERITED_SEVEN_OVERRIDES_ABSENT",
+            "rawSha256": "9634b0759c695883b260ae59f7df8f8b63daedcfcc833c9d4a44157e536e8cda",
+            "rawBytes": 532,
+            "stdoutBytes": 532,
+            "stderrBytes": 0,
+            "hostElapsedSeconds": 0.09399999998277053,
+            "collectedAtUtc": "2026-10-23T11:12:30.268108+00:00",
+            "originalBodyReturned": true,
+            "outerControllerReturnStillRequired": true,
+            "facts": {
+              "items": [
+                {
+                  "id": "model",
+                  "status": 0,
+                  "startEpochSeconds": 1000,
+                  "endEpochSeconds": 1000,
+                  "bytes": 8,
+                  "sha256": "6f308330ff2164a614cd0eb9c8a4397ea404f7d6ba39476996c57357a2ed50fe",
+                  "output": "TB138FC\n"
+                },
+                {
+                  "id": "api",
+                  "status": 0,
+                  "startEpochSeconds": 1000,
+                  "endEpochSeconds": 1000,
+                  "bytes": 3,
+                  "sha256": "32c2643e0dc65524c9f1f6f9f00937322fd68d59986bc381d9ff2285d23e353d",
+                  "output": "31\n"
+                },
+                {
+                  "id": "firmware",
+                  "status": 0,
+                  "startEpochSeconds": 1000,
+                  "endEpochSeconds": 1000,
+                  "bytes": 33,
+                  "sha256": "c75a935eed7c90f10b2444db7e189c5d6a44ce0f82005a3ee65befcba63a4b43",
+                  "output": "SYNTHETIC_FIXTURE_FIRMWARE_API31\n"
+                },
+                {
+                  "id": "user",
+                  "status": 0,
+                  "startEpochSeconds": 1000,
+                  "endEpochSeconds": 1000,
+                  "bytes": 2,
+                  "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+                  "output": "0\n"
+                },
+                {
+                  "id": "system",
+                  "status": 0,
+                  "startEpochSeconds": 1000,
+                  "endEpochSeconds": 1000,
+                  "bytes": 35,
+                  "sha256": "6bda2cdb298b49209796a964432fb64c5ef0602ec0d0643caff313133b9ac5a9",
+                  "output": "package:com.zui.launcher uid:10012\n"
+                },
+                {
+                  "id": "role",
+                  "status": 0,
+                  "startEpochSeconds": 1000,
+                  "endEpochSeconds": 1000,
+                  "bytes": 192,
+                  "sha256": "020f17d989150d0754be514c422e29a3abe97a1e8d1bbef8ae93578602f8df19",
+                  "output": "ROLE STATE (dumpsys role):\n{\n  user_states={\n    user_id=0\n    version=1\n    packages_hash=FIXTURE_HASH\n    roles={\n      name=android.app.role.HOME\n      holders=com.zui.launcher\n    }\n  }\n}\n"
+                },
+                {
+                  "id": "home",
+                  "status": 0,
+                  "startEpochSeconds": 1000,
+                  "endEpochSeconds": 1000,
+                  "bytes": 27,
+                  "sha256": "c588a50d3a7bd560960aa048f4f7ab2c474e8a68a5c4db0d7c4cc5666b66a27c",
+                  "output": "com.zui.launcher/.Launcher\n"
+                }
+              ],
+              "model": "TB138FC",
+              "api": 31,
+              "fingerprint": "SYNTHETIC_FIXTURE_FIRMWARE_API31",
+              "user": 0,
+              "systemPackages": [
+                {
+                  "package": "com.zui.launcher",
+                  "uid": 10012,
+                  "systemFlag": true
+                }
+              ],
+              "homeRolePackage": "com.zui.launcher",
+              "homeComponent": "com.zui.launcher.Launcher",
+              "homeUid": 10012
+            }
+          },
+          "release": {
+            "originalUnlockCloseReturned": true,
+            "generation": "84147f11-9662-488b-8354-b49d2190c349",
+            "failure": null,
+            "sdkChildrenEntered": 1,
+            "endTick": 329508218,
+            "allTemporaryThreadsJoined": true,
+            "factProofTimely": true,
+            "factCaptureQualified": true,
+            "outerControllerReturnStillRequired": true
+          },
+          "onceReject": "FACT_ONCE"
+        }
+      }
+    },
+    {
+      "name": "default-deny",
+      "status": "PASS",
+      "seconds": 1.172000000020489,
+      "detail": {
+        "rejections": [
+          {
+            "status": "REJECTED",
+            "reason": "EXPLICIT_MODE_AND_PREAUTH_REQUIRED",
+            "mode": null,
+            "source": "LOCAL_ROUTE_COMPAT01",
+            "liveCallsNotImplied": true,
+            "metadata": {
+              "started": false,
+              "metadataAmountUnknown": null,
+              "metadataBytesKnown": null
+            }
+          },
+          {
+            "status": "REJECTED",
+            "reason": "EXPLICIT_MODE_AND_PREAUTH_REQUIRED",
+            "mode": "live",
+            "source": "LOCAL_ROUTE_COMPAT01",
+            "liveCallsNotImplied": true,
+            "metadata": {
+              "started": false,
+              "metadataAmountUnknown": null,
+              "metadataBytesKnown": null
+            }
+          },
+          {
+            "status": "REJECTED",
+            "reason": "PERMIT_KIND_APPROVAL",
+            "mode": "live",
+            "source": "LOCAL_ROUTE_COMPAT01",
+            "liveCallsNotImplied": true,
+            "metadata": {
+              "started": false,
+              "metadataAmountUnknown": null,
+              "metadataBytesKnown": null
+            }
+          }
+        ],
+        "protectedQueries": 0,
+        "sdk": 0
+      }
+    },
+    {
+      "name": "prior-source-authority-budget",
+      "status": "PASS",
+      "seconds": 35.64100000000326,
+      "detail": [
+        {
+          "case": "unapproved",
+          "rejection": "PERMIT_KIND_APPROVAL"
+        },
+        {
+          "case": "expired",
+          "rejection": "PERMIT_EXPIRED_OR_FUTURE"
+        },
+        {
+          "case": "future",
+          "rejection": "PERMIT_EXPIRED_OR_FUTURE"
+        },
+        {
+          "case": "scope",
+          "rejection": "GLOBAL_IDLE_PRIOR_QUALIFICATION_BINDING"
+        },
+        {
+          "case": "runner-source",
+          "rejection": "PREAUTHORIZED_SOURCE_MISMATCH:tools/production_runner.py"
+        },
+        {
+          "case": "role",
+          "rejection": "EXACT_FIXED_FIXTURE_ROLE"
+        },
+        {
+          "case": "bool-role",
+          "rejection": "EXACT_FIXED_FIXTURE_ROLE"
+        },
+        {
+          "case": "float-budget",
+          "rejection": "EXACT_OPERATIONS_OR_LIMITS"
+        },
+        {
+          "case": "extra-operation",
+          "rejection": "EXACT_OPERATIONS_OR_LIMITS"
+        },
+        {
+          "case": "product",
+          "rejection": "PREAUTHORIZED_SCOPE_PRODUCT"
+        },
+        {
+          "case": "wrong-path",
+          "rejection": "FRESH_ONCE_EXACT_HOME"
+        },
+        {
+          "case": "missing",
+          "rejection": "PERMIT_EXACT_SCHEMA"
+        },
+        {
+          "case": "extra",
+          "rejection": "PERMIT_EXACT_SCHEMA"
+        },
+        {
+          "case": "wrong-mode",
+          "rejection": "PERMIT_KIND_APPROVAL"
+        },
+        {
+          "case": "attempt-retry",
+          "rejection": "EXACT_OPERATIONS_OR_LIMITS"
+        },
+        {
+          "case": "legacy-permit",
+          "rejection": "PERMIT_KIND_APPROVAL"
+        },
+        {
+          "case": "missing-backend",
+          "rejection": "PERMIT_EXACT_SCHEMA"
+        },
+        {
+          "case": "wrong-backend",
+          "rejection": "PERMIT_KIND_APPROVAL"
+        },
+        {
+          "case": "bool-backend",
+          "rejection": "PERMIT_KIND_APPROVAL"
+        },
+        {
+          "case": "approval-hash-relation",
+          "rejection": "PRIOR_APPROVAL_RELATION"
+        },
+        {
+          "case": "fixture-as-live-evidence",
+          "rejection": "PRIOR_APPROVAL_RELATION"
+        },
+        {
+          "case": "wrong-issuer-source",
+          "rejection": "PRIOR_APPROVAL_RELATION"
+        },
+        {
+          "case": "nested-case-duplicate",
+          "rejection": "DUPLICATE_JSON"
+        },
+        {
+          "case": "command-fixed-hash",
+          "rejection": "EXTERNAL_APPROVAL_INPUT_HASH"
+        }
+      ]
+    },
+    {
+      "name": "original-seven-END-once",
+      "status": "PASS",
+      "seconds": 61.11000000004424,
+      "detail": {
+        "terminal": {
+          "schema": "RUNNER_TERMINAL_V1",
+          "scope": "cf7265b652b2a65eb4dbfcb6e3c38b59bc536b4a54855f094d77d465264de28c",
+          "mode": "OFFLINE_FIXTURE",
+          "initialProofSha256": "f59805e4ec2b71fd0c6bcb9f84afd09406773ad87ee13a5250c9bcb907c51b56",
+          "gateGeneration": "489a0ca3-92f6-4a04-8f2f-2f8037645b80",
+          "scopeStartTick": 329545453,
+          "rolesCompleted": 7,
+          "scopeClaimIntentionallyRetained": false,
+          "postControlBytes": 41338,
+          "receiverControlBytes": 13970,
+          "initialProofUnchanged": true,
+          "candidateOnlyTerminalWriterCloseNotProven": true,
+          "terminalWriteBytes": 589,
+          "batchControlBytesKnown": 469395,
+          "totalLogicalInboundBytesKnown": 471447,
+          "claimRelease": {
+            "originalUnlockCloseReturned": true,
+            "generation": "489a0ca3-92f6-4a04-8f2f-2f8037645b80",
+            "failure": null,
+            "sdkChildrenEntered": 7,
+            "endTick": 329604171,
+            "allTemporaryThreadsJoined": true
+          },
+          "terminalWriterReturned": true
+        },
+        "initialControl": 183812,
+        "firstControl": 297234,
+        "postDelta": {
+          "schema": "RUNNER_HANDOFF_V1",
+          "ownerPid": 28496,
+          "scopeStartTick": 329545453,
+          "initialProofStartTick": 329555515,
+          "permitExpiresUtc": "2026-10-23T11:18:06.202617+00:00",
+          "generation": "489a0ca3-92f6-4a04-8f2f-2f8037645b80",
+          "permitSha256": "a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec",
+          "approvalSha256": "e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e",
+          "runnerSourceSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+          "materializationSha256": "ed3f24fe7dcd74ba7538ce1cfdebbe1b56c7f9e38d85660c015ad52b391d42b1",
+          "initialProofSha256": "f59805e4ec2b71fd0c6bcb9f84afd09406773ad87ee13a5250c9bcb907c51b56",
+          "postControlBytes": 41338,
+          "receiverControlBytes": 13970,
+          "kind": "OFFLINE_FIXTURE",
+          "eventId": "aebd33a5d12e36a7fc335b39787441d2b571e04ffd57c232da62642c4d01ab24"
+        },
+        "sameOriginalPID": 28496,
+        "firstLogicalReads": {
+          "ownerAdmissionBytes": 1866,
+          "requestBodyReadCalls": 1,
+          "requestBodyBytes": 872,
+          "predecessorProofAndNativeBytes": 32936
+        },
+        "repeatAdmissionRejected": {
+          "status": "REJECTED",
+          "reason": "FRESH_ONCE_EXACT_HOME",
+          "mode": "fixture",
+          "source": "LOCAL_ROUTE_COMPAT01",
+          "liveCallsNotImplied": true,
+          "metadata": {
+            "started": false,
+            "metadataAmountUnknown": null,
+            "metadataBytesKnown": null
+          }
+        },
+        "originalEntryProcessObservedReturned": true,
+        "actualSDK": 0
+      }
+    },
+    {
+      "name": "eleven-finite-original-faults",
+      "status": "FAIL",
+      "seconds": 63.32799999997951,
+      "error": "ValueError('RUNNER_GATE_STICKY')"
+    },
+    {
+      "name": "PS-post-last-Start",
+      "status": "PASS",
+      "seconds": 3.0939999999827705,
+      "detail": {
+        "post": [
+          {
+            "readBytes": 27670,
+            "name": "good",
+            "accepted": true
+          },
+          {
+            "error": "RUNNER_HANDOFF_INTEGER",
+            "name": "post-reset",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_POST_DELTA_RESET_OR_DUPLICATE",
+            "name": "post-duplicate",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_POST_DELTA_RESET_OR_DUPLICATE",
+            "name": "receiver-reset",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_UNIQUE_POST_DELTA_OR_LOCAL_CAP",
+            "name": "wrong-event",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_ORIGINAL_HANDOFF_BINDING",
+            "name": "wrong-source",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_ORIGINAL_HANDOFF_BINDING",
+            "name": "wrong-holder",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_ORIGINAL_HANDOFF_BINDING",
+            "name": "wrong-mode",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_HANDOFF_INTEGER",
+            "name": "bool-post",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_HANDOFF_SCHEMA",
+            "name": "extra",
+            "accepted": false
+          }
+        ],
+        "finalStart": [
+          {
+            "name": "good",
+            "accepted": true
+          },
+          {
+            "error": "RUNNER_FINAL_START_ORIGINAL_MINIMUM_WINDOW",
+            "name": "proof-window",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_FINAL_START_ORIGINAL_MINIMUM_WINDOW",
+            "name": "gate-window",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_FINAL_START_WHOLE_OR_CLOCK",
+            "name": "whole-window",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_FINAL_START_EXPIRED",
+            "name": "expired",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_FINAL_START_WHOLE_OR_CLOCK",
+            "name": "future-proof",
+            "accepted": false
+          },
+          {
+            "error": "RUNNER_FINAL_START_INTEGER",
+            "name": "bool-tick",
+            "accepted": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "materialization-change",
+      "status": "PASS",
+      "seconds": 14.26600000000326,
+      "detail": {
+        "rejection": "MATERIALIZATION_ORIGINAL_PENDING_OR_BYTES",
+        "release": {
+          "originalUnlockCloseReturned": true,
+          "generation": "ba9cb624-239a-42ee-aae9-1b0e2cd8d064",
+          "failure": null,
+          "sdkChildrenEntered": 0,
+          "endTick": 329687453,
+          "allTemporaryThreadsJoined": true
+        },
+        "originalBeforeHash": "5e8fcbf592ea157e1332b67406dc1cc5124d3f494a87df7ed2da1dd198c358e4",
+        "afterHash": "01a215dd9af629d9e14d10ab5813ae2658cbfd75147ce1de02c7701600bbb74c"
+      }
+    },
+    {
+      "name": "new-tester-root-original-seven",
+      "status": "PASS",
+      "seconds": 46.51600000000326,
+      "detail": {
+        "home": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\dev03-ce9fcb60\\h",
+        "scope": "34165e68942f37891121413fc2c8ffca5e030bbd906184188de5cc7c622dc104",
+        "terminal": {
+          "schema": "RUNNER_TERMINAL_V1",
+          "scope": "34165e68942f37891121413fc2c8ffca5e030bbd906184188de5cc7c622dc104",
+          "mode": "OFFLINE_FIXTURE",
+          "initialProofSha256": "04fe0d8cd42fabc9288fdf54a68e1d0a73b411da1ebb26454455defc34d63199",
+          "gateGeneration": "e87169f3-a952-4a78-a698-ca1aa5dce4e9",
+          "scopeStartTick": 329687750,
+          "rolesCompleted": 7,
+          "scopeClaimIntentionallyRetained": false,
+          "postControlBytes": 40032,
+          "receiverControlBytes": 13492,
+          "initialProofUnchanged": true,
+          "candidateOnlyTerminalWriterCloseNotProven": true,
+          "terminalWriteBytes": 589,
+          "batchControlBytesKnown": 462744,
+          "totalLogicalInboundBytesKnown": 464796,
+          "claimRelease": {
+            "originalUnlockCloseReturned": true,
+            "generation": "e87169f3-a952-4a78-a698-ca1aa5dce4e9",
+            "failure": null,
+            "sdkChildrenEntered": 7,
+            "endTick": 329733296,
+            "allTemporaryThreadsJoined": true
+          },
+          "terminalWriterReturned": true
+        },
+        "repeatRejected": true,
+        "newTesterRootAllThreeEntrancesActuallyUsed": true
+      }
+    },
+    {
+      "name": "exact-small-append-source-pin",
+      "status": "PASS",
+      "seconds": 10.311999999976251,
+      "detail": {
+        "exactReason": "OWNER_SOURCE_PIN_ENTRY",
+        "runnerFailureBeforeFail": null,
+        "gateFailureBeforeFail": null,
+        "append": {
+          "writeEntered": true,
+          "writeReturned": true,
+          "flushReturned": true,
+          "closeEntered": true,
+          "closeReturned": true
+        },
+        "control": 237383,
+        "gateControl": 195562,
+        "budget": {
+          "preExactIncludingOwnInputWrites": 185801,
+          "postBound": 46997,
+          "receiverExact": 10676,
+          "runnerControlBound": 243474,
+          "gateControlBound": 218569,
+          "localCap": 262144,
+          "policyExact": 10676,
+          "activationExact": 1815,
+          "ownAppend": 1,
+          "ownBodyReread": 0,
+          "inputCreationWrites": 11806,
+          "receiptBound": 4096,
+          "routeBound": 2048,
+          "proofBound": 4096,
+          "precomputedBeforeConstructor": true
+        },
+        "initialProofUnchanged": true,
+        "pendingOriginals": 0,
+        "controllerEntered": 0,
+        "sourceReads": 23,
+        "sourceBytes": 8339123
+      }
+    }
+  ],
+  "allPassed": false,
+  "before": {
+    "rows": 98,
+    "bad": [],
+    "sourceSeal": "4881f18167ab3cdb2d7d376152f5bf1672358b99af9e285dd0ae828533d25e93"
+  },
+  "after": {
+    "rows": 98,
+    "bad": [],
+    "sourceSeal": "4881f18167ab3cdb2d7d376152f5bf1672358b99af9e285dd0ae828533d25e93"
+  },
+  "calls": [
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py",
+        "ok"
+      ],
+      "family": "qualification-python",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py ok",
+      "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+      "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+      "scriptSha256": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py",
+        "fail"
+      ],
+      "family": "qualification-python",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py fail",
+      "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+      "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+      "scriptSha256": "7ad1648cf1823f24f34ea9b18e0a12a51b0ad31569f022eed9a3d0d95baa5ebe",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.ps1"
+      ],
+      "family": "qualification-PS",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe -NoProfile -NonInteractive -File D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.ps1",
+      "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+      "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+      "scriptSha256": "ad4385f95e54ae966c634988fe9e78823273cdbee0f2798485a9a9bb2d0bd5e6",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\helpers\\prestart_lifetimes.ps1",
+        "-OutputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\prestart.json"
+      ],
+      "family": "fixed-function-helper",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe -NoProfile -NonInteractive -File D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\helpers\\prestart_lifetimes.ps1 -OutputFile D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\prestart.json",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "a17432c532ba05da8f8d4fcb60bfad29898723b9d134f65fac0419660bc63f93",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\helpers\\review_semantics.ps1",
+        "-InputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\semantics-input.json",
+        "-OutputFile",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\semantics-result.json"
+      ],
+      "family": "fixed-function-helper",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe -NoProfile -NonInteractive -File D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\helpers\\review_semantics.ps1 -InputFile D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\semantics-input.json -OutputFile D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\semantics-result.json",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "540911824c65449ecb76e93b92f0388728f2bcda2b6f49e3d0fcac686f111031",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\fact-owned-original\\actual-home\\outputs\\gate-context.json"
+      ],
+      "family": "fixed-route-fixture",
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\fact-owned-original\\actual-home\\outputs\\gate-context.json",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\fact_fixture.py",
+        "COMPLETE"
+      ],
+      "family": "fixed-fact-fixture",
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\fact_fixture.py COMPLETE",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "7317770d5d49c213771c7f9beb937d4b0db6e2a147c712849d61917ec20dafc6",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py"
+      ],
+      "family": "default-deny-CLI",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+        "--mode",
+        "live"
+      ],
+      "family": "default-deny-CLI",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode live",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+        "--mode",
+        "live",
+        "--permit",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\live-reject-offline\\permit.json",
+        "--permit-sha256",
+        "440c48164b1e71931afe5700a000077b520d12cd0606de613499436c727ad138",
+        "--approval",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\live-reject-offline\\approval.json",
+        "--approval-sha256",
+        "cc8eb886bb5d8504b5c17035e25340d42c732c0cb091db4a80a9c0dbe24bcebb"
+      ],
+      "family": "exact-offline-CLI",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode live --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\live-reject-offline\\permit.json --permit-sha256 440c48164b1e71931afe5700a000077b520d12cd0606de613499436c727ad138 --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\live-reject-offline\\approval.json --approval-sha256 cc8eb886bb5d8504b5c17035e25340d42c732c0cb091db4a80a9c0dbe24bcebb",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+        "--mode",
+        "fixture",
+        "--permit",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\permit.json",
+        "--permit-sha256",
+        "a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec",
+        "--approval",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\approval.json",
+        "--approval-sha256",
+        "e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e"
+      ],
+      "family": "exact-offline-CLI",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode fixture --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\permit.json --permit-sha256 a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\approval.json --approval-sha256 e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+        "--mode",
+        "fixture",
+        "--permit",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\permit.json",
+        "--permit-sha256",
+        "a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec",
+        "--approval",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\approval.json",
+        "--approval-sha256",
+        "e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e"
+      ],
+      "family": "exact-offline-CLI",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode fixture --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\permit.json --permit-sha256 a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\approval.json --approval-sha256 e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\scenario-MATERIALIZE_KNOWN_REJECT\\actual-home\\outputs\\gate-context.json"
+      ],
+      "family": "fixed-route-fixture",
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\scenario-MATERIALIZE_KNOWN_REJECT\\actual-home\\outputs\\gate-context.json",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-File",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\actual-home\\tools\\post-guard-host.ps1"
+      ],
+      "family": "fixed-post-guard-producer",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe -NoProfile -NonInteractive -File D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\actual-home\\tools\\post-guard-host.ps1",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "6b7d139d0160840f00fc0715c31d5181b145f40dcfdb7b074068e5ed2373c867",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\changed-original-materialization\\actual-home\\outputs\\gate-context.json"
+      ],
+      "family": "fixed-route-fixture",
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\changed-original-materialization\\actual-home\\outputs\\gate-context.json",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+        "--mode",
+        "fixture",
+        "--permit",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\permit.json",
+        "--permit-sha256",
+        "c3dd486782bb316c1e66fb719a5c1f748515b7a4743e168af543cef20fb79b2e",
+        "--approval",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\approval.json",
+        "--approval-sha256",
+        "3aea6ea2c81a0b9517ded5d9fe4439fa200eb91291bb5fe100654c31476cbb29"
+      ],
+      "family": "exact-offline-CLI",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode fixture --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\permit.json --permit-sha256 c3dd486782bb316c1e66fb719a5c1f748515b7a4743e168af543cef20fb79b2e --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\approval.json --approval-sha256 3aea6ea2c81a0b9517ded5d9fe4439fa200eb91291bb5fe100654c31476cbb29",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+        "--mode",
+        "fixture",
+        "--permit",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\permit.json",
+        "--permit-sha256",
+        "c3dd486782bb316c1e66fb719a5c1f748515b7a4743e168af543cef20fb79b2e",
+        "--approval",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\approval.json",
+        "--approval-sha256",
+        "3aea6ea2c81a0b9517ded5d9fe4439fa200eb91291bb5fe100654c31476cbb29"
+      ],
+      "family": "exact-offline-CLI",
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode fixture --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\permit.json --permit-sha256 c3dd486782bb316c1e66fb719a5c1f748515b7a4743e168af543cef20fb79b2e --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\approval.json --approval-sha256 3aea6ea2c81a0b9517ded5d9fe4439fa200eb91291bb5fe100654c31476cbb29",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+      "constructorEntered": true,
+      "constructorReturned": true
+    },
+    {
+      "argv": [
+        "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+        "-I",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py",
+        "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\g\\actual-home\\outputs\\gate-context.json"
+      ],
+      "family": "fixed-route-fixture",
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\g\\actual-home\\outputs\\gate-context.json",
+      "cwd": null,
+      "envSha256": null,
+      "scriptSha256": "2b495d397f297ff2bd5520ba3e7cbea4d71f329c59f9f6b308aa5bb20b6fc411",
+      "constructorEntered": true,
+      "constructorReturned": true
+    }
+  ],
+  "audit": [
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py ok",
+      "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+      "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.py fail",
+      "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+      "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe -NoProfile -NonInteractive -File D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\reuse\\owned_child.ps1",
+      "cwd": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\qualification",
+      "envSha256": "d98101c18463b2181e67e7cdb0cf2e336d330dff55a9397f96d3feb8fb66dc3e",
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe -NoProfile -NonInteractive -File D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\helpers\\prestart_lifetimes.ps1 -OutputFile D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\prestart.json",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe -NoProfile -NonInteractive -File D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\helpers\\review_semantics.ps1 -InputFile D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\semantics-input.json -OutputFile D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-selfcheck02\\work\\semantics-result.json",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\fact-owned-original\\actual-home\\outputs\\gate-context.json",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\fact_fixture.py COMPLETE",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode live",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode live --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\live-reject-offline\\permit.json --permit-sha256 440c48164b1e71931afe5700a000077b520d12cd0606de613499436c727ad138 --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\live-reject-offline\\approval.json --approval-sha256 cc8eb886bb5d8504b5c17035e25340d42c732c0cb091db4a80a9c0dbe24bcebb",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode fixture --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\permit.json --permit-sha256 a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\approval.json --approval-sha256 e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode fixture --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\permit.json --permit-sha256 a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\approval.json --approval-sha256 e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\scenario-MATERIALIZE_KNOWN_REJECT\\actual-home\\outputs\\gate-context.json",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe -NoProfile -NonInteractive -File D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\actual-home\\tools\\post-guard-host.ps1",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\changed-original-materialization\\actual-home\\outputs\\gate-context.json",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode fixture --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\permit.json --permit-sha256 c3dd486782bb316c1e66fb719a5c1f748515b7a4743e168af543cef20fb79b2e --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\approval.json --approval-sha256 3aea6ea2c81a0b9517ded5d9fe4439fa200eb91291bb5fe100654c31476cbb29",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py --mode fixture --permit D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\permit.json --permit-sha256 c3dd486782bb316c1e66fb719a5c1f748515b7a4743e168af543cef20fb79b2e --approval D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\tester-root\\approval.json --approval-sha256 3aea6ea2c81a0b9517ded5d9fe4439fa200eb91291bb5fe100654c31476cbb29",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    },
+    {
+      "applicationName": null,
+      "commandLine": "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe -I -X utf8 -B D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\route_fixture.py D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\g\\actual-home\\outputs\\gate-context.json",
+      "cwd": null,
+      "envSha256": null,
+      "matches": true
+    }
+  ],
+  "ownAuxOriginalsReturned": true,
+  "auxCaptures": 13,
+  "auxCustody": 0,
+  "stopNew": false,
+  "actualSDK": 0,
+  "actualNativeRoute": 0,
+  "oldQueries": 0,
+  "externalHandoff": "NOT_RUN_NOT_IMPLEMENTED",
+  "D1": "NOT_PASSED"
+}

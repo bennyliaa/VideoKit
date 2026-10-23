@@ -1,0 +1,41 @@
+{
+  "schema": "CONTRACT03_FIX_FIVE_DEFECT_MAP_V1",
+  "status": "SOURCE_IMPLEMENTED_DYNAMIC_REGRESSION_BLOCKED",
+  "items": [
+    {
+      "id": "B-R2-01",
+      "source": "tools/admission_checks.ps1 / tools/semantics.ps1.txt",
+      "implementation": "Independent suspicious header inventory; broad starred and top-level ProcessRecord/UID records; orphan prefix fields; compare every admitted header and exact summary boundary",
+      "execution": "NOT_RUN",
+      "planned": "33 malformed/order cases plus 98/175 preserved inputs"
+    },
+    {
+      "id": "B-R2-02",
+      "source": "tools/admission_checks.ps1 / tools/semantics.ps1.txt",
+      "implementation": "Whole own-state token; canonical decimal0..19; no decimal/exponent/suffix/leading-zero or duplicate token prefix promotion",
+      "execution": "NOT_RUN",
+      "planned": "20 lexical mutations plus all20 canonical states; exact reason checks"
+    },
+    {
+      "id": "B-R2-03",
+      "source": "tools/fact_collector.py",
+      "implementation": "Exact full argv including argv[0], fixed PY; frozen runtime identity and program bytes/hash before Popen via charged Gate.source_read",
+      "execution": "PURE_GUARDS_PASS_ONLY_NO_COLLECTOR_OR_POPEN_SUCCESS",
+      "planned": "Owned collector whole chain NOT_RUN"
+    },
+    {
+      "id": "B-R2-04",
+      "source": "reference/next-readonly-facts-execution-proposal.json",
+      "implementation": "Current source/gate/collector/factPlan/plan paths and hashes; old bytes explicitly HISTORICAL; authority false",
+      "execution": "STATIC_FILE_HASH_AUDIT_PASS_ONLY",
+      "planned": "No authority or live handoff"
+    },
+    {
+      "id": "B-R2-05",
+      "source": "tools/entry_gates.py + production_runner.py + outer_owner.py + PS root binding",
+      "implementation": "One shared finite fixture predicate; own work and exact new tester fixtures; aliases/prefix/old/namespace roots reject; LIVE claim unchanged",
+      "execution": "PURE_ROOT_PREDICATE_PASS_ONLY",
+      "planned": "New tester root real seven/END/once NOT_RUN"
+    }
+  ]
+}

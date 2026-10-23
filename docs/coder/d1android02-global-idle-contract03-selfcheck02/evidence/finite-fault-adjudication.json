@@ -1,0 +1,33 @@
+{
+  "schema": "SELFCHECK02_FINITE_FAULT_OUTCOME_V1",
+  "overallGroup": "FAIL_KNOWN_ORIGINAL_TIME_LIMIT",
+  "actualCheckpoint": [
+    {
+      "case": "scenario-MATERIALIZE_KNOWN_REJECT",
+      "checkpoint": {
+        "rejection": "GATE_STICKY",
+        "failure": "GATE_STICKY",
+        "gateConstructed": true,
+        "gateReleased": true,
+        "pendingOriginalThreads": 0
+      }
+    }
+  ],
+  "MATERIALIZE_KNOWN_REJECT": "Target not reached; actual GATE_STICKY, original gateReleased true/pending0",
+  "NO_SDK_ABORT": "Target not reached; group exited RUNNER_GATE_STICKY before actual-home materialization; known ValueError returned",
+  "remainingNine": [
+    "WRONG_HOLDER",
+    "WRONG_OUTPUT_SOURCE",
+    "MATERIALIZE_LATE",
+    "RECEIVER_LATE",
+    "TAIL_LATE",
+    "EXPIRE_DURING_MATERIALIZE",
+    "BUSY",
+    "PRESTART_KNOWN_REJECT",
+    "OWNER_END_TAIL"
+  ],
+  "remainingNineStatus": "NOT_RUN_THIS_BATCH",
+  "noRetry": true,
+  "noBudgetExpansion": true,
+  "noProductSourceChange": true
+}

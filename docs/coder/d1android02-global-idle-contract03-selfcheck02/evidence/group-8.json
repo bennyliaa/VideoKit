@@ -1,0 +1,103 @@
+{
+  "name": "prior-source-authority-budget",
+  "status": "PASS",
+  "seconds": 35.64100000000326,
+  "detail": [
+    {
+      "case": "unapproved",
+      "rejection": "PERMIT_KIND_APPROVAL"
+    },
+    {
+      "case": "expired",
+      "rejection": "PERMIT_EXPIRED_OR_FUTURE"
+    },
+    {
+      "case": "future",
+      "rejection": "PERMIT_EXPIRED_OR_FUTURE"
+    },
+    {
+      "case": "scope",
+      "rejection": "GLOBAL_IDLE_PRIOR_QUALIFICATION_BINDING"
+    },
+    {
+      "case": "runner-source",
+      "rejection": "PREAUTHORIZED_SOURCE_MISMATCH:tools/production_runner.py"
+    },
+    {
+      "case": "role",
+      "rejection": "EXACT_FIXED_FIXTURE_ROLE"
+    },
+    {
+      "case": "bool-role",
+      "rejection": "EXACT_FIXED_FIXTURE_ROLE"
+    },
+    {
+      "case": "float-budget",
+      "rejection": "EXACT_OPERATIONS_OR_LIMITS"
+    },
+    {
+      "case": "extra-operation",
+      "rejection": "EXACT_OPERATIONS_OR_LIMITS"
+    },
+    {
+      "case": "product",
+      "rejection": "PREAUTHORIZED_SCOPE_PRODUCT"
+    },
+    {
+      "case": "wrong-path",
+      "rejection": "FRESH_ONCE_EXACT_HOME"
+    },
+    {
+      "case": "missing",
+      "rejection": "PERMIT_EXACT_SCHEMA"
+    },
+    {
+      "case": "extra",
+      "rejection": "PERMIT_EXACT_SCHEMA"
+    },
+    {
+      "case": "wrong-mode",
+      "rejection": "PERMIT_KIND_APPROVAL"
+    },
+    {
+      "case": "attempt-retry",
+      "rejection": "EXACT_OPERATIONS_OR_LIMITS"
+    },
+    {
+      "case": "legacy-permit",
+      "rejection": "PERMIT_KIND_APPROVAL"
+    },
+    {
+      "case": "missing-backend",
+      "rejection": "PERMIT_EXACT_SCHEMA"
+    },
+    {
+      "case": "wrong-backend",
+      "rejection": "PERMIT_KIND_APPROVAL"
+    },
+    {
+      "case": "bool-backend",
+      "rejection": "PERMIT_KIND_APPROVAL"
+    },
+    {
+      "case": "approval-hash-relation",
+      "rejection": "PRIOR_APPROVAL_RELATION"
+    },
+    {
+      "case": "fixture-as-live-evidence",
+      "rejection": "PRIOR_APPROVAL_RELATION"
+    },
+    {
+      "case": "wrong-issuer-source",
+      "rejection": "PRIOR_APPROVAL_RELATION"
+    },
+    {
+      "case": "nested-case-duplicate",
+      "rejection": "DUPLICATE_JSON"
+    },
+    {
+      "case": "command-fixed-hash",
+      "rejection": "EXTERNAL_APPROVAL_INPUT_HASH"
+    }
+  ]
+}

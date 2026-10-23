@@ -1,0 +1,50 @@
+{
+  "sequence": 10,
+  "disposition": "RETURNED_BOUND",
+  "exitCode": 0,
+  "semantic": "PASS",
+  "facts": {
+    "constructorTempsReturned": true,
+    "otherEvidenceReturned": true,
+    "preflightRejected": false,
+    "phase": "CREATED_ORIGINAL",
+    "originalWaitReturned": true,
+    "readersJoined": true,
+    "streamsClosed": true,
+    "identityBound": true,
+    "handleCloseReturned": true,
+    "popenObjectReturned": true,
+    "auditRejectedBeforeCreate": false,
+    "auditObserved": true
+  },
+  "failure": null,
+  "counts": [
+    1338,
+    0
+  ],
+  "returned": true,
+  "identity": {
+    "pid": 23440,
+    "creationFileTime": 134372277126729565,
+    "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe",
+      "-NoProfile",
+      "-NonInteractive",
+      "-File",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\selfchecks\\work\\selfcheck02-ce9fcb60366a\\full-entry\\actual-home\\tools\\post-guard-host.ps1"
+    ],
+    "originalHandleValueForOwnerOnly": 1656,
+    "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+    "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+  },
+  "journal": {
+    "bytesKnownLowerBound": 4100,
+    "reservedNotRefunded": 4100,
+    "writeAmountUnknown": false,
+    "files": 4,
+    "errors": [],
+    "returnsKnown": true
+  },
+  "elapsed": 2.6869999999762513
+}

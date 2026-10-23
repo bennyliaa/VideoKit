@@ -1,0 +1,58 @@
+{
+  "schema": "GLOBAL_IDLE_CONTRACT03_FIX_FUTURE_FACTS_PROPOSAL_V1",
+  "approvedForExecution": false,
+  "status": "NOT_RUN_PENDING_INDEPENDENT_B_AND_COORDINATOR_REVIEW_OF_EXTERNAL_TRUST_CONTRACT",
+  "candidate": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix",
+  "sourceSeal": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\reference\\runner-source-seal.json",
+    "sha256": "4881f18167ab3cdb2d7d376152f5bf1672358b99af9e285dd0ae828533d25e93"
+  },
+  "gateSources": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\reference\\gate-sources.json",
+    "sha256": "9cff279ddb9e60632b1422dca16af0dac4ab1922fb6b0b27c5a232055e439d72"
+  },
+  "collector": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\fact_collector.py",
+    "sha256": "177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a"
+  },
+  "factPlan": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\reference\\fact-plan.json",
+    "sha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d"
+  },
+  "targetSevenRolePlan": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\reference\\exact-seven-role-plan.json",
+    "sha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8"
+  },
+  "externalHandoff": {
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\EXTERNAL_HANDOFF.md",
+    "sha256": "abb5abe3076d76918ae50391d824094309c05cd671211fb230cdcd67456161c6",
+    "implemented": false,
+    "executed": false,
+    "requiresNewTrustContractApproval": true
+  },
+  "historicalProposal": "reference/HISTORICAL-revision02-misbound-facts-proposal.json",
+  "historicalStatus": "ORIGINAL_BYTES_RETAINED_HISTORY_ONLY_NOT_CURRENT",
+  "authority": "No new LIVE authority/approval. Independent preapproved one-shot issuer and signature-verifying caller are a pending design, not self-signed approval.",
+  "order": [
+    "source/gate/seal fixed",
+    "this non-executable proposal pins actual content and paths",
+    "full manifest and unique-member ZIP"
+  ],
+  "limits": {
+    "sdkChildren": 1,
+    "queries": 7,
+    "qualificationSeconds": 15,
+    "outerSeconds": 30,
+    "proofSeconds": 10,
+    "wholeSeconds": 90,
+    "freshnessMaximumSeconds": 300,
+    "gateSeconds": 30,
+    "retry": 0,
+    "concurrency": 1,
+    "stdoutBytes": 139264,
+    "stderrBytes": 8192,
+    "combinedBytes": 147456
+  },
+  "liveFacts": "NOT_RUN",
+  "liveServices": "NOT_APPROVED"
+}

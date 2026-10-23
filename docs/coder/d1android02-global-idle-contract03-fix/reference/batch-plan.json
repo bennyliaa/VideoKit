@@ -1,0 +1,33 @@
+{
+  "schema": "GLOBAL_IDLE_CONTRACT03_FIX_DEVELOPER_BATCH_V1",
+  "batch": "c45d128d37214321b75f863558ec21bd",
+  "status": "SOURCE_AND_BUDGET_FIXED_BEFORE_DYNAMIC",
+  "mode": "OFFLINE_FIXTURE_ONLY",
+  "wholeSeconds": 360,
+  "stopNewCasesAfterSeconds": 320,
+  "concurrency": 1,
+  "retry": 0,
+  "maxLocalProcesses": 96,
+  "sourceReadBytes": 1073741824,
+  "maxSavedBytes": 16777216,
+  "maxAuxStreamBytes": 1048576,
+  "fixtureRoot": "D:/CodexProjects/VideoKit/docs/tester/D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE/fixtures",
+  "groups": [
+    "prestart13 actual/finite pure models",
+    "98 original cases",
+    "175 independent oracle and 17 positives",
+    "five exact defects and same-class mutations",
+    "pure executable argv and identity guards",
+    "source/gate/proposal/static external timing",
+    "original collector and exact original returns",
+    "default/authority/real7-END-once/finitefault11/post-lastStart/materialization",
+    "new tester root real7-END-once",
+    "one-byte exact OWNER_SOURCE_PIN_ENTRY"
+  ],
+  "estimatedSeconds": 235,
+  "basis": "predecessor exact affected175s, contract11s, pure PS2s, extended semantics6s, new-root seven25s, append guard7s, remaining profiles/static10s; no larger original scope budgets",
+  "oldQueries": 0,
+  "actualSDK": 0,
+  "actualNativeRoute": 0,
+  "externalLiveHandoff": "NOT_RUN"
+}

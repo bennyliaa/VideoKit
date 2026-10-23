@@ -1,0 +1,74 @@
+{
+  "id": "S04",
+  "text": "ANDROID02_GLOBAL_BEGIN\nACTIVITY MANAGER RUNNING PROCESSES (dumpsys activity processes)\n  *APP* UID 10012 ProcessRecord{abcdef 124:com.zui.launcher/u0a12}\n    user #0 uid=10012\n    packageList={com.zui.launcher}\n    curProcState=2 cached=false\n    mInstr=unknown\nANDROID02_GLOBAL_ACTIVITIES\nACTIVITY MANAGER ACTIVITIES (dumpsys activity activities)\nDisplay #0 (activities from top to bottom):\n  mResumedActivity: ActivityRecord{abc u0 com.zui.launcher/.Launcher t1}\n  mFocusedApp=ActivityRecord{abc u0 com.zui.launcher/.Launcher t1}\n      * Hist #0: ActivityRecord{abc u0 com.zui.launcher/.Launcher t1}\n          packageName=com.zui.launcher processName=com.zui.launcher\n          app=ProcessRecord{abcdef 124:com.zui.launcher/u0a12}\n          mActivityComponent=com.zui.launcher/.Launcher\n          state=RESUMED stopped=false delayedResume=false finishing=false\n          mVisibleRequested=true mVisible=true\nANDROID02_GLOBAL_COMPLETE\n",
+  "qualification": {
+    "schema": "GLOBAL_IDLE_QUALIFICATION_V1",
+    "mode": "OFFLINE_FIXTURE",
+    "fixtureOnly": true,
+    "targetScope": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "targetRunId": "D1MA02-FIXTURE",
+    "targetSourceSealSha256": "4881f18167ab3cdb2d7d376152f5bf1672358b99af9e285dd0ae828533d25e93",
+    "targetPlanSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+    "factScope": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "factAuthoritySha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "factApprovalSha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "factCaptureReceiptSha256": "3333333333333333333333333333333333333333333333333333333333333333",
+    "factOuterReturnSha256": "4444444444444444444444444444444444444444444444444444444444444444",
+    "collectorSourceSha256": "177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a",
+    "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+    "rawSha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "rawBytes": 1024,
+    "routeProofSha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "sdkSha256": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f",
+    "collectedAtUtc": "2026-10-23T10:58:53.872098+00:00",
+    "expiresAtUtc": "2026-10-23T11:03:53.872098+00:00",
+    "originalReturn": {
+      "waitReturned": true,
+      "stdoutEOF": true,
+      "stderrEOF": true,
+      "originalPipesClosed": true,
+      "originalHandleClosed": true,
+      "controllerReturned": true,
+      "unknown": false,
+      "exitCode": 0
+    },
+    "grammar": "API31_APP_PERS_V1",
+    "serial": "HA1Q6WXR",
+    "model": "TB138FC",
+    "api": 31,
+    "fingerprint": "SYNTHETIC_FIXTURE_FIRMWARE_API31",
+    "user": 0,
+    "home": {
+      "package": "com.zui.launcher",
+      "component": "com.zui.launcher.Launcher",
+      "process": "com.zui.launcher",
+      "user": 0,
+      "uid": 10012,
+      "systemFlag": true
+    },
+    "services": [],
+    "systemPackages": [
+      {
+        "package": "com.zui.launcher",
+        "uid": 10012,
+        "systemFlag": true
+      }
+    ],
+    "reviewEvidenceSha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  },
+  "context": {
+    "scope": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "runId": "D1MA02-FIXTURE",
+    "mode": "OFFLINE_FIXTURE",
+    "rawSha256": "56a9c5f68526b2f47f7b934251ef410f48d5d78208a4fbbcec2a06e8d5397910",
+    "rawBytes": 936,
+    "captureBodyReturned": true,
+    "sourceSealSha256": "4881f18167ab3cdb2d7d376152f5bf1672358b99af9e285dd0ae828533d25e93",
+    "planSha256": "b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8",
+    "reviewEvidenceSha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "nowUtc": "2026-10-23T10:58:54.873096+00:00"
+  },
+  "expected": "BLOCKED_UNPROVEN",
+  "origin": "developer98-replay",
+  "logicalIndex": 199
+}

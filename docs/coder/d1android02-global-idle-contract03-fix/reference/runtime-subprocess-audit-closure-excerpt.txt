@@ -1,0 +1,90 @@
+                c2pread = msvcrt.open_osfhandle(c2pread.Detach(), 0)
+            if errread != -1:
+                errread = msvcrt.open_osfhandle(errread.Detach(), 0)
+
+        try:
+            if p2cwrite != -1:
+                self.stdin = io.open(p2cwrite, 'wb', bufsize)
+                if self.text_mode:
+                    self.stdin = io.TextIOWrapper(self.stdin, write_through=True,
+                            line_buffering=line_buffering,
+                            encoding=encoding, errors=errors)
+            if c2pread != -1:
+                self.stdout = io.open(c2pread, 'rb', bufsize)
+                if self.text_mode:
+                    self.stdout = io.TextIOWrapper(self.stdout,
+                            encoding=encoding, errors=errors)
+            if errread != -1:
+                self.stderr = io.open(errread, 'rb', bufsize)
+                if self.text_mode:
+                    self.stderr = io.TextIOWrapper(self.stderr,
+                            encoding=encoding, errors=errors)
+
+            self._execute_child(args, executable, preexec_fn, close_fds,
+                                pass_fds, cwd, env,
+                                startupinfo, creationflags, shell,
+                                p2cread, p2cwrite,
+                                c2pread, c2pwrite,
+                                errread, errwrite,
+                                restore_signals,
+                                gid, gids, uid, umask,
+                                start_new_session, process_group)
+        except:
+            # Cleanup if the child failed starting.
+            for f in filter(None, (self.stdin, self.stdout, self.stderr)):
+                try:
+                    f.close()
+                except OSError:
+                    pass  # Ignore EBADF or other errors.
+
+            if not self._closed_child_pipe_fds:
+                to_close = []
+                if stdin == PIPE:
+                    to_close.append(p2cread)
+                if stdout == PIPE:
+                    to_close.append(c2pwrite)
+                if stderr == PIPE:
+                    to_close.append(errwrite)
+                if hasattr(self, '_devnull'):
+                    to_close.append(self._devnull)
+                for fd in to_close:
+                    try:
+                        if _mswindows and isinstance(fd, Handle):
+                            fd.Close()
+                        else:
+                            os.close(fd)
+                    except OSError:
+                        pass
+
+            raise
+
+    def __repr__(self):
+        obj_repr = (
+
+            if cwd is not None:
+                cwd = os.fsdecode(cwd)
+
+            sys.audit("subprocess.Popen", executable, args, cwd, env)
+
+            # Start the process
+            try:
+                hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                                         # no special security
+                                         None, None,
+                                         int(not close_fds),
+                                         creationflags,
+                                         env,
+                                         cwd,
+                                         startupinfo)
+            finally:
+                # Child is launched. Close the parent's copy of those pipe
+                # handles that only the child should have open.  You need
+                # to make sure that no handles to the write end of the
+                # output pipe are maintained in this process or else the
+                # pipe will not close when the child process exits and the
+                # ReadFile will hang.
+                self._close_pipe_fds(p2cread, p2cwrite,
+                                     c2pread, c2pwrite,
+                                     errread, errwrite)
+
+            # Retain the process handle, but close the thread handle

@@ -1,0 +1,53 @@
+{
+  "schema": "GLOBAL_IDLE_FACT_PLAN_V1",
+  "argv": [
+    "D:/Android/SDK/platform-tools/adb.exe",
+    "-s",
+    "HA1Q6WXR",
+    "shell",
+    "LC_ALL=C; export LC_ALL; sep=$(printf '\\036'); printf 'GI_FACTS_V1\\n'; a=$(date +%s); r=$(getprop ro.product.model 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|model|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(getprop ro.build.version.sdk 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|api|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(getprop ro.build.fingerprint 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|firmware|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(am get-current-user 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|user|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(cmd package list packages -s -U --user 0 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|system|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(dumpsys role 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|role|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; a=$(date +%s); r=$(cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME 2>&1; z=$?; printf '\\036%s' \"$z\"); b=$(date +%s); z=${r##*\"$sep\"}; o=${r%\"$sep\"*}; printf 'GI_ITEM|home|%s|%s|%s|%s\\n' \"$z\" \"$a\" \"$b\" \"${#o}\"; printf '%s\\n' \"$o\"; printf 'GI_FACTS_END\\n'"
+  ],
+  "queries": [
+    {
+      "id": "model",
+      "command": "getprop ro.product.model"
+    },
+    {
+      "id": "api",
+      "command": "getprop ro.build.version.sdk"
+    },
+    {
+      "id": "firmware",
+      "command": "getprop ro.build.fingerprint"
+    },
+    {
+      "id": "user",
+      "command": "am get-current-user"
+    },
+    {
+      "id": "system",
+      "command": "cmd package list packages -s -U --user 0"
+    },
+    {
+      "id": "role",
+      "command": "dumpsys role"
+    },
+    {
+      "id": "home",
+      "command": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+    }
+  ],
+  "stdoutBytes": 139264,
+  "stderrBytes": 8192,
+  "combinedBytes": 147456,
+  "qualificationSeconds": 15,
+  "outerSeconds": 30,
+  "proofSeconds": 10,
+  "wholeSeconds": 90,
+  "sdkChildren": 1,
+  "concurrency": 1,
+  "retry": 0,
+  "itemClock": "device date +%s; seconds; host monotonic also required",
+  "perQueryStderr": "merged into that item output; global transport stderr must be empty",
+  "fallback": false
+}

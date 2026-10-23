@@ -1,0 +1,74 @@
+{
+  "tag": "android-12.0.0_r1",
+  "baseCommit": "cebf5c06997b64f4e47a1611edb5f97044509d76",
+  "permissionCommit": "c11239c07afab2d6093c8efb3fa59328b7389df7",
+  "files": [
+    {
+      "name": "role-shell",
+      "url": "https://android.googlesource.com/platform/packages/modules/Permission/+/c11239c07afab2d6093c8efb3fa59328b7389df7/service/java/com/android/role/RoleShellCommand.java?format=TEXT",
+      "commit": "c11239c07afab2d6093c8efb3fa59328b7389df7",
+      "bytes": 5126,
+      "sha256": "6a090940942249b6c1345576354a66d8236f57e39c19b1cba6e1acadc6600cae"
+    },
+    {
+      "name": "role-service",
+      "url": "https://android.googlesource.com/platform/packages/modules/Permission/+/c11239c07afab2d6093c8efb3fa59328b7389df7/service/java/com/android/role/RoleService.java?format=TEXT",
+      "commit": "c11239c07afab2d6093c8efb3fa59328b7389df7",
+      "bytes": 31801,
+      "sha256": "2e9923bd7d7c2147f845ff80adbaeb44574993554b681777888c5fe7bb30cb6b"
+    },
+    {
+      "name": "enum-pinned",
+      "url": "https://android.googlesource.com/platform/frameworks/base/+/cebf5c06997b64f4e47a1611edb5f97044509d76/core/java/android/app/ProcessStateEnum.aidl?format=TEXT",
+      "commit": "cebf5c06997b64f4e47a1611edb5f97044509d76",
+      "bytes": 3544,
+      "sha256": "343c60effa4ce83ce42296527bae8bd4341a9da942a670a83b1c86a7ef307881"
+    },
+    {
+      "name": "role-user",
+      "url": "https://android.googlesource.com/platform/packages/modules/Permission/+/c11239c07afab2d6093c8efb3fa59328b7389df7/service/java/com/android/role/RoleUserState.java?format=TEXT",
+      "commit": "c11239c07afab2d6093c8efb3fa59328b7389df7",
+      "bytes": 14893,
+      "sha256": "2c820291d71ca698f4a90b53b93526cfddc0519903c43647080f935e1235309f"
+    },
+    {
+      "name": "dual-dump",
+      "url": "https://android.googlesource.com/platform/frameworks/base/+/cebf5c06997b64f4e47a1611edb5f97044509d76/core/java/com/android/internal/util/dump/DualDumpOutputStream.java?format=TEXT",
+      "commit": "cebf5c06997b64f4e47a1611edb5f97044509d76",
+      "bytes": 8681,
+      "sha256": "417fd52a64101cd2576ec14b0e59513d6e2c64f82d3a20f440ed3d9ad66d0e0d"
+    },
+    {
+      "name": "process-record",
+      "url": "https://android.googlesource.com/platform/frameworks/base/+/cebf5c06997b64f4e47a1611edb5f97044509d76/services/core/java/com/android/server/am/ProcessRecord.java?format=TEXT",
+      "commit": "cebf5c06997b64f4e47a1611edb5f97044509d76",
+      "bytes": 42285,
+      "sha256": "7c4f357c68ccc81eb56468c9d49346423adbc5d5b04bb4ebf74ab024ba60f339"
+    },
+    {
+      "name": "process-state",
+      "url": "https://android.googlesource.com/platform/frameworks/base/+/cebf5c06997b64f4e47a1611edb5f97044509d76/services/core/java/com/android/server/am/ProcessStateRecord.java?format=TEXT",
+      "commit": "cebf5c06997b64f4e47a1611edb5f97044509d76",
+      "bytes": 37727,
+      "sha256": "231af9bb88238a9f81bb49d3a58307bfd0ac9414f7ad221834f4337db5b8e780"
+    },
+    {
+      "name": "user-handle",
+      "url": "https://android.googlesource.com/platform/frameworks/base/+/cebf5c06997b64f4e47a1611edb5f97044509d76/core/java/android/os/UserHandle.java?format=TEXT",
+      "commit": "cebf5c06997b64f4e47a1611edb5f97044509d76",
+      "bytes": 20492,
+      "sha256": "0894d0f10ddf8b74fc6d928cbd8cbbd8ccf0ea3bd02e7eafb958054a0e7ea874"
+    },
+    {
+      "name": "pm-shell",
+      "url": "https://android.googlesource.com/platform/frameworks/base/+/cebf5c06997b64f4e47a1611edb5f97044509d76/services/core/java/com/android/server/pm/PackageManagerShellCommand.java?format=TEXT",
+      "commit": "cebf5c06997b64f4e47a1611edb5f97044509d76",
+      "bytes": 166921,
+      "sha256": "23d1d40c127d2dbcd5edc473e7fd58eb913f1703124c6f42972aa06664bc7144"
+    }
+  ],
+  "enumTableChecked": true,
+  "roleGetterExists": false,
+  "replacement": "dumpsys role (no fallback)",
+  "deviceHelpQueries": 0
+}

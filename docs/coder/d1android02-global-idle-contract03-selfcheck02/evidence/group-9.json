@@ -1,0 +1,73 @@
+{
+  "name": "original-seven-END-once",
+  "status": "PASS",
+  "seconds": 61.11000000004424,
+  "detail": {
+    "terminal": {
+      "schema": "RUNNER_TERMINAL_V1",
+      "scope": "cf7265b652b2a65eb4dbfcb6e3c38b59bc536b4a54855f094d77d465264de28c",
+      "mode": "OFFLINE_FIXTURE",
+      "initialProofSha256": "f59805e4ec2b71fd0c6bcb9f84afd09406773ad87ee13a5250c9bcb907c51b56",
+      "gateGeneration": "489a0ca3-92f6-4a04-8f2f-2f8037645b80",
+      "scopeStartTick": 329545453,
+      "rolesCompleted": 7,
+      "scopeClaimIntentionallyRetained": false,
+      "postControlBytes": 41338,
+      "receiverControlBytes": 13970,
+      "initialProofUnchanged": true,
+      "candidateOnlyTerminalWriterCloseNotProven": true,
+      "terminalWriteBytes": 589,
+      "batchControlBytesKnown": 469395,
+      "totalLogicalInboundBytesKnown": 471447,
+      "claimRelease": {
+        "originalUnlockCloseReturned": true,
+        "generation": "489a0ca3-92f6-4a04-8f2f-2f8037645b80",
+        "failure": null,
+        "sdkChildrenEntered": 7,
+        "endTick": 329604171,
+        "allTemporaryThreadsJoined": true
+      },
+      "terminalWriterReturned": true
+    },
+    "initialControl": 183812,
+    "firstControl": 297234,
+    "postDelta": {
+      "schema": "RUNNER_HANDOFF_V1",
+      "ownerPid": 28496,
+      "scopeStartTick": 329545453,
+      "initialProofStartTick": 329555515,
+      "permitExpiresUtc": "2026-10-23T11:18:06.202617+00:00",
+      "generation": "489a0ca3-92f6-4a04-8f2f-2f8037645b80",
+      "permitSha256": "a5b81784eaccd20f777872a1709ae10d2f39eee72d4616503d5fce2c086ff6ec",
+      "approvalSha256": "e68ef4b37dd07a27c49066a8fc0f4ac76834cb82f5dfa30874a9c8278088192e",
+      "runnerSourceSha256": "f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2",
+      "materializationSha256": "ed3f24fe7dcd74ba7538ce1cfdebbe1b56c7f9e38d85660c015ad52b391d42b1",
+      "initialProofSha256": "f59805e4ec2b71fd0c6bcb9f84afd09406773ad87ee13a5250c9bcb907c51b56",
+      "postControlBytes": 41338,
+      "receiverControlBytes": 13970,
+      "kind": "OFFLINE_FIXTURE",
+      "eventId": "aebd33a5d12e36a7fc335b39787441d2b571e04ffd57c232da62642c4d01ab24"
+    },
+    "sameOriginalPID": 28496,
+    "firstLogicalReads": {
+      "ownerAdmissionBytes": 1866,
+      "requestBodyReadCalls": 1,
+      "requestBodyBytes": 872,
+      "predecessorProofAndNativeBytes": 32936
+    },
+    "repeatAdmissionRejected": {
+      "status": "REJECTED",
+      "reason": "FRESH_ONCE_EXACT_HOME",
+      "mode": "fixture",
+      "source": "LOCAL_ROUTE_COMPAT01",
+      "liveCallsNotImplied": true,
+      "metadata": {
+        "started": false,
+        "metadataAmountUnknown": null,
+        "metadataBytesKnown": null
+      }
+    },
+    "originalEntryProcessObservedReturned": true,
+    "actualSDK": 0
+  }
+}

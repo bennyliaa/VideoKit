@@ -1,0 +1,21 @@
+{
+  "outerDriverToolReturned": true,
+  "candidateChildCreateProcessEntered": false,
+  "basis": "Fixed CPython sys.audit call before _winapi.CreateProcess; observed own hook ValueError at audit",
+  "popenConstructorTemporaryPipesMayHaveBeenCreated": true,
+  "perOriginalTemporaryPipeClosesProven": false,
+  "reason": "CPython Popen.__init__ exception cleanup suppresses OSError for parent streams and child pipe handles; no per-handle original close observers in this driver",
+  "status": "AUXILIARY_TEMPORARY_RESOURCE_RETURN_UNPROVEN_STOP_NEW_DYNAMIC",
+  "notCandidateDefect": true,
+  "subprocessSourceSha256": "85d29b2bf0249f5436838298c9a60ee93508b1102e9ac43b001f8a7e7ae8f375",
+  "sourceLines": {
+    "temporaryPipeSetup": "1004-1027",
+    "errorCleanup": "1038-1063",
+    "auditBeforeCreateProcess": "1534-1555"
+  },
+  "policy": "No further candidate/Popen/SDK/Native/dynamic run, no second close, old unknowns untouched. Source and static docs only.",
+  "observedExecCommandExitCode": 1,
+  "driverRequestedExitCodeBySource": 2,
+  "directOriginalNativeDriverExitCode": "NOT_SEPARATELY_OBSERVED_BY_THIS_RECEIPT",
+  "candidateDefectsRegressionStatus": "NOT_RUN_AFTER_GROUP1"
+}

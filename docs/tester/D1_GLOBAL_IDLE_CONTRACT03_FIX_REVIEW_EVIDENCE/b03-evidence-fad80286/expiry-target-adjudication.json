@@ -1,0 +1,29 @@
+{
+  "expiryOriginalRaw": {
+    "scenario": "EXPIRE_DURING_MATERIALIZE",
+    "status": "FAIL_TARGET_NOT_COVERED",
+    "actualReason": "PERMIT_EXPIRED_OR_FUTURE",
+    "expected": {
+      "name": "EXPIRE_DURING_MATERIALIZE",
+      "expectedReason": "PERMIT_EXPIRED_OR_FUTURE",
+      "controllers": 0,
+      "minStage": "materializer-proof read returned before permit expiration wait",
+      "attempts": 1,
+      "productionLimits": "UNCHANGED",
+      "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+    },
+    "targetStageReached": false,
+    "controllers": 0,
+    "originalRunnerThreadsReturned": true,
+    "originalClaimReleased": false,
+    "release": null,
+    "witness": [],
+    "extra": {},
+    "seconds": 9.34399999998277,
+    "normalInitialProofUnchanged": null
+  },
+  "adjudication": "FAIL_TARGET_NOT_COVERED: 9s permit expired before home/gate/materialization. OriginalClaimReleased=false remains raw; release was not applicable because no original claim was entered. No completion proof exists to replace.",
+  "newHomeCreated": false,
+  "claimEntered": false,
+  "noSecondAttempt": true
+}

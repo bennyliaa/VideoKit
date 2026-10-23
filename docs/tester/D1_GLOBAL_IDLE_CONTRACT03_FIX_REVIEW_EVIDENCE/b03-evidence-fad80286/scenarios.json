@@ -1,0 +1,101 @@
+[
+  {
+    "name": "MATERIALIZE_KNOWN_REJECT",
+    "expectedReason": "CONTROLLED_MATERIALIZATION_REJECT_BEFORE_OPEN",
+    "controllers": 0,
+    "minStage": "original prepared gate and materializer-proof read, before activation open",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "NO_SDK_ABORT",
+    "expectedReason": "CONTROLLED_NO_SDK_ABORT",
+    "controllers": 0,
+    "minStage": "original materialization receipt writer returned",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "WRONG_HOLDER",
+    "expectedReason": "WRONG_HOLDER_REJECTED",
+    "controllers": 0,
+    "minStage": "original wrong-holder operation returned SAME_ORIGINAL_HOLDER_REQUIRED",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "WRONG_OUTPUT_SOURCE",
+    "expectedReason": "OWNER_SOURCE_PIN_ENTRY",
+    "controllers": 0,
+    "minStage": "original materialized PS copy changed; cap refusal is target NOT_COVERED, precise small append separate",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "MATERIALIZE_LATE",
+    "expectedReason": "RUNNER_PROOF_STICKY",
+    "controllers": 0,
+    "minStage": "original delayed activation writer actually returned; lease held while pending",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "RECEIVER_LATE",
+    "expectedReason": "RUNNER_PROOF_STICKY",
+    "controllers": 0,
+    "minStage": "original delayed materialization receiver returned; lease held while pending",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "TAIL_LATE",
+    "expectedReason": "RUNNER_PROOF_STICKY",
+    "controllers": 0,
+    "minStage": "original materialization receipt returned before 10.25s tail",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "EXPIRE_DURING_MATERIALIZE",
+    "expectedReason": "PERMIT_EXPIRED_OR_FUTURE",
+    "controllers": 0,
+    "minStage": "materializer-proof read returned before permit expiration wait",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "BUSY",
+    "expectedReason": "OWNER_STICKY_NO_SUCCESSOR:CAPTURE_FAILED_STICKY",
+    "controllers": 2,
+    "minStage": "second role actual active instrumentation captured; no successor",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "PRESTART_KNOWN_REJECT",
+    "expectedReason": "OWNER_STICKY_NO_SUCCESSOR:CAPTURE_FAILED_STICKY",
+    "controllers": 1,
+    "minStage": "known never Start; original 2raw/source/Process close, no fake pipe/EOF",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  },
+  {
+    "name": "OWNER_END_TAIL",
+    "expectedReason": "OWNER_STICKY_NO_SUCCESSOR:PROOF_WALL_TIMEOUT_STICKY",
+    "controllers": 7,
+    "minStage": "seven roles, END proof, original timely writer returned then finite tail crossed same 2s window",
+    "attempts": 1,
+    "productionLimits": "UNCHANGED",
+    "fixtureOption": "Candidate fixed scenario only; default10s proof except allowed END2s; delays10.25 fixed"
+  }
+]

@@ -1,0 +1,483 @@
+{
+  "schema": "CONTRACT03_B_KNOWN_LOGICAL_AND_ARTIFACT_LEDGER_V1",
+  "runnerKnownSourceBytes": 109913881,
+  "runnerKnownSourceReads": 359,
+  "driverKnownSourceBytes": 960368,
+  "driverKnownSourceReads": 58,
+  "postReadBytes": 12073275,
+  "proofs": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\changed-original-materialization\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183952,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\collector\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183630,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-0\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183566,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-1\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183552,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-10\\actual-home\\outputs\\app_absence-completion-proof.json",
+      "id": "app_absence",
+      "nextId": "test_absence",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "install": 0,
+        "preflight": 1101,
+        "command": 1179,
+        "payload": 0,
+        "control": 353759,
+        "instrument": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-10\\actual-home\\outputs\\global_idle-completion-proof.json",
+      "id": "global_idle",
+      "nextId": "app_absence",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 1056,
+        "install": 0,
+        "command": 785,
+        "instrument": 0,
+        "payload": 0,
+        "control": 326126
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-10\\actual-home\\outputs\\identity-completion-proof.json",
+      "id": "identity",
+      "nextId": "global_idle",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "control": 298486,
+        "install": 0,
+        "preflight": 104,
+        "command": 391,
+        "instrument": 0,
+        "payload": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-10\\actual-home\\outputs\\install_app-completion-proof.json",
+      "id": "install_app",
+      "nextId": "install_test",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "install": 125,
+        "control": 409353,
+        "payload": 4096,
+        "command": 1968,
+        "preflight": 1148,
+        "instrument": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-10\\actual-home\\outputs\\install_test-completion-proof.json",
+      "id": "install_test",
+      "nextId": "scope_all",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 1148,
+        "command": 2363,
+        "instrument": 0,
+        "payload": 6144,
+        "control": 437299,
+        "install": 250
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-10\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183570,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-10\\actual-home\\outputs\\scope_all-completion-proof.json",
+      "id": "scope_all",
+      "nextId": "END",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "instrument": 654,
+        "install": 250,
+        "command": 2756,
+        "control": 465073,
+        "payload": 6144,
+        "preflight": 1148
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-10\\actual-home\\outputs\\test_absence-completion-proof.json",
+      "id": "test_absence",
+      "nextId": "install_app",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "install": 0,
+        "preflight": 1148,
+        "control": 381427,
+        "payload": 0,
+        "command": 1574,
+        "instrument": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-2\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183554,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-3\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183561,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-4\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183556,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-5\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183555,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-6\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183551,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-8\\actual-home\\outputs\\global_idle-completion-proof.json",
+      "id": "global_idle",
+      "nextId": "app_absence",
+      "batchAmountUnknown": true,
+      "approvedForNext": false,
+      "batchGroups": {
+        "control": 326719,
+        "payload": 0,
+        "install": 0,
+        "command": 783,
+        "preflight": 1075,
+        "instrument": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-8\\actual-home\\outputs\\identity-completion-proof.json",
+      "id": "identity",
+      "nextId": "global_idle",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 104,
+        "instrument": 0,
+        "payload": 0,
+        "control": 298067,
+        "install": 0,
+        "command": 390
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-8\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183544,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-9\\actual-home\\outputs\\identity-completion-proof.json",
+      "id": "identity",
+      "nextId": "global_idle",
+      "batchAmountUnknown": true,
+      "approvedForNext": false,
+      "batchGroups": {
+        "payload": 0,
+        "preflight": 0,
+        "control": 298908,
+        "install": 0,
+        "instrument": 0,
+        "command": 390
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\f-9\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183562,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\full-entry\\actual-home\\outputs\\app_absence-completion-proof.json",
+      "id": "app_absence",
+      "nextId": "test_absence",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "control": 354432,
+        "preflight": 1101,
+        "payload": 0,
+        "instrument": 0,
+        "command": 1197,
+        "install": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\full-entry\\actual-home\\outputs\\global_idle-completion-proof.json",
+      "id": "global_idle",
+      "nextId": "app_absence",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "payload": 0,
+        "preflight": 1056,
+        "install": 0,
+        "instrument": 0,
+        "control": 326692,
+        "command": 797
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\full-entry\\actual-home\\outputs\\identity-completion-proof.json",
+      "id": "identity",
+      "nextId": "global_idle",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 104,
+        "instrument": 0,
+        "control": 298956,
+        "install": 0,
+        "payload": 0,
+        "command": 397
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\full-entry\\actual-home\\outputs\\install_app-completion-proof.json",
+      "id": "install_app",
+      "nextId": "install_test",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "install": 125,
+        "control": 410225,
+        "command": 1998,
+        "preflight": 1148,
+        "instrument": 0,
+        "payload": 4096
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\full-entry\\actual-home\\outputs\\install_test-completion-proof.json",
+      "id": "install_test",
+      "nextId": "scope_all",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "install": 250,
+        "instrument": 0,
+        "control": 438271,
+        "command": 2399,
+        "payload": 6144,
+        "preflight": 1148
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\full-entry\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 183644,
+        "payload": 0,
+        "command": 0
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\full-entry\\actual-home\\outputs\\scope_all-completion-proof.json",
+      "id": "scope_all",
+      "nextId": "END",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "payload": 6144,
+        "instrument": 654,
+        "command": 2798,
+        "control": 466134,
+        "install": 250,
+        "preflight": 1148
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\full-entry\\actual-home\\outputs\\test_absence-completion-proof.json",
+      "id": "test_absence",
+      "nextId": "install_app",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "control": 382198,
+        "install": 0,
+        "instrument": 0,
+        "payload": 0,
+        "preflight": 1148,
+        "command": 1598
+      }
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\\fixtures\\b03-fad80286\\g\\actual-home\\outputs\\pre_sdk_local_gate-completion-proof.json",
+      "id": "pre_sdk_local_gate",
+      "nextId": "identity",
+      "batchAmountUnknown": false,
+      "approvedForNext": true,
+      "batchGroups": {
+        "preflight": 0,
+        "install": 0,
+        "instrument": 0,
+        "control": 195253,
+        "payload": 0,
+        "command": 0
+      }
+    }
+  ],
+  "allOriginalAmountUnknownFieldsPreserved": true,
+  "physicalIO": "UNPROVEN",
+  "wholeChildSourceReadTotal": "NOT_GLOBALLY_MEASURED",
+  "partialRejectedConstructorsNotInvented": true,
+  "resourceUnknown": false,
+  "actualSDK": 0,
+  "oldRuntimeQueries": 0,
+  "secondCloseACKRefund": false
+}

@@ -1,0 +1,53 @@
+{
+  "sequence": 6,
+  "disposition": "RETURNED_BOUND",
+  "exitCode": 2,
+  "semantic": "FAIL",
+  "facts": {
+    "constructorTempsReturned": true,
+    "otherEvidenceReturned": true,
+    "preflightRejected": false,
+    "phase": "CREATED_ORIGINAL",
+    "originalWaitReturned": true,
+    "readersJoined": true,
+    "streamsClosed": true,
+    "identityBound": true,
+    "handleCloseReturned": true,
+    "popenObjectReturned": true,
+    "auditRejectedBeforeCreate": false,
+    "auditObserved": true
+  },
+  "failure": null,
+  "counts": [
+    226,
+    0
+  ],
+  "returned": true,
+  "identity": {
+    "pid": 33184,
+    "creationFileTime": 134372275507497828,
+    "image": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "argv": [
+      "C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+      "-I",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-global-idle-contract03-fix\\tools\\production_runner.py",
+      "--mode",
+      "live"
+    ],
+    "originalHandleValueForOwnerOnly": 1216,
+    "handleOrigin": "ORIGINAL_POPEN_OR_SELF_PSEUDOHANDLE",
+    "argvProvenance": "CREATOR_ARGV_PENDING_CHILD_SELF_CONFIRMATION"
+  },
+  "journal": {
+    "bytesKnownLowerBound": 1695,
+    "reservedNotRefunded": 1695,
+    "writeAmountUnknown": false,
+    "files": 4,
+    "errors": [],
+    "returnsKnown": true
+  },
+  "elapsed": 0.375
+}

@@ -1,0 +1,327 @@
+--- revision02/tools/production_runner.py
++++ contract03-fix/tools/production_runner.py
+@@ -9,7 +9,7 @@
+ import argparse,hashlib,json,os,sys,threading,time,uuid
+ # -I deliberately omits script/CWD imports. Add only this exact source directory.
+ sys.path.insert(0,str(Path(__file__).resolve().parent))
+-from entry_gates import GateSession,encode,decode,sha,tick,no_links,integer,stable
++from entry_gates import fixture_root_allowed,GateSession,encode,decode,sha,tick,no_links,integer,stable
+ from win32_route import BACKEND
+ BASE=Path(__file__).resolve().parents[1]
+ PY='C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+@@ -126,7 +126,7 @@
+   if len(str(self.home))>210:raise ValueError('FIXED_OUTPUT_PATH_BOUND')
+   if self.root!=self.home/'outputs' or self.home.exists():raise ValueError('FRESH_ONCE_EXACT_HOME')
+   if self.fixture:
+-   allowed=self.home.is_relative_to(BASE/'selfchecks/work') or self.home.is_relative_to(Path('D:/CodexProjects/VideoKit/docs/tester/D1_GLOBAL_IDLE_CONTRACT02_REVIEW_EVIDENCE/fixtures'))
++   allowed=fixture_root_allowed(p['home'])
+    if not allowed:raise ValueError('FIXTURE_HOME')
+   elif self.home!=Path('D:/CodexProjects/VideoKit/docs/tester/D1_ANDROID02_CAPTURE_EXECUTION')/p['planId']:raise ValueError('LIVE_EXACT_HOME')
+   if self.permit_path.is_relative_to(self.home) or self.approval_path.is_relative_to(self.home):raise ValueError('AUTH_INPUT_NOT_OUTPUT')
+--- revision02/tools/entry_gates.py
++++ contract03-fix/tools/entry_gates.py
+@@ -30,8 +30,17 @@
+   if x.exists() and x.stat().st_file_attributes&1024:raise ValueError('GATE_REPARSE')
+ def integer(v,lo,hi):return type(v) is int and lo<=v<=hi
+ def fixture_root_allowed(path):
+- p=Path(path).resolve()
+- return p.is_relative_to(BASE/'selfchecks/work') or p.is_relative_to(Path('D:/CodexProjects/VideoKit/docs/tester/D1_COMPAT03_SCHEMA_PARITY01_REVIEW_EVIDENCE/fixtures'))
++ try:
++  if not isinstance(path,(str,Path)):return False
++  raw=str(path)
++  if any(x in ('.','..') for x in raw.replace('\\','/').split('/')):return False
++  p=Path(path)
++  if not p.is_absolute() or p.drive.casefold()!=BASE.drive.casefold() or p.absolute()!=p.resolve():return False
++  no_links(p)
++  roots=(BASE/'selfchecks/work',Path('D:/CodexProjects/VideoKit/docs/tester/D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE/fixtures'))
++  return any(p!=root and p.is_relative_to(root) for root in roots)
++ except (ValueError,OSError):return False
++
+ def stable(d,field):
+  for _ in range(12):
+   n=len(encode(d))
+@@ -68,7 +77,7 @@
+   self.scope=p['scope'];self.root=Path(p['evidenceRoot']).resolve();no_links(self.root);no_links(self.home)
+   expected_scope=sha('|'.join(p[k] for k in ('planId','entrySha256','productSealSha256','planSha256','runId')).encode())
+   if self.scope!=expected_scope:raise ValueError('GATE_SCOPE_FORMULA')
+-  if self.fixture and not fixture_root_allowed(self.root):raise ValueError('GATE_FIXTURE_ROOT')
++  if self.fixture and not fixture_root_allowed(p['evidenceRoot']):raise ValueError('GATE_FIXTURE_ROOT')
+   if not self.fixture and str(self.root)!=str(Path('D:/CodexProjects/VideoKit/docs/tester/D1_ANDROID02_CAPTURE_EXECUTION')/p['planId']/'outputs'):raise ValueError('GATE_PRODUCTION_ROOT')
+   self.options=options or {};allowed={'checkerDelay','writerDelay','tailDelay','receiverDelay','checkerSeconds','proofSeconds','gateSeconds','wholeSeconds','fault'}
+   if set(self.options)-allowed or (self.options and not self.fixture):raise ValueError('NO_LIVE_FAULT_OPTIONS')
+--- revision02/tools/outer_owner.py
++++ contract03-fix/tools/outer_owner.py
+@@ -5,6 +5,7 @@
+ """
+ from pathlib import Path
+ import hashlib,json,subprocess,threading,time,sys,os,importlib.util
++from entry_gates import fixture_root_allowed
+ BASE=Path(__file__).resolve().parents[1]
+ PY='C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+ PS='C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell/pwsh.exe'
+@@ -33,7 +34,7 @@
+   fact=m.require_runtime(self.policy,stage);self.runtime_checks.append(fact);return fact
+  def __init__(self,home=BASE,gate=None,runner=None):
+   from production_runner import ProductionRunner
+-  if type(runner) is not ProductionRunner or digest(BASE/'tools/production_runner.py')!='1f4e5d1f74aa03862c8d7798190aed6ce33bed562044e70c359875bbe5e86ff8':raise ValueError('EXACT_PREAUTHORIZED_ORIGINAL_RUNNER_REQUIRED')
++  if type(runner) is not ProductionRunner or digest(BASE/'tools/production_runner.py')!='f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2':raise ValueError('EXACT_PREAUTHORIZED_ORIGINAL_RUNNER_REQUIRED')
+   self.runner=runner
+   if runner.permit['routeBackend']!='WIN32_OWNER_PID_V1':raise ValueError('OWNER_BACKEND_BINDING')
+   self.home=Path(home).resolve();self.policy=runner.read_policy_for_owner(self.home);self.failure=None;self.held=[];self.events=set();self.next=0;self.text=0;self.records=[];self.timeout_observations=[];self.runtime_checks=[]
+@@ -47,7 +48,7 @@
+   if digest(self.home/'reference/exact-seven-role-plan.json')!=p['planSha256']:raise ValueError('PLAN_PIN')
+   self.root=Path(p['evidenceRoot']);self.fixture=p['mode']=='OFFLINE_FIXTURE';self.runner_activation=runner.read_activation_for_owner()
+   if self.fixture:
+-   if not (str(self.root).startswith(str(BASE/'selfchecks/work')+os.sep) or str(self.root).startswith('D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_GLOBAL_IDLE_CONTRACT02_REVIEW_EVIDENCE\\fixtures\\')):raise ValueError('EXACT_FIXTURE_ROOT')
++   if not fixture_root_allowed(p['evidenceRoot']):raise ValueError('EXACT_FIXTURE_ROOT')
+    self.slots=p['slots'];self.outer=p.get('fixtureOuterSeconds',15);self.proof=p.get('fixtureProofSeconds',2);self.whole=600
+   else:
+    # Controller independently verifies the complete activation again before SDK.
+@@ -63,7 +64,7 @@
+   if not 1<=len(self.slots)<=7 or [s['id'] for s in self.slots]!=[s['id'] for s in self.plan['steps'][:len(self.slots)]]:raise ValueError('EXACT_ORDER')
+   from entry_gates import GateSession
+   if type(gate) is not GateSession:raise ValueError('EXACT_ORIGINAL_GATE_OBJECT_REQUIRED')
+-  self.gate=gate;self.gate_handoff=gate.receive(p,'297bd1ef7189e46831bbab4cfd2b541cf325a6d4adb2c532111e87ee7faa8140');gate.sdk_owner=self;self.runner_handoff=runner.consume(self)
++  self.gate=gate;self.gate_handoff=gate.receive(p,'9cff279ddb9e60632b1422dca16af0dac4ab1922fb6b0b27c5a232055e439d72');gate.sdk_owner=self;self.runner_handoff=runner.consume(self)
+   self.scope_start=gate.start_tick/1000;self.last_proof=gate.proof_hash;self.last_writer=gate.writer
+   if not self.fixture and a['initialPredecessorProofSha256']!=self.last_proof:raise ValueError('INITIAL_GATE_ACTIVATION_REAL_HASH')
+   self.observe(self.scope_start,self.whole,'WHOLE_OUTER_SCOPE_TIMEOUT_STICKY')
+--- revision02/tools/capture_android02.ps1
++++ contract03-fix/tools/capture_android02.ps1
+@@ -54,8 +54,8 @@
+ }
+ 
+ function RuntimeSourcePreflight {
+- $runtimeMeta='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract02-revision02\reference\current-runtime-identity.json'
+- $runtimeHelper='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract02-revision02\tools\runtime_binding.py'
++ $runtimeMeta='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix\reference\current-runtime-identity.json'
++ $runtimeHelper='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix\tools\runtime_binding.py'
+  if(-not (Test-Path -LiteralPath $runtimeMeta -PathType Leaf)){throw 'RUNTIME_METADATA_MISSING_PS'}
+  if($policy.runtimeIdentitySha256 -cne '2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48' -or (Digest $runtimeMeta) -cne '2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48'){throw 'RUNTIME_METADATA_PIN_MISMATCH_PS'}
+  if($policy.runtimeBindingSourceSha256 -cne '47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982' -or (Digest $runtimeHelper) -cne '47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982'){throw 'RUNTIME_BINDING_SOURCE_PIN_MISMATCH_PS'}
+@@ -67,9 +67,9 @@
+ 
+ # Loaded inline in this exact candidate, before the existing SDK capture context.
+ $script:controllerHomeRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+-$script:expectedGateSourcesSha256='297bd1ef7189e46831bbab4cfd2b541cf325a6d4adb2c532111e87ee7faa8140'
+-$admissionSource='D:/CodexProjects/VideoKit/docs/coder/d1android02-global-idle-contract02-revision02/tools/admission_checks.ps1';NoLinks $admissionSource
+-if((Digest $admissionSource) -cne 'd8b976ae6fd63c39c2f1a7adbc12070c9c888893843da181de72adf30103a8f4'){throw 'ADMISSION_MODULE_SOURCE_PIN'}
++$script:expectedGateSourcesSha256='9cff279ddb9e60632b1422dca16af0dac4ab1922fb6b0b27c5a232055e439d72'
++$admissionSource='D:/CodexProjects/VideoKit/docs/coder/d1android02-global-idle-contract03-fix/tools/admission_checks.ps1';NoLinks $admissionSource
++if((Digest $admissionSource) -cne 'fc09218ed9094641a7c89b69ae4d06226f758b2909bde84dbd171c4f0edcbd8a'){throw 'ADMISSION_MODULE_SOURCE_PIN'}
+ . $admissionSource
+ function RoleSemantic([string]$Id,[string]$RawPath,[bool]$IsFixture) {
+  $raw=[IO.File]::ReadAllBytes($RawPath);$text=[Text.UTF8Encoding]::new($false,$true).GetString($raw);$lines=@($text.Trim().Split("`n")|ForEach-Object {$_.TrimEnd("`r")})
+@@ -124,7 +124,7 @@
+ if($policy.mode -cnotin @('PRODUCTION','OFFLINE_FIXTURE')){throw 'EXACT_POLICY_MODE'}
+ RuntimeSourcePreflight
+ $planPath=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../reference/exact-seven-role-plan.json'))
+-if((Digest $planPath) -cne 'ddcd1b0fec9b287b62d020c34507cf4f06a2a789c054ba5f31f4114434be42f9' -or $policy.planSha256 -cne 'ddcd1b0fec9b287b62d020c34507cf4f06a2a789c054ba5f31f4114434be42f9'){throw 'EXACT_SEVEN_PLAN_PIN'}
++if((Digest $planPath) -cne 'b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8' -or $policy.planSha256 -cne 'b2802b659ef1b7d1f99938b36248373da41dc0e0faffffc9da001d45a4de26c8'){throw 'EXACT_SEVEN_PLAN_PIN'}
+ $plan=ReadJsonExact $planPath @() 32768
+ if($policy.productSealSha256 -cne $plan.product.sealSha256 -or (Digest $plan.product.sealPath) -cne $plan.product.sealSha256){throw 'FIX02_PRODUCT_SEAL_PIN'}
+ $snapshotRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))+[IO.Path]::DirectorySeparatorChar;$requestFull=[IO.Path]::GetFullPath($RequestPath);if(-not $requestFull.StartsWith($snapshotRoot,[StringComparison]::OrdinalIgnoreCase) -or [IO.Path]::GetExtension($requestFull) -cne '.json'){throw 'EXACT_SNAPSHOT_REQUEST_PATH'};NoLinks $requestFull
+@@ -137,11 +137,11 @@
+ if($request.evidenceRoot -cne $policy.evidenceRoot -or $request.scope -cne $policy.scope -or $policy.scope -cnotmatch '^[a-f0-9]{64}$'){throw 'EXACT_SCOPE_ROOT'}
+ $fixture=$policy.mode -ceq 'OFFLINE_FIXTURE';$inputPin=$null;$payloadPin=$null;$slots=@();$previous=$null
+ if($fixture){
+- $prefix='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract02-revision02\selfchecks\work\';$review='D:\CodexProjects\VideoKit\docs\tester\D1_GLOBAL_IDLE_CONTRACT02_REVIEW_EVIDENCE\fixtures\'
++ $prefix='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix\selfchecks\work\';$review='D:\CodexProjects\VideoKit\docs\tester\D1_GLOBAL_IDLE_CONTRACT03_FIX_REVIEW_EVIDENCE\fixtures\'
+  if(-not $root.StartsWith($prefix,[StringComparison]::OrdinalIgnoreCase) -and -not $root.StartsWith($review,[StringComparison]::OrdinalIgnoreCase)){throw 'FIXTURE_ROOT_ONLY'}
+  $slots=@($policy.slots);if($slots.Count -lt 1 -or $slots.Count -gt 7){throw 'EXACT_SEVEN_ROLES_MAX'}
+  for($i=0;$i -lt $slots.Count;$i++){
+-  $s=$slots[$i];if($s.id -cne $plan.steps[$i].id -or $s.argv.Count -ne 8 -or $s.argv[0] -cne 'C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' -or -not (SameArgv @($s.argv[1..4]) @('-I','-X','utf8','-B')) -or $s.argv[5] -cne 'D:/CodexProjects/VideoKit/docs/coder/d1android02-global-idle-contract02-revision02/selfchecks/capture_fixture.py' -or $s.argv[6] -cnotin @('identity','global_idle','global_busy','global_unknown','app_absence','test_absence','app_present','payload_app','payload_test','instrument','late','overrun','stderr','invalid_utf8','nonzero') -or $s.argv[7] -cne (Join-Path $root 'fixture-gate')){throw 'EXACT_LOCAL_PRODUCER_ONLY'}
++  $s=$slots[$i];if($s.id -cne $plan.steps[$i].id -or $s.argv.Count -ne 8 -or $s.argv[0] -cne 'C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' -or -not (SameArgv @($s.argv[1..4]) @('-I','-X','utf8','-B')) -or $s.argv[5] -cne 'D:/CodexProjects/VideoKit/docs/coder/d1android02-global-idle-contract03-fix/selfchecks/capture_fixture.py' -or $s.argv[6] -cnotin @('identity','global_idle','global_busy','global_unknown','app_absence','test_absence','app_present','payload_app','payload_test','instrument','late','overrun','stderr','invalid_utf8','nonzero') -or $s.argv[7] -cne (Join-Path $root 'fixture-gate')){throw 'EXACT_LOCAL_PRODUCER_ONLY'}
+   if($s.maxTextBytes -lt 1 -or $s.maxTextBytes -gt $plan.steps[$i].maxTextBytes -or $s.maxBinaryBytes -ne 0 -or $s.qualificationSeconds -le 0 -or $s.qualificationSeconds -gt $plan.steps[$i].qualificationSeconds){throw 'FIXTURE_ROLE_BOUND_ONLY'}
+   if((Digest $s.argv[5]) -cne 'e3cca23ab4f1584da7bc411282751f75d14d225e0dfdedeb739f92eda5cf5311' -or $policy.fixtureScriptSha256 -cne 'e3cca23ab4f1584da7bc411282751f75d14d225e0dfdedeb739f92eda5cf5311'){throw 'FIXTURE_SCRIPT_PIN'}
+  }
+@@ -183,12 +183,12 @@
+ if($global:Android02CaptureCustody -and $global:Android02CaptureCustody.Count -ne 0){throw 'ORIGINAL_CONTEXT_STILL_OWNED'}
+ # The pinned original outer owner writes and CLOSES this admission before Popen.
+ # It vouches for the previous proof writer AFTER join; proof files alone never do.
+-$ownerPath='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract02-revision02\tools\outer_owner.py'
+-if((Digest $ownerPath) -cne '6100f82e8ac8ff1c6949d7186983e2c411f3c7b2bf8ffebe6ab62428e270b5e3' -or $policy.outerOwnerSha256 -cne '6100f82e8ac8ff1c6949d7186983e2c411f3c7b2bf8ffebe6ab62428e270b5e3' -or (Digest 'C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe') -cne $policy.outerPythonSha256){throw 'EXACT_OUTER_OWNER_SOURCE_PIN'}
++$ownerPath='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix\tools\outer_owner.py'
++if((Digest $ownerPath) -cne '89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba' -or $policy.outerOwnerSha256 -cne '89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba' -or (Digest 'C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe') -cne $policy.outerPythonSha256){throw 'EXACT_OUTER_OWNER_SOURCE_PIN'}
+ $admissionPath=Join-Path $root ($request.id+'-owner-admission.json');NoLinks $admissionPath
+ if($OwnerAdmissionSha -cnotmatch '^[a-f0-9]{64}$' -or (Digest $admissionPath) -cne $OwnerAdmissionSha){throw 'EXACT_OWNER_ADMISSION_REQUIRED'}
+ $ad=ReadJsonExact $admissionPath @('schema','id','scope','entrySha256','ownerSha256','requestSha256','predecessorProofSha256','previousProofWriterReturned','previousProofWriterTimely','requestWriteBytes','admissionWriteBytes','ownerPid','proofSeconds','outerSeconds','gateHandoff','runnerHandoff') 4096
+-if($ad.schema -cne 'ANDROID02_OWNER_ADMISSION_V1' -or $ad.id -cne $request.id -or $ad.scope -cne $policy.scope -or $ad.entrySha256 -cne $policy.entrySha256 -or $ad.ownerSha256 -cne '6100f82e8ac8ff1c6949d7186983e2c411f3c7b2bf8ffebe6ab62428e270b5e3' -or $ad.requestSha256 -cne (Digest $RequestPath) -or $ad.predecessorProofSha256 -cne $PredecessorProofSha -or -not (BoolField $ad 'previousProofWriterReturned' $true) -or -not (BoolField $ad 'previousProofWriterTimely' $true) -or -not (IntField $ad 'ownerPid' ([int]::MaxValue) 1) -or -not (IntField $ad 'requestWriteBytes' 8192 1) -or -not (IntField $ad 'admissionWriteBytes' 4096 1) -or $ad.requestWriteBytes -ne (Get-Item -LiteralPath $RequestPath).Length -or $ad.admissionWriteBytes -ne (Get-Item -LiteralPath $admissionPath).Length){throw 'OWNER_REQUEST_WRITER_BINDING'}
++if($ad.schema -cne 'ANDROID02_OWNER_ADMISSION_V1' -or $ad.id -cne $request.id -or $ad.scope -cne $policy.scope -or $ad.entrySha256 -cne $policy.entrySha256 -or $ad.ownerSha256 -cne '89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba' -or $ad.requestSha256 -cne (Digest $RequestPath) -or $ad.predecessorProofSha256 -cne $PredecessorProofSha -or -not (BoolField $ad 'previousProofWriterReturned' $true) -or -not (BoolField $ad 'previousProofWriterTimely' $true) -or -not (IntField $ad 'ownerPid' ([int]::MaxValue) 1) -or -not (IntField $ad 'requestWriteBytes' 8192 1) -or -not (IntField $ad 'admissionWriteBytes' 4096 1) -or $ad.requestWriteBytes -ne (Get-Item -LiteralPath $RequestPath).Length -or $ad.admissionWriteBytes -ne (Get-Item -LiteralPath $admissionPath).Length){throw 'OWNER_REQUEST_WRITER_BINDING'}
+ if(-not $fixture -and ($ad.proofSeconds -ne $activation.localProofSeconds -or $ad.outerSeconds -ne $activation.outerSeconds)){throw 'OWNER_ACTUAL_WALL_BINDING'}
+ $ownerCurrentWriteCost=[long]$ad.requestWriteBytes+[long]$ad.admissionWriteBytes
+ $ownerCurrentReadCost=[long]$ad.admissionWriteBytes+[long]$requestBodyReadBytes
+@@ -220,7 +220,7 @@
+   $d=$proof.outerDelta
+   if(-not (BoolField $proof 'candidateOnlyWriterCloseNotProven' $true) -or -not (BoolField $native 'amountUnknown' $false)){throw 'OUTER_DELTA_UNKNOWN_OR_SELF_CERTIFIED'}
+   foreach($k in @('nativeWriteBytes','proofWriteBytes','additionalForwardBytes')){if(-not (IntField $d $k 1048576)){throw 'EXACT_OUTER_DELTA_INTEGER'}}
+-  if(-not (IntField $proof 'proofWriteBytes' 4096 1) -or $proof.proofWriteBytes -ne (Get-Item -LiteralPath $proofPath).Length -or $d.proofWriteBytes -ne $proof.proofWriteBytes -or $d.nativeWriteBytes -ne (Get-Item -LiteralPath $nativePath).Length -or $d.additionalForwardBytes -ne 0 -or $d.sourceOwnerSha256 -cne '6100f82e8ac8ff1c6949d7186983e2c411f3c7b2bf8ffebe6ab62428e270b5e3' -or $native.sourceOwnerSha256 -cne '6100f82e8ac8ff1c6949d7186983e2c411f3c7b2bf8ffebe6ab62428e270b5e3' -or $d.baseConsoleSha256 -cne (Digest (Join-Path $root ($previous+'-console.bin'))) -or $native.ownerPid -ne $ad.ownerPid -or -not (BoolField $native 'outerTimely' $true)){throw 'ORIGINAL_OUTER_DELTA_SOURCE_BYTES'}
++  if(-not (IntField $proof 'proofWriteBytes' 4096 1) -or $proof.proofWriteBytes -ne (Get-Item -LiteralPath $proofPath).Length -or $d.proofWriteBytes -ne $proof.proofWriteBytes -or $d.nativeWriteBytes -ne (Get-Item -LiteralPath $nativePath).Length -or $d.additionalForwardBytes -ne 0 -or $d.sourceOwnerSha256 -cne '89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba' -or $native.sourceOwnerSha256 -cne '89a9e323262875677b0008cc01ebe7f91b5c340d35e64790c740834b6474ffba' -or $d.baseConsoleSha256 -cne (Digest (Join-Path $root ($previous+'-console.bin'))) -or $native.ownerPid -ne $ad.ownerPid -or -not (BoolField $native 'outerTimely' $true)){throw 'ORIGINAL_OUTER_DELTA_SOURCE_BYTES'}
+   $eventData=$policy.scope+'|'+$previous+'|'+$prior.bindings.requestSha256+'|'+$proof.captureReceiptSha256+'|'+$proof.outerReturnSha256
+   $eventHash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($eventData))).ToLowerInvariant()
+   if($d.eventId -cne $eventHash){throw 'EXACT_ONCE_DELTA_EVENT_BINDING'}
+--- revision02/reference/exact-seven-role-plan.json
++++ contract03-fix/reference/exact-seven-role-plan.json
+@@ -243,7 +243,7 @@
+     "grammar": "API31_APP_PERS_V1",
+     "enumSha256": "343c60effa4ce83ce42296527bae8bd4341a9da942a670a83b1c86a7ef307881",
+     "factPlanSha256": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d",
+-    "collectorSha256": "eaf2a5e16171ab6e69a3147452816c339bc17210508f9144f4c0834244e02421",
++    "collectorSha256": "177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a",
+     "services": "no default approved services; exact per-snapshot reviewed entries only",
+     "factsScope": "future independent scope with original Native gate, same shared LIVE claim; not an eighth seven-role child"
+   }
+--- revision02/reference/gate-sources.json
++++ contract03-fix/reference/gate-sources.json
+@@ -3,7 +3,7 @@
+   "files": [
+     {
+       "path": "tools/entry_gates.py",
+-      "sha256": "e078b5e321b6193013e295cb09ef9e8a2d0b853019b67835d1f80fd2587f05e4"
++      "sha256": "24ebc11d66e115c0a87d44385f90b9b963ae4dbe7a92538a8ae0ad9a6ad27907"
+     },
+     {
+       "path": "tools/win32_route.py",
+@@ -23,11 +23,11 @@
+     },
+     {
+       "path": "tools/admission_checks.ps1",
+-      "sha256": "d8b976ae6fd63c39c2f1a7adbc12070c9c888893843da181de72adf30103a8f4"
++      "sha256": "fc09218ed9094641a7c89b69ae4d06226f758b2909bde84dbd171c4f0edcbd8a"
+     },
+     {
+       "path": "tools/fact_collector.py",
+-      "sha256": "eaf2a5e16171ab6e69a3147452816c339bc17210508f9144f4c0834244e02421"
++      "sha256": "177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a"
+     },
+     {
+       "path": "reference/fact-plan.json",
+--- revision02/tools/admission_checks.ps1
++++ contract03-fix/tools/admission_checks.ps1
+@@ -51,10 +51,10 @@
+  foreach($k in @('ownerPid','scopeStartTick','receiverControlBytes','claimFileId')){if(-not (IntField $h $k ([long]::MaxValue) 1)){throw 'INITIAL_HANDOFF_INTEGER'}}
+  foreach($k in @('nativeWriteBytes','proofWriteBytes','additionalForwardBytes')){if(-not (IntField $d $k 131072)){throw 'INITIAL_DELTA_INTEGER'}}
+  if($h.generation -isnot [string] -or $h.generation -cnotmatch '^[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}$'){throw 'INITIAL_GENERATION_TYPE'}
+- $manifestPath='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract02-revision02\reference\gate-sources.json'
++ $manifestPath='D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix\reference\gate-sources.json'
+  if((Digest $manifestPath) -cne $policy.gateSourcesSha256 -or $policy.gateSourcesSha256 -cne $script:expectedGateSourcesSha256){throw 'INITIAL_GATE_SOURCE_MANIFEST'}
+  $gm=ReadJsonExact $manifestPath @('schema','files') 8192
+- foreach($row in $gm.files){$f=Join-Path 'D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract02-revision02' $row.path;NoLinks $f;if((Digest $f) -cne $row.sha256){throw 'INITIAL_GATE_SOURCE_CHANGED'}}
++ foreach($row in $gm.files){$f=Join-Path 'D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix' $row.path;NoLinks $f;if((Digest $f) -cne $row.sha256){throw 'INITIAL_GATE_SOURCE_CHANGED'}}
+  $rp=Join-Path $root 'gate-original-return.json';NoLinks $rp
+  $r=ReadJsonExact $rp @('schema','scope','planId','kind','generation','ownerPid','checkerPid','temporaryResourcesReturned','scopeClaimIntentionallyRetained','claimFileId','claimPath','scopeStartTick','checkerSourceSha256','gateSourcesSha256','entrySha256','ownerSha256','routeSha256','events','controlBeforeReceipt','receiptWriteBytes','physicalIO','sourceHashBytes','sourceHashReads') 16384
+  $script:initialGateReceipt=$r
+@@ -95,7 +95,7 @@
+  $keys=@('schema','ownerPid','scopeStartTick','initialProofStartTick','permitExpiresUtc','generation','permitSha256','approvalSha256','runnerSourceSha256','materializationSha256','initialProofSha256','postControlBytes','receiverControlBytes','kind','eventId')
+  if(@(Compare-Object -CaseSensitive @($h.PSObject.Properties.Name|Sort-Object) @($keys|Sort-Object)).Count){throw 'RUNNER_HANDOFF_SCHEMA'}
+  foreach($k in @('ownerPid','scopeStartTick','initialProofStartTick','postControlBytes','receiverControlBytes')){if(-not (IntField $h $k ([long]::MaxValue) 1)){throw 'RUNNER_HANDOFF_INTEGER'}}
+- if($h.schema -cne 'RUNNER_HANDOFF_V1' -or $h.kind -cne $kind -or $h.ownerPid -ne $ad.ownerPid -or $h.scopeStartTick -ne $proof.scopeStartTick -or $h.generation -cne $ad.gateHandoff.generation -or $h.initialProofSha256 -cne $PredecessorProofSha -or $h.runnerSourceSha256 -cne '1f4e5d1f74aa03862c8d7798190aed6ce33bed562044e70c359875bbe5e86ff8' -or $policy.runnerSourceSha256 -cne $h.runnerSourceSha256 -or $policy.runnerPermit.sha256 -cne $h.permitSha256 -or $policy.runnerApproval.sha256 -cne $h.approvalSha256){throw 'RUNNER_ORIGINAL_HANDOFF_BINDING'}
++ if($h.schema -cne 'RUNNER_HANDOFF_V1' -or $h.kind -cne $kind -or $h.ownerPid -ne $ad.ownerPid -or $h.scopeStartTick -ne $proof.scopeStartTick -or $h.generation -cne $ad.gateHandoff.generation -or $h.initialProofSha256 -cne $PredecessorProofSha -or $h.runnerSourceSha256 -cne 'f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2' -or $policy.runnerSourceSha256 -cne $h.runnerSourceSha256 -or $policy.runnerPermit.sha256 -cne $h.permitSha256 -or $policy.runnerApproval.sha256 -cne $h.approvalSha256){throw 'RUNNER_ORIGINAL_HANDOFF_BINDING'}
+  $cost=[long]0
+  $permit=ReadJsonExact $policy.runnerPermit.path @('schema','authorizationId','mode','approvedForExecution','notBeforeUtc','expiresUtc','planId','runId','scope','home','evidenceRoot','sources','sourceSeal','review','product','tools','roles','operations','limits','fixtureScenario','routeBackend','globalIdleQualification') 32768
+  $permitBytes=$script:lastJsonBytes.Length;$cost+=$permitBytes;$ph=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($script:lastJsonBytes)).ToLowerInvariant()
+@@ -121,7 +121,7 @@
+  if($sh -cne $permit.sourceSeal.sha256 -or $sh -cne $policy.runnerSources.sha256 -or $seal.schema -cne 'PRODUCTION_RUNNER_SOURCE_SEAL_V1'){throw 'RUNNER_REVIEWED_SOURCE_SEAL'}
+  $srcKeys=@('tools/production_runner.py','tools/entry_gates.py','tools/outer_owner.py','tools/capture_android02.ps1','tools/win32_route.py','tools/runtime_binding.py','reference/current-runtime-identity.json','reference/exact-seven-role-plan.json','reference/gate-sources.json','selfchecks/route_fixture.py','selfchecks/capture_fixture.py','reference/route-backend-contract.json','selfchecks/route_model.py','tools/admission_checks.ps1','tools/fact_collector.py','reference/fact-plan.json','selfchecks/fact_fixture.py')
+  foreach($obj in @($permit.sources,$seal.sources)){if(@(Compare-Object -CaseSensitive @($obj.PSObject.Properties.Name|Sort-Object) @($srcKeys|Sort-Object)).Count){throw 'RUNNER_EXACT_SOURCE_SET'}}
+- foreach($key in $srcKeys){$sourcePath=Join-Path 'D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract02-revision02' $key;NoLinks $sourcePath;if((Digest $sourcePath) -cne $seal.sources.$key -or $seal.sources.$key -cne $permit.sources.$key){throw 'RUNNER_SOURCE_CHANGED'}}
++ foreach($key in $srcKeys){$sourcePath=Join-Path 'D:\CodexProjects\VideoKit\docs\coder\d1android02-global-idle-contract03-fix' $key;NoLinks $sourcePath;if((Digest $sourcePath) -cne $seal.sources.$key -or $seal.sources.$key -cne $permit.sources.$key){throw 'RUNNER_SOURCE_CHANGED'}}
+  $mp=Join-Path $root 'runner-materialization.json';$m=ReadJsonExact $mp @('schema','scope','planId','kind','generation','ownerPid','scopeStartTick','initialProofStartTick','permitSha256','approvalSha256','runnerSourceSha256','initialProofSha256','activationSha256','policySha256','preGateControlBytes','events','controlBeforeReceipt','receiptWriteBytes','candidateOnlyWriterCloseNotProven') 16384
+  $ml=$script:lastJsonBytes.Length;$cost+=$ml;$mh=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($script:lastJsonBytes)).ToLowerInvariant()
+  if($mh -cne $h.materializationSha256 -or $m.schema -cne 'RUNNER_MATERIALIZATION_RETURN_V1' -or $m.scope -cne $policy.scope -or $m.planId -cne $policy.planId -or $m.kind -cne $kind -or $m.generation -cne $h.generation -or $m.ownerPid -ne $ad.ownerPid -or $m.scopeStartTick -ne $proof.scopeStartTick -or $m.permitSha256 -cne $ph -or $m.approvalSha256 -cne $ah -or $m.runnerSourceSha256 -cne $h.runnerSourceSha256 -or $m.initialProofSha256 -cne $PredecessorProofSha -or $m.policySha256 -cne (Digest $policyPath) -or -not (BoolField $m 'candidateOnlyWriterCloseNotProven' $true)){throw 'RUNNER_MATERIALIZATION_ORIGINAL'}
+@@ -147,7 +147,7 @@
+  # Last controlled point before actual SDK Process.Start; no new IO/query/clock.
+  $h=$ad.runnerHandoff;$kind=if($fixture){'OFFLINE_FIXTURE'}else{'LIVE'}
+  foreach($k in @('ownerPid','scopeStartTick','initialProofStartTick')){if(-not (IntField $h $k ([long]::MaxValue) 1)){throw 'RUNNER_FINAL_START_INTEGER'}}
+- if($h.schema -cne 'RUNNER_HANDOFF_V1' -or $h.ownerPid -ne $ad.ownerPid -or $h.scopeStartTick -ne $scopeTick -or $h.runnerSourceSha256 -cne '1f4e5d1f74aa03862c8d7798190aed6ce33bed562044e70c359875bbe5e86ff8' -or $policy.runnerSourceSha256 -cne $h.runnerSourceSha256 -or $h.permitSha256 -cne $policy.runnerPermit.sha256 -or $h.approvalSha256 -cne $policy.runnerApproval.sha256 -or $h.kind -cne $kind){throw 'RUNNER_FINAL_START_SOURCE'}
++ if($h.schema -cne 'RUNNER_HANDOFF_V1' -or $h.ownerPid -ne $ad.ownerPid -or $h.scopeStartTick -ne $scopeTick -or $h.runnerSourceSha256 -cne 'f5574edba919f14414a2734427301499c3f9bbd9f01a078435ec19f06ba1e0d2' -or $policy.runnerSourceSha256 -cne $h.runnerSourceSha256 -or $h.permitSha256 -cne $policy.runnerPermit.sha256 -or $h.approvalSha256 -cne $policy.runnerApproval.sha256 -or $h.kind -cne $kind){throw 'RUNNER_FINAL_START_SOURCE'}
+  if($h.permitExpiresUtc -isnot [string] -or [DateTimeOffset]::UtcNow -ge [DateTimeOffset]::Parse($h.permitExpiresUtc)){throw 'RUNNER_FINAL_START_EXPIRED'}
+  $now=[Environment]::TickCount64
+  if($now -lt $scopeTick -or $now-$scopeTick -ge 600000 -or $h.initialProofStartTick -lt $scopeTick -or $h.initialProofStartTick -gt $now){throw 'RUNNER_FINAL_START_WHOLE_OR_CLOCK'}
+@@ -155,7 +155,7 @@
+ }
+ 
+ 
+-$script:GICollectorSha256='eaf2a5e16171ab6e69a3147452816c339bc17210508f9144f4c0834244e02421'
++$script:GICollectorSha256='177ae66029013463173dd78c3afa2452ac74a25ca67d3b629315a37dc3535b4a'
+ $script:GIFactPlanSha256='f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d'
+ # Passive functions incorporated into the pinned admission_checks.ps1 by build_candidate.py.
+ # A semantic PASS is internal only: the unchanged original outer owner must still
+@@ -215,9 +215,18 @@
+  $proc=$Text.Substring($begin[0].Index+$begin[0].Length,$split[0].Index-$begin[0].Index-$begin[0].Length)
+  $activities=$Text.Substring($split[0].Index+$split[0].Length,$end[0].Index-$split[0].Index-$split[0].Length)
+  if($proc -cnotmatch 'ACTIVITY MANAGER RUNNING PROCESSES' -or $activities -cnotmatch 'ACTIVITY MANAGER ACTIVITIES'){return $d}
+- $headerPattern='(?m)^[ \t]*\*(?<kind>APP|PERS)\*[ \t]+UID (?<uid>\d+) ProcessRecord\{(?<token>[A-Za-z0-9]+) (?<pid>\d+):(?<process>[^\s/}]+)/(?<user>[^\s}]+)\}[^\r\n]*\r*$'
++ $headerPattern='(?m)^  \*(?<kind>APP|PERS)\*[ \t]+UID (?<uid>\d+) ProcessRecord\{(?<token>[A-Za-z0-9]+) (?<pid>\d+):(?<process>[^\s/}]+)/(?<user>[^\s}]+)\}[^\r\n]*\r*$'
+  $headers=[regex]::Matches($proc,$headerPattern)
+- $anyHeaders=[regex]::Matches($proc,'(?m)^[ \t]*\*[^*\r\n]+\*[ \t]+UID ')
++ $suspects=[Collections.Generic.HashSet[int]]::new()
++ $summary=[regex]::Match($proc,'(?m)^  (?:Process OOM control|UID states|UID validation|Process LRU list|Total persistent processes):?')
++ $recordArea=if($summary.Success){$proc.Substring(0,$summary.Index)}else{$proc}
++ foreach($m in [regex]::Matches($proc,'(?m)^[ \t]*\*[^\r\n]*(?:\*|ProcessRecord\{)[^\r\n]*\r*$')){[void]$suspects.Add($m.Index)}
++ foreach($m in [regex]::Matches($recordArea,'(?m)^[ \t]{0,2}(?=[^ \t\r\n])(?=[^\r\n]*ProcessRecord\{)[^\r\n]+\r*$')){[void]$suspects.Add($m.Index)}
++ foreach($m in [regex]::Matches($proc,'(?m)^[ \t]{0,2}(?:(?i:UID)[^\r\n]*ProcessRecord\{|ProcessRecord\{)[^\r\n]*\r*$')){[void]$suspects.Add($m.Index)}
++ foreach($h in $headers){if(-not $suspects.Contains($h.Index) -or ($summary.Success -and $h.Index -ge $summary.Index)){$d.reason='GLOBAL_PROCESS_HEADERS_UNPROVEN';return $d}}
++ $prefixStop=if($headers.Count -gt 0){$headers[0].Index}else{$proc.Length}
++ if($proc.Substring(0,$prefixStop) -cmatch '(?m)^    (?:user #|packageList=|curProcState=)'){$d.reason='GLOBAL_PROCESS_HEADERS_UNPROVEN';return $d}
++ $anyHeaders=$suspects
+  if($headers.Count -eq 0 -or $headers.Count -ne $anyHeaders.Count){$d.reason='GLOBAL_PROCESS_HEADERS_UNPROVEN';return $d}
+  $records=[Collections.Generic.List[object]]::new();$pids=[Collections.Generic.HashSet[long]]::new();$tokensSeen=[Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+  for($i=0;$i -lt $headers.Count;$i++){
+@@ -227,10 +236,10 @@
+   if(-not $pids.Add($pidValue) -or -not $tokensSeen.Add($h.Groups['token'].Value)){$d.reason='GLOBAL_DUPLICATE_PROCESS_IDENTITY_UNPROVEN';return $d}
+   # Admitted archive grammar: two-space top-level header / four-space owner
+   # fields. Six-space UID summaries after the last record are not its state.
+-  $states=[regex]::Matches($body,'(?m)^    curProcState=(\d+)\b');$users=[regex]::Matches($body,'(?m)^    user #(\d+) uid=(\d+)\b');$packages=[regex]::Matches($body,'(?m)^    packageList=\{([^}\r\n]*)\}')
++  $states=[regex]::Matches($body,'(?m)^    curProcState=([0-9][^ \t\r\n]*)(?=[ \t\r\n]|$)');$users=[regex]::Matches($body,'(?m)^    user #(\d+) uid=(\d+)\b');$packages=[regex]::Matches($body,'(?m)^    packageList=\{([^}\r\n]*)\}')
+   if($states.Count -ne [regex]::Matches($body,'(?m)^    curProcState=').Count -or $users.Count -ne [regex]::Matches($body,'(?m)^    user #').Count -or $packages.Count -ne [regex]::Matches($body,'(?m)^    packageList=').Count){$d.reason='GLOBAL_OWN_FIELD_FORMAT_UNPROVEN';return $d}
+   $stateValue=[long]0
+-  if($states.Count -ne 1 -or -not [long]::TryParse($states[0].Groups[1].Value,[ref]$stateValue) -or $stateValue -gt 19){$d.reason='GLOBAL_PROCESS_STATE_UNPROVEN';return $d}
++  if($states.Count -ne 1 -or $states[0].Groups[1].Value -cnotmatch '^(?:0|[1-9][0-9]?)$' -or [regex]::IsMatch($body,'(?m)^    curProcState=[^\r\n]*\bcurProcState=') -or -not [long]::TryParse($states[0].Groups[1].Value,[ref]$stateValue) -or $stateValue -gt 19){$d.reason='GLOBAL_PROCESS_STATE_UNPROVEN';return $d}
+   $derivedUser=[long][Math]::Floor($uid/100000);$appId=$uid%100000
+   if($users.Count -ne 1 -or [long]$users[0].Groups[2].Value -ne $uid -or [long]$users[0].Groups[1].Value -ne $derivedUser){$d.reason='GLOBAL_PROCESS_USER_UNPROVEN';return $d}
+   $userSpec=$h.Groups['user'].Value;$userMatch=[regex]::Match($userSpec,'^u(\d+)[as]\d+(?:i\d+)?$')
+--- revision02/tools/fact_collector.py
++++ contract03-fix/tools/fact_collector.py
+@@ -6,11 +6,27 @@
+ """
+ from pathlib import Path
+ from datetime import datetime,timezone
+-import hashlib,json,re,os,threading,subprocess,time
++import hashlib,json,re,os,threading,subprocess,time,sys,struct
+ B=Path(__file__).resolve().parents[1]
+ ENV=('ADB_SERVER_SOCKET','ANDROID_ADB_SERVER_PORT','ADB_SERVER_PORT','ANDROID_ADB_SERVER_ADDRESS','ADB_VENDOR_KEYS','ANDROID_SERIAL','ADB_SERVER_ADDRESS')
+ SDK='D:/Android/SDK/platform-tools/adb.exe'
+ SDK_SHA='b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f'
++FIXTURE_PY='C:/Users/benny/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
++def validate_fixture_argv(argv):
++ expected=[FIXTURE_PY,'-I','-X','utf8','-B',str(B/'selfchecks/fact_fixture.py'),'COMPLETE']
++ if type(argv) is not list or len(argv)!=7 or any(type(x) is not str for x in argv) or argv!=expected:raise ValueError('FACT_FIXTURE_ARGV')
++ return list(expected)
++def verify_fixture_runtime(gate):
++ # Reuse the frozen 14-file runtime identity already verified by the original
++ # gate; recheck the exact program+metadata before Popen, charging source reads.
++ from runtime_binding import IDENTITY_SHA256
++ meta=gate.source_read(B/'reference/current-runtime-identity.json')
++ if sha(meta)!=IDENTITY_SHA256 or gate.policy.get('runtimeIdentitySha256')!=IDENTITY_SHA256 or gate.runtime.get('identitySha256')!=IDENTITY_SHA256:raise ValueError('FACT_FIXTURE_RUNTIME_METADATA')
++ m=unique_json(meta);exe=[p for p in m['files'] if p['kind']=='interpreter-executable']
++ if len(exe)!=1 or Path(m['executable']).resolve()!=Path(FIXTURE_PY).resolve() or Path(exe[0]['path']).resolve()!=Path(FIXTURE_PY).resolve() or Path(sys.executable).resolve()!=Path(FIXTURE_PY).resolve() or list(sys.version_info[:3])!=m['version'] or struct.calcsize('P')*8!=m['pointerBits'] or sys.platform!=m['platform'] or sys.implementation.name!=m['implementation'] or sys.implementation.cache_tag!=m['cacheTag']:raise ValueError('FACT_FIXTURE_RUNTIME_IDENTITY')
++ raw=gate.source_read(FIXTURE_PY)
++ if len(raw)!=exe[0]['bytes'] or sha(raw)!=exe[0]['sha256'] or gate.policy.get('outerPythonSha256')!=exe[0]['sha256']:raise ValueError('FACT_FIXTURE_EXECUTABLE_IDENTITY')
++ return dict(identitySha256=IDENTITY_SHA256,programSha256=exe[0]['sha256'],sourceReadBytes=len(meta)+len(raw),sourceReads=2)
+ QUERIES=(('model','getprop ro.product.model'),('api','getprop ro.build.version.sdk'),('firmware','getprop ro.build.fingerprint'),('user','am get-current-user'),('system','cmd package list packages -s -U --user 0'),('role','dumpsys role'),('home','cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME'))
+ CUSTODY=[]
+ def sha(b):return hashlib.sha256(b).hexdigest()
+@@ -117,9 +133,9 @@
+   if any(k in os.environ for k in ENV):raise ValueError('FACT_INHERITED_ENV_OVERRIDE')
+   argv=plan()['argv']
+   if fixture_argv is not None:
+-   allowed=[str(B/'selfchecks/fact_fixture.py'),'COMPLETE']
+-   if not gate.fixture or len(fixture_argv)!=7 or fixture_argv[1:5]!=['-I','-X','utf8','-B'] or fixture_argv[5:]!=allowed:raise ValueError('FACT_FIXTURE_ARGV')
+-   argv=fixture_argv
++   if not gate.fixture:raise ValueError('FACT_FIXTURE_ARGV')
++   argv=validate_fixture_argv(fixture_argv)
++   self.fixtureRuntime=verify_fixture_runtime(gate)
+   elif gate.fixture:raise ValueError('FACT_FIXTURE_REQUIRED_NO_ADB')
+   else:
+    if sha(Path(SDK).read_bytes())!=SDK_SHA:raise ValueError('FACT_SDK_PIN')

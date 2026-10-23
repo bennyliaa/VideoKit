@@ -1,0 +1,41 @@
+# Same original context only. No IO in classification, no synthetic EOF/close.
+function Get-CaptureStartDisposition($context){
+ if($context.started -and $context.startEntered -and $context.startReturned){return 'STARTED_ORIGINAL_STREAM_PATH'}
+ if($context.startEntered){return 'RETAIN_START_ENTERED_NOT_ESTABLISHED'}
+ if($context.started -or $context.startUnknown){return 'RETAIN_START_STATE_CONFLICT'}
+ if($context.processCreateEntered -and -not $context.processCreateReturned){return 'RETAIN_PROCESS_CREATE_UNKNOWN'}
+ if($context.processDisposeEntered -and -not $context.processDisposed){return 'RETAIN_PROCESS_DISPOSE_UNKNOWN'}
+ if($context.lockOpenUnknown){return 'RETAIN_LOCK_OPEN_UNKNOWN'}
+ foreach($reader in $context.readers){
+  if($reader.fileOpenUnknown -or ($reader.fileOpenEntered -and -not $reader.fileOpenReturned)){return 'RETAIN_RAW_OPEN_UNKNOWN'}
+  if($reader.fileCloseEntered -and -not $reader.fileClosed){return 'RETAIN_RAW_CLOSE_UNKNOWN'}
+  if($reader.pipeOpenEntered -or $reader.pipe -or $reader.read -or $reader.write -or $reader.readStartUnknown -or $reader.writeStartUnknown){return 'RETAIN_PRESTART_IO_CONFLICT'}
+ }
+ $i=$context.input
+ if($i -and (($i.openEntered -and -not $i.openReturned) -or ($i.pinHashCreateEntered -and -not $i.pinHashCreateReturned) -or ($i.pinHashCreateReturned -and -not $i.pinHashDisposed))){return 'RETAIN_INPUT_CREATE_OR_HASH_UNKNOWN'}
+ if($i -and ($i.write -or $i.sourceRead -or $i.writeStartUnknown -or $i.readStartUnknown -or ($i.sourceCloseEntered -and -not $i.sourceClosed))){return 'RETAIN_INPUT_IO_UNKNOWN'}
+ return 'KNOWN_START_NEVER_ENTERED'
+}
+function Close-KnownPrestartResources($context){
+ $state=Get-CaptureStartDisposition $context;$context.prestartDisposition=$state
+ if($state -cne 'KNOWN_START_NEVER_ENTERED'){return $false}
+ # No Process.Start, pipe getter, reader or waiter has been entered. Absence is
+ # explicit in separate never-created fields, never misreported as EOF/close.
+ foreach($r in $context.readers){
+  $r.pipeNeverCreated=$true
+  if($r.fileOpenReturned -and -not $r.fileCloseEntered){
+   $r.fileCloseEntered=$true;$r.fileCloseCalls++
+   try{$r.file.Close();$r.fileClosed=$true}catch{$context.prestartDisposition='RETAIN_RAW_CLOSE_UNKNOWN';return $false}
+  }
+ }
+ $i=$context.input
+ if($i -and $i.openReturned -and -not $i.sourceCloseEntered){$i.sourceCloseEntered=$true;try{$i.source.Close();$i.sourceClosed=$true}catch{$context.prestartDisposition='RETAIN_INPUT_CLOSE_UNKNOWN';return $false}}
+ if($context.processCreateReturned -and -not $context.processDisposeEntered){
+  $context.processDisposeEntered=$true;$context.processDisposeCalls++
+  try{$context.process.Dispose();$context.processDisposed=$true}catch{$context.prestartDisposition='RETAIN_PROCESS_DISPOSE_UNKNOWN';return $false}
+ }
+ $context.processNeverCreated=-not $context.processCreateEntered
+ $context.stdinNeverCreated=$true
+ $context.noStartResourcesReturned=($context.processDisposed -or $context.processNeverCreated) -and @($context.readers|Where-Object {$_.fileOpenUnknown -or ($_.fileOpenReturned -and -not $_.fileClosed)}).Count -eq 0 -and (-not $i -or $i.sourceClosed)
+ return [bool]$context.noStartResourcesReturned
+}

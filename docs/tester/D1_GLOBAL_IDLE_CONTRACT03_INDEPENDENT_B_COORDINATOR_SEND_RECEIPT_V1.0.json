@@ -1,0 +1,31 @@
+{
+  "schema": "CONTRACT03_INDEPENDENT_B_COORDINATOR_SEND_RECEIPT_V1",
+  "sentAtUtc": "2026-10-23 12:17:30 UTC",
+  "recipientThreadId": "01a107c3-2bf9-7fa0-94a0-234258ca6774",
+  "recipientTitle": "VideoKit项目助理",
+  "reportPath": "D:/CodexProjects/VideoKit/docs/tester/D1_GLOBAL_IDLE_CONTRACT03_INDEPENDENT_B_REPORT_V1.0.md",
+  "reportSHA256": "f67cdf23cf0132fe6ae1d9ef50976ef91de06035e5e729cf2a77278c1f96925b",
+  "manifestSHA256": "19cf9a1e3d8f01c08ed8d8727ca2495bc9b836eb72bc1a7da939a7bd49824bb2",
+  "status": "SEND_API_RETURNED_WITHOUT_ERROR",
+  "notOwnerReadOrAcceptanceAck": true,
+  "fullReportReadbackAndIncluded": true,
+  "verdict": "FAIL_TARGET_COVERAGE_GAPS_NO_NEW_CONFIRMED_PRODUCT_SOURCE_DEFECT",
+  "exactFaultTargets": 9,
+  "uncovered": [
+    "WRONG_OUTPUT_SOURCE",
+    "EXPIRE_DURING_MATERIALIZE"
+  ],
+  "allNewOriginalsReturned": true,
+  "newUnknown": false,
+  "automaticNextTest": false,
+  "toolResult": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"threadId\":\"01a107c3-2bf9-7fa0-94a0-234258ca6774\"}"
+      }
+    ],
+    "isError": false
+  },
+  "excludedFromFrozenManifest": true
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "GLOBAL_IDLE_CONTRACT02_ISOLATION_V1",
+  "status": "ORIGINAL_RETURN_UNPROVEN_PRESERVED_NO_FURTHER_QUERIES",
+  "sourceSealSha256": "001a0089ddd9140b7b46cd21c1822579703a1d789062b9bb3b8bed962a226039",
+  "scope": "a7036abcb551c826b1367d19eb74dd4ec83a97881f08015868c007a8026a37da",
+  "suite": "suite-4effb013d3544d1b94c9c8face11752e",
+  "case": "scenario-OWNER_END_TAIL",
+  "toolSession": 55065,
+  "lastObserved": "identity capture-halted: ORIGINAL_INITIALIZATION_OR_ADMISSION_FAILED; childPid null; unknownOrPending true. No receipt/controller/outer original-return proof",
+  "interpretation": "Null childPid does not prove no child/return; old invocation is not classified closed",
+  "policy": "No further PID/session/lock/state query, kill, second close, ACK/refund, source alteration, or once reuse. Source-only original files retained; no full freeze of mutable old runtime outputs."
+}

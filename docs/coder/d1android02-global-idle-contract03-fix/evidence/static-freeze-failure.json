@@ -1,0 +1,10 @@
+{
+  "schema": "CONTRACT03_STATIC_FREEZE_FAILURE_V1",
+  "toolChunk": "dba89b",
+  "observedExitCode": 1,
+  "failure": "Copied historical revision02 freeze-manifest still occupied current filename; assert stopped before creating archive",
+  "historicalManifestSha256": "de6da216ffe66a2d6cdc8d04c4f52468acc023ea044cef61b1556c9de36d7a80",
+  "resolution": "Original bytes renamed HISTORICAL; current manifest generated separately. Static packaging only, no candidate dynamic rerun.",
+  "candidateDynamicCalls": 0,
+  "originalEvidenceOverwritten": false
+}

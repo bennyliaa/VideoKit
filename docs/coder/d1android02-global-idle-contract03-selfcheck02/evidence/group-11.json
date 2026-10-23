@@ -1,0 +1,95 @@
+{
+  "name": "PS-post-last-Start",
+  "status": "PASS",
+  "seconds": 3.0939999999827705,
+  "detail": {
+    "post": [
+      {
+        "readBytes": 27670,
+        "name": "good",
+        "accepted": true
+      },
+      {
+        "error": "RUNNER_HANDOFF_INTEGER",
+        "name": "post-reset",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_POST_DELTA_RESET_OR_DUPLICATE",
+        "name": "post-duplicate",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_POST_DELTA_RESET_OR_DUPLICATE",
+        "name": "receiver-reset",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_UNIQUE_POST_DELTA_OR_LOCAL_CAP",
+        "name": "wrong-event",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_ORIGINAL_HANDOFF_BINDING",
+        "name": "wrong-source",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_ORIGINAL_HANDOFF_BINDING",
+        "name": "wrong-holder",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_ORIGINAL_HANDOFF_BINDING",
+        "name": "wrong-mode",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_HANDOFF_INTEGER",
+        "name": "bool-post",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_HANDOFF_SCHEMA",
+        "name": "extra",
+        "accepted": false
+      }
+    ],
+    "finalStart": [
+      {
+        "name": "good",
+        "accepted": true
+      },
+      {
+        "error": "RUNNER_FINAL_START_ORIGINAL_MINIMUM_WINDOW",
+        "name": "proof-window",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_FINAL_START_ORIGINAL_MINIMUM_WINDOW",
+        "name": "gate-window",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_FINAL_START_WHOLE_OR_CLOCK",
+        "name": "whole-window",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_FINAL_START_EXPIRED",
+        "name": "expired",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_FINAL_START_WHOLE_OR_CLOCK",
+        "name": "future-proof",
+        "accepted": false
+      },
+      {
+        "error": "RUNNER_FINAL_START_INTEGER",
+        "name": "bool-tick",
+        "accepted": false
+      }
+    ]
+  }
+}

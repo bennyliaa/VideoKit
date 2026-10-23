@@ -1,0 +1,111 @@
+{
+  "executedCandidateBodies": false,
+  "models": [
+    {
+      "phase": "no-permit",
+      "reason": "PERMIT_EXPIRED_OR_FUTURE",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "no-permit",
+      "reason": "RUNNER_PROOF_STICKY",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "no-permit",
+      "reason": "RUNNER_CONTROL_CAP",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "constructor",
+      "reason": "PERMIT_EXPIRED_OR_FUTURE",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "constructor",
+      "reason": "RUNNER_PROOF_STICKY",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "constructor",
+      "reason": "RUNNER_CONTROL_CAP",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "gate-prepared",
+      "reason": "PERMIT_EXPIRED_OR_FUTURE",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "gate-prepared",
+      "reason": "RUNNER_PROOF_STICKY",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "gate-prepared",
+      "reason": "RUNNER_CONTROL_CAP",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "proof-read",
+      "reason": "PERMIT_EXPIRED_OR_FUTURE",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": true,
+      "pureOnly": true
+    },
+    {
+      "phase": "proof-read",
+      "reason": "RUNNER_PROOF_STICKY",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "proof-read",
+      "reason": "RUNNER_CONTROL_CAP",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "activation",
+      "reason": "PERMIT_EXPIRED_OR_FUTURE",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "activation",
+      "reason": "RUNNER_PROOF_STICKY",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "phase": "activation",
+      "reason": "RUNNER_CONTROL_CAP",
+      "exactTargetIfOtherTimingAndReturnPredicatesHold": false,
+      "pureOnly": true
+    },
+    {
+      "name": "ttl-inside-empirical-reserved-interval",
+      "passed": true,
+      "pureOnly": true
+    },
+    {
+      "name": "original-9s-not-upper-bound",
+      "passed": true,
+      "pureOnly": true
+    },
+    {
+      "name": "same-reason-before-proof-not-accepted",
+      "passed": true,
+      "pureOnly": true
+    }
+  ],
+  "productTestPasses": 0
+}
