@@ -1,0 +1,317 @@
+[
+  {
+    "file": "build06.py",
+    "line": 25,
+    "text": "module.replace(\" if shapes.get('schema')!='CONTROL_MESSAGE_SHAPES05_V1'\", \" if shapes.get('schema')!='CONTROL_MESSAGE_SHAPES05_V1'\")"
+  },
+  {
+    "file": "build06.py",
+    "line": 27,
+    "text": "p.read_text().replace('from control_admission05 import admit','from source_budget import admit,CAPACITY_SHAPES06').replace(\"capacity_shapes=decode(self.read_file(BASE/'reference/control-message-shapes05.json','capacity-shapes-source'))\",\"capacity_shapes=CAPACITY_SHAPES06\")"
+  },
+  {
+    "file": "build06.py",
+    "line": 30,
+    "text": "p.read_text().replace('from control_admission05 import admit','from source_budget import admit,CAPACITY_SHAPES06').replace(\"shapes=load(H/'reference/control-message-shapes05.json')\",\"shapes=CAPACITY_SHAPES06\")"
+  },
+  {
+    "file": "build06.py",
+    "line": 17,
+    "text": "rel.replace('05.py','06.py').replace('05.ps1','06.ps1')"
+  },
+  {
+    "file": "build06.py",
+    "line": 27,
+    "text": "p.read_text().replace('from control_admission05 import admit','from source_budget import admit,CAPACITY_SHAPES06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 30,
+    "text": "p.read_text().replace('from control_admission05 import admit','from source_budget import admit,CAPACITY_SHAPES06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 17,
+    "text": "rel.replace('05.py','06.py')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-').replace('plan05','plan06').replace('profile05','profile06').replace('preflight05','preflight06').replace('driver_guard05','driver_guard06').replace('call_plan05','call_plan06').replace('parse05','parse06').replace('ps-parse05','ps-parse06').replace('control-envelope-pure05','control-envelope-pure06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-').replace('plan05','plan06').replace('profile05','profile06').replace('preflight05','preflight06').replace('driver_guard05','driver_guard06').replace('call_plan05','call_plan06').replace('parse05','parse06').replace('ps-parse05','ps-parse06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-').replace('plan05','plan06').replace('profile05','profile06').replace('preflight05','preflight06').replace('driver_guard05','driver_guard06').replace('call_plan05','call_plan06').replace('parse05','parse06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-').replace('plan05','plan06').replace('profile05','profile06').replace('preflight05','preflight06').replace('driver_guard05','driver_guard06').replace('call_plan05','call_plan06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-').replace('plan05','plan06').replace('profile05','profile06').replace('preflight05','preflight06').replace('driver_guard05','driver_guard06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-').replace('plan05','plan06').replace('profile05','profile06').replace('preflight05','preflight06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-').replace('plan05','plan06').replace('profile05','profile06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-').replace('plan05','plan06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06').replace('q05-','q06-')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06').replace('Q05','Q06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06').replace('QUALIFICATION05','QUALIFICATION06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 19,
+    "text": "raw.decode().replace('qualification05','qualification06')"
+  },
+  {
+    "file": "capacity_preflight06.py",
+    "line": 14,
+    "text": "x.replace(str(old/'home/outputs'),str(home/'outputs')).replace(str(O),str(H))"
+  },
+  {
+    "file": "capacity_preflight06.py",
+    "line": 14,
+    "text": "x.replace(str(old/'home/outputs'),str(home/'outputs'))"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 12,
+    "text": "s.replace(needle,insert,1)"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins').replace('len(src)==33','len(src)==31').replace('25-gate-pins','23-gate-pins').replace('len(gate)==25','len(gate)==23').replace('PS-exact33-source-set','PS-exact31-source-set')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 39,
+    "text": "s.replace(needle,insert,1)"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 40,
+    "text": "p.read_text().replace(\"expectedFingerprint='LOCAL_FAKE_FINGERPRINT_NOT_DEVICE'\",\"expectedFingerprint=bundle.parsed['fingerprint']\")"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 50,
+    "text": "s.replace(needle,insert,1)"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins').replace('len(src)==33','len(src)==31').replace('25-gate-pins','23-gate-pins').replace('len(gate)==25','len(gate)==23')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins').replace('len(src)==33','len(src)==31').replace('25-gate-pins','23-gate-pins')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins').replace('len(src)==33','len(src)==31')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 7,
+    "text": "s.replace('def __init__(self,raw,approved_template_sha256,policy):','def __init__(self,raw,approved_template_sha256,policy,fixture_raw=None):')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 17,
+    "text": "s.replace(needle,insert,1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 18,
+    "text": "s.replace(\"   if self.sourceBytes>268435456 or self.sourceReads>64:fail('PREAUTH_SOURCE_BOUND')\", \"   self.checked_files[str(Path(p))]=b;self.sourceEvents.append(dict(index=len(self.sourceEvents),path=str(Path(p)),scope=self.policy['scope'],kind='preauth-read',chargedBytes=len(b),actualBytes=len(b),originalCloseReturned=True))\\n   if self.sourceBytes>268435456 or self.sourceReads>64:fail('PREAUTH_SOURCE_BOUND')\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 30,
+    "text": "s.replace(needle,insert,1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 31,
+    "text": "s.replace(\"pre_events=[dict(event='preauth-template-policy-read',bytes=self.controlBytes)])\",\"pre_events=[dict(event='preauth-template-policy-read',bytes=self.controlBytes)],complete_source_plan=self.sourcePlan,seed_source_events=self.sourceEvents)\")"
+  },
+  {
+    "file": "patch06.py",
+    "line": 32,
+    "text": "s.replace('  self.gate.source_bytes+=self.sourceBytes;self.gate.source_reads+=self.sourceReads','  if self.gate.source_events[:len(self.sourceEvents)]!=self.sourceEvents:fail(\\'FACT_ORIGINAL_SEED_CHANGED\\')')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 34,
+    "text": "p.read_text().replace('scope_start_tick=None,pre_events=None):','scope_start_tick=None,pre_events=None,complete_source_plan=None,seed_source_events=None):',1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 35,
+    "text": "s.replace('  self.source_reserved_unknown=0;self.checker_stats=None','  self.source_reserved_unknown=0;self.checker_stats=None;self.complete_source_plan=complete_source_plan;self.source_events=[dict(x) for x in (seed_source_events or [])]',1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 36,
+    "text": "s.replace('self.source_bytes=0;self.source_reads=0;self.carry=0','self.source_bytes=sum(x[\\'chargedBytes\\'] for x in self.source_events);self.source_reads=len(self.source_events);self.carry=0',1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 37,
+    "text": "s.replace('  self.source_reads+=runtime_reads;self.source_bytes+=runtime_bytes',\"  runtime_events=[]\\n  for rp in [BASE/'reference/current-runtime-identity.json']*2+[Path(x['path']) for x in meta['files']]:\\n   amount=len(metadata_raw) if rp==BASE/'reference/current-runtime-identity.json' else next(x['bytes'] for x in meta['files'] if Path(x['path'])==rp)\\n   runtime_events.append(self.source_charge(rp,amount,'runtime-reservation'))\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 38,
+    "text": "s.replace(\"  self.runtime=require_runtime(p,'gate-before-claim')\",\"  self.runtime=require_runtime(p,'gate-before-claim')\\n  for event in runtime_events:event['fixedHelperReturned']=True\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 41,
+    "text": "new.replace('  self.source_bytes+=reservation;self.source_reads+=1',\"  event=self.source_charge(path,reservation,'read')\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 42,
+    "text": "new.replace(\"  if len(b)>=reservation:\",\"  event.update(actualBytes=len(b),originalCloseReturned=True)\\n  if len(b)>=reservation:\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 48,
+    "text": "s.replace(needle,new,1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 56,
+    "text": "s.replace(oldline,newline,1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 58,
+    "text": "s.replace('ticket=PreparedFacts(raw,a.approved_template_sha256,policy)','ticket=PreparedFacts(raw,a.approved_template_sha256,policy,fixture_raw)')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 59,
+    "text": "s.replace(' if fixture_raw is not None:ticket.sourceBytes+=len(fixture_raw);ticket.sourceReads+=1','')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 70,
+    "text": "s.replace(needle,new,1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 77,
+    "text": "s.replace(' from fact_preauth import PreparedFacts,decode,encode',' from fact_preauth import PreparedFacts,decode,encode,sha')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 79,
+    "text": "p.read_text().replace('  gate.source_bytes+=len(raw);gate.source_reads+=1',\"  gate.source_charge(argv[7],len(raw),'child-reservation')\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 80,
+    "text": "s.replace('class OwnedFactCapture:',\"def constructor_failure_state(entered):\\n if type(entered) is not bool:raise ValueError('FACT_CONSTRUCTOR_STATE_TYPE')\\n return 'FACT_START_UNKNOWN' if entered else 'FACT_KNOWN_PRECONSTRUCTOR_REJECT'\\n\\nclass OwnedFactCapture:\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 85,
+    "text": "s.replace(needle,new,1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 92,
+    "text": "s.replace(needle,new,1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 93,
+    "text": "s.replace(\"   self.unknown=True;self.failure='FACT_START_UNKNOWN';raise\",\"   self.unknown=self.entered;self.failure=constructor_failure_state(self.entered);raise\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 96,
+    "text": "p.read_text().replace('QUALIFICATION06_PHASE_A_EVIDENCE','QUALIFICATION05_PHASE_A_EVIDENCE')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 97,
+    "text": "p.read_text().replace('control-message-shapes05.json','control-message-shapes06.json')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 109,
+    "text": "p.read_text().replace(old['tools/production_runner.py'],digest('tools/production_runner.py')).replace(old['reference/gate-sources.json'],gh)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 104,
+    "text": "s.replace(old[rel],digest(rel))"
+  },
+  {
+    "file": "patch06.py",
+    "line": 111,
+    "text": "s.replace(old[rel],digest(rel))"
+  },
+  {
+    "file": "patch06.py",
+    "line": 109,
+    "text": "p.read_text().replace(old['tools/production_runner.py'],digest('tools/production_runner.py'))"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 28,
+    "text": "future.replace('QUALIFICATION06','QUALIFICATION04')"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 28,
+    "text": "future.replace('/fixtures/','/fixturesx/')"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 24,
+    "text": "label.upper().replace('-','_')"
+  }
+]

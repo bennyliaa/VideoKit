@@ -1,0 +1,9 @@
+# D1 QUALIFICATION04 阶段A静态审查及后续独立B要求
+
+2026-10-24；负责人已审03完整失败包，coder执行04完整修复验证。本单阶段A立即正式派发，仅审已冻结03（非04浮动源）：source31 323ff1c0b2d650f2971d8968bed9b32fbdf51ba214759d1b2a7c486e25f7ed99，gate23 e93a894c4518133b7944332f006713b34e7c20a56e9c283874b28766e864aa92；报告dc9062532f9334b883dd38b309a86db76c455dd0e968995bfd498fefa990b7f4，manifest882263c06b5e9db6c23aa04165d535f8077e376cf53979e1ee79c89eb9837c33，101项/4110981B负责人已核bad0。
+
+阶段A无Popen/Gate/claim/once/动态/SDK/设备/Gradle/Git：静态集中审SourceBudget与原Gate/Runner/Owner/admission/PS的完整调用顺序，类型/绑定生命周期、读前永久预留、scope/版本/base/delta归并、陈旧/重复/缺base/复载/失败不清零，覆盖identity及前驱复核导致的多次body/packet读取。审生产identity wire解引用、OFFLINE prefix2与LIVE七角色边界/原时限；固定helper换行失误及其他固定契约遗漏独立列清，给完整集中oracle与阻断点，不逐问题发消息。未运行不得写PASS。只写 docs/tester/D1_FACTS_V2_QUALIFICATION04_PHASE_A_EVIDENCE 及同名前缀报告/manifest，冻结后完整主动报负责人，不直接催coder改动；负责人集中转交。
+
+后续阶段B尚未派发，待04完整开发自测冻结经负责人核包再正式执行。独立B范围延续03单与04开发单：实际新根完整原facts/独立review/生产identity-global前置串行链、错固件、真实来源权威预留/delta并回/复载/失败/近界及受影响回归。SDK0，prefix不代全七角色，合成不代真人。新B根精确为 docs/tester/D1_FACTS_V2_QUALIFICATION04_INDEPENDENT_B_EVIDENCE/fixtures 下新scope；动态360秒/320停新增、读取1GiB、产物16MiB、辅助96、并发1/产品retry0，原生产门不扩。全部原件冻结，不二close/kill/attach/补ACK退款，不改旧预算/once/FAIL/UNKNOWN。
+
+03失败是coder派生包装错误，不归因环境或tester；实际预授权已消耗，不能作为纯准备重跑。主阶段/原框架精确许可/Flutter与独立Kit/P0不变，D1未过/M0未启。整批完成主动通知负责人，通知失败保存报告；阶段A后不自动进入B或设备。

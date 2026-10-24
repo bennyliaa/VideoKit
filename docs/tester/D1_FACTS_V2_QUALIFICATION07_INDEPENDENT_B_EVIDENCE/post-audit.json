@@ -1,0 +1,546 @@
+{
+  "allPassed": true,
+  "checks": [
+    {
+      "case": "all-nine-independent-groups",
+      "passed": true,
+      "detail": [
+        [
+          "qualification",
+          "PASS"
+        ],
+        [
+          "actual-max-facts",
+          "PASS"
+        ],
+        [
+          "independent-review",
+          "PASS"
+        ],
+        [
+          "production-prefix-positive",
+          "PASS"
+        ],
+        [
+          "production-wrong-firmware",
+          "PASS"
+        ],
+        [
+          "production-receipt-replacement",
+          "PASS"
+        ],
+        [
+          "source-budget-and-reload-models",
+          "PASS"
+        ],
+        [
+          "V1-regression",
+          "PASS"
+        ],
+        [
+          "independent-capacity-and-boundary-models",
+          "PASS"
+        ]
+      ]
+    },
+    {
+      "case": "outer-original-return",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "all-originals-return-proof",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "host-audit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "candidate567-unchanged",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "case": "all613-frozen-inputs-unchanged",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "case": "facts64-each-field",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "facts64-fee-sum",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "seed-and-phase-ownership",
+      "passed": true,
+      "detail": {
+        "seedStage": "derived from same-scope frozen plan where private seed lacks optional stage/owner; later rows must match"
+      }
+    },
+    {
+      "case": "child-and-route-permanent-reservations",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "original-read-close-vs-helper-reservation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "runner-original-fee-tickets-positive",
+      "passed": true,
+      "detail": {
+        "computed": [
+          9757232,
+          76
+        ],
+        "observed": [
+          9757232,
+          76
+        ]
+      }
+    },
+    {
+      "case": "gate-original-fee-tickets-positive",
+      "passed": true,
+      "detail": {
+        "computed": [
+          9155052,
+          64
+        ],
+        "observed": [
+          9155052,
+          64
+        ]
+      }
+    },
+    {
+      "case": "no-unknown-reader-positive",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "positive-identity-global-and-delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "full-local-control-identity",
+      "passed": true,
+      "detail": {
+        "actual": 48796,
+        "reservation": 64897,
+        "functionalRead": 36879,
+        "functionalReservation": 37230
+      }
+    },
+    {
+      "case": "writer-console-original-reader-identity",
+      "passed": true,
+      "detail": {
+        "reference": {
+          "volumeId": "1418466484",
+          "bytes": 4323,
+          "sha256": "1d1ca2fa1c68cc91f8babb92aa49178fe2a59cf39e5ac6a3c5bc3c4538a745da",
+          "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FACTS_V2_QUALIFICATION07_INDEPENDENT_B_EVIDENCE\\fixtures\\a78e225c\\positive\\home\\outputs\\identity-receipt.json",
+          "fileId": "281474980561175"
+        },
+        "readBytes": 4323,
+        "originalReaderClosed": true,
+        "writerFields": [
+          "binaryBytesKnown",
+          "bindings",
+          "captureQualified",
+          "childPid",
+          "controllerPid",
+          "firstFailure",
+          "id",
+          "initializationFailure",
+          "input",
+          "lockOpenEntered",
+          "lockOpenReturned",
+          "lockOpenUnknown",
+          "metadata",
+          "metadataFilesBeforeReceiptReturned",
+          "noStartResourcesReturned",
+          "owner",
+          "prestartDisposition",
+          "processCreateEntered",
+          "processCreateReturned",
+          "processDisposeCalls",
+          "processDisposeEntered",
+          "processDisposed",
+          "processToken",
+          "rawAmountUnknown",
+          "rawBytesKnown",
+          "rawKnownIsPrefix",
+          "readers",
+          "receiptOwnCloseNotProvenByThisFile",
+          "schema",
+          "scope",
+          "scopeStartTick",
+          "semantic",
+          "startEntered",
+          "startReturned",
+          "startReturnedValue",
+          "startUnknown",
+          "started",
+          "stdinNeverCreated",
+          "textBytesKnown",
+          "waitReturned"
+        ]
+      }
+    },
+    {
+      "case": "full-local-control-global_idle",
+      "passed": true,
+      "detail": {
+        "actual": 36876,
+        "reservation": 60781,
+        "functionalRead": 23860,
+        "functionalReservation": 33108
+      }
+    },
+    {
+      "case": "writer-console-original-reader-global_idle",
+      "passed": true,
+      "detail": {
+        "reference": {
+          "volumeId": "1418466484",
+          "bytes": 4334,
+          "sha256": "17d479d09d6deee54060e66bc763a577c1f52c0eb6b064a30c4af8f05ec869c5",
+          "fileId": "281474980561186",
+          "path": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FACTS_V2_QUALIFICATION07_INDEPENDENT_B_EVIDENCE\\fixtures\\a78e225c\\positive\\home\\outputs\\global_idle-receipt.json"
+        },
+        "readBytes": 4334,
+        "originalReaderClosed": true,
+        "writerFields": [
+          "binaryBytesKnown",
+          "bindings",
+          "captureQualified",
+          "childPid",
+          "controllerPid",
+          "firstFailure",
+          "id",
+          "initializationFailure",
+          "input",
+          "lockOpenEntered",
+          "lockOpenReturned",
+          "lockOpenUnknown",
+          "metadata",
+          "metadataFilesBeforeReceiptReturned",
+          "noStartResourcesReturned",
+          "owner",
+          "prestartDisposition",
+          "processCreateEntered",
+          "processCreateReturned",
+          "processDisposeCalls",
+          "processDisposeEntered",
+          "processDisposed",
+          "processToken",
+          "rawAmountUnknown",
+          "rawBytesKnown",
+          "rawKnownIsPrefix",
+          "readers",
+          "receiptOwnCloseNotProvenByThisFile",
+          "schema",
+          "scope",
+          "scopeStartTick",
+          "semantic",
+          "startEntered",
+          "startReturned",
+          "startReturnedValue",
+          "startUnknown",
+          "started",
+          "stdinNeverCreated",
+          "textBytesKnown",
+          "waitReturned"
+        ]
+      }
+    },
+    {
+      "case": "gate-real64-reject65",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "runner-original-fee-tickets-wrong-firmware",
+      "passed": true,
+      "detail": {
+        "computed": [
+          9023624,
+          47
+        ],
+        "observed": [
+          9023624,
+          47
+        ]
+      }
+    },
+    {
+      "case": "gate-original-fee-tickets-wrong-firmware",
+      "passed": true,
+      "detail": {
+        "computed": [
+          8599914,
+          46
+        ],
+        "observed": [
+          8599914,
+          46
+        ]
+      }
+    },
+    {
+      "case": "no-unknown-reader-wrong-firmware",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "wrong-firmware-no-global",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "runner-original-fee-tickets-receipt-replace",
+      "passed": true,
+      "detail": {
+        "computed": [
+          9023391,
+          47
+        ],
+        "observed": [
+          9023391,
+          47
+        ]
+      }
+    },
+    {
+      "case": "gate-original-fee-tickets-receipt-replace",
+      "passed": true,
+      "detail": {
+        "computed": [
+          8599918,
+          46
+        ],
+        "observed": [
+          8599918,
+          46
+        ]
+      }
+    },
+    {
+      "case": "no-unknown-reader-receipt-replace",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "samebytes-new-fileId-before-content-read",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "named-pin-GICollectorSha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "named-pin-GIFactPlanSha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "named-pin-GIV2AdapterSha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "named-pin-GIV2CaptureSha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "named-pin-GIV2OriginSha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "schema-full-original-bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "all11-inline-functions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "parser8-models",
+      "passed": true,
+      "detail": [
+        {
+          "case": "missing",
+          "observed": "RESULT_FILE_MISSING",
+          "want": "RESULT_FILE_MISSING",
+          "passed": true
+        },
+        {
+          "case": "exact",
+          "observed": "RESULT_CASES_MATCHED",
+          "want": "RESULT_CASES_MATCHED",
+          "passed": true
+        },
+        {
+          "case": "incomplete",
+          "observed": "RESULT_INCOMPLETE_OR_CASESET_MISMATCH",
+          "want": "RESULT_INCOMPLETE_OR_CASESET_MISMATCH",
+          "passed": true
+        },
+        {
+          "case": "aggregate",
+          "observed": "RESULT_AGGREGATE_MISMATCH",
+          "want": "RESULT_AGGREGATE_MISMATCH",
+          "passed": true
+        },
+        {
+          "case": "authority",
+          "observed": "RESULT_AUTHORITY_LABEL_MISMATCH",
+          "want": "RESULT_AUTHORITY_LABEL_MISMATCH",
+          "passed": true
+        },
+        {
+          "case": "bool-type",
+          "observed": "RESULT_BOOLEAN_TYPE_MISMATCH",
+          "want": "RESULT_BOOLEAN_TYPE_MISMATCH",
+          "passed": true
+        },
+        {
+          "case": "id-order",
+          "observed": "RESULT_INCOMPLETE_OR_CASESET_MISMATCH",
+          "want": "RESULT_INCOMPLETE_OR_CASESET_MISMATCH",
+          "passed": true
+        },
+        {
+          "case": "duplicate-field",
+          "observed": "RESULT_FILE_INVALID_JSON",
+          "want": "RESULT_FILE_INVALID_JSON",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "case": "time-and-process-budget",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "source-reservations-under1GiB",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "case": "all-new-file-close",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "productionBudgets": [
+    {
+      "label": "positive",
+      "gateBytes": 9155052,
+      "gateReads": 64,
+      "runnerBytes": 9757232,
+      "runnerReads": 76,
+      "permanentTicketBytes": 828608,
+      "permanentTicketReads": 7,
+      "pending": false
+    },
+    {
+      "label": "wrong-firmware",
+      "gateBytes": 8599914,
+      "gateReads": 46,
+      "runnerBytes": 9023624,
+      "runnerReads": 47,
+      "permanentTicketBytes": 273496,
+      "permanentTicketReads": 2,
+      "pending": false
+    },
+    {
+      "label": "receipt-replace",
+      "gateBytes": 8599918,
+      "gateReads": 46,
+      "runnerBytes": 9023391,
+      "runnerReads": 47,
+      "permanentTicketBytes": 273500,
+      "permanentTicketReads": 2,
+      "pending": true
+    }
+  ],
+  "sourceReads": 64,
+  "sourceBytes": 8998997,
+  "hostPopen": 16,
+  "actualTotalGraph": 23,
+  "parserModels": [
+    {
+      "case": "missing",
+      "observed": "RESULT_FILE_MISSING",
+      "want": "RESULT_FILE_MISSING",
+      "passed": true
+    },
+    {
+      "case": "exact",
+      "observed": "RESULT_CASES_MATCHED",
+      "want": "RESULT_CASES_MATCHED",
+      "passed": true
+    },
+    {
+      "case": "incomplete",
+      "observed": "RESULT_INCOMPLETE_OR_CASESET_MISMATCH",
+      "want": "RESULT_INCOMPLETE_OR_CASESET_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "aggregate",
+      "observed": "RESULT_AGGREGATE_MISMATCH",
+      "want": "RESULT_AGGREGATE_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "authority",
+      "observed": "RESULT_AUTHORITY_LABEL_MISMATCH",
+      "want": "RESULT_AUTHORITY_LABEL_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "bool-type",
+      "observed": "RESULT_BOOLEAN_TYPE_MISMATCH",
+      "want": "RESULT_BOOLEAN_TYPE_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "id-order",
+      "observed": "RESULT_INCOMPLETE_OR_CASESET_MISMATCH",
+      "want": "RESULT_INCOMPLETE_OR_CASESET_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "duplicate-field",
+      "observed": "RESULT_FILE_INVALID_JSON",
+      "want": "RESULT_FILE_INVALID_JSON",
+      "passed": true
+    }
+  ],
+  "productRunsAdded": 0,
+  "oldObjectQueries": 0,
+  "SDK": 0,
+  "Git": 0
+}

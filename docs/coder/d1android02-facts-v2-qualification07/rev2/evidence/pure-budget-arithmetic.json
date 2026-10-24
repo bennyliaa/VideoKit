@@ -1,0 +1,183 @@
+{
+  "allPassed": true,
+  "actualPopen": 0,
+  "actualCapture": 0,
+  "actualGateConstruction": 0,
+  "actualClaim": 0,
+  "actualOnce": 0,
+  "syntheticUnknownOnly": true,
+  "results": [
+    {
+      "id": "Gate-bytes",
+      "reason": "SOURCE_OWNER_BUDGET_BEFORE_LAUNCH",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "Gate-reads",
+      "reason": "SOURCE_OWNER_BUDGET_BEFORE_LAUNCH",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "Runner-bytes",
+      "reason": "SOURCE_OWNER_BUDGET_BEFORE_LAUNCH",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "Runner-reads",
+      "reason": "SOURCE_OWNER_BUDGET_BEFORE_LAUNCH",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "wrong-role",
+      "reason": "SOURCE_ROLE_ORDER",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "pending-next",
+      "reason": "SOURCE_ORIGINAL_AUTHORITY_PENDING",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "stale-or-scope:scope",
+      "reason": "SOURCE_DELTA_STALE_OR_SCOPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "stale-or-scope:ticketId",
+      "reason": "SOURCE_DELTA_STALE_OR_SCOPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "stale-or-scope:generation",
+      "reason": "SOURCE_DELTA_STALE_OR_SCOPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "stale-or-scope:version",
+      "reason": "SOURCE_DELTA_STALE_OR_SCOPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "unknown-reservation-retained",
+      "reason": "SOURCE_DELTA_RETURN_UNKNOWN",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "close-unknown-retained",
+      "reason": "SOURCE_DELTA_RETURN_UNKNOWN",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "duplicate-delta",
+      "reason": "SOURCE_DELTA_AUTHORITY_REQUIRED",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "same-owner-reinitialize",
+      "reason": "SOURCE_AUTHORITY_ALREADY_BOUND",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "old-delta-next-call",
+      "reason": "SOURCE_DELTA_STALE_OR_SCOPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-shape:None",
+      "reason": "SOURCE_DELTA_EVENT_SCHEMA",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-shape:[]",
+      "reason": "SOURCE_DELTA_EVENT_SCHEMA",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-shape:1",
+      "reason": "SOURCE_DELTA_EVENT_SCHEMA",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-shape:'bad'",
+      "reason": "SOURCE_DELTA_EVENT_SCHEMA",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-shape:{}",
+      "reason": "SOURCE_DELTA_EVENT_SCHEMA",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-type:pathSha256:None",
+      "reason": "SOURCE_DELTA_EVENT_TYPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-type:pathSha256:'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'",
+      "reason": "SOURCE_DELTA_EVENT_TYPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-type:opened:1",
+      "reason": "SOURCE_DELTA_EVENT_TYPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-type:opened:None",
+      "reason": "SOURCE_DELTA_EVENT_TYPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-type:closeReturned:1",
+      "reason": "SOURCE_DELTA_EVENT_TYPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-type:unknown:'false'",
+      "reason": "SOURCE_DELTA_EVENT_TYPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "event-type:reservedBytes:True",
+      "reason": "SOURCE_DELTA_EVENT_TYPE",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "merge-original-thread",
+      "reason": "SOURCE_DELTA_ORIGINAL_AUTHORITY",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "merge-original-Runner-owner",
+      "reason": "SOURCE_DELTA_ORIGINAL_AUTHORITY",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "merge-Runner-charge-reset",
+      "reason": "SOURCE_DELTA_RUNNER_RESET",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "not-opened-no-close-claim-and-no-refund",
+      "reason": "ACCEPTED_CORRECT_VACUOUS_RETURN",
+      "phase": "PURE_SYNTHETIC_MODEL"
+    },
+    {
+      "id": "Runner-read-before-open",
+      "reason": "RUNNER_SOURCE_BUDGET",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "Runner-byte-before-open",
+      "reason": "RUNNER_SOURCE_BUDGET",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    },
+    {
+      "id": "Runner-post-reserve-three-reads",
+      "reason": "RUNNER_SOURCE_BUDGET",
+      "phase": "PURE_SYNTHETIC_BUDGET_NOT_ORIGINAL_OBJECT_PROOF"
+    }
+  ],
+  "shortReadModel": "returned zero bytes retains full pre-reservation; original close returned model only",
+  "actualParentReservationNoRefund": true
+}

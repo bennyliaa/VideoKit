@@ -1,0 +1,7 @@
+# QUALIFICATION06 封存05事实调用图静态A与独立B要求
+
+2026-10-24；阶段A立即正式派发，只从封存05 ZIP固定bytes做静态审查，不读05活动输出/排他claim/旧session/PID，不审06浮动源、不import/dot-source产品/调用函数。ZIP32aadc2e6021d03f5fe780e3f2f8d0fe99a15c6cb1370223375ab8ace575e458、manifest2b102c6dc962d7a6b1d4742b38171b871132097703db8fdd004ad40802bef3a7；负责人核106唯一成员逐内容与105项1062255B快照一致。originalCallsFinal=false，lock已排除，原05返回未证不补绿，不能说封存含全部原件。
+
+只在新 docs/tester/D1_FACTS_V2_QUALIFICATION06_PHASE_A_EVIDENCE 和同名前缀报告输出，必要提取固定源码到自己根静态读。一次完整审事实从Gate所有初始源到receive/raw/child reservation/runtime/fixture guard实际原Popen前的准确source bytes/次数/预留表，路由与事实两个construct的seal/script额外读都要包括。独立核64/256MiB资源前可运行门及何处设置entered/unknown、真正原构造前后异常保留语义；不能把强推断当05原异常实测，不据空pid推断安全。给最小原有机制改进与完整oracle，不新造诊断/IPC/账本服务，不要求强制收尾旧对象。
+
+保留此前05驱动A28项及108规划作为静态准备，仅按此完整新表补必要判据，不执行旧helper或构造Capture。报告集中给负责人，由负责人转coder，不逐问题交接。后续06完整冻结核包后才正式派B，精确新根 docs/tester/D1_FACTS_V2_QUALIFICATION06_INDEPENDENT_B_EVIDENCE/fixtures；原receipt身份/控制容量/生产正负链/辅助18/预算/新状态分类独立验收，不用纯静态代实测。原预算360/320、1GiB/16MiB/96/并发1/retry0及SDK设备Git0保持，不改旧FAIL/once/UNKNOWN。D1未过/M0未启。整批完成主动报负责人，A后不自动B。

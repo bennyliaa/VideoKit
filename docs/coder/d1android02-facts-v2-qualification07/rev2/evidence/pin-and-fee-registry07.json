@@ -1,0 +1,456 @@
+{
+  "allPassed": true,
+  "checks": [
+    {
+      "id": "source30-all-bytes",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "gate22-all-bytes",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "PS-symbol:GICollectorSha256",
+      "pass_": true,
+      "detail": {
+        "source": "tools/fact_collector.py",
+        "value": "551f32bd298ea7997c98cdb6d12a7d8d847b1941f57109fabd18e700d8cd1254"
+      }
+    },
+    {
+      "id": "PS-symbol:GIFactPlanSha256",
+      "pass_": true,
+      "detail": {
+        "source": "reference/fact-plan.json",
+        "value": "f8fc21137931fb898c4b809047768fc029e011f24d9d995e3e94ed84cb7c105d"
+      }
+    },
+    {
+      "id": "PS-symbol:GIV2AdapterSha256",
+      "pass_": true,
+      "detail": {
+        "source": "tools/facts_qualification.py",
+        "value": "b9fed4c80258dfcb7326b1b4e81d568b5068c5cbaf9c7a2332f16cacf7575e55"
+      }
+    },
+    {
+      "id": "PS-symbol:GIV2CaptureSha256",
+      "pass_": true,
+      "detail": {
+        "source": "tools/outer_capture.py",
+        "value": "d26a0a20b6607a8d07eec8a09a63184966c40cb5092db5fcf5118567a881b589"
+      }
+    },
+    {
+      "id": "PS-symbol:GIV2OriginSha256",
+      "pass_": true,
+      "detail": {
+        "source": "tools/capture_origin.py",
+        "value": "40e4418919ed0050220ba35a8fce5c42c5149ab36ac54c0279b0cdcea27df132"
+      }
+    },
+    {
+      "id": "Owner-Runner",
+      "pass_": true,
+      "detail": {
+        "source": "tools/production_runner.py",
+        "occurrences": 1
+      }
+    },
+    {
+      "id": "PS-Runner",
+      "pass_": true,
+      "detail": {
+        "source": "tools/production_runner.py",
+        "occurrences": 2
+      }
+    },
+    {
+      "id": "entry-Owner",
+      "pass_": true,
+      "detail": {
+        "source": "tools/outer_owner.py",
+        "occurrences": 5
+      }
+    },
+    {
+      "id": "entry-admission",
+      "pass_": true,
+      "detail": {
+        "source": "tools/admission_checks.ps1",
+        "occurrences": 1
+      }
+    },
+    {
+      "id": "Owner-Gate",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "entry-Gate",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "Python-load-pins:sourceSealSha256",
+      "pass_": true,
+      "detail": "reference/runner-source-seal.json"
+    },
+    {
+      "id": "Python-load-pins:gateSourcesSha256",
+      "pass_": true,
+      "detail": "reference/gate-sources.json"
+    },
+    {
+      "id": "Python-load-pins:collectorSha256",
+      "pass_": true,
+      "detail": "tools/fact_collector.py"
+    },
+    {
+      "id": "Python-load-pins:binderSha256",
+      "pass_": true,
+      "detail": "tools/fact_preauth.py"
+    },
+    {
+      "id": "Python-load-pins:entrySha256",
+      "pass_": true,
+      "detail": "tools/facts_entry.py"
+    },
+    {
+      "id": "Python-load-pins:runtimeIdentitySha256",
+      "pass_": true,
+      "detail": "reference/current-runtime-identity.json"
+    },
+    {
+      "id": "Python-load-pins:factPlanSha256",
+      "pass_": true,
+      "detail": "reference/fact-plan.json"
+    },
+    {
+      "id": "Python-load-pins:captureSha256",
+      "pass_": true,
+      "detail": "tools/capture_android02.ps1"
+    },
+    {
+      "id": "Python-load-pins:ownerSha256",
+      "pass_": true,
+      "detail": "tools/outer_owner.py"
+    },
+    {
+      "id": "Python-load-pins:rolePlanSha256",
+      "pass_": true,
+      "detail": "reference/exact-seven-role-plan.json"
+    },
+    {
+      "id": "whole-schema-under-checked-producer",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "fixed-runtime-helper",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "fixed-runtime-identity",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "explicit-charge-site:entry_gates.py:121",
+      "pass_": true,
+      "detail": {
+        "function": "source_charge",
+        "field": "source_bytes"
+      }
+    },
+    {
+      "id": "explicit-charge-site:entry_gates.py:121",
+      "pass_": true,
+      "detail": {
+        "function": "source_charge",
+        "field": "source_reads"
+      }
+    },
+    {
+      "id": "explicit-charge-site:entry_gates.py:261",
+      "pass_": true,
+      "detail": {
+        "function": "prepare",
+        "field": "source_bytes"
+      }
+    },
+    {
+      "id": "explicit-charge-site:entry_gates.py:261",
+      "pass_": true,
+      "detail": {
+        "function": "prepare",
+        "field": "source_reserved_unknown"
+      }
+    },
+    {
+      "id": "explicit-charge-site:entry_gates.py:261",
+      "pass_": true,
+      "detail": {
+        "function": "prepare",
+        "field": "source_reads"
+      }
+    },
+    {
+      "id": "explicit-charge-site:fact_preauth.py:131",
+      "pass_": true,
+      "detail": {
+        "function": "read",
+        "field": "sourceBytes"
+      }
+    },
+    {
+      "id": "explicit-charge-site:fact_preauth.py:131",
+      "pass_": true,
+      "detail": {
+        "function": "read",
+        "field": "sourceReads"
+      }
+    },
+    {
+      "id": "explicit-charge-site:production_runner.py:119",
+      "pass_": true,
+      "detail": {
+        "function": "read_receipt",
+        "field": "source_bytes"
+      }
+    },
+    {
+      "id": "explicit-charge-site:production_runner.py:119",
+      "pass_": true,
+      "detail": {
+        "function": "read_receipt",
+        "field": "source_reads"
+      }
+    },
+    {
+      "id": "explicit-charge-site:production_runner.py:95",
+      "pass_": true,
+      "detail": {
+        "function": "read_file",
+        "field": "source_bytes"
+      }
+    },
+    {
+      "id": "explicit-charge-site:production_runner.py:95",
+      "pass_": true,
+      "detail": {
+        "function": "read_file",
+        "field": "source_reads"
+      }
+    },
+    {
+      "id": "explicit-charge-site:source_budget.py:23",
+      "pass_": true,
+      "detail": {
+        "function": "reserve",
+        "field": "source_bytes"
+      }
+    },
+    {
+      "id": "explicit-charge-site:source_budget.py:23",
+      "pass_": true,
+      "detail": {
+        "function": "reserve",
+        "field": "source_reads"
+      }
+    },
+    {
+      "id": "explicit-charge-site:source_budget.py:23",
+      "pass_": true,
+      "detail": {
+        "function": "reserve",
+        "field": "source_bytes"
+      }
+    },
+    {
+      "id": "explicit-charge-site:source_budget.py:23",
+      "pass_": true,
+      "detail": {
+        "function": "reserve",
+        "field": "source_reads"
+      }
+    },
+    {
+      "id": "explicit-charge-site:source_budget.py:52",
+      "pass_": true,
+      "detail": {
+        "function": "fixture_probe",
+        "field": "source_reads"
+      }
+    },
+    {
+      "id": "explicit-charge-site:source_budget.py:52",
+      "pass_": true,
+      "detail": {
+        "function": "fixture_probe",
+        "field": "source_bytes"
+      }
+    },
+    {
+      "id": "raw-child-only-unified-charge",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "route-child-explicit-read-kept",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "route-child-reserved-before-Popen",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "complete-rows-before-compare",
+      "pass_": true,
+      "detail": null
+    },
+    {
+      "id": "all-builder-patches-counted",
+      "pass_": true,
+      "detail": null
+    }
+  ],
+  "counterSites": [
+    {
+      "path": "tools/entry_gates.py",
+      "line": 121,
+      "function": "source_charge",
+      "field": "source_bytes",
+      "classification": "CANONICAL_SOURCE_EVENT"
+    },
+    {
+      "path": "tools/entry_gates.py",
+      "line": 121,
+      "function": "source_charge",
+      "field": "source_reads",
+      "classification": "CANONICAL_SOURCE_EVENT"
+    },
+    {
+      "path": "tools/entry_gates.py",
+      "line": 261,
+      "function": "prepare",
+      "field": "source_bytes",
+      "classification": "ORIGINAL_UNKNOWN_NATIVE_AMOUNT_RETENTION"
+    },
+    {
+      "path": "tools/entry_gates.py",
+      "line": 261,
+      "function": "prepare",
+      "field": "source_reserved_unknown",
+      "classification": "ORIGINAL_UNKNOWN_NATIVE_AMOUNT_RETENTION"
+    },
+    {
+      "path": "tools/entry_gates.py",
+      "line": 261,
+      "function": "prepare",
+      "field": "source_reads",
+      "classification": "ORIGINAL_UNKNOWN_NATIVE_AMOUNT_RETENTION"
+    },
+    {
+      "path": "tools/fact_preauth.py",
+      "line": 131,
+      "function": "read",
+      "field": "sourceBytes",
+      "classification": "PREAUTH_ORIGINAL_READ_AND_EVENT"
+    },
+    {
+      "path": "tools/fact_preauth.py",
+      "line": 131,
+      "function": "read",
+      "field": "sourceReads",
+      "classification": "PREAUTH_ORIGINAL_READ_AND_EVENT"
+    },
+    {
+      "path": "tools/production_runner.py",
+      "line": 119,
+      "function": "read_receipt",
+      "field": "source_bytes",
+      "classification": "ORIGINAL_RECEIPT_PREOPEN_FEE_EVENT"
+    },
+    {
+      "path": "tools/production_runner.py",
+      "line": 119,
+      "function": "read_receipt",
+      "field": "source_reads",
+      "classification": "ORIGINAL_RECEIPT_PREOPEN_FEE_EVENT"
+    },
+    {
+      "path": "tools/production_runner.py",
+      "line": 95,
+      "function": "read_file",
+      "field": "source_bytes",
+      "classification": "RUNNER_PREOPEN_FEE_EVENT"
+    },
+    {
+      "path": "tools/production_runner.py",
+      "line": 95,
+      "function": "read_file",
+      "field": "source_reads",
+      "classification": "RUNNER_PREOPEN_FEE_EVENT"
+    },
+    {
+      "path": "tools/source_budget.py",
+      "line": 23,
+      "function": "reserve",
+      "field": "source_bytes",
+      "classification": "ORIGINAL_DUAL_PERMANENT_TICKET_EVENT"
+    },
+    {
+      "path": "tools/source_budget.py",
+      "line": 23,
+      "function": "reserve",
+      "field": "source_reads",
+      "classification": "ORIGINAL_DUAL_PERMANENT_TICKET_EVENT"
+    },
+    {
+      "path": "tools/source_budget.py",
+      "line": 23,
+      "function": "reserve",
+      "field": "source_bytes",
+      "classification": "ORIGINAL_DUAL_PERMANENT_TICKET_EVENT"
+    },
+    {
+      "path": "tools/source_budget.py",
+      "line": 23,
+      "function": "reserve",
+      "field": "source_reads",
+      "classification": "ORIGINAL_DUAL_PERMANENT_TICKET_EVENT"
+    },
+    {
+      "path": "tools/source_budget.py",
+      "line": 52,
+      "function": "fixture_probe",
+      "field": "source_reads",
+      "classification": "BOUNDED_GATE64_RUNNER_FEE_PROBE"
+    },
+    {
+      "path": "tools/source_budget.py",
+      "line": 52,
+      "function": "fixture_probe",
+      "field": "source_bytes",
+      "classification": "BOUNDED_GATE64_RUNNER_FEE_PROBE"
+    }
+  ],
+  "controlChildRead": {
+    "path": "selfchecks/route_fixture.py",
+    "expression": "Path(sys.argv[1]).read_bytes()",
+    "originalLane": "Gate control checker-context-read, separate from source self-hash",
+    "count": 1
+  },
+  "batchOnlyReadReservation": {
+    "ownerRuntimeHelper": "Exact fixed helper metadata two reads +14 files on each original runtime_checks call, bounded in driverAndModels 256MiB; not reclassified as Gate source reads",
+    "controllerRuntime": "Original fixed PS metadata/file hashes, bounded in driverAndModels; physicalIO not claimed"
+  },
+  "SDK": 0,
+  "productResources": 0
+}

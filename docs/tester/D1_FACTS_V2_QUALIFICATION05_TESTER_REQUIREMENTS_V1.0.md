@@ -1,0 +1,9 @@
+# QUALIFICATION05 独立驱动准备A与后续整包B要求
+
+2026-10-24；阶段A立即正式派发，只对冻结04及自己的新驱动做静态准备，不读取05浮动源码、不产品动态/Popen/Gate/once/设备/Git。报告04B 307a32ad4e380604d81982c9a611f5ba327b06a7355bf55a99b97e4dcdddf829及有效manifest971ec3933e5240902fc44bd409e1264ede2f6cc52fe14d0358303efd59b88988，260项/1733977B负责人已核bad0，原件保持。
+
+集中准备你独立B驱动和oracle：真实budget_models函数调用地址必须是自己新冻结independent_budget.ps1而非候选selfchecks脚本，固定图/tuple与实际调用点argv/executable/cwd/env逐项对应，在Capture构造前有限准入；可靠输出结果的字段/PowerShell布尔与缺文件处理预检。只静态AST/文本/序列化，不执行产品模块/PS函数，不替旧前启动Capture收尾、不改原custody1/false。输出独立helper真实字段和拒绝理由表，明确未来receipt身份、容量及原生产完整链检验点，整批一次报负责人，不逐问题交接。
+
+只写 docs/tester/D1_FACTS_V2_QUALIFICATION05_PHASE_A_EVIDENCE 及同名前缀报告/manifest。05完整候选由负责人核包后再正式派B；届时实际新根 docs/tester/D1_FACTS_V2_QUALIFICATION05_INDEPENDENT_B_EVIDENCE/fixtures，独立验证原receipt volume/fileId由原writer链产生并被原Owner核验、同路径同字节替换拒绝、正常正链与原Runner计费、独立evidenceRoot/home整体UTF8原cap和资源前准入、辅助缺base/复载/拒绝补证、坏delta/版本及必要V1。原04限定获证层同源可准确引用，尾项未跑不能用开发/旧02回填。
+
+静态长authorityRoot仅条件义务，不能冒OS或target已接受；samebytes替换不等于事实字节篡改。原已启动资源返回和一个未启动Capture未收尾分类分别保留。正式B总动态360/320秒、读取1GiB、产物16MiB、辅助96、并发1/产品retry0，SDK/设备/Gradle/Git0，原cap不扩，不造真实永久未知。整批完成主动报负责人，通知失败保存报告；当前A不自动B。D1未过/M0未启，主阶段和既定设计许可不变。

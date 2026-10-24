@@ -1,0 +1,85 @@
+{
+  "allExact": true,
+  "patches": [
+    {
+      "anchor": "import sys,json,uuid,hashlib,os",
+      "hits": 1
+    },
+    {
+      "anchor": "checks=[]",
+      "hits": 1
+    },
+    {
+      "anchor": "('q07-'+uuid.uuid4().hex[:8])",
+      "hits": 1
+    },
+    {
+      "anchor": "W.mkdir(parents=True);pins=",
+      "hits": 1
+    },
+    {
+      "anchor": "root=W/'f';root.mkdir();",
+      "hits": 1
+    },
+    {
+      "anchor": "pid=str(uuid.uuid4());run='D1MA02-Q07_FACTS'",
+      "hits": 1
+    },
+    {
+      "anchor": "pid=str(uuid.uuid4());run='D1MA02-Q07_'+label",
+      "hits": 1
+    },
+    {
+      "anchor": "nonce=str(uuid.uuid4())",
+      "hits": 1
+    },
+    {
+      "anchor": "sourceReservation=dict(factsGate=268435456,targetGates=268435456,runnerSources=268435456,driverAndMo",
+      "hits": 1
+    },
+    {
+      "anchor": "plan=dict(schema='QUALIFICATION07_BATCH_PLAN_V1',",
+      "hits": 1
+    },
+    {
+      "anchor": "check('all-Python-compile',True)",
+      "hits": 1
+    },
+    {
+      "anchor": "START=time.monotonic()",
+      "hits": 1
+    },
+    {
+      "anchor": "START=time.monotonic()",
+      "hits": 1
+    },
+    {
+      "anchor": "controlAdmission=r.control_admission,",
+      "hits": 1
+    },
+    {
+      "anchor": "for x in PROFILE:assert digest",
+      "hits": 1
+    },
+    {
+      "anchor": "out=dict(schema='QUALIFICATION07_RESULT_V1',",
+      "hits": 1
+    },
+    {
+      "anchor": "files=$rows;bad=$bad;",
+      "hits": 1
+    },
+    {
+      "anchor": "check('all-Python-compile',True)",
+      "hits": 1
+    },
+    {
+      "anchor": "check('unchanged-64-256MiB-caps'",
+      "hits": 1
+    },
+    {
+      "anchor": "O=H.parent/'d1android02-facts-v2-qualification04'",
+      "hits": 1
+    }
+  ]
+}

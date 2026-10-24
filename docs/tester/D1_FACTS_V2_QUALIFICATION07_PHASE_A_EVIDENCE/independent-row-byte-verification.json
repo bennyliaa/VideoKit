@@ -1,0 +1,578 @@
+[
+  {
+    "index": 0,
+    "stage": "caller-raw",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\work\\q06-482f38b7\\f\\fixture-facts.raw",
+    "kind": "adopted-read",
+    "independentFileOrDeclaredBytes": 139264,
+    "expectedCharge": 139264,
+    "matches": true
+  },
+  {
+    "index": 1,
+    "stage": "preauth",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\runner-source-seal.json",
+    "kind": "preauth-read",
+    "independentFileOrDeclaredBytes": 3240,
+    "expectedCharge": 3240,
+    "matches": true
+  },
+  {
+    "index": 2,
+    "stage": "preauth",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\gate-sources.json",
+    "kind": "preauth-read",
+    "independentFileOrDeclaredBytes": 3265,
+    "expectedCharge": 3265,
+    "matches": true
+  },
+  {
+    "index": 3,
+    "stage": "preauth",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\fact_collector.py",
+    "kind": "preauth-read",
+    "independentFileOrDeclaredBytes": 16746,
+    "expectedCharge": 16746,
+    "matches": true
+  },
+  {
+    "index": 4,
+    "stage": "preauth",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\fact_preauth.py",
+    "kind": "preauth-read",
+    "independentFileOrDeclaredBytes": 20246,
+    "expectedCharge": 20246,
+    "matches": true
+  },
+  {
+    "index": 5,
+    "stage": "preauth",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\facts_entry.py",
+    "kind": "preauth-read",
+    "independentFileOrDeclaredBytes": 7442,
+    "expectedCharge": 7442,
+    "matches": true
+  },
+  {
+    "index": 6,
+    "stage": "preauth",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\fact-plan.json",
+    "kind": "preauth-read",
+    "independentFileOrDeclaredBytes": 3016,
+    "expectedCharge": 3016,
+    "matches": true
+  },
+  {
+    "index": 7,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\gate-sources.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3265,
+    "expectedCharge": 3266,
+    "matches": true
+  },
+  {
+    "index": 8,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\entry_gates.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 23893,
+    "expectedCharge": 23894,
+    "matches": true
+  },
+  {
+    "index": 9,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\win32_route.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 25499,
+    "expectedCharge": 25500,
+    "matches": true
+  },
+  {
+    "index": 10,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\route_fixture.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 1819,
+    "expectedCharge": 1820,
+    "matches": true
+  },
+  {
+    "index": 11,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\route-backend-contract.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3953,
+    "expectedCharge": 3954,
+    "matches": true
+  },
+  {
+    "index": 12,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\route_model.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3534,
+    "expectedCharge": 3535,
+    "matches": true
+  },
+  {
+    "index": 13,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\admission_checks.ps1",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 82152,
+    "expectedCharge": 82153,
+    "matches": true
+  },
+  {
+    "index": 14,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\fact_collector.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 16746,
+    "expectedCharge": 16747,
+    "matches": true
+  },
+  {
+    "index": 15,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\fact-plan.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3016,
+    "expectedCharge": 3017,
+    "matches": true
+  },
+  {
+    "index": 16,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\fact_fixture.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 1162,
+    "expectedCharge": 1163,
+    "matches": true
+  },
+  {
+    "index": 17,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\fact_preauth.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 20246,
+    "expectedCharge": 20247,
+    "matches": true
+  },
+  {
+    "index": 18,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\facts_entry.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 7442,
+    "expectedCharge": 7443,
+    "matches": true
+  },
+  {
+    "index": 19,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\fact-preauth-schema.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 12560,
+    "expectedCharge": 12561,
+    "matches": true
+  },
+  {
+    "index": 20,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\facts_qualification.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 13171,
+    "expectedCharge": 13172,
+    "matches": true
+  },
+  {
+    "index": 21,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\outer_capture.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 7022,
+    "expectedCharge": 7023,
+    "matches": true
+  },
+  {
+    "index": 22,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\capture_policy.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 8273,
+    "expectedCharge": 8274,
+    "matches": true
+  },
+  {
+    "index": 23,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\native_identity.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 2392,
+    "expectedCharge": 2393,
+    "matches": true
+  },
+  {
+    "index": 24,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\evidence_io.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 2820,
+    "expectedCharge": 2821,
+    "matches": true
+  },
+  {
+    "index": 25,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\qualification-v2-schema.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 38235,
+    "expectedCharge": 38236,
+    "matches": true
+  },
+  {
+    "index": 26,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\facts_contract.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 15481,
+    "expectedCharge": 15482,
+    "matches": true
+  },
+  {
+    "index": 27,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\immutable_evidence.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 4792,
+    "expectedCharge": 4793,
+    "matches": true
+  },
+  {
+    "index": 28,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\capture_origin.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3859,
+    "expectedCharge": 3860,
+    "matches": true
+  },
+  {
+    "index": 29,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\qualification_reference.ps1",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 21982,
+    "expectedCharge": 21983,
+    "matches": true
+  },
+  {
+    "index": 30,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\source_budget.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 34041,
+    "expectedCharge": 34042,
+    "matches": true
+  },
+  {
+    "index": 31,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\runtime_binding.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 2056,
+    "expectedCharge": 2057,
+    "matches": true
+  },
+  {
+    "index": 32,
+    "stage": "gate-constructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\current-runtime-identity.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 5447,
+    "expectedCharge": 5448,
+    "matches": true
+  },
+  {
+    "index": 33,
+    "stage": "fixed-runtime",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\current-runtime-identity.json",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 5447,
+    "expectedCharge": 5447,
+    "matches": true
+  },
+  {
+    "index": 34,
+    "stage": "fixed-runtime",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\current-runtime-identity.json",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 5447,
+    "expectedCharge": 5447,
+    "matches": true
+  },
+  {
+    "index": 35,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 107312,
+    "expectedCharge": 107312,
+    "matches": true
+  },
+  {
+    "index": 36,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python312.dll",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 6985520,
+    "expectedCharge": 6985520,
+    "matches": true
+  },
+  {
+    "index": 37,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python3.dll",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 71984,
+    "expectedCharge": 71984,
+    "matches": true
+  },
+  {
+    "index": 38,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\vcruntime140.dll",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 124544,
+    "expectedCharge": 124544,
+    "matches": true
+  },
+  {
+    "index": 39,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\vcruntime140_1.dll",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 49792,
+    "expectedCharge": 49792,
+    "matches": true
+  },
+  {
+    "index": 40,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 301368,
+    "expectedCharge": 301368,
+    "matches": true
+  },
+  {
+    "index": 41,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\runtime.json",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 620,
+    "expectedCharge": 620,
+    "matches": true
+  },
+  {
+    "index": 42,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\LICENSE.txt",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 25066,
+    "expectedCharge": 25066,
+    "matches": true
+  },
+  {
+    "index": 43,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\__init__.py",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 14020,
+    "expectedCharge": 14020,
+    "matches": true
+  },
+  {
+    "index": 44,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\threading.py",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 60200,
+    "expectedCharge": 60200,
+    "matches": true
+  },
+  {
+    "index": 45,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\subprocess.py",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 88747,
+    "expectedCharge": 88747,
+    "matches": true
+  },
+  {
+    "index": 46,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\os.py",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 40821,
+    "expectedCharge": 40821,
+    "matches": true
+  },
+  {
+    "index": 47,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\encodings\\utf_8.py",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 1005,
+    "expectedCharge": 1005,
+    "matches": true
+  },
+  {
+    "index": 48,
+    "stage": "fixed-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\DLLs\\_hashlib.pyd",
+    "kind": "runtime-reservation",
+    "independentFileOrDeclaredBytes": 70448,
+    "expectedCharge": 70448,
+    "matches": true
+  },
+  {
+    "index": 49,
+    "stage": "route-preconstructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\runner-source-seal.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3240,
+    "expectedCharge": 3241,
+    "matches": true
+  },
+  {
+    "index": 50,
+    "stage": "route-preconstructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\route_fixture.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 1819,
+    "expectedCharge": 1820,
+    "matches": true
+  },
+  {
+    "index": 51,
+    "stage": "route-validation",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\route_fixture.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 1819,
+    "expectedCharge": 1820,
+    "matches": true
+  },
+  {
+    "index": 52,
+    "stage": "route-validation",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\route-backend-contract.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3953,
+    "expectedCharge": 3954,
+    "matches": true
+  },
+  {
+    "index": 53,
+    "stage": "facts-receive",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\runner-source-seal.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3240,
+    "expectedCharge": 3241,
+    "matches": true
+  },
+  {
+    "index": 54,
+    "stage": "facts-receive",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\fact_preauth.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 20246,
+    "expectedCharge": 20247,
+    "matches": true
+  },
+  {
+    "index": 55,
+    "stage": "facts-receive",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\fact_collector.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 16746,
+    "expectedCharge": 16747,
+    "matches": true
+  },
+  {
+    "index": 56,
+    "stage": "facts-receive",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\tools\\facts_entry.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 7442,
+    "expectedCharge": 7443,
+    "matches": true
+  },
+  {
+    "index": 57,
+    "stage": "facts-receive",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\fact-plan.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3016,
+    "expectedCharge": 3017,
+    "matches": true
+  },
+  {
+    "index": 58,
+    "stage": "fixture-raw",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\work\\q06-482f38b7\\f\\fixture-facts.raw",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 139264,
+    "expectedCharge": 139265,
+    "matches": true
+  },
+  {
+    "index": 59,
+    "stage": "fixture-child-reservation",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\work\\q06-482f38b7\\f\\fixture-facts.raw",
+    "kind": "child-reservation",
+    "independentFileOrDeclaredBytes": 139264,
+    "expectedCharge": 139264,
+    "matches": true
+  },
+  {
+    "index": 60,
+    "stage": "fixture-runtime",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\current-runtime-identity.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 5447,
+    "expectedCharge": 5448,
+    "matches": true
+  },
+  {
+    "index": 61,
+    "stage": "fixture-runtime",
+    "path": "C:\\Users\\benny\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 107312,
+    "expectedCharge": 107313,
+    "matches": true
+  },
+  {
+    "index": 62,
+    "stage": "facts-preconstructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\reference\\runner-source-seal.json",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 3240,
+    "expectedCharge": 3241,
+    "matches": true
+  },
+  {
+    "index": 63,
+    "stage": "facts-preconstructor",
+    "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification06\\selfchecks\\fact_fixture.py",
+    "kind": "read",
+    "independentFileOrDeclaredBytes": 1162,
+    "expectedCharge": 1163,
+    "matches": true
+  }
+]

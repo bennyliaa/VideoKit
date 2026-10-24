@@ -1,0 +1,283 @@
+{
+  "schema": "QUALIFICATION07_TWO_REVISION_POST_RETURN_AUDIT_V1",
+  "finalRevision": "REV2",
+  "finalAllPassed": true,
+  "allRevisionsPassed": false,
+  "history": [
+    {
+      "revision": "rev1",
+      "allPassed": false,
+      "allOriginalsProven": true,
+      "hostPopen": 14,
+      "hostAuditMatches": 14,
+      "parentOriginalFileEvents": 86,
+      "fileClosesReturned": 86,
+      "sourceAndProfileBad": 0,
+      "rootBytes": 2280254,
+      "batchElapsed": 24.219000000040978
+    },
+    {
+      "revision": "rev2",
+      "allPassed": true,
+      "allOriginalsProven": true,
+      "hostPopen": 16,
+      "hostAuditMatches": 16,
+      "parentOriginalFileEvents": 108,
+      "fileClosesReturned": 108,
+      "sourceAndProfileBad": 0,
+      "rootBytes": 5676697,
+      "batchElapsed": 189.51600000000326
+    }
+  ],
+  "logicalSourceCounters": [
+    {
+      "revision": "rev1",
+      "label": "positive",
+      "runnerSourceBytes": 9018898,
+      "runnerSourceReads": 46,
+      "originalReadFeeEvents": 44,
+      "permanentTicketBytes": 273512,
+      "permanentTicketReads": 2,
+      "probePermanentRunnerBytes": 0,
+      "probePermanentRunnerReads": 0,
+      "matched": true,
+      "gateSourceBytes": 8599930,
+      "gateSourceReads": 46,
+      "pendingRetained": true
+    },
+    {
+      "revision": "rev1",
+      "label": "wrong-firmware",
+      "runnerSourceBytes": 9019168,
+      "runnerSourceReads": 46,
+      "originalReadFeeEvents": 44,
+      "permanentTicketBytes": 273536,
+      "permanentTicketReads": 2,
+      "probePermanentRunnerBytes": 0,
+      "probePermanentRunnerReads": 0,
+      "matched": true,
+      "gateSourceBytes": 8599954,
+      "gateSourceReads": 46,
+      "pendingRetained": true
+    },
+    {
+      "revision": "rev1",
+      "label": "receipt-replace",
+      "runnerSourceBytes": 9019164,
+      "runnerSourceReads": 46,
+      "originalReadFeeEvents": 44,
+      "permanentTicketBytes": 273540,
+      "permanentTicketReads": 2,
+      "probePermanentRunnerBytes": 0,
+      "probePermanentRunnerReads": 0,
+      "matched": true,
+      "gateSourceBytes": 8599958,
+      "gateSourceReads": 46,
+      "pendingRetained": true
+    },
+    {
+      "revision": "rev2",
+      "label": "positive",
+      "runnerSourceBytes": 9757534,
+      "runnerSourceReads": 76,
+      "originalReadFeeEvents": 56,
+      "permanentTicketBytes": 828728,
+      "permanentTicketReads": 7,
+      "probePermanentRunnerBytes": 26,
+      "probePermanentRunnerReads": 13,
+      "matched": true,
+      "gateSourceBytes": 9155172,
+      "gateSourceReads": 64,
+      "pendingRetained": false
+    },
+    {
+      "revision": "rev2",
+      "label": "wrong-firmware",
+      "runnerSourceBytes": 9023743,
+      "runnerSourceReads": 47,
+      "originalReadFeeEvents": 45,
+      "permanentTicketBytes": 273536,
+      "permanentTicketReads": 2,
+      "probePermanentRunnerBytes": 0,
+      "probePermanentRunnerReads": 0,
+      "matched": true,
+      "gateSourceBytes": 8599954,
+      "gateSourceReads": 46,
+      "pendingRetained": false
+    },
+    {
+      "revision": "rev2",
+      "label": "receipt-replace",
+      "runnerSourceBytes": 9023510,
+      "runnerSourceReads": 47,
+      "originalReadFeeEvents": 45,
+      "permanentTicketBytes": 273540,
+      "permanentTicketReads": 2,
+      "probePermanentRunnerBytes": 0,
+      "probePermanentRunnerReads": 0,
+      "matched": true,
+      "gateSourceBytes": 8599958,
+      "gateSourceReads": 46,
+      "pendingRetained": true
+    }
+  ],
+  "normalWriterToReader": [
+    {
+      "role": "identity",
+      "writerRef": {
+        "bytes": 4331,
+        "volumeId": "1418466484",
+        "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2\\selfchecks\\work\\q07-f7da8007\\positive\\home\\outputs\\identity-receipt.json",
+        "fileId": "281474980551006",
+        "sha256": "07503ac3561162b8d001b80d361aca338a2936d0212a519a486ba2aade288e52"
+      },
+      "originalReceiver": {
+        "expected": {
+          "bytes": 4331,
+          "volumeId": "1418466484",
+          "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2\\selfchecks\\work\\q07-f7da8007\\positive\\home\\outputs\\identity-receipt.json",
+          "fileId": "281474980551006",
+          "sha256": "07503ac3561162b8d001b80d361aca338a2936d0212a519a486ba2aade288e52"
+        },
+        "role": "identity",
+        "scope": "33eb079a1cefb2ef92281bf75c5de1641ad094b018d7b6f8723110992e0fc87b",
+        "readBytes": 4331,
+        "originalCloseReturned": true,
+        "error": null,
+        "before": {
+          "volumeId": "1418466484",
+          "fileId": "281474980551006",
+          "bytes": 4331
+        },
+        "after": {
+          "volumeId": "1418466484",
+          "fileId": "281474980551006",
+          "bytes": 4331
+        }
+      },
+      "actualLocalControlBytes": 48920,
+      "admittedLocalControlBytes": 64999,
+      "functionalReadBytes": 36981,
+      "consoleBytes": 3282
+    },
+    {
+      "role": "global_idle",
+      "writerRef": {
+        "fileId": "281474980551017",
+        "volumeId": "1418466484",
+        "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2\\selfchecks\\work\\q07-f7da8007\\positive\\home\\outputs\\global_idle-receipt.json",
+        "sha256": "b89533cb9f4956b23d7797f80996aad2e5c2c1b3b8297285deb8e896c0a216fc",
+        "bytes": 4340
+      },
+      "originalReceiver": {
+        "expected": {
+          "fileId": "281474980551017",
+          "volumeId": "1418466484",
+          "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2\\selfchecks\\work\\q07-f7da8007\\positive\\home\\outputs\\global_idle-receipt.json",
+          "sha256": "b89533cb9f4956b23d7797f80996aad2e5c2c1b3b8297285deb8e896c0a216fc",
+          "bytes": 4340
+        },
+        "role": "global_idle",
+        "scope": "33eb079a1cefb2ef92281bf75c5de1641ad094b018d7b6f8723110992e0fc87b",
+        "readBytes": 4340,
+        "originalCloseReturned": true,
+        "error": null,
+        "before": {
+          "volumeId": "1418466484",
+          "fileId": "281474980551017",
+          "bytes": 4340
+        },
+        "after": {
+          "volumeId": "1418466484",
+          "fileId": "281474980551017",
+          "bytes": 4340
+        }
+      },
+      "actualLocalControlBytes": 36976,
+      "admittedLocalControlBytes": 60850,
+      "functionalReadBytes": 23940,
+      "consoleBytes": 3823
+    }
+  ],
+  "physicalSameBytesReplacement": {
+    "originalRef": {
+      "sha256": "df1ba3be5b26ada952f56cd6c709f17bdf6310ffe6e5a53d933dc62838f3982f",
+      "bytes": 4345,
+      "fileId": "281474980551094",
+      "volumeId": "1418466484",
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2\\selfchecks\\work\\q07-f7da8007\\receipt-replace\\home\\outputs\\identity-receipt.json"
+    },
+    "retained": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2\\selfchecks\\work\\q07-f7da8007\\receipt-replace\\home\\outputs\\identity-original-receipt-retained.json",
+    "replacementRef": {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2\\selfchecks\\work\\q07-f7da8007\\receipt-replace\\home\\outputs\\identity-receipt.json",
+      "bytes": 4345,
+      "sha256": "df1ba3be5b26ada952f56cd6c709f17bdf6310ffe6e5a53d933dc62838f3982f",
+      "volumeId": "1418466484",
+      "fileId": "281474980551098"
+    },
+    "sameBytes": true,
+    "differentId": true
+  },
+  "replacementContentReadBytes": 0,
+  "replacementPermanentPendingRetained": true,
+  "helper18Passed": 18,
+  "V1Passed": 346,
+  "hostPopen": 30,
+  "hostAuditMatches": 30,
+  "actualGraph": {
+    "REV1": {
+      "host": 14,
+      "factsNested": 2,
+      "dotNet": 0,
+      "worker": 1,
+      "total": 17
+    },
+    "REV2": {
+      "host": 16,
+      "factsNested": 2,
+      "dotNet": 4,
+      "worker": 1,
+      "total": 23
+    },
+    "combined": 40,
+    "declaredMaxWithSetup": 56,
+    "cap": 96
+  },
+  "batchElapsed": 189.51600000000326,
+  "readReservation": 1006632960,
+  "readCap": 1073741824,
+  "readInterpretation": "Conservative source/control/domain reservation; not total OS/interpreter physical IO measurement",
+  "upstream": [
+    {
+      "root": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification04",
+      "manifest": "reference/full-manifest.json",
+      "sha256": "a577b3aab5a3b54f221ad3b4b049447d332ccca8744ecf9bccb1cb689768cc73",
+      "count": 284,
+      "bad": 0,
+      "postBad": 0
+    },
+    {
+      "root": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FACTS_V2_QUALIFICATION04_INDEPENDENT_B_EVIDENCE",
+      "manifest": "delivery-manifest.json",
+      "sha256": "971ec3933e5240902fc44bd409e1264ede2f6cc52fe14d0358303efd59b88988",
+      "count": 260,
+      "bad": 0,
+      "postBad": 0
+    },
+    {
+      "root": "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_FACTS_V2_QUALIFICATION05_PHASE_A_EVIDENCE",
+      "manifest": "delivery-manifest.json",
+      "sha256": "40a048659d6e22b3474563033def291785abbdbf26cc82b73fb44b11b750959d",
+      "count": 28,
+      "bad": 0,
+      "postBad": 0
+    }
+  ],
+  "upstream06ZipBad": 0,
+  "old05Queries": 0,
+  "newObservedUNKNOWN": 0,
+  "SDK": 0,
+  "Git": 0,
+  "D1": "NOT_PASSED",
+  "M0": "NOT_STARTED"
+}

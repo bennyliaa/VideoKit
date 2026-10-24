@@ -1,5 +1,11 @@
 # 播放子系统子任务与主里程碑映射
 
+<!-- CURRENT_EXECUTION_AUTHORITY_20261024:BEGIN -->
+> **现行执行状态（2026-10-24）：用户已于2026-10-23恢复开发测试。** 当前依照 CURRENT_DESIGN_BASELINE_V1.0.md 与 MILESTONE_COORDINATION_V1.0.md 顶部正式派单推进；FACTS_V2_QUALIFICATION01正在独立整包离线B复审，候选保持冻结。下文2026-10-21设计变更中的PAUSED_WAITING_USER、“当前暂停/无派单”等字样只记载该时点状态，不暂停现有新批次，也不构成新的现场执行许可。
+>
+> **D1未通过、M0未启动。** D0/D1/M0–M10目标及退出条件不变；D1验证关键可行性与设计决定，不提前实现全部M1–M8产品功能。后续完整测试报告由负责人审核后集中派下一整批，禁止逐问题交接。M0按既有PPT建立正式Flutter完整UI、自有Theme及明确演示数据；Media3路线、独立Kit与指定框架许可保持。用户后续明确暂停/停止仍按其真实时间和任务范围优先执行。
+<!-- CURRENT_EXECUTION_AUTHORITY_20261024:END -->
+
 ## 2026-10-21 国际化详细设计补充（当前有效）
 
 依据[《VideoKit 国际化详细设计》](INTERNATIONALIZATION_DETAILED_DESIGN_V1.0.md)及[国际化数据模型](INTERNATIONALIZATION_DATA_MODEL_V1.0.md)，首轮界面支持en/zh-Hans，SYSTEM/EXPLICIT切换与确定性script回退，资源离线完整；界面、字幕、识别、翻译四类语言分别设置，不隐式互改。UI localeGeneration不改变媒体generation/epoch，不重建播放或取消模型任务。

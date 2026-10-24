@@ -1,0 +1,20 @@
+# D1 QUALIFICATION04 固定字节恢复与生产接线整批验证
+
+2026-10-24；负责人审03完整失败包后正式派发，仅新目录 docs/coder/d1android02-facts-v2-qualification04。原03失败与once已消耗保持，不修03浮动源、不重放原scope。D1未过/M0未启，SDK/ADB/设备/Native route/TCP/Gradle/媒体/Git0。
+
+03报告dc9062532f9334b883dd38b309a86db76c455dd0e968995bfd498fefa990b7f4，manifest882263c06b5e9db6c23aa04165d535f8077e376cf53979e1ee79c89eb9837c33，负责人逐核101项/4110981B bad0。source31 323ff1c0b2d650f2971d8968bed9b32fbdf51ba214759d1b2a7c486e25f7ed99/gate23 e93a894c4518133b7944332f006713b34e7c20a56e9c283874b28766e864aa92保持冻结。V1与三资格通过；事实入口在claim/原SDK前GATE_RUNTIME_HELPER安全拒绝，独立review/生产前置/PS预算实测未执行，不接受B02两项关闭。
+
+## 集中要求
+
+1. 派生器改为默认按原bytes复制。仅明确需改文本文件执行准确patch，列改动集合及前后hash；固定runtime_binding.py必须从02原bytes恢复2056B/20CRLF，SHA47f9d48af2d3106c6b04f67e079bd6b48b3befb4b0c25061f3a6508426e3c982，不通过改Gate期望hash或全局换行标准化绕过。03新生产identity/SourceBudget实现延续审计，不倒退02修复。
+2. 实际产品调用前增加一次有限纯契约预检：原helper固定hash、runtime metadata2593ddab8ed0a7cee369c13a145817c4365ce1847f18e0d7167db453060e5d48及原运行时精确身份、所有固定源/准入常量与新source/gate/plan/profile、文件字节与授权根、实际caller路径/完整图对应。核Python/PS语法和必要字段可达性；不得启动Gate/claim/once/原子进程作为预检。输出完整预检结果后才进行唯一集中动态批次，不能只验新manifest自洽而遗漏旧固定契约。
+3. 继续03原定完整生产簇：实际原facts入口→原Capture全部归还→独立有限OFFLINE reviewer→原ProductionRunner/Owner/原PS完整顶层的identity及global_idle前置串行验证；真实SDK0、安装媒体0。合法与错固件原入口对照、全部调用方wire兼容、原Gate/Runner同owner来源预留/读前准入/delta原并回及复载/拒绝/近界预算都须实证，不用AST抽取或helper函数单层代完整入口。
+4. OFFLINE fixture_prefix=2是本批限定验证工具，不改变LIVE默认七角色、不允许LIVE prefix；原默认完整七角色代码保持。前置夹具如采用原plan已有15秒角色限需精确说明其与原2秒fixture限制关系及实际执行模式，不扩任何原生产time/cap/proof/whole限制，不将prefix完成冒完整七角色或D1通过。
+5. source预算沿原Gate256MiB/64、Runner512MiB/256和全批1GiB，scope/owner/模块复载/失败不清零、不默认0、不退款。原文件固定身份/hash/窄授权与raw139264/128包/68服务功能保持；未改02已验收限定层准确引用，仅做受影响回归。合成独立review不代真人批准，任何模型不代真实原归还。未来精确支持 docs/tester/D1_FACTS_V2_QUALIFICATION04_INDEPENDENT_B_EVIDENCE/fixtures，原路径/源码/常量一并预检，禁止开放任意根。
+6. tester并行只审已冻结03结构，独立静态报告经负责人转交后可在04首次完整冻结前集中吸收，避免逐问题交接；04完整冻结后不再补改，新增问题由负责人集中裁定。不得让tester审04浮动源。无需等待A报告而停止独立修复。
+
+## 预算/交付
+
+集中动态360秒/320秒停新增、读取1GiB、产物16MiB、辅助96、并发1/产品retry0，冻结所有源/输入/profile/图后执行；03消耗once原封保留，04仅全新正式scope。纯准备未入产品且无新未知可留版本修正，不逐错交接。原返回未知停止新增、不二close/kill/attach/补ACK退款。原03/02/01及测试原件前后hash保护。
+
+完整回交：固定字节恢复/契约预检、准确差异及新来源、原计划各组实际PASS/FAIL/NOT_RUN、原生产前置/实际账本接线实证、原返回/预算/写入审计、未执行边界、manifest/ZIP/独立回执。不是只交一项helper修复；B02-01/B02-02必须分清实现与实证。全部完成主动报告负责人01a107c3-2bf9-7fa0-94a0-234258ca6774，完整审核后另派独立B。框架许可/Flutter/独立Kit/全P0与主阶段不变。

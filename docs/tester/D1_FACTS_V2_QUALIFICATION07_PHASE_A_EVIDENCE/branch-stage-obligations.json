@@ -1,0 +1,133 @@
+{
+  "mode": "STATIC_NOT_ACTUAL_LEDGER",
+  "RAW_FILE": {
+    "implementedPlanReads": 64,
+    "implementedPlanBytes": 8967668,
+    "groups": [
+      {
+        "stage": "caller-raw",
+        "reads": 1,
+        "bytes": 139264,
+        "owner": [
+          "ORIGINAL_ENTRY"
+        ]
+      },
+      {
+        "stage": "preauth",
+        "reads": 6,
+        "bytes": 53955,
+        "owner": [
+          "ORIGINAL_PREAUTH"
+        ]
+      },
+      {
+        "stage": "gate-constructor",
+        "reads": 26,
+        "bytes": 364884,
+        "owner": [
+          "ORIGINAL_GATE"
+        ]
+      },
+      {
+        "stage": "fixed-runtime",
+        "reads": 16,
+        "bytes": 7952341,
+        "owner": [
+          "ORIGINAL_GATE_FOR_FIXED_HELPER"
+        ]
+      },
+      {
+        "stage": "route-preconstructor",
+        "reads": 2,
+        "bytes": 5061,
+        "owner": [
+          "ORIGINAL_GATE"
+        ]
+      },
+      {
+        "stage": "route-validation",
+        "reads": 2,
+        "bytes": 5774,
+        "owner": [
+          "ORIGINAL_GATE"
+        ]
+      },
+      {
+        "stage": "facts-receive",
+        "reads": 5,
+        "bytes": 50695,
+        "owner": [
+          "ORIGINAL_GATE"
+        ]
+      },
+      {
+        "stage": "fixture-raw",
+        "reads": 1,
+        "bytes": 139265,
+        "owner": [
+          "ORIGINAL_GATE"
+        ]
+      },
+      {
+        "stage": "fixture-child-reservation",
+        "reads": 1,
+        "bytes": 139264,
+        "owner": [
+          "ORIGINAL_GATE_FOR_FIXED_CHILD"
+        ]
+      },
+      {
+        "stage": "fixture-runtime",
+        "reads": 2,
+        "bytes": 112761,
+        "owner": [
+          "ORIGINAL_GATE"
+        ]
+      },
+      {
+        "stage": "facts-preconstructor",
+        "reads": 2,
+        "bytes": 4404,
+        "owner": [
+          "ORIGINAL_GATE"
+        ]
+      }
+    ],
+    "childManualChargeHasNoEvent": true,
+    "childIndex": 59,
+    "hypotheticalReturnedEvents": 63,
+    "extraRouteSelfHashReads": 1,
+    "extraRouteSelfHashBytes": 1819,
+    "completeExplicitObligationsReads": 65,
+    "completeExplicitObligationsBytes": 8969487
+  },
+  "COMPLETE": {
+    "implementedPlanReads": 61,
+    "implementedPlanBytes": 8549875,
+    "extraRouteSelfHashReads": 1,
+    "completeExplicitObligationsReads": 62
+  },
+  "LIVE": {
+    "formulaReads": "6+(1+23+2)+16+1auth+1native+2route+5receive+1sdk =58",
+    "nativeKnownBytes": 8273560,
+    "rawFixtureAndGuardReads": 0,
+    "extraExplicitSelfHash": {
+      "file": "tools/win32_route.py",
+      "line": 489,
+      "reads": 1,
+      "bytes": 25499
+    },
+    "completeExplicitObligationsReads": 59,
+    "nativeUnknownBranch": "manual known/reservedUnknown update has no source_event; not success full-plan evidence",
+    "note": "auth length/runtime/local inputs require final pinned candidate; no LIVE executed"
+  },
+  "separateAuthorityLanes": [
+    "PreparedFacts private seed to original Gate",
+    "Gate full fact plan:64/256MiB",
+    "ProductionRunner source:256/512MiB independent",
+    "SourceBudget original Gate/Runner permanent reservation and child PS delta",
+    "V2 host _SOURCE_READS:8192/512MiB",
+    "PS qualification reference reservation and actual read/close events",
+    "control template/policy/context/proof/receipt distinct from source"
+  ]
+}

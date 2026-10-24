@@ -1,0 +1,43 @@
+{
+  "schema": "QUALIFICATION07_TWO_REVISION_DECLARATION_V1",
+  "revisions": [
+    {
+      "id": "REV1",
+      "root": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev1",
+      "seed": "db09f2d3-ae29-4177-bafa-7f4a6e836389",
+      "expectedProductGraph": 23,
+      "conditionalMaxGraph": 25,
+      "readReservationBytes": 469762048,
+      "savedReservationBytes": 7340032
+    },
+    {
+      "id": "REV2",
+      "root": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2",
+      "seed": "6671cf56-70f5-4f7a-bf08-8882d1298e5f",
+      "expectedProductGraph": 23,
+      "conditionalMaxGraph": 25,
+      "readReservationBytes": 469762048,
+      "savedReservationBytes": 7340032
+    }
+  ],
+  "scopeDerivation": "UUID5(revision seed,label); fresh revision root and source-sealed scope formula; independent nonce UUID5(seed,sourceSeal+nonce)",
+  "REV2OnlyAfterAllOriginalsReturnedAndNoNewUNKNOWN": true,
+  "firstFullPassStops": true,
+  "maxProductGraphs": 50,
+  "maxIncludingSetupHelpers": 56,
+  "processCap": 96,
+  "wholeSeconds": 360,
+  "stopNew": 320,
+  "readCap": 1073741824,
+  "totalReadReservation": 1006632960,
+  "twoRevisionReadReservation": 939524096,
+  "setupReadReservation": 67108864,
+  "savedCap": 16777216,
+  "twoRevisionSavedReservation": 14680064,
+  "archiveReservation": 1572864,
+  "reportReservation": 524288,
+  "concurrency": 1,
+  "scopeRetry": 0,
+  "SDK": 0,
+  "oldObjects": "NO_QUERY_NO_MUTATION"
+}

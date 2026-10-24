@@ -1,0 +1,236 @@
+[
+  {
+    "file": "pure_budget06.py",
+    "line": 43,
+    "operation": "Assign",
+    "text": "b.runner.source_bytes=0"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 46,
+    "operation": "AugAssign",
+    "text": "b.runner.source_bytes+=100"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 46,
+    "operation": "AugAssign",
+    "text": "b.runner.source_reads+=3"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 12,
+    "operation": "Assign",
+    "text": "g.source_bytes=gb"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 12,
+    "operation": "Assign",
+    "text": "g.source_reads=gr"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 12,
+    "operation": "Assign",
+    "text": "g.source_reserved_unknown=0"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 12,
+    "operation": "Assign",
+    "text": "r.source_bytes=rb"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 12,
+    "operation": "Assign",
+    "text": "r.source_reads=rr"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 45,
+    "operation": "Assign",
+    "text": "b.runner.source_bytes=old"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 66,
+    "operation": "Assign",
+    "text": "self.source_reserved_unknown=0"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 66,
+    "operation": "Assign",
+    "text": "self.source_events=[dict(x) for x in (seed_source_events or [])]"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 67,
+    "operation": "Assign",
+    "text": "self.source_bytes=sum(x['chargedBytes'] for x in self.source_events)"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 67,
+    "operation": "Assign",
+    "text": "self.source_reads=len(self.source_events)"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 121,
+    "operation": "AugAssign",
+    "text": "self.source_bytes+=amount"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 121,
+    "operation": "AugAssign",
+    "text": "self.source_reads+=1"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 260,
+    "operation": "AugAssign",
+    "text": "self.source_bytes+=s['imageHashBytes']"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 260,
+    "operation": "AugAssign",
+    "text": "self.source_reserved_unknown+=s['imageHashBytesReservedUnknown']"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 260,
+    "operation": "AugAssign",
+    "text": "self.source_reads+=int(s['imageHashBytes']+s['imageHashBytesReservedUnknown']>0)"
+  },
+  {
+    "file": "tools/fact_collector.py",
+    "line": 24,
+    "operation": "AugAssign",
+    "text": "gate.source_bytes+=len(raw)"
+  },
+  {
+    "file": "tools/fact_collector.py",
+    "line": 24,
+    "operation": "AugAssign",
+    "text": "gate.source_reads+=1"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 116,
+    "operation": "Assign",
+    "text": "self.sourceBytes=0"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 116,
+    "operation": "Assign",
+    "text": "self.sourceReads=0"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 117,
+    "operation": "Assign",
+    "text": "self.sourceEvents=[]"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 122,
+    "operation": "Assign",
+    "text": "self.sourceBytes=len(fixture_raw)"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 122,
+    "operation": "Assign",
+    "text": "self.sourceReads=1"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 125,
+    "operation": "AugAssign",
+    "text": "self.sourceBytes+=len(b)"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 125,
+    "operation": "AugAssign",
+    "text": "self.sourceReads+=1"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 45,
+    "operation": "Assign",
+    "text": "self.source_bytes=0"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 45,
+    "operation": "Assign",
+    "text": "self.source_reads=0"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 118,
+    "operation": "AugAssign",
+    "text": "self.source_bytes+=reservation"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 118,
+    "operation": "AugAssign",
+    "text": "self.source_reads+=1"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 95,
+    "operation": "AugAssign",
+    "text": "self.source_bytes+=reservation"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 95,
+    "operation": "AugAssign",
+    "text": "self.source_reads+=1"
+  },
+  {
+    "file": "tools/source_budget.py",
+    "line": 23,
+    "operation": "AugAssign",
+    "text": "g.source_bytes+=b"
+  },
+  {
+    "file": "tools/source_budget.py",
+    "line": 23,
+    "operation": "AugAssign",
+    "text": "g.source_reads+=reads"
+  },
+  {
+    "file": "tools/source_budget.py",
+    "line": 23,
+    "operation": "AugAssign",
+    "text": "r.source_bytes+=b"
+  },
+  {
+    "file": "tools/source_budget.py",
+    "line": 23,
+    "operation": "AugAssign",
+    "text": "r.source_reads+=reads"
+  },
+  {
+    "file": "tools/source_budget.py",
+    "line": 52,
+    "operation": "AugAssign",
+    "text": "r.source_reads+=1"
+  },
+  {
+    "file": "tools/source_budget.py",
+    "line": 52,
+    "operation": "AugAssign",
+    "text": "r.source_bytes+=2"
+  }
+]

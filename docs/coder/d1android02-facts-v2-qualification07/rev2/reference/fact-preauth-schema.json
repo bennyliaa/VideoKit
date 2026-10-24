@@ -1,0 +1,504 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:videokit:global-idle-fact-preauth:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "mode",
+    "sourceThreadId",
+    "sourceTurnId",
+    "notBeforeUtc",
+    "expiresUtc",
+    "scope",
+    "planId",
+    "runId",
+    "nonce",
+    "home",
+    "evidenceRoot",
+    "policySha256",
+    "sourceSealSha256",
+    "gateSourcesSha256",
+    "collectorSha256",
+    "binderSha256",
+    "entrySha256",
+    "runtimeIdentitySha256",
+    "sdk",
+    "factPlanSha256",
+    "device",
+    "queries",
+    "limits"
+  ],
+  "properties": {
+    "schema": {
+      "const": "GLOBAL_IDLE_FACT_PREAUTH_V1"
+    },
+    "mode": {
+      "enum": [
+        "LIVE",
+        "OFFLINE_FIXTURE"
+      ]
+    },
+    "sourceThreadId": {
+      "const": "01a107c3-2bf9-7fa0-94a0-234258ca6774"
+    },
+    "sourceTurnId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "notBeforeUtc": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?\\+00:00$"
+    },
+    "expiresUtc": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(?:\\.\\d{1,6})?\\+00:00$"
+    },
+    "scope": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "planId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^D1MA02-[A-Z0-9_-]{1,32}$"
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "home": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidenceRoot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policySha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "sourceSealSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "gateSourcesSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "collectorSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "binderSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "entrySha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "runtimeIdentitySha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "sdk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "const": "D:/Android/SDK/platform-tools/adb.exe"
+        },
+        "sha256": {
+          "const": "b4a6b455702684652cccf7b46258b29e653538904359a58fd4931cf3ef286b3f"
+        }
+      }
+    },
+    "factPlanSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "serial",
+        "model",
+        "api",
+        "user"
+      ],
+      "properties": {
+        "serial": {
+          "const": "HA1Q6WXR"
+        },
+        "model": {
+          "const": "TB138FC"
+        },
+        "api": {
+          "type": "integer",
+          "const": 31
+        },
+        "user": {
+          "type": "integer",
+          "const": 0
+        }
+      }
+    },
+    "queries": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "prefixItems": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "command"
+          ],
+          "properties": {
+            "id": {
+              "const": "model"
+            },
+            "command": {
+              "const": "getprop ro.product.model"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "command"
+          ],
+          "properties": {
+            "id": {
+              "const": "api"
+            },
+            "command": {
+              "const": "getprop ro.build.version.sdk"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "command"
+          ],
+          "properties": {
+            "id": {
+              "const": "firmware"
+            },
+            "command": {
+              "const": "getprop ro.build.fingerprint"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "command"
+          ],
+          "properties": {
+            "id": {
+              "const": "user"
+            },
+            "command": {
+              "const": "am get-current-user"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "command"
+          ],
+          "properties": {
+            "id": {
+              "const": "system"
+            },
+            "command": {
+              "const": "cmd package list packages -s -U --user 0"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "command"
+          ],
+          "properties": {
+            "id": {
+              "const": "role"
+            },
+            "command": {
+              "const": "dumpsys role"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "command"
+          ],
+          "properties": {
+            "id": {
+              "const": "home"
+            },
+            "command": {
+              "const": "cmd package resolve-activity --brief --components --user 0 -a android.intent.action.MAIN -c android.intent.category.HOME"
+            }
+          }
+        }
+      ],
+      "items": false
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wholeSeconds",
+        "gateSeconds",
+        "qualificationSeconds",
+        "outerSeconds",
+        "proofSeconds",
+        "sdkChildren",
+        "stdoutBytes",
+        "stderrBytes",
+        "combinedBytes",
+        "concurrency",
+        "retry"
+      ],
+      "properties": {
+        "wholeSeconds": {
+          "type": "integer",
+          "const": 90
+        },
+        "gateSeconds": {
+          "type": "integer",
+          "const": 30
+        },
+        "qualificationSeconds": {
+          "type": "integer",
+          "const": 15
+        },
+        "outerSeconds": {
+          "type": "integer",
+          "const": 30
+        },
+        "proofSeconds": {
+          "type": "integer",
+          "const": 10
+        },
+        "sdkChildren": {
+          "type": "integer",
+          "const": 1
+        },
+        "stdoutBytes": {
+          "type": "integer",
+          "const": 139264
+        },
+        "stderrBytes": {
+          "type": "integer",
+          "const": 8192
+        },
+        "combinedBytes": {
+          "type": "integer",
+          "const": 147456
+        },
+        "concurrency": {
+          "type": "integer",
+          "const": 1
+        },
+        "retry": {
+          "type": "integer",
+          "const": 0
+        }
+      }
+    }
+  },
+  "$comment": "Runtime additionally enforces canonical paths, unique casefold keys, exact external digest/pins/policy, actual original object/owner/once, and <=90s UTC validity. Template generation gives no authority. JSON Schema integer semantics alone cannot exclude 1.0; Python exact type validator does.",
+  "$defs": {
+    "runtimeBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "mode",
+        "preauthSha256",
+        "scope",
+        "planId",
+        "runId",
+        "nonce",
+        "generation",
+        "ownerPid",
+        "ownerThread",
+        "claimFileId",
+        "scopeStartTick",
+        "proofStartTick",
+        "routeProofSha256",
+        "initialProofSha256",
+        "gateReceiptSha256",
+        "sourceSealSha256",
+        "gateSourcesSha256",
+        "binderSha256",
+        "boundAtUtc"
+      ],
+      "properties": {
+        "schema": {
+          "const": "GLOBAL_IDLE_FACT_RUNTIME_BINDING_V1"
+        },
+        "mode": {
+          "enum": [
+            "LIVE",
+            "OFFLINE_FIXTURE"
+          ]
+        },
+        "preauthSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "planId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nonce": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ownerPid": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "ownerThread": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "claimFileId": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "scopeStartTick": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "proofStartTick": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "routeProofSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "initialProofSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "gateReceiptSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sourceSealSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "gateSourcesSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "binderSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "boundAtUtc": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "captureV2Authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "authorizationKind",
+        "externalPreauthSha256",
+        "runtimeBindingSha256"
+      ],
+      "properties": {
+        "schema": {
+          "const": "GLOBAL_IDLE_FACT_CAPTURE_V2"
+        },
+        "authorizationKind": {
+          "const": "GLOBAL_IDLE_FACT_PREAUTH_V1"
+        },
+        "externalPreauthSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtimeBindingSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

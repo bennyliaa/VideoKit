@@ -1,5 +1,131 @@
 # D1 手机测试执行安排
 
+<!-- CURRENT_STATUS_QUALIFICATION07_B_PASS_NEXT_HANDOFF:BEGIN -->
+> **2026-10-24 QUALIFICATION07 REV2独立整包B已审：限定PASS。** 报告5fd891e97a29d6fb963812ae8d22cbeaf3a36e9b09c563d307dee7765b7738fc；manifest017f776849e300a942ce308230f8c76f81ae2afbe4234adc5d9748b14bd4e910，负责人逐核301项5547144B bad0。9组独立通过：完整facts64事件/子自读、共享V1/V2生产者pin、生产前置合法/错固件、原receipt同bytes替换身份读前拒绝、原预算及18辅助/当前V1等；仅准确REV2本批离线范围。REV1FAIL、旧05未证、旧capture1及全部历史once/UNKNOWN保持。
+>
+> 下一整批分工：coder按docs/coder/D1_REAL_FACTS_HANDOFF01_CODER_REQUIREMENTS_V1.0.md复用已审工具，仅准备一次真实固定七项只读facts的精确交接和D1实际功能后续矩阵，不新造release/诊断框架，不预执行。tester按docs/tester/D1_QUALIFICATION07_GIT_CHECKPOINT_TESTER_REQUIREMENTS_V1.0.md将已审离线快照准确白名单提交新codex分支/草稿PR（base PR2分支），不合并main/发布。新handoff浮动输出不入Git；负责人在Git回报前保持三协调文档此快照，其他完整报告可先只读审。
+>
+> 当前SDK/ADB/设备/Gradle/媒体0，真实只读执行由负责人审完整交接后另准确派单，不自动安装或媒体回归。**D1未过/M0未启**，主阶段/成熟框架精确许可/Flutter/独立Kit/P0保持。双方整批完成主动报负责人，通知失败留报告。
+<!-- CURRENT_STATUS_QUALIFICATION07_B_PASS_NEXT_HANDOFF:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION07_REV2_INDEPENDENT_B:BEGIN -->
+> **2026-10-24 QUALIFICATION07完整两版包已核，正式交REV2独立整包B。** 报告a0ac936116a6cd01f148aad5aaeea75a7236cda1442f287fa71a126e9c4247af；manifest e9a275eba60347706fee8ed622350368b1fb0a87f6100c361297952f5a204e7f，负责人逐核567项8138358B及ZIP568唯一成员逐内容bad0。事前两版声明/新scope、REV1原返回后启REV2和合并189.516秒/960MiB预留证据已核；REV1FAIL保留，最终REV2八组仅开发限定PASS，不代独立验收。
+>
+> tester按docs/tester/D1_FACTS_V2_QUALIFICATION07_INDEPENDENT_B_DISPATCH_V1.0.md正式验准确rev2根（source30 0db36468…57de/gate22 ba8fbd64…6f81），重点完整facts64事件/子自读、全部V1/V2具名pin、实际生产正负及原receipt身份替换拒绝、控制容量/原预算/18辅助。coder整包保持冻结，完整独立报告后再集中派下一批，不逐问题交接。
+>
+> 原05未证和旧对象不查询干预，SDK/设备/Gradle/Git0；**D1未过/M0未启**。主阶段/既定成熟框架精确许可/Flutter/独立Kit/P0保持。
+<!-- CURRENT_STATUS_QUALIFICATION07_REV2_INDEPENDENT_B:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION07_STATIC_A_REVIEWED:BEGIN -->
+> **2026-10-24 QUALIFICATION07静态A完整结果已核并集中转交。** 报告55cebda03133f2a9669da8b2386376c55ee13c750d28e5e82ca68f8d7dfdb4ca；manifest0a9173fc3f2c654c408d1a75bb4dc239b6a8437ca1f1840f9b4ef002a0c3e48f，负责人逐核90项/2435522B bad0、产品调用0。已分类全费用修改/文件操作/具名摘要消费；GICollector旧pin被共享展开消费，V1/V2均须同步，不能只修V1。RAW账面64+route显式子自读义务1=65，COMPLETE62、LIVE59为各自静态义务，不冒实测/改旧账面。
+>
+> 完整A一次转coder，按原07同批吸收全部具名pin、手工child收费事件及子自读，保持已有Gate/Runner/SourceBudget票据分域，不把有独立原票据的预留误报漏事件或新造账本。若已冻结/实跑不临时改源冒同次结果，按原最多两版已预声明修订条件处理。tester保持A冻结，不审07浮动源或自动B；完整最终包经审后才正式独立B。
+>
+> 原05未证/旧对象/FAIL/once不改不查询，SDK/设备/Git0；D1未过/M0未启，原预算/主阶段/既定设计许可保持。
+<!-- CURRENT_STATUS_QUALIFICATION07_STATIC_A_REVIEWED:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION07_CONCENTRATED_REPAIR:BEGIN -->
+> **2026-10-24 QUALIFICATION06完整失败已审，集中派07。** 报告d7773dd5c2747bd77a720de4849c302ab0ccdb47a840a820056b54aa010aab82；manifest68dd9820be6eeaf585cbe22793f8a4bc4a1b279acc6356ced0d6dcaa4b8d2e1d，负责人逐核132项/4654998B bad0。child原收费漏新事件、V1消费者GICollector pin未同步，事实及V1FAIL，后续未到；子route自读额外义务在冻结后A收到，原64账面不改。新宿主原返回已证不代旧05归还，旧05仍未证。
+>
+> coder按docs/coder/D1_FACTS_V2_QUALIFICATION07_CODER_REQUIREMENTS_V1.0.md统一计费事件、完整读取与全部具名pin，继续未完功能簇。为避免每个准备错逐次交接，本正式批最多两版预声明/全新scope的离线自测修订，必须上版全原资源已返且无新UNKNOWN、合并原360秒/1GiB/16MiB/96预算不扩，不重放旧scope。tester只审冻结06全计费/消费点静态A，不审07浮动源，完整回负责人集中转交；最终完整包核后再独立B。
+>
+> 原SDK/设备/Gradle/Git0，旧对象/FAIL/once/预算不改不干预。**D1未过/M0未启**，主阶段/既定成熟框架许可/Flutter/独立Kit/P0保持。
+<!-- CURRENT_STATUS_QUALIFICATION07_CONCENTRATED_REPAIR:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION06_STATIC_A_ACCEPTED:BEGIN -->
+> **2026-10-24 QUALIFICATION06静态A完整结果已核并集中转交。** 报告7698dcb2ad3a4c59b96e48cceeebdef1a387cdacbd468e8ca84d8e4d003f96b7；manifest fe2d2a64a057e17741eba4ef73004ae2b5efa6ba04f74ea8dd488cab6d968656，负责人逐核58项/680243B bad0，产品调用0。仅从封存05固定代码推导RAW账面66读，第65请求在原64门应读前拒绝；route子自读另1项计费义务，未改旧账面。COMPLETE63/LIVE分开，字节小不抵次数超限。
+>
+> 该表是静态计划而非05异常/计数实测；旧05原返回仍未证，不查询或补收尾。完整A按原06单一次转coder，在最终新源上重算所有初读/runtime/guard/子读及真正原构造前后状态，不能只减两读、扩64门或跳pin取得通过。tester保持A冻结，不读06浮动源或自动B；06完整自测包经审后才派B。
+>
+> 原预算/范围及SDK/设备/Git0不变，D1未过/M0未启，主阶段/既定框架许可/Flutter/独立Kit/P0保持。
+<!-- CURRENT_STATUS_QUALIFICATION06_STATIC_A_ACCEPTED:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION06_FACT_ADMISSION:BEGIN -->
+> **2026-10-24 QUALIFICATION05失败保留快照已核，集中派06事实准入与完整功能簇。** 报告c66b5edc3219176680c6ae3c2b66950c276c84285d92ddb0aab5824e54d77cad；manifest2b102c6dc962d7a6b1d4742b38171b871132097703db8fdd004ad40802bef3a7/ZIP32aadc2e…5e458，负责人逐核封存106成员与105项1062255B快照一致。originalCallsFinal=false，排他lock准确排除；原facts/worker返回未证，后续功能NOT_RUN，不冒最终完成包/全归还。55至64后guard额外source触界只是强静态推断，原异常未落盘。
+>
+> coder按docs/coder/D1_FACTS_V2_QUALIFICATION06_CODER_REQUIREMENTS_V1.0.md在新06目录做完整读取路径资源前准入/最小冗余消除及构造前已知拒绝与构造后未知分层，保持原64门和全部必要pin，继续原receipt/控制/生产链与辅助整批。tester仅从封存05 ZIP静态审完整调用预算，不读活动输出/旧lock/PID、不审06浮动源，完整回负责人集中转交。
+>
+> 旧05原调用/once/claim/预算保持，不二close/kill/补ACK或退款，不以强制收尾为其他独立推进前提。SDK/设备/Gradle/Git0；**D1未过/M0未启**，主阶段/原框架许可/Flutter/独立Kit/全P0保持。完整新候选经审后才正式B。
+<!-- CURRENT_STATUS_QUALIFICATION06_FACT_ADMISSION:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION05_DRIVER_A_ACCEPTED:BEGIN -->
+> **2026-10-24 QUALIFICATION05独立驱动静态A已核，限定接受准备结果。** 报告71183372022222abf281a45281573a7fa248695eddf5357671ecbafd508acdd8；manifest40a048659d6e22b3474563033def291785abbdbf26cc82b73fb44b11b750959d，负责人逐核28项/165731B bad0。actual budget_models与冻结tuple共用CallSpec，准入在Capture构造前，结果原exit/流先保存再判文件；18辅助/驱动失败及receipt/容量oracle均未执行，19项仅静态结构匹配，不签功能或运行通过。
+>
+> 完整A一次转coder参考原05整批开发，不审05浮动源、不为108规划行要求全组合。tester保持A冻结；完整05经负责人核后正式B时重新核最终API/字段/符号/理由/源与运行环境，不盲迁04静态模板。原call-template approved=false不作实际许可，旧capture1不查询收尾、不改false/FAIL/once。
+>
+> 当前05开发要求/预算不变，SDK/设备/Gradle/Git0；D1未过/M0未启。双方完整交付主动报负责人，集中安排不逐问题交接。
+<!-- CURRENT_STATUS_QUALIFICATION05_DRIVER_A_ACCEPTED:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION05_RECEIPT_INTEGRATION:BEGIN -->
+> **2026-10-24 QUALIFICATION04独立整包B已审，集中派05。** 报告307a32ad4e380604d81982c9a611f5ba327b06a7355bf55a99b97e4dcdddf829；manifest971ec3933e5240902fc44bd409e1264ede2f6cc52fe14d0358303efd59b88988，负责人逐核260项/1733977B bad0。原生产前置/正常delta并回/Gate64限定获证；samebytes不同fileId的原receipt替换实际被接受，身份契约不满足。tester驱动调用点错配在Popen前拒绝，辅助与尾项未跑，原capture custody1/false保留，分类已知未启动未收尾对象，不冒全清零或已启动未知。长独立证据根仅静态条件容量义务。
+>
+> coder按docs/coder/D1_FACTS_V2_QUALIFICATION05_CODER_REQUIREMENTS_V1.0.md在新05目录补原writer→console→Owner文件身份、完整控制字节资源前准入及辅助驱动实际调用点/可靠输出，集中自测冻结回负责人。tester按独立要求并行只做新驱动静态准备，不审05浮动源/不动态，完整候选核后才派B。原04FAIL/once/所有旧对象不改不干预。
+>
+> 当前SDK/ADB/设备/Gradle/媒体/Git0；**D1未过/M0未启**，原主阶段/成熟框架精确许可/Flutter/独立Kit/P0保持。完整结果主动报负责人，缺陷集中交接不逐问题往返。
+<!-- CURRENT_STATUS_QUALIFICATION05_RECEIPT_INTEGRATION:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION04_INDEPENDENT_B:BEGIN -->
+> **2026-10-24 QUALIFICATION04完整开发包已核，带明确辅助失败限制交独立整包B。** 报告1426449caa7dc700c34596ecbf6ef864de215b4b809ef07373ef497eedf6dfe8；manifest a577b3aab5a3b54f221ad3b4b049447d332ccca8744ecf9bccb1cb689768cc73，负责人核284项/5866724B与ZIP285逐内容bad0。实际原生产前置合法/错固件、同原账本并回和Gate64次有限定证据；开发整批仍FAIL（辅助汇总false语法错误、结果未落盘），原脚本/FAIL不改，不为此重跑开发产品scope。
+>
+> tester按docs/tester/D1_FACTS_V2_QUALIFICATION04_INDEPENDENT_B_DISPATCH_V1.0.md正式执行独立整包B，以自身驱动覆盖辅助缺口、完整原入口及预算/新增console原receipt视图与固定容量。coder保持31源/23gate及原件冻结；当前交测不是接受产品通过，完整独立报告后再集中派下一批。
+>
+> SDK/ADB/设备/Gradle/媒体/Git0，不处理旧UNKNOWN、不改旧账本/once。**D1未过/M0未启**，主阶段/既定框架许可/Flutter/独立Kit/全P0保持。双方完整交付主动报负责人，通知失败保留报告。
+<!-- CURRENT_STATUS_QUALIFICATION04_INDEPENDENT_B:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION04_PHASE_A_REVIEWED:BEGIN -->
+> **2026-10-24 QUALIFICATION04静态A完整结果已核并集中转交。** 报告a7d0b7d14cc0dcf581baac347f25fb286440a898eac971d00b66b5b4427cbf2a；manifest31ce729f7b7b772b34a70313a621d42b96423cfb2caa8abd7ad727aa30b363d8，负责人逐核14项/144121B bad0。固定helper阻断确认，另列预算读前边界、merge权威/类型、prefix精确类型与完整console/admission大小义务；63项均计划未执行，不签功能通过。
+>
+> 按docs/D1_QUALIFICATION04_PHASE_A_COORDINATOR_REVIEW_V1.0.md及原04单，coder在未冻结且不重放已消耗批次前提下整批吸收，已冻结则保留待下一整批，不改源冒同次实测。tester保持A冻结，不自动B。原04范围/预算及SDK/设备/Git0不变；D1未过/M0未启，完整包核后才正式独立B。
+<!-- CURRENT_STATUS_QUALIFICATION04_PHASE_A_REVIEWED:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION04_FIXED_BYTES:BEGIN -->
+> **2026-10-24 QUALIFICATION03完整失败包已审，正式派04整批修复验证及独立静态A。** 报告dc9062532f9334b883dd38b309a86db76c455dd0e968995bfd498fefa990b7f4；manifest882263c06b5e9db6c23aa04165d535f8077e376cf53979e1ee79c89eb9837c33，负责人逐核101项/4110981B bad0。派生包装将固定runtime helper CRLF转LF，原Gate安全拒绝，预授权已USED；生产identity/global及PS预算实测NOT_RUN，B02两项未关闭，原失败与once保留。
+>
+> coder按docs/coder/D1_FACTS_V2_QUALIFICATION04_CODER_REQUIREMENTS_V1.0.md在新04目录恢复固定原bytes、完整纯契约预检后继续实际生产前置/原来源账本整批验证，不能只修helper冒通过。tester按独立要求对冻结03做一次完整静态A，不审04浮动源/不动态，完整回负责人集中转交；04完整冻结经审后才派B。双方不逐问题交接。
+>
+> SDK/ADB/设备/Gradle/媒体/Git0，不处理旧UNKNOWN。**D1未过/M0未启**，主阶段、指定成熟框架精确许可、Flutter/独立Kit/全P0保持，离线prefix不代完整七角色或现场。双方完整交付主动报负责人，通知失败保留报告。
+<!-- CURRENT_STATUS_QUALIFICATION04_FIXED_BYTES:END -->
+
+<!-- CURRENT_STATUS_QUALIFICATION03_PRODUCTION_FIX:BEGIN -->
+> **2026-10-24 QUALIFICATION02独立B已审，集中派03生产接线修复。** 报告ec65e690341848b104e155eeecece03fbb8f33b7ce9e3eb03e15c0c00170633f；负责人核manifest280928c93a8dc207acac13f77b61f8da886349014a6c5f2574ff3c71ab795a4e，259项/13229764B、bad0。最大facts/新根/独立离线review及原目标函数层已限定通过；整包仍FAIL：生产identity读取wire缺失fingerprint、来源引用局部预算未接原权威累计账本。原件与旧FAIL/UNKNOWN保持。
+>
+> coder按docs/coder/D1_FACTS_V2_QUALIFICATION03_FIX_CODER_REQUIREMENTS_V1.0.md在新03目录集中修生产前置角色/全部调用方与准确scope预算原owner接线，有限离线原入口串行自测冻结后交负责人。不得加裸字段绕证明、默认0/复载清零或扩cap，不另造账本/诊断框架。tester独立要求已另存，保持02原件冻结，待03完整冻结经审才派B；不逐问题交接。
+>
+> 当前SDK/ADB/设备/Gradle/媒体/Git0。**D1未通过/M0未启动**；原主阶段、既定成熟框架精确许可、Flutter/独立Kit与全P0不变。双方整批完成主动报负责人，通知失败保留报告。下文旧状态仅原时点记录。
+<!-- CURRENT_STATUS_QUALIFICATION03_PRODUCTION_FIX:END -->
+
+<!-- CURRENT_STATUS_FACTS_V2_QUALIFICATION02_B:BEGIN -->
+> **2026-10-24 QUALIFICATION02完整开发包已核，正式交独立整包B。** 报告d9f520975d5d6fc63fe908c9268275fb1fd4814c763d4657ff2dcbe97c90b142；manifest783d4b6c280da96b03c55c06722d9855d839cfc5504cbc62b9c1f7714acd02b4，负责人逐核277项/13823627B及ZIP278唯一成员逐内容bad0。八组开发限定通过：单份Base64 raw、15字段证据引用、原Capture内部来源、独立有限review夹具；不代最终验收。
+>
+> tester按docs/tester/D1_FACTS_V2_QUALIFICATION02_INDEPENDENT_B_DISPATCH_V1.0.md正式整包复审，重点新测试根实际原facts/独立review/原PS正链、最大合法容量、固定原文件身份/字节/窄授权、来源预算与既有Gate累计整合及43展开/15wire字段。coder保持30源/22gate及原件冻结。完整报告回负责人再派下一批，缺陷集中交接；旧01失败与全部UNKNOWN不改。
+>
+> 当前不SDK/ADB/设备/Gradle/媒体/Git，不新造诊断审批框架。**D1未通过/M0未启动**；主里程碑、指定框架许可、Flutter/独立Kit及全P0保持。下文旧状态为原时点记录。
+<!-- CURRENT_STATUS_FACTS_V2_QUALIFICATION02_B:END -->
+
+<!-- CURRENT_STATUS_FACTS_V2_QUALIFICATION02_FIX:BEGIN -->
+> **2026-10-24 FACTS_V2独立整包B已审：FAIL，集中派QUALIFICATION02修复。** 报告SHA3eebbe89d530fae48a183f3db229d2c59adab7989df58e2b6c1f01aad714d7e7；负责人逐项核有效manifest f958f9b6cbf5f1efb790897bc191f1b06c0762ee8e1d2e36b3598ff134490dde，209项/8532587B、bad0。F01事实表示超过接收容量、F02成功生成资格超过原目标上限、F03对象来源/关键嵌套校验模型反例；G01新根拒绝/G02独立review交接未证集中保留。无新增UNKNOWN，原01冻结及历史FAIL不改。
+>
+> coder执行docs/coder/D1_FACTS_V2_QUALIFICATION02_FIX_CODER_REQUIREMENTS_V1.0.md：仅新02目录，统一容量但不提高原cap或缩小合法功能，最小原来源/嵌套验证，精确支持新测试根和实际原facts正链，演示独立离线review夹具交接。集中有限自测并完整冻结回负责人。tester要求单另存，当前01结束，待负责人核完整02包后正式派整包B，不测浮动源或逐问题交接。
+>
+> 本批SDK/ADB/设备/Gradle/媒体/Git0，不操作旧对象/账本/once/UNKNOWN，不新造诊断或审批框架。模型反例不冒真实通道攻击，合成独立review不冒真人批准。**D1未通过/M0未启动**，主阶段、指定成熟框架许可、Flutter/独立Kit及全P0保持。双方整批完成主动报负责人，通知失败保留报告。
+<!-- CURRENT_STATUS_FACTS_V2_QUALIFICATION02_FIX:END -->
+
+<!-- CURRENT_STATUS_FACTS_V2_INDEPENDENT_B:BEGIN -->
+> **2026-10-24 FACTS_V2完整开发包已核，正式交独立整包B。** 开发报告20601b961d781773bee8e62703051f4673e7182b675437d8a3373f3b1d247338；负责人逐项核manifest07a7572ce553f4ad7cd85ca98a97e6fe7b643275d228deb6a9e05cb4c111a0c4，132项/5125910B、bad0；ZIP133唯一成员。六组自测仅限定开发通过，新26源/18gate仍待独立验收；未执行边界保留。
+>
+> tester按docs/tester/D1_FACTS_V2_QUALIFICATION01_INDEPENDENT_B_TESTER_REQUIREMENTS_V1.0.md整体复审：阶段A160追踪、实际原Capture/外批review/准确目标与鲜度、V1/V2、rawHex及嵌套证据容量、外部审批可操作性。只写新测试根，完整缺陷集中报告，不逐问题交接。coder保持候选冻结，等待完整B审核后下一整批。双方交付主动通知负责人，通知失败保留报告。
+>
+> 本批不SDK/ADB/设备/Gradle/媒体/Git操作，不干预旧UNKNOWN，不修改旧证据/once/账本/FAIL。**D1未通过、M0未启动**；主里程碑、既定框架许可和全P0保持。以下旧状态为原时点记录。
+<!-- CURRENT_STATUS_FACTS_V2_INDEPENDENT_B:END -->
+
+<!-- CURRENT_STATUS_FACTS_V2_PHASE_A_CHECKPOINT_DONE:BEGIN -->
+> **2026-10-23 FACTS_V2阶段A及PREAUTH检查点已审。** 完整交付SHA `d628a2c551a83de04ac3ba95995d2c705bedb4e5b7be74066dd044e7466bc183`；负责人核阶段A manifest `898677d5aacf9a089c23dfe1854ab981de58d84a1f53ecdd579c7586a5ae8b81` 4项/52613B、bad0。160项oracle/字段映射/最小真实交接表均PLANNED_NOT_RUN，新V2实现和资格/现场不签通过。
+>
+> 已通过PREAUTH20快照提交 `09eae12e950d156e1e8fbbfa294ce9b06e6758b4`，分支`review/d1-preauth01-offline-20261023-a601`，[草稿PR #2](https://github.com/bennyliaa/VideoKit/pull/2)以PR1分支/43e58c1为base。负责人核本地及远端跟踪ref一致并已附负责人任务；388项白名单/387变更，未纳新V2浮动源，main仍1f14c5b，不合并/发布。本段为该提交后新状态，尚未入库。
+>
+> coder继续已派FACTS_V2_QUALIFICATION01，参考完整oracle，最终字段以其唯一冻结Schema对齐；tester阶段A完成，保持原件冻结，待完整新包经负责人审后准确派B，不测浮动源/不自动现场。当前SDK/ADB/设备等0，**D1未通过/M0未启动**；原失败/辅助恢复/UNKNOWN/once与下方旧状态保留。
+<!-- CURRENT_STATUS_FACTS_V2_PHASE_A_CHECKPOINT_DONE:END -->
+
 <!-- CURRENT_STATUS_PREAUTH_PASS_FACTS_V2_QUALIFICATION01:BEGIN -->
 > **2026-10-23 PREAUTH01完整限定离线B通过，进入FACTS_V2_QUALIFICATION01。** 报告SHA `309a56d23173a04327af4b80da5b21332f845436ea1f4cf10887bb44755e66cd`；负责人核manifest `fd3b676a69da58aa52d1c86ae3073e8b627bf5e3559f46242a976aeb0b230cbc` 184项/4096286B、bad0，9组PASS，资格仅1版/3原返回，全部新资源归还。准确20源`02ac6306…708df`/12gate`bdc8cba3…12192`限定接受；旧blocked、误写恢复、图遗漏、物化过期缺口及所有历史UNKNOWN不改。真实SDK/设备仍未执行，qualification V2仍未实现。
 >

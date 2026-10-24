@@ -1,0 +1,1586 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:videokit:qualification:v2:reference02",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "representation",
+    "mode",
+    "fixtureOnly",
+    "targetScope",
+    "targetRunId",
+    "targetPlanId",
+    "targetSourceSealSha256",
+    "targetPlanSha256",
+    "reviewEvidenceSha256",
+    "authorizationKind",
+    "adapterSourceSha256",
+    "bundleSha256",
+    "evidenceRoot",
+    "evidenceRef"
+  ],
+  "properties": {
+    "schema": {
+      "const": "GLOBAL_IDLE_QUALIFICATION_V2"
+    },
+    "representation": {
+      "const": "PINNED_EVIDENCE_REFERENCE_V1"
+    },
+    "mode": {
+      "type": "string"
+    },
+    "fixtureOnly": {
+      "type": "boolean"
+    },
+    "targetScope": {
+      "type": "string"
+    },
+    "targetRunId": {
+      "type": "string"
+    },
+    "targetPlanId": {
+      "type": "string"
+    },
+    "targetSourceSealSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "targetPlanSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "reviewEvidenceSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authorizationKind": {
+      "type": "string"
+    },
+    "adapterSourceSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "bundleSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "evidenceRoot": {
+      "type": "string"
+    },
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "bytes",
+        "sha256",
+        "volumeId",
+        "fileId"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8388608
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "volumeId": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)$"
+        },
+        "fileId": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "bytes",
+        "sha256",
+        "volumeId",
+        "fileId"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8388608
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "volumeId": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)$"
+        },
+        "fileId": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        }
+      }
+    },
+    "factsEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "representation",
+        "receipt",
+        "receiptSha256",
+        "parsedFactsSha256",
+        "rawBase64",
+        "release",
+        "binding",
+        "gateReceiptBase64",
+        "initialProofBase64",
+        "outerProcessReturnStillRequired",
+        "qualificationIssued",
+        "sourceBytes",
+        "sourceReads",
+        "controlBytes",
+        "fixtureConstructorCalls",
+        "fixtureAudit"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "representation": {
+          "type": "string"
+        },
+        "receipt": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema",
+            "scope",
+            "mode",
+            "sourceSha256",
+            "planSha256",
+            "routeProofSha256",
+            "initialProofSha256",
+            "hostEnvironment",
+            "rawSha256",
+            "rawBytes",
+            "stdoutBytes",
+            "stderrBytes",
+            "hostElapsedSeconds",
+            "collectedAtUtc",
+            "originalBodyReturned",
+            "outerControllerReturnStillRequired",
+            "authorizationKind",
+            "externalPreauthSha256",
+            "runtimeBindingSha256",
+            "captureStartTick"
+          ],
+          "properties": {
+            "schema": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "mode": {
+              "type": "string"
+            },
+            "sourceSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "planSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "routeProofSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "initialProofSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "hostEnvironment": {
+              "type": "string"
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "rawBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stdoutBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stderrBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "hostElapsedSeconds": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMaximum": 15
+            },
+            "collectedAtUtc": {
+              "type": "string"
+            },
+            "originalBodyReturned": {
+              "const": true
+            },
+            "outerControllerReturnStillRequired": {
+              "const": true
+            },
+            "authorizationKind": {
+              "type": "string"
+            },
+            "externalPreauthSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "runtimeBindingSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "captureStartTick": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "receiptSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "parsedFactsSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "rawBase64": {
+          "type": "string",
+          "maxLength": 185688
+        },
+        "release": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "originalUnlockCloseReturned",
+            "generation",
+            "failure",
+            "sdkChildrenEntered",
+            "endTick",
+            "allTemporaryThreadsJoined",
+            "factProofTimely",
+            "factCaptureQualified",
+            "outerControllerReturnStillRequired"
+          ],
+          "properties": {
+            "originalUnlockCloseReturned": {
+              "const": true
+            },
+            "generation": {
+              "type": "string"
+            },
+            "failure": {
+              "type": "null"
+            },
+            "sdkChildrenEntered": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "endTick": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "allTemporaryThreadsJoined": {
+              "const": true
+            },
+            "factProofTimely": {
+              "const": true
+            },
+            "factCaptureQualified": {
+              "const": true
+            },
+            "outerControllerReturnStillRequired": {
+              "const": true
+            }
+          }
+        },
+        "binding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "schema",
+            "mode",
+            "preauthSha256",
+            "scope",
+            "planId",
+            "runId",
+            "nonce",
+            "generation",
+            "ownerPid",
+            "ownerThread",
+            "claimFileId",
+            "scopeStartTick",
+            "proofStartTick",
+            "routeProofSha256",
+            "initialProofSha256",
+            "gateReceiptSha256",
+            "sourceSealSha256",
+            "gateSourcesSha256",
+            "binderSha256",
+            "boundAtUtc"
+          ],
+          "properties": {
+            "schema": {
+              "type": "string"
+            },
+            "mode": {
+              "type": "string"
+            },
+            "preauthSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "scope": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "planId": {
+              "type": "string"
+            },
+            "runId": {
+              "type": "string"
+            },
+            "nonce": {
+              "type": "string"
+            },
+            "generation": {
+              "type": "string"
+            },
+            "ownerPid": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ownerThread": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "claimFileId": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "scopeStartTick": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "proofStartTick": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "routeProofSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "initialProofSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "gateReceiptSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "sourceSealSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "gateSourcesSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "binderSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "boundAtUtc": {
+              "type": "string"
+            }
+          }
+        },
+        "gateReceiptBase64": {
+          "type": "string",
+          "maxLength": 21848
+        },
+        "initialProofBase64": {
+          "type": "string",
+          "maxLength": 5464
+        },
+        "outerProcessReturnStillRequired": {
+          "const": true
+        },
+        "qualificationIssued": {
+          "const": false
+        },
+        "sourceBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourceReads": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "controlBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fixtureConstructorCalls": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "argv",
+              "constructorReturned"
+            ],
+            "properties": {
+              "argv": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "constructorReturned": {
+                "const": true
+              }
+            }
+          }
+        },
+        "fixtureAudit": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "matches"
+            ],
+            "properties": {
+              "matches": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "factReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "scope",
+        "mode",
+        "sourceSha256",
+        "planSha256",
+        "routeProofSha256",
+        "initialProofSha256",
+        "hostEnvironment",
+        "rawSha256",
+        "rawBytes",
+        "stdoutBytes",
+        "stderrBytes",
+        "hostElapsedSeconds",
+        "collectedAtUtc",
+        "originalBodyReturned",
+        "outerControllerReturnStillRequired",
+        "authorizationKind",
+        "externalPreauthSha256",
+        "runtimeBindingSha256",
+        "captureStartTick"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "planSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "routeProofSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "initialProofSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "hostEnvironment": {
+          "type": "string"
+        },
+        "rawSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "rawBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stdoutBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stderrBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hostElapsedSeconds": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 15
+        },
+        "collectedAtUtc": {
+          "type": "string"
+        },
+        "originalBodyReturned": {
+          "const": true
+        },
+        "outerControllerReturnStillRequired": {
+          "const": true
+        },
+        "authorizationKind": {
+          "type": "string"
+        },
+        "externalPreauthSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "runtimeBindingSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "captureStartTick": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "mode",
+        "preauthSha256",
+        "scope",
+        "planId",
+        "runId",
+        "nonce",
+        "generation",
+        "ownerPid",
+        "ownerThread",
+        "claimFileId",
+        "scopeStartTick",
+        "proofStartTick",
+        "routeProofSha256",
+        "initialProofSha256",
+        "gateReceiptSha256",
+        "sourceSealSha256",
+        "gateSourcesSha256",
+        "binderSha256",
+        "boundAtUtc"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "preauthSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "planId": {
+          "type": "string"
+        },
+        "runId": {
+          "type": "string"
+        },
+        "nonce": {
+          "type": "string"
+        },
+        "generation": {
+          "type": "string"
+        },
+        "ownerPid": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ownerThread": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "claimFileId": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scopeStartTick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "proofStartTick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "routeProofSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "initialProofSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "gateReceiptSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sourceSealSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "gateSourcesSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "binderSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "boundAtUtc": {
+          "type": "string"
+        }
+      }
+    },
+    "gateReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "scope",
+        "planId",
+        "kind",
+        "generation",
+        "ownerPid",
+        "ownerThread",
+        "checkerPid",
+        "temporaryResourcesReturned",
+        "scopeClaimIntentionallyRetained",
+        "claimFileId",
+        "claimPath",
+        "scopeStartTick",
+        "proofStartTick",
+        "checkerSourceSha256",
+        "gateSourcesSha256",
+        "entrySha256",
+        "ownerSha256",
+        "routeSha256",
+        "events",
+        "controlBeforeReceipt",
+        "receiptWriteBytes",
+        "physicalIO",
+        "sourceHashBytes",
+        "sourceHashReads"
+      ],
+      "properties": {
+        "schema": {
+          "const": "ENTRY_GATE_RETURN_V2"
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "planId": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "generation": {
+          "type": "string"
+        },
+        "ownerPid": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ownerThread": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checkerPid": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "temporaryResourcesReturned": {
+          "const": true
+        },
+        "scopeClaimIntentionallyRetained": {
+          "const": true
+        },
+        "claimFileId": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "claimPath": {
+          "type": "string"
+        },
+        "scopeStartTick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "proofStartTick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checkerSourceSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "gateSourcesSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "entrySha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "ownerSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "routeSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "events": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "event",
+              "bytes"
+            ],
+            "properties": {
+              "event": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 131072
+              }
+            }
+          }
+        },
+        "controlBeforeReceipt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "receiptWriteBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "physicalIO": {
+          "type": "string"
+        },
+        "sourceHashBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourceHashReads": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "initialProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "id",
+        "nextId",
+        "scope",
+        "controllerPid",
+        "controllerExited",
+        "toolStreamsReturned",
+        "originalResourcesReturnedAtConsole",
+        "captureQualifiedAtConsole",
+        "approvedForNext",
+        "captureReceiptSha256",
+        "semanticDependency",
+        "dependencyAccepted",
+        "batchSdkChildrenEntered",
+        "batchTextChargedBytesKnown",
+        "batchBinaryArchiveBytesKnown",
+        "batchAmountUnknown",
+        "batchGroups",
+        "outerReturnSha256",
+        "scopeStartTick",
+        "outerDelta",
+        "proofWriteBytes",
+        "candidateOnlyWriterCloseNotProven"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "nextId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "controllerPid": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "controllerExited": {
+          "const": true
+        },
+        "toolStreamsReturned": {
+          "const": true
+        },
+        "originalResourcesReturnedAtConsole": {
+          "const": true
+        },
+        "captureQualifiedAtConsole": {
+          "const": true
+        },
+        "approvedForNext": {
+          "const": true
+        },
+        "captureReceiptSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "semanticDependency": {
+          "type": "string"
+        },
+        "dependencyAccepted": {
+          "const": true
+        },
+        "batchSdkChildrenEntered": {
+          "const": 0
+        },
+        "batchTextChargedBytesKnown": {
+          "type": "string"
+        },
+        "batchBinaryArchiveBytesKnown": {
+          "type": "string"
+        },
+        "batchAmountUnknown": {
+          "const": false
+        },
+        "batchGroups": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "preflight",
+            "install",
+            "instrument",
+            "control",
+            "payload",
+            "command"
+          ],
+          "properties": {
+            "preflight": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            },
+            "install": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            },
+            "instrument": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            },
+            "control": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            },
+            "payload": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            },
+            "command": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            }
+          }
+        },
+        "outerReturnSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scopeStartTick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outerDelta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "nativeWriteBytes",
+            "proofWriteBytes",
+            "additionalForwardBytes",
+            "sourceOwnerSha256",
+            "gateSourcesSha256",
+            "generation",
+            "kind"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "nativeWriteBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "proofWriteBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "additionalForwardBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "sourceOwnerSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "gateSourcesSha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "generation": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string"
+            }
+          }
+        },
+        "proofWriteBytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "candidateOnlyWriterCloseNotProven": {
+          "const": true
+        }
+      }
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "originalUnlockCloseReturned",
+        "generation",
+        "failure",
+        "sdkChildrenEntered",
+        "endTick",
+        "allTemporaryThreadsJoined",
+        "factProofTimely",
+        "factCaptureQualified",
+        "outerControllerReturnStillRequired"
+      ],
+      "properties": {
+        "originalUnlockCloseReturned": {
+          "const": true
+        },
+        "generation": {
+          "type": "string"
+        },
+        "failure": {
+          "type": "null"
+        },
+        "sdkChildrenEntered": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endTick": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "allTemporaryThreadsJoined": {
+          "const": true
+        },
+        "factProofTimely": {
+          "const": true
+        },
+        "factCaptureQualified": {
+          "const": true
+        },
+        "outerControllerReturnStillRequired": {
+          "const": true
+        }
+      }
+    },
+    "expandedQualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "mode",
+        "fixtureOnly",
+        "targetScope",
+        "targetRunId",
+        "targetSourceSealSha256",
+        "targetPlanSha256",
+        "factScope",
+        "factCaptureReceiptSha256",
+        "factOuterReturnSha256",
+        "collectorSourceSha256",
+        "factPlanSha256",
+        "rawSha256",
+        "rawBytes",
+        "routeProofSha256",
+        "sdkSha256",
+        "collectedAtUtc",
+        "expiresAtUtc",
+        "originalReturn",
+        "grammar",
+        "serial",
+        "model",
+        "api",
+        "fingerprint",
+        "user",
+        "home",
+        "services",
+        "systemPackages",
+        "reviewEvidenceSha256",
+        "authorizationKind",
+        "externalPreauthSha256",
+        "runtimeBindingSha256",
+        "bundleSha256",
+        "adapterSourceSha256",
+        "reviewSha256",
+        "reviewSourceThreadId",
+        "reviewSourceTurnId",
+        "approved",
+        "targetPlanId",
+        "reviewUtf8",
+        "candidateUtf8",
+        "bundleUtf8",
+        "outerReturnUtf8"
+      ],
+      "properties": {
+        "schema": {
+          "const": "GLOBAL_IDLE_QUALIFICATION_V2"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "fixtureOnly": {
+          "type": "boolean"
+        },
+        "targetScope": {
+          "type": "string"
+        },
+        "targetRunId": {
+          "type": "string"
+        },
+        "targetSourceSealSha256": {
+          "type": "string"
+        },
+        "targetPlanSha256": {
+          "type": "string"
+        },
+        "factScope": {
+          "type": "string"
+        },
+        "factCaptureReceiptSha256": {
+          "type": "string"
+        },
+        "factOuterReturnSha256": {
+          "type": "string"
+        },
+        "collectorSourceSha256": {
+          "type": "string"
+        },
+        "factPlanSha256": {
+          "type": "string"
+        },
+        "rawSha256": {
+          "type": "string"
+        },
+        "rawBytes": {
+          "type": "integer"
+        },
+        "routeProofSha256": {
+          "type": "string"
+        },
+        "sdkSha256": {
+          "type": "string"
+        },
+        "collectedAtUtc": {
+          "type": "string"
+        },
+        "expiresAtUtc": {
+          "type": "string"
+        },
+        "originalReturn": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "waitReturned",
+            "stdoutEOF",
+            "stderrEOF",
+            "originalPipesClosed",
+            "originalHandleClosed",
+            "controllerReturned",
+            "unknown",
+            "exitCode"
+          ],
+          "properties": {
+            "waitReturned": {
+              "type": "boolean"
+            },
+            "stdoutEOF": {
+              "type": "boolean"
+            },
+            "stderrEOF": {
+              "type": "boolean"
+            },
+            "originalPipesClosed": {
+              "type": "boolean"
+            },
+            "originalHandleClosed": {
+              "type": "boolean"
+            },
+            "controllerReturned": {
+              "type": "boolean"
+            },
+            "unknown": {
+              "type": "boolean"
+            },
+            "exitCode": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 0
+            }
+          }
+        },
+        "grammar": {
+          "type": "string"
+        },
+        "serial": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "api": {
+          "type": "integer"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "user": {
+          "type": "integer"
+        },
+        "home": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "package",
+            "component",
+            "process",
+            "user",
+            "uid",
+            "systemFlag"
+          ],
+          "properties": {
+            "package": {
+              "type": "string"
+            },
+            "component": {
+              "type": "string"
+            },
+            "process": {
+              "type": "string"
+            },
+            "user": {
+              "const": 0
+            },
+            "uid": {
+              "type": "integer",
+              "minimum": 10000,
+              "maximum": 99999
+            },
+            "systemFlag": {
+              "const": true
+            }
+          }
+        },
+        "services": {
+          "type": "array",
+          "maxItems": 68,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "packages",
+              "process",
+              "user",
+              "uid",
+              "kind",
+              "state",
+              "category",
+              "firmware",
+              "evidenceSha256",
+              "factScope",
+              "validFromUtc",
+              "validToUtc",
+              "range"
+            ],
+            "properties": {
+              "packages": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "process": {
+                "type": "string"
+              },
+              "user": {
+                "const": 0
+              },
+              "uid": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              "kind": {
+                "type": "string"
+              },
+              "state": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1,
+                  4,
+                  5,
+                  6
+                ]
+              },
+              "category": {
+                "type": "string"
+              },
+              "firmware": {
+                "type": "string"
+              },
+              "evidenceSha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "factScope": {
+                "type": "string"
+              },
+              "validFromUtc": {
+                "type": "string"
+              },
+              "validToUtc": {
+                "type": "string"
+              },
+              "range": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "systemPackages": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "package",
+              "uid",
+              "systemFlag"
+            ],
+            "properties": {
+              "package": {
+                "type": "string"
+              },
+              "uid": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2147483647
+              },
+              "systemFlag": {
+                "const": true
+              }
+            }
+          }
+        },
+        "reviewEvidenceSha256": {
+          "type": "string"
+        },
+        "authorizationKind": {
+          "type": "string"
+        },
+        "externalPreauthSha256": {
+          "type": "string"
+        },
+        "runtimeBindingSha256": {
+          "type": "string"
+        },
+        "bundleSha256": {
+          "type": "string"
+        },
+        "adapterSourceSha256": {
+          "type": "string"
+        },
+        "reviewSha256": {
+          "type": "string"
+        },
+        "reviewSourceThreadId": {
+          "type": "string"
+        },
+        "reviewSourceTurnId": {
+          "type": "string"
+        },
+        "approved": {
+          "type": "boolean"
+        },
+        "targetPlanId": {
+          "type": "string"
+        },
+        "reviewUtf8": {
+          "type": "string"
+        },
+        "candidateUtf8": {
+          "type": "string"
+        },
+        "bundleUtf8": {
+          "type": "string"
+        },
+        "outerReturnUtf8": {
+          "type": "string"
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packages",
+        "process",
+        "user",
+        "uid",
+        "kind",
+        "state",
+        "category",
+        "firmware",
+        "evidenceSha256",
+        "factScope",
+        "validFromUtc",
+        "validToUtc",
+        "range"
+      ],
+      "properties": {
+        "packages": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "process": {
+          "type": "string"
+        },
+        "user": {
+          "const": 0
+        },
+        "uid": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999
+        },
+        "kind": {
+          "type": "string"
+        },
+        "state": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            4,
+            5,
+            6
+          ]
+        },
+        "category": {
+          "type": "string"
+        },
+        "firmware": {
+          "type": "string"
+        },
+        "evidenceSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "factScope": {
+          "type": "string"
+        },
+        "validFromUtc": {
+          "type": "string"
+        },
+        "validToUtc": {
+          "type": "string"
+        },
+        "range": {
+          "type": "string"
+        }
+      }
+    },
+    "home": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "component",
+        "process",
+        "user",
+        "uid",
+        "systemFlag"
+      ],
+      "properties": {
+        "package": {
+          "type": "string"
+        },
+        "component": {
+          "type": "string"
+        },
+        "process": {
+          "type": "string"
+        },
+        "user": {
+          "const": 0
+        },
+        "uid": {
+          "type": "integer",
+          "minimum": 10000,
+          "maximum": 99999
+        },
+        "systemFlag": {
+          "const": true
+        }
+      }
+    },
+    "originalReturn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "waitReturned",
+        "stdoutEOF",
+        "stderrEOF",
+        "originalPipesClosed",
+        "originalHandleClosed",
+        "controllerReturned",
+        "unknown",
+        "exitCode"
+      ],
+      "properties": {
+        "waitReturned": {
+          "type": "boolean"
+        },
+        "stdoutEOF": {
+          "type": "boolean"
+        },
+        "stderrEOF": {
+          "type": "boolean"
+        },
+        "originalPipesClosed": {
+          "type": "boolean"
+        },
+        "originalHandleClosed": {
+          "type": "boolean"
+        },
+        "controllerReturned": {
+          "type": "boolean"
+        },
+        "unknown": {
+          "type": "boolean"
+        },
+        "exitCode": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 0
+        }
+      }
+    }
+  },
+  "$comment": "UTF8 message bounds: transferred qualification16384, facts entry262144, raw139264, review2097152, evidence8388608. Origin registry, exact fixed paths/handle identity/hash/once/clock and cross-field checks are normative executable obligations. LIVE facts entry omits the two OFFLINE-only fixture fields. evidenceRoot is reviewed evidence source root, not the fresh SDK target home."
+}

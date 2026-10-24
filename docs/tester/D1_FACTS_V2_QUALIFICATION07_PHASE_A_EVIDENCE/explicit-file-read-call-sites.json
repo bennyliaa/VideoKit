@@ -1,0 +1,1082 @@
+[
+  {
+    "file": "build06.py",
+    "line": 27,
+    "function": "p.read_text().replace('from control_admission05 import admit', 'from source_budget import admit,CAPACITY_SHAPES06').replace",
+    "text": "p.read_text().replace('from control_admission05 import admit','from source_budget import admit,CAPACITY_SHAPES06').replace(\"capacity_shapes=decode(self.read_file(BASE/'reference/control-message-shapes05.json','capacity-shapes-source'))\",\"capacity_shapes=CAPACITY_SHAPES06\")"
+  },
+  {
+    "file": "build06.py",
+    "line": 30,
+    "function": "p.read_text().replace('from control_admission05 import admit', 'from source_budget import admit,CAPACITY_SHAPES06').replace",
+    "text": "p.read_text().replace('from control_admission05 import admit','from source_budget import admit,CAPACITY_SHAPES06').replace(\"shapes=load(H/'reference/control-message-shapes05.json')\",\"shapes=CAPACITY_SHAPES06\")"
+  },
+  {
+    "file": "build06.py",
+    "line": 34,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "build06.py",
+    "line": 40,
+    "function": "work.read_text",
+    "text": "work.read_text()"
+  },
+  {
+    "file": "build06.py",
+    "line": 7,
+    "function": "zp.read_bytes",
+    "text": "zp.read_bytes()"
+  },
+  {
+    "file": "build06.py",
+    "line": 39,
+    "function": "(H / 'tools/runtime_binding.py').read_bytes",
+    "text": "(H/'tools/runtime_binding.py').read_bytes()"
+  },
+  {
+    "file": "build06.py",
+    "line": 40,
+    "function": "work.read_bytes",
+    "text": "work.read_bytes()"
+  },
+  {
+    "file": "build06.py",
+    "line": 27,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace('from control_admission05 import admit','from source_budget import admit,CAPACITY_SHAPES06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 30,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace('from control_admission05 import admit','from source_budget import admit,CAPACITY_SHAPES06')"
+  },
+  {
+    "file": "build06.py",
+    "line": 27,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "build06.py",
+    "line": 30,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "build06.py",
+    "line": 26,
+    "function": "(H / 'tools/source_budget.py').read_text",
+    "text": "(H/'tools/source_budget.py').read_text()"
+  },
+  {
+    "file": "build06.py",
+    "line": 35,
+    "function": "zp.read_bytes",
+    "text": "zp.read_bytes()"
+  },
+  {
+    "file": "capacity_preflight06.py",
+    "line": 10,
+    "function": "p.read_bytes",
+    "text": "p.read_bytes()"
+  },
+  {
+    "file": "capacity_preflight06.py",
+    "line": 17,
+    "function": "(old / 'approval.json').read_bytes",
+    "text": "(old/'approval.json').read_bytes()"
+  },
+  {
+    "file": "driver/driver_guard06.py",
+    "line": 5,
+    "function": "(H / 'reference/plan06.json').read_bytes",
+    "text": "(H/'reference/plan06.json').read_bytes()"
+  },
+  {
+    "file": "driver/driver_guard06.py",
+    "line": 5,
+    "function": "(H / 'reference/profile06.json').read_bytes",
+    "text": "(H/'reference/profile06.json').read_bytes()"
+  },
+  {
+    "file": "driver/driver_guard06.py",
+    "line": 8,
+    "function": "hashlib.sha256(Path(p).read_bytes()).hexdigest",
+    "text": "hashlib.sha256(Path(p).read_bytes()).hexdigest()"
+  },
+  {
+    "file": "driver/driver_guard06.py",
+    "line": 7,
+    "function": "Path(p).read_text",
+    "text": "Path(p).read_text(encoding='utf-8-sig')"
+  },
+  {
+    "file": "driver/driver_guard06.py",
+    "line": 8,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 5,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "function": "p.read_text().replace('33-original-source-pins', '31-original-source-pins').replace('len(src)==33', 'len(src)==31').replace('25-gate-pins', '23-gate-pins').replace('len(gate)==25', 'len(gate)==23').replace",
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins').replace('len(src)==33','len(src)==31').replace('25-gate-pins','23-gate-pins').replace('len(gate)==25','len(gate)==23').replace('PS-exact33-source-set','PS-exact31-source-set')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 40,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace(\"expectedFingerprint='LOCAL_FAKE_FINGERPRINT_NOT_DEVICE'\",\"expectedFingerprint=bundle.parsed['fingerprint']\")"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "function": "p.read_text().replace('33-original-source-pins', '31-original-source-pins').replace('len(src)==33', 'len(src)==31').replace('25-gate-pins', '23-gate-pins').replace",
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins').replace('len(src)==33','len(src)==31').replace('25-gate-pins','23-gate-pins').replace('len(gate)==25','len(gate)==23')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 40,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "function": "p.read_text().replace('33-original-source-pins', '31-original-source-pins').replace('len(src)==33', 'len(src)==31').replace",
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins').replace('len(src)==33','len(src)==31').replace('25-gate-pins','23-gate-pins')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "function": "p.read_text().replace('33-original-source-pins', '31-original-source-pins').replace",
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins').replace('len(src)==33','len(src)==31')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace('33-original-source-pins','31-original-source-pins')"
+  },
+  {
+    "file": "driver_patch06.py",
+    "line": 13,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "finish06.py",
+    "line": 39,
+    "function": "(H / 'tools/fact_collector.py').read_text",
+    "text": "(H/'tools/fact_collector.py').read_text()"
+  },
+  {
+    "file": "finish06.py",
+    "line": 41,
+    "function": "(H / 'tools/admission_checks.ps1').read_text",
+    "text": "(H/'tools/admission_checks.ps1').read_text()"
+  },
+  {
+    "file": "finish06.py",
+    "line": 7,
+    "function": "hashlib.sha256(Path(p).read_bytes()).hexdigest",
+    "text": "hashlib.sha256(Path(p).read_bytes()).hexdigest()"
+  },
+  {
+    "file": "finish06.py",
+    "line": 26,
+    "function": "(H / 'tools/source_budget.py').read_text",
+    "text": "(H/'tools/source_budget.py').read_text()"
+  },
+  {
+    "file": "finish06.py",
+    "line": 6,
+    "function": "Path(p).read_text",
+    "text": "Path(p).read_text(encoding='utf-8-sig')"
+  },
+  {
+    "file": "finish06.py",
+    "line": 29,
+    "function": "(H / rel).read_bytes",
+    "text": "(H/rel).read_bytes()"
+  },
+  {
+    "file": "finish06.py",
+    "line": 40,
+    "function": "(H / 'patch06.py').read_text",
+    "text": "(H/'patch06.py').read_text()"
+  },
+  {
+    "file": "finish06.py",
+    "line": 7,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 6,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 34,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace('scope_start_tick=None,pre_events=None):','scope_start_tick=None,pre_events=None,complete_source_plan=None,seed_source_events=None):',1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 51,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 57,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 79,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace('  gate.source_bytes+=len(raw);gate.source_reads+=1',\"  gate.source_charge(argv[7],len(raw),'child-reservation')\",1)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 96,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace('QUALIFICATION06_PHASE_A_EVIDENCE','QUALIFICATION05_PHASE_A_EVIDENCE')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 97,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace('control-message-shapes05.json','control-message-shapes06.json')"
+  },
+  {
+    "file": "patch06.py",
+    "line": 103,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 109,
+    "function": "p.read_text().replace(old['tools/production_runner.py'], digest('tools/production_runner.py')).replace",
+    "text": "p.read_text().replace(old['tools/production_runner.py'],digest('tools/production_runner.py')).replace(old['reference/gate-sources.json'],gh)"
+  },
+  {
+    "file": "patch06.py",
+    "line": 110,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 5,
+    "function": "(H / 'reference/current-runtime-identity.json').read_bytes",
+    "text": "(H/'reference/current-runtime-identity.json').read_bytes()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 101,
+    "function": "(H / 'reference/upstream05-pins.json').read_bytes",
+    "text": "(H/'reference/upstream05-pins.json').read_bytes()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 102,
+    "function": "hashlib.sha256((H / rel).read_bytes()).hexdigest",
+    "text": "hashlib.sha256((H/rel).read_bytes()).hexdigest()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 106,
+    "function": "(H / 'reference/gate-sources.json').read_bytes",
+    "text": "(H/'reference/gate-sources.json').read_bytes()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 114,
+    "function": "p.read_bytes",
+    "text": "p.read_bytes()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 34,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 40,
+    "function": "(H / 'source_charge06.txt').read_text",
+    "text": "(H/'source_charge06.txt').read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 57,
+    "function": "(H / 'fixture_guard06.txt').read_text",
+    "text": "(H/'fixture_guard06.txt').read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 79,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 96,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 97,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 109,
+    "function": "p.read_text().replace",
+    "text": "p.read_text().replace(old['tools/production_runner.py'],digest('tools/production_runner.py'))"
+  },
+  {
+    "file": "patch06.py",
+    "line": 101,
+    "function": "(H / 'reference/runner-source-seal.json').read_bytes",
+    "text": "(H/'reference/runner-source-seal.json').read_bytes()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 118,
+    "function": "f.read_text",
+    "text": "f.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 102,
+    "function": "(H / rel).read_bytes",
+    "text": "(H/rel).read_bytes()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 109,
+    "function": "p.read_text",
+    "text": "p.read_text()"
+  },
+  {
+    "file": "patch06.py",
+    "line": 6,
+    "function": "(H / 'fact_plan06.txt').read_text",
+    "text": "(H/'fact_plan06.txt').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 17,
+    "function": "(H / 'tools/admission_checks.ps1').read_text",
+    "text": "(H/'tools/admission_checks.ps1').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 17,
+    "function": "(H / 'tools/capture_android02.ps1').read_text",
+    "text": "(H/'tools/capture_android02.ps1').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 17,
+    "function": "(H / 'tools/production_runner.py').read_text",
+    "text": "(H/'tools/production_runner.py').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 17,
+    "function": "(H / 'tools/outer_owner.py').read_text",
+    "text": "(H/'tools/outer_owner.py').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 6,
+    "function": "hashlib.sha256(Path(p).read_bytes()).hexdigest",
+    "text": "hashlib.sha256(Path(p).read_bytes()).hexdigest()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 5,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 14,
+    "function": "helper.read_bytes().count",
+    "text": "helper.read_bytes().count(b'\\r\\n')"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 47,
+    "function": "(H / 'selfchecks/budget_models.ps1').read_text",
+    "text": "(H/'selfchecks/budget_models.ps1').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 72,
+    "function": "(H / 'tools/source_budget.py').read_text",
+    "text": "(H/'tools/source_budget.py').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 73,
+    "function": "(H / 'tools/fact_collector.py').read_text",
+    "text": "(H/'tools/fact_collector.py').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 73,
+    "function": "(H / 'tools/fact_collector.py').read_text",
+    "text": "(H/'tools/fact_collector.py').read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 76,
+    "function": "f.read_text",
+    "text": "f.read_text()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 6,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "preflight06.py",
+    "line": 14,
+    "function": "helper.read_bytes",
+    "text": "helper.read_bytes()"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 20,
+    "function": "(H / 'release/capture-policy.json').read_bytes",
+    "text": "(H/'release/capture-policy.json').read_bytes()"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 22,
+    "function": "(H / 'reference/exact-seven-role-plan.json').read_bytes",
+    "text": "(H/'reference/exact-seven-role-plan.json').read_bytes()"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 11,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 14,
+    "function": "(root / mf).read_bytes",
+    "text": "(root/mf).read_bytes()"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 19,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 22,
+    "function": "(H / 'reference/runner-source-seal.json').read_bytes",
+    "text": "(H/'reference/runner-source-seal.json').read_bytes()"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 26,
+    "function": "(H / 'reference/gate-sources.json').read_bytes",
+    "text": "(H/'reference/gate-sources.json').read_bytes()"
+  },
+  {
+    "file": "prepare06.py",
+    "line": 37,
+    "function": "f.read_text",
+    "text": "f.read_text()"
+  },
+  {
+    "file": "pure_budget06.py",
+    "line": 53,
+    "function": "b.runner.read_file",
+    "text": "b.runner.read_file(H/'tools/runtime_binding.py','PURE_BOUNDARY',None)"
+  },
+  {
+    "file": "selfchecks/contract_cases.py",
+    "line": 57,
+    "function": "(B.parent / 'd1android02-global-idle-semantics01/reference/original-global_idle-stdout.bin').read_bytes",
+    "text": "(B.parent/'d1android02-global-idle-semantics01/reference/original-global_idle-stdout.bin').read_bytes()"
+  },
+  {
+    "file": "selfchecks/fact_fixture.py",
+    "line": 9,
+    "function": "p.open",
+    "text": "p.open('rb')"
+  },
+  {
+    "file": "selfchecks/fixture_inputs.py",
+    "line": 9,
+    "function": "(B / 'reference/runner-source-seal.json').read_bytes",
+    "text": "(B/'reference/runner-source-seal.json').read_bytes()"
+  },
+  {
+    "file": "selfchecks/fixture_inputs.py",
+    "line": 9,
+    "function": "(B / 'reference/exact-seven-role-plan.json').read_bytes",
+    "text": "(B/'reference/exact-seven-role-plan.json').read_bytes()"
+  },
+  {
+    "file": "selfchecks/fixture_inputs.py",
+    "line": 10,
+    "function": "(B / 'tools/fact_collector.py').read_bytes",
+    "text": "(B/'tools/fact_collector.py').read_bytes()"
+  },
+  {
+    "file": "selfchecks/fixture_inputs.py",
+    "line": 10,
+    "function": "(B / 'reference/fact-plan.json').read_bytes",
+    "text": "(B/'reference/fact-plan.json').read_bytes()"
+  },
+  {
+    "file": "selfchecks/independent_cases_original.py",
+    "line": 68,
+    "function": "(B.parent / 'd1android02-global-idle-semantics01/reference/original-global_idle-stdout.bin').read_bytes",
+    "text": "(B.parent/'d1android02-global-idle-semantics01/reference/original-global_idle-stdout.bin').read_bytes()"
+  },
+  {
+    "file": "selfchecks/independent_cases_original.py",
+    "line": 13,
+    "function": "(B / p).read_bytes",
+    "text": "(B/p).read_bytes()"
+  },
+  {
+    "file": "selfchecks/offline_reviewer.py",
+    "line": 15,
+    "function": "request.read_bytes",
+    "text": "request.read_bytes()"
+  },
+  {
+    "file": "selfchecks/offline_reviewer.py",
+    "line": 24,
+    "function": "Path(q).read_bytes",
+    "text": "Path(q).read_bytes()"
+  },
+  {
+    "file": "selfchecks/route_fixture.py",
+    "line": 9,
+    "function": "Path(sys.argv[1]).read_bytes",
+    "text": "Path(sys.argv[1]).read_bytes()"
+  },
+  {
+    "file": "selfchecks/route_fixture.py",
+    "line": 13,
+    "function": "hashlib.sha256(Path(__file__).read_bytes()).hexdigest",
+    "text": "hashlib.sha256(Path(__file__).read_bytes()).hexdigest()"
+  },
+  {
+    "file": "selfchecks/route_fixture.py",
+    "line": 13,
+    "function": "Path(__file__).read_bytes",
+    "text": "Path(__file__).read_bytes()"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 88,
+    "function": "self.source_read",
+    "text": "self.source_read(BASE/'reference/gate-sources.json')"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 95,
+    "function": "self.source_read",
+    "text": "self.source_read(BASE/'reference/current-runtime-identity.json')"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 126,
+    "function": "self.source_charge",
+    "text": "self.source_charge(path,reservation,'read')"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 71,
+    "function": "(self.home / 'release/capture-policy.json').read_bytes",
+    "text": "(self.home/'release/capture-policy.json').read_bytes()"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 106,
+    "function": "self.source_read",
+    "text": "self.source_read(permit['path'])"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 164,
+    "function": "p.open",
+    "text": "p.open('xb')"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 176,
+    "function": "p.open",
+    "text": "p.open('rb')"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 93,
+    "function": "self.source_read",
+    "text": "self.source_read(BASE/'tools/runtime_binding.py')"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 102,
+    "function": "self.source_charge",
+    "text": "self.source_charge(rp,amount,'runtime-reservation')"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 92,
+    "function": "self.source_read",
+    "text": "self.source_read(BASE/row['path'])"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 206,
+    "function": "self.source_read",
+    "text": "self.source_read(BASE/src)"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 258,
+    "function": "self.source_charge",
+    "text": "self.source_charge(Path('D:/Android/SDK/platform-tools/adb.exe'),s['imageHashBytes'],'native-reservation')"
+  },
+  {
+    "file": "tools/entry_gates.py",
+    "line": 265,
+    "function": "self.source_read",
+    "text": "self.source_read(BASE/'reference/route-backend-contract.json')"
+  },
+  {
+    "file": "tools/evidence_io.py",
+    "line": 17,
+    "function": "path.open",
+    "text": "path.open('xb')"
+  },
+  {
+    "file": "tools/fact_collector.py",
+    "line": 20,
+    "function": "gate.source_read",
+    "text": "gate.source_read(argv[7])"
+  },
+  {
+    "file": "tools/fact_collector.py",
+    "line": 31,
+    "function": "gate.source_read",
+    "text": "gate.source_read(B/'reference/current-runtime-identity.json')"
+  },
+  {
+    "file": "tools/fact_collector.py",
+    "line": 35,
+    "function": "gate.source_read",
+    "text": "gate.source_read(FIXTURE_PY)"
+  },
+  {
+    "file": "tools/fact_collector.py",
+    "line": 141,
+    "function": "gate.source_read",
+    "text": "gate.source_read(Path(__file__))"
+  },
+  {
+    "file": "tools/fact_collector.py",
+    "line": 141,
+    "function": "gate.source_read",
+    "text": "gate.source_read(B/'reference/fact-plan.json')"
+  },
+  {
+    "file": "tools/fact_collector.py",
+    "line": 157,
+    "function": "gate.source_read",
+    "text": "gate.source_read(SDK)"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 125,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "tools/fact_preauth.py",
+    "line": 187,
+    "function": "gate.source_read",
+    "text": "gate.source_read(B/rel)"
+  },
+  {
+    "file": "tools/facts_entry.py",
+    "line": 56,
+    "function": "Path(path).open",
+    "text": "Path(path).open('rb')"
+  },
+  {
+    "file": "tools/facts_entry.py",
+    "line": 68,
+    "function": "Path(a.fixture_raw_file).open",
+    "text": "Path(a.fixture_raw_file).open('rb')"
+  },
+  {
+    "file": "tools/facts_entry.py",
+    "line": 25,
+    "function": "g.source_read",
+    "text": "g.source_read(B/'reference/runner-source-seal.json')"
+  },
+  {
+    "file": "tools/facts_entry.py",
+    "line": 26,
+    "function": "g.source_read",
+    "text": "g.source_read(scripts[i])"
+  },
+  {
+    "file": "tools/facts_qualification.py",
+    "line": 16,
+    "function": "Path(path).read_bytes",
+    "text": "Path(path).read_bytes()"
+  },
+  {
+    "file": "tools/facts_qualification.py",
+    "line": 32,
+    "function": "source_read",
+    "text": "source_read(B/'reference/runner-source-seal.json')"
+  },
+  {
+    "file": "tools/facts_qualification.py",
+    "line": 108,
+    "function": "source_read",
+    "text": "source_read(Path(__file__))"
+  },
+  {
+    "file": "tools/facts_qualification.py",
+    "line": 60,
+    "function": "source_read",
+    "text": "source_read(B/'tools/outer_capture.py')"
+  },
+  {
+    "file": "tools/facts_qualification.py",
+    "line": 60,
+    "function": "source_read",
+    "text": "source_read(B/'tools/capture_origin.py')"
+  },
+  {
+    "file": "tools/immutable_evidence.py",
+    "line": 13,
+    "function": "Path(path).open",
+    "text": "Path(path).open(mode)"
+  },
+  {
+    "file": "tools/outer_owner.py",
+    "line": 13,
+    "function": "hashlib.sha256(Path(p).read_bytes()).hexdigest",
+    "text": "hashlib.sha256(Path(p).read_bytes()).hexdigest()"
+  },
+  {
+    "file": "tools/outer_owner.py",
+    "line": 20,
+    "function": "Path(p).read_text",
+    "text": "Path(p).read_text(encoding='utf-8-sig')"
+  },
+  {
+    "file": "tools/outer_owner.py",
+    "line": 172,
+    "function": "self.runner.read_receipt",
+    "text": "self.runner.read_receipt(co.get('receiptRef'),self,id)"
+  },
+  {
+    "file": "tools/outer_owner.py",
+    "line": 13,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "tools/outer_owner.py",
+    "line": 90,
+    "function": "path.open",
+    "text": "path.open('xb')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 178,
+    "function": "self.read_file",
+    "text": "self.read_file(seal_path,'source-seal-read','pre')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 180,
+    "function": "self.read_file",
+    "text": "self.read_file(review_path,'review-evidence-source' if p['globalIdleQualification'].get('schema')=='GLOBAL_IDLE_QUALIFICATION_V2' else 'review-read',None if p['globalIdleQualification'].get('schema')=='GLOBAL_IDLE_QUALIFICATION_V2' else 'pre')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 208,
+    "function": "self.read_file",
+    "text": "self.read_file(p['product']['sealPath'],'product-seal-source')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 229,
+    "function": "self.read_file",
+    "text": "self.read_file(self.permit_path,'permit-recheck',lane)"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 229,
+    "function": "self.read_file",
+    "text": "self.read_file(self.approval_path,'approval-recheck',lane)"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 264,
+    "function": "self.read_file",
+    "text": "self.read_file(self.root/'fresh-route.json','materializer-route-read','post')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 265,
+    "function": "self.read_file",
+    "text": "self.read_file(self.root/'pre_sdk_local_gate-completion-proof.json','materializer-proof-read','post')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 289,
+    "function": "self.read_file",
+    "text": "self.read_file(self.home/'release/capture-policy.json','owner-policy-read','receiver')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 293,
+    "function": "self.read_file",
+    "text": "self.read_file(self.home/'release/activation.json','owner-activation-read','receiver',True)"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 52,
+    "function": "self.read_file",
+    "text": "self.read_file(self.permit_path,'permit-read','pre')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 52,
+    "function": "self.read_file",
+    "text": "self.read_file(self.approval_path,'approval-read','pre')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 97,
+    "function": "path.open",
+    "text": "path.open('rb')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 145,
+    "function": "path.open",
+    "text": "path.open('xb')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 176,
+    "function": "self.read_file",
+    "text": "self.read_file(BASE/rel,'source:'+rel)"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 183,
+    "function": "self.read_file",
+    "text": "self.read_file(BASE/'reference/exact-seven-role-plan.json','plan-source')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 202,
+    "function": "self.read_file",
+    "text": "self.read_file(pin['path'],'tool-pin:'+str(i))"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 206,
+    "function": "self.read_file",
+    "text": "self.read_file(pin['path'],'product-pin:'+name)"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 211,
+    "function": "self.read_file",
+    "text": "self.read_file(BASE/'release/capture-policy.json','capacity-template-source')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 250,
+    "function": "self.read_file",
+    "text": "self.read_file(BASE/rel,'copy-read:'+rel,'pre')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 284,
+    "function": "self.read_file",
+    "text": "self.read_file(fp,'fixture-copy-read','post')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 285,
+    "function": "fp.open",
+    "text": "fp.open('ab')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 304,
+    "function": "self.read_file",
+    "text": "self.read_file(self.root/'runner-materialization.json','owner-materialization-read','receiver')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 255,
+    "function": "self.read_file",
+    "text": "self.read_file(BASE/'release/capture-policy.json','policy-template-read','pre')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 278,
+    "function": "self.read_file",
+    "text": "self.read_file(path,name,'post')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 302,
+    "function": "(self.root / 'runner-materialization.json').open",
+    "text": "(self.root/'runner-materialization.json').open('rb')"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 313,
+    "function": "self.read_file",
+    "text": "self.read_file(path,name,None,owner.next==0)"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 333,
+    "function": "self.read_file",
+    "text": "self.read_file(self.root/'pre_sdk_local_gate-completion-proof.json','terminal-proof-integrity',None,False)"
+  },
+  {
+    "file": "tools/production_runner.py",
+    "line": 195,
+    "function": "self.read_file",
+    "text": "self.read_file(PY,'fixture-tool-source')"
+  },
+  {
+    "file": "tools/runtime_binding.py",
+    "line": 6,
+    "function": "hashlib.sha256(Path(p).read_bytes()).hexdigest",
+    "text": "hashlib.sha256(Path(p).read_bytes()).hexdigest()"
+  },
+  {
+    "file": "tools/runtime_binding.py",
+    "line": 12,
+    "function": "meta.read_text",
+    "text": "meta.read_text(encoding='utf-8')"
+  },
+  {
+    "file": "tools/runtime_binding.py",
+    "line": 6,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "tools/source_budget.py",
+    "line": 53,
+    "function": "g.source_read",
+    "text": "g.source_read(path)"
+  },
+  {
+    "file": "tools/source_budget.py",
+    "line": 57,
+    "function": "g.source_read",
+    "text": "g.source_read(path)"
+  },
+  {
+    "file": "tools/win32_route.py",
+    "line": 478,
+    "function": "Path(sys.argv[1]).open",
+    "text": "Path(sys.argv[1]).open('rb')"
+  },
+  {
+    "file": "tools/win32_route.py",
+    "line": 489,
+    "function": "hashlib.sha256(Path(__file__).read_bytes()).hexdigest",
+    "text": "hashlib.sha256(Path(__file__).read_bytes()).hexdigest()"
+  },
+  {
+    "file": "tools/win32_route.py",
+    "line": 489,
+    "function": "Path(__file__).read_bytes",
+    "text": "Path(__file__).read_bytes()"
+  },
+  {
+    "file": "worker06.py",
+    "line": 17,
+    "function": "(H / 'reference/plan06.json').read_bytes",
+    "text": "(H/'reference/plan06.json').read_bytes()"
+  },
+  {
+    "file": "worker06.py",
+    "line": 17,
+    "function": "(H / 'reference/profile06.json').read_bytes",
+    "text": "(H/'reference/profile06.json').read_bytes()"
+  },
+  {
+    "file": "worker06.py",
+    "line": 19,
+    "function": "Path(p).read_text",
+    "text": "Path(p).read_text(encoding='utf-8-sig')"
+  },
+  {
+    "file": "worker06.py",
+    "line": 20,
+    "function": "Path(p).read_bytes",
+    "text": "Path(p).read_bytes()"
+  },
+  {
+    "file": "worker06.py",
+    "line": 55,
+    "function": "(root / 'template.json').read_bytes",
+    "text": "(root/'template.json').read_bytes()"
+  },
+  {
+    "file": "worker06.py",
+    "line": 55,
+    "function": "(root / 'policy.json').read_bytes",
+    "text": "(root/'policy.json').read_bytes()"
+  },
+  {
+    "file": "worker06.py",
+    "line": 61,
+    "function": "Path(reply['reviewPath']).read_bytes",
+    "text": "Path(reply['reviewPath']).read_bytes()"
+  }
+]

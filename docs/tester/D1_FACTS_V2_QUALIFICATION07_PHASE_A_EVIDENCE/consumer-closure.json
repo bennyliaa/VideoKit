@@ -1,0 +1,295 @@
+{
+  "source31AndRunnerAndPSKeySetEqual": true,
+  "gate23MembershipSubsetOf31": true,
+  "policyChecks": [
+    {
+      "field": "entrySha256",
+      "producer": "tools/capture_android02.ps1",
+      "matches": true
+    },
+    {
+      "field": "outerOwnerSha256",
+      "producer": "tools/outer_owner.py",
+      "matches": true
+    },
+    {
+      "field": "gateSourcesSha256",
+      "producer": "reference/gate-sources.json",
+      "matches": true
+    },
+    {
+      "field": "runnerSourceSha256",
+      "producer": "tools/production_runner.py",
+      "matches": true
+    },
+    {
+      "field": "runtimeIdentitySha256",
+      "producer": "reference/current-runtime-identity.json",
+      "matches": true
+    },
+    {
+      "field": "runtimeBindingSourceSha256",
+      "producer": "tools/runtime_binding.py",
+      "matches": true
+    },
+    {
+      "field": "planSha256",
+      "producer": "reference/exact-seven-role-plan.json",
+      "matches": true
+    }
+  ],
+  "sourceLiteralConsumers": [
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 98,
+      "producer": "tools/production_runner.py",
+      "matches": true
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 150,
+      "producer": "tools/production_runner.py",
+      "matches": true
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 158,
+      "producer": "tools/fact_collector.py",
+      "matches": false
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 159,
+      "producer": "reference/fact-plan.json",
+      "matches": true
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 364,
+      "producer": "tools/facts_qualification.py",
+      "matches": true
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 402,
+      "producer": "tools/outer_capture.py",
+      "matches": true
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 403,
+      "producer": "tools/capture_origin.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 60,
+      "producer": "reference/current-runtime-identity.json",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 60,
+      "producer": "reference/current-runtime-identity.json",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 61,
+      "producer": "tools/runtime_binding.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 61,
+      "producer": "tools/runtime_binding.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 70,
+      "producer": "reference/gate-sources.json",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 72,
+      "producer": "tools/admission_checks.ps1",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 129,
+      "producer": "reference/exact-seven-role-plan.json",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 129,
+      "producer": "reference/exact-seven-role-plan.json",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 148,
+      "producer": "selfchecks/capture_fixture.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 148,
+      "producer": "selfchecks/capture_fixture.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 189,
+      "producer": "tools/outer_owner.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 189,
+      "producer": "tools/outer_owner.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 193,
+      "producer": "tools/outer_owner.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 232,
+      "producer": "tools/outer_owner.py",
+      "matches": true
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 232,
+      "producer": "tools/outer_owner.py",
+      "matches": true
+    },
+    {
+      "file": "tools/entry_gates.py",
+      "line": 93,
+      "producer": "tools/runtime_binding.py",
+      "matches": true
+    },
+    {
+      "file": "tools/entry_gates.py",
+      "line": 96,
+      "producer": "reference/current-runtime-identity.json",
+      "matches": true
+    },
+    {
+      "file": "tools/outer_owner.py",
+      "line": 32,
+      "producer": "tools/runtime_binding.py",
+      "matches": true
+    },
+    {
+      "file": "tools/outer_owner.py",
+      "line": 32,
+      "producer": "tools/runtime_binding.py",
+      "matches": true
+    },
+    {
+      "file": "tools/outer_owner.py",
+      "line": 37,
+      "producer": "tools/production_runner.py",
+      "matches": true
+    },
+    {
+      "file": "tools/outer_owner.py",
+      "line": 67,
+      "producer": "reference/gate-sources.json",
+      "matches": true
+    },
+    {
+      "file": "tools/runtime_binding.py",
+      "line": 4,
+      "producer": "reference/current-runtime-identity.json",
+      "matches": true
+    }
+  ],
+  "PSCounterSites": [
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 408,
+      "text": "if($null -eq $script:qualificationEvidenceSourceBytes){$script:qualificationEvidenceSourceBytes=[long]0}"
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 409,
+      "text": "if($null -eq $script:qualificationEvidenceSourceReads){$script:qualificationEvidenceSourceReads=[long]0}"
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 438,
+      "text": " $script:qualificationEvidenceSourceReads++;$f=$null;$closeEntered=$false;$bytes=[byte[]]::new([int]$r.bytes);$offset=0"
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 445,
+      "text": "   if($n -eq 0){throw 'GLOBAL_V2_EVIDENCE_SHORT_READ'};$offset+=$n;$event.actualBytes+=$n;$script:qualificationEvidenceSourceBytes+=$n"
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 510,
+      "text": " $entryKeys=@('schema','representation','receipt','receiptSha256','parsedFactsSha256','rawBase64','release','binding','gateReceiptBase64','initialProofBase64','outerProcessReturnStillRequired','qualificationIssued','sourceBytes','sourceReads','controlBytes');if($wire.mode -ceq 'OFFLINE_FIXTURE'){$entryKeys+=@('fixtureConstructorCalls','fixtureAudit')};GIExact $entry $entryKeys"
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 549,
+      "text": " $s.used+=$bytes;$s.reads++;$e=@{path=$path;reservedBytes=$bytes;actualBytes=[long]0;closeReturned=$false;opened=$false;unknown=$false};$s.events.Add($e);return $e"
+    },
+    {
+      "file": "tools/admission_checks.ps1",
+      "line": 553,
+      "text": " return @{schema='QUALIFICATION_SOURCE_DELTA_V1';ticketId=$t.ticketId;scope=$t.scope;generation=$t.generation;ownerPid=$t.ownerPid;requestId=$t.requestId;version=$t.version;reservedUsedBytes=$s.used;sourceReads=$s.reads;actualBytes=[long](($s.events|Measure-Object actualBytes -Sum).Sum);events=@($s.events.ToArray()|ForEach-Object {@{pathSha256=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($_.path))).ToLowerInvariant();reservedBytes=$_.reservedBytes;actualBytes=$_.actualBytes;closeReturned=$_.closeReturned;opened=$_.opened;unknown=$_.unknown}});finished=$true}"
+    },
+    {
+      "file": "tools/capture_android02.ps1",
+      "line": 429,
+      "text": "$console=Snapshot;$console.qualificationSourceDelta=GetGIV2SourceDelta;$console.qualificationEvidenceSourceBytes=$script:qualificationEvidenceSourceBytes;$console.qualificationEvidenceSourceReads=$script:qualificationEvidenceSourceReads;$console.schema='ANDROID02_CAPTURE_CONSOLE_V1';$console.captureQualified=$c.qualified -and $null -eq $c.firstFailure;$console.allOriginalResourcesReturnedAtConsole=$true;$console.recordWriteBytesKnown=$c.recordBytes;$console.rawTextSavedBytesKnown=($c.readers|Where-Object kind -CEQ 'TEXT'|Measure-Object saved -Sum).Sum;$console.binaryArchiveSavedBytesKnown=($c.readers|Where-Object kind -CEQ 'BINARY'|Measure-Object saved -Sum).Sum;$console.recordWriteAmountUnknown=[bool]$c.recordAmountUnknown;if($policy.globalIdleQualification.schema -ceq 'GLOBAL_IDLE_QUALIFICATION_V2'){$console.receiptRef=OriginalReceiptReference;$console.captureReceiptSha256=$console.receiptRef.sha256}else{$console.captureReceiptSha256=Digest (Join-Path $root ($request.id+'-receipt.json'))};$console.externalControllerExitProofStillRequired=$true;$console.consoleBytes=0;$console.consoleForwardReserveBytes=4096;$console.proofReadBytes=$proofReadBytes;$console.logicalControlReads=@{requestBodyBytes=$requestBodyReadBytes;requestBodyReadCalls=$requestBodyReadCalls;ownerAdmissionBytes=([long]$ownerCurrentReadCost-$requestBodyReadBytes);predecessorProofAndNativeBytes=([long]$proofReadBytes-$ownerCurrentReadCost)};$console.batchSdkChildrenEntered=$batchSdkBefore+[int]$c.started;$console.batchTextChargedBytesKnown=[long]0;$console.batchBinaryArchiveBytesKnown=$batchBinaryBefore+[long]$console.binaryArchiveSavedBytesKnown;$console.batchGroups=@{preflight=[long]$groups.preflight;install=[long]$groups.install;instrument=[long]$groups.instrument;control=[long]$groups.control;payload=[long]$groups.payload+[long]$c.input.payloadCommitted;command=[long]$groups.command+[long]$commandBytes};$console.batchGroups[$group]+=$c.textBytes;$console.batchAmountUnknown=[bool]($c.rawUnknown -or $c.recordAmountUnknown -or $c.input.pinUnknown -or $c.input.sourceUnknown -or $c.input.writeAmountUnknown -or @($c.readers|Where-Object savedAmountUnknown -EQ $true).Count -gt 0);$console.controlRecordAndConsoleKnown=0"
+    },
+    {
+      "file": "tools/qualification_reference.ps1",
+      "line": 4,
+      "text": "if($null -eq $script:qualificationEvidenceSourceBytes){$script:qualificationEvidenceSourceBytes=[long]0}"
+    },
+    {
+      "file": "tools/qualification_reference.ps1",
+      "line": 5,
+      "text": "if($null -eq $script:qualificationEvidenceSourceReads){$script:qualificationEvidenceSourceReads=[long]0}"
+    },
+    {
+      "file": "tools/qualification_reference.ps1",
+      "line": 34,
+      "text": " $script:qualificationEvidenceSourceReads++;$f=$null;$closeEntered=$false;$bytes=[byte[]]::new([int]$r.bytes);$offset=0"
+    },
+    {
+      "file": "tools/qualification_reference.ps1",
+      "line": 41,
+      "text": "   if($n -eq 0){throw 'GLOBAL_V2_EVIDENCE_SHORT_READ'};$offset+=$n;$event.actualBytes+=$n;$script:qualificationEvidenceSourceBytes+=$n"
+    },
+    {
+      "file": "tools/qualification_reference.ps1",
+      "line": 106,
+      "text": " $entryKeys=@('schema','representation','receipt','receiptSha256','parsedFactsSha256','rawBase64','release','binding','gateReceiptBase64','initialProofBase64','outerProcessReturnStillRequired','qualificationIssued','sourceBytes','sourceReads','controlBytes');if($wire.mode -ceq 'OFFLINE_FIXTURE'){$entryKeys+=@('fixtureConstructorCalls','fixtureAudit')};GIExact $entry $entryKeys"
+    },
+    {
+      "file": "tools/qualification_reference.ps1",
+      "line": 145,
+      "text": " $s.used+=$bytes;$s.reads++;$e=@{path=$path;reservedBytes=$bytes;actualBytes=[long]0;closeReturned=$false;opened=$false;unknown=$false};$s.events.Add($e);return $e"
+    },
+    {
+      "file": "tools/qualification_reference.ps1",
+      "line": 149,
+      "text": " return @{schema='QUALIFICATION_SOURCE_DELTA_V1';ticketId=$t.ticketId;scope=$t.scope;generation=$t.generation;ownerPid=$t.ownerPid;requestId=$t.requestId;version=$t.version;reservedUsedBytes=$s.used;sourceReads=$s.reads;actualBytes=[long](($s.events|Measure-Object actualBytes -Sum).Sum);events=@($s.events.ToArray()|ForEach-Object {@{pathSha256=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($_.path))).ToLowerInvariant();reservedBytes=$_.reservedBytes;actualBytes=$_.actualBytes;closeReturned=$_.closeReturned;opened=$_.opened;unknown=$_.unknown}});finished=$true}"
+    }
+  ],
+  "bounds": "No product module loaded. Hash joins identify named source references; unmatched SDK/runtime/product/signature/proof hashes are not rewritten. Dynamic references require final packet checks in B."
+}

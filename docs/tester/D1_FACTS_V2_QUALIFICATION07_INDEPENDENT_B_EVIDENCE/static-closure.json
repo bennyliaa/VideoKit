@@ -1,0 +1,405 @@
+{
+  "allPassed": true,
+  "checks": [
+    {
+      "case": "source30",
+      "passed": true
+    },
+    {
+      "case": "gate22",
+      "passed": true
+    },
+    {
+      "case": "Runner-and-PS-source-set",
+      "passed": true
+    },
+    {
+      "case": "entrySha256",
+      "passed": true
+    },
+    {
+      "case": "outerOwnerSha256",
+      "passed": true
+    },
+    {
+      "case": "gateSourcesSha256",
+      "passed": true
+    },
+    {
+      "case": "runnerSourceSha256",
+      "passed": true
+    },
+    {
+      "case": "runtimeIdentitySha256",
+      "passed": true
+    },
+    {
+      "case": "runtimeBindingSourceSha256",
+      "passed": true
+    },
+    {
+      "case": "planSha256",
+      "passed": true
+    },
+    {
+      "case": "all-identified-named-source-literals",
+      "passed": true
+    },
+    {
+      "case": "capacity-entire-shape-value",
+      "passed": true
+    },
+    {
+      "case": "capacity-full-AST-size",
+      "passed": true
+    },
+    {
+      "case": "capacity-full-AST-admit",
+      "passed": true
+    }
+  ],
+  "namedLiteralConsumers": [
+    {
+      "consumer": "tools/admission_checks.ps1",
+      "line": 98,
+      "producer": "tools/production_runner.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/admission_checks.ps1",
+      "line": 150,
+      "producer": "tools/production_runner.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/admission_checks.ps1",
+      "line": 158,
+      "producer": "tools/fact_collector.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/admission_checks.ps1",
+      "line": 159,
+      "producer": "reference/fact-plan.json",
+      "match": true
+    },
+    {
+      "consumer": "tools/admission_checks.ps1",
+      "line": 364,
+      "producer": "tools/facts_qualification.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/admission_checks.ps1",
+      "line": 402,
+      "producer": "tools/outer_capture.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/admission_checks.ps1",
+      "line": 403,
+      "producer": "tools/capture_origin.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 60,
+      "producer": "reference/current-runtime-identity.json",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 60,
+      "producer": "reference/current-runtime-identity.json",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 61,
+      "producer": "tools/runtime_binding.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 61,
+      "producer": "tools/runtime_binding.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 70,
+      "producer": "reference/gate-sources.json",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 72,
+      "producer": "tools/admission_checks.ps1",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 129,
+      "producer": "reference/exact-seven-role-plan.json",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 129,
+      "producer": "reference/exact-seven-role-plan.json",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 148,
+      "producer": "selfchecks/capture_fixture.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 148,
+      "producer": "selfchecks/capture_fixture.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 189,
+      "producer": "tools/outer_owner.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 189,
+      "producer": "tools/outer_owner.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 193,
+      "producer": "tools/outer_owner.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 232,
+      "producer": "tools/outer_owner.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/capture_android02.ps1",
+      "line": 232,
+      "producer": "tools/outer_owner.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/entry_gates.py",
+      "line": 93,
+      "producer": "tools/runtime_binding.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/entry_gates.py",
+      "line": 96,
+      "producer": "reference/current-runtime-identity.json",
+      "match": true
+    },
+    {
+      "consumer": "tools/outer_owner.py",
+      "line": 32,
+      "producer": "tools/runtime_binding.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/outer_owner.py",
+      "line": 32,
+      "producer": "tools/runtime_binding.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/outer_owner.py",
+      "line": 37,
+      "producer": "tools/production_runner.py",
+      "match": true
+    },
+    {
+      "consumer": "tools/outer_owner.py",
+      "line": 67,
+      "producer": "reference/gate-sources.json",
+      "match": true
+    },
+    {
+      "consumer": "tools/runtime_binding.py",
+      "line": 4,
+      "producer": "reference/current-runtime-identity.json",
+      "match": true
+    }
+  ],
+  "sourceMutations": [
+    {
+      "file": "tools/entry_gates.py",
+      "line": 121,
+      "target": "self.source_bytes",
+      "expression": "self.source_bytes += amount"
+    },
+    {
+      "file": "tools/entry_gates.py",
+      "line": 121,
+      "target": "self.source_reads",
+      "expression": "self.source_reads += 1"
+    },
+    {
+      "file": "tools/entry_gates.py",
+      "line": 261,
+      "target": "self.source_bytes",
+      "expression": "self.source_bytes += s['imageHashBytes']"
+    },
+    {
+      "file": "tools/entry_gates.py",
+      "line": 261,
+      "target": "self.source_reserved_unknown",
+      "expression": "self.source_reserved_unknown += s['imageHashBytesReservedUnknown']"
+    },
+    {
+      "file": "tools/entry_gates.py",
+      "line": 261,
+      "target": "self.source_reads",
+      "expression": "self.source_reads += int(s['imageHashBytes'] + s['imageHashBytesReservedUnknown'] > 0)"
+    },
+    {
+      "file": "tools/fact_preauth.py",
+      "line": 131,
+      "target": "self.sourceBytes",
+      "expression": "self.sourceBytes += len(b)"
+    },
+    {
+      "file": "tools/fact_preauth.py",
+      "line": 131,
+      "target": "self.sourceReads",
+      "expression": "self.sourceReads += 1"
+    },
+    {
+      "file": "tools/production_runner.py",
+      "line": 119,
+      "target": "self.source_bytes",
+      "expression": "self.source_bytes += reservation"
+    },
+    {
+      "file": "tools/production_runner.py",
+      "line": 119,
+      "target": "self.source_reads",
+      "expression": "self.source_reads += 1"
+    },
+    {
+      "file": "tools/production_runner.py",
+      "line": 95,
+      "target": "self.source_bytes",
+      "expression": "self.source_bytes += reservation"
+    },
+    {
+      "file": "tools/production_runner.py",
+      "line": 95,
+      "target": "self.source_reads",
+      "expression": "self.source_reads += 1"
+    },
+    {
+      "file": "tools/source_budget.py",
+      "line": 23,
+      "target": "g.source_bytes",
+      "expression": "g.source_bytes += b"
+    },
+    {
+      "file": "tools/source_budget.py",
+      "line": 23,
+      "target": "g.source_reads",
+      "expression": "g.source_reads += reads"
+    },
+    {
+      "file": "tools/source_budget.py",
+      "line": 23,
+      "target": "r.source_bytes",
+      "expression": "r.source_bytes += b"
+    },
+    {
+      "file": "tools/source_budget.py",
+      "line": 23,
+      "target": "r.source_reads",
+      "expression": "r.source_reads += reads"
+    },
+    {
+      "file": "tools/source_budget.py",
+      "line": 52,
+      "target": "r.source_reads",
+      "expression": "r.source_reads += 1"
+    },
+    {
+      "file": "tools/source_budget.py",
+      "line": 52,
+      "target": "r.source_bytes",
+      "expression": "r.source_bytes += 2"
+    }
+  ],
+  "RAWActual": {
+    "reads": 64,
+    "bytes": 8998997
+  },
+  "COMPLETEStatic": {
+    "reads": 61,
+    "bytes": 8581204
+  },
+  "LIVEStatic": {
+    "reads": 58,
+    "notExecuted": true,
+    "includesOriginalRouteSelfRead": true
+  },
+  "stages": {
+    "caller-raw": {
+      "reads": 1,
+      "bytes": 139264
+    },
+    "preauth": {
+      "reads": 6,
+      "bytes": 67946
+    },
+    "gate-constructor": {
+      "reads": 25,
+      "bytes": 366484
+    },
+    "fixed-runtime": {
+      "reads": 16,
+      "bytes": 7952341
+    },
+    "route-child-reservation": {
+      "reads": 1,
+      "bytes": 1819
+    },
+    "route-preconstructor": {
+      "reads": 2,
+      "bytes": 4951
+    },
+    "route-validation": {
+      "reads": 2,
+      "bytes": 5774
+    },
+    "facts-receive": {
+      "reads": 5,
+      "bytes": 64834
+    },
+    "fixture-raw": {
+      "reads": 1,
+      "bytes": 139265
+    },
+    "fixture-child-reservation": {
+      "reads": 1,
+      "bytes": 139264
+    },
+    "fixture-runtime": {
+      "reads": 2,
+      "bytes": 112761
+    },
+    "facts-preconstructor": {
+      "reads": 2,
+      "bytes": 4294
+    }
+  },
+  "productFunctionsCalled": 0
+}

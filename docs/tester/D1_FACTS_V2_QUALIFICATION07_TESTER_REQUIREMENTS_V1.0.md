@@ -1,0 +1,9 @@
+# QUALIFICATION07 冻结06全消费点与计费静态A/后续B要求
+
+2026-10-24；阶段A正式派发，仅审冻结06source31 0651323122601622751a4958ae132cc33a6f8f3f5413bcacb69dd38ff4a524aa/gate23 fcc9c66d6be539cbcc936da51178426c9b993d24017d9fdf840f8b12268fbf45，报告d7773dd5c2747bd77a720de4849c302ab0ccdb47a840a820056b54aa010aab82，manifest68dd9820be6eeaf585cbe22793f8a4bc4a1b279acc6356ced0d6dcaa4b8d2e1d，负责人已核132项/4654998B bad0。不得读07浮动源或05活动输出/锁/PID/session。
+
+一次完整静态A：独立找全source费用手工变更/事件统一记录的遗漏节点、route子自读及子raw等完整读取义务，准确表分支/阶段/预算归属；查所有具名生产者pin实际消费点，尤其GICollector/V1/V2/内联副本等，判定构建patch未命中/消费点漏同步的资源前预检oracle。纯文件/AST/文本/算术，不产品import/dot-source/函数/资源；不把源码推断当06完整ledger实测。延续旧独立驱动A，新增最小判据即可，不为108/63计数执行全部组合。
+
+输出仅 docs/tester/D1_FACTS_V2_QUALIFICATION07_PHASE_A_EVIDENCE 和同名前缀报告/manifest，整批主动回负责人，集中转coder，不逐错交接。A后停止，不自动B。07开发获最多两版已预声明/合并原预算内的离线自测修订授权，必须各新源新scope、不重放，只有全部原资源已证归还无新未知可用REV2；这不是你当前动态权限。
+
+完整07最终候选核包后另派独立B，在精确新根 docs/tester/D1_FACTS_V2_QUALIFICATION07_INDEPENDENT_B_EVIDENCE/fixtures 核事实完整source账表与提前准入、全部具名pin、原receipt同fileId身份、控制容量/生产合法错固件替换拒绝、原预算与18辅助/当前V1及必要回归。独立B预算届时单独准确冻结，不盲迁开发或旧API。旧FAIL/once/UNKNOWN/custody记录不查改、不强停收尾。D1未过/M0未启，SDK/设备/Git0，主阶段与既定设计许可保持。
