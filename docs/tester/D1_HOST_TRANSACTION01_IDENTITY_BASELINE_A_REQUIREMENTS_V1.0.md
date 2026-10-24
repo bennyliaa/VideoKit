@@ -1,0 +1,11 @@
+# HOST_TRANSACTION01_IDENTITY_BASELINE_A 独立静态准备
+
+2026-10-24 正式派tester。LIVE03静态完整收尾报告3f7c801f2f5358f491acf82a67ff89151d2c7653590802aaa6d4697fd5616bca、manifest95a543f563016d43c4b150d87007c268216681eea2f2012f90ae3a31369f8d21已由负责人逐核60项208521B bad0接受，不冒设备PASS。
+
+coder HOST_TRANSACTION01仍在集中冻结，不能读取其浮动源/运行产物。本A仅在新docs/tester/D1_HOST_TRANSACTION01_IDENTITY_BASELINE_A目录，对先前已冻结TemporaryOutput/SourceLease/Sink05合同与当前设计做独立静态映射，准备后续B oracle。
+
+集中核：宿主身份是可替换平台端口还是强制JDK fileKey；原grant/transaction/source generation/lease与同原文件H身份分别何时要求；path/hash/size/mtime不能单独冒物理身份；Windows JDK fileKey为null或硬链接不支持时应稳定拒绝或由何种原合同能力端口提供真实身份，禁止降级假通过。原强一致身份与文件内容校验/READY/COMMIT/恢复权威不能互相替代。哪些本机临时宿主操作可独立测试，哪些平台真实效果应NOT_RUN，按原设计/P0明确。
+
+只读具名旧冻结文件，准确hash引用原源，读16MiB/输出1MiB/600秒，首读前同调用建立单调计时。无Native/TCP/CIM/SDK/设备/编译/Gradle/Git/新辅助程序或权限变化，不全仓扫描、不改历史，不审新浮动候选。集中报告和有限正常/拒绝/未知/晚回/同grant替换的验收矩阵一次回负责人；不另造资源、身份或审证框架。源码/API不明则准确列所缺来源，不自行创造需求。
+
+本A不是新候选B或产品PASS，实际整包B须coder完整冻结并经负责人审核另派。完成主动报负责人01a107c3-2bf9-7fa0-94a0-234258ca6774。D1未过/M0未启，旧证据/once/UNKNOWN保持。

@@ -1,5 +1,141 @@
 # 里程碑开发与测试协调规则
 
+<!-- CURRENT_STATUS_HOST_TX02_B_PASS_GIT_PLATFORM_HANDOFF:BEGIN -->
+> **2026-10-24 HOST_TRANSACTION02独立整包B限定PASS已审，F01在本候选实际生产门限定关闭。** reportce0d5e66142ba9eecb56b6cc235564ba89bf42358a284d7a617fc9b2a5df0101/manifest717b48eeda3103dabd07dacc207c33a1d96fbce3c1a84a186850e75397603b38，负责人逐核180项999495B bad0。一次独立严格编译/worker 8原real-file+4新矩阵+3原authority=15有限组通过，原进程/流/H及owner归还；typed task/同原authority ctor/move/RecoveryRef拒错门和合法wrapper/opaqueTask快照均实际核，不代平台或R03/TOCTOU/隔离/崩溃恢复通过。旧01静态FAIL/旧开发FAIL保持。
+>
+> 下一整批分工：coder按D1_PLATFORM_EXECUTION_HANDOFF02_CODER_REQUIREMENTS_V1.0.md复用现有FIX02/RENDER02/Q07/HOST03，只准备准确Android scopeAll首批现场/鲜活事实资格交接，不新框架或执行设备；tester按D1_HOST_TX02_ACCEPTED_GIT01_TESTER_REQUIREMENTS_V1.0.md，将已审02/HOST03自有源码、文档报告精确文本白名单入新codex分支/stacked draft PR（base PR3分支），不合main/发布，不纳入原流/二进制/第三方/浮动handoff/现场材料。
+>
+> 负责人在Git完整回报前冻结三协调文档本快照，coder只新目录，Git之外新完整报告先只读审。提交不代验收；D1未过/M0未启，主阶段/Flutter/独立Kit/精确框架许可/P0/旧once/UNKNOWN保持。两者整批完成主动报告负责人，再审核安排准确下一实机批。
+<!-- CURRENT_STATUS_HOST_TX02_B_PASS_GIT_PLATFORM_HANDOFF:END -->
+
+<!-- CURRENT_STATUS_HOST_TX02_INDEPENDENT_B:BEGIN -->
+> **2026-10-24 HOST_TRANSACTION02完整task绑定修复包已核，正式交一次独立整包B。** 报告7d7b3e18129f42540f0c4e6cf710d412f91fb172839568cbc6e6427732981c53/manifest9c97568ec615e0d1528701355540eb99a5315aaaaa21f85c44896ba5ab4603b0/sealceb664e215fe8566815d1ad865b5aa0f90e0b8efdf1585765a0065b066a5fc26，负责人逐核227项6249370B bad0。开发一次编译/worker实际8原real-file+4新矩阵+3原authority有限PASS，独立F01待本B，不回写旧01FAIL。
+>
+> tester按D1_HOST_TRANSACTION02_INDEPENDENT_B_DISPATCH_V1.0.md在新review/b-f924a731根，一次准确本地命令可提交require_escalated工具审核；独立核task/同原authority typed门、HTB2/VKH2/HTX2消费者、合法wrapper/原opaqueTask快照及8+4+3回归，不driver预拒冒实际产品门，不新增第二worker/修源，不设备/网络/改权限防护。20分钟/512MiB读/32MiB写，完整集中报告。coder保持新候选冻结。
+>
+> R03同bytes替换、TOCTOU/原FD竞态/隔离/真实崩溃恢复仍未测，不由本修复关闭；VKH2非MP4/Android格式。D1未过/M0未启，主阶段/框架许可/P0与历史FAIL/once/UNKNOWN保持。
+<!-- CURRENT_STATUS_HOST_TX02_INDEPENDENT_B:END -->
+
+<!-- CURRENT_STATUS_HOST_TX02_SOURCE_BINDING_FIX:BEGIN -->
+> **2026-10-24 HOST_TRANSACTION01独立B整包FAIL_STATIC_F01已核，集中派02源身份绑定修复。** report08781fabff3344242280f82050e46cb6e92a0abff5fb87e66111b672d0610380/manifest96f7c3939ea434a87b4503bd1e48019a010b85c602448509afd9f6d90202b5ad，负责人逐核160项859708B bad0。独立准确受审边界外一次编译/worker实际8新+3旧有限PASS，原返回全返保持；静态P1确认Binding漏source.identity.task/key/requireSource，未动态注入错源或错误移动，不冒任意越权。
+>
+> coder按D1_HOST_TRANSACTION02_SOURCE_BINDING_FIX_CODER_REQUIREMENTS_V1.0.md新根集中修task/同原source authority不可变绑定、无歧义key/私有record与所有消费者，有限正反矩阵+8/3回归；不新框架/不改旧SDK或01证据，可将准确本地新命令交工具require_escalated审核，不管理员/改权限防护/设备。tester独立要求分别保存，完整新候选负责人核后才一次整包B，不审浮动源或逐问题交接。
+>
+> 原开发FAIL/未证资源、原独立有限PASS/静态FAIL均保持。D1未过/M0未启，主阶段/Flutter/独立Kit/精确框架许可/P0/once/UNKNOWN不改。
+<!-- CURRENT_STATUS_HOST_TX02_SOURCE_BINDING_FIX:END -->
+
+<!-- CURRENT_STATUS_HOST_TX01_INDEPENDENT_B:BEGIN -->
+> **2026-10-24 身份基线A完整已核，正式交HOST_TRANSACTION01独立整包B。** A报告3241bde51949a5b023d047d17c1ddd171d0f324b7b79ff60ea3f31873d43120e/manifestff569432011430580bc4c3017ef24d95187733b63e67b650719506ef5b3d002b，负责人逐核30项386123B bad0；21oracle均PLANNED_NOT_RUN。原宿主能力端口不强制JDK fileKey/hardlink，仍须真实物理身份/同grant而非路径或hash替代。
+>
+> tester按D1_HOST_TRANSACTION01_INDEPENDENT_B_DISPATCH_V1.0.md，对原262项冻结候选在准确新review/b-e830d5c7根独立核验：一个准确命令可提交工具require_escalated自动审核，在受限边界外做有限本地文件测试，不管理员/改ACL防护/SDK网络设备；审核拒绝保留不绕过。一严格编译+一串行worker8新/3旧，不修源/不重试，独立静态结合21oracle分栏，20分钟/512MiB读/32MiB写。coder保持原源产物冻结，原两开发FAIL不补绿。
+>
+> 本批是新独立验证，不是原开发第三修复或原设备scope重放。完整B后负责人集中派修复或新批，D1未过/M0未启，主阶段/框架许可/P0/旧once/UNKNOWN保持。
+<!-- CURRENT_STATUS_HOST_TX01_INDEPENDENT_B:END -->
+
+<!-- CURRENT_STATUS_ENV_BOUNDARY_AND_HOST_TX01_FROZEN_FAIL:BEGIN -->
+> **2026-10-24 已核HOST_TRANSACTION01完整失败包，262项6589312B bad0。** report4439364e2cf4d869ad2fa45bb46cb4e307535cf23b8d05ad064644a18490ec3f/manifest4350de4c1296c221508ea2cba23e5dc20b628d7536add1ca736462cdcc30bffe；两编译通过但两自检首例初始化因JDK fileKey无值/私有hardlink AccessDenied停止，8+3用例NOT_REACHED，业务缺口未关闭。coder完整冻结，不追加第三修复或测试。
+>
+> LIVE03静态收尾60项208521B已核bad0，report3f7c801f2f5358f491acf82a67ff89151d2c7653590802aaa6d4697fd5616bca/manifest95a543f563016d43c4b150d87007c268216681eea2f2012f90ae3a31369f8d21。root新独立LIVE03_NATIVE_PERMISSION_CHECK01精确尺寸探测经工具require_escalated自动审核允许：原API返回122/size972，table分配0、SDK0；与受限上下文5有差异，不证明server/设备/硬链接/产品通过，无权限或防护变更，不是泛化提权授权。
+>
+> tester按D1_HOST_TRANSACTION01_IDENTITY_BASELINE_A_REQUIREMENTS_V1.0.md只审旧冻结身份/同grant合同准备oracle，完整A后再决定新候选独立B的准确执行上下文；当前不动态复测、不设备。D1未过/M0未启，原SourceReleased未证/FAIL/once/UNKNOWN与许可/P0保持。
+<!-- CURRENT_STATUS_ENV_BOUNDARY_AND_HOST_TX01_FROZEN_FAIL:END -->
+
+<!-- CURRENT_STATUS_LIVE03_ROUTE_REJECTED_RETURNED:BEGIN -->
+> **2026-10-24 LIVE03已实际进入本机Native路由检查，第一次GetExtendedTcpTable返回TCP_SIZE:5，原拒绝与资源已归还；SDK子进程0。** CLOSEOUT02负责人核40项223296B bad0。LIVE02输入格式已正确但审核剩余窗不足，NOT_RUN不刷新。另正式LIVE03 plan7c4f0c41-1ec7-422b-bf47-5350eeb1b662/config98176b016b32435b5f0bac426aad59fd3798af15673272cb4d404e305419df8a，材料化/独立原bytes审核/准确批准/一次启动按已审root源顺序完成。
+>
+> 原launcher/host/facts/checker均已返回，Gate原sharedclaim generation2669799a-2aed-4e43-af50-4ca77c217847解锁close及临时线程归还；L1实调1次/metadata4B/SDKchildren0，不推设备空闲或其他项目占用。host已hash读SDK文件，不能写SDK文件0；未ADB进程/平板访问/安装/媒体/资格。旧scope/once不重放退款。
+>
+> tester按docs/D1_LIVE03_ROUTE_REJECTION_COORDINATOR_REVIEW_V1.0.md集中静态封存LIVE02/03并核原TCP参数/错误边界，不新查Native/PID/锁、不提权改权限、不准备下一scope。coder HOST_TRANSACTION01继续集中功能开发。D1未过/M0未启，主阶段/设计许可/P0及原FAIL/UNKNOWN保持。
+<!-- CURRENT_STATUS_LIVE03_ROUTE_REJECTED_RETURNED:END -->
+
+<!-- CURRENT_STATUS_LIVE01_PREAUTH_UTC_STOP:BEGIN -->
+> **2026-10-24 LIVE01一次原宿主启动已返回，PREAUTH_UTC工厂前拒绝，SDK/route/设备0。** BINDING01负责人逐核22项54316B bad0；唯一环境probePASS，整批600秒合规未证照记。负责人一次材料化并准确核config43fab12945ee6110f75dbfe06a48e72adb948dea2b7fdb95f56dd14b17bd1625后批准一次launch；host exit2/RETURNED_BOUND、原wait/EOF/readers/流/H返回、pending0/custody0。拒绝原因为负责人.NET七位小数UTC输入不符原0–6位合同，不是产品功能FAIL，不改核心门。
+>
+> 原scope/plan59fa0130-05df-4710-8d6b-5b018fb21884停止，不刷新/重放/删once退款。tester按docs/D1_LIVE_READONLY01_FIRST_ATTEMPT_REVIEW_V1.0.md集中新CLOSEOUT02封存证据/费用并静态准备下一独立范围准确UTC输入；实际下一调用仍待完整包审核及准确hash批准。coder HOST_TRANSACTION01继续集中功能开发，双方不互相阻塞、不查旧UNKNOWN或其他项目。
+>
+> D1未过/M0未启，主里程碑/原框架许可/P0保持；本次未读SDK/未实测设备，不冒真实功能通过。
+<!-- CURRENT_STATUS_LIVE01_PREAUTH_UTC_STOP:END -->
+
+<!-- CURRENT_STATUS_HOST_TRANSACTION01_DEVELOPMENT:BEGIN -->
+> **2026-10-24 READINESS01新批封存已核，派D1_HOST_TRANSACTION01集中功能开发。** CLOSEOUT01报告160babac4649e18fbda85ec31073f65c7c7116311a11d56ae5938ecbc253af7e、manifest31437c84eddead3e33d5118f6186e55efffbec6335cd852b4aa0e5ad99a9bb3f，负责人逐核26项579016B bad0。原READINESS01超时和旧console账UNKNOWN不改；本新封存仅材料可供决策，不是Android实测。
+>
+> coder按D1_HOST_TRANSACTION01_CODER_REQUIREMENTS_V1.0.md集中实现原D1有限宿主同grant校验/READY/COMMIT发布/QUERY与取消晚回失败集成，复用现成SourceLease/Sink/validator，不改旧FIX02/RENDER包、不新资源/事务框架、不M0。独立测试要求另存D1_HOST_TRANSACTION01_TESTER_REQUIREMENTS_V1.0.md，仅候选完整冻结、负责人审核后正式派B。tester继续已派BINDING01环境和准确执行绑定，不审新浮动源；双方无设备/Gradle共享缓存并发。
+>
+> 主里程碑/设计许可/P0不变，D1未过/M0未启；旧证据/FAIL/once/UNKNOWN保持，完整整批报告后集中安排下一批。
+<!-- CURRENT_STATUS_HOST_TRANSACTION01_DEVELOPMENT:END -->
+
+<!-- CURRENT_STATUS_LIVE_BINDING01_READINESS_CLOSEOUT:BEGIN -->
+> **2026-10-24 真实只读准备包已审，集中补最小执行绑定。** STAGING报告9aebad49748dd68c01aaf3ea66ad4a75756e8f09d46f0c2e8ce2259da0d95b65、manifest8daf7e02305ce70145d8aa313b9037c2e0baac7b18714349031800f88d9114c7，负责人逐核9项60964B bad0；未执行就绪，原180秒计时未证保持。授权来源已从root read_thread核到用户继续原turn01a16bd2-cd01-7c23-b0e4-20c221d53477及本正式协调turn01a16bd9-2d0b-73a1-ba62-970f3122a080，不再虚构UUID。
+>
+> tester按D1_LIVE_READONLY01_BINDING01_TESTER_REQUIREMENTS_V1.0.md执行一次非产品固定四键环境探针（5秒/4096B/重试0，原归还），集中静态核原归档输出界和薄启动/材料化配方；仍不LIVE/SDK/route/设备。coder原READINESS01超180秒未封存，原INCOMPLETE不改；按D1_READINESS01_CLOSEOUT01_CODER_REQUIREMENTS_V1.0.md在新目录仅核账封存，600秒新批不延长旧账，不重测。双方完整结果后再决定实际执行与业务集成整批。
+>
+> D1未过/M0未启；既有候选未实测不等缺代码，真实COMMIT/发布/恢复集成缺口集中保留。旧证据/锁/PID/once/UNKNOWN不查询改写，主阶段/框架许可保持。
+<!-- CURRENT_STATUS_LIVE_BINDING01_READINESS_CLOSEOUT:END -->
+
+<!-- CURRENT_STATUS_HOST03_PASS_LIVE_STAGING:BEGIN -->
+> **2026-10-24 HOST03独立B限定PASS已审，安排一次真实只读采集输入准备与D1功能实测交接。** 报告8cdbb7ce521845d083f6ac149d18d646c72bc9de6de37aaffdfeb1b4e8670442；manifest282c0250c42b572b8444edd2210e87a3abd33c0a4593bee89d10e437da508c44，负责人逐核129项1273790B bad0。F03原准入/必需摘要与五包装器限定关闭，HOST02FAIL保持。
+>
+> tester按D1_LIVE_READONLY01_STAGING_TESTER_REQUIREMENTS_V1.0.md集中准备精确输入、固定子环境、时窗和Native/SDK预算；coder按D1_REAL_EXECUTION_READINESS01_CODER_REQUIREMENTS_V1.0.md整理既有冻结实际功能候选、原10例与集中实现缺口。双方完整结果主动报负责人，审核后再正式准确执行，不新造采集/审批框架。本准备批不SDK/设备/route/构建/Git、不运行旧对象或改冻结。
+>
+> 用户继续推进与持续设备授权保持，旧任务停止不扩新批。实际只读仍需本批准确bytes/hash/原身份/新鲜窗口绑定；离线PASS不代平台实测。D1未过/M0未启，主阶段/Flutter/独立Kit/框架许可/P0保持。
+<!-- CURRENT_STATUS_HOST03_PASS_LIVE_STAGING:END -->
+
+<!-- CURRENT_STATUS_REAL_FACTS_HOST03_INDEPENDENT_B:BEGIN -->
+> **2026-10-24 HOST03完整修复包已核，正式交独立离线B。** 报告7e9ad8575dac4143bbf51c4b2c6da74911e604d2715ba156aca380d9a1b92e51；manifest5994bf8fb81b81d37901a78dcfc8a35721f218d67e56217f86adf351dcfe026f，负责人逐核126项1194624B bad0。必需host pin已加运行时require_pin与无可省略read_pinned通道，开发原admit非法/合法错hash与五真正wrapper限定通过，仍待独立B；HOST02FAIL不改。
+>
+> tester按docs/tester/D1_REAL_FACTS_HOST03_INDEPENDENT_B_DISPATCH_V1.0.md在精确新fixtures/scope/mode根独立核必需pin原准入/普通read合法用途/实际五wrapper、root/scope与费用原归还；不由驱动先拒替代产品，不把所有输入拒绝当修复。coder完整包冻结，B完整报告后才准确派真实只读。
+>
+> 本批仅自有原H身份API及非设备子程序，真实route/TCP/SDK文件与调用/设备/Gradle/Git仍禁止；旧对象不查改，D1未过/M0未启，原预算/主阶段/框架许可保持。
+<!-- CURRENT_STATUS_REAL_FACTS_HOST03_INDEPENDENT_B:END -->
+
+<!-- CURRENT_STATUS_REAL_FACTS_HOST03_PIN_FIX:BEGIN -->
+> **2026-10-24 HOST02完整独立B已审，集中派HOST03必需pin修复。** 报告66d9fd3d87de2ca1d775f356d6a4311ca7a023e4c0ca163904fb0fb8cafc3951；manifest6a0ea56ab283e8c805838e94bee6bb3a31f1e0a8d105bd264b049c07561aec33，负责人逐核107项1151682B bad0。新根五例实际包装器/F01、纯scope45及前置位置/F02限定关闭；静态F03确认hostSourceSha256=null传可选digestNone会省略宿主hash比较，未动态注入或证明未授权执行，整包FAIL保持。
+>
+> coder在新HOST03做运行时必需pin严格类型/64hex与不可省略消费通道，核同类全部必需摘要并保持普通bootstrap用途，集中五包装器及原admit正反自检；不新建framework/不改Q07核心。tester不新增A，保持HOST02冻结，完整HOST03核后一次独立B。当前route/TCP/SDK/设备/Gradle/Git0。
+>
+> N2通知同文已见10月17日唯一ABORT完成，无可核新原turn/时间，不重复执行、不扩为新全局暂停。原05/capture1/FAIL/once不查改，D1未过/M0未启，主阶段/设计框架许可保持。
+<!-- CURRENT_STATUS_REAL_FACTS_HOST03_PIN_FIX:END -->
+
+<!-- CURRENT_STATUS_REAL_FACTS_HOST02_INDEPENDENT_B:BEGIN -->
+> **2026-10-24 HOST02完整开发包已核，正式交独立离线B。** 报告9e0e0f5a79b958ab57e4956784d296599be903e2cf1b0dc2c831e861acae4861；manifest289415e3df4c3bb81c8f90a0467b886b49034d6ea173d169bf6b7baea41e74f7，负责人逐核102项1110921B bad0。开发五例已真正admit→run(OFFLINE)完整包装器通过，根/五字段scope前置修复待独立验收，HOST01整包FAIL原封保持。
+>
+> tester按docs/tester/D1_REAL_FACTS_HOST02_INDEPENDENT_B_DISPATCH_V1.0.md，在准确新root/fixtures/<10hex或canonicalUUID>/<mode>运行实际包装器，固定候选probe/hash，不组件替身或改BASE；纯scope入口资源前验证，不进入LIVE/SDK读。coder保持候选冻结，完整B回交后再另准确派真实只读。
+>
+> 只允许本批自有原H元数据API与离线owned child，真实route/TCP/SDK/设备/Gradle/Git仍禁止；旧对象不查改，D1未过/M0未启，原预算和主阶段/设计许可保持。
+<!-- CURRENT_STATUS_REAL_FACTS_HOST02_INDEPENDENT_B:END -->
+
+<!-- CURRENT_STATUS_REAL_FACTS_HOST02_FIX:BEGIN -->
+> **2026-10-24 HOST01独立离线B已审：整包FAIL，集中派HOST02。** 报告5e1d94cf52b04777350aa7482e69838e70824a2bdaf6b81e8abe7ffea04d8b47；manifest54b335bb75016e433098d41c88e7ae52bbbcefb5e662deedc1f638ace904105d，负责人逐核95项1018112B bad0。正式新tester根被static_config的开发根硬限拒绝，原包装器run未测；五原组件API有限通过不代整链。scope仅相等绑定、五字段公式晚至核心Gate拒绝为静态前置义务，未冒越权。
+>
+> coder按HOST02单在新根精确支持正式独立输出根，补SDK/原资源前scope公式并通过真正admit→run(OFFLINE)自检，不改Q07核心或放开任意路径。tester只读冻结HOST01准备包装器入口/根/scope最小oracle，不审HOST02浮动源；完整包核后再正式独立B。真实route/TCP/SDK/设备/Gradle/Git当前均不执行。
+>
+> 旧05/capture1/FAIL/once不查询改写；D1未过/M0未启，原预算/主阶段/设计框架许可/Flutter/独立Kit/P0保持。
+<!-- CURRENT_STATUS_REAL_FACTS_HOST02_FIX:END -->
+
+<!-- CURRENT_STATUS_REAL_FACTS_HOST01_INDEPENDENT_B:BEGIN -->
+> **2026-10-24 REAL_FACTS_HOST01完整开发包已核，正式交独立离线B。** 报告0d02a2935ee4ee5ea0cfd2d01be326117135b0f3906aeed44679d62c9fc874ad；manifest e18320dda95b073f82802faa1fa418ba1e0398f314b145b90ba99c1c411dc44c，负责人逐核96项1060641B bad0。开发21纯预检/五原owned-child限定通过，不修改原Q07采集核心，无新真实facts/LIVE执行。
+>
+> tester按docs/tester/D1_REAL_FACTS_HOST01_INDEPENDENT_B_DISPATCH_V1.0.md独立核原Capture成功门、导入/tuple构造前准入、配置/原bytes/ref身份/预算、五种有界自然退出情况与原归还，明确只允许本批自有原H身份API，真实route/TCP/SDK/设备仍禁止。LIVE/FactsBundle归档实际分支本B未执行者准确标静态/引用，不能从档案造Capture或资格。coder保持完整包冻结，B后负责人另准确派真实只读。
+>
+> 原旧05/capture1/FAIL/once不查不改，Gradle/Git0；D1未过/M0未启，既定设计/框架许可/主阶段保持。
+<!-- CURRENT_STATUS_REAL_FACTS_HOST01_INDEPENDENT_B:END -->
+
+<!-- CURRENT_STATUS_REAL_FACTS_HOST01_A_REVIEWED:BEGIN -->
+> **2026-10-24 REAL_FACTS_HOST01静态A已核并集中转交。** 报告af6c5ad103c4951a278ff892e4b213fda6a4fd1ef60d51db8ce6cf3d13c80df2；manifest b31885145fa876f49d77d258d5cae936e01b4a457e6f5ec272a2380c041d76af，负责人逐核11项137342B bad0。LIVE58+A核心与额外宿主费用分域，原成功需origin COMPLETED及完整归还，不以returned/单收据代替。16oracle均未运行，null/approvedfalse仍不可执行。
+>
+> 按docs/D1_REAL_FACTS_HOST01_PHASE_A_COORDINATOR_REVIEW_V1.0.md澄清：已授权离线自检可沿原模块核本批自己持有的原process/file HANDLE身份并记费，只限明确API；真实route Native/TCP/SDK/设备仍0授权执行，旧PID/对象/锁完全不查询。coder完成必要薄接线自检后完整冻结，tester保持A冻结不审浮动源，核包后才独立B及未来另行真实只读。
+>
+> D1未过/M0未启，原预算/主阶段/框架许可/Flutter/独立Kit/P0保持，历史FAIL/UNKNOWN/once不改。
+<!-- CURRENT_STATUS_REAL_FACTS_HOST01_A_REVIEWED:END -->
+
+<!-- CURRENT_STATUS_Q07_GIT_HOST01:BEGIN -->
+> **2026-10-24 Q07 Git检查点与真实采集静态交接已核。** 新commit e7258923f1a0f0757a8213c7b3a8bd8407940138、分支codex/d1-qualification07-offline-20261024-a78e；负责人逐核699 Git blobs与原清单bad0，远端新分支/base09e/main1f14均独立核对，PR3已附负责人任务，未合并/发布。当前状态为提交后新记录，不冒已在同commit内。handoff10项132964B/hash已核，全部APPROVED_FALSE/未执行。
+>
+> 现缺准确LIVE原外层宿主，正式派coder REAL_FACTS_HOST01最小原Capture/guard/API薄接线及非设备离线自检，不改已审Q07核心、不新造release/诊断/审批框架。tester并行只审冻结REV2+handoff静态oracle，不读host浮动源。完整宿主核后才独立离线审证，再另精确派一次真实只读；本宿主只归档事实后退出，不生成资格/安装/七角色，不从文件重建Capture。
+>
+> 当前Native/TCP/SDK/ADB/设备/Gradle/Git后续操作0，未来Native范围/源配置hash/原时窗另明确批准。旧05/旧对象/FAIL/once不查询改写；**D1未过/M0未启**，原设计/框架许可/Flutter/独立Kit/主阶段保持。详docs/D1_Q07_GIT_HANDOFF_COORDINATOR_REVIEW_V1.0.md和各独立工作单。
+<!-- CURRENT_STATUS_Q07_GIT_HOST01:END -->
+
 <!-- CURRENT_STATUS_QUALIFICATION07_B_PASS_NEXT_HANDOFF:BEGIN -->
 > **2026-10-24 QUALIFICATION07 REV2独立整包B已审：限定PASS。** 报告5fd891e97a29d6fb963812ae8d22cbeaf3a36e9b09c563d307dee7765b7738fc；manifest017f776849e300a942ce308230f8c76f81ae2afbe4234adc5d9748b14bd4e910，负责人逐核301项5547144B bad0。9组独立通过：完整facts64事件/子自读、共享V1/V2生产者pin、生产前置合法/错固件、原receipt同bytes替换身份读前拒绝、原预算及18辅助/当前V1等；仅准确REV2本批离线范围。REV1FAIL、旧05未证、旧capture1及全部历史once/UNKNOWN保持。
 >

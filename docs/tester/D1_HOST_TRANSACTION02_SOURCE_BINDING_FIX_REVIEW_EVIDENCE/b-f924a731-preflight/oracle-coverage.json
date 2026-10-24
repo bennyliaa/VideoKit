@@ -1,0 +1,117 @@
+{
+  "overall": "PASS_LIMITED_NOT_ANDROID_OR_D1",
+  "actualSourceBindingMatrixGroups": 4,
+  "actualOriginalRealFileCases": 8,
+  "doNotAddOracleAndCaseCounts": true,
+  "F01": "CLOSED_LIMITED_INDEPENDENT_B",
+  "actualLegacyAuthority": 3,
+  "count": 21,
+  "oracles": [
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "normal plus real-file ready paths",
+      "id": "N01"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "normal/unknown_then_query/query_before_ack/dual COMMIT and publication",
+      "id": "N02"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "late_old_generation drain then fresh epoch, not field-isolated identity negatives",
+      "id": "N03"
+    },
+    {
+      "status": "STATIC_NOT_RUN",
+      "evidence": "bad-grant/capability negatives not run here",
+      "id": "R01"
+    },
+    {
+      "status": "STATIC_NOT_RUN_NEGATIVE",
+      "evidence": "actual positive fallback hardlink supported; no intentional unsupported identity injection",
+      "id": "R02"
+    },
+    {
+      "status": "NOT_RUN_NOT_CLOSED",
+      "evidence": "Samebytes physical replacement, TOCTOU, original FD race remain NOT_RUN; FileIdentity/OwnedFileProvider unchanged.",
+      "id": "R03"
+    },
+    {
+      "status": "ACTUAL_TASK_AUTHORITY_FIX_PLUS_PRIOR_PARTIAL_FIELDS",
+      "evidence": "wrong sourceTask and same-valued distinct original authority rejected by actual ctor/move/RecoveryRef; legal same-authority wrapper and opaqueTask snapshot positive. Other individual grant/uid/pid fields not all new isolated negatives.",
+      "id": "R04"
+    },
+    {
+      "status": "NOT_RUN",
+      "evidence": "unsupported hardlink not injected; prior developer failure retained separately",
+      "id": "R05"
+    },
+    {
+      "status": "PARTIAL_ACTUAL_STATIC",
+      "evidence": "Actual byte corruption reject and LocalFormat wrong-key/old VKH1 input reject; no broad media/AV negative corpus.",
+      "id": "R06"
+    },
+    {
+      "status": "STATIC_NOT_RUN",
+      "evidence": "validator replacement not attempted",
+      "id": "R07"
+    },
+    {
+      "status": "STATIC_OLD_GATE_REFERENCE_NOT_NEW_DYNAMIC",
+      "evidence": "Original irreversible authority gate reused and legacy3 actual; no complete contradictory READY lateACK order set rerun.",
+      "id": "R08"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "query_before_ack demonstrates business publication not original stage/tail return",
+      "id": "U01"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "unknown_after_publish plus original authority regression; not all filesystem unknown branches",
+      "id": "U02"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "publish_fails and original publication(false), correct NOT_APPLIED limited facts",
+      "id": "U03"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "same original late stage/tail and sticky firstFailure",
+      "id": "L01"
+    },
+    {
+      "status": "PARTIAL_ACTUAL",
+      "evidence": "cancel-before-ready and after-committed; READY/ABORT contradictory lateACK not rerun",
+      "id": "L02"
+    },
+    {
+      "status": "PARTIAL_ACTUAL",
+      "evidence": "host tail and original authority query tail actual; SDK zero-counter-specific tail not separately run",
+      "id": "L03"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "dual_consumer_move initially rejected then actual drain and move",
+      "id": "S01"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "late old read4 physical bytes/caller0 then new epoch",
+      "id": "S02"
+    },
+    {
+      "status": "NOT_RUN_PLATFORM",
+      "evidence": "Android FD/fsync/codec/muxer/isolation/AV sync not tested",
+      "id": "P01"
+    },
+    {
+      "status": "PARTIAL_ACTUAL_LOCAL_ONLY",
+      "evidence": "VKH2/HTX2 original known RecoveryRef record reread only; old header helper input actual rejects, no old transaction IO or process/crash reconstitution.",
+      "id": "P02"
+    }
+  ],
+  "noNewCasesAfterRunner": true
+}

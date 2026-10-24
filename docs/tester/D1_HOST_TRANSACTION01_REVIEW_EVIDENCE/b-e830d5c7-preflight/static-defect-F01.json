@@ -1,0 +1,51 @@
+{
+  "minimalFix": "Bind the original source task (or exact existing source authority) and compare through existing source identity contract; include necessary binding in key/record without new public resource framework",
+  "title": "Source task omitted from Binding identity/key/requireSource",
+  "consumers": [
+    "LocalTransaction constructor binding.requireSource(source)",
+    "moveDrainedSource binding.requireSource(source)",
+    "RecoveryRef binding.require(actual) uses key"
+  ],
+  "keyLine": 15,
+  "expected": "Original SourceAdmission includes task as well as uid/pid/epoch, plus instance and actual lease generation",
+  "staticInput": {
+    "bindingGrant": "grant",
+    "sourceA": {
+      "generation": 1,
+      "uid": 1,
+      "epoch": 1,
+      "instance": "same_source",
+      "pid": 1,
+      "task": "SRC_A"
+    },
+    "outputVersion": 1,
+    "sourceB": {
+      "generation": 1,
+      "uid": 1,
+      "epoch": 1,
+      "instance": "same_source",
+      "pid": 1,
+      "task": "SRC_B"
+    },
+    "bindingTransaction": "TX"
+  },
+  "source": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-host-transaction01\\src\\com\\videokit\\d1hosttx\\Binding.java",
+  "sourceSha256": "4090b06dc9d7aa7e786ee7c0e3f52eb65ac7144c17f8c3dc9545a1aefd838906",
+  "requireSourceLines": [
+    17,
+    18,
+    19
+  ],
+  "constructorLines": [
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "status": "CONFIRMED_STATIC_NOT_DYNAMICALLY_INJECTED",
+  "id": "F01",
+  "staticDerivation": "Distinct fresh groups each begin registry generation1; requireSource compares uid,pid,epoch,instance,generation only. All comparisons match; differing source identity.task is neither stored nor compared. Binding.key also equal for both sources.",
+  "scope": "No wrong-source object created or file moved for this finding; not proved unauthorized file access or arbitrary-user filesystem impact",
+  "severity": "P1"
+}

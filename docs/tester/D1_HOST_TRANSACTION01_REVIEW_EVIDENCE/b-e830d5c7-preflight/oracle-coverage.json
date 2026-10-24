@@ -1,0 +1,115 @@
+{
+  "overall": "FAIL_STATIC_F01",
+  "noNewCasesExecuted": true,
+  "oracles": [
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "normal plus real-file ready paths",
+      "id": "N01"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "normal/unknown_then_query/query_before_ack/dual COMMIT and publication",
+      "id": "N02"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "late_old_generation drain then fresh epoch, not field-isolated identity negatives",
+      "id": "N03"
+    },
+    {
+      "status": "STATIC_NOT_RUN",
+      "evidence": "bad-grant/capability negatives not run here",
+      "id": "R01"
+    },
+    {
+      "status": "STATIC_NOT_RUN_NEGATIVE",
+      "evidence": "actual positive fallback hardlink supported; no intentional unsupported identity injection",
+      "id": "R02"
+    },
+    {
+      "status": "NOT_RUN",
+      "evidence": "samebytes physical replacement/TOCTOU not attempted; normal witness not attack proof",
+      "id": "R03"
+    },
+    {
+      "status": "PARTIAL_ACTUAL_STATIC_F01",
+      "evidence": "wrong outputVersion and old epoch actual; isolated source task binding omission confirmed statically",
+      "id": "R04"
+    },
+    {
+      "status": "NOT_RUN",
+      "evidence": "unsupported hardlink not injected; prior developer failure retained separately",
+      "id": "R05"
+    },
+    {
+      "status": "PARTIAL_ACTUAL_STATIC",
+      "evidence": "corrupt bytes actual rejected, correct-authorized-hash invalid-format negative not run",
+      "id": "R06"
+    },
+    {
+      "status": "STATIC_NOT_RUN",
+      "evidence": "validator replacement not attempted",
+      "id": "R07"
+    },
+    {
+      "status": "STATIC_OLD_GATE_REFERENCE_NOT_NEW_DYNAMIC",
+      "evidence": "no full contradictory READY lateACK sequence in current8+3",
+      "id": "R08"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "query_before_ack demonstrates business publication not original stage/tail return",
+      "id": "U01"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "unknown_after_publish plus original authority regression; not all filesystem unknown branches",
+      "id": "U02"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "publish_fails and original publication(false), correct NOT_APPLIED limited facts",
+      "id": "U03"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "same original late stage/tail and sticky firstFailure",
+      "id": "L01"
+    },
+    {
+      "status": "PARTIAL_ACTUAL",
+      "evidence": "cancel-before-ready and after-committed; READY/ABORT contradictory lateACK not rerun",
+      "id": "L02"
+    },
+    {
+      "status": "PARTIAL_ACTUAL",
+      "evidence": "host tail and original authority query tail actual; SDK zero-counter-specific tail not separately run",
+      "id": "L03"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "dual_consumer_move initially rejected then actual drain and move",
+      "id": "S01"
+    },
+    {
+      "status": "ACTUAL_LIMITED_PASS",
+      "evidence": "late old read4 physical bytes/caller0 then new epoch",
+      "id": "S02"
+    },
+    {
+      "status": "NOT_RUN_PLATFORM",
+      "evidence": "Android FD/fsync/codec/muxer/isolation/AV sync not tested",
+      "id": "P01"
+    },
+    {
+      "status": "PARTIAL_ACTUAL_LOCAL_ONLY",
+      "evidence": "same known RecoveryRef read-only record, not crash or separate-process reconstitution",
+      "id": "P02"
+    }
+  ],
+  "actualNewCases": 8,
+  "count": 21,
+  "actualLegacyCases": 3,
+  "doNotAddCounts": true
+}

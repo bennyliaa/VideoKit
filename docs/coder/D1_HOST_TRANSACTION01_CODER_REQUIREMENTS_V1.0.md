@@ -1,0 +1,18 @@
+# D1_HOST_TRANSACTION01 集中开发要求
+
+2026-10-24 负责人正式整批派发；属于原D1输入/输出宿主事务可行性验证，不启动M0、不改变主里程碑。最新CURRENT_DESIGN_BASELINE/MILESTONE_COORDINATION及原D1_INPUT_SINK01要求优先准确引用。READINESS01_CLOSEOUT01报告160babac4649e18fbda85ec31073f65c7c7116311a11d56ae5938ecbc253af7e、manifest31437c84eddead3e33d5118f6186e55efffbec6335cd852b4aa0e5ad99a9bb3f已由负责人逐核26项579016B bad0；原READINESS01超时和旧账UNKNOWN不改。
+
+目标：以当前已审SourceLease/SinkCoordinator/宿主readAt及同grant校验合同为基础，集中实现有限真实宿主事务集成入口，让输出校验、READY、COMMIT/发布、QUERY和失败恢复在同一事务上可验证。FIX02原十例故意只结构观察并abort，保持原包不改，不将其强行改成业务COMMIT。新目录docs/coder/d1-host-transaction01。
+
+先在本批内对准确现有最新冻结API与当前设计/数据模型逐项映射。源码真实方法/状态/token/错误必须沿原契约复用，不凭文档重造第二资源权威或新状态框架；若原D1某项要求仅端口可行性而非全产品持久化，则只做有限可替换宿主集成，不扩完整数据库/云盘/NAS/网络/权限或全编辑功能。压缩音轨/AV同步仅记录既定范围与缺口，本批不扩。
+
+集中交付范围：
+1. 实际原输出链路的同grant reopen与validator结果接到原READY门，只有完整校验/原写flush-close/相关原worker与callback真实归还才能进入原允许的提交步骤。READY与COMMITTED严格分栏，真实发布可读结果可查，不用counter/token/close代内容校验。优先运行当前成熟实现可本机运行部分；Android Media3/FD平台只能编译或未运行者如实分层，不能造同名假接口。
+2. 同一个transactionId/授权grant/源generation/输出版本下接原COMMIT与QUERY，处理明确成功、明确拒绝、提交响应迟到、已提交但原响应未返以及结果未知。可用本批独立临时文件宿主实现原接口，必须真的写/关闭/重开校验/发布/读取，不只fake状态。恢复仅对本批自身可知事务的记录重建与只读QUERY，不重放COMMIT、不将UNKNOWN退款，也不冒真实应用崩溃持久恢复已完成。原合同不支持的能力明确拒绝。
+3. 取消/校验失败/发布失败/原返回迟到集中处理，保留首错、已知bytes与UNKNOWN、原owner和真实返回门。不要靠二close/强kill/再次RPC纠正结果；已提交不能取消成ABORTED。SourceLease所有consumer/原read/epoch归还前禁止安全移动；有限本机临时源移动应实际核内容/身份前后，禁止碰test_media/宿主真实数据。若安全移动不属原允许D1端口范围，保留准确拒绝及后续映射，不扩授权。
+4. 有意义有限集成测试覆盖正常提交后同事务可读/QUERY、校验失败不READY、取消/晚回、发布明确失败、提交结果未知、QUERY先确认提交而原ACK在途、旧generation返回与多consumer未排空。使用原真实实现与有限controlled host fault/gate，不复制Media3或资源接口冒集成；不新增无限排列/预算审证框架。原Sink05/SourceLease已通过受影响回归整批保留，原FAIL历史不抹。
+5. 集中必要自检与至多一次严格本地构建（含测试产物），准确源/依赖锁/版本/许可，不新增依赖或升级。优先已有固定JDK/离线已审依赖，Gradle若会与tester共享可变缓存不运行，改用既有可隔离准确工具；确需Gradle先报准确独占要求，不擅自并发。未修改Android产物不重复app/test构建。所有动态仅本批独立目录，原调用未返停新增保留，不操作旧UNKNOWN。
+
+开发/自检总预算45分钟，从首次工作单读取建单调时钟；单次必要构建最长观察300秒，不把时限当强杀许可；自检一次串行主worker，预声明有限case集，不循环重试或补跑新场景。具名源码/依赖读取512MiB、生成测试样本单8MiB/源2/读块64KiB、输出payload16MiB、永久交付32MiB。copy/编译/测试费用分别实记，不全仓扫描或复制第三方源码。若编译/测试首次失败，可在剩余本批预算内集中修复一次、必要受影响自检一次，但保留原失败日志和两次准确来源；不逐问题交接，不擅改旧候选。两轮仍失败即完整集中回交。
+
+一次冻结源码/API映射/实际产物与hash、有限自测原日志/预算/原归还、平台NOT_RUN表、完整集中缺陷和独立测试入口、manifest/seal。当前不SDK/ADB/route/TCP/设备/媒体回归/Git、不动旧锁PID/once/账本。完成主动报负责人01a107c3-2bf9-7fa0-94a0-234258ca6774；完整新包负责人核后才交tester整包B，通知失败留报告不绕过。tester当前BINDING01独立执行，不读其浮动输出、不共享可变缓存。Flutter/独立原生Kit/Media3精确版本许可/全P0保持，D1未过/M0未启。

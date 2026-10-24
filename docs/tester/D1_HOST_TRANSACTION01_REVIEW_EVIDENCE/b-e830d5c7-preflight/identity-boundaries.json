@@ -1,0 +1,8 @@
+{
+  "unsupportedFileKeyAndHardlinkCases": "NOT_RUN in this independent batch; developer failures preserved separately",
+  "actualWitnessArtifacts": 16,
+  "kind": "UNPROVEN_BOUNDARY_NOT_SECOND_CONFIRMED_DEFECT",
+  "physicalReplacementAttack": "NOT_RUN",
+  "scope": "Trusted private local host rather than adversarial filesystem sandbox; do not claim race-free FD identity or samebytes substitution coverage",
+  "source": "FileIdentity uses path attributes/isSameFile before/after FileChannel.open; no same-original-H metadata API is exposed"
+}

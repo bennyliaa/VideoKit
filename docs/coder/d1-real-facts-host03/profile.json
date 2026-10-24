@@ -1,0 +1,87 @@
+{
+  "schema": "REAL_FACTS_HOST03_SELFCHECK_PLAN_V1",
+  "work": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\selfchecks\\work\\addf53b68e",
+  "sourceRoot": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2",
+  "hostSourceSha256": "d2fe383774f87a24f510173b2fb2801281be9e1781e2ca72eeabf42cc2c870eb",
+  "probeSha256": "d49ee2f675263186de11a3825b530a5612ed2f3cc09cd3969b765da7647efb7a",
+  "profile": [
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\host.py",
+      "sha256": "d2fe383774f87a24f510173b2fb2801281be9e1781e2ca72eeabf42cc2c870eb",
+      "bytes": 26232
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\selfchecks\\probe.py",
+      "sha256": "d49ee2f675263186de11a3825b530a5612ed2f3cc09cd3969b765da7647efb7a",
+      "bytes": 422
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\selfcheck.py",
+      "sha256": "242bc2c14a876c813f59113e51c15fbd2286a079907fe2ccc466be8681fba88b",
+      "bytes": 17052
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\prepare.py",
+      "sha256": "4b3299d08d7d33348c9399991e37717acd353006aea82788c797f0f7272ad946",
+      "bytes": 8859
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\config-unapproved.json",
+      "sha256": "99f0c92e6e6f184292778765da3091d5af708dc84811cedc2a6fc08ddd300892",
+      "bytes": 780
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\config-schema.json",
+      "sha256": "2aa50b61f4608abb5b55e0fc6265afaebe726274e1c468d072c8a795da34cd38",
+      "bytes": 1007
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\config-json-schema.json",
+      "sha256": "fa191156fe48c14f0584214bde45c5a4d04eea7abd7e55b081972fe1932cc626",
+      "bytes": 5040
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\README.md",
+      "sha256": "c3bbe1fc1a5ccd09d0a330ee73f1f0b4698fb6e7338803bef34966dcf6f9a2fa",
+      "bytes": 6426
+    },
+    {
+      "path": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\pin-consumption.json",
+      "sha256": "21c708578041f41615c652cf904043e548f4653e7c11feb8f17ee21be7c4fc9b",
+      "bytes": 3859
+    }
+  ],
+  "processGraph": {
+    "selfcheckWorker": 1,
+    "probePython": 5,
+    "total": 6,
+    "cap": 8,
+    "concurrency": 1,
+    "retry": 0
+  },
+  "modes": [
+    "ok",
+    "fail",
+    "empty",
+    "bad",
+    "over"
+  ],
+  "wholeSeconds": 60,
+  "stopNew": 50,
+  "readCap": 268435456,
+  "savedCap": 4194304,
+  "currentLIVE": 0,
+  "currentSDK": 0,
+  "currentNativeRoute": 0,
+  "actualFactsEntry": "NOT_RUN_NEW_ROOT_NOT_IN_FIXTURE_ALLOWLIST",
+  "acceptedFactsEvidence": {
+    "sourceSealSha256": "0db36468464dcfb92c2da87de8d6bff678b09af173bb21b41ed9e3d4d58157de",
+    "independentReport": "D:/CodexProjects/VideoKit/docs/tester/D1_FACTS_V2_QUALIFICATION07_INDEPENDENT_B_REPORT_V1.0.md",
+    "independentReportSha256": "5fd891e97a29d6fb963812ae8d22cbeaf3a36e9b09c563d307dee7765b7738fc"
+  },
+  "offlineOutputLayouts": [
+    "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1-real-facts-host03\\selfchecks\\work\\<scope10hex-or-uuid>\\<mode>",
+    "D:\\CodexProjects\\VideoKit\\docs\\tester\\D1_REAL_FACTS_HOST03_INDEPENDENT_B_EVIDENCE\\fixtures\\<scope10hex-or-uuid>\\<mode>"
+  ],
+  "inputFreeze": "Malformed and valid synthetic OFFLINE config raw bytes/hash tested through original admit; five full OFFLINE inputs frozen before any Capture/Popen; no executable LIVE config generated"
+}

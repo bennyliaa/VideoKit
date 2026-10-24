@@ -1,0 +1,24 @@
+{
+  "schema": "REAL_FACTS_HOST01_CONFIG_CONTRACT_V1",
+  "draftSchema": "REAL_FACTS_HOST01_DRAFT_V1",
+  "liveSchema": "REAL_FACTS_HOST01_LIVE_CONFIG_V1",
+  "offlineSchema": "REAL_FACTS_HOST01_OFFLINE_PROBE_V1",
+  "unknownKeys": "REJECT",
+  "externalCLIHash": "REQUIRED_EXACT_RAW_SHA256_NOT_SELF_ISSUED",
+  "originalInputRefKeys": [
+    "path",
+    "bytes",
+    "sha256",
+    "volumeId",
+    "fileId"
+  ],
+  "approvedRefInputsRoot": "D:/CodexProjects/VideoKit/docs/tester/D1_REAL_FACTS_HOST01_EXECUTION/<approved-planId>/inputs",
+  "archiveRoot": "same approved-planId/outer; separate from facts home outputs",
+  "archiveOnly": true,
+  "candidate": false,
+  "review": false,
+  "qualification": false,
+  "futureNativeExplicit": true,
+  "env": "Exactly approved effective cwd and inherited environment hash; no routing overrides; actual Popen env=None",
+  "callerTrustBoundary": "External approved hash and coordinator context are trust inputs, not cryptographic user identity. Tool does not issue approval."
+}

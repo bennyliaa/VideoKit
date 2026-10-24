@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "REAL_FACTS_HOST01 future LIVE structural schema; not approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "mode",
+    "approvedForExecution",
+    "sourceRoot",
+    "sourceSealSha256",
+    "hostSourceSha256",
+    "cwd",
+    "envSha256",
+    "outputRoot",
+    "authorizationSource",
+    "scope",
+    "planId",
+    "notBeforeUtc",
+    "expiresUtc",
+    "nativeRouteApproved",
+    "sdkChildren",
+    "templateRef",
+    "policyRef",
+    "localAuthorizationRef"
+  ],
+  "properties": {
+    "schema": {
+      "const": "REAL_FACTS_HOST01_LIVE_CONFIG_V1"
+    },
+    "mode": {
+      "const": "LIVE"
+    },
+    "approvedForExecution": {
+      "const": true
+    },
+    "sourceRoot": {
+      "const": "D:\\CodexProjects\\VideoKit\\docs\\coder\\d1android02-facts-v2-qualification07\\rev2"
+    },
+    "sourceSealSha256": {
+      "const": "0db36468464dcfb92c2da87de8d6bff678b09af173bb21b41ed9e3d4d58157de"
+    },
+    "hostSourceSha256": {
+      "const": "d2fe383774f87a24f510173b2fb2801281be9e1781e2ca72eeabf42cc2c870eb"
+    },
+    "cwd": {
+      "const": "D:\\CodexProjects\\VideoKit"
+    },
+    "envSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "outputRoot": {
+      "type": "string"
+    },
+    "authorizationSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "threadId",
+        "turnId"
+      ],
+      "properties": {
+        "threadId": {
+          "const": "01a107c3-2bf9-7fa0-94a0-234258ca6774"
+        },
+        "turnId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "scope": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "not": {
+        "const": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "planId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "notBeforeUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nativeRouteApproved": {
+      "const": true
+    },
+    "sdkChildren": {
+      "const": 1
+    },
+    "templateRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "bytes",
+        "sha256",
+        "volumeId",
+        "fileId"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "not": {
+            "const": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "volumeId": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)$"
+        },
+        "fileId": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        }
+      }
+    },
+    "policyRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "bytes",
+        "sha256",
+        "volumeId",
+        "fileId"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "not": {
+            "const": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "volumeId": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)$"
+        },
+        "fileId": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        }
+      }
+    },
+    "localAuthorizationRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "bytes",
+        "sha256",
+        "volumeId",
+        "fileId"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "not": {
+            "const": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "volumeId": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)$"
+        },
+        "fileId": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*$"
+        }
+      }
+    }
+  },
+  "$comment": "host.static_config and verify_inputs enforce canonical UUID/ranges/time/current environment/exact plan paths/original identities/bytes and original product validation; JSON schema alone is not admission. Draft is intentionally invalid."
+}
