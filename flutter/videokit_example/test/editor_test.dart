@@ -56,7 +56,7 @@ void main() {
       final e = await pumpEditor(tester);
       final c = e.controller;
       expect(c.state.timeline.clips, hasLength(3));
-      expect(find.textContaining('预计 1:00'), findsOneWidget);
+      expect(find.textContaining('预计 01:00'), findsOneWidget);
       expect(find.text('快速拼接可用'), findsWidgets);
       await tester.tapAt(clipCenter(tester, c, 1));
       await settle(tester);
@@ -259,7 +259,7 @@ void main() {
       final run = c.state.tracking.values.single;
       expect(run.status, TrackingRunStatus.completed);
       expect(run.coverage.blockingSegments, isNotEmpty);
-      expect(find.text('丢失，0:04 – 0:06'), findsOneWidget);
+      expect(find.text('丢失，00:04 – 00:06'), findsOneWidget);
       await tester.tap(find.text('纠正').first);
       await settle(tester, 2);
       expect(e.maskEditor!.correcting, isNotNull);
@@ -412,7 +412,7 @@ void main() {
       await tapText(tester, '查看未覆盖区间');
       await settle(tester, 2);
       expect(find.text('发现 1 个未覆盖区间'), findsOneWidget);
-      expect(find.text('目标 A · 0:04 – 0:06'), findsOneWidget);
+      expect(find.text('目标 A · 00:04 – 00:06'), findsOneWidget);
       await tapText(tester, '仍要导出（结果将标记为“打码不完整”）');
       await waitPhase(tester, c, (p) => p == EditPhase.completed);
       await settle(tester, 2);

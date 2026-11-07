@@ -21,7 +21,7 @@ Rect vkDisplayRect(Size box, VideoSize? media) {
   return Rect.fromLTWH((box.width - w) / 2, (box.height - h) / 2, w, h);
 }
 
-/// Region ↔ pixel rectangle inside [picture].
+/// Region â pixel rectangle inside [picture].
 Rect vkRegionToRect(MaskRegion r, Rect picture) => Rect.fromLTWH(
   picture.left + r.x * picture.width,
   picture.top + r.y * picture.height,
@@ -29,7 +29,7 @@ Rect vkRegionToRect(MaskRegion r, Rect picture) => Rect.fromLTWH(
   r.height * picture.height,
 );
 
-/// Pixel rectangle → region (clamped to the picture, minimum size 2 %).
+/// Pixel rectangle â region (clamped to the picture, minimum size 2 %).
 MaskRegion vkRectToRegion(Rect rect, Rect picture) {
   final l = ((rect.left - picture.left) / picture.width).clamp(0.0, 0.98);
   final t = ((rect.top - picture.top) / picture.height).clamp(0.0, 0.98);
@@ -83,8 +83,8 @@ enum OverlayDrawMode {
   draw,
 }
 
-/// UI-07 `MaskOverlay` (14 §5.7): boxes over the preview picture; the
-/// selected box has 8 handles (touch target ≥ 24 dp) and a move area. A
+/// UI-07 `MaskOverlay` (14 Â§5.7): boxes over the preview picture; the
+/// selected box has 8 handles (touch target â¥ 24 dp) and a move area. A
 /// drag changes only the local rectangle; [onCommit] fires once on
 /// release with the normalized region (UpdateMaskKeyframe / CorrectTracking
 /// / StartTracking seed).
@@ -269,6 +269,7 @@ class _MaskOverlayState extends State<MaskOverlay> {
                     drawing: _grip == _Grip.draw,
                     theme: t,
                     textDirection: Directionality.of(context),
+                    fontFamily: DefaultTextStyle.of(context).style.fontFamily,
                   ),
                 ),
               ),
@@ -308,6 +309,7 @@ class _OverlayPainter extends CustomPainter {
     required this.drawing,
     required this.theme,
     required this.textDirection,
+    this.fontFamily,
   });
 
   final List<OverlayBox> boxes;
@@ -316,6 +318,7 @@ class _OverlayPainter extends CustomPainter {
   final bool drawing;
   final VideoKitThemeData theme;
   final TextDirection textDirection;
+  final String? fontFamily;
 
   void _dashed(Canvas canvas, Rect r, Paint p) {
     final path = Path()..addRect(r);
@@ -332,7 +335,10 @@ class _OverlayPainter extends CustomPainter {
     final tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: theme.typography.label.copyWith(color: fg),
+        style: theme.typography.label.copyWith(
+          color: fg,
+          fontFamily: fontFamily,
+        ),
       ),
       textDirection: textDirection,
       maxLines: 1,
@@ -360,7 +366,9 @@ class _OverlayPainter extends CustomPainter {
       if (b.selected && local != null && !drawing) r = local!;
       final color = b.reference
           ? c.trackLost
-          : (b.selected ? c.selection : c.playerControlsContent);
+          : (b.dashed ? c.playerControlsContent : c.selection);
+      // Design pages 17–18: a chosen target or the current mask is a solid
+      // cyan box (handles only when editable); candidates stay white dashed.
       final p = Paint()
         ..color = color
         ..style = PaintingStyle.stroke
@@ -406,6 +414,7 @@ class _OverlayPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_OverlayPainter old) =>
+      old.fontFamily != fontFamily ||
       old.boxes != boxes ||
       old.picture != picture ||
       old.local != local ||

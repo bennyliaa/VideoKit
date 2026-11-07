@@ -114,11 +114,29 @@ class VideoKitStateView extends StatelessWidget {
           )
         : Icon(
             t.icons.resolve(model.iconName),
-            size: compact ? d.icon24 : d.targetMin,
+            size: compact ? d.icon24 : d.targetMin * 2 / 3,
             color: model.kind == StateViewKind.error
                 ? t.colors.error
                 : onCanvas,
           );
+    // Design page 12: the full view shows the icon in a tinted disc.
+    final disc = spinning || compact
+        ? icon
+        : Container(
+            width: d.targetMin * 1.5,
+            height: d.targetMin * 1.5,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: model.kind == StateViewKind.error
+                  ? t.colors.errorContainer
+                  : onCanvas.withValues(alpha: 0.12),
+            ),
+            child: icon,
+          );
+    final errorCode = model.kind == StateViewKind.error
+        ? model.error?.code.wireName
+        : null;
     final titleText = title(s, model);
     final detailText = detail(s, model);
     final content = compact
@@ -148,12 +166,12 @@ class VideoKitStateView extends StatelessWidget {
         : Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              icon,
+              disc,
               SizedBox(height: d.spacing12),
               Text(
                 titleText,
                 textAlign: TextAlign.center,
-                style: t.typography.body.copyWith(color: onCanvas),
+                style: t.typography.title.copyWith(color: onCanvas),
               ),
               if (detailText != null) ...[
                 SizedBox(height: d.spacing4),
@@ -175,16 +193,34 @@ class VideoKitStateView extends StatelessWidget {
                   runSpacing: d.spacing8,
                   children: [
                     for (final (i, a) in model.actions.indexed)
-                      VkButton(
-                        label: actionLabel(s, a),
-                        variant: i == 0
-                            ? VkButtonVariant.primary
-                            : VkButtonVariant.secondary,
-                        onPressed: onStateAction == null
-                            ? null
-                            : () => onStateAction!(a),
+                      // Design page 12: wide buttons; width still follows
+                      // longer labels.
+                      ConstrainedBox(
+                        constraints: BoxConstraints(minWidth: d.targetMin * 3),
+                        child: VkButton(
+                          label: actionLabel(s, a),
+                          variant: i == 0
+                              ? VkButtonVariant.primary
+                              : VkButtonVariant.secondary,
+                          onPressed: onStateAction == null
+                              ? null
+                              : () => onStateAction!(a),
+                        ),
                       ),
                   ],
+                ),
+              ],
+              // Design page 12: the stable error code stays visible.
+              if (errorCode != null) ...[
+                SizedBox(height: d.spacing12),
+                Text(
+                  s.exportErrorCode(errorCode),
+                  textAlign: TextAlign.center,
+                  style: t.typography.caption.copyWith(
+                    color: t.colors.playerControlsContent.withValues(
+                      alpha: 0.72,
+                    ),
+                  ),
                 ),
               ],
             ],

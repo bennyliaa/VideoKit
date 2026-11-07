@@ -905,7 +905,10 @@ class _CheckRow extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: t.typography.label.copyWith(
+                      // Design pages 20–21: check / impact rows lead with
+                      // a body-size semibold title.
+                      style: t.typography.body.copyWith(
+                        fontWeight: FontWeight.w600,
                         color: t.colors.textPrimary,
                       ),
                     ),
@@ -1024,7 +1027,12 @@ class _StageRow extends StatelessWidget {
                         children: [
                           Text(
                             title,
-                            style: t.typography.title.copyWith(
+                            // Design page 20: body size; the running stage
+                            // is bold, waiting stages are grey.
+                            style: t.typography.body.copyWith(
+                              fontWeight: active
+                                  ? FontWeight.w600
+                                  : FontWeight.w400,
                               color: state == _StageState.waiting
                                   ? t.colors.textSecondary
                                   : t.colors.textPrimary,
@@ -1033,7 +1041,8 @@ class _StageRow extends StatelessWidget {
                           if (trailing != null)
                             Text(
                               trailing!,
-                              style: t.typography.label.copyWith(
+                              style: t.typography.body.copyWith(
+                                fontWeight: FontWeight.w600,
                                 color: t.colors.primary,
                               ),
                             ),

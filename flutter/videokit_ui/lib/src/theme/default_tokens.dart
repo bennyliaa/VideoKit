@@ -176,14 +176,24 @@ abstract final class VkDefaultTokens {
       textStyle: (text ?? t.label).copyWith(color: content),
     );
 
-    final primary = box(background: c.primary, content: c.onPrimary);
+    // Design pages 6 and 20: button labels are body-size semibold; the
+    // secondary button is filled, without an outline.
+    final buttonLabel = t.body.copyWith(fontWeight: FontWeight.w600);
+    final primary = box(
+      background: c.primary,
+      content: c.onPrimary,
+      text: buttonLabel,
+    );
     final secondary = box(
       background: c.surfaceHigh,
       content: c.textPrimary,
-      border: c.borderStrong,
-      borderWidth: d.borderWidth,
+      text: buttonLabel,
     );
-    final text = box(background: transparent, content: c.primary);
+    final text = box(
+      background: transparent,
+      content: c.primary,
+      text: buttonLabel,
+    );
     final icon = box(
       background: transparent,
       content: c.textPrimary,
@@ -246,8 +256,13 @@ abstract final class VkDefaultTokens {
     );
     // Host action item over the picture: translucent dark disc, white icon;
     // selected = primary fill (14 §5.4).
+    // Design page 9: the disc stays visible over the black canvas too.
     final hostItem = box(
-      background: VkContrast.black.withValues(alpha: 0.35),
+      background: VkContrast.blend(
+        VkContrast.white,
+        VkContrast.black,
+        0.18,
+      ).withValues(alpha: 0.72),
       content: c.playerControlsContent,
       radius: d.cornerFull,
       padding: EdgeInsetsDirectional.all(d.spacing12),

@@ -256,6 +256,7 @@ void main() {
     Future<VideoKitEditorState> editor(
       Size size, [
       EditDemoScenario s = EditDemoScenario.normal,
+      VideoKitThemeOverrides? overrides,
     ]) async {
       setViewSize(tester, size);
       await tester.pumpWidget(
@@ -263,6 +264,7 @@ void main() {
           testApp(
             EditDemoPage(initialScenario: s, showScenarioPicker: false),
             fontFamily: _family,
+            overrides: overrides,
           ),
         ),
       );
@@ -284,6 +286,20 @@ void main() {
     e.controller.selectClip(e.controller.state.timeline.clips[1].clipId);
     await frames(tester, 3);
     await _shot(tester, 'ui06_editor_compact');
+    await unmount(tester);
+    // Design page 22, third column: a host primary override.
+    e = await editor(
+      compactSize,
+      EditDemoScenario.normal,
+      VideoKitThemeOverrides.primary(const Color(0xFF14B8A6)),
+    );
+    e.controller.selectClip(e.controller.state.timeline.clips[1].clipId);
+    await frames(tester, 3);
+    await _shot(tester, 'theme_host_primary_override');
+    await unmount(tester);
+    e = await editor(compactSize);
+    e.controller.selectClip(e.controller.state.timeline.clips[1].clipId);
+    await frames(tester, 3);
     e.openExport();
     await frames(tester, 4);
     await _shot(tester, 'ui08_export_presets_checks');
@@ -294,7 +310,7 @@ void main() {
     await _shot(tester, 'ui08_export_progress');
     for (
       var i = 0;
-      i < 40 && e.controller.state.phase != EditPhase.completed;
+      i < 200 && e.controller.state.phase != EditPhase.completed;
       i++
     ) {
       await tester.pump(const Duration(milliseconds: 250));

@@ -381,6 +381,9 @@ class _TimelineViewState extends State<TimelineView> {
                                     theme: t,
                                     clipLabel: s.editorClip,
                                     textDirection: Directionality.of(context),
+                                    fontFamily: DefaultTextStyle.of(context)
+                                        .style
+                                        .fontFamily,
                                   ),
                                 ),
                               ),
@@ -476,6 +479,7 @@ class _TimelinePainter extends CustomPainter {
     required this.theme,
     required this.clipLabel,
     required this.textDirection,
+    this.fontFamily,
   });
 
   final VideoKitEditState state;
@@ -489,9 +493,16 @@ class _TimelinePainter extends CustomPainter {
   final String Function(int index) clipLabel;
   final TextDirection textDirection;
 
+  /// Family of the surrounding text (host or theme font), so painted labels
+  /// match the rest of the screen.
+  final String? fontFamily;
+
   void _text(Canvas canvas, String text, Offset at, TextStyle style) {
     final tp = TextPainter(
-      text: TextSpan(text: text, style: style),
+      text: TextSpan(
+        text: text,
+        style: style.copyWith(fontFamily: fontFamily),
+      ),
       textDirection: textDirection,
       maxLines: 1,
     )..layout();
@@ -683,6 +694,7 @@ class _TimelinePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_TimelinePainter old) =>
+      old.fontFamily != fontFamily ||
       old.state != state ||
       old.scale != scale ||
       old.playheadUs != playheadUs ||

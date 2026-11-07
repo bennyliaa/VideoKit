@@ -854,7 +854,9 @@ class _MaskRow extends StatelessWidget {
                       children: [
                         Text(
                           name,
-                          style: t.typography.label.copyWith(
+                          // Design page 17: the mask name leads the row.
+                          style: t.typography.body.copyWith(
+                            fontWeight: FontWeight.w600,
                             color: selected
                                 ? t.colors.onPrimaryContainer
                                 : t.colors.textPrimary,

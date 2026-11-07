@@ -109,9 +109,9 @@ void main() {
       expect(VkFormat.durationSpoken(s, 5000000), '5 秒');
       expect(VkFormat.durationSpoken(s, 3725000000), '1 小时 2 分 5 秒');
       expect(VkFormat.seekValue(s, 65000000, 750000000), '1 分 5 秒，共 12 分 30 秒');
-      expect(VkFormat.timecode(65000000), '1:05');
+      expect(VkFormat.timecode(65000000), '01:05');
       expect(VkFormat.timecode(3725000000), '1:02:05');
-      expect(VkFormat.timecode(-1), '0:00');
+      expect(VkFormat.timecode(-1), '00:00');
       expect(VkFormat.number(s, 12345.67), '12,345.7');
       expect(VkFormat.percent(s, 0.5), '50%');
       expect(VkFormat.fileSize(s, 512), '512 字节');

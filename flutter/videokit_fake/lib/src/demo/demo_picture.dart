@@ -54,6 +54,7 @@ class DemoPicture extends StatelessWidget {
         durationUs: durationUs,
         animated: animated,
         label: label,
+        fontFamily: DefaultTextStyle.of(context).style.fontFamily,
       ),
       child: const SizedBox.expand(),
     ),
@@ -101,6 +102,7 @@ class DemoPicturePainter extends CustomPainter {
     this.durationUs,
     this.animated = false,
     this.label,
+    this.fontFamily,
   });
 
   /// Seed.
@@ -117,6 +119,9 @@ class DemoPicturePainter extends CustomPainter {
 
   /// Label.
   final String? label;
+
+  /// Family of the surrounding text (null = platform default).
+  final String? fontFamily;
 
   static Color _hsv(double h, double s, double v) =>
       HSVColor.fromAHSV(1, h % 360, s, v).toColor();
@@ -205,6 +210,7 @@ class DemoPicturePainter extends CustomPainter {
           color: Color.fromRGBO(255, 255, 255, alpha),
           fontSize: fontSize,
           fontWeight: FontWeight.w700,
+          fontFamily: fontFamily,
           fontFeatures: const [FontFeature.tabularFigures()],
         ),
       ),
@@ -222,6 +228,7 @@ class DemoPicturePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(DemoPicturePainter oldDelegate) =>
+      oldDelegate.fontFamily != fontFamily ||
       oldDelegate.seed != seed ||
       oldDelegate.positionUs != positionUs ||
       oldDelegate.durationUs != durationUs ||

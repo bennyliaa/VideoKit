@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 
 import '../common/vk_buttons.dart';
+import '../export/export_panel.dart' show vkCodecName;
 import '../foundation/format.dart';
 import '../l10n/vk_strings.dart';
 import '../theme/theme_scope.dart';
@@ -576,7 +577,8 @@ class ClipOrderSheet extends StatelessWidget {
                             children: [
                               Text(
                                 src?.displayName ?? clip.sourceId,
-                                style: t.typography.label.copyWith(
+                                style: t.typography.body.copyWith(
+                                  fontWeight: FontWeight.w600,
                                   color: t.colors.textPrimary,
                                 ),
                               ),
@@ -586,7 +588,7 @@ class ClipOrderSheet extends StatelessWidget {
                                     p.width,
                                     p.height,
                                     VkFormat.number(s, p.fps ?? 0),
-                                    p.videoCodec,
+                                    vkCodecName(p.videoCodec),
                                   ),
                                   style: t.typography.caption.copyWith(
                                     color: odd

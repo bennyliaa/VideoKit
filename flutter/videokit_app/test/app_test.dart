@@ -58,7 +58,7 @@ void main() {
     expect(saved['playbackState'], isNotNull);
     final pos = (saved['lastPositionUs']! as num).toInt();
     expect(pos, greaterThan(1000000));
-    expect(find.textContaining('看到 0:0'), findsOneWidget);
+    expect(find.textContaining('看到 00:0'), findsOneWidget);
     expect(find.textContaining('刚刚'), findsOneWidget);
     // 04A P1/P2: thumbnail captured and media facts recorded.
     final thumb = saved['thumbnailPath']! as String;
@@ -198,10 +198,10 @@ void main() {
   ) async {
     final rig = AppRig.create(entries: sampleHistory());
     await rig.pump(tester);
-    expect(find.text('看到 1:41 · 2 小时前'), findsOneWidget);
-    expect(find.text('看到 1:24 · 昨天'), findsOneWidget);
+    expect(find.text('看到 01:41 · 2 小时前'), findsOneWidget);
+    expect(find.text('看到 01:24 · 昨天'), findsOneWidget);
     expect(find.text('上次查看 · 昨天'), findsOneWidget);
-    expect(find.text('看到 8:15 · 3 天前'), findsOneWidget);
+    expect(find.text('看到 08:15 · 3 天前'), findsOneWidget);
     expect(find.text('1080p · H.264'), findsOneWidget);
     expect(find.text('1080×1920 · HEVC'), findsOneWidget);
     expect(find.text('图片 · 4032×3024'), findsOneWidget);

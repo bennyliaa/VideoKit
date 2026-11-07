@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -164,12 +165,20 @@ class PlayerRig {
 }
 
 /// Test app: example + VideoKit localizations, theme scope, text scale.
+/// Theme of review screenshots: `VK_SCREENS_MODE=light` renders the light set
+/// (UI-AUDIT-A1); otherwise dark.
+final VideoKitThemeMode screensMode =
+    Platform.environment['VK_SCREENS_MODE'] == 'light'
+    ? VideoKitThemeMode.light
+    : VideoKitThemeMode.dark;
+
 Widget testApp(
   Widget home, {
   Locale locale = const Locale('zh'),
   double textScale = 1.0,
-  VideoKitThemeMode mode = VideoKitThemeMode.dark,
+  VideoKitThemeMode? mode,
   String? fontFamily,
+  VideoKitThemeOverrides? overrides,
 }) => MaterialApp(
   locale: locale,
   debugShowCheckedModeBanner: false,
@@ -183,7 +192,11 @@ Widget testApp(
   builder: (context, child) => MediaQuery(
     data: MediaQuery.of(context)
         .copyWith(textScaler: TextScaler.linear(textScale)),
-    child: VideoKitThemeScope(mode: mode, child: child!),
+    child: VideoKitThemeScope(
+      mode: mode ?? screensMode,
+      overrides: overrides,
+      child: child!,
+    ),
   ),
   home: home,
 );

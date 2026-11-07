@@ -23,7 +23,7 @@ class VkIcons extends ThemeExtension<VkIcons> {
     'seekforward': Icons.forward_10_rounded,
     'volume': Icons.volume_up_rounded,
     'mute': Icons.volume_off_rounded,
-    'subtitles': Icons.subtitles_rounded,
+    'subtitles': Icons.closed_caption_outlined,
     'audiotrack': Icons.audiotrack_rounded,
     'speed': Icons.speed_rounded,
     'rotate': Icons.rotate_right_rounded,

@@ -840,7 +840,8 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     final secondary = _secondary(context, st);
     final pictureStyle = _onPictureStyle(context);
 
-    // Fit secondary controls into the row; the rest goes to "more".
+    // Fit secondary controls into the row (fullscreen always stays; "more"
+    // lives in the top bar, so it takes no slot); the rest goes to "more".
     final rowWidth = size.width - d.spacing16 * 2;
     var slots = (rowWidth / (d.targetMin + d.spacing4)).floor();
     if (landscape) slots = (slots / 2).floor();
@@ -852,7 +853,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             ...secondary.where((i) => i.id == 'fullscreen'),
             ...secondary
                 .where((i) => i.id != 'fullscreen')
-                .take(math.max(0, slots - 2)),
+                .take(math.max(0, slots - 1)),
           ];
     final overflow = secondary.where((i) => !shown.contains(i)).toList();
     _playerOverflow = overflow;

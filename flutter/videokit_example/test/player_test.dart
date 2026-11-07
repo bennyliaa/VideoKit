@@ -475,7 +475,7 @@ void r1HostLayoutTests() {
             );
           }
         }
-        final time = tester.getRect(find.text('2:36'));
+        final time = tester.getRect(find.text('02:36'));
         expect(tester.getRect(bar).bottom, lessThanOrEqualTo(time.top + 0.5));
         if (scale > 1.3) {
           expect(labels, isEmpty, reason: 'icons only at large text');

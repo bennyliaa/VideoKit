@@ -14,13 +14,14 @@ abstract final class VkFormat {
       ) ??
       'zh';
 
-  /// Timecode `m:ss` / `h:mm:ss` (locale independent, for tabular display).
+  /// Timecode `mm:ss` / `h:mm:ss` (design pages 5 and 9: "01:24 / 05:12";
+  /// locale independent, for tabular display).
   static String timecode(int us) {
     final total = us < 0 ? 0 : us ~/ 1000000;
     final h = total ~/ 3600;
-    final m = (total % 3600) ~/ 60;
+    final m = ((total % 3600) ~/ 60).toString().padLeft(2, '0');
     final sec = (total % 60).toString().padLeft(2, '0');
-    return h > 0 ? '$h:${m.toString().padLeft(2, '0')}:$sec' : '$m:$sec';
+    return h > 0 ? '$h:$m:$sec' : '$m:$sec';
   }
 
   /// Spoken duration for screen readers, e.g. "1 分 5 秒".

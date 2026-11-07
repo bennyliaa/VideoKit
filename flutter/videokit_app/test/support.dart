@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -41,8 +42,11 @@ final class AppRig {
         'entries': [for (final e in entries) e.toJson()],
       });
     }
-    if (settings != null) {
-      storage.documents['settings.json'] = jsonEncode(settings);
+    // UI-AUDIT-A1: VK_SCREENS_MODE=light renders the light set.
+    final light = Platform.environment['VK_SCREENS_MODE'] == 'light';
+    final s = {if (light) 'themeMode': 'light', ...?settings};
+    if (s.isNotEmpty) {
+      storage.documents['settings.json'] = jsonEncode(s);
     }
     return AppRig._(backend ?? DemoBackend(), storage);
   }
