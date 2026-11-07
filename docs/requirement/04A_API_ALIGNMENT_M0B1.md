@@ -1,6 +1,6 @@
 # 04A 公共 API 对齐裁定（M0-B1）
 
-版本：V1.0；日期：2026-11-07；裁定人：负责人。依据：Coder A 报告 `test-workspace/reports/M0-B1-A/REPORT.md` §6，Coder B 报告 `test-workspace/reports/M0-B1-B/REPORT.md` §6 与附录 A–C。
+版本：V1.1（新增 §4A 补充裁定）；日期：2026-11-07；裁定人：负责人。依据：Coder A 报告 `test-workspace/reports/M0-B1-A/REPORT.md` §6，Coder B 报告 `test-workspace/reports/M0-B1-B/REPORT.md` §6 与附录 A–C。
 
 > 本文件是 [04 公共 API 契约](04_PUBLIC_API_CONTRACT.md) 的补充裁定，与 04 冲突时以本文件为准；API 1.0.0 冻结时并入 04。
 > 适用范围：Kotlin `videokit-api` / `videokit-api-android` 与 Dart `videokit_api`。两侧必须按本表一一对应，M0-B2 内完成对齐。
@@ -64,6 +64,19 @@
 | I17 | 异步差异（Dart） | `createSession`、`createEditProject`、`previewSession` 在 Dart 返回 `Future`；保留 |
 | I18 | 会话上限 | `createSession` 超过上限抛 `VideoKitException(DECODER_RESOURCE_EXHAUSTED)`（两侧一致） |
 | I19 | 宿主覆盖低对比度颜色 | 宿主显式给出的 on 色 / content 色低于 4.5:1 时替换为黑或白并记录诊断（Dart 现行为，确认保留） |
+
+## 4A. 补充裁定（V1.1，2026-11-07，M0-B2 进行中由 Coder B 提出）
+
+| # | 项 | 裁定 | 改动方 |
+| --- | --- | --- | --- |
+| S1 | 宿主动作状态 | `HostActionState(action, pending: Boolean, lastStatus: HostActionStatus?)` | Dart（原 inFlight） |
+| S2 | 导出预检 | `ExportPrecheck(problems: List<…>, warnings: List<…>)`；有 problem 时不能开始导出 | Dart（原 issues） |
+| S3 | 导出阶段 | `ExportStage { PREPARING, TRACKING, ENCODING, VERIFYING, WRITING }`（14 §5.8）；完成由 `EditPhase.COMPLETED` 表达，不设 WRITING_COMPLETE | Kotlin 改名 |
+| S4 | 开始跟踪 | `StartTracking(maskId, kind: TrackingKind { FACE, OBJECT }, seedRegion: MaskRegion?, targetId?)`（14 §5.7 物体点选/框选需要 seedRegion） | Kotlin 补字段 |
+| S5 | 播放事件字段 | 两侧取并集：`PlayStateChanged`、`BufferingEnded` 等事件字段以 Kotlin 为基础，Dart 补齐缺少的字段 | Dart |
+| S6 | 能力模型取值 | `FeatureKey`、`ModuleState` 以 Kotlin 取值为准 | Dart |
+| S7 | 纹理申请 | Dart `VideoKitSession` 增加 `VideoKitTextureLease acquireTexture()`：返回租约（`ValueListenable<int?> textureId` + `release()`）。插件适配层按引用计数管理，最后一个租约释放后延迟 2 s 销毁（14 §8.5）；Fake 的 textureId 恒为 null。UI 的 `VkMediaSurface` 显示时申请、卸载时释放。Kotlin 公共 API 不涉及 | Dart 接口（Coder A）+ 插件实现（Coder B） |
+| S8 | 示例 App 接入插件 | `videokit_example/android/settings.gradle.kts` 增加 `includeBuild("../../..")` 替换 `com.videokit:*` 依赖；本批由 Coder B 修改这一个文件 | Coder B |
 
 ## 5. 工程与构建裁定
 
