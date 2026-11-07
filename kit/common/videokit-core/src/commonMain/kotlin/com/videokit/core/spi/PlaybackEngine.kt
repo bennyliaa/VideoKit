@@ -85,6 +85,12 @@ public data class EngineState(
     val mediaInfo: com.videokit.api.MediaInfo? = null,
     /** Selected subtitle track, `null` when subtitles are off. */
     val selectedSubtitleTrackId: String? = null,
+    /**
+     * Times the system audio focus was lost for good (another app took it; the engine paused). Transient losses
+     * (ducking, short interruptions) are handled by the engine and not counted. The session reports an increase as
+     * the AUDIO_FOCUS_LOST notice and pauses (07 §4, 04A K1).
+     */
+    val audioFocusLosses: Int = 0,
 )
 
 /** An opened playback. Closing releases decoders, the render target and all read handles. */

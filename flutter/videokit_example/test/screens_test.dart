@@ -635,4 +635,25 @@ void main() {
     await tester.pumpWidget(const SizedBox());
     await frames(tester, 5);
   }, skip: _dir == null);
+
+  testWidgets('M4-A1 screens', (tester) async {
+    setViewSize(tester, expandedSize);
+    await tester.pumpWidget(
+      _wrap(
+        testApp(
+          const EditDemoPage(
+            initialScenario: EditDemoScenario.fastConcatRejected,
+            showScenarioPicker: false,
+          ),
+          fontFamily: _family,
+        ),
+      ),
+    );
+    await frames(tester, 15);
+    tester.state<VideoKitEditorState>(find.byType(VideoKitEditor)).openExport();
+    await frames(tester, 4);
+    await _shot(tester, 'm4_export_fast_concat_rejected');
+    await tester.pumpWidget(const SizedBox());
+    await frames(tester, 5);
+  }, skip: _dir == null);
 }

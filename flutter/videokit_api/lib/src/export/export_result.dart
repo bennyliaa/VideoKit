@@ -6,20 +6,55 @@ import '../util/collections.dart';
 import '../util/undefined.dart';
 import 'export_progress.dart';
 
-/// Known export warning codes (08 §7, 09 §4).
+/// Known export warning codes (08 §7, 09 §4; 04A K3): upper snake case,
+/// registered in the `exportWarnings` group of `spec/notices.json`. On the
+/// wire a warning is the code alone or `CODE:argument` (e.g. the mask id);
+/// compare with [codeOf].
 abstract final class ExportWarnings {
   /// Boundaries aligned to keyframes in fast concat.
   static const String boundaryAlignedToKeyframe =
-      'boundary_aligned_to_keyframe';
+      'BOUNDARY_ALIGNED_TO_KEYFRAME';
 
   /// Silence inserted for inputs without audio.
-  static const String silenceInserted = 'silence_inserted';
+  static const String silenceInserted = 'SILENCE_INSERTED';
 
-  /// User accepted uncovered tracking intervals: not fully masked.
-  static const String trackingCoverageAccepted = 'tracking_coverage_accepted';
+  /// The tracking of a mask did not complete (argument: mask id).
+  static const String trackingIncomplete = 'TRACKING_INCOMPLETE';
+
+  /// User accepted uncovered tracking intervals: not fully masked
+  /// (argument: mask id).
+  static const String trackingCoverageAccepted = 'TRACKING_COVERAGE_ACCEPTED';
+
+  /// Tracking has lost ranges that were not accepted (argument: mask id).
+  static const String trackingLostRanges = 'TRACKING_LOST_RANGES';
 
   /// Demo backend: no real media file was produced.
-  static const String demoNoRealFile = 'demo_no_real_file';
+  static const String demoNoRealFile = 'DEMO_OUTPUT_NOT_REAL_MEDIA';
+
+  /// The engine refused fast (remux) concatenation; the export transcodes
+  /// instead (M4, UI explains it on the export page).
+  static const String fastConcatRejected = 'FAST_CONCAT_REJECTED';
+
+  /// Every code above, in registry order.
+  static const List<String> all = [
+    boundaryAlignedToKeyframe,
+    silenceInserted,
+    trackingIncomplete,
+    trackingCoverageAccepted,
+    trackingLostRanges,
+    demoNoRealFile,
+    fastConcatRejected,
+  ];
+
+  /// The code of a wire warning (`CODE` or `CODE:argument`).
+  static String codeOf(String warning) {
+    final i = warning.indexOf(':');
+    return i < 0 ? warning : warning.substring(0, i);
+  }
+
+  /// Whether [warnings] contain [code] (with or without an argument).
+  static bool has(Iterable<String> warnings, String code) =>
+      warnings.any((w) => codeOf(w) == code);
 }
 
 /// Description of a successfully exported media (08 §7).

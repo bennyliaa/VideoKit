@@ -200,6 +200,7 @@ public object ImageRules {
         height = info.size.height,
         rotationDeg = info.orientationDeg,
         durationUs = info.loopDurationUs,
+        fileSizeBytes = info.fileSizeBytes,
     )
 
     private fun tiles(info: ImageInfo): Boolean = info.regionDecodable && !info.animated

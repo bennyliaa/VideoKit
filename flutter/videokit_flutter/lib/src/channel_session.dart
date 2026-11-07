@@ -31,7 +31,9 @@ final class ChannelSession implements VideoKitSession {
   /// Initial texture size when the content size is still unknown (resized later through [resizeTexture]).
   final VideoSize textureSize;
 
-  final ValueNotifier<VideoKitSessionState> _state = ValueNotifier(VideoKitSessionState.initial());
+  final ValueNotifier<VideoKitSessionState> _state = ValueNotifier(
+    VideoKitSessionState.initial(),
+  );
   final ValueNotifier<int?> _textureId = ValueNotifier(null);
   final ValueNotifier<VideoSize?> _videoSize = ValueNotifier(null);
   final StreamController<VideoKitEvent> _events = StreamController.broadcast();
@@ -90,7 +92,9 @@ final class ChannelSession implements VideoKitSession {
   /// swipe, rebuild) reuses it.
   @override
   VideoKitTextureLease acquireTexture() {
-    if (_closed || _finalSnapshot != null) return _TextureLease(this, released: true);
+    if (_closed || _finalSnapshot != null) {
+      return _TextureLease(this, released: true);
+    }
     _leases++;
     _disposeTimer?.cancel();
     _disposeTimer = null;
@@ -114,7 +118,12 @@ final class ChannelSession implements VideoKitSession {
     final generation = ++_textureGeneration;
     unawaited(
       _api.createTexture(sessionId, size.width, size.height).then((id) {
-        if (!_closed && _textureRequested && generation == _textureGeneration && id >= 0) _textureId.value = id;
+        if (!_closed &&
+            _textureRequested &&
+            generation == _textureGeneration &&
+            id >= 0) {
+          _textureId.value = id;
+        }
       }, onError: (Object _) {}),
     );
   }
@@ -134,13 +143,20 @@ final class ChannelSession implements VideoKitSession {
     final size = _videoSize.value;
     if (!_textureRequested || size == null || size == _textureSize) return;
     _textureSize = size;
-    unawaited(_api.resizeTexture(sessionId, size.width, size.height).catchError((Object _) {}));
+    unawaited(
+      _api
+          .resizeTexture(sessionId, size.width, size.height)
+          .catchError((Object _) {}),
+    );
   }
 
   /// Resizes the native texture, for example when the widget size changes.
-  Future<void> resizeTexture(int width, int height) => _api.resizeTexture(sessionId, width, height);
+  Future<void> resizeTexture(int width, int height) =>
+      _api.resizeTexture(sessionId, width, height);
 
-  Future<VideoKitCommandResult> _call(Future<CommandResultMsg> Function() call) async {
+  Future<VideoKitCommandResult> _call(
+    Future<CommandResultMsg> Function() call,
+  ) async {
     if (_closed) return const SessionReleased();
     try {
       return commandResultFromMsg(await call());
@@ -174,18 +190,36 @@ final class ChannelSession implements VideoKitSession {
     return switch (command) {
       Play() => _call(() => _api.play(id)),
       Pause() => _call(() => _api.pause(id)),
-      SeekTo(:final positionUs, :final mode) => _call(() => _api.seekTo(id, positionUs, seekModeToMsg(mode))),
+      SeekTo(:final positionUs, :final mode) => _call(
+        () => _api.seekTo(id, positionUs, seekModeToMsg(mode)),
+      ),
       SetSpeed(:final speed) => _call(() => _api.setSpeed(id, speed)),
       SetMuted(:final muted) => _call(() => _api.setMuted(id, muted)),
       SetVolume(:final volume) => _call(() => _api.setVolume(id, volume)),
-      SelectAudioTrack(:final trackId) => _call(() => _api.selectAudioTrack(id, trackId)),
-      SelectSubtitleTrack(:final trackId) => _call(() => _api.selectSubtitleTrack(id, trackId)),
-      SetTransform(:final transform) => _call(() => _api.setTransform(id, transformToMsg(transform))),
-      SetOrientation(:final request) => _call(() => _api.setOrientation(id, wireOf(request))),
-      SetFullscreen(:final fullscreen) => _call(() => _api.setFullscreen(id, fullscreen)),
-      SetVisibility(:final visibility) => _call(() => _api.setVisibility(id, wireOf(visibility))),
-      SetActiveAudio(:final active, :final audioEpoch) => _call(() => _api.setActiveAudio(id, active, audioEpoch)),
-      HideContentForLock(:final hidden) => _call(() => _api.hideContentForLock(id, hidden)),
+      SelectAudioTrack(:final trackId) => _call(
+        () => _api.selectAudioTrack(id, trackId),
+      ),
+      SelectSubtitleTrack(:final trackId) => _call(
+        () => _api.selectSubtitleTrack(id, trackId),
+      ),
+      SetTransform(:final transform) => _call(
+        () => _api.setTransform(id, transformToMsg(transform)),
+      ),
+      SetOrientation(:final request) => _call(
+        () => _api.setOrientation(id, wireOf(request)),
+      ),
+      SetFullscreen(:final fullscreen) => _call(
+        () => _api.setFullscreen(id, fullscreen),
+      ),
+      SetVisibility(:final visibility) => _call(
+        () => _api.setVisibility(id, wireOf(visibility)),
+      ),
+      SetActiveAudio(:final active, :final audioEpoch) => _call(
+        () => _api.setActiveAudio(id, active, audioEpoch),
+      ),
+      HideContentForLock(:final hidden) => _call(
+        () => _api.hideContentForLock(id, hidden),
+      ),
       SetLooping(:final looping) => _call(() => _api.setLooping(id, looping)),
       Release() => release().then((_) => const Executed()),
     };
@@ -194,17 +228,27 @@ final class ChannelSession implements VideoKitSession {
   @override
   Future<void> updateHostActions(List<VideoKitHostAction> actions) async {
     if (_closed) return;
-    await _api.updateHostActions(sessionId, actions.map(hostActionToMsg).toList());
+    await _api.updateHostActions(
+      sessionId,
+      actions.map(hostActionToMsg).toList(),
+    );
   }
 
   @override
-  Future<VideoKitCommandResult> requestHostAction(String actionId) => _call(() => _api.requestHostAction(sessionId, actionId));
+  Future<VideoKitCommandResult> requestHostAction(String actionId) =>
+      _call(() => _api.requestHostAction(sessionId, actionId));
 
   @override
-  Future<NavigationResult> requestNavigation(NavigationDirection direction) async {
+  Future<NavigationResult> requestNavigation(
+    NavigationDirection direction,
+  ) async {
     if (_closed) return NavigationResult.unavailable;
     try {
-      return enumOf(NavigationResult.values, await _api.requestNavigation(sessionId, wireOf(direction)), NavigationResult.failed);
+      return enumOf(
+        NavigationResult.values,
+        await _api.requestNavigation(sessionId, wireOf(direction)),
+        NavigationResult.failed,
+      );
     } on Object {
       return NavigationResult.failed;
     }
@@ -213,18 +257,31 @@ final class ChannelSession implements VideoKitSession {
   @override
   void setControlsVisible(bool visible) {
     if (_closed) return;
-    unawaited(_api.setControlsVisible(sessionId, visible).catchError((Object _) {}));
+    unawaited(
+      _api.setControlsVisible(sessionId, visible).catchError((Object _) {}),
+    );
   }
 
   /// 04A P1: JPEG of the frame nearest to [atUs] fitting [maxWidth] x [maxHeight], from the native session.
   /// Channel failures are returned as [ThumbnailFailed], never thrown.
   @override
-  Future<ThumbnailResult> captureThumbnail(int atUs, int maxWidth, int maxHeight) async {
+  Future<ThumbnailResult> captureThumbnail(
+    int atUs,
+    int maxWidth,
+    int maxHeight,
+  ) async {
     if (_closed || _finalSnapshot != null) {
-      return const ThumbnailFailed(VideoKitStableError(code: ErrorCode.sessionReleased, stage: ErrorStage.playback));
+      return const ThumbnailFailed(
+        VideoKitStableError(
+          code: ErrorCode.sessionReleased,
+          stage: ErrorStage.playback,
+        ),
+      );
     }
     try {
-      return thumbnailFromMsg(await _api.captureThumbnail(sessionId, atUs, maxWidth, maxHeight));
+      return thumbnailFromMsg(
+        await _api.captureThumbnail(sessionId, atUs, maxWidth, maxHeight),
+      );
     } on Object catch (failure) {
       return ThumbnailFailed(channelError(failure));
     }
@@ -235,7 +292,9 @@ final class ChannelSession implements VideoKitSession {
     final finalSnapshot = _finalSnapshot;
     if (finalSnapshot != null) return finalSnapshot;
     final msg = await _api.captureState(sessionId);
-    return msg == null ? VideoKitPlaybackState(sessionId: sessionId) : playbackStateFromMsg(msg);
+    return msg == null
+        ? VideoKitPlaybackState(sessionId: sessionId)
+        : playbackStateFromMsg(msg);
   }
 
   @override
@@ -248,7 +307,9 @@ final class ChannelSession implements VideoKitSession {
     } on Object {
       msg = null;
     }
-    final snapshot = msg == null ? VideoKitPlaybackState(sessionId: sessionId) : playbackStateFromMsg(msg);
+    final snapshot = msg == null
+        ? VideoKitPlaybackState(sessionId: sessionId)
+        : playbackStateFromMsg(msg);
     _finalSnapshot ??= snapshot;
     _disposeTimer?.cancel();
     _leases = 0;

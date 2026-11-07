@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter/painting.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -34,6 +35,11 @@ final class FileAppStorage implements AppStorage {
 
   Directory? _directory;
 
+  // TEST-R2 R2-02: writes of one file run one after another (latest content
+  // last), each through its own temporary file.
+  final Map<String, Future<void>> _queues = {};
+  int _tmpCounter = 0;
+
   Future<Directory> _dir() async {
     final d = _directory ??= Directory(
       '${(await getApplicationSupportDirectory()).path}/videokit_app',
@@ -49,11 +55,27 @@ final class FileAppStorage implements AppStorage {
   }
 
   @override
-  Future<void> write(String name, String content) async {
+  Future<void> write(String name, String content) {
+    final previous = _queues[name] ?? Future<void>.value();
+    final next = previous
+        .catchError((Object _) {})
+        .then((_) => _writeNow(name, content));
+    _queues[name] = next;
+    return next.whenComplete(() {
+      if (identical(_queues[name], next)) _queues.remove(name);
+    });
+  }
+
+  Future<void> _writeNow(String name, String content) async {
     final dir = await _dir();
-    final tmp = File('${dir.path}/$name.tmp');
-    await tmp.writeAsString(content, flush: true);
-    await tmp.rename('${dir.path}/$name');
+    final tmp = File('${dir.path}/$name.$pid-${++_tmpCounter}.tmp');
+    try {
+      await tmp.writeAsString(content, flush: true);
+      await tmp.rename('${dir.path}/$name');
+    } on Object {
+      if (tmp.existsSync()) await tmp.delete();
+      rethrow;
+    }
   }
 
   @override
@@ -118,4 +140,19 @@ final class MemoryAppStorage implements AppStorage {
   @override
   ImageProvider thumbnailImage(String path) =>
       MemoryImage(thumbnails[path] ?? Uint8List(0));
+}
+
+/// Writes [content] to [name] and only logs a failure (TEST-R2 R2-02): a
+/// record that could not be saved must not interrupt opening or playing.
+/// The log names the file and the error type, never media names or paths.
+Future<void> writeQuietly(
+  AppStorage storage,
+  String name,
+  String content,
+) async {
+  try {
+    await storage.write(name, content);
+  } on Object catch (e) {
+    debugPrint('VideoKitApp: saving $name failed (${e.runtimeType})');
+  }
 }

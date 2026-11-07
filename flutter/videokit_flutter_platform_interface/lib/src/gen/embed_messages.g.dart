@@ -12,9 +12,9 @@ import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show immutable, protected, visibleForTesting;
 
 Object? _extractReplyValueOrThrow(
-    List<Object?>? replyList,
-    String channelName, {
-    required bool isNullValid,
+  List<Object?>? replyList,
+  String channelName, {
+  required bool isNullValid,
 }) {
   if (replyList == null) {
     throw PlatformException(
@@ -36,8 +36,11 @@ Object? _extractReplyValueOrThrow(
   return replyList.firstOrNull;
 }
 
-
-List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
+List<Object?> wrapResponse({
+  Object? result,
+  PlatformException? error,
+  bool empty = false,
+}) {
   if (empty) {
     return <Object?>[];
   }
@@ -46,6 +49,7 @@ List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty
   }
   return <Object?>[error.code, error.message, error.details];
 }
+
 bool _deepEquals(Object? a, Object? b) {
   if (identical(a, b)) {
     return true;
@@ -58,8 +62,9 @@ bool _deepEquals(Object? a, Object? b) {
   }
   if (a is List && b is List) {
     return a.length == b.length &&
-        a.indexed
-            .every(((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]));
+        a.indexed.every(
+          ((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]),
+        );
   }
   if (a is Map && b is Map) {
     if (a.length != b.length) {
@@ -108,14 +113,8 @@ int _deepHash(Object? value) {
   return value.hashCode;
 }
 
-
 /// What the embedded engine shows.
-enum EmbedSurfaceKind {
-  player,
-  imageViewer,
-  editor,
-  multiView;
-}
+enum EmbedSurfaceKind { player, imageViewer, editor, multiView }
 
 /// Player embed options (`PlayerEmbedOptions` on the native side).
 class PlayerEmbedOptionsMsg {
@@ -144,7 +143,8 @@ class PlayerEmbedOptionsMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static PlayerEmbedOptionsMsg decode(Object result) {
     result as List<Object?>;
@@ -165,7 +165,10 @@ class PlayerEmbedOptionsMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(autoHideControlsMs, other.autoHideControlsMs) && _deepEquals(allowFullscreen, other.allowFullscreen) && _deepEquals(showNavigation, other.showNavigation) && _deepEquals(startFullscreen, other.startFullscreen);
+    return _deepEquals(autoHideControlsMs, other.autoHideControlsMs) &&
+        _deepEquals(allowFullscreen, other.allowFullscreen) &&
+        _deepEquals(showNavigation, other.showNavigation) &&
+        _deepEquals(startFullscreen, other.startFullscreen);
   }
 
   @override
@@ -202,17 +205,12 @@ class EmbedContentMsg {
   PlayerEmbedOptionsMsg? playerOptions;
 
   List<Object?> _toList() {
-    return <Object?>[
-      kind,
-      sessionId,
-      sessionIds,
-      projectId,
-      playerOptions,
-    ];
+    return <Object?>[kind, sessionId, sessionIds, projectId, playerOptions];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EmbedContentMsg decode(Object result) {
     result as List<Object?>;
@@ -234,7 +232,11 @@ class EmbedContentMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(kind, other.kind) && _deepEquals(sessionId, other.sessionId) && _deepEquals(sessionIds, other.sessionIds) && _deepEquals(projectId, other.projectId) && _deepEquals(playerOptions, other.playerOptions);
+    return _deepEquals(kind, other.kind) &&
+        _deepEquals(sessionId, other.sessionId) &&
+        _deepEquals(sessionIds, other.sessionIds) &&
+        _deepEquals(projectId, other.projectId) &&
+        _deepEquals(playerOptions, other.playerOptions);
   }
 
   @override
@@ -250,24 +252,19 @@ class EmbedContentMsg {
 /// Token overrides from the native host (14 §9.1 `VideoKitThemeOverrides`): colors as ARGB ints keyed by the
 /// Dart token key (`VkTokenKeys`), `brightness` LIGHT / DARK / null (follow the system).
 class EmbedThemeMsg {
-  EmbedThemeMsg({
-    this.brightness,
-    required this.colors,
-  });
+  EmbedThemeMsg({this.brightness, required this.colors});
 
   String? brightness;
 
   Map<String, int> colors;
 
   List<Object?> _toList() {
-    return <Object?>[
-      brightness,
-      colors,
-    ];
+    return <Object?>[brightness, colors];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EmbedThemeMsg decode(Object result) {
     result as List<Object?>;
@@ -286,7 +283,8 @@ class EmbedThemeMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(brightness, other.brightness) && _deepEquals(colors, other.colors);
+    return _deepEquals(brightness, other.brightness) &&
+        _deepEquals(colors, other.colors);
   }
 
   @override
@@ -319,16 +317,12 @@ class EmbedStartMsg {
   Map<String, String> strings;
 
   List<Object?> _toList() {
-    return <Object?>[
-      protocolVersion,
-      content,
-      theme,
-      strings,
-    ];
+    return <Object?>[protocolVersion, content, theme, strings];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EmbedStartMsg decode(Object result) {
     result as List<Object?>;
@@ -349,7 +343,10 @@ class EmbedStartMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(protocolVersion, other.protocolVersion) && _deepEquals(content, other.content) && _deepEquals(theme, other.theme) && _deepEquals(strings, other.strings);
+    return _deepEquals(protocolVersion, other.protocolVersion) &&
+        _deepEquals(content, other.content) &&
+        _deepEquals(theme, other.theme) &&
+        _deepEquals(strings, other.strings);
   }
 
   @override
@@ -362,7 +359,6 @@ class EmbedStartMsg {
   }
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -370,19 +366,19 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    }    else if (value is EmbedSurfaceKind) {
+    } else if (value is EmbedSurfaceKind) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    }    else if (value is PlayerEmbedOptionsMsg) {
+    } else if (value is PlayerEmbedOptionsMsg) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    }    else if (value is EmbedContentMsg) {
+    } else if (value is EmbedContentMsg) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    }    else if (value is EmbedThemeMsg) {
+    } else if (value is EmbedThemeMsg) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    }    else if (value is EmbedStartMsg) {
+    } else if (value is EmbedStartMsg) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
     } else {
@@ -416,133 +412,148 @@ class VideoKitEmbedHostApi {
   /// available for dependency injection. If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
   VideoKitEmbedHostApi({
-      BinaryMessenger? binaryMessenger, 
-      String messageChannelSuffix = '', 
-      })
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
+           ? '.$messageChannelSuffix'
+           : '';
 
   final BinaryMessenger? pigeonVar_binaryMessenger;
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
   final String pigeonVar_messageChannelSuffix;
 
-
   /// First call of the embed entry point; returns the current configuration.
   Future<EmbedStartMsg> attach(int dartProtocolVersion) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.attach$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.attach$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[dartProtocolVersion]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[dartProtocolVersion],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as EmbedStartMsg;
   }
 
   /// Controls became visible or hidden; the native bridge animates the host panel container with the
   /// theme's motion duration (14 §9.2).
-  Future<void> onControlsVisibilityChanged(bool visible, int animationMs) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.onControlsVisibilityChanged$pigeonVar_messageChannelSuffix';
+  Future<void> onControlsVisibilityChanged(
+    bool visible,
+    int animationMs,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.onControlsVisibilityChanged$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[visible, animationMs]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[visible, animationMs],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
   /// The UI asks for previous / next media. Not `@async` (generated async handlers need the Android main
   /// dispatcher library): the answer comes back as `VideoKitEmbedFlutterApi.navigationResult(requestId, …)`.
   Future<void> requestNavigation(int requestId, String direction) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.requestNavigation$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.requestNavigation$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[requestId, direction]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[requestId, direction],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
   /// The UI asks to enter or leave fullscreen; the host decides (orientation, system bars).
   Future<void> onFullscreenRequested(bool fullscreen) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.onFullscreenRequested$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.onFullscreenRequested$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[fullscreen]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[fullscreen],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
   /// The UI asks to open the editor for the session's media.
   Future<void> onEditRequested(String sessionId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.onEditRequested$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.onEditRequested$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
   /// First Flutter frame of the current content (14 §9.3 first-frame metric).
   Future<void> onContentDisplayed(EmbedSurfaceKind kind) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.onContentDisplayed$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedHostApi.onContentDisplayed$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[kind]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[kind],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 }
 
@@ -559,16 +570,20 @@ abstract class VideoKitEmbedFlutterApi {
   /// Answer to [VideoKitEmbedHostApi.requestNavigation]: a `NavigationResult` wire name.
   void navigationResult(int requestId, String result);
 
-  static void setUp(VideoKitEmbedFlutterApi? api, {
-    BinaryMessenger? binaryMessenger, 
+  static void setUp(
+    VideoKitEmbedFlutterApi? api, {
+    BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
-  }) 
-{
-    messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  }) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedFlutterApi.showContent$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedFlutterApi.showContent$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -580,16 +595,20 @@ abstract class VideoKitEmbedFlutterApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedFlutterApi.setTheme$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedFlutterApi.setTheme$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -601,37 +620,46 @@ abstract class VideoKitEmbedFlutterApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedFlutterApi.setStrings$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedFlutterApi.setStrings$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
           final List<Object?> args = message! as List<Object?>;
-          final Map<String, String> arg_strings = (args[0]! as Map<Object?, Object?>).cast<String, String>();
+          final Map<String, String> arg_strings =
+              (args[0]! as Map<Object?, Object?>).cast<String, String>();
           try {
             api.setStrings(arg_strings);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedFlutterApi.navigationResult$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEmbedFlutterApi.navigationResult$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -644,8 +672,10 @@ abstract class VideoKitEmbedFlutterApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }

@@ -144,6 +144,10 @@ public class FakePlaybackEngine(private val options: FakeEngineOptions = FakeEng
     /** Handles that are open (diagnostics: closed handles leave the set). */
     public val openHandles: Int get() = open.value
 
+    /** The most recently opened handle (test hooks such as [FakePlaybackHandle.loseAudioFocus]). */
+    public var lastOpened: FakePlaybackHandle? = null
+        private set
+
     private val open = MutableStateFlow(0)
 
     override fun supports(target: VideoKitSurfaceTarget): Boolean = options.supportsTarget(target)
@@ -182,7 +186,7 @@ public class FakePlaybackEngine(private val options: FakeEngineOptions = FakeEng
             }
         }
         open.update { it + 1 }
-        return FakePlaybackHandle(scenario, playbackHandle, options, this.options.clock) { open.update { it - 1 } }
+        return FakePlaybackHandle(scenario, playbackHandle, options, this.options.clock) { open.update { it - 1 } }.also { lastOpened = it }
     }
 
     private companion object {
@@ -220,6 +224,8 @@ public class FakePlaybackHandle internal constructor(
                 height = scenario.videoSize.height,
                 frameRate = 30f,
                 durationUs = scenario.durationUs,
+                // R2-06: the size the host reports for the open handle, not only the descriptor.
+                fileSizeBytes = readHandle?.length,
             ),
         ),
     )
@@ -292,6 +298,11 @@ public class FakePlaybackHandle internal constructor(
 
     override suspend fun setLooping(looping: Boolean) {
         mutex.withLock { this.looping = looping }
+    }
+
+    /** Simulates another app taking the audio focus for good: the engine pauses and counts the loss (07 §4). */
+    public suspend fun loseAudioFocus() {
+        mutex.withLock { mutableState.update { it.copy(playing = false, audioFocusLosses = it.audioFocusLosses + 1) } }
     }
 
     override fun attach(target: VideoKitSurfaceTarget) {

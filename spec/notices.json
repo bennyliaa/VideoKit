@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "apiAlignment": "04A K1 (2026-11-07): one registry for all TransientNotice codes, upper snake case.",
+  "description": "VideoKit transient notice code registry (04A K1). Kotlin NoticeCodes and Dart NoticeCodes are verified against this file, like errors.json. 'emittedBy' says who sends the code today: KIT (native runtime), DART (Dart Fake / UI), or BOTH. The UI shows known codes with its own text and ignores unknown ones. Codes are upper snake case; new codes are a minor API version change and are appended at the end.",
+  "codePattern": "^[A-Z][A-Z0-9_]*$",
+  "notices": [
+    { "code": "SEEK_CLAMPED", "emittedBy": "DART", "meaning": "A seek target was clamped to the media bounds." },
+    { "code": "RESOURCE_DEGRADED", "emittedBy": "BOTH", "meaning": "The session was degraded because resources were short (decoder not reopened after a visibility release, lower quality)." },
+    { "code": "NAVIGATION_UNAVAILABLE", "emittedBy": "DART", "meaning": "There is no media in the requested navigation direction." },
+    { "code": "IMAGE_MEMORY_REDUCED_QUALITY", "emittedBy": "KIT", "meaning": "The image decode resolution was reduced to stay within the image memory budget." },
+    { "code": "AUDIO_UNSUPPORTED_PLAYING_SILENT", "emittedBy": "KIT", "meaning": "The audio track cannot be decoded; the picture plays silently." },
+    { "code": "AUDIO_FOCUS_LOST", "emittedBy": "BOTH", "meaning": "Another app took the system audio focus for good; playback paused (not muted). Transient losses follow the platform default and send no notice." }
+  ],
+  "exportWarningsDescription": "Export warning codes (04A K3) in ExportResult.warnings and the export precheck. On the wire a warning is the code alone or CODE:argument when argument names what the warning is about (for example the mask id). Kotlin ExportWarnings and Dart ExportWarnings are verified against this group.",
+  "exportWarnings": [
+    { "code": "BOUNDARY_ALIGNED_TO_KEYFRAME", "argument": null, "emittedBy": "DART", "meaning": "A fast concatenation boundary was moved to the nearest key frame." },
+    { "code": "SILENCE_INSERTED", "argument": null, "emittedBy": "DART", "meaning": "Silence was inserted for an input without audio." },
+    { "code": "TRACKING_INCOMPLETE", "argument": "maskId", "emittedBy": "KIT", "meaning": "The tracking of a mask did not complete." },
+    { "code": "TRACKING_COVERAGE_ACCEPTED", "argument": "maskId", "emittedBy": "BOTH", "meaning": "The user accepted uncovered tracking ranges; the mask does not cover them." },
+    { "code": "TRACKING_LOST_RANGES", "argument": "maskId", "emittedBy": "KIT", "meaning": "The tracking of a mask has lost ranges that were not accepted." },
+    { "code": "DEMO_OUTPUT_NOT_REAL_MEDIA", "argument": null, "emittedBy": "BOTH", "meaning": "Demo backend: no real media file was produced." },
+    { "code": "FAST_CONCAT_REJECTED", "argument": null, "emittedBy": "DART", "meaning": "The engine refused fast (remux) concatenation; the export transcodes instead." }
+  ]
+}

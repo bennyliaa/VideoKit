@@ -40,6 +40,7 @@ import com.videokit.api.VideoKitSessionConfig
 import com.videokit.api.VideoKitSessionState
 import com.videokit.api.VideoKitStableError
 import com.videokit.api.VideoKitSurfaceTarget
+import com.videokit.core.runtime.VisibilityPolicy
 import com.videokit.testkit.internal.AtomicCounter
 import com.videokit.testkit.internal.AtomicValue
 import com.videokit.testkit.internal.CallbackOutcome
@@ -115,6 +116,11 @@ public class FakeSession internal constructor(
     private var tickAccumUs = 0L
     private var retriesLeft = MAX_RETRIES
     private val inFlightActions = mutableSetOf<String>()
+
+    // Visibility policy (07 §5.3, VisibilityPolicy of videokit-core): the decoder lease is released, the media stays bound.
+    private var suspended = false
+    private var resumeOnVisible = false
+    private var visibilityJob: Job? = null
 
     @Volatile
     private var activeBind: Deferred<VideoKitCommandResult>? = null
@@ -374,6 +380,10 @@ public class FakeSession internal constructor(
     private fun releaseSourceLocked() {
         val src = source ?: return
         source = null
+        visibilityJob?.cancel()
+        visibilityJob = null
+        suspended = false
+        resumeOnVisible = false
         clockJob?.cancel()
         clockJob = null
         runCatching { playbackHandle?.close() }
@@ -522,7 +532,7 @@ public class FakeSession internal constructor(
         return mutex.withLock { executeLocked(command) }
     }
 
-    private fun executeLocked(command: VideoKitCommand): VideoKitCommandResult {
+    private suspend fun executeLocked(command: VideoKitCommand): VideoKitCommandResult {
         val current = mutableState.value
         if (current.phase.isReleasedOrReleasing) return VideoKitCommandResult.SessionReleased
         if (current.phase == SessionPhase.ERROR_FATAL) {
@@ -601,10 +611,14 @@ public class FakeSession internal constructor(
         }
     }
 
-    private fun play(current: VideoKitSessionState): VideoKitCommandResult {
+    private suspend fun play(current: VideoKitSessionState): VideoKitCommandResult {
         bindRequired(current, "PLAY")?.let { return it }
         if (current.mediaKind == MediaKind.IMAGE_STATIC || current.mediaKind == MediaKind.IMAGE_UNKNOWN) {
             return VideoKitCommandResult.Unsupported(UnsupportedReason.MEDIA_KIND)
+        }
+        // A decoder released by the visibility policy is re-reserved first (one attempt, no retry loop).
+        if (suspended && !resumeLocked()) {
+            return VideoKitCommandResult.Rejected(Errors.of(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorStage.PLAYBACK, "RESUME_DENIED"))
         }
         when (current.phase) {
             SessionPhase.PLAYING, SessionPhase.BUFFERING -> mutableState.update { it.copy(playWhenReady = true) }
@@ -643,7 +657,8 @@ public class FakeSession internal constructor(
         return VideoKitCommandResult.Executed
     }
 
-    private fun setVisibility(current: VideoKitSessionState, visibility: SessionVisibility): VideoKitCommandResult {
+    /** Visibility policy of 07 §5.3, the same rules as the real session (`VisibilityPolicy` of videokit-core). */
+    private suspend fun setVisibility(current: VideoKitSessionState, visibility: SessionVisibility): VideoKitCommandResult {
         if (current.visibility == visibility) return VideoKitCommandResult.Executed
         mutableState.update { it.copy(visibility = visibility) }
         kit.callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.VisibilityChanged(sessionId, visibility)) }
@@ -652,7 +667,77 @@ public class FakeSession internal constructor(
         if (wasForeground != isForeground) {
             kit.callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.ForegroundChanged(sessionId, isForeground)) }
         }
+        visibilityJob?.cancel()
+        visibilityJob = null
+        if (VisibilityPolicy.pauses(visibility)) {
+            if (current.phase == SessionPhase.PLAYING || current.phase == SessionPhase.BUFFERING) {
+                resumeOnVisible = true
+                mutableState.update { it.copy(phase = SessionPhase.PAUSED, playWhenReady = false) }
+                notifyPlayState()
+            }
+            val delayMs = VisibilityPolicy.releaseDelayMs(visibility, options.offscreenReleaseMs, options.backgroundReleaseMs)
+            if (delayMs != null && source != null && !suspended) {
+                visibilityJob = scope.launch {
+                    delay(delayMs)
+                    mutex.withLock { if (!released && VisibilityPolicy.pauses(mutableState.value.visibility)) suspendLocked() }
+                }
+            }
+            return VideoKitCommandResult.Executed
+        }
+        val resumed = resumeLocked()
+        if (resumeOnVisible && resumed) {
+            resumeOnVisible = false
+            return play(mutableState.value)
+        }
+        resumeOnVisible = false
         return VideoKitCommandResult.Executed
+    }
+
+    /** Releases the decoder lease of a bound, paused session; the media stays bound. */
+    private fun suspendLocked() {
+        if (source == null || suspended || mutableState.value.phase !in SUSPENDABLE_PHASES) return
+        // Like a real engine: the decoder and its read handle are closed; the media stays bound.
+        runCatching { playbackHandle?.close() }
+        playbackHandle = null
+        runCatching { lease?.close() }
+        lease = null
+        suspended = true
+        mutableState.update { it.copy(resourcesHeld = false) }
+    }
+
+    /** Re-reserves the decoder of a suspended session; `false` with a recoverable error event when denied. */
+    private suspend fun resumeLocked(): Boolean {
+        if (!suspended) return true
+        val src = source ?: return false
+        if (src.mediaKind == MediaKind.VIDEO) {
+            val size = currentScenario.videoSize
+            val request = ResourceRequest(sessionId, ResourceKind.VIDEO_DECODER, ResourceEstimate(size.width, size.height), priority)
+            when (val reservation = options.resourceBudget.reserve(request)) {
+                is ReservationResult.Granted -> lease = reservation.lease
+
+                is ReservationResult.Denied -> {
+                    val error = Errors.of(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorStage.BIND, "BUDGET:${reservation.suggestion}")
+                    mutableEvents.tryEmit(VideoKitEvent.ErrorRaised(error))
+                    mutableEvents.tryEmit(VideoKitEvent.TransientNotice(com.videokit.api.NoticeCodes.RESOURCE_DEGRADED))
+                    return false
+                }
+            }
+        }
+        try {
+            playbackHandle = src.sourceFactory.open(OpenPurpose.PLAYBACK)
+        } catch (cancelled: CancellationException) {
+            runCatching { lease?.close() }
+            lease = null
+            throw cancelled
+        } catch (failure: Exception) {
+            runCatching { lease?.close() }
+            lease = null
+            mutableEvents.tryEmit(VideoKitEvent.ErrorRaised(Errors.fromSourceFailure(failure, ErrorStage.BIND)))
+            return false
+        }
+        suspended = false
+        mutableState.update { it.copy(resourcesHeld = true) }
+        return true
     }
 
     private fun setActiveAudio(current: VideoKitSessionState, command: VideoKitCommand.SetActiveAudio): VideoKitCommandResult {
@@ -842,10 +927,16 @@ public class FakeSession internal constructor(
                 bitrateBps = DEMO_BITRATE_BPS,
                 rotationDeg = 0,
                 durationUs = scenario.durationUs,
-                fileSizeBytes = src.knownLength,
+                fileSizeBytes = playbackHandle?.length ?: src.knownLength,
             )
         } else {
-            MediaInfo(container = src.extension, width = size.width, height = size.height, fileSizeBytes = src.knownLength)
+            MediaInfo(
+                container = src.extension,
+                width = size.width,
+                height = size.height,
+                fileSizeBytes =
+                playbackHandle?.length ?: src.knownLength,
+            )
         }
     }
 
@@ -999,6 +1090,9 @@ public class FakeSession internal constructor(
     private companion object {
         const val PROBE_BYTES = 64
         const val MAX_RETRIES = 1
+
+        /** Phases in which the visibility policy may release the decoder. */
+        val SUSPENDABLE_PHASES = setOf(SessionPhase.READY, SessionPhase.PAUSED, SessionPhase.ENDED)
         const val BUFFER_AHEAD_US = 10_000_000L
         const val ANIMATION_FRAME_US = 100_000L
         const val DEMO_FRAME_RATE = 30f
@@ -1006,7 +1100,7 @@ public class FakeSession internal constructor(
         const val BYTES_PER_PIXEL = 4L
         const val POSITION_TICK_US = 250_000L
         const val WATCH_TIME_REPORT_US = 1_000_000L
-        const val NOTICE_AUDIO_UNSUPPORTED = "AUDIO_UNSUPPORTED_PLAYING_SILENT"
+        const val NOTICE_AUDIO_UNSUPPORTED = com.videokit.api.NoticeCodes.AUDIO_UNSUPPORTED_PLAYING_SILENT
         val FATAL_CODES = setOf(ErrorCode.CORRUPT_MEDIA)
         val VALID_ROTATIONS = setOf(0, 90, 180, 270)
 

@@ -218,4 +218,25 @@ void main() {
     await _shot(tester, 'm2_app_home_favorite_tags');
     await unmount(tester);
   }, skip: _dir == null);
+
+  testWidgets('M4-A1 screens', (tester) async {
+    final rig = AppRig.create();
+    await rig.pump(tester, fontFamily: _family, wrap: _wrap);
+    await tapText(tester, '打开文件');
+    await settle(tester, 2);
+    for (final n in ['山谷黄昏.mkv', '家庭录像.avi']) {
+      await tapText(tester, n);
+      await tester.pump();
+    }
+    await tester.tap(find.textContaining('打开 2 个'));
+    await settle(tester, 4);
+    await tapText(tester, '拼接为一个视频');
+    await settle(tester, 8);
+    await tester.binding.handlePopRoute();
+    await settle(tester, 6);
+    await tester.tap(find.bySemanticsLabel('最近工程'));
+    await settle(tester, 4);
+    await _shot(tester, 'm4_app_recent_projects');
+    await unmount(tester);
+  }, skip: _dir == null);
 }

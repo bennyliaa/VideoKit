@@ -95,7 +95,7 @@ internal object ImageProbe {
             // Mirrored EXIF orientations are drawn from the whole-image decode only.
             regionDecodable = !animated && !exif.flipped && format in ImageFormats.REGION_DECODABLE,
         )
-        return ProbedImage(info, stored)
+        return ProbedImage(info.copy(fileSizeBytes = bytes.size.toLong()), stored)
     }
 
     private class Exif(val rotationDeg: Int, val flipped: Boolean)

@@ -34,16 +34,18 @@ import kotlin.coroutines.ContinuationInterceptor
  * Images run on the fake image engine; editing (VK-M4) is not implemented yet and its cases are reported as skipped.
  */
 class PlaybackContractSubject(private val scope: CoroutineScope, val clock: FakeClock = FakeClock()) : VideoKitContractSubject {
-    override val features: Set<ContractFeature> get() = setOf(ContractFeature.IMAGES)
+    override val features: Set<ContractFeature> get() = setOf(ContractFeature.IMAGES, ContractFeature.BUDGET_INJECTION)
 
     override val callbackTimeouts: HostCallbackTimeouts get() = HostCallbackTimeouts()
 
     override val sourceTimeoutMs: Long get() = CoreOptions().sourceTimeoutMs
 
-    override fun create(callbacks: VideoKitHostCallbacks): VideoKit {
+    override fun create(callbacks: VideoKitHostCallbacks): VideoKit = create(callbacks, FakeResourceBudget())
+
+    override fun create(callbacks: VideoKitHostCallbacks, budget: com.videokit.api.ResourceBudget): VideoKit {
         val dispatcher = scope.coroutineContext[ContinuationInterceptor] as? CoroutineDispatcher ?: error("scope without dispatcher")
         val engines = FakeEngines.platform(dispatcher, FakeEngineOptions(clock = clock))
-        val config = VideoKitConfig(hostCallbacks = callbacks, resourceBudget = FakeResourceBudget(), callbackTimeouts = callbackTimeouts)
+        val config = VideoKitConfig(hostCallbacks = callbacks, resourceBudget = budget, callbackTimeouts = callbackTimeouts)
         return PlaybackVideoKit.create(config, engines, CoreOptions(isDemo = true), parentScope = scope)
     }
 

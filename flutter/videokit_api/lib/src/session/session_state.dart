@@ -60,9 +60,20 @@ enum SessionPhase {
 /// Named `SessionVisibility` (Kotlin: `Visibility`) to avoid clashing with
 /// Flutter's `Visibility` widget.
 enum SessionVisibility {
+  /// Fully on screen.
   visible,
+
+  /// Partly on screen (04A V1): may lower frame rate or resolution (07 §3).
+  partiallyVisible,
+
+  /// Not on screen (scrolled out, or fully covered by an opaque route).
   offscreen,
+
+  /// The host is in the background.
   background;
+
+  /// Whether the picture can be seen at all.
+  bool get isOnScreen => this == visible || this == partiallyVisible;
 
   /// SCREAMING_SNAKE_CASE wire name.
   String get wireName => toWireName(name);

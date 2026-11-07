@@ -409,4 +409,37 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get recentProjects => '最近工程';
+
+  @override
+  String get recentProjectsEmpty => '还没有保存的工程。选择多个视频并“拼接为一个视频”，离开编辑器时会自动保存。';
+
+  @override
+  String recentProjectSaved(String when) {
+    return '保存于 $when';
+  }
+
+  @override
+  String recentProjectClips(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个片段',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recentProjectDelete => '删除工程';
+
+  @override
+  String get recentProjectRestoreFailed => '无法打开这个工程：格式版本过新或文件已损坏';
+
+  @override
+  String get openFailedTitle => '没有打开成功';
+
+  @override
+  String get openFailedDetail => '等待时间过长，或播放组件已中断。请重试；如果仍然失败，请返回后重新打开。';
 }

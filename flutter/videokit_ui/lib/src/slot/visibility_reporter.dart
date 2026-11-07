@@ -4,11 +4,11 @@ import 'package:videokit_api/videokit_api.dart';
 
 /// Tells [session] whether its picture can be seen (07 §5.3, UI-05):
 ///
-/// * **visible**: at least part of [child] is inside the nearest scroll
-///   viewport and the screen (07's PARTIALLY_VISIBLE has no API value yet,
-///   so it reports visible);
-/// * **offscreen**: scrolled out, or covered by a newer route (another page
-///   pushed on top);
+/// * **visible**: [child] is fully inside the nearest scroll viewport and the
+///   screen;
+/// * **partiallyVisible**: only part of it is (04A V1);
+/// * **offscreen**: scrolled out, or fully covered by an opaque route (04A
+///   V2: a translucent dialog or a bottom sheet on top changes nothing);
 /// * **background**: the app is paused or hidden.
 ///
 /// Only changes are sent (`SetVisibility`), and nothing is sent to a
@@ -37,11 +37,12 @@ class VideoKitVisibilityReporter extends StatefulWidget {
   final ValueChanged<SessionVisibility>? onChanged;
 
   /// Visibility for [rect] inside [viewport] (both global), app [lifecycle]
-  /// and whether the route is the current one. Pure; used by the widget.
+  /// and whether an opaque route fully covers the page ([occluded]). Pure;
+  /// used by the widget.
   static SessionVisibility classify({
     required Rect rect,
     required Rect viewport,
-    required bool routeCurrent,
+    bool occluded = false,
     AppLifecycleState? lifecycle,
   }) {
     if (lifecycle == AppLifecycleState.paused ||
@@ -49,11 +50,16 @@ class VideoKitVisibilityReporter extends StatefulWidget {
         lifecycle == AppLifecycleState.detached) {
       return SessionVisibility.background;
     }
-    if (!routeCurrent) return SessionVisibility.offscreen;
+    if (occluded) return SessionVisibility.offscreen;
     final seen = rect.intersect(viewport);
-    return seen.width > 0 && seen.height > 0
+    if (seen.width <= 0 || seen.height <= 0) return SessionVisibility.offscreen;
+    // Allow sub-pixel rounding at the edges.
+    const slack = 0.5;
+    final full =
+        seen.width >= rect.width - slack && seen.height >= rect.height - slack;
+    return full
         ? SessionVisibility.visible
-        : SessionVisibility.offscreen;
+        : SessionVisibility.partiallyVisible;
   }
 
   @override
@@ -130,7 +136,9 @@ class _VideoKitVisibilityReporterState extends State<VideoKitVisibilityReporter>
     final v = VideoKitVisibilityReporter.classify(
       rect: rect,
       viewport: viewport,
-      routeCurrent: ModalRoute.of(context)?.isCurrent ?? true,
+      // Routes fully covered by an opaque route are kept offstage with
+      // their tickers disabled; translucent routes leave them onstage.
+      occluded: !TickerMode.valuesOf(context).enabled,
       lifecycle: WidgetsBinding.instance.lifecycleState,
     );
     if (v == _sent) return;

@@ -150,6 +150,11 @@ class VideoKitPlayer extends StatefulWidget {
 /// State of [VideoKitPlayer]; doubles as the host handle (14 §4.1
 /// `VideoKitPlayerHandle`) through a `GlobalKey<VideoKitPlayerState>`.
 class VideoKitPlayerState extends State<VideoKitPlayer> {
+  /// Whether a panel (settings, more, 参数 …) is open. Hosts with their own
+  /// back handling check it first: the back press then only closes the
+  /// panel (TEST-R2 R2-01).
+  bool get hasOpenPanel => _c.sheets.hasPanel;
+
   late PlayerController _c;
   final FocusNode _focus = FocusNode(debugLabel: 'VideoKitPlayer');
   MediaTransform? _gestureStart;
@@ -580,8 +585,10 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                 ),
               ),
             Positioned.fill(
+              // TEST-R2 R2-05: hidden controls ignore taps except the seek bar,
+              // which stays hit-testable at its final position (see _controls).
               child: IgnorePointer(
-                ignoring: !visible,
+                ignoring: false,
                 child: AnimatedOpacity(
                   opacity: visible ? 1 : 0,
                   duration: motion.duration,
@@ -609,6 +616,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                           minimal:
                               vkControlsMode(model, st) ==
                               VkControlsMode.minimal,
+                          hidden: !visible,
                         ),
                       ),
                     ),
@@ -809,7 +817,11 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     VideoKitSessionState st, {
     bool blocked = false,
     bool minimal = false,
+    bool hidden = false,
   }) {
+    // While hidden only the seek bar takes pointers (R2-05): dragging it
+    // shows the controls at once and lands under the finger.
+    Widget hid(Widget w) => IgnorePointer(ignoring: hidden, child: w);
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
@@ -973,6 +985,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             onDragStart: _c.dragStart,
             onDragUpdate: _c.dragUpdate,
             onDragEnd: !blocked && st.phase.isBound ? _c.dragEnd : null,
+            onTapInstead: hidden ? _c.autoHide.show : null,
             previewFrame: VkSeekPreviewFrame(frames: _c.seekPreview),
           )
         : const SizedBox.shrink();
@@ -1005,58 +1018,64 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (!landscape && isVideo)
-                Row(
-                  children: [
-                    Text(VkFormat.timecode(position), style: white),
-                    const Spacer(),
-                    Text(VkFormat.timecode(duration), style: white),
-                  ],
+                hid(
+                  Row(
+                    children: [
+                      Text(VkFormat.timecode(position), style: white),
+                      const Spacer(),
+                      Text(VkFormat.timecode(duration), style: white),
+                    ],
+                  ),
                 ),
               if (landscape && isVideo)
                 Row(
                   children: [
-                    Text(VkFormat.timecode(position), style: white),
+                    hid(Text(VkFormat.timecode(position), style: white)),
                     SizedBox(width: d.spacing12),
                     Expanded(child: seekBar),
                     SizedBox(width: d.spacing12),
-                    Text(VkFormat.timecode(duration), style: white),
+                    hid(Text(VkFormat.timecode(duration), style: white)),
                   ],
                 )
               else
                 seekBar,
               if (!landscape)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    rewind,
-                    SizedBox(width: d.spacing24),
-                    playButton,
-                    SizedBox(width: d.spacing24),
-                    forward,
-                  ],
+                hid(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      rewind,
+                      SizedBox(width: d.spacing24),
+                      playButton,
+                      SizedBox(width: d.spacing24),
+                      forward,
+                    ],
+                  ),
                 ),
-              Row(
-                children: [
-                  if (landscape) ...[
-                    playButton,
-                    rewind,
-                    forward,
-                    ?volume,
-                    const Spacer(),
-                  ],
-                  for (final i in shownOrdered)
-                    landscape
-                        ? _controlButton(context, i, enabled: !blocked)
-                        : Expanded(
-                            child: Center(
-                              child: _controlButton(
-                                context,
-                                i,
-                                enabled: !blocked,
+              hid(
+                Row(
+                  children: [
+                    if (landscape) ...[
+                      playButton,
+                      rewind,
+                      forward,
+                      ?volume,
+                      const Spacer(),
+                    ],
+                    for (final i in shownOrdered)
+                      landscape
+                          ? _controlButton(context, i, enabled: !blocked)
+                          : Expanded(
+                              child: Center(
+                                child: _controlButton(
+                                  context,
+                                  i,
+                                  enabled: !blocked,
+                                ),
                               ),
                             ),
-                          ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -1067,7 +1086,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     if (minimal) {
       return Stack(
         children: [
-          PositionedDirectional(top: 0, start: 0, end: 0, child: topBar),
+          PositionedDirectional(top: 0, start: 0, end: 0, child: hid(topBar)),
         ],
       );
     }
@@ -1075,7 +1094,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     if (landscape) {
       return Stack(
         children: [
-          PositionedDirectional(top: 0, start: 0, end: 0, child: topBar),
+          PositionedDirectional(top: 0, start: 0, end: 0, child: hid(topBar)),
           PositionedDirectional(start: 0, end: 0, bottom: 0, child: bottomBar),
         ],
       );
@@ -1090,11 +1109,11 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         rtl: Directionality.of(context) == TextDirection.rtl,
       ),
       children: [
-        LayoutId(id: _PortraitSlot.top, child: topBar),
+        LayoutId(id: _PortraitSlot.top, child: hid(topBar)),
         LayoutId(id: _PortraitSlot.bottom, child: bottomBar),
         LayoutId(
           id: _PortraitSlot.host,
-          child: IgnorePointer(ignoring: blocked, child: hostBar),
+          child: IgnorePointer(ignoring: blocked || hidden, child: hostBar),
         ),
       ],
     );

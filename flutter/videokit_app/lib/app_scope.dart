@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'backend/app_backend.dart';
 import 'history/app_storage.dart';
 import 'history/history_store.dart';
+import 'projects/project_store.dart';
 import 'settings/app_settings.dart';
 
 /// App services for the widget tree: backend, play history, settings.
@@ -14,6 +15,7 @@ class AppScope extends InheritedWidget {
     required this.storage,
     required this.history,
     required this.settings,
+    required this.projects,
     required super.child,
   });
 
@@ -29,6 +31,9 @@ class AppScope extends InheritedWidget {
   /// Settings.
   final SettingsStore settings;
 
+  /// Saved edit projects ("最近工程", M4).
+  final ProjectStore projects;
+
   /// Nearest scope.
   static AppScope of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AppScope>()!;
@@ -37,5 +42,6 @@ class AppScope extends InheritedWidget {
   bool updateShouldNotify(AppScope old) =>
       old.backend != backend ||
       old.history != history ||
-      old.settings != settings;
+      old.settings != settings ||
+      old.projects != projects;
 }

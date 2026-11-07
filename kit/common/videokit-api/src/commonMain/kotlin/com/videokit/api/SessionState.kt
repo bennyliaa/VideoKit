@@ -73,6 +73,8 @@ public data class TrackInfo(
     val codec: String? = null,
     /** Whether the device can decode/render this track. */
     val supported: Boolean = true,
+    /** Audio channels (1 mono, 2 stereo, 6 for 5.1, ...); audio tracks only, `null` when unknown (04A C1). */
+    val channelCount: Int? = null,
 )
 
 /** How content is fitted into the render target. */
@@ -148,6 +150,9 @@ public data class OrientationState(
 public enum class SessionVisibility {
     /** On screen. */
     VISIBLE,
+
+    /** Partly on screen (for example a slot scrolled half out): keeps playing, may lower frame rate or resolution (07 §3). */
+    PARTIALLY_VISIBLE,
 
     /** Not on screen but the host page is in the foreground (for example a scrolled-away slot). */
     OFFSCREEN,

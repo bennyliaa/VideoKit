@@ -401,6 +401,9 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
   String get editScenarioCancelSlow => '取消较慢';
 
   @override
+  String get editScenarioFastConcatRejected => '快速拼接被拒';
+
+  @override
   String get demoVideoSea => '海边.mp4';
 
   @override

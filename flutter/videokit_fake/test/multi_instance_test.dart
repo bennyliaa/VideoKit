@@ -74,22 +74,41 @@ void main() {
     await kit.close();
   });
 
-  test('audio preemption mutes the source and says so', () async {
+  test('K2: audio focus lost for good pauses the source and says so', () async {
     final kit = FakeVideoKit();
     final (a, _) = await _open(kit, 'a');
     final (b, _) = await _open(kit, 'b');
     expect(await a.execute(const SetActiveAudio(true, 1)), const Executed());
+    await a.execute(const Play());
     final notices = <VideoKitEvent>[];
     a.events.listen(notices.add);
     kit.preemptAudio();
-    await Future<void>.delayed(Duration.zero);
-    expect(a.state.value.activeAudio, isFalse);
-    expect(a.state.value.muted, isTrue);
+    await kit.clock.advance(const Duration(milliseconds: 100));
+    expect(a.state.value.phase, SessionPhase.paused);
+    expect(a.state.value.activeAudio, isTrue, reason: 'still the source');
+    expect(a.state.value.muted, isFalse, reason: 'paused, not muted');
     expect(
       notices,
       contains(const TransientNotice(NoticeCodes.audioFocusLost)),
     );
     expect(b.state.value.activeAudio, isFalse, reason: 'untouched');
+    await kit.close();
+  });
+
+  test('K2: a transient focus loss pauses silently and resumes', () async {
+    final kit = FakeVideoKit();
+    final (a, _) = await _open(kit, 'a');
+    await a.execute(const SetActiveAudio(true, 1));
+    await a.execute(const Play());
+    final notices = <VideoKitEvent>[];
+    a.events.listen(notices.add);
+    kit.preemptAudio(transient: true);
+    await kit.clock.advance(const Duration(milliseconds: 100));
+    expect(a.state.value.phase, SessionPhase.paused);
+    expect(notices.whereType<TransientNotice>(), isEmpty, reason: 'no notice');
+    kit.regainAudioFocus();
+    await kit.clock.advance(const Duration(milliseconds: 100));
+    expect(a.state.value.phase, SessionPhase.playing);
     await kit.close();
   });
 

@@ -293,6 +293,11 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   }
 
   @override
+  String trackAudioUnnamed(int index) {
+    return '音轨 $index';
+  }
+
+  @override
   String get stateLoadingTitle => '正在打开…';
 
   @override
@@ -358,7 +363,7 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get noticeResourceDegraded => '设备资源紧张，已降低这路画面的画质';
 
   @override
-  String get noticeAudioFocusLost => '其他应用正在播放声音，已静音';
+  String get noticeAudioFocusLost => '其他应用正在播放，已暂停';
 
   @override
   String get commandUnavailable => '此操作当前不可用';
@@ -618,6 +623,36 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
 
   @override
   String get fastConcatUnavailable => '快速拼接（无重编码）：不可用';
+
+  @override
+  String get concatParamsMatch => '参数一致';
+
+  @override
+  String get concatPathFast => '拼接方式：快速拼接（不重新编码）';
+
+  @override
+  String get concatPathTranscode => '拼接方式：统一转码';
+
+  @override
+  String get concatReasonDevice => '此设备不支持快速拼接';
+
+  @override
+  String get concatReasonEngine => '导出检查未通过快速拼接，已改为统一转码';
+
+  @override
+  String get concatDiffResolution => '分辨率不同';
+
+  @override
+  String get concatDiffFrameRate => '帧率不同';
+
+  @override
+  String get concatDiffCodec => '视频编码不同';
+
+  @override
+  String get concatDiffRotation => '旋转方向不同';
+
+  @override
+  String get concatDiffOther => '有视频无法直接拼接';
 
   @override
   String estimateLine(String duration, String size) {
@@ -1119,6 +1154,12 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
 
   @override
   String get warnCoverage => '打码不完整（已确认导出未覆盖区间）';
+
+  @override
+  String get warnTrackingIncomplete => '有遮罩的跟踪没有完成，部分画面可能没有打码';
+
+  @override
+  String get warnTrackingLost => '有遮罩在跟踪丢失的区间没有处理，这些画面可能没有打码';
 
   @override
   String get warnDemo => '演示模式：未生成真实媒体文件';

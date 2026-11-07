@@ -12,13 +12,51 @@ import com.videokit.api.ResourceUsage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
+/** System resource pressure (07 §2: thermal state and available memory), reported by the platform. */
+public enum class ResourcePressure {
+    /** Normal. */
+    NORMAL,
+
+    /** Elevated (thermal "moderate", memory trim while running): one decoder less, optional work stops. */
+    ELEVATED,
+
+    /** Critical (thermal "severe" or worse, low memory): one decoder, half the image memory, no optional work. */
+    CRITICAL,
+}
+
 /**
- * Basic resource budget (07 §2): reserve before create, per-kind limits, a degradation suggestion instead of
- * retries when a limit is reached. The full estimation (codec performance points, failure history, thermal state)
- * is VK-M3; this version counts leases against limits derived from the capability report.
+ * A [ResourceBudget] that learns from the runtime (07 §2): failed creations lower later limits, system pressure
+ * lowers them for as long as it lasts, and releases the engine could not confirm are reported. The runtime finds it
+ * by type; hosts may still inject any [ResourceBudget].
+ */
+public interface AdaptiveResourceBudget : ResourceBudget {
+    /** Current pressure. */
+    public val pressure: ResourcePressure
+
+    /** Sets the pressure (Android: thermal status and memory trim callbacks, `AndroidResourcePressure`). */
+    public fun setPressure(pressure: ResourcePressure)
+
+    /**
+     * A resource of [kind] could not be created although the reservation was granted (for example the codec reported
+     * insufficient resources): later limits stay at the number held without it (07 §2 "实际创建失败会更新历史").
+     */
+    public fun onCreationFailed(kind: ResourceKind)
+
+    /** The release of [lease] could not be confirmed (engine close failed); it stays listed in the report. */
+    public fun onReleaseUnconfirmed(lease: ResourceLease, sessionId: String)
+}
+
+/**
+ * Default resource budget (07 §2–§3): reserve before create, per-kind limits, a degradation suggestion instead of
+ * retries when a limit is reached.
  *
- * Byte limited kinds (image memory, 06 §6.2) count the `estimate.bytes` of their leases instead of units (a request
- * without a byte estimate counts 0 bytes); their [ResourceUsage] reports KiB.
+ * - Unit limited kinds (video decoders) start from the device suggestion of the capability probe; a failed creation
+ *   lowers the effective limit to what was held when it failed (never below 1); pressure lowers it further while it
+ *   lasts (ELEVATED: −1, CRITICAL: 1).
+ * - Byte limited kinds (image memory, 06 §6.2) count the `estimate.bytes` of their leases (a request without a byte
+ *   estimate counts 0 bytes); CRITICAL pressure halves them. Their [ResourceUsage] reports KiB.
+ * - Lowering a limit never takes back granted leases (07 §3: no forced cancellation of other slots); it applies to
+ *   the next reservations.
  *
  * Host scoped, not a process singleton: each host (window) passes its own instance in `VideoKitConfig`.
  */
@@ -27,57 +65,100 @@ public class DefaultResourceBudget(
     private val limits: Map<ResourceKind, Int> = mapOf(ResourceKind.VIDEO_DECODER to HARD_VIDEO_LIMIT),
     /** Bytes per kind; image memory defaults to [DEFAULT_IMAGE_MEMORY_BYTES]. */
     private val byteLimits: Map<ResourceKind, Long> = mapOf(ResourceKind.IMAGE_MEMORY to DEFAULT_IMAGE_MEMORY_BYTES),
-) : ResourceBudget {
-    private val leases = MutableStateFlow<Map<String, Held>>(emptyMap())
+) : AdaptiveResourceBudget {
+    private val state = MutableStateFlow(State())
     private val ids = AtomicCounter()
 
+    override val pressure: ResourcePressure get() = state.value.pressure
+
     override suspend fun reserve(request: ResourceRequest): ReservationResult {
-        val limit = limits[request.kind]
-        val byteLimit = byteLimits[request.kind]
         val bytes = request.estimate.bytes?.coerceAtLeast(0L) ?: 0L
         val id = "lease-${ids.incrementAndGet()}"
         var granted = false
-        leases.update { current ->
-            val held = current.values.filter { it.kind == request.kind }
+        var reason = ""
+        state.update { current ->
+            val held = current.leases.values.filter { it.kind == request.kind }
+            val limit = current.unitLimit(request.kind)
+            val byteLimit = current.byteLimit(request.kind)
             granted = (limit == null || held.size < limit) && (byteLimit == null || held.sumOf { it.bytes } + bytes <= byteLimit)
-            if (granted) current + (id to Held(request.kind, request.sessionId, bytes)) else current
+            reason = if (byteLimit != null) "${request.kind} limit $byteLimit bytes reached" else "${request.kind} limit $limit reached"
+            if (granted) current.copy(leases = current.leases + (id to Held(request.kind, request.sessionId, bytes))) else current
         }
-        if (!granted) {
-            val what = if (byteLimit != null) "$byteLimit bytes" else "$limit"
-            return ReservationResult.Denied("${request.kind} limit $what reached", suggestionFor(request))
-        }
+        if (!granted) return ReservationResult.Denied(reason, suggestionFor(request))
         return ReservationResult.Granted(Lease(id, request.kind))
     }
 
+    override fun setPressure(pressure: ResourcePressure) {
+        state.update { it.copy(pressure = pressure) }
+    }
+
+    override fun onCreationFailed(kind: ResourceKind) {
+        state.update { current ->
+            val base = limits[kind] ?: return@update current
+            // The failing consumer still holds its lease: the device managed the others.
+            val managed = (current.leases.values.count { it.kind == kind } - 1).coerceAtLeast(1)
+            val learned = minOf(current.learned[kind] ?: base, managed)
+            current.copy(learned = current.learned + (kind to learned))
+        }
+    }
+
+    override fun onReleaseUnconfirmed(lease: ResourceLease, sessionId: String) {
+        state.update { it.copy(unconfirmed = it.unconfirmed + (lease.leaseId to (lease.kind to sessionId))) }
+    }
+
+    /** Effective unit limit of [kind] now (calibration and pressure applied), or `null` when unlimited. */
+    public fun effectiveLimit(kind: ResourceKind): Int? = state.value.unitLimit(kind)
+
     /** Bytes still free for [kind], or `null` when the kind is not byte limited. */
     public fun freeBytes(kind: ResourceKind): Long? {
-        val limit = byteLimits[kind] ?: return null
-        return (limit - leases.value.values.filter { it.kind == kind }.sumOf { it.bytes }).coerceAtLeast(0L)
+        val current = state.value
+        val limit = current.byteLimit(kind) ?: return null
+        return (limit - current.leases.values.filter { it.kind == kind }.sumOf { it.bytes }).coerceAtLeast(0L)
     }
 
     override fun snapshot(): ResourceReport {
-        val current = leases.value
+        val current = state.value
         return ResourceReport(
             ResourceKind.entries.map { kind ->
-                val held = current.values.filter { it.kind == kind }
+                val held = current.leases.values.filter { it.kind == kind }
                 val consumers = held.map { it.sessionId }
                 val units = if (kind in byteLimits) (held.sumOf { it.bytes } / KIB).toInt() else held.size
-                ResourceUsage(kind, units, units, consumers.distinct(), emptyList())
+                val unconfirmed = current.unconfirmed.filterValues { it.first == kind }.keys.toList()
+                ResourceUsage(kind, units, units, consumers.distinct(), unconfirmed)
             },
         )
     }
 
-    private fun suggestionFor(request: ResourceRequest): DegradeSuggestion = when (request.priority) {
+    private fun suggestionFor(request: ResourceRequest): DegradeSuggestion = when {
         // Off-screen and optional consumers should step back first (07 §3).
-        ResourcePriority.OPTIONAL, ResourcePriority.OFFSCREEN -> DegradeSuggestion.SHOW_STATIC_PLACEHOLDER
+        request.priority == ResourcePriority.OPTIONAL || request.priority == ResourcePriority.OFFSCREEN ->
+            DegradeSuggestion.SHOW_STATIC_PLACEHOLDER
 
-        else -> if (request.kind ==
-            ResourceKind.IMAGE_MEMORY
-        ) {
-            DegradeSuggestion.REDUCE_RESOLUTION
-        } else {
-            DegradeSuggestion.REDUCE_ACTIVE_VIDEOS
+        request.kind == ResourceKind.IMAGE_MEMORY -> DegradeSuggestion.REDUCE_RESOLUTION
+
+        else -> DegradeSuggestion.REDUCE_ACTIVE_VIDEOS
+    }
+
+    private data class State(
+        val leases: Map<String, Held> = emptyMap(),
+        val learned: Map<ResourceKind, Int> = emptyMap(),
+        val pressure: ResourcePressure = ResourcePressure.NORMAL,
+        val unconfirmed: Map<String, Pair<ResourceKind, String>> = emptyMap(),
+    )
+
+    private fun State.unitLimit(kind: ResourceKind): Int? {
+        val base = limits[kind] ?: return null
+        val calibrated = minOf(base, learned[kind] ?: base)
+        return when (pressure) {
+            ResourcePressure.NORMAL -> calibrated
+            ResourcePressure.ELEVATED -> (calibrated - 1).coerceAtLeast(1)
+            ResourcePressure.CRITICAL -> 1
         }
+    }
+
+    private fun State.byteLimit(kind: ResourceKind): Long? {
+        val base = byteLimits[kind] ?: return null
+        return if (pressure == ResourcePressure.CRITICAL) base / 2 else base
     }
 
     private class Held(val kind: ResourceKind, val sessionId: String, val bytes: Long)
@@ -86,7 +167,7 @@ public class DefaultResourceBudget(
         private val closed = AtomicFlag()
 
         override fun close() {
-            if (closed.setOnce()) leases.update { it - leaseId }
+            if (closed.setOnce()) state.update { it.copy(leases = it.leases - leaseId) }
         }
     }
 

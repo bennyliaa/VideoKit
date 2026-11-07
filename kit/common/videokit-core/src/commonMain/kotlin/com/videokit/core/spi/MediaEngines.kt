@@ -210,4 +210,33 @@ public interface IsolatedTask : AutoCloseable {
 
     /** Whether the environment is alive. */
     public val alive: StateFlow<Boolean>
+
+    /** Generation of the worker (07 §5.2): replies of other generations are refused. */
+    public val generation: Int
+
+    /**
+     * Runs [operation] in the worker with [payload] and returns its reply. Reads of [source] are served from this
+     * process through the bounded read channel of the protocol (the worker has no file access, 07 §5.2). Throws
+     * [SpiException]: the worker's stable error, or INTERNAL_ERROR_REDACTED when the worker died, stopped answering
+     * or sent an invalid message; the task is then failed for good (no replay).
+     */
+    public suspend fun call(operation: String, payload: ByteArray = ByteArray(0), source: VideoKitMediaSource? = null): ByteArray
+
+    /** Injects [fault] into the worker (fault injection of 07 §5.2; diagnostics and device verification only). */
+    public suspend fun injectFault(fault: IsolationFault)
+}
+
+/** Faults that can be injected into an isolated worker (07 §5.2: crash, out of memory, hang, bad message). */
+public enum class IsolationFault {
+    /** The worker process crashes. */
+    CRASH,
+
+    /** The worker runs out of memory. */
+    OUT_OF_MEMORY,
+
+    /** The worker stops answering. */
+    HANG,
+
+    /** The worker sends a malformed reply (wrong version, stale generation, oversize). */
+    BAD_MESSAGE,
 }

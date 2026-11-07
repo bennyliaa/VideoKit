@@ -12,6 +12,7 @@ import com.videokit.api.MediaOrientation
 import com.videokit.api.NavigationDirection
 import com.videokit.api.NavigationRequest
 import com.videokit.api.NavigationResult
+import com.videokit.api.NoticeCodes
 import com.videokit.api.RecoveryDecision
 import com.videokit.api.ReservationResult
 import com.videokit.api.ResourceEstimate
@@ -37,11 +38,14 @@ import com.videokit.api.VideoKitSessionState
 import com.videokit.api.VideoKitStableError
 import com.videokit.api.VideoKitSurfaceTarget
 import com.videokit.core.SessionContext
+import com.videokit.core.runtime.AdaptiveResourceBudget
 import com.videokit.core.runtime.AtomicValue
 import com.videokit.core.runtime.CallbackOutcome
 import com.videokit.core.runtime.HostInteractions
+import com.videokit.core.runtime.ResourcePressure
 import com.videokit.core.runtime.SourceUses
 import com.videokit.core.runtime.StableErrors
+import com.videokit.core.runtime.VisibilityPolicy
 import com.videokit.core.runtime.typeName
 import com.videokit.core.spi.EngineState
 import com.videokit.core.spi.EngineStatus
@@ -64,6 +68,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -95,6 +100,10 @@ import kotlin.concurrent.Volatile
  * Without an image engine an image bind answers `Unsupported(NOT_IMPLEMENTED)`.
  *
  * Host actions, navigation and the controls visibility follow the shared rules of [HostInteractions] (05 §5–§6).
+ *
+ * Multi-instance (07): decoders are reserved before they are created and a denial is never retried on its own; the
+ * visibility policy ([VisibilityPolicy]) pauses hidden sessions, later releases their decoder while they stay bound,
+ * and reopens it at the kept state; failed creations calibrate an [AdaptiveResourceBudget].
  */
 public class PlaybackSession internal constructor(context: SessionContext) : VideoKitSession {
     override val sessionId: String = context.sessionId
@@ -124,6 +133,16 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
     private var seekGeneration = 0L
     private var pendingSeek: CompletableDeferred<VideoKitCommandResult>? = null
     private var retriesLeft = MAX_RETRIES
+
+    /** The decoder was released by the visibility policy; the media stays bound ([VisibilityPolicy]). */
+    private var suspended = false
+
+    /** The visibility policy paused playback; returning to VISIBLE resumes it. */
+    private var resumeOnVisible = false
+    private var visibilityJob: Job? = null
+
+    /** Audio focus losses of the engine already reported. */
+    private var seenFocusLosses = 0
     private val sourceUses = SourceUses(scope)
     private val host = HostInteractions(
         sessionId = sessionId,
@@ -211,41 +230,7 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
             )
         }
         try {
-            if (src.mediaKind.isImage) {
-                val images = engines.images ?: return failLocked(StableErrors.illegalState(ErrorStage.BIND, "NO_IMAGE_ENGINE"))
-                val opened = withTimeout(runtime.options.sourceTimeoutMs) {
-                    val looping = initial?.looping ?: true
-                    ImageController.open(images, src, runtime.budget, sessionId, priority, ImageOpenOptions(looping), scope).also {
-                        handle = it
-                        lease = it.lease
-                        it.renderNow()
-                    }
-                }
-                mutableState.update { it.copy(resourcesHeld = true, mediaKind = ImageRules.kindOf(src.mediaKind, opened.info)) }
-                becomeReadyLocked(opened, initial)
-                return VideoKitCommandResult.Executed
-            }
-            val request = ResourceRequest(sessionId, ResourceKind.VIDEO_DECODER, ResourceEstimate(), priority)
-            when (val reservation = runtime.budget.reserve(request)) {
-                is ReservationResult.Granted -> lease = reservation.lease
-
-                is ReservationResult.Denied -> return failLocked(
-                    StableErrors.of(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorStage.BIND, "BUDGET:${reservation.suggestion}"),
-                )
-            }
-            val current = mutableState.value
-            val opened = withTimeout(runtime.options.sourceTimeoutMs) {
-                engines.playback.open(
-                    src,
-                    PlaybackOpenOptions(
-                        audioEnabled = PlaybackRules.audioEnabled(current),
-                        handleAudioFocus = PlaybackRules.audioEnabled(current),
-                        startPositionUs = initial?.positionUs?.coerceAtLeast(0L) ?: 0L,
-                    ),
-                )
-            }
-            handle = opened
-            mutableState.update { it.copy(resourcesHeld = true) }
+            val opened = openEngineLocked(src, initial)
             becomeReadyLocked(opened, initial)
             return VideoKitCommandResult.Executed
         } catch (timeout: TimeoutCancellationException) {
@@ -268,6 +253,125 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         } catch (failure: Exception) {
             return failLocked(StableErrors.fromSourceFailure(failure, ErrorStage.BIND))
         }
+    }
+
+    /**
+     * Reserves before it creates (07 §1) and opens the engine for [src]: bind, and resume after a visibility release.
+     * Sets [handle] and [lease]. Throws [SpiException] (a denied reservation is DECODER_RESOURCE_EXHAUSTED, nothing
+     * is created and nothing retries); a creation failure of the decoder calibrates an adaptive budget (07 §2). A
+     * reservation whose open failed is returned before the exception propagates.
+     */
+    private suspend fun openEngineLocked(src: VideoKitMediaSource, initial: VideoKitPlaybackState?): PlaybackHandle {
+        if (src.mediaKind.isImage) {
+            val images = engines.images ?: throw SpiException(StableErrors.illegalState(ErrorStage.BIND, "NO_IMAGE_ENGINE"))
+            val opened = withTimeout(runtime.options.sourceTimeoutMs) {
+                val looping = initial?.looping ?: true
+                ImageController.open(images, src, runtime.budget, sessionId, priority, ImageOpenOptions(looping), scope).also {
+                    handle = it
+                    lease = it.lease
+                    it.renderNow()
+                }
+            }
+            mutableState.update { it.copy(resourcesHeld = true, mediaKind = ImageRules.kindOf(src.mediaKind, opened.info)) }
+            return opened
+        }
+        val request = ResourceRequest(sessionId, ResourceKind.VIDEO_DECODER, ResourceEstimate(), priority)
+        when (val reservation = runtime.budget.reserve(request)) {
+            is ReservationResult.Granted -> lease = reservation.lease
+
+            is ReservationResult.Denied -> throw SpiException(
+                StableErrors.of(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorStage.BIND, "BUDGET:${reservation.suggestion}"),
+            )
+        }
+        val current = mutableState.value
+        val opened = try {
+            withTimeout(runtime.options.sourceTimeoutMs) {
+                engines.playback.open(
+                    src,
+                    PlaybackOpenOptions(
+                        audioEnabled = PlaybackRules.audioEnabled(current),
+                        handleAudioFocus = PlaybackRules.audioEnabled(current),
+                        startPositionUs = initial?.positionUs?.coerceAtLeast(0L) ?: 0L,
+                    ),
+                )
+            }
+        } catch (failure: Throwable) {
+            if (failure is SpiException && failure.error.code in CREATION_FAILURES) {
+                (runtime.budget as? AdaptiveResourceBudget)?.onCreationFailed(ResourceKind.VIDEO_DECODER)
+            }
+            runCatching { lease?.close() }
+            lease = null
+            throw failure
+        }
+        handle = opened
+        mutableState.update { it.copy(resourcesHeld = true) }
+        return opened
+    }
+
+    // ---------------------------------------------------------------- visibility policy (07 §5.3)
+
+    /** Releases the decoder of a bound, paused session but keeps it bound ([VisibilityPolicy]). */
+    private suspend fun suspendEngineLocked() {
+        val opened = handle ?: return
+        if (mutableState.value.phase !in SUSPENDABLE_PHASES) return
+        engineJob?.cancel()
+        engineJob = null
+        handle = null
+        pendingSeek?.complete(VideoKitCommandResult.Superseded)
+        pendingSeek = null
+        val confirmed = withContext(NonCancellable + engines.scheduler.io) { runCatching { opened.close() }.isSuccess }
+        lease?.let { held ->
+            if (!confirmed) (runtime.budget as? AdaptiveResourceBudget)?.onReleaseUnconfirmed(held, sessionId)
+            runCatching { held.close() }
+        }
+        lease = null
+        suspended = true
+        mutableState.update { it.copy(resourcesHeld = !confirmed, seekingToUs = null) }
+    }
+
+    /**
+     * Reopens the decoder of a suspended session at its kept state; `false` (with a recoverable error event and the
+     * session still suspended) when the reservation or the open fails. Never retries on its own.
+     */
+    private suspend fun resumeEngineLocked(): Boolean {
+        if (!suspended) return true
+        val src = source ?: return false
+        val phase = mutableState.value.phase
+        val restore = snapshotLocked()
+        return try {
+            val opened = openEngineLocked(src, restore)
+            suspended = false
+            becomeReadyLocked(opened, restore)
+            if (phase != SessionPhase.READY) {
+                mutableState.update { it.copy(phase = phase) }
+                notifyPlayState()
+            }
+            true
+        } catch (cancelled: CancellationException) {
+            if (cancelled is TimeoutCancellationException) {
+                resumeFailed(StableErrors.fromSourceFailure(cancelled, ErrorStage.BIND))
+                false
+            } else {
+                throw cancelled
+            }
+        } catch (failure: SpiException) {
+            resumeFailed(failure.error)
+            false
+        } catch (failure: Exception) {
+            resumeFailed(StableErrors.fromSourceFailure(failure, ErrorStage.BIND))
+            false
+        }
+    }
+
+    private fun resumeFailed(error: VideoKitStableError) {
+        handle?.let { runCatching { it.close() } }
+        handle = null
+        runCatching { lease?.close() }
+        lease = null
+        mutableState.update { it.copy(resourcesHeld = false) }
+        mutableEvents.tryEmit(VideoKitEvent.ErrorRaised(error))
+        // 07 §3: the host learns that the slot stays degraded (04A K1).
+        mutableEvents.tryEmit(VideoKitEvent.TransientNotice(NoticeCodes.RESOURCE_DEGRADED))
     }
 
     private suspend fun becomeReadyLocked(opened: PlaybackHandle, initial: VideoKitPlaybackState?) {
@@ -310,6 +414,7 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
             mutableEvents.tryEmit(VideoKitEvent.TransientNotice(NOTICE_AUDIO_UNSUPPORTED))
         }
         target?.let { if (!state.hiddenForLock) opened.attach(it) }
+        seenFocusLosses = opened.state.value.audioFocusLosses
         engineJob = scope.launch { opened.state.collect { engineState -> mutex.withLock { onEngineStateLocked(opened, engineState) } } }
         notifyPlayState()
     }
@@ -360,6 +465,10 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
     private suspend fun releaseSourceLocked() {
         val src = source ?: return
         source = null
+        visibilityJob?.cancel()
+        visibilityJob = null
+        suspended = false
+        resumeOnVisible = false
         engineJob?.cancel()
         engineJob = null
         val opened = handle
@@ -387,6 +496,16 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         if (engine.status == EngineStatus.FAILED) {
             failLocked(engine.error ?: StableErrors.of(ErrorCode.INTERNAL_ERROR_REDACTED, ErrorStage.PLAYBACK, "ENGINE_FAILED"))
             return
+        }
+        if (engine.audioFocusLosses > seenFocusLosses) {
+            // 07 §4: another app took the audio focus for good; the engine paused. Pause and tell the UI (04A K1).
+            seenFocusLosses = engine.audioFocusLosses
+            if (current.phase == SessionPhase.PLAYING || current.phase == SessionPhase.BUFFERING) {
+                bufferingSinceUs = null
+                mutableState.update { it.copy(phase = SessionPhase.PAUSED, playWhenReady = false) }
+                notifyPlayState()
+            }
+            mutableEvents.tryEmit(VideoKitEvent.TransientNotice(NoticeCodes.AUDIO_FOCUS_LOST))
         }
         val advanced = engine.positionUs - current.positionUs
         mutableState.update {
@@ -548,6 +667,12 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         if (current.mediaKind == MediaKind.IMAGE_STATIC || current.mediaKind == MediaKind.IMAGE_UNKNOWN) {
             return VideoKitCommandResult.Unsupported(UnsupportedReason.MEDIA_KIND)
         }
+        // A decoder released by the visibility policy is reopened first (one attempt, no retry loop).
+        if (suspended && !resumeEngineLocked()) {
+            return VideoKitCommandResult.Rejected(
+                StableErrors.of(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorStage.PLAYBACK, "RESUME_DENIED"),
+            )
+        }
         val opened = handle
         when (current.phase) {
             SessionPhase.PLAYING, SessionPhase.BUFFERING -> mutableState.update { it.copy(playWhenReady = true) }
@@ -592,8 +717,8 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         return VideoKitCommandResult.Executed
     }
 
-    private fun setVisibility(current: VideoKitSessionState, visibility: SessionVisibility): VideoKitCommandResult {
-        // M1: visibility is reported and counted (watch time); decoder release for off-screen slots is VK-M3 (07 §5.3).
+    /** Visibility policy of 07 §5.3 ([VisibilityPolicy]): pause when hidden, release the decoder later, resume. */
+    private suspend fun setVisibility(current: VideoKitSessionState, visibility: SessionVisibility): VideoKitCommandResult {
         if (current.visibility == visibility) return VideoKitCommandResult.Executed
         mutableState.update { it.copy(visibility = visibility) }
         callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.VisibilityChanged(sessionId, visibility)) }
@@ -602,6 +727,33 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         if (wasForeground != isForeground) {
             callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.ForegroundChanged(sessionId, isForeground)) }
         }
+        visibilityJob?.cancel()
+        visibilityJob = null
+        if (VisibilityPolicy.pauses(visibility)) {
+            if (current.phase == SessionPhase.PLAYING || current.phase == SessionPhase.BUFFERING) {
+                handle?.pause()
+                resumeOnVisible = true
+                mutableState.update { it.copy(phase = SessionPhase.PAUSED, playWhenReady = false) }
+                notifyPlayState()
+            }
+            val options = runtime.options
+            val delayMs = VisibilityPolicy.releaseDelayMs(visibility, options.offscreenReleaseMs, options.backgroundReleaseMs)
+            if (delayMs != null && handle != null) {
+                visibilityJob = scope.launch {
+                    delay(delayMs)
+                    mutex.withLock {
+                        if (!released && VisibilityPolicy.pauses(mutableState.value.visibility)) suspendEngineLocked()
+                    }
+                }
+            }
+            return VideoKitCommandResult.Executed
+        }
+        val resumed = resumeEngineLocked()
+        if (resumeOnVisible && resumed) {
+            resumeOnVisible = false
+            return play(mutableState.value)
+        }
+        resumeOnVisible = false
         return VideoKitCommandResult.Executed
     }
 
@@ -670,6 +822,14 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
                 return VideoKitCommandResult.Unsupported(UnsupportedReason.SOURCE_SEQUENTIAL_ONLY)
             }
             if (command.positionUs < 0) return rejectedArgument("POSITION")
+            if (suspended) {
+                // The decoder is released (visibility policy): keep the position, the reopen seeks there.
+                val from = current.positionUs
+                val kept = command.positionUs.coerceAtMost(current.durationUs ?: command.positionUs)
+                mutableState.update { it.copy(positionUs = kept) }
+                callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.UserSeek(sessionId, from, kept)) }
+                return VideoKitCommandResult.Executed
+            }
             opened = handle ?: return rejected(ErrorStage.PLAYBACK, "SEEK_WITHOUT_ENGINE")
             target = command.positionUs.coerceAtMost(current.durationUs ?: command.positionUs)
             pendingSeek?.complete(VideoKitCommandResult.Superseded)
@@ -745,6 +905,10 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         }
         val (bound, durationUs, image) = mutex.withLock { Triple(source, mutableState.value.durationUs, handle as? ImageController) }
         val media = bound ?: return ThumbnailResult.Failed(StableErrors.illegalState(ErrorStage.PLAYBACK, "THUMBNAIL_WITHOUT_MEDIA"))
+        // 07 §3: under critical pressure optional work (thumbnails) stops first.
+        if ((runtime.budget as? AdaptiveResourceBudget)?.pressure == ResourcePressure.CRITICAL) {
+            return ThumbnailResult.Failed(StableErrors.of(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorStage.PLAYBACK, "THUMBNAIL_PRESSURE"))
+        }
         val frames = engines.frames
         if (if (media.mediaKind.isImage) image == null else frames == null) {
             return ThumbnailResult.Failed(StableErrors.of(ErrorCode.INVALID_STATE, ErrorStage.PLAYBACK, "THUMBNAILS_NOT_AVAILABLE"))
@@ -858,8 +1022,14 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
 
     private companion object {
         const val MAX_RETRIES = 1
-        const val NOTICE_AUDIO_UNSUPPORTED = "AUDIO_UNSUPPORTED_PLAYING_SILENT"
-        const val NOTICE_IMAGE_DEGRADED = "IMAGE_MEMORY_REDUCED_QUALITY"
+        const val NOTICE_AUDIO_UNSUPPORTED = NoticeCodes.AUDIO_UNSUPPORTED_PLAYING_SILENT
+        const val NOTICE_IMAGE_DEGRADED = NoticeCodes.IMAGE_MEMORY_REDUCED_QUALITY
+
+        /** Engine open failures that mean the device could not create the decoder (budget calibration, 07 §2). */
+        val CREATION_FAILURES = setOf(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorCode.DECODER_UNAVAILABLE)
+
+        /** Phases in which the visibility policy may release the decoder. */
+        val SUSPENDABLE_PHASES = setOf(SessionPhase.READY, SessionPhase.PAUSED, SessionPhase.ENDED)
 
         fun commandName(command: VideoKitCommand): String = command.typeName().uppercase()
     }

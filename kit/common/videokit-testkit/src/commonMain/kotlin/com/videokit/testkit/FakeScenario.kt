@@ -115,15 +115,15 @@ public data class FakeScenario(
 
     public companion object {
         /** Warning attached to every Fake export result. */
-        public const val DEMO_OUTPUT_WARNING: String = "DEMO_OUTPUT_NOT_REAL_MEDIA"
+        public const val DEMO_OUTPUT_WARNING: String = com.videokit.api.ExportWarnings.DEMO_OUTPUT_NOT_REAL_MEDIA
 
         /** Prefix of media tokens that select a named scenario, for example `demo:buffering`. */
         public const val DEMO_TOKEN_PREFIX: String = "demo:"
 
         /** Default audio tracks. No labels: the Kit outputs no display text; the UI names tracks from the language code (13 §3.1). */
         public val DEFAULT_AUDIO_TRACKS: List<TrackInfo> = listOf(
-            TrackInfo(id = "a1", language = "zh", codec = "audio/mp4a-latm"),
-            TrackInfo(id = "a2", language = "en", codec = "audio/ac3"),
+            TrackInfo(id = "a1", language = "zh", codec = "audio/mp4a-latm", channelCount = 2),
+            TrackInfo(id = "a2", language = "en", codec = "audio/ac3", channelCount = 6),
         )
 
         /** Default subtitle tracks. */

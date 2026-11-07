@@ -39,6 +39,9 @@ class ImagePageState extends State<ImagePage> {
   EntryHost? _host;
   int _generation = 0;
 
+  /// Opening did not finish (R2-03): error with "重试".
+  bool openFailed = false;
+
   /// Image records the viewer pages through, in the home list's order.
   List<HistoryEntry> get pages => [
     for (final e in _scope.history.entries)
@@ -94,12 +97,35 @@ class ImagePageState extends State<ImagePage> {
     final restore = entry.kind == MediaKind.imageAnimated
         ? entry.playbackState?.copyWith(positionUs: 0)
         : null;
-    final r = await s.bind(
-      _scope.backend.sourceFor(entry),
-      initialState: restore,
-      hostActions: EntryHost.actionsFor(_scope, entry),
-    );
-    if (!mounted || generation != _generation) return;
+    void watch() {
+      if (s.state.value.phase.isReleasingOrReleased &&
+          !_closing &&
+          mounted &&
+          generation == _generation) {
+        setState(() => openFailed = true);
+      }
+    }
+
+    s.state.addListener(watch);
+    final r = await s
+        .bind(
+          _scope.backend.sourceFor(entry),
+          initialState: restore,
+          hostActions: EntryHost.actionsFor(_scope, entry),
+        )
+        .then<VideoKitCommandResult?>((r) => r)
+        .timeout(PlayerPage.defaultOpenTimeout, onTimeout: () => null);
+    s.state.removeListener(watch);
+    if (!mounted || generation != _generation || _closing || openFailed) {
+      return;
+    }
+    // R2-03: never left on "正在打开".
+    if (r == null ||
+        r is SessionReleased ||
+        s.state.value.phase.isReleasingOrReleased) {
+      setState(() => openFailed = true);
+      return;
+    }
     if (r is Rejected && isAccessError(r.error.code)) {
       await _scope.history.markUnavailable(entry.id);
       return;
@@ -146,16 +172,34 @@ class ImagePageState extends State<ImagePage> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
-        if (!didPop) unawaited(close());
+        // R2-01: with a panel open the back press only closes the panel.
+        final viewer = s == null
+            ? null
+            : GlobalObjectKey<VideoKitImageViewerState>(s).currentState;
+        if (didPop || (viewer?.hasOpenPanel ?? false)) return;
+        unawaited(close());
       },
       child: Scaffold(
         backgroundColor: t.colors.playerCanvas,
-        body: s == null
+        body: openFailed
+            ? SafeArea(
+                child: openFailedView(
+                  context,
+                  onRetry: () async {
+                    setState(() => openFailed = false);
+                    _unregister();
+                    final old = session;
+                    if (old != null) unawaited(old.close());
+                    await _open(current);
+                  },
+                ),
+              )
+            : s == null
             ? VideoKitStateView(
                 model: mapSessionState(phase: SessionPhase.created)!,
               )
             : VideoKitImageViewer(
-                key: ObjectKey(s),
+                key: GlobalObjectKey<VideoKitImageViewerState>(s),
                 session: s,
                 title: current.displayName,
                 source: _scope.backend.sourceFor(current),

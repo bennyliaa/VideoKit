@@ -56,8 +56,7 @@ internal class AndroidCapabilityProbe(@Suppress("unused") private val context: C
                 }
             }
         }
-        val hardwareAvc = video.filter { it.mimeType == AVC && it.hardwareAccelerated }
-        val suggested = hardwareAvc.mapNotNull { it.maxInstances }.maxOrNull()?.coerceIn(1, HARD_SESSION_LIMIT) ?: DEFAULT_SESSIONS
+        val suggested = suggestedVideoSessions()
         val maxSize =
             video.filter { it.hardwareAccelerated }.mapNotNull { it.maxSize }.maxByOrNull { it.width.toLong() * it.height }
                 ?: Size(1920, 1080)
@@ -77,6 +76,20 @@ internal class AndroidCapabilityProbe(@Suppress("unused") private val context: C
             // ImageDecoder covers JPG, PNG, WebP, HEIF, AVIF, BMP and animations from API 31 (15 §2.3).
             imageFeatures = ImageFeatures(staticImages = true, animatedImages = true, largeImageTiling = true),
         )
+    }
+
+    /**
+     * Suggested concurrent hardware video sessions (07 §2, 15 §2.7): 1080p30 AVC streams the hardware decoders
+     * cover by their performance points, capped by the declared instance count; the declared count alone when the
+     * codec publishes no performance points. A hint only: [com.videokit.core.runtime.DefaultResourceBudget] lowers it
+     * after failed creations, and S5 calibrates the estimate on devices.
+     */
+    fun suggestedVideoSessions(): Int {
+        val estimates = decoders.filter { it.isHardwareAccelerated && AVC in it.supportedTypes }.mapNotNull { codec ->
+            val caps = runCatching { codec.getCapabilitiesForType(AVC) }.getOrNull() ?: return@mapNotNull null
+            DecoderCapacity.streams1080p30(caps.videoCapabilities?.supportedPerformancePoints, caps.maxSupportedInstances)
+        }
+        return estimates.maxOrNull()?.coerceIn(1, HARD_SESSION_LIMIT) ?: DEFAULT_SESSIONS
     }
 
     override suspend fun media(source: VideoKitMediaSource): MediaProbeResult {

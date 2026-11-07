@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "resource-budget",
+  "description": "Decisions of the default resource budget (07 §2–§3, 15 §2.7): reserve before create, unit limits for video decoders, byte limits for image memory, degradation suggestions, calibration after a failed creation, pressure, and an empty report after releasing everything. Each case starts a new budget with 'videoDecoders' units and 'imageMemoryBytes' bytes, then runs the steps in order. Steps: 'reserve' (fields 'id' naming the lease, 'kind' VIDEO_DECODER | IMAGE_MEMORY, 'session', optional 'bytes' and 'priority' VISIBLE_AUDIBLE | VISIBLE | OFFSCREEN | OPTIONAL, default VISIBLE) with expectation 'granted' (true/false) and, when denied, 'suggestion'; 'release' (field 'id'); 'creationFailed' (field 'kind'); 'pressure' (field 'level' NORMAL | ELEVATED | CRITICAL). Any step may carry 'expectHeld' (map kind → held units; image memory in KiB) and 'expectLimit' (effective video decoder limit).",
+  "cases": [
+    {
+      "id": "video.limit_and_suggestions",
+      "videoDecoders": 2,
+      "imageMemoryBytes": 1048576,
+      "steps": [
+        { "op": "reserve", "id": "a", "kind": "VIDEO_DECODER", "session": "s1", "granted": true },
+        { "op": "reserve", "id": "b", "kind": "VIDEO_DECODER", "session": "s2", "granted": true },
+        { "op": "reserve", "id": "c", "kind": "VIDEO_DECODER", "session": "s3", "granted": false, "suggestion": "REDUCE_ACTIVE_VIDEOS" },
+        { "op": "reserve", "id": "d", "kind": "VIDEO_DECODER", "session": "s4", "priority": "OFFSCREEN", "granted": false, "suggestion": "SHOW_STATIC_PLACEHOLDER" },
+        { "op": "release", "id": "a", "expectHeld": { "VIDEO_DECODER": 1 } },
+        { "op": "reserve", "id": "c", "kind": "VIDEO_DECODER", "session": "s3", "granted": true, "expectHeld": { "VIDEO_DECODER": 2 } }
+      ]
+    },
+    {
+      "id": "video.release_twice_is_harmless",
+      "videoDecoders": 1,
+      "imageMemoryBytes": 1048576,
+      "steps": [
+        { "op": "reserve", "id": "a", "kind": "VIDEO_DECODER", "session": "s1", "granted": true },
+        { "op": "release", "id": "a" },
+        { "op": "release", "id": "a", "expectHeld": { "VIDEO_DECODER": 0 } },
+        { "op": "reserve", "id": "b", "kind": "VIDEO_DECODER", "session": "s2", "granted": true }
+      ]
+    },
+    {
+      "id": "image.bytes_and_resolution_suggestion",
+      "videoDecoders": 4,
+      "imageMemoryBytes": 10240,
+      "steps": [
+        { "op": "reserve", "id": "a", "kind": "IMAGE_MEMORY", "session": "s1", "bytes": 6144, "granted": true },
+        { "op": "reserve", "id": "b", "kind": "IMAGE_MEMORY", "session": "s2", "bytes": 6144, "granted": false, "suggestion": "REDUCE_RESOLUTION" },
+        { "op": "reserve", "id": "b", "kind": "IMAGE_MEMORY", "session": "s2", "bytes": 4096, "granted": true, "expectHeld": { "IMAGE_MEMORY": 10, "VIDEO_DECODER": 0 } },
+        { "op": "reserve", "id": "v", "kind": "VIDEO_DECODER", "session": "s3", "granted": true, "expectHeld": { "VIDEO_DECODER": 1 } }
+      ]
+    },
+    {
+      "id": "calibration.failed_creation_lowers_the_limit",
+      "videoDecoders": 6,
+      "imageMemoryBytes": 1048576,
+      "steps": [
+        { "op": "reserve", "id": "a", "kind": "VIDEO_DECODER", "session": "s1", "granted": true },
+        { "op": "reserve", "id": "b", "kind": "VIDEO_DECODER", "session": "s2", "granted": true },
+        { "op": "reserve", "id": "c", "kind": "VIDEO_DECODER", "session": "s3", "granted": true },
+        { "op": "creationFailed", "kind": "VIDEO_DECODER", "expectLimit": 2 },
+        { "op": "release", "id": "c" },
+        { "op": "reserve", "id": "c", "kind": "VIDEO_DECODER", "session": "s3", "granted": false, "suggestion": "REDUCE_ACTIVE_VIDEOS" },
+        { "op": "release", "id": "a" },
+        { "op": "release", "id": "b" },
+        { "op": "creationFailed", "kind": "VIDEO_DECODER", "expectLimit": 1 }
+      ]
+    },
+    {
+      "id": "pressure.lowers_limits_while_it_lasts",
+      "videoDecoders": 4,
+      "imageMemoryBytes": 8192,
+      "steps": [
+        { "op": "pressure", "level": "ELEVATED", "expectLimit": 3 },
+        { "op": "pressure", "level": "CRITICAL", "expectLimit": 1 },
+        { "op": "reserve", "id": "a", "kind": "VIDEO_DECODER", "session": "s1", "granted": true },
+        { "op": "reserve", "id": "b", "kind": "VIDEO_DECODER", "session": "s2", "granted": false, "suggestion": "REDUCE_ACTIVE_VIDEOS" },
+        { "op": "reserve", "id": "i", "kind": "IMAGE_MEMORY", "session": "s3", "bytes": 6144, "granted": false, "suggestion": "REDUCE_RESOLUTION" },
+        { "op": "reserve", "id": "i", "kind": "IMAGE_MEMORY", "session": "s3", "bytes": 4096, "granted": true },
+        { "op": "pressure", "level": "NORMAL", "expectLimit": 4 },
+        { "op": "reserve", "id": "b", "kind": "VIDEO_DECODER", "session": "s2", "granted": true, "expectHeld": { "VIDEO_DECODER": 2, "IMAGE_MEMORY": 4 } }
+      ]
+    },
+    {
+      "id": "report.returns_to_zero",
+      "videoDecoders": 12,
+      "imageMemoryBytes": 1048576,
+      "steps": [
+        { "op": "reserve", "id": "v1", "kind": "VIDEO_DECODER", "session": "s1", "granted": true },
+        { "op": "reserve", "id": "v2", "kind": "VIDEO_DECODER", "session": "s2", "granted": true },
+        { "op": "reserve", "id": "i1", "kind": "IMAGE_MEMORY", "session": "s3", "bytes": 4096, "granted": true },
+        { "op": "release", "id": "v1" },
+        { "op": "release", "id": "v2" },
+        { "op": "release", "id": "i1", "expectHeld": { "VIDEO_DECODER": 0, "IMAGE_MEMORY": 0 } }
+      ]
+    }
+  ]
+}

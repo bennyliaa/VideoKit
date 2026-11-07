@@ -360,7 +360,7 @@ void m2NoticeTests() {
       s.notice(NoticeCodes.audioUnsupportedPlayingSilent),
       '无法播放此音轨，正在静音播放',
     );
-    expect(s.notice(NoticeCodes.audioFocusLost), '其他应用正在播放声音，已静音');
+    expect(s.notice(NoticeCodes.audioFocusLost), '其他应用正在播放，已暂停');
     expect(
       s.notice(NoticeCodes.resourceDegraded),
       '设备资源紧张，已降低这路画面的画质',

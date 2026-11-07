@@ -125,6 +125,10 @@ class VideoKitImageViewer extends StatefulWidget {
 
 /// State of [VideoKitImageViewer]; host handle through a `GlobalKey`.
 class VideoKitImageViewerState extends State<VideoKitImageViewer> {
+  /// Whether a panel (图片信息, more …) is open; see
+  /// `VideoKitPlayerState.hasOpenPanel` (TEST-R2 R2-01).
+  bool get hasOpenPanel => _c.sheets.hasPanel;
+
   late PlayerController _c;
   final FocusNode _focus = FocusNode(debugLabel: 'VideoKitImageViewer');
   MediaTransform? _gestureStart;

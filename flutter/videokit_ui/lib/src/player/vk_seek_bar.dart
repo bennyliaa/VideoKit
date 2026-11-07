@@ -26,6 +26,7 @@ class VkSeekBar extends StatefulWidget {
     this.stepUs = 10000000,
     this.onPicture = true,
     this.previewFrame,
+    this.onTapInstead,
   });
 
   /// Position (µs) to show when not dragging.
@@ -56,6 +57,11 @@ class VkSeekBar extends StatefulWidget {
   /// Preview frame shown above the time bubble while dragging (the player
   /// passes throttled `captureThumbnail` frames); decorative.
   final Widget? previewFrame;
+
+  /// When set, a tap calls this instead of seeking (the player uses it while
+  /// its controls are hidden: the tap shows them, TEST-R2 R2-05). Drags
+  /// still seek.
+  final VoidCallback? onTapInstead;
 
   @override
   State<VkSeekBar> createState() => _VkSeekBarState();
@@ -139,7 +145,9 @@ class _VkSeekBarState extends State<VkSeekBar> {
                     : null,
                 onHorizontalDragEnd: _enabled ? (_) => _end() : null,
                 onHorizontalDragCancel: _enabled ? _end : null,
-                onTapUp: _enabled
+                onTapUp: widget.onTapInstead != null
+                    ? (_) => widget.onTapInstead!()
+                    : _enabled
                     ? (d) => widget.onDragEnd!(_atX(d.localPosition.dx, width))
                     : null,
                 child: SizedBox(

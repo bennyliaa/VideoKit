@@ -8,6 +8,7 @@ import '../history/history_entry.dart';
 import '../history/history_store.dart';
 import '../l10n/app_text.dart';
 import '../pages/launcher.dart';
+import '../projects/recent_projects_page.dart';
 import '../settings/app_settings.dart';
 import '../settings/settings_page.dart';
 import 'history_tile.dart';
@@ -172,6 +173,15 @@ class HomePageState extends State<HomePage> {
                           ),
                         ),
                       VkIconButton(
+                        icon: t.icons.resolve('edit'),
+                        semanticLabel: a(a.l.recentProjects),
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => const RecentProjectsPage(),
+                          ),
+                        ),
+                      ),
+                      VkIconButton(
                         icon: t.icons.resolve('settings'),
                         semanticLabel: a(a.l.homeSettings),
                         onPressed: () => Navigator.of(context).push(
@@ -241,6 +251,14 @@ class HomePageState extends State<HomePage> {
     );
   }
 
+  /// Space kept under the list so the last item and the footer clear the
+  /// floating button (public for tests).
+  static double fabClearance(BuildContext context) {
+    final d = VkTheme.of(context).dimensions;
+    final button = MediaQuery.textScalerOf(context).scale(d.targetMin);
+    return button + d.spacing32 * 2 + MediaQuery.viewPaddingOf(context).bottom;
+  }
+
   Widget _list(
     BuildContext context,
     List<HistoryEntry> entries,
@@ -255,8 +273,9 @@ class HomePageState extends State<HomePage> {
         d.spacing16,
         d.spacing16,
         d.spacing16,
-        // Room for the floating "打开文件" button (FAB + margins).
-        d.targetMin * 2 + d.spacing32 + d.spacing16,
+        // Room for the floating "打开文件" button: its height grows with the
+        // text size, plus its margin and a gap (TEST-R2 R2-07).
+        fabClearance(context),
       ),
       child: Column(
         children: [

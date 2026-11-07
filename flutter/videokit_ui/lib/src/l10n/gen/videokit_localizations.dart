@@ -595,6 +595,12 @@ abstract class VideoKitLocalizations {
   /// **'轨道 {index}'**
   String trackUnnamed(int index);
 
+  /// 没有名称、语言未知（如 und）的音轨标题（TEST-R2 R2-04）。
+  ///
+  /// In zh, this message translates to:
+  /// **'音轨 {index}'**
+  String trackAudioUnnamed(int index);
+
   /// 加载中标题（设计稿第 12 页）。
   ///
   /// In zh, this message translates to:
@@ -721,10 +727,10 @@ abstract class VideoKitLocalizations {
   /// **'设备资源紧张，已降低这路画面的画质'**
   String get noticeResourceDegraded;
 
-  /// 轻提示 AUDIO_FOCUS_LOST：系统音频焦点被其他应用抢占，当前发声画面被静音（M3，待 Kit 定义同名码）。
+  /// 轻提示 AUDIO_FOCUS_LOST：其他应用长期取得系统音频焦点，当前画面已暂停（04A K2；短暂抢占不提示）。
   ///
   /// In zh, this message translates to:
-  /// **'其他应用正在播放声音，已静音'**
+  /// **'其他应用正在播放，已暂停'**
   String get noticeAudioFocusLost;
 
   /// 命令返回 Unsupported 时的轻提示。
@@ -1176,6 +1182,66 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'快速拼接（无重编码）：不可用'**
   String get fastConcatUnavailable;
+
+  /// 多视频参数一致，但快速拼接不可用（设备或导出检查），下一行说明原因。
+  ///
+  /// In zh, this message translates to:
+  /// **'参数一致'**
+  String get concatParamsMatch;
+
+  /// 所选拼接路径：快速拼接（M4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'拼接方式：快速拼接（不重新编码）'**
+  String get concatPathFast;
+
+  /// 所选拼接路径：统一转码（M4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'拼接方式：统一转码'**
+  String get concatPathTranscode;
+
+  /// 转码原因：设备能力。
+  ///
+  /// In zh, this message translates to:
+  /// **'此设备不支持快速拼接'**
+  String get concatReasonDevice;
+
+  /// 转码原因：引擎拒绝快速拼接（fast_concat_rejected）。
+  ///
+  /// In zh, this message translates to:
+  /// **'导出检查未通过快速拼接，已改为统一转码'**
+  String get concatReasonEngine;
+
+  /// 转码原因：分辨率与第一个视频不同。
+  ///
+  /// In zh, this message translates to:
+  /// **'分辨率不同'**
+  String get concatDiffResolution;
+
+  /// 转码原因：帧率不同。
+  ///
+  /// In zh, this message translates to:
+  /// **'帧率不同'**
+  String get concatDiffFrameRate;
+
+  /// 转码原因：视频编码不同。
+  ///
+  /// In zh, this message translates to:
+  /// **'视频编码不同'**
+  String get concatDiffCodec;
+
+  /// 转码原因：旋转方向不同。
+  ///
+  /// In zh, this message translates to:
+  /// **'旋转方向不同'**
+  String get concatDiffRotation;
+
+  /// 转码原因：工程标记了不能直接拼接的视频。
+  ///
+  /// In zh, this message translates to:
+  /// **'有视频无法直接拼接'**
+  String get concatDiffOther;
 
   /// 预计输出时长与大小。
   ///
@@ -2010,6 +2076,18 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'打码不完整（已确认导出未覆盖区间）'**
   String get warnCoverage;
+
+  /// 导出警告 TRACKING_INCOMPLETE（04A K3）。
+  ///
+  /// In zh, this message translates to:
+  /// **'有遮罩的跟踪没有完成，部分画面可能没有打码'**
+  String get warnTrackingIncomplete;
+
+  /// 导出警告 TRACKING_LOST_RANGES（04A K3）。
+  ///
+  /// In zh, this message translates to:
+  /// **'有遮罩在跟踪丢失的区间没有处理，这些画面可能没有打码'**
+  String get warnTrackingLost;
 
   /// Fake 导出结果的说明。
   ///

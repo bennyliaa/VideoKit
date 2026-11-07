@@ -190,6 +190,18 @@ final class VkStrings {
     'slotPausedTitle': l10n.slotPausedTitle,
     'slotPausedDetail': l10n.slotPausedDetail,
     'slotPausedShort': l10n.slotPausedShort,
+    'concatParamsMatch': l10n.concatParamsMatch,
+    'warnTrackingIncomplete': l10n.warnTrackingIncomplete,
+    'warnTrackingLost': l10n.warnTrackingLost,
+    'concatPathFast': l10n.concatPathFast,
+    'concatPathTranscode': l10n.concatPathTranscode,
+    'concatReasonDevice': l10n.concatReasonDevice,
+    'concatReasonEngine': l10n.concatReasonEngine,
+    'concatDiffResolution': l10n.concatDiffResolution,
+    'concatDiffFrameRate': l10n.concatDiffFrameRate,
+    'concatDiffCodec': l10n.concatDiffCodec,
+    'concatDiffRotation': l10n.concatDiffRotation,
+    'concatDiffOther': l10n.concatDiffOther,
     'slotPlaceholderTitle': l10n.slotPlaceholderTitle,
     'slotPlaceholderDetail': l10n.slotPlaceholderDetail,
     'slotPlaceholderShort': l10n.slotPlaceholderShort,
@@ -351,6 +363,7 @@ final class VkStrings {
     'playerSpeedValue',
     'playerFitMode',
     'trackUnnamed',
+    'trackAudioUnnamed',
     'hostActionFailed',
     'badgeClipped',
     'viewerAnimatedBadge',
@@ -445,6 +458,9 @@ final class VkStrings {
 
   /// Name of an unlabeled track.
   String trackUnnamed(int index) => _out(l10n.trackUnnamed(index));
+
+  /// Untitled audio track ("音轨 N", R2-04).
+  String trackAudioUnnamed(int index) => _out(l10n.trackAudioUnnamed(index));
 
   /// Badge text cut to the first characters.
   String badgeClipped(String text) => l10n.badgeClipped(text);

@@ -103,6 +103,7 @@ final class Scenario {
     this.trackingLostRanges = const [],
     this.exportFailure,
     this.exportCancelSlow = false,
+    this.fastConcatRejected = false,
   });
 
   /// Everything works.
@@ -160,6 +161,12 @@ final class Scenario {
   const Scenario.exportCancelSlow()
     : this._(name: 'exportCancelSlow', exportCancelSlow: true);
 
+  /// The engine refuses fast (remux) concatenation even though the inputs
+  /// match (M4): `checkExport` warns `fast_concat_rejected` and the export
+  /// transcodes.
+  const Scenario.fastConcatRejected()
+    : this._(name: 'fastConcatRejected', fastConcatRejected: true);
+
   /// Display name (joined with `+` when combined).
   final String name;
 
@@ -195,6 +202,9 @@ final class Scenario {
 
   /// Slow cancellation.
   final bool exportCancelSlow;
+
+  /// Fast concatenation refused by the engine.
+  final bool fastConcatRejected;
 
   /// Bind-time error, if any.
   VideoKitStableError? get bindError {
@@ -236,6 +246,7 @@ final class Scenario {
     trackingLostRanges: [...trackingLostRanges, ...other.trackingLostRanges],
     exportFailure: other.exportFailure ?? exportFailure,
     exportCancelSlow: exportCancelSlow || other.exportCancelSlow,
+    fastConcatRejected: fastConcatRejected || other.fastConcatRejected,
   );
 
   /// Same as [and].
@@ -297,6 +308,7 @@ abstract final class Scenarios {
     'trackingLost': const Scenario.trackingLost(),
     'exportFails': Scenario.exportFails(),
     'exportCancelSlow': const Scenario.exportCancelSlow(),
+    'fastConcatRejected': const Scenario.fastConcatRejected(),
   });
 
   /// Looks up [id], falling back to [Scenario.normal].

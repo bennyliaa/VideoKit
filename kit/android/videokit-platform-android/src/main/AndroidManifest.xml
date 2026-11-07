@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 07 §5.2 / 15 §2.8: the isolated worker of AndroidIsolationHost. No permissions, not exported; one process per task
+     (bindIsolatedService with the task id as instance name). -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <service
+            android:name="com.videokit.platform.android.isolation.IsolatedWorkerService"
+            android:exported="false"
+            android:isolatedProcess="true"
+            android:process=":videokit_isolated" />
+    </application>
+</manifest>

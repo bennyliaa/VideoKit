@@ -1,5 +1,61 @@
+public final class com/videokit/platform/android/AndroidResourceBudgets {
+	public static final field INSTANCE Lcom/videokit/platform/android/AndroidResourceBudgets;
+	public final fun forDevice (Landroid/content/Context;J)Lcom/videokit/core/runtime/DefaultResourceBudget;
+	public static synthetic fun forDevice$default (Lcom/videokit/platform/android/AndroidResourceBudgets;Landroid/content/Context;JILjava/lang/Object;)Lcom/videokit/core/runtime/DefaultResourceBudget;
+}
+
+public final class com/videokit/platform/android/AndroidResourcePressure : java/lang/AutoCloseable {
+	public static final field Companion Lcom/videokit/platform/android/AndroidResourcePressure$Companion;
+	public static final field DEFAULT_MEMORY_HOLD_MS J
+	public synthetic fun <init> (Landroid/content/Context;Lcom/videokit/core/runtime/AdaptiveResourceBudget;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+}
+
+public final class com/videokit/platform/android/AndroidResourcePressure$Companion {
+	public final fun attach (Landroid/content/Context;Lcom/videokit/core/runtime/AdaptiveResourceBudget;J)Lcom/videokit/platform/android/AndroidResourcePressure;
+	public static synthetic fun attach$default (Lcom/videokit/platform/android/AndroidResourcePressure$Companion;Landroid/content/Context;Lcom/videokit/core/runtime/AdaptiveResourceBudget;JILjava/lang/Object;)Lcom/videokit/platform/android/AndroidResourcePressure;
+}
+
 public final class com/videokit/platform/android/AndroidVideoKitAssembly {
 	public static final field INSTANCE Lcom/videokit/platform/android/AndroidVideoKitAssembly;
 	public final fun create (Landroid/content/Context;Lcom/videokit/api/VideoKitConfig;)Lcom/videokit/api/VideoKit;
+}
+
+public final class com/videokit/platform/android/isolation/AndroidIsolationHost : com/videokit/core/spi/IsolationHost {
+	public fun <init> (Landroid/content/Context;Lcom/videokit/platform/android/isolation/IsolationConfig;)V
+	public synthetic fun <init> (Landroid/content/Context;Lcom/videokit/platform/android/isolation/IsolationConfig;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getIsolated ()Z
+	public fun start (Lcom/videokit/core/spi/IsolatedTaskKind;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/platform/android/isolation/IsolatedWorkerService : android/app/Service {
+	public static final field Companion Lcom/videokit/platform/android/isolation/IsolatedWorkerService$Companion;
+	public static final field OP_PROBE_HEADER Ljava/lang/String;
+	public fun <init> ()V
+	public fun onBind (Landroid/content/Intent;)Landroid/os/IBinder;
+	public fun onCreate ()V
+	public fun onDestroy ()V
+}
+
+public final class com/videokit/platform/android/isolation/IsolatedWorkerService$Companion {
+}
+
+public final class com/videokit/platform/android/isolation/IsolationConfig {
+	public fun <init> ()V
+	public fun <init> (JJJJ)V
+	public synthetic fun <init> (JJJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun copy (JJJJ)Lcom/videokit/platform/android/isolation/IsolationConfig;
+	public static synthetic fun copy$default (Lcom/videokit/platform/android/isolation/IsolationConfig;JJJJILjava/lang/Object;)Lcom/videokit/platform/android/isolation/IsolationConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPingIntervalMs ()J
+	public final fun getReadTimeoutMs ()J
+	public final fun getStartTimeoutMs ()J
+	public final fun getUnresponsiveMs ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 

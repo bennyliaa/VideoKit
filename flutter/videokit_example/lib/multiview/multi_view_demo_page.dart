@@ -240,9 +240,6 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
 
   void _onEvent(DemoSlot slot, VideoKitEvent e) {
     if (e is! TransientNotice || !mounted) return;
-    if (e.code == NoticeCodes.audioFocusLost) {
-      audio.onAudioLost(slot.session.sessionId);
-    }
     final text = VkStrings.of(context).notice(e.code);
     if (text == null) return;
     ScaffoldMessenger.of(context)

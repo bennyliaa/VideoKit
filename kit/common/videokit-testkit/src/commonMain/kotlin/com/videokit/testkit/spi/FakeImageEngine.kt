@@ -86,6 +86,7 @@ public class FakeImageEngine(private val options: FakeEngineOptions = FakeEngine
             format = if (animated) "gif" else "png",
             hasAlpha = !animated,
             regionDecodable = !animated,
+            fileSizeBytes = kept.length,
         )
         open.update { it + 1 }
         return FakeImageHandle(info, scenario, kept, options, this.options.clock, { plan -> rendered.update { it + plan } }) {

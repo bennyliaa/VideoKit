@@ -11,6 +11,7 @@ import com.videokit.core.spi.Scheduler
 import com.videokit.image.android.AndroidImageEngine
 import com.videokit.media3.Media3PlaybackEngine
 import com.videokit.media3.RetrieverFrameSource
+import com.videokit.platform.android.isolation.AndroidIsolationHost
 import com.videokit.playback.PlaybackVideoKit
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,8 @@ public object AndroidVideoKitAssembly {
             scheduler = AndroidScheduler,
             images = AndroidImageEngine(),
             frames = RetrieverFrameSource(),
+            // 07 §5.2: isolated workers (unverified until the S4 fault injection on devices).
+            isolation = AndroidIsolationHost(appContext),
         )
         return PlaybackVideoKit.create(config, engines, CoreOptions())
     }

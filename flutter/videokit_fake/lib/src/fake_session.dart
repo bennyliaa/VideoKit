@@ -69,13 +69,31 @@ class FakeSession implements VideoKitSession {
     _set(_s.copyWith(resourcesHeld: false));
   }
 
-  /// Test hook (M3): another app took the system audio focus. The audio
-  /// source is muted and told so with `AUDIO_FOCUS_LOST`.
-  void loseAudioFocus() {
+  /// Test hook: another app took the system audio focus (04A K2, Android
+  /// convention). For good: playback pauses (not muted, the session stays
+  /// the audio source) and `AUDIO_FOCUS_LOST` is sent. [transient]: it
+  /// pauses without a notice and [regainAudioFocus] resumes it.
+  void loseAudioFocus({bool transient = false}) {
     if (_released || !_s.activeAudio) return;
-    _set(_s.copyWith(activeAudio: false, muted: true));
+    final wasPlaying = _s.phase == SessionPhase.playing || _s.playWhenReady;
+    if (wasPlaying) unawaited(execute(const Pause()));
+    if (transient) {
+      _resumeOnFocus = wasPlaying;
+      return;
+    }
+    _resumeOnFocus = false;
     _emit(const TransientNotice(NoticeCodes.audioFocusLost));
   }
+
+  /// Test hook: a transient focus loss ended; playback resumes if it was
+  /// playing before.
+  void regainAudioFocus() {
+    if (_released || !_resumeOnFocus) return;
+    _resumeOnFocus = false;
+    unawaited(execute(const Play()));
+  }
+
+  bool _resumeOnFocus = false;
 
   /// Creation config.
   final VideoKitSessionConfig config;
@@ -492,7 +510,7 @@ class FakeSession implements VideoKitSession {
         ),
       ),
     );
-    if (s.visibility == SessionVisibility.visible) {
+    if (s.visibility.isOnScreen) {
       _host.notify(
         (c) => c.onPlaybackEvent(WatchTimeAccumulated(sessionId, to - from)),
       );
@@ -504,7 +522,8 @@ class FakeSession implements VideoKitSession {
   /// position, tracks and transform stay.
   void _applyVisibility(SessionVisibility v) {
     final gen = ++_visibilityGeneration;
-    if (v == SessionVisibility.visible) {
+    // 04A V1: partly visible keeps playing (an engine may lower quality).
+    if (v.isOnScreen) {
       if (!_s.resourcesHeld && _s.phase.isBound) {
         _set(_s.copyWith(resourcesHeld: true));
       }
@@ -521,7 +540,7 @@ class FakeSession implements VideoKitSession {
     unawaited(
       clock.delay(offscreenReleaseDelay).then((_) {
         if (_released || gen != _visibilityGeneration) return;
-        if (_s.visibility != SessionVisibility.visible && _s.resourcesHeld) {
+        if (!_s.visibility.isOnScreen && _s.resourcesHeld) {
           _set(_s.copyWith(resourcesHeld: false));
         }
       }),

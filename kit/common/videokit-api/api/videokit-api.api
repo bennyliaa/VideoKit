@@ -409,6 +409,20 @@ public final class com/videokit/api/ExportStage : java/lang/Enum {
 	public static fun values ()[Lcom/videokit/api/ExportStage;
 }
 
+public final class com/videokit/api/ExportWarnings {
+	public static final field BOUNDARY_ALIGNED_TO_KEYFRAME Ljava/lang/String;
+	public static final field DEMO_OUTPUT_NOT_REAL_MEDIA Ljava/lang/String;
+	public static final field FAST_CONCAT_REJECTED Ljava/lang/String;
+	public static final field INSTANCE Lcom/videokit/api/ExportWarnings;
+	public static final field SILENCE_INSERTED Ljava/lang/String;
+	public static final field TRACKING_COVERAGE_ACCEPTED Ljava/lang/String;
+	public static final field TRACKING_INCOMPLETE Ljava/lang/String;
+	public static final field TRACKING_LOST_RANGES Ljava/lang/String;
+	public final fun codeOf (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getALL ()Ljava/util/List;
+	public final fun withArgument (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+}
+
 public final class com/videokit/api/FeatureKey : java/lang/Enum {
 	public static final field AUDIO_TRACK_SELECTION Lcom/videokit/api/FeatureKey;
 	public static final field Companion Lcom/videokit/api/FeatureKey$Companion;
@@ -856,6 +870,17 @@ public final class com/videokit/api/NavigationResult : java/lang/Enum {
 	public static fun values ()[Lcom/videokit/api/NavigationResult;
 }
 
+public final class com/videokit/api/NoticeCodes {
+	public static final field AUDIO_FOCUS_LOST Ljava/lang/String;
+	public static final field AUDIO_UNSUPPORTED_PLAYING_SILENT Ljava/lang/String;
+	public static final field IMAGE_MEMORY_REDUCED_QUALITY Ljava/lang/String;
+	public static final field INSTANCE Lcom/videokit/api/NoticeCodes;
+	public static final field NAVIGATION_UNAVAILABLE Ljava/lang/String;
+	public static final field RESOURCE_DEGRADED Ljava/lang/String;
+	public static final field SEEK_CLAMPED Ljava/lang/String;
+	public final fun getALL ()Ljava/util/List;
+}
+
 public final class com/videokit/api/OpenPurpose : java/lang/Enum {
 	public static final field EDIT Lcom/videokit/api/OpenPurpose;
 	public static final field EXPORT Lcom/videokit/api/OpenPurpose;
@@ -1154,6 +1179,7 @@ public final class com/videokit/api/SessionPurpose : java/lang/Enum {
 public final class com/videokit/api/SessionVisibility : java/lang/Enum {
 	public static final field BACKGROUND Lcom/videokit/api/SessionVisibility;
 	public static final field OFFSCREEN Lcom/videokit/api/SessionVisibility;
+	public static final field PARTIALLY_VISIBLE Lcom/videokit/api/SessionVisibility;
 	public static final field VISIBLE Lcom/videokit/api/SessionVisibility;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/SessionVisibility;
@@ -1366,16 +1392,18 @@ public final class com/videokit/api/Timeline {
 }
 
 public final class com/videokit/api/TrackInfo {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Z
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lcom/videokit/api/TrackInfo;
-	public static synthetic fun copy$default (Lcom/videokit/api/TrackInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/videokit/api/TrackInfo;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Integer;)Lcom/videokit/api/TrackInfo;
+	public static synthetic fun copy$default (Lcom/videokit/api/TrackInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Integer;ILjava/lang/Object;)Lcom/videokit/api/TrackInfo;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChannelCount ()Ljava/lang/Integer;
 	public final fun getCodec ()Ljava/lang/String;
 	public final fun getId ()Ljava/lang/String;
 	public final fun getLabel ()Ljava/lang/String;

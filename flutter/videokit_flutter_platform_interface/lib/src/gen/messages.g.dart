@@ -12,9 +12,9 @@ import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show immutable, protected, visibleForTesting;
 
 Object? _extractReplyValueOrThrow(
-    List<Object?>? replyList,
-    String channelName, {
-    required bool isNullValid,
+  List<Object?>? replyList,
+  String channelName, {
+  required bool isNullValid,
 }) {
   if (replyList == null) {
     throw PlatformException(
@@ -36,8 +36,11 @@ Object? _extractReplyValueOrThrow(
   return replyList.firstOrNull;
 }
 
-
-List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty = false}) {
+List<Object?> wrapResponse({
+  Object? result,
+  PlatformException? error,
+  bool empty = false,
+}) {
   if (empty) {
     return <Object?>[];
   }
@@ -46,6 +49,7 @@ List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty
   }
   return <Object?>[error.code, error.message, error.details];
 }
+
 bool _deepEquals(Object? a, Object? b) {
   if (identical(a, b)) {
     return true;
@@ -58,8 +62,9 @@ bool _deepEquals(Object? a, Object? b) {
   }
   if (a is List && b is List) {
     return a.length == b.length &&
-        a.indexed
-            .every(((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]));
+        a.indexed.every(
+          ((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]),
+        );
   }
   if (a is Map && b is Map) {
     if (a.length != b.length) {
@@ -108,13 +113,7 @@ int _deepHash(Object? value) {
   return value.hashCode;
 }
 
-
-enum MediaKindMsg {
-  video,
-  imageStatic,
-  imageAnimated,
-  imageUnknown;
-}
+enum MediaKindMsg { video, imageStatic, imageAnimated, imageUnknown }
 
 enum SessionPhaseMsg {
   created,
@@ -127,21 +126,17 @@ enum SessionPhaseMsg {
   errorRecoverable,
   errorFatal,
   releasing,
-  released;
+  released,
 }
 
-enum SeekModeMsg {
-  preview,
-  closestSync,
-  exact;
-}
+enum SeekModeMsg { preview, closestSync, exact }
 
 enum CommandResultKind {
   executed,
   rejected,
   superseded,
   unsupported,
-  sessionReleased;
+  sessionReleased,
 }
 
 enum EditPhaseMsg {
@@ -155,21 +150,12 @@ enum EditPhaseMsg {
   cancelling,
   cancelled,
   releasing,
-  released;
+  released,
 }
 
-enum EditResultKind {
-  applied,
-  rejected,
-  unsupported,
-  projectReleased;
-}
+enum EditResultKind { applied, rejected, unsupported, projectReleased }
 
-enum ExportResultKind {
-  succeeded,
-  failed,
-  cancelled;
-}
+enum ExportResultKind { succeeded, failed, cancelled }
 
 /// Sent first by the Dart side (14 §8.3).
 class HandshakeRequest {
@@ -209,7 +195,8 @@ class HandshakeRequest {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static HandshakeRequest decode(Object result) {
     result as List<Object?>;
@@ -232,7 +219,15 @@ class HandshakeRequest {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(protocolVersion, other.protocolVersion) && _deepEquals(dartPackageVersion, other.dartPackageVersion) && _deepEquals(hostActionTimeoutMs, other.hostActionTimeoutMs) && _deepEquals(navigationTimeoutMs, other.navigationTimeoutMs) && _deepEquals(recoveryDecisionTimeoutMs, other.recoveryDecisionTimeoutMs) && _deepEquals(notificationTimeoutMs, other.notificationTimeoutMs);
+    return _deepEquals(protocolVersion, other.protocolVersion) &&
+        _deepEquals(dartPackageVersion, other.dartPackageVersion) &&
+        _deepEquals(hostActionTimeoutMs, other.hostActionTimeoutMs) &&
+        _deepEquals(navigationTimeoutMs, other.navigationTimeoutMs) &&
+        _deepEquals(
+          recoveryDecisionTimeoutMs,
+          other.recoveryDecisionTimeoutMs,
+        ) &&
+        _deepEquals(notificationTimeoutMs, other.notificationTimeoutMs);
   }
 
   @override
@@ -276,7 +271,8 @@ class HandshakeResponse {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static HandshakeResponse decode(Object result) {
     result as List<Object?>;
@@ -297,7 +293,10 @@ class HandshakeResponse {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(protocolVersion, other.protocolVersion) && _deepEquals(nativeKitVersion, other.nativeKitVersion) && _deepEquals(apiVersion, other.apiVersion) && _deepEquals(demoBackend, other.demoBackend);
+    return _deepEquals(protocolVersion, other.protocolVersion) &&
+        _deepEquals(nativeKitVersion, other.nativeKitVersion) &&
+        _deepEquals(apiVersion, other.apiVersion) &&
+        _deepEquals(demoBackend, other.demoBackend);
   }
 
   @override
@@ -345,7 +344,8 @@ class StableErrorMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static StableErrorMsg decode(Object result) {
     result as List<Object?>;
@@ -368,7 +368,12 @@ class StableErrorMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(code, other.code) && _deepEquals(stage, other.stage) && _deepEquals(retryable, other.retryable) && _deepEquals(suggestedAction, other.suggestedAction) && _deepEquals(diagnostic, other.diagnostic) && _deepEquals(params, other.params);
+    return _deepEquals(code, other.code) &&
+        _deepEquals(stage, other.stage) &&
+        _deepEquals(retryable, other.retryable) &&
+        _deepEquals(suggestedAction, other.suggestedAction) &&
+        _deepEquals(diagnostic, other.diagnostic) &&
+        _deepEquals(params, other.params);
   }
 
   @override
@@ -382,11 +387,7 @@ class StableErrorMsg {
 }
 
 class CommandResultMsg {
-  CommandResultMsg({
-    required this.kind,
-    this.error,
-    this.unsupportedReason,
-  });
+  CommandResultMsg({required this.kind, this.error, this.unsupportedReason});
 
   CommandResultKind kind;
 
@@ -396,15 +397,12 @@ class CommandResultMsg {
   String? unsupportedReason;
 
   List<Object?> _toList() {
-    return <Object?>[
-      kind,
-      error,
-      unsupportedReason,
-    ];
+    return <Object?>[kind, error, unsupportedReason];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CommandResultMsg decode(Object result) {
     result as List<Object?>;
@@ -424,7 +422,9 @@ class CommandResultMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(kind, other.kind) && _deepEquals(error, other.error) && _deepEquals(unsupportedReason, other.unsupportedReason);
+    return _deepEquals(kind, other.kind) &&
+        _deepEquals(error, other.error) &&
+        _deepEquals(unsupportedReason, other.unsupportedReason);
   }
 
   @override
@@ -444,6 +444,7 @@ class TrackInfoMsg {
     this.label,
     this.codec,
     required this.supported,
+    this.channelCount,
   });
 
   String id;
@@ -456,18 +457,16 @@ class TrackInfoMsg {
 
   bool supported;
 
+  /// Audio channels; audio tracks only, null when unknown (04A C1).
+  int? channelCount;
+
   List<Object?> _toList() {
-    return <Object?>[
-      id,
-      language,
-      label,
-      codec,
-      supported,
-    ];
+    return <Object?>[id, language, label, codec, supported, channelCount];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static TrackInfoMsg decode(Object result) {
     result as List<Object?>;
@@ -477,6 +476,7 @@ class TrackInfoMsg {
       label: result[2] as String?,
       codec: result[3] as String?,
       supported: result[4]! as bool,
+      channelCount: result[5] as int?,
     );
   }
 
@@ -489,7 +489,12 @@ class TrackInfoMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(id, other.id) && _deepEquals(language, other.language) && _deepEquals(label, other.label) && _deepEquals(codec, other.codec) && _deepEquals(supported, other.supported);
+    return _deepEquals(id, other.id) &&
+        _deepEquals(language, other.language) &&
+        _deepEquals(label, other.label) &&
+        _deepEquals(codec, other.codec) &&
+        _deepEquals(supported, other.supported) &&
+        _deepEquals(channelCount, other.channelCount);
   }
 
   @override
@@ -498,7 +503,7 @@ class TrackInfoMsg {
 
   @override
   String toString() {
-    return 'TrackInfoMsg(id: $id, language: $language, label: $label, codec: $codec, supported: $supported)';
+    return 'TrackInfoMsg(id: $id, language: $language, label: $label, codec: $codec, supported: $supported, channelCount: $channelCount)';
   }
 }
 
@@ -523,17 +528,12 @@ class TransformMsg {
   String fitMode;
 
   List<Object?> _toList() {
-    return <Object?>[
-      scale,
-      panX,
-      panY,
-      rotationDeg,
-      fitMode,
-    ];
+    return <Object?>[scale, panX, panY, rotationDeg, fitMode];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static TransformMsg decode(Object result) {
     result as List<Object?>;
@@ -555,7 +555,11 @@ class TransformMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(scale, other.scale) && _deepEquals(panX, other.panX) && _deepEquals(panY, other.panY) && _deepEquals(rotationDeg, other.rotationDeg) && _deepEquals(fitMode, other.fitMode);
+    return _deepEquals(scale, other.scale) &&
+        _deepEquals(panX, other.panX) &&
+        _deepEquals(panY, other.panY) &&
+        _deepEquals(rotationDeg, other.rotationDeg) &&
+        _deepEquals(fitMode, other.fitMode);
   }
 
   @override
@@ -584,15 +588,12 @@ class OrientationStateMsg {
   bool fullscreen;
 
   List<Object?> _toList() {
-    return <Object?>[
-      request,
-      contentOrientation,
-      fullscreen,
-    ];
+    return <Object?>[request, contentOrientation, fullscreen];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static OrientationStateMsg decode(Object result) {
     result as List<Object?>;
@@ -612,7 +613,9 @@ class OrientationStateMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(request, other.request) && _deepEquals(contentOrientation, other.contentOrientation) && _deepEquals(fullscreen, other.fullscreen);
+    return _deepEquals(request, other.request) &&
+        _deepEquals(contentOrientation, other.contentOrientation) &&
+        _deepEquals(fullscreen, other.fullscreen);
   }
 
   @override
@@ -627,24 +630,19 @@ class OrientationStateMsg {
 
 /// `HostIcon`: exactly one of the two fields is set (04A N9).
 class HostIconMsg {
-  HostIconMsg({
-    this.builtInKey,
-    this.resourceRef,
-  });
+  HostIconMsg({this.builtInKey, this.resourceRef});
 
   String? builtInKey;
 
   String? resourceRef;
 
   List<Object?> _toList() {
-    return <Object?>[
-      builtInKey,
-      resourceRef,
-    ];
+    return <Object?>[builtInKey, resourceRef];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static HostIconMsg decode(Object result) {
     result as List<Object?>;
@@ -663,7 +661,8 @@ class HostIconMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(builtInKey, other.builtInKey) && _deepEquals(resourceRef, other.resourceRef);
+    return _deepEquals(builtInKey, other.builtInKey) &&
+        _deepEquals(resourceRef, other.resourceRef);
   }
 
   @override
@@ -727,7 +726,8 @@ class HostActionMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static HostActionMsg decode(Object result) {
     result as List<Object?>;
@@ -754,7 +754,16 @@ class HostActionMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(actionId, other.actionId) && _deepEquals(labelKey, other.labelKey) && _deepEquals(contentDescriptionKey, other.contentDescriptionKey) && _deepEquals(icon, other.icon) && _deepEquals(enabled, other.enabled) && _deepEquals(selected, other.selected) && _deepEquals(pending, other.pending) && _deepEquals(badgeText, other.badgeText) && _deepEquals(displayPriority, other.displayPriority) && _deepEquals(placement, other.placement);
+    return _deepEquals(actionId, other.actionId) &&
+        _deepEquals(labelKey, other.labelKey) &&
+        _deepEquals(contentDescriptionKey, other.contentDescriptionKey) &&
+        _deepEquals(icon, other.icon) &&
+        _deepEquals(enabled, other.enabled) &&
+        _deepEquals(selected, other.selected) &&
+        _deepEquals(pending, other.pending) &&
+        _deepEquals(badgeText, other.badgeText) &&
+        _deepEquals(displayPriority, other.displayPriority) &&
+        _deepEquals(placement, other.placement);
   }
 
   @override
@@ -785,16 +794,12 @@ class HostActionStateMsg {
   StableErrorMsg? lastError;
 
   List<Object?> _toList() {
-    return <Object?>[
-      action,
-      pending,
-      lastStatus,
-      lastError,
-    ];
+    return <Object?>[action, pending, lastStatus, lastError];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static HostActionStateMsg decode(Object result) {
     result as List<Object?>;
@@ -815,7 +820,10 @@ class HostActionStateMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(action, other.action) && _deepEquals(pending, other.pending) && _deepEquals(lastStatus, other.lastStatus) && _deepEquals(lastError, other.lastError);
+    return _deepEquals(action, other.action) &&
+        _deepEquals(pending, other.pending) &&
+        _deepEquals(lastStatus, other.lastStatus) &&
+        _deepEquals(lastError, other.lastError);
   }
 
   @override
@@ -861,7 +869,8 @@ class SessionConfigMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static SessionConfigMsg decode(Object result) {
     result as List<Object?>;
@@ -883,7 +892,11 @@ class SessionConfigMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(purpose, other.purpose) && _deepEquals(priority, other.priority) && _deepEquals(initialVisibility, other.initialVisibility) && _deepEquals(initialActiveAudio, other.initialActiveAudio) && _deepEquals(debugTag, other.debugTag);
+    return _deepEquals(purpose, other.purpose) &&
+        _deepEquals(priority, other.priority) &&
+        _deepEquals(initialVisibility, other.initialVisibility) &&
+        _deepEquals(initialActiveAudio, other.initialActiveAudio) &&
+        _deepEquals(debugTag, other.debugTag);
   }
 
   @override
@@ -947,7 +960,8 @@ class MediaInfoMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static MediaInfoMsg decode(Object result) {
     result as List<Object?>;
@@ -974,7 +988,16 @@ class MediaInfoMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(container, other.container) && _deepEquals(videoCodec, other.videoCodec) && _deepEquals(audioCodec, other.audioCodec) && _deepEquals(width, other.width) && _deepEquals(height, other.height) && _deepEquals(frameRate, other.frameRate) && _deepEquals(bitrateBps, other.bitrateBps) && _deepEquals(rotationDeg, other.rotationDeg) && _deepEquals(durationUs, other.durationUs) && _deepEquals(fileSizeBytes, other.fileSizeBytes);
+    return _deepEquals(container, other.container) &&
+        _deepEquals(videoCodec, other.videoCodec) &&
+        _deepEquals(audioCodec, other.audioCodec) &&
+        _deepEquals(width, other.width) &&
+        _deepEquals(height, other.height) &&
+        _deepEquals(frameRate, other.frameRate) &&
+        _deepEquals(bitrateBps, other.bitrateBps) &&
+        _deepEquals(rotationDeg, other.rotationDeg) &&
+        _deepEquals(durationUs, other.durationUs) &&
+        _deepEquals(fileSizeBytes, other.fileSizeBytes);
   }
 
   @override
@@ -1008,17 +1031,12 @@ class ThumbnailResultMsg {
   StableErrorMsg? error;
 
   List<Object?> _toList() {
-    return <Object?>[
-      bytes,
-      width,
-      height,
-      mimeType,
-      error,
-    ];
+    return <Object?>[bytes, width, height, mimeType, error];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ThumbnailResultMsg decode(Object result) {
     result as List<Object?>;
@@ -1040,7 +1058,11 @@ class ThumbnailResultMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(bytes, other.bytes) && _deepEquals(width, other.width) && _deepEquals(height, other.height) && _deepEquals(mimeType, other.mimeType) && _deepEquals(error, other.error);
+    return _deepEquals(bytes, other.bytes) &&
+        _deepEquals(width, other.width) &&
+        _deepEquals(height, other.height) &&
+        _deepEquals(mimeType, other.mimeType) &&
+        _deepEquals(error, other.error);
   }
 
   @override
@@ -1055,11 +1077,7 @@ class ThumbnailResultMsg {
 
 /// Image facts (04A L2); every field optional.
 class ImageDetailsMsg {
-  ImageDetailsMsg({
-    this.frameCount,
-    this.decodedBytes,
-    this.sampleSize,
-  });
+  ImageDetailsMsg({this.frameCount, this.decodedBytes, this.sampleSize});
 
   int? frameCount;
 
@@ -1068,15 +1086,12 @@ class ImageDetailsMsg {
   int? sampleSize;
 
   List<Object?> _toList() {
-    return <Object?>[
-      frameCount,
-      decodedBytes,
-      sampleSize,
-    ];
+    return <Object?>[frameCount, decodedBytes, sampleSize];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ImageDetailsMsg decode(Object result) {
     result as List<Object?>;
@@ -1096,7 +1111,9 @@ class ImageDetailsMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(frameCount, other.frameCount) && _deepEquals(decodedBytes, other.decodedBytes) && _deepEquals(sampleSize, other.sampleSize);
+    return _deepEquals(frameCount, other.frameCount) &&
+        _deepEquals(decodedBytes, other.decodedBytes) &&
+        _deepEquals(sampleSize, other.sampleSize);
   }
 
   @override
@@ -1235,7 +1252,8 @@ class SessionStateMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static SessionStateMsg decode(Object result) {
     result as List<Object?>;
@@ -1280,7 +1298,34 @@ class SessionStateMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(phase, other.phase) && _deepEquals(mediaKind, other.mediaKind) && _deepEquals(positionUs, other.positionUs) && _deepEquals(durationUs, other.durationUs) && _deepEquals(bufferedUs, other.bufferedUs) && _deepEquals(playWhenReady, other.playWhenReady) && _deepEquals(speed, other.speed) && _deepEquals(volume, other.volume) && _deepEquals(muted, other.muted) && _deepEquals(audioTracks, other.audioTracks) && _deepEquals(subtitleTracks, other.subtitleTracks) && _deepEquals(selectedAudioTrackId, other.selectedAudioTrackId) && _deepEquals(selectedSubtitleTrackId, other.selectedSubtitleTrackId) && _deepEquals(transform, other.transform) && _deepEquals(orientation, other.orientation) && _deepEquals(visibility, other.visibility) && _deepEquals(activeAudio, other.activeAudio) && _deepEquals(controlsVisible, other.controlsVisible) && _deepEquals(error, other.error) && _deepEquals(resourcesHeld, other.resourcesHeld) && _deepEquals(seekingToUs, other.seekingToUs) && _deepEquals(hostActions, other.hostActions) && _deepEquals(videoWidth, other.videoWidth) && _deepEquals(videoHeight, other.videoHeight) && _deepEquals(hiddenForLock, other.hiddenForLock) && _deepEquals(looping, other.looping) && _deepEquals(imageDetails, other.imageDetails) && _deepEquals(mediaInfo, other.mediaInfo);
+    return _deepEquals(phase, other.phase) &&
+        _deepEquals(mediaKind, other.mediaKind) &&
+        _deepEquals(positionUs, other.positionUs) &&
+        _deepEquals(durationUs, other.durationUs) &&
+        _deepEquals(bufferedUs, other.bufferedUs) &&
+        _deepEquals(playWhenReady, other.playWhenReady) &&
+        _deepEquals(speed, other.speed) &&
+        _deepEquals(volume, other.volume) &&
+        _deepEquals(muted, other.muted) &&
+        _deepEquals(audioTracks, other.audioTracks) &&
+        _deepEquals(subtitleTracks, other.subtitleTracks) &&
+        _deepEquals(selectedAudioTrackId, other.selectedAudioTrackId) &&
+        _deepEquals(selectedSubtitleTrackId, other.selectedSubtitleTrackId) &&
+        _deepEquals(transform, other.transform) &&
+        _deepEquals(orientation, other.orientation) &&
+        _deepEquals(visibility, other.visibility) &&
+        _deepEquals(activeAudio, other.activeAudio) &&
+        _deepEquals(controlsVisible, other.controlsVisible) &&
+        _deepEquals(error, other.error) &&
+        _deepEquals(resourcesHeld, other.resourcesHeld) &&
+        _deepEquals(seekingToUs, other.seekingToUs) &&
+        _deepEquals(hostActions, other.hostActions) &&
+        _deepEquals(videoWidth, other.videoWidth) &&
+        _deepEquals(videoHeight, other.videoHeight) &&
+        _deepEquals(hiddenForLock, other.hiddenForLock) &&
+        _deepEquals(looping, other.looping) &&
+        _deepEquals(imageDetails, other.imageDetails) &&
+        _deepEquals(mediaInfo, other.mediaInfo);
   }
 
   @override
@@ -1381,7 +1426,8 @@ class PlaybackStateMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static PlaybackStateMsg decode(Object result) {
     result as List<Object?>;
@@ -1417,7 +1463,25 @@ class PlaybackStateMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(schemaVersion, other.schemaVersion) && _deepEquals(sessionId, other.sessionId) && _deepEquals(mediaToken, other.mediaToken) && _deepEquals(zoom, other.zoom) && _deepEquals(panX, other.panX) && _deepEquals(panY, other.panY) && _deepEquals(rotationDeg, other.rotationDeg) && _deepEquals(fitMode, other.fitMode) && _deepEquals(preferredOrientation, other.preferredOrientation) && _deepEquals(fullscreen, other.fullscreen) && _deepEquals(positionUs, other.positionUs) && _deepEquals(speed, other.speed) && _deepEquals(volume, other.volume) && _deepEquals(muted, other.muted) && _deepEquals(subtitleTrackId, other.subtitleTrackId) && _deepEquals(subtitlesEnabled, other.subtitlesEnabled) && _deepEquals(audioTrackId, other.audioTrackId) && _deepEquals(lastViewedAtEpochMs, other.lastViewedAtEpochMs) && _deepEquals(looping, other.looping);
+    return _deepEquals(schemaVersion, other.schemaVersion) &&
+        _deepEquals(sessionId, other.sessionId) &&
+        _deepEquals(mediaToken, other.mediaToken) &&
+        _deepEquals(zoom, other.zoom) &&
+        _deepEquals(panX, other.panX) &&
+        _deepEquals(panY, other.panY) &&
+        _deepEquals(rotationDeg, other.rotationDeg) &&
+        _deepEquals(fitMode, other.fitMode) &&
+        _deepEquals(preferredOrientation, other.preferredOrientation) &&
+        _deepEquals(fullscreen, other.fullscreen) &&
+        _deepEquals(positionUs, other.positionUs) &&
+        _deepEquals(speed, other.speed) &&
+        _deepEquals(volume, other.volume) &&
+        _deepEquals(muted, other.muted) &&
+        _deepEquals(subtitleTrackId, other.subtitleTrackId) &&
+        _deepEquals(subtitlesEnabled, other.subtitlesEnabled) &&
+        _deepEquals(audioTrackId, other.audioTrackId) &&
+        _deepEquals(lastViewedAtEpochMs, other.lastViewedAtEpochMs) &&
+        _deepEquals(looping, other.looping);
   }
 
   @override
@@ -1451,17 +1515,12 @@ class EventMsg {
   String? mediaToken;
 
   List<Object?> _toList() {
-    return <Object?>[
-      type,
-      actionId,
-      error,
-      noticeCode,
-      mediaToken,
-    ];
+    return <Object?>[type, actionId, error, noticeCode, mediaToken];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EventMsg decode(Object result) {
     result as List<Object?>;
@@ -1483,7 +1542,11 @@ class EventMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(type, other.type) && _deepEquals(actionId, other.actionId) && _deepEquals(error, other.error) && _deepEquals(noticeCode, other.noticeCode) && _deepEquals(mediaToken, other.mediaToken);
+    return _deepEquals(type, other.type) &&
+        _deepEquals(actionId, other.actionId) &&
+        _deepEquals(error, other.error) &&
+        _deepEquals(noticeCode, other.noticeCode) &&
+        _deepEquals(mediaToken, other.mediaToken);
   }
 
   @override
@@ -1515,16 +1578,12 @@ class SessionUpdateMessage {
   EventMsg? event;
 
   List<Object?> _toList() {
-    return <Object?>[
-      sessionId,
-      seq,
-      state,
-      event,
-    ];
+    return <Object?>[sessionId, seq, state, event];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static SessionUpdateMessage decode(Object result) {
     result as List<Object?>;
@@ -1545,7 +1604,10 @@ class SessionUpdateMessage {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(sessionId, other.sessionId) && _deepEquals(seq, other.seq) && _deepEquals(state, other.state) && _deepEquals(event, other.event);
+    return _deepEquals(sessionId, other.sessionId) &&
+        _deepEquals(seq, other.seq) &&
+        _deepEquals(state, other.state) &&
+        _deepEquals(event, other.event);
   }
 
   @override
@@ -1602,7 +1664,8 @@ class MediaSourceMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static MediaSourceMsg decode(Object result) {
     result as List<Object?>;
@@ -1627,7 +1690,14 @@ class MediaSourceMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(mediaToken, other.mediaToken) && _deepEquals(mediaKind, other.mediaKind) && _deepEquals(displayName, other.displayName) && _deepEquals(knownLength, other.knownLength) && _deepEquals(mimeType, other.mimeType) && _deepEquals(extension, other.extension) && _deepEquals(randomAccess, other.randomAccess) && _deepEquals(sourceRef, other.sourceRef);
+    return _deepEquals(mediaToken, other.mediaToken) &&
+        _deepEquals(mediaKind, other.mediaKind) &&
+        _deepEquals(displayName, other.displayName) &&
+        _deepEquals(knownLength, other.knownLength) &&
+        _deepEquals(mimeType, other.mimeType) &&
+        _deepEquals(extension, other.extension) &&
+        _deepEquals(randomAccess, other.randomAccess) &&
+        _deepEquals(sourceRef, other.sourceRef);
   }
 
   @override
@@ -1641,26 +1711,21 @@ class MediaSourceMsg {
 }
 
 class CapabilityRequestMsg {
-  CapabilityRequestMsg({
-    this.source,
-  });
+  CapabilityRequestMsg({this.source});
 
   MediaSourceMsg? source;
 
   List<Object?> _toList() {
-    return <Object?>[
-      source,
-    ];
+    return <Object?>[source];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CapabilityRequestMsg decode(Object result) {
     result as List<Object?>;
-    return CapabilityRequestMsg(
-      source: result[0] as MediaSourceMsg?,
-    );
+    return CapabilityRequestMsg(source: result[0] as MediaSourceMsg?);
   }
 
   @override
@@ -1728,7 +1793,8 @@ class MediaProbeMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static MediaProbeMsg decode(Object result) {
     result as List<Object?>;
@@ -1753,7 +1819,14 @@ class MediaProbeMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(mediaToken, other.mediaToken) && _deepEquals(playable, other.playable) && _deepEquals(editable, other.editable) && _deepEquals(fastConcatEligible, other.fastConcatEligible) && _deepEquals(durationUs, other.durationUs) && _deepEquals(width, other.width) && _deepEquals(height, other.height) && _deepEquals(error, other.error);
+    return _deepEquals(mediaToken, other.mediaToken) &&
+        _deepEquals(playable, other.playable) &&
+        _deepEquals(editable, other.editable) &&
+        _deepEquals(fastConcatEligible, other.fastConcatEligible) &&
+        _deepEquals(durationUs, other.durationUs) &&
+        _deepEquals(width, other.width) &&
+        _deepEquals(height, other.height) &&
+        _deepEquals(error, other.error);
   }
 
   @override
@@ -1860,7 +1933,8 @@ class CapabilitiesMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CapabilitiesMsg decode(Object result) {
     result as List<Object?>;
@@ -1883,7 +1957,8 @@ class CapabilitiesMsg {
       manualMasks: result[15]! as bool,
       faceTracking: result[16]! as String,
       objectTracking: result[17]! as String,
-      unavailableReasons: (result[18]! as Map<Object?, Object?>).cast<String, String>(),
+      unavailableReasons: (result[18]! as Map<Object?, Object?>)
+          .cast<String, String>(),
       mediaProbe: result[19] as MediaProbeMsg?,
     );
   }
@@ -1897,7 +1972,29 @@ class CapabilitiesMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(schemaVersion, other.schemaVersion) && _deepEquals(isDemo, other.isDemo) && _deepEquals(suggestedHardwareVideoSessions, other.suggestedHardwareVideoSessions) && _deepEquals(maxWidth, other.maxWidth) && _deepEquals(maxHeight, other.maxHeight) && _deepEquals(maxFrameRate, other.maxFrameRate) && _deepEquals(subtitles, other.subtitles) && _deepEquals(audioTrackSelection, other.audioTrackSelection) && _deepEquals(speeds, other.speeds) && _deepEquals(exactSeek, other.exactSeek) && _deepEquals(staticImages, other.staticImages) && _deepEquals(animatedImages, other.animatedImages) && _deepEquals(largeImageTiling, other.largeImageTiling) && _deepEquals(singleVideoClips, other.singleVideoClips) && _deepEquals(multiInputConcat, other.multiInputConcat) && _deepEquals(manualMasks, other.manualMasks) && _deepEquals(faceTracking, other.faceTracking) && _deepEquals(objectTracking, other.objectTracking) && _deepEquals(unavailableReasons, other.unavailableReasons) && _deepEquals(mediaProbe, other.mediaProbe);
+    return _deepEquals(schemaVersion, other.schemaVersion) &&
+        _deepEquals(isDemo, other.isDemo) &&
+        _deepEquals(
+          suggestedHardwareVideoSessions,
+          other.suggestedHardwareVideoSessions,
+        ) &&
+        _deepEquals(maxWidth, other.maxWidth) &&
+        _deepEquals(maxHeight, other.maxHeight) &&
+        _deepEquals(maxFrameRate, other.maxFrameRate) &&
+        _deepEquals(subtitles, other.subtitles) &&
+        _deepEquals(audioTrackSelection, other.audioTrackSelection) &&
+        _deepEquals(speeds, other.speeds) &&
+        _deepEquals(exactSeek, other.exactSeek) &&
+        _deepEquals(staticImages, other.staticImages) &&
+        _deepEquals(animatedImages, other.animatedImages) &&
+        _deepEquals(largeImageTiling, other.largeImageTiling) &&
+        _deepEquals(singleVideoClips, other.singleVideoClips) &&
+        _deepEquals(multiInputConcat, other.multiInputConcat) &&
+        _deepEquals(manualMasks, other.manualMasks) &&
+        _deepEquals(faceTracking, other.faceTracking) &&
+        _deepEquals(objectTracking, other.objectTracking) &&
+        _deepEquals(unavailableReasons, other.unavailableReasons) &&
+        _deepEquals(mediaProbe, other.mediaProbe);
   }
 
   @override
@@ -1924,15 +2021,12 @@ class HostActionRequestMsg {
   String mediaToken;
 
   List<Object?> _toList() {
-    return <Object?>[
-      actionId,
-      sessionId,
-      mediaToken,
-    ];
+    return <Object?>[actionId, sessionId, mediaToken];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static HostActionRequestMsg decode(Object result) {
     result as List<Object?>;
@@ -1952,7 +2046,9 @@ class HostActionRequestMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(actionId, other.actionId) && _deepEquals(sessionId, other.sessionId) && _deepEquals(mediaToken, other.mediaToken);
+    return _deepEquals(actionId, other.actionId) &&
+        _deepEquals(sessionId, other.sessionId) &&
+        _deepEquals(mediaToken, other.mediaToken);
   }
 
   @override
@@ -1980,15 +2076,12 @@ class HostActionResultMsg {
   String? messageKey;
 
   List<Object?> _toList() {
-    return <Object?>[
-      status,
-      updatedAction,
-      messageKey,
-    ];
+    return <Object?>[status, updatedAction, messageKey];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static HostActionResultMsg decode(Object result) {
     result as List<Object?>;
@@ -2008,7 +2101,9 @@ class HostActionResultMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(status, other.status) && _deepEquals(updatedAction, other.updatedAction) && _deepEquals(messageKey, other.messageKey);
+    return _deepEquals(status, other.status) &&
+        _deepEquals(updatedAction, other.updatedAction) &&
+        _deepEquals(messageKey, other.messageKey);
   }
 
   @override
@@ -2036,15 +2131,12 @@ class NavigationRequestMsg {
   String direction;
 
   List<Object?> _toList() {
-    return <Object?>[
-      sessionId,
-      mediaToken,
-      direction,
-    ];
+    return <Object?>[sessionId, mediaToken, direction];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static NavigationRequestMsg decode(Object result) {
     result as List<Object?>;
@@ -2064,7 +2156,9 @@ class NavigationRequestMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(sessionId, other.sessionId) && _deepEquals(mediaToken, other.mediaToken) && _deepEquals(direction, other.direction);
+    return _deepEquals(sessionId, other.sessionId) &&
+        _deepEquals(mediaToken, other.mediaToken) &&
+        _deepEquals(direction, other.direction);
   }
 
   @override
@@ -2136,7 +2230,8 @@ class PlaybackEventMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static PlaybackEventMsg decode(Object result) {
     result as List<Object?>;
@@ -2165,7 +2260,18 @@ class PlaybackEventMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(sessionId, other.sessionId) && _deepEquals(type, other.type) && _deepEquals(positionUs, other.positionUs) && _deepEquals(fromUs, other.fromUs) && _deepEquals(toUs, other.toUs) && _deepEquals(durationUs, other.durationUs) && _deepEquals(deltaUs, other.deltaUs) && _deepEquals(phase, other.phase) && _deepEquals(playWhenReady, other.playWhenReady) && _deepEquals(visibility, other.visibility) && _deepEquals(foreground, other.foreground) && _deepEquals(mediaToken, other.mediaToken);
+    return _deepEquals(sessionId, other.sessionId) &&
+        _deepEquals(type, other.type) &&
+        _deepEquals(positionUs, other.positionUs) &&
+        _deepEquals(fromUs, other.fromUs) &&
+        _deepEquals(toUs, other.toUs) &&
+        _deepEquals(durationUs, other.durationUs) &&
+        _deepEquals(deltaUs, other.deltaUs) &&
+        _deepEquals(phase, other.phase) &&
+        _deepEquals(playWhenReady, other.playWhenReady) &&
+        _deepEquals(visibility, other.visibility) &&
+        _deepEquals(foreground, other.foreground) &&
+        _deepEquals(mediaToken, other.mediaToken);
   }
 
   @override
@@ -2193,15 +2299,12 @@ class EditProjectConfigMsg {
   int? initialPositionUs;
 
   List<Object?> _toList() {
-    return <Object?>[
-      allowedPresets,
-      trackingAllowed,
-      initialPositionUs,
-    ];
+    return <Object?>[allowedPresets, trackingAllowed, initialPositionUs];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EditProjectConfigMsg decode(Object result) {
     result as List<Object?>;
@@ -2221,7 +2324,9 @@ class EditProjectConfigMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(allowedPresets, other.allowedPresets) && _deepEquals(trackingAllowed, other.trackingAllowed) && _deepEquals(initialPositionUs, other.initialPositionUs);
+    return _deepEquals(allowedPresets, other.allowedPresets) &&
+        _deepEquals(trackingAllowed, other.trackingAllowed) &&
+        _deepEquals(initialPositionUs, other.initialPositionUs);
   }
 
   @override
@@ -2254,17 +2359,12 @@ class MaskRegionMsg {
   double rotationDeg;
 
   List<Object?> _toList() {
-    return <Object?>[
-      x,
-      y,
-      width,
-      height,
-      rotationDeg,
-    ];
+    return <Object?>[x, y, width, height, rotationDeg];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static MaskRegionMsg decode(Object result) {
     result as List<Object?>;
@@ -2286,7 +2386,11 @@ class MaskRegionMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(x, other.x) && _deepEquals(y, other.y) && _deepEquals(width, other.width) && _deepEquals(height, other.height) && _deepEquals(rotationDeg, other.rotationDeg);
+    return _deepEquals(x, other.x) &&
+        _deepEquals(y, other.y) &&
+        _deepEquals(width, other.width) &&
+        _deepEquals(height, other.height) &&
+        _deepEquals(rotationDeg, other.rotationDeg);
   }
 
   @override
@@ -2383,7 +2487,8 @@ class EditCommandMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EditCommandMsg decode(Object result) {
     result as List<Object?>;
@@ -2418,7 +2523,24 @@ class EditCommandMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(kind, other.kind) && _deepEquals(sourceId, other.sourceId) && _deepEquals(clipId, other.clipId) && _deepEquals(maskId, other.maskId) && _deepEquals(inUs, other.inUs) && _deepEquals(outUs, other.outUs) && _deepEquals(atUs, other.atUs) && _deepEquals(index, other.index) && _deepEquals(toIndex, other.toIndex) && _deepEquals(maskType, other.maskType) && _deepEquals(region, other.region) && _deepEquals(startUs, other.startUs) && _deepEquals(endUs, other.endUs) && _deepEquals(style, other.style) && _deepEquals(strength, other.strength) && _deepEquals(enabled, other.enabled) && _deepEquals(trackingKind, other.trackingKind) && _deepEquals(targetId, other.targetId);
+    return _deepEquals(kind, other.kind) &&
+        _deepEquals(sourceId, other.sourceId) &&
+        _deepEquals(clipId, other.clipId) &&
+        _deepEquals(maskId, other.maskId) &&
+        _deepEquals(inUs, other.inUs) &&
+        _deepEquals(outUs, other.outUs) &&
+        _deepEquals(atUs, other.atUs) &&
+        _deepEquals(index, other.index) &&
+        _deepEquals(toIndex, other.toIndex) &&
+        _deepEquals(maskType, other.maskType) &&
+        _deepEquals(region, other.region) &&
+        _deepEquals(startUs, other.startUs) &&
+        _deepEquals(endUs, other.endUs) &&
+        _deepEquals(style, other.style) &&
+        _deepEquals(strength, other.strength) &&
+        _deepEquals(enabled, other.enabled) &&
+        _deepEquals(trackingKind, other.trackingKind) &&
+        _deepEquals(targetId, other.targetId);
   }
 
   @override
@@ -2451,17 +2573,12 @@ class EditResultMsg {
   String? unsupportedReason;
 
   List<Object?> _toList() {
-    return <Object?>[
-      kind,
-      revision,
-      createdId,
-      error,
-      unsupportedReason,
-    ];
+    return <Object?>[kind, revision, createdId, error, unsupportedReason];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EditResultMsg decode(Object result) {
     result as List<Object?>;
@@ -2483,7 +2600,11 @@ class EditResultMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(kind, other.kind) && _deepEquals(revision, other.revision) && _deepEquals(createdId, other.createdId) && _deepEquals(error, other.error) && _deepEquals(unsupportedReason, other.unsupportedReason);
+    return _deepEquals(kind, other.kind) &&
+        _deepEquals(revision, other.revision) &&
+        _deepEquals(createdId, other.createdId) &&
+        _deepEquals(error, other.error) &&
+        _deepEquals(unsupportedReason, other.unsupportedReason);
   }
 
   @override
@@ -2538,7 +2659,8 @@ class SourceProbeMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static SourceProbeMsg decode(Object result) {
     result as List<Object?>;
@@ -2563,7 +2685,14 @@ class SourceProbeMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(durationUs, other.durationUs) && _deepEquals(width, other.width) && _deepEquals(height, other.height) && _deepEquals(rotationDeg, other.rotationDeg) && _deepEquals(frameRate, other.frameRate) && _deepEquals(videoCodec, other.videoCodec) && _deepEquals(audioCodec, other.audioCodec) && _deepEquals(hasAudio, other.hasAudio);
+    return _deepEquals(durationUs, other.durationUs) &&
+        _deepEquals(width, other.width) &&
+        _deepEquals(height, other.height) &&
+        _deepEquals(rotationDeg, other.rotationDeg) &&
+        _deepEquals(frameRate, other.frameRate) &&
+        _deepEquals(videoCodec, other.videoCodec) &&
+        _deepEquals(audioCodec, other.audioCodec) &&
+        _deepEquals(hasAudio, other.hasAudio);
   }
 
   @override
@@ -2596,17 +2725,12 @@ class EditSourceMsg {
   bool mismatch;
 
   List<Object?> _toList() {
-    return <Object?>[
-      sourceId,
-      mediaToken,
-      displayName,
-      probe,
-      mismatch,
-    ];
+    return <Object?>[sourceId, mediaToken, displayName, probe, mismatch];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EditSourceMsg decode(Object result) {
     result as List<Object?>;
@@ -2628,7 +2752,11 @@ class EditSourceMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(sourceId, other.sourceId) && _deepEquals(mediaToken, other.mediaToken) && _deepEquals(displayName, other.displayName) && _deepEquals(probe, other.probe) && _deepEquals(mismatch, other.mismatch);
+    return _deepEquals(sourceId, other.sourceId) &&
+        _deepEquals(mediaToken, other.mediaToken) &&
+        _deepEquals(displayName, other.displayName) &&
+        _deepEquals(probe, other.probe) &&
+        _deepEquals(mismatch, other.mismatch);
   }
 
   @override
@@ -2658,16 +2786,12 @@ class ClipMsg {
   int outUs;
 
   List<Object?> _toList() {
-    return <Object?>[
-      clipId,
-      sourceId,
-      inUs,
-      outUs,
-    ];
+    return <Object?>[clipId, sourceId, inUs, outUs];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ClipMsg decode(Object result) {
     result as List<Object?>;
@@ -2688,7 +2812,10 @@ class ClipMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(clipId, other.clipId) && _deepEquals(sourceId, other.sourceId) && _deepEquals(inUs, other.inUs) && _deepEquals(outUs, other.outUs);
+    return _deepEquals(clipId, other.clipId) &&
+        _deepEquals(sourceId, other.sourceId) &&
+        _deepEquals(inUs, other.inUs) &&
+        _deepEquals(outUs, other.outUs);
   }
 
   @override
@@ -2719,16 +2846,12 @@ class MaskKeyframeMsg {
   String? quality;
 
   List<Object?> _toList() {
-    return <Object?>[
-      atUs,
-      region,
-      source,
-      quality,
-    ];
+    return <Object?>[atUs, region, source, quality];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static MaskKeyframeMsg decode(Object result) {
     result as List<Object?>;
@@ -2749,7 +2872,10 @@ class MaskKeyframeMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(atUs, other.atUs) && _deepEquals(region, other.region) && _deepEquals(source, other.source) && _deepEquals(quality, other.quality);
+    return _deepEquals(atUs, other.atUs) &&
+        _deepEquals(region, other.region) &&
+        _deepEquals(source, other.source) &&
+        _deepEquals(quality, other.quality);
   }
 
   @override
@@ -2763,31 +2889,23 @@ class MaskKeyframeMsg {
 }
 
 class TimeRangeMsg {
-  TimeRangeMsg({
-    required this.startUs,
-    required this.endUs,
-  });
+  TimeRangeMsg({required this.startUs, required this.endUs});
 
   int startUs;
 
   int endUs;
 
   List<Object?> _toList() {
-    return <Object?>[
-      startUs,
-      endUs,
-    ];
+    return <Object?>[startUs, endUs];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static TimeRangeMsg decode(Object result) {
     result as List<Object?>;
-    return TimeRangeMsg(
-      startUs: result[0]! as int,
-      endUs: result[1]! as int,
-    );
+    return TimeRangeMsg(startUs: result[0]! as int, endUs: result[1]! as int);
   }
 
   @override
@@ -2799,7 +2917,8 @@ class TimeRangeMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(startUs, other.startUs) && _deepEquals(endUs, other.endUs);
+    return _deepEquals(startUs, other.startUs) &&
+        _deepEquals(endUs, other.endUs);
   }
 
   @override
@@ -2854,7 +2973,8 @@ class MaskTrackMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static MaskTrackMsg decode(Object result) {
     result as List<Object?>;
@@ -2879,7 +2999,14 @@ class MaskTrackMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(maskId, other.maskId) && _deepEquals(type, other.type) && _deepEquals(style, other.style) && _deepEquals(strength, other.strength) && _deepEquals(enabled, other.enabled) && _deepEquals(range, other.range) && _deepEquals(keyframes, other.keyframes) && _deepEquals(acceptedRanges, other.acceptedRanges);
+    return _deepEquals(maskId, other.maskId) &&
+        _deepEquals(type, other.type) &&
+        _deepEquals(style, other.style) &&
+        _deepEquals(strength, other.strength) &&
+        _deepEquals(enabled, other.enabled) &&
+        _deepEquals(range, other.range) &&
+        _deepEquals(keyframes, other.keyframes) &&
+        _deepEquals(acceptedRanges, other.acceptedRanges);
   }
 
   @override
@@ -2893,11 +3020,7 @@ class MaskTrackMsg {
 }
 
 class CoverageRangeMsg {
-  CoverageRangeMsg({
-    required this.range,
-    required this.quality,
-    this.maskId,
-  });
+  CoverageRangeMsg({required this.range, required this.quality, this.maskId});
 
   TimeRangeMsg range;
 
@@ -2907,15 +3030,12 @@ class CoverageRangeMsg {
   String? maskId;
 
   List<Object?> _toList() {
-    return <Object?>[
-      range,
-      quality,
-      maskId,
-    ];
+    return <Object?>[range, quality, maskId];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CoverageRangeMsg decode(Object result) {
     result as List<Object?>;
@@ -2935,7 +3055,9 @@ class CoverageRangeMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(range, other.range) && _deepEquals(quality, other.quality) && _deepEquals(maskId, other.maskId);
+    return _deepEquals(range, other.range) &&
+        _deepEquals(quality, other.quality) &&
+        _deepEquals(maskId, other.maskId);
   }
 
   @override
@@ -2969,17 +3091,12 @@ class TrackingRunMsg {
   StableErrorMsg? error;
 
   List<Object?> _toList() {
-    return <Object?>[
-      maskId,
-      status,
-      progress,
-      coverage,
-      error,
-    ];
+    return <Object?>[maskId, status, progress, coverage, error];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static TrackingRunMsg decode(Object result) {
     result as List<Object?>;
@@ -3001,7 +3118,11 @@ class TrackingRunMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(maskId, other.maskId) && _deepEquals(status, other.status) && _deepEquals(progress, other.progress) && _deepEquals(coverage, other.coverage) && _deepEquals(error, other.error);
+    return _deepEquals(maskId, other.maskId) &&
+        _deepEquals(status, other.status) &&
+        _deepEquals(progress, other.progress) &&
+        _deepEquals(coverage, other.coverage) &&
+        _deepEquals(error, other.error);
   }
 
   @override
@@ -3056,7 +3177,8 @@ class ExportProgressMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ExportProgressMsg decode(Object result) {
     result as List<Object?>;
@@ -3081,7 +3203,14 @@ class ExportProgressMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(exportId, other.exportId) && _deepEquals(stage, other.stage) && _deepEquals(fraction, other.fraction) && _deepEquals(processedUs, other.processedUs) && _deepEquals(processedFrames, other.processedFrames) && _deepEquals(outputBytes, other.outputBytes) && _deepEquals(remainingEstimateUs, other.remainingEstimateUs) && _deepEquals(cancellable, other.cancellable);
+    return _deepEquals(exportId, other.exportId) &&
+        _deepEquals(stage, other.stage) &&
+        _deepEquals(fraction, other.fraction) &&
+        _deepEquals(processedUs, other.processedUs) &&
+        _deepEquals(processedFrames, other.processedFrames) &&
+        _deepEquals(outputBytes, other.outputBytes) &&
+        _deepEquals(remainingEstimateUs, other.remainingEstimateUs) &&
+        _deepEquals(cancellable, other.cancellable);
   }
 
   @override
@@ -3152,7 +3281,8 @@ class EditStateMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EditStateMsg decode(Object result) {
     result as List<Object?>;
@@ -3181,7 +3311,18 @@ class EditStateMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(phase, other.phase) && _deepEquals(revision, other.revision) && _deepEquals(sources, other.sources) && _deepEquals(clips, other.clips) && _deepEquals(masks, other.masks) && _deepEquals(tracking, other.tracking) && _deepEquals(exportProgress, other.exportProgress) && _deepEquals(canUndo, other.canUndo) && _deepEquals(canRedo, other.canRedo) && _deepEquals(estimateDurationUs, other.estimateDurationUs) && _deepEquals(estimateSizeBytes, other.estimateSizeBytes) && _deepEquals(error, other.error);
+    return _deepEquals(phase, other.phase) &&
+        _deepEquals(revision, other.revision) &&
+        _deepEquals(sources, other.sources) &&
+        _deepEquals(clips, other.clips) &&
+        _deepEquals(masks, other.masks) &&
+        _deepEquals(tracking, other.tracking) &&
+        _deepEquals(exportProgress, other.exportProgress) &&
+        _deepEquals(canUndo, other.canUndo) &&
+        _deepEquals(canRedo, other.canRedo) &&
+        _deepEquals(estimateDurationUs, other.estimateDurationUs) &&
+        _deepEquals(estimateSizeBytes, other.estimateSizeBytes) &&
+        _deepEquals(error, other.error);
   }
 
   @override
@@ -3237,7 +3378,8 @@ class EditEventMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EditEventMsg decode(Object result) {
     result as List<Object?>;
@@ -3262,7 +3404,14 @@ class EditEventMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(type, other.type) && _deepEquals(sourceId, other.sourceId) && _deepEquals(maskId, other.maskId) && _deepEquals(exportId, other.exportId) && _deepEquals(stage, other.stage) && _deepEquals(range, other.range) && _deepEquals(error, other.error) && _deepEquals(code, other.code);
+    return _deepEquals(type, other.type) &&
+        _deepEquals(sourceId, other.sourceId) &&
+        _deepEquals(maskId, other.maskId) &&
+        _deepEquals(exportId, other.exportId) &&
+        _deepEquals(stage, other.stage) &&
+        _deepEquals(range, other.range) &&
+        _deepEquals(error, other.error) &&
+        _deepEquals(code, other.code);
   }
 
   @override
@@ -3292,16 +3441,12 @@ class EditUpdateMessage {
   EditEventMsg? event;
 
   List<Object?> _toList() {
-    return <Object?>[
-      projectId,
-      seq,
-      state,
-      event,
-    ];
+    return <Object?>[projectId, seq, state, event];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static EditUpdateMessage decode(Object result) {
     result as List<Object?>;
@@ -3322,7 +3467,10 @@ class EditUpdateMessage {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(projectId, other.projectId) && _deepEquals(seq, other.seq) && _deepEquals(state, other.state) && _deepEquals(event, other.event);
+    return _deepEquals(projectId, other.projectId) &&
+        _deepEquals(seq, other.seq) &&
+        _deepEquals(state, other.state) &&
+        _deepEquals(event, other.event);
   }
 
   @override
@@ -3336,24 +3484,19 @@ class EditUpdateMessage {
 }
 
 class SerializedProjectMsg {
-  SerializedProjectMsg({
-    required this.schemaVersion,
-    required this.json,
-  });
+  SerializedProjectMsg({required this.schemaVersion, required this.json});
 
   int schemaVersion;
 
   String json;
 
   List<Object?> _toList() {
-    return <Object?>[
-      schemaVersion,
-      json,
-    ];
+    return <Object?>[schemaVersion, json];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static SerializedProjectMsg decode(Object result) {
     result as List<Object?>;
@@ -3372,7 +3515,8 @@ class SerializedProjectMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(schemaVersion, other.schemaVersion) && _deepEquals(json, other.json);
+    return _deepEquals(schemaVersion, other.schemaVersion) &&
+        _deepEquals(json, other.json);
   }
 
   @override
@@ -3403,16 +3547,12 @@ class ExportRequestMsg {
   String sinkRef;
 
   List<Object?> _toList() {
-    return <Object?>[
-      exportId,
-      preset,
-      fileNameHint,
-      sinkRef,
-    ];
+    return <Object?>[exportId, preset, fileNameHint, sinkRef];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ExportRequestMsg decode(Object result) {
     result as List<Object?>;
@@ -3433,7 +3573,10 @@ class ExportRequestMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(exportId, other.exportId) && _deepEquals(preset, other.preset) && _deepEquals(fileNameHint, other.fileNameHint) && _deepEquals(sinkRef, other.sinkRef);
+    return _deepEquals(exportId, other.exportId) &&
+        _deepEquals(preset, other.preset) &&
+        _deepEquals(fileNameHint, other.fileNameHint) &&
+        _deepEquals(sinkRef, other.sinkRef);
   }
 
   @override
@@ -3485,7 +3628,8 @@ class PrecheckMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static PrecheckMsg decode(Object result) {
     result as List<Object?>;
@@ -3509,7 +3653,13 @@ class PrecheckMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(ok, other.ok) && _deepEquals(writeMode, other.writeMode) && _deepEquals(estimateDurationUs, other.estimateDurationUs) && _deepEquals(estimateSizeBytes, other.estimateSizeBytes) && _deepEquals(problems, other.problems) && _deepEquals(warnings, other.warnings) && _deepEquals(uncoveredRanges, other.uncoveredRanges);
+    return _deepEquals(ok, other.ok) &&
+        _deepEquals(writeMode, other.writeMode) &&
+        _deepEquals(estimateDurationUs, other.estimateDurationUs) &&
+        _deepEquals(estimateSizeBytes, other.estimateSizeBytes) &&
+        _deepEquals(problems, other.problems) &&
+        _deepEquals(warnings, other.warnings) &&
+        _deepEquals(uncoveredRanges, other.uncoveredRanges);
   }
 
   @override
@@ -3604,7 +3754,8 @@ class ExportedMediaMsg {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ExportedMediaMsg decode(Object result) {
     result as List<Object?>;
@@ -3639,7 +3790,24 @@ class ExportedMediaMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(outputToken, other.outputToken) && _deepEquals(container, other.container) && _deepEquals(extension, other.extension) && _deepEquals(videoCodec, other.videoCodec) && _deepEquals(audioCodec, other.audioCodec) && _deepEquals(width, other.width) && _deepEquals(height, other.height) && _deepEquals(rotationDeg, other.rotationDeg) && _deepEquals(durationUs, other.durationUs) && _deepEquals(sizeBytes, other.sizeBytes) && _deepEquals(frameRate, other.frameRate) && _deepEquals(audioPresent, other.audioPresent) && _deepEquals(createdAtEpochMs, other.createdAtEpochMs) && _deepEquals(sourceTokens, other.sourceTokens) && _deepEquals(editProjectId, other.editProjectId) && _deepEquals(exportPreset, other.exportPreset) && _deepEquals(warnings, other.warnings) && _deepEquals(isDemo, other.isDemo);
+    return _deepEquals(outputToken, other.outputToken) &&
+        _deepEquals(container, other.container) &&
+        _deepEquals(extension, other.extension) &&
+        _deepEquals(videoCodec, other.videoCodec) &&
+        _deepEquals(audioCodec, other.audioCodec) &&
+        _deepEquals(width, other.width) &&
+        _deepEquals(height, other.height) &&
+        _deepEquals(rotationDeg, other.rotationDeg) &&
+        _deepEquals(durationUs, other.durationUs) &&
+        _deepEquals(sizeBytes, other.sizeBytes) &&
+        _deepEquals(frameRate, other.frameRate) &&
+        _deepEquals(audioPresent, other.audioPresent) &&
+        _deepEquals(createdAtEpochMs, other.createdAtEpochMs) &&
+        _deepEquals(sourceTokens, other.sourceTokens) &&
+        _deepEquals(editProjectId, other.editProjectId) &&
+        _deepEquals(exportPreset, other.exportPreset) &&
+        _deepEquals(warnings, other.warnings) &&
+        _deepEquals(isDemo, other.isDemo);
   }
 
   @override
@@ -3675,18 +3843,12 @@ class ExportResultMsg {
   bool? partialOutputRemoved;
 
   List<Object?> _toList() {
-    return <Object?>[
-      kind,
-      exportId,
-      media,
-      error,
-      stage,
-      partialOutputRemoved,
-    ];
+    return <Object?>[kind, exportId, media, error, stage, partialOutputRemoved];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ExportResultMsg decode(Object result) {
     result as List<Object?>;
@@ -3709,7 +3871,12 @@ class ExportResultMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(kind, other.kind) && _deepEquals(exportId, other.exportId) && _deepEquals(media, other.media) && _deepEquals(error, other.error) && _deepEquals(stage, other.stage) && _deepEquals(partialOutputRemoved, other.partialOutputRemoved);
+    return _deepEquals(kind, other.kind) &&
+        _deepEquals(exportId, other.exportId) &&
+        _deepEquals(media, other.media) &&
+        _deepEquals(error, other.error) &&
+        _deepEquals(stage, other.stage) &&
+        _deepEquals(partialOutputRemoved, other.partialOutputRemoved);
   }
 
   @override
@@ -3739,16 +3906,12 @@ class TrackingCandidateMsg {
   double? confidence;
 
   List<Object?> _toList() {
-    return <Object?>[
-      candidateId,
-      kind,
-      region,
-      confidence,
-    ];
+    return <Object?>[candidateId, kind, region, confidence];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static TrackingCandidateMsg decode(Object result) {
     result as List<Object?>;
@@ -3769,7 +3932,10 @@ class TrackingCandidateMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(candidateId, other.candidateId) && _deepEquals(kind, other.kind) && _deepEquals(region, other.region) && _deepEquals(confidence, other.confidence);
+    return _deepEquals(candidateId, other.candidateId) &&
+        _deepEquals(kind, other.kind) &&
+        _deepEquals(region, other.region) &&
+        _deepEquals(confidence, other.confidence);
   }
 
   @override
@@ -3783,24 +3949,19 @@ class TrackingCandidateMsg {
 }
 
 class CandidateResultMsg {
-  CandidateResultMsg({
-    required this.candidates,
-    this.error,
-  });
+  CandidateResultMsg({required this.candidates, this.error});
 
   List<TrackingCandidateMsg> candidates;
 
   StableErrorMsg? error;
 
   List<Object?> _toList() {
-    return <Object?>[
-      candidates,
-      error,
-    ];
+    return <Object?>[candidates, error];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CandidateResultMsg decode(Object result) {
     result as List<Object?>;
@@ -3819,7 +3980,8 @@ class CandidateResultMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(candidates, other.candidates) && _deepEquals(error, other.error);
+    return _deepEquals(candidates, other.candidates) &&
+        _deepEquals(error, other.error);
   }
 
   @override
@@ -3834,24 +3996,19 @@ class CandidateResultMsg {
 
 /// Result of a call that creates an object: [id] on success, otherwise [error].
 class CreateResultMsg {
-  CreateResultMsg({
-    this.id,
-    this.error,
-  });
+  CreateResultMsg({this.id, this.error});
 
   String? id;
 
   StableErrorMsg? error;
 
   List<Object?> _toList() {
-    return <Object?>[
-      id,
-      error,
-    ];
+    return <Object?>[id, error];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CreateResultMsg decode(Object result) {
     result as List<Object?>;
@@ -3883,7 +4040,6 @@ class CreateResultMsg {
   }
 }
 
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -3891,175 +4047,175 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    }    else if (value is MediaKindMsg) {
+    } else if (value is MediaKindMsg) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    }    else if (value is SessionPhaseMsg) {
+    } else if (value is SessionPhaseMsg) {
       buffer.putUint8(130);
       writeValue(buffer, value.index);
-    }    else if (value is SeekModeMsg) {
+    } else if (value is SeekModeMsg) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    }    else if (value is CommandResultKind) {
+    } else if (value is CommandResultKind) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    }    else if (value is EditPhaseMsg) {
+    } else if (value is EditPhaseMsg) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    }    else if (value is EditResultKind) {
+    } else if (value is EditResultKind) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    }    else if (value is ExportResultKind) {
+    } else if (value is ExportResultKind) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    }    else if (value is HandshakeRequest) {
+    } else if (value is HandshakeRequest) {
       buffer.putUint8(136);
       writeValue(buffer, value.encode());
-    }    else if (value is HandshakeResponse) {
+    } else if (value is HandshakeResponse) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
-    }    else if (value is StableErrorMsg) {
+    } else if (value is StableErrorMsg) {
       buffer.putUint8(138);
       writeValue(buffer, value.encode());
-    }    else if (value is CommandResultMsg) {
+    } else if (value is CommandResultMsg) {
       buffer.putUint8(139);
       writeValue(buffer, value.encode());
-    }    else if (value is TrackInfoMsg) {
+    } else if (value is TrackInfoMsg) {
       buffer.putUint8(140);
       writeValue(buffer, value.encode());
-    }    else if (value is TransformMsg) {
+    } else if (value is TransformMsg) {
       buffer.putUint8(141);
       writeValue(buffer, value.encode());
-    }    else if (value is OrientationStateMsg) {
+    } else if (value is OrientationStateMsg) {
       buffer.putUint8(142);
       writeValue(buffer, value.encode());
-    }    else if (value is HostIconMsg) {
+    } else if (value is HostIconMsg) {
       buffer.putUint8(143);
       writeValue(buffer, value.encode());
-    }    else if (value is HostActionMsg) {
+    } else if (value is HostActionMsg) {
       buffer.putUint8(144);
       writeValue(buffer, value.encode());
-    }    else if (value is HostActionStateMsg) {
+    } else if (value is HostActionStateMsg) {
       buffer.putUint8(145);
       writeValue(buffer, value.encode());
-    }    else if (value is SessionConfigMsg) {
+    } else if (value is SessionConfigMsg) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    }    else if (value is MediaInfoMsg) {
+    } else if (value is MediaInfoMsg) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    }    else if (value is ThumbnailResultMsg) {
+    } else if (value is ThumbnailResultMsg) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    }    else if (value is ImageDetailsMsg) {
+    } else if (value is ImageDetailsMsg) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    }    else if (value is SessionStateMsg) {
+    } else if (value is SessionStateMsg) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    }    else if (value is PlaybackStateMsg) {
+    } else if (value is PlaybackStateMsg) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
-    }    else if (value is EventMsg) {
+    } else if (value is EventMsg) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    }    else if (value is SessionUpdateMessage) {
+    } else if (value is SessionUpdateMessage) {
       buffer.putUint8(153);
       writeValue(buffer, value.encode());
-    }    else if (value is MediaSourceMsg) {
+    } else if (value is MediaSourceMsg) {
       buffer.putUint8(154);
       writeValue(buffer, value.encode());
-    }    else if (value is CapabilityRequestMsg) {
+    } else if (value is CapabilityRequestMsg) {
       buffer.putUint8(155);
       writeValue(buffer, value.encode());
-    }    else if (value is MediaProbeMsg) {
+    } else if (value is MediaProbeMsg) {
       buffer.putUint8(156);
       writeValue(buffer, value.encode());
-    }    else if (value is CapabilitiesMsg) {
+    } else if (value is CapabilitiesMsg) {
       buffer.putUint8(157);
       writeValue(buffer, value.encode());
-    }    else if (value is HostActionRequestMsg) {
+    } else if (value is HostActionRequestMsg) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    }    else if (value is HostActionResultMsg) {
+    } else if (value is HostActionResultMsg) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    }    else if (value is NavigationRequestMsg) {
+    } else if (value is NavigationRequestMsg) {
       buffer.putUint8(160);
       writeValue(buffer, value.encode());
-    }    else if (value is PlaybackEventMsg) {
+    } else if (value is PlaybackEventMsg) {
       buffer.putUint8(161);
       writeValue(buffer, value.encode());
-    }    else if (value is EditProjectConfigMsg) {
+    } else if (value is EditProjectConfigMsg) {
       buffer.putUint8(162);
       writeValue(buffer, value.encode());
-    }    else if (value is MaskRegionMsg) {
+    } else if (value is MaskRegionMsg) {
       buffer.putUint8(163);
       writeValue(buffer, value.encode());
-    }    else if (value is EditCommandMsg) {
+    } else if (value is EditCommandMsg) {
       buffer.putUint8(164);
       writeValue(buffer, value.encode());
-    }    else if (value is EditResultMsg) {
+    } else if (value is EditResultMsg) {
       buffer.putUint8(165);
       writeValue(buffer, value.encode());
-    }    else if (value is SourceProbeMsg) {
+    } else if (value is SourceProbeMsg) {
       buffer.putUint8(166);
       writeValue(buffer, value.encode());
-    }    else if (value is EditSourceMsg) {
+    } else if (value is EditSourceMsg) {
       buffer.putUint8(167);
       writeValue(buffer, value.encode());
-    }    else if (value is ClipMsg) {
+    } else if (value is ClipMsg) {
       buffer.putUint8(168);
       writeValue(buffer, value.encode());
-    }    else if (value is MaskKeyframeMsg) {
+    } else if (value is MaskKeyframeMsg) {
       buffer.putUint8(169);
       writeValue(buffer, value.encode());
-    }    else if (value is TimeRangeMsg) {
+    } else if (value is TimeRangeMsg) {
       buffer.putUint8(170);
       writeValue(buffer, value.encode());
-    }    else if (value is MaskTrackMsg) {
+    } else if (value is MaskTrackMsg) {
       buffer.putUint8(171);
       writeValue(buffer, value.encode());
-    }    else if (value is CoverageRangeMsg) {
+    } else if (value is CoverageRangeMsg) {
       buffer.putUint8(172);
       writeValue(buffer, value.encode());
-    }    else if (value is TrackingRunMsg) {
+    } else if (value is TrackingRunMsg) {
       buffer.putUint8(173);
       writeValue(buffer, value.encode());
-    }    else if (value is ExportProgressMsg) {
+    } else if (value is ExportProgressMsg) {
       buffer.putUint8(174);
       writeValue(buffer, value.encode());
-    }    else if (value is EditStateMsg) {
+    } else if (value is EditStateMsg) {
       buffer.putUint8(175);
       writeValue(buffer, value.encode());
-    }    else if (value is EditEventMsg) {
+    } else if (value is EditEventMsg) {
       buffer.putUint8(176);
       writeValue(buffer, value.encode());
-    }    else if (value is EditUpdateMessage) {
+    } else if (value is EditUpdateMessage) {
       buffer.putUint8(177);
       writeValue(buffer, value.encode());
-    }    else if (value is SerializedProjectMsg) {
+    } else if (value is SerializedProjectMsg) {
       buffer.putUint8(178);
       writeValue(buffer, value.encode());
-    }    else if (value is ExportRequestMsg) {
+    } else if (value is ExportRequestMsg) {
       buffer.putUint8(179);
       writeValue(buffer, value.encode());
-    }    else if (value is PrecheckMsg) {
+    } else if (value is PrecheckMsg) {
       buffer.putUint8(180);
       writeValue(buffer, value.encode());
-    }    else if (value is ExportedMediaMsg) {
+    } else if (value is ExportedMediaMsg) {
       buffer.putUint8(181);
       writeValue(buffer, value.encode());
-    }    else if (value is ExportResultMsg) {
+    } else if (value is ExportResultMsg) {
       buffer.putUint8(182);
       writeValue(buffer, value.encode());
-    }    else if (value is TrackingCandidateMsg) {
+    } else if (value is TrackingCandidateMsg) {
       buffer.putUint8(183);
       writeValue(buffer, value.encode());
-    }    else if (value is CandidateResultMsg) {
+    } else if (value is CandidateResultMsg) {
       buffer.putUint8(184);
       writeValue(buffer, value.encode());
-    }    else if (value is CreateResultMsg) {
+    } else if (value is CreateResultMsg) {
       buffer.putUint8(185);
       writeValue(buffer, value.encode());
     } else {
@@ -4197,7 +4353,9 @@ class _PigeonCodec extends StandardMessageCodec {
   }
 }
 
-const StandardMethodCodec pigeonMethodCodec = StandardMethodCodec(_PigeonCodec());
+const StandardMethodCodec pigeonMethodCodec = StandardMethodCodec(
+  _PigeonCodec(),
+);
 
 /// Dart → native (14 §8.2). Unknown session or project ids answer `sessionReleased` / `projectReleased`.
 class VideoKitHostApi {
@@ -4205,840 +4363,990 @@ class VideoKitHostApi {
   /// available for dependency injection. If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
   VideoKitHostApi({
-      BinaryMessenger? binaryMessenger, 
-      String messageChannelSuffix = '', 
-      })
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
+           ? '.$messageChannelSuffix'
+           : '';
 
   final BinaryMessenger? pigeonVar_binaryMessenger;
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
   final String pigeonVar_messageChannelSuffix;
 
-
   Future<HandshakeResponse> handshake(HandshakeRequest request) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.handshake$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.handshake$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[request],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as HandshakeResponse;
   }
 
   Future<CapabilitiesMsg> capabilities(CapabilityRequestMsg request) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.capabilities$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.capabilities$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[request],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CapabilitiesMsg;
   }
 
   Future<CreateResultMsg> createSession(SessionConfigMsg config) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.createSession$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.createSession$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[config]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[config],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CreateResultMsg;
   }
 
   /// Observes a session the native host shared (`VideoKitFlutter.shareSession`, add-to-app 14 §9.1). The host keeps
   /// ownership: [release] then only stops observing it. Not shared or released → `error` SESSION_RELEASED.
   Future<CreateResultMsg> adoptSession(String sessionId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.adoptSession$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.adoptSession$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CreateResultMsg;
   }
 
-  Future<CommandResultMsg> bind(String sessionId, MediaSourceMsg source, PlaybackStateMsg? initial, List<HostActionMsg> actions) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.bind$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> bind(
+    String sessionId,
+    MediaSourceMsg source,
+    PlaybackStateMsg? initial,
+    List<HostActionMsg> actions,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.bind$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, source, initial, actions]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, source, initial, actions],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
   Future<CommandResultMsg> play(String sessionId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.play$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.play$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
   Future<CommandResultMsg> pause(String sessionId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.pause$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.pause$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> seekTo(String sessionId, int positionUs, SeekModeMsg mode) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.seekTo$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> seekTo(
+    String sessionId,
+    int positionUs,
+    SeekModeMsg mode,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.seekTo$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, positionUs, mode]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, positionUs, mode],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
   Future<CommandResultMsg> setSpeed(String sessionId, double speed) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setSpeed$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setSpeed$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, speed]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, speed],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
   Future<CommandResultMsg> setMuted(String sessionId, bool muted) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setMuted$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setMuted$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, muted]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, muted],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
   Future<CommandResultMsg> setVolume(String sessionId, double volume) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setVolume$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setVolume$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, volume]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, volume],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> selectAudioTrack(String sessionId, String? trackId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.selectAudioTrack$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> selectAudioTrack(
+    String sessionId,
+    String? trackId,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.selectAudioTrack$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, trackId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, trackId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> selectSubtitleTrack(String sessionId, String? trackId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.selectSubtitleTrack$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> selectSubtitleTrack(
+    String sessionId,
+    String? trackId,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.selectSubtitleTrack$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, trackId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, trackId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> setTransform(String sessionId, TransformMsg transform) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setTransform$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> setTransform(
+    String sessionId,
+    TransformMsg transform,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setTransform$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, transform]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, transform],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> setOrientation(String sessionId, String request) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setOrientation$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> setOrientation(
+    String sessionId,
+    String request,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setOrientation$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, request]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, request],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> setFullscreen(String sessionId, bool fullscreen) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setFullscreen$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> setFullscreen(
+    String sessionId,
+    bool fullscreen,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setFullscreen$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, fullscreen]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, fullscreen],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> setVisibility(String sessionId, String visibility) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setVisibility$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> setVisibility(
+    String sessionId,
+    String visibility,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setVisibility$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, visibility]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, visibility],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> setActiveAudio(String sessionId, bool active, int audioEpoch) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setActiveAudio$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> setActiveAudio(
+    String sessionId,
+    bool active,
+    int audioEpoch,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setActiveAudio$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, active, audioEpoch]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, active, audioEpoch],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
-  Future<CommandResultMsg> hideContentForLock(String sessionId, bool hidden) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.hideContentForLock$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> hideContentForLock(
+    String sessionId,
+    bool hidden,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.hideContentForLock$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, hidden]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, hidden],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
   /// 04A L1; static images answer `unsupported(MEDIA_KIND)`.
   Future<CommandResultMsg> setLooping(String sessionId, bool looping) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setLooping$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setLooping$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, looping]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, looping],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
   /// 04A P1: JPEG of the frame nearest to [atUs] fitting the size; failures in `ThumbnailResultMsg.error`.
-  Future<ThumbnailResultMsg> captureThumbnail(String sessionId, int atUs, int maxWidth, int maxHeight) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.captureThumbnail$pigeonVar_messageChannelSuffix';
+  Future<ThumbnailResultMsg> captureThumbnail(
+    String sessionId,
+    int atUs,
+    int maxWidth,
+    int maxHeight,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.captureThumbnail$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, atUs, maxWidth, maxHeight]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, atUs, maxWidth, maxHeight],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as ThumbnailResultMsg;
   }
 
-  Future<CommandResultMsg> requestHostAction(String sessionId, String actionId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.requestHostAction$pigeonVar_messageChannelSuffix';
+  Future<CommandResultMsg> requestHostAction(
+    String sessionId,
+    String actionId,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.requestHostAction$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, actionId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, actionId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CommandResultMsg;
   }
 
   /// Returns a `NavigationResult` wire name.
   Future<String> requestNavigation(String sessionId, String direction) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.requestNavigation$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.requestNavigation$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, direction]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, direction],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as String;
   }
 
   Future<void> setControlsVisible(String sessionId, bool visible) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setControlsVisible$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.setControlsVisible$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, visible]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, visible],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
-  Future<void> updateHostActions(String sessionId, List<HostActionMsg> actions) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.updateHostActions$pigeonVar_messageChannelSuffix';
+  Future<void> updateHostActions(
+    String sessionId,
+    List<HostActionMsg> actions,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.updateHostActions$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, actions]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, actions],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
   Future<PlaybackStateMsg?> captureState(String sessionId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.captureState$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.captureState$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
     return pigeonVar_replyValue as PlaybackStateMsg?;
   }
 
   Future<PlaybackStateMsg?> release(String sessionId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.release$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.release$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
     return pigeonVar_replyValue as PlaybackStateMsg?;
   }
 
   /// Creates the texture of [sessionId] and attaches its surface; returns the texture id, or -1 when unsupported.
   Future<int> createTexture(String sessionId, int width, int height) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.createTexture$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.createTexture$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, width, height]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, width, height],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as int;
   }
 
   Future<void> resizeTexture(String sessionId, int width, int height) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.resizeTexture$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.resizeTexture$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, width, height]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId, width, height],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
   Future<void> disposeTexture(String sessionId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.disposeTexture$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.disposeTexture$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[sessionId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
   Future<CreateResultMsg> createEditProject(EditProjectConfigMsg config) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.createEditProject$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.createEditProject$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[config]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[config],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CreateResultMsg;
   }
 
-  Future<CreateResultMsg> restoreEditProject(SerializedProjectMsg serialized, EditProjectConfigMsg config) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.restoreEditProject$pigeonVar_messageChannelSuffix';
+  Future<CreateResultMsg> restoreEditProject(
+    SerializedProjectMsg serialized,
+    EditProjectConfigMsg config,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.restoreEditProject$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[serialized, config]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[serialized, config],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CreateResultMsg;
   }
 
   /// Returns the source id in [CreateResultMsg.id], or the probe error.
-  Future<CreateResultMsg> addSource(String projectId, MediaSourceMsg source) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.addSource$pigeonVar_messageChannelSuffix';
+  Future<CreateResultMsg> addSource(
+    String projectId,
+    MediaSourceMsg source,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.addSource$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId, source]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId, source],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CreateResultMsg;
   }
 
-  Future<EditResultMsg> applyEdit(String projectId, EditCommandMsg command) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.applyEdit$pigeonVar_messageChannelSuffix';
+  Future<EditResultMsg> applyEdit(
+    String projectId,
+    EditCommandMsg command,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.applyEdit$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId, command]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId, command],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as EditResultMsg;
   }
 
   Future<EditResultMsg> undo(String projectId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.undo$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.undo$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as EditResultMsg;
   }
 
   Future<EditResultMsg> redo(String projectId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.redo$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.redo$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as EditResultMsg;
   }
 
   Future<SerializedProjectMsg?> snapshot(String projectId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.snapshot$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.snapshot$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
     return pigeonVar_replyValue as SerializedProjectMsg?;
   }
 
   /// Returns the session id of the project's preview session.
   Future<CreateResultMsg> previewSession(String projectId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.previewSession$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.previewSession$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CreateResultMsg;
   }
 
-  Future<PrecheckMsg> checkExport(String projectId, ExportRequestMsg request) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.checkExport$pigeonVar_messageChannelSuffix';
+  Future<PrecheckMsg> checkExport(
+    String projectId,
+    ExportRequestMsg request,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.checkExport$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId, request]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId, request],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as PrecheckMsg;
   }
 
-  Future<ExportResultMsg> exportProject(String projectId, ExportRequestMsg request) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.exportProject$pigeonVar_messageChannelSuffix';
+  Future<ExportResultMsg> exportProject(
+    String projectId,
+    ExportRequestMsg request,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.exportProject$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId, request]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId, request],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as ExportResultMsg;
   }
 
   Future<void> cancelExport(String projectId, String exportId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.cancelExport$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.cancelExport$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId, exportId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId, exportId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
-  Future<CandidateResultMsg> detectCandidates(String projectId, int atUs) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.detectCandidates$pigeonVar_messageChannelSuffix';
+  Future<CandidateResultMsg> detectCandidates(
+    String projectId,
+    int atUs,
+  ) async {
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.detectCandidates$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId, atUs]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId, atUs],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: false,
+    );
     return pigeonVar_replyValue! as CandidateResultMsg;
   }
 
   Future<void> closeEditProject(String projectId) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.closeEditProject$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.closeEditProject$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
       binaryMessenger: pigeonVar_binaryMessenger,
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[projectId]);
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[projectId],
+    );
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 
   /// Releases every session and project created by this engine.
   Future<void> closeAll() async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.closeAll$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channelName =
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.closeAll$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(
       pigeonVar_channelName,
       pigeonChannelCodec,
@@ -5048,11 +5356,10 @@ class VideoKitHostApi {
     final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
 
     _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: true,
-    )
-    ;
+      pigeonVar_replyList,
+      pigeonVar_channelName,
+      isNullValid: true,
+    );
   }
 }
 
@@ -5060,7 +5367,9 @@ class VideoKitHostApi {
 abstract class VideoKitCallbacksApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
-  Future<HostActionResultMsg> onHostActionRequested(HostActionRequestMsg request);
+  Future<HostActionResultMsg> onHostActionRequested(
+    HostActionRequestMsg request,
+  );
 
   /// Returns a `NavigationResult` wire name.
   Future<String> onNavigationRequested(NavigationRequestMsg request);
@@ -5081,58 +5390,74 @@ abstract class VideoKitCallbacksApi {
   /// The surface of [sessionId] was recycled or recreated (14 §8.4); null = no texture.
   void onTextureChanged(String sessionId, int? textureId);
 
-  static void setUp(VideoKitCallbacksApi? api, {
-    BinaryMessenger? binaryMessenger, 
+  static void setUp(
+    VideoKitCallbacksApi? api, {
+    BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
-  }) 
-{
-    messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  }) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onHostActionRequested$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onHostActionRequested$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
           final List<Object?> args = message! as List<Object?>;
-          final HostActionRequestMsg arg_request = args[0]! as HostActionRequestMsg;
+          final HostActionRequestMsg arg_request =
+              args[0]! as HostActionRequestMsg;
           try {
-            final HostActionResultMsg output = await api.onHostActionRequested(arg_request);
+            final HostActionResultMsg output = await api.onHostActionRequested(
+              arg_request,
+            );
             return wrapResponse(result: output);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onNavigationRequested$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onNavigationRequested$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
           final List<Object?> args = message! as List<Object?>;
-          final NavigationRequestMsg arg_request = args[0]! as NavigationRequestMsg;
+          final NavigationRequestMsg arg_request =
+              args[0]! as NavigationRequestMsg;
           try {
             final String output = await api.onNavigationRequested(arg_request);
             return wrapResponse(result: output);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onPlaybackSnapshot$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onPlaybackSnapshot$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -5144,16 +5469,20 @@ abstract class VideoKitCallbacksApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onPlaybackEvent$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onPlaybackEvent$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -5165,16 +5494,20 @@ abstract class VideoKitCallbacksApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onControlsVisibilityChanged$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onControlsVisibilityChanged$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -5187,16 +5520,20 @@ abstract class VideoKitCallbacksApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onSourceReleased$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onSourceReleased$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -5209,16 +5546,20 @@ abstract class VideoKitCallbacksApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onRecoverableError$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onRecoverableError$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -5227,20 +5568,27 @@ abstract class VideoKitCallbacksApi {
           final String arg_sessionId = args[0]! as String;
           final StableErrorMsg arg_error = args[1]! as StableErrorMsg;
           try {
-            final String output = await api.onRecoverableError(arg_sessionId, arg_error);
+            final String output = await api.onRecoverableError(
+              arg_sessionId,
+              arg_error,
+            );
             return wrapResponse(result: output);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onFatalSessionError$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onFatalSessionError$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -5253,16 +5601,20 @@ abstract class VideoKitCallbacksApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
       final pigeonVar_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onTextureChanged$messageChannelSuffix', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+        'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitCallbacksApi.onTextureChanged$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
@@ -5275,8 +5627,10 @@ abstract class VideoKitCallbacksApi {
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
@@ -5291,31 +5645,34 @@ abstract class VideoKitCallbacksApi {
 /// not be called multiple times for the same `instanceName`. To deliver
 /// events to multiple listeners, call this method once and listen to the
 /// returned broadcast stream multiple times instead.
-Stream<SessionUpdateMessage> sessionUpdates( {String instanceName = ''}) {
+Stream<SessionUpdateMessage> sessionUpdates({String instanceName = ''}) {
   if (instanceName.isNotEmpty) {
     instanceName = '.$instanceName';
   }
-  final EventChannel sessionUpdatesChannel =
-      EventChannel('dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEventsApi.sessionUpdates$instanceName', pigeonMethodCodec);
+  final EventChannel sessionUpdatesChannel = EventChannel(
+    'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEventsApi.sessionUpdates$instanceName',
+    pigeonMethodCodec,
+  );
   return sessionUpdatesChannel.receiveBroadcastStream().map((dynamic event) {
     return event as SessionUpdateMessage;
   });
 }
-    
+
 /// Returns a broadcast [Stream] of events from the `editUpdates` event channel.
 ///
 /// Each call to this method creates a new [EventChannel], so it should
 /// not be called multiple times for the same `instanceName`. To deliver
 /// events to multiple listeners, call this method once and listen to the
 /// returned broadcast stream multiple times instead.
-Stream<EditUpdateMessage> editUpdates( {String instanceName = ''}) {
+Stream<EditUpdateMessage> editUpdates({String instanceName = ''}) {
   if (instanceName.isNotEmpty) {
     instanceName = '.$instanceName';
   }
-  final EventChannel editUpdatesChannel =
-      EventChannel('dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEventsApi.editUpdates$instanceName', pigeonMethodCodec);
+  final EventChannel editUpdatesChannel = EventChannel(
+    'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitEventsApi.editUpdates$instanceName',
+    pigeonMethodCodec,
+  );
   return editUpdatesChannel.receiveBroadcastStream().map((dynamic event) {
     return event as EditUpdateMessage;
   });
 }
-    

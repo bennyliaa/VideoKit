@@ -110,6 +110,6 @@ class SettingsStore extends ValueNotifier<AppSettings> {
   /// Updates and saves.
   Future<void> update(AppSettings next) async {
     value = next;
-    await storage.write(fileName, jsonEncode(next.toJson()));
+    await writeQuietly(storage, fileName, jsonEncode(next.toJson()));
   }
 }

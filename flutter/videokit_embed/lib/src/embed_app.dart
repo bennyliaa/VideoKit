@@ -33,7 +33,9 @@ class VideoKitEmbedApp extends StatefulWidget {
 
 class _VideoKitEmbedAppState extends State<VideoKitEmbedApp> {
   late final EmbedChannel _channel = widget.channel ?? EmbedChannel();
-  late final Future<FlutterVideoKit> _kit = (widget.connect ?? () => FlutterVideoKit.connect(const VideoKitConfig()))();
+  late final Future<FlutterVideoKit> _kit =
+      (widget.connect ??
+      () => FlutterVideoKit.connect(const VideoKitConfig()))();
 
   @override
   void initState() {
@@ -85,24 +87,33 @@ class _VideoKitEmbedAppState extends State<VideoKitEmbedApp> {
     ),
   );
 
-  static String _contentKey(EmbedContentMsg c) => '${c.kind.name}:${c.sessionId}:${c.sessionIds.join(',')}:${c.projectId}';
+  static String _contentKey(EmbedContentMsg c) =>
+      '${c.kind.name}:${c.sessionId}:${c.sessionIds.join(',')}:${c.projectId}';
 
-  static ThemeMode _themeMode(EmbedThemeMsg? theme) => switch (theme?.brightness) {
-    'LIGHT' => ThemeMode.light,
-    'DARK' => ThemeMode.dark,
-    _ => ThemeMode.system,
-  };
+  static ThemeMode _themeMode(EmbedThemeMsg? theme) =>
+      switch (theme?.brightness) {
+        'LIGHT' => ThemeMode.light,
+        'DARK' => ThemeMode.dark,
+        _ => ThemeMode.system,
+      };
 
   static VideoKitThemeOverrides? _overrides(EmbedThemeMsg? theme) {
     if (theme == null || theme.colors.isEmpty) return null;
     // Unknown keys and non-colour categories are ignored and reported by VideoKitThemeData.diagnostics.
-    return VideoKitThemeOverrides(values: {for (final e in theme.colors.entries) e.key: Color(e.value)});
+    return VideoKitThemeOverrides(
+      values: {for (final e in theme.colors.entries) e.key: Color(e.value)},
+    );
   }
 }
 
 /// One content of the embed: adopts its sessions, shows the component, reports the first frame.
 class _EmbedContentView extends StatefulWidget {
-  const _EmbedContentView({super.key, required this.content, required this.kit, required this.channel});
+  const _EmbedContentView({
+    super.key,
+    required this.content,
+    required this.kit,
+    required this.channel,
+  });
 
   final EmbedContentMsg content;
   final Future<FlutterVideoKit> kit;
@@ -130,14 +141,20 @@ class _EmbedContentViewState extends State<_EmbedContentView> {
   @override
   void dispose() {
     // Adopted host sessions: release() only stops observing them (the host owns them).
-    unawaited(_sessions.then((list) => Future.wait(list.map((s) => s.release()))).catchError((Object _) => const <VideoKitPlaybackState>[]));
+    unawaited(
+      _sessions
+          .then((list) => Future.wait(list.map((s) => s.release())))
+          .catchError((Object _) => const <VideoKitPlaybackState>[]),
+    );
     super.dispose();
   }
 
   void _reportDisplayed() {
     if (_displayedReported) return;
     _displayedReported = true;
-    WidgetsBinding.instance.addPostFrameCallback((_) => widget.channel.contentDisplayed(widget.content.kind));
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => widget.channel.contentDisplayed(widget.content.kind),
+    );
   }
 
   @override
@@ -163,11 +180,18 @@ class _EmbedContentViewState extends State<_EmbedContentView> {
     return VideoKitPlayer(
       session: session,
       options: VideoKitPlayerOptions(
-        autoHideDelay: Duration(milliseconds: options?.autoHideControlsMs ?? 3000),
+        autoHideDelay: Duration(
+          milliseconds: options?.autoHideControlsMs ?? 3000,
+        ),
       ),
       onControlsVisibilityChanged: (visible) =>
-          widget.channel.controlsVisibilityChanged(visible, reduceMotion ? Duration.zero : _panelAnimation),
-      onFullscreenRequested: (options?.allowFullscreen ?? true) ? widget.channel.fullscreenRequested : null,
+          widget.channel.controlsVisibilityChanged(
+            visible,
+            reduceMotion ? Duration.zero : _panelAnimation,
+          ),
+      onFullscreenRequested: (options?.allowFullscreen ?? true)
+          ? widget.channel.fullscreenRequested
+          : null,
       onEditRequested: (_) => widget.channel.editRequested(session.sessionId),
     );
   }
@@ -177,12 +201,18 @@ class _EmbedContentViewState extends State<_EmbedContentView> {
     return VideoKitImageViewer(
       session: session,
       onControlsVisibilityChanged: (visible) =>
-          widget.channel.controlsVisibilityChanged(visible, reduceMotion ? Duration.zero : _panelAnimation),
+          widget.channel.controlsVisibilityChanged(
+            visible,
+            reduceMotion ? Duration.zero : _panelAnimation,
+          ),
     );
   }
 
   // Single-engine multi-view (UI-05), the one-engine side of the 14 §9.3 memory comparison.
   Widget _grid(List<VideoKitSession> sessions) => VideoKitSlotGrid(
-    slots: [for (var i = 0; i < sessions.length; i++) VideoKitSlot(session: sessions[i], index: i)],
+    slots: [
+      for (var i = 0; i < sessions.length; i++)
+        VideoKitSlot(session: sessions[i], index: i),
+    ],
   );
 }

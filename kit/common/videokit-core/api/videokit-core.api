@@ -5,17 +5,21 @@ public final class com/videokit/core/CapabilityNegotiation {
 
 public final class com/videokit/core/CoreOptions {
 	public fun <init> ()V
-	public fun <init> (IJLcom/videokit/api/VideoKitApiVersion;Z)V
-	public synthetic fun <init> (IJLcom/videokit/api/VideoKitApiVersion;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (IJLcom/videokit/api/VideoKitApiVersion;ZJJ)V
+	public synthetic fun <init> (IJLcom/videokit/api/VideoKitApiVersion;ZJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()I
 	public final fun component2 ()J
 	public final fun component3 ()Lcom/videokit/api/VideoKitApiVersion;
 	public final fun component4 ()Z
-	public final fun copy (IJLcom/videokit/api/VideoKitApiVersion;Z)Lcom/videokit/core/CoreOptions;
-	public static synthetic fun copy$default (Lcom/videokit/core/CoreOptions;IJLcom/videokit/api/VideoKitApiVersion;ZILjava/lang/Object;)Lcom/videokit/core/CoreOptions;
+	public final fun component5 ()J
+	public final fun component6 ()J
+	public final fun copy (IJLcom/videokit/api/VideoKitApiVersion;ZJJ)Lcom/videokit/core/CoreOptions;
+	public static synthetic fun copy$default (Lcom/videokit/core/CoreOptions;IJLcom/videokit/api/VideoKitApiVersion;ZJJILjava/lang/Object;)Lcom/videokit/core/CoreOptions;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getApiVersion ()Lcom/videokit/api/VideoKitApiVersion;
+	public final fun getBackgroundReleaseMs ()J
 	public final fun getMaxSessions ()I
+	public final fun getOffscreenReleaseMs ()J
 	public final fun getSourceTimeoutMs ()J
 	public fun hashCode ()I
 	public final fun isDemo ()Z
@@ -53,6 +57,13 @@ public final class com/videokit/core/SessionContext {
 
 public abstract interface class com/videokit/core/SessionFactory {
 	public abstract fun create (Lcom/videokit/core/SessionContext;)Lcom/videokit/api/VideoKitSession;
+}
+
+public abstract interface class com/videokit/core/runtime/AdaptiveResourceBudget : com/videokit/api/ResourceBudget {
+	public abstract fun getPressure ()Lcom/videokit/core/runtime/ResourcePressure;
+	public abstract fun onCreationFailed (Lcom/videokit/api/ResourceKind;)V
+	public abstract fun onReleaseUnconfirmed (Lcom/videokit/api/ResourceLease;Ljava/lang/String;)V
+	public abstract fun setPressure (Lcom/videokit/core/runtime/ResourcePressure;)V
 }
 
 public final class com/videokit/core/runtime/AtomicCounter {
@@ -115,15 +126,20 @@ public final class com/videokit/core/runtime/ConcurrentKt {
 	public static final fun typeName (Ljava/lang/Object;)Ljava/lang/String;
 }
 
-public final class com/videokit/core/runtime/DefaultResourceBudget : com/videokit/api/ResourceBudget {
+public final class com/videokit/core/runtime/DefaultResourceBudget : com/videokit/core/runtime/AdaptiveResourceBudget {
 	public static final field Companion Lcom/videokit/core/runtime/DefaultResourceBudget$Companion;
 	public static final field DEFAULT_IMAGE_MEMORY_BYTES J
 	public static final field HARD_VIDEO_LIMIT I
 	public fun <init> ()V
 	public fun <init> (Ljava/util/Map;Ljava/util/Map;)V
 	public synthetic fun <init> (Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun effectiveLimit (Lcom/videokit/api/ResourceKind;)Ljava/lang/Integer;
 	public final fun freeBytes (Lcom/videokit/api/ResourceKind;)Ljava/lang/Long;
+	public fun getPressure ()Lcom/videokit/core/runtime/ResourcePressure;
+	public fun onCreationFailed (Lcom/videokit/api/ResourceKind;)V
+	public fun onReleaseUnconfirmed (Lcom/videokit/api/ResourceLease;Ljava/lang/String;)V
 	public fun reserve (Lcom/videokit/api/ResourceRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setPressure (Lcom/videokit/core/runtime/ResourcePressure;)V
 	public fun snapshot ()Lcom/videokit/api/ResourceReport;
 }
 
@@ -151,6 +167,111 @@ public final class com/videokit/core/runtime/HostInteractions {
 	public final fun updateHostActions (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class com/videokit/core/runtime/IsolatedCalls {
+	public fun <init> (Ljava/lang/String;I)V
+	public final fun fail (Ljava/lang/String;)V
+	public final fun getFailed ()Z
+	public final fun getGeneration ()I
+	public final fun getPendingCalls ()I
+	public final fun getTaskId ()Ljava/lang/String;
+	public final fun onMessage (Lcom/videokit/core/runtime/IsolationMessage;)Lcom/videokit/core/runtime/IsolatedCalls$Incoming;
+	public final fun outgoing (Lcom/videokit/core/runtime/IsolationMessageType;Ljava/lang/Long;Ljava/lang/String;[B)Lcom/videokit/core/runtime/IsolationMessage;
+	public static synthetic fun outgoing$default (Lcom/videokit/core/runtime/IsolatedCalls;Lcom/videokit/core/runtime/IsolationMessageType;Ljava/lang/Long;Ljava/lang/String;[BILjava/lang/Object;)Lcom/videokit/core/runtime/IsolationMessage;
+	public final fun readData (J[B)Lcom/videokit/core/runtime/IsolationMessage;
+	public final fun register (Lcom/videokit/core/runtime/IsolationMessage;)Lkotlinx/coroutines/CompletableDeferred;
+	public final fun resultOf (Lcom/videokit/core/runtime/IsolationMessage;)[B
+}
+
+public abstract interface class com/videokit/core/runtime/IsolatedCalls$Incoming {
+}
+
+public final class com/videokit/core/runtime/IsolatedCalls$Incoming$Delivered : com/videokit/core/runtime/IsolatedCalls$Incoming {
+	public static final field INSTANCE Lcom/videokit/core/runtime/IsolatedCalls$Incoming$Delivered;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/runtime/IsolatedCalls$Incoming$Pong : com/videokit/core/runtime/IsolatedCalls$Incoming {
+	public static final field INSTANCE Lcom/videokit/core/runtime/IsolatedCalls$Incoming$Pong;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/runtime/IsolatedCalls$Incoming$Read : com/videokit/core/runtime/IsolatedCalls$Incoming {
+	public fun <init> (JJI)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()I
+	public final fun copy (JJI)Lcom/videokit/core/runtime/IsolatedCalls$Incoming$Read;
+	public static synthetic fun copy$default (Lcom/videokit/core/runtime/IsolatedCalls$Incoming$Read;JJIILjava/lang/Object;)Lcom/videokit/core/runtime/IsolatedCalls$Incoming$Read;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCallSeq ()J
+	public final fun getLength ()I
+	public final fun getOffset ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/runtime/IsolatedCalls$Incoming$Refused : com/videokit/core/runtime/IsolatedCalls$Incoming {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/videokit/core/runtime/IsolatedCalls$Incoming$Refused;
+	public static synthetic fun copy$default (Lcom/videokit/core/runtime/IsolatedCalls$Incoming$Refused;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/core/runtime/IsolatedCalls$Incoming$Refused;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/runtime/IsolationMessage {
+	public fun <init> (ILjava/lang/String;IJLcom/videokit/core/runtime/IsolationMessageType;JLjava/lang/String;JI[B)V
+	public synthetic fun <init> (ILjava/lang/String;IJLcom/videokit/core/runtime/IsolationMessageType;JLjava/lang/String;JI[BILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCallSeq ()J
+	public final fun getGeneration ()I
+	public final fun getLength ()I
+	public final fun getName ()Ljava/lang/String;
+	public final fun getOffset ()J
+	public final fun getPayload ()[B
+	public final fun getSeq ()J
+	public final fun getTaskId ()Ljava/lang/String;
+	public final fun getType ()Lcom/videokit/core/runtime/IsolationMessageType;
+	public final fun getVersion ()I
+}
+
+public final class com/videokit/core/runtime/IsolationMessageType : java/lang/Enum {
+	public static final field CALL Lcom/videokit/core/runtime/IsolationMessageType;
+	public static final field ERROR Lcom/videokit/core/runtime/IsolationMessageType;
+	public static final field FAULT Lcom/videokit/core/runtime/IsolationMessageType;
+	public static final field PING Lcom/videokit/core/runtime/IsolationMessageType;
+	public static final field PONG Lcom/videokit/core/runtime/IsolationMessageType;
+	public static final field READ_DATA Lcom/videokit/core/runtime/IsolationMessageType;
+	public static final field READ_REQUEST Lcom/videokit/core/runtime/IsolationMessageType;
+	public static final field RESULT Lcom/videokit/core/runtime/IsolationMessageType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/core/runtime/IsolationMessageType;
+	public static fun values ()[Lcom/videokit/core/runtime/IsolationMessageType;
+}
+
+public final class com/videokit/core/runtime/IsolationProtocol {
+	public static final field INSTANCE Lcom/videokit/core/runtime/IsolationProtocol;
+	public static final field MAX_NAME_LENGTH I
+	public static final field MAX_PAYLOAD_BYTES I
+	public static final field MAX_READ_BYTES I
+	public static final field VERSION I
+	public final fun refusal (Lcom/videokit/core/runtime/IsolationMessage;Ljava/lang/String;IJ)Ljava/lang/String;
+}
+
+public final class com/videokit/core/runtime/ResourcePressure : java/lang/Enum {
+	public static final field CRITICAL Lcom/videokit/core/runtime/ResourcePressure;
+	public static final field ELEVATED Lcom/videokit/core/runtime/ResourcePressure;
+	public static final field NORMAL Lcom/videokit/core/runtime/ResourcePressure;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/core/runtime/ResourcePressure;
+	public static fun values ()[Lcom/videokit/core/runtime/ResourcePressure;
+}
+
 public final class com/videokit/core/runtime/SourceUses {
 	public fun <init> (Lkotlinx/coroutines/CoroutineScope;)V
 	public final fun closeAll (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -170,6 +291,15 @@ public final class com/videokit/core/runtime/StableErrors {
 	public static synthetic fun of$default (Lcom/videokit/core/runtime/StableErrors;Lcom/videokit/api/ErrorCode;Lcom/videokit/api/ErrorStage;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitStableError;
 	public final fun retryable (Lcom/videokit/api/ErrorCode;)Z
 	public final fun suggestion (Lcom/videokit/api/ErrorCode;)Lcom/videokit/api/SuggestedAction;
+}
+
+public final class com/videokit/core/runtime/VisibilityPolicy {
+	public static final field DEFAULT_BACKGROUND_RELEASE_MS J
+	public static final field DEFAULT_OFFSCREEN_RELEASE_MS J
+	public static final field INSTANCE Lcom/videokit/core/runtime/VisibilityPolicy;
+	public final fun mayReduceQuality (Lcom/videokit/api/SessionVisibility;)Z
+	public final fun pauses (Lcom/videokit/api/SessionVisibility;)Z
+	public final fun releaseDelayMs (Lcom/videokit/api/SessionVisibility;JJ)Ljava/lang/Long;
 }
 
 public abstract interface class com/videokit/core/spi/CapabilityProbe {
@@ -207,12 +337,13 @@ public abstract interface class com/videokit/core/spi/EffectRenderer {
 }
 
 public final class com/videokit/core/spi/EngineState {
-	public fun <init> (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;)V
-	public synthetic fun <init> (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;I)V
+	public synthetic fun <init> (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/core/spi/EngineStatus;
 	public final fun component10 ()Ljava/lang/String;
 	public final fun component11 ()Lcom/videokit/api/MediaInfo;
 	public final fun component12 ()Ljava/lang/String;
+	public final fun component13 ()I
 	public final fun component2 ()Z
 	public final fun component3 ()J
 	public final fun component4 ()Ljava/lang/Long;
@@ -221,9 +352,10 @@ public final class com/videokit/core/spi/EngineState {
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Lcom/videokit/api/VideoKitStableError;
-	public final fun copy (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;)Lcom/videokit/core/spi/EngineState;
-	public static synthetic fun copy$default (Lcom/videokit/core/spi/EngineState;Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/core/spi/EngineState;
+	public final fun copy (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;I)Lcom/videokit/core/spi/EngineState;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/EngineState;Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;IILjava/lang/Object;)Lcom/videokit/core/spi/EngineState;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAudioFocusLosses ()I
 	public final fun getAudioTracks ()Ljava/util/List;
 	public final fun getBufferedUs ()Ljava/lang/Long;
 	public final fun getDurationUs ()Ljava/lang/Long;
@@ -357,8 +489,8 @@ public abstract interface class com/videokit/core/spi/ImageHandle : java/lang/Au
 }
 
 public final class com/videokit/core/spi/ImageInfo {
-	public fun <init> (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;Z)V
-	public synthetic fun <init> (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;ZLjava/lang/Long;)V
+	public synthetic fun <init> (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;ZLjava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/api/Size;
 	public final fun component2 ()Z
 	public final fun component3 ()Ljava/lang/Long;
@@ -367,10 +499,12 @@ public final class com/videokit/core/spi/ImageInfo {
 	public final fun component6 ()I
 	public final fun component7 ()Ljava/lang/Boolean;
 	public final fun component8 ()Z
-	public final fun copy (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;Z)Lcom/videokit/core/spi/ImageInfo;
-	public static synthetic fun copy$default (Lcom/videokit/core/spi/ImageInfo;Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;ZILjava/lang/Object;)Lcom/videokit/core/spi/ImageInfo;
+	public final fun component9 ()Ljava/lang/Long;
+	public final fun copy (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;ZLjava/lang/Long;)Lcom/videokit/core/spi/ImageInfo;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/ImageInfo;Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;ZLjava/lang/Long;ILjava/lang/Object;)Lcom/videokit/core/spi/ImageInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAnimated ()Z
+	public final fun getFileSizeBytes ()Ljava/lang/Long;
 	public final fun getFormat ()Ljava/lang/String;
 	public final fun getFrameCount ()Ljava/lang/Integer;
 	public final fun getHasAlpha ()Ljava/lang/Boolean;
@@ -435,8 +569,16 @@ public final class com/videokit/core/spi/ImageTile {
 }
 
 public abstract interface class com/videokit/core/spi/IsolatedTask : java/lang/AutoCloseable {
+	public abstract fun call (Ljava/lang/String;[BLcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun call$default (Lcom/videokit/core/spi/IsolatedTask;Ljava/lang/String;[BLcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public abstract fun getAlive ()Lkotlinx/coroutines/flow/StateFlow;
 	public abstract fun getEvents ()Lkotlinx/coroutines/flow/Flow;
+	public abstract fun getGeneration ()I
+	public abstract fun injectFault (Lcom/videokit/core/spi/IsolationFault;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/core/spi/IsolatedTask$DefaultImpls {
+	public static synthetic fun call$default (Lcom/videokit/core/spi/IsolatedTask;Ljava/lang/String;[BLcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class com/videokit/core/spi/IsolatedTaskKind : java/lang/Enum {
@@ -474,6 +616,16 @@ public final class com/videokit/core/spi/IsolationEvent$Started : com/videokit/c
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/spi/IsolationFault : java/lang/Enum {
+	public static final field BAD_MESSAGE Lcom/videokit/core/spi/IsolationFault;
+	public static final field CRASH Lcom/videokit/core/spi/IsolationFault;
+	public static final field HANG Lcom/videokit/core/spi/IsolationFault;
+	public static final field OUT_OF_MEMORY Lcom/videokit/core/spi/IsolationFault;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/core/spi/IsolationFault;
+	public static fun values ()[Lcom/videokit/core/spi/IsolationFault;
 }
 
 public abstract interface class com/videokit/core/spi/IsolationHost {

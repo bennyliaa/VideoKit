@@ -48,10 +48,18 @@ class FakeVideoKit implements VideoKit {
   /// bind beyond it is denied with `DECODER_RESOURCE_EXHAUSTED`.
   final int? videoDecoderBudget;
 
-  /// Test hook (M3): another app takes the system audio focus.
-  void preemptAudio() {
+  /// Test hook: another app takes the system audio focus (04A K2: the
+  /// audio source pauses; [transient] sends no notice).
+  void preemptAudio({bool transient = false}) {
     for (final s in _sessions.values) {
-      s.loseAudioFocus();
+      s.loseAudioFocus(transient: transient);
+    }
+  }
+
+  /// Test hook: a transient focus loss ended.
+  void regainAudioFocus() {
+    for (final s in _sessions.values) {
+      s.regainAudioFocus();
     }
   }
 

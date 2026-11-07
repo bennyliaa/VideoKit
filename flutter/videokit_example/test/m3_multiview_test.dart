@@ -114,9 +114,6 @@ void main() {
       c.onReleased(a.sessionId);
       expect(c.active, isNull);
       await c.activate(b);
-      c.onAudioLost(b.sessionId);
-      expect(c.active, isNull);
-      await c.activate(b);
       await c.muteAll();
       expect(c.active, isNull);
       expect(b.state.value.activeAudio, isFalse);
@@ -247,18 +244,27 @@ void main() {
       await unmount(tester);
     });
 
-    testWidgets('audio preemption: muted, notice shown, nothing audible', (
+    testWidgets('K2: audio focus lost: the source pauses, notice shown', (
       tester,
     ) async {
       await pumpPage(tester, count: 4);
       final st = key.currentState!;
-      expect(st.activeAudio, isNotNull);
+      final source = st.activeAudio;
+      expect(source, isNotNull);
       st.kit.preemptAudio();
       await settle(tester, 2);
-      expect(st.activeAudio, isNull);
-      expect(find.text('其他应用正在播放声音，已静音'), findsOneWidget);
-      expect(st.slots.where((s) => s.session.state.value.activeAudio), isEmpty);
-      expect(find.text('发声'), findsNothing);
+      expect(find.text('其他应用正在播放，已暂停'), findsOneWidget);
+      final slot = st.slots.firstWhere((s) => s.session.sessionId == source);
+      expect(slot.session.state.value.phase, SessionPhase.paused);
+      expect(st.activeAudio, source, reason: 'still the chosen source');
+      expect(find.text('发声'), findsOneWidget);
+      // A transient loss shows nothing.
+      ScaffoldMessenger.of(tester.element(find.byType(MultiViewDemoPage)))
+          .hideCurrentSnackBar();
+      await settle(tester, 4);
+      st.kit.preemptAudio(transient: true);
+      await settle(tester, 2);
+      expect(find.text('其他应用正在播放，已暂停'), findsNothing);
       await unmount(tester);
     });
 
@@ -270,9 +276,22 @@ void main() {
       final st = key.currentState!;
       VideoKitSessionState last() => st.slots.last.session.state.value;
       VideoKitSessionState first() => st.slots.first.session.state.value;
-      expect(first().visibility, SessionVisibility.visible);
+      expect(first().visibility.isOnScreen, isTrue);
       expect(last().visibility, SessionVisibility.offscreen);
-      // Cover the page with a new route.
+      // 04A V2: a translucent dialog on top changes nothing.
+      final ctx = tester.element(find.byType(MultiViewDemoPage));
+      unawaited(
+        showDialog<void>(
+          context: ctx,
+          builder: (_) =>
+              const AlertDialog(content: SizedBox.square(dimension: 40)),
+        ),
+      );
+      await settle(tester);
+      expect(first().visibility.isOnScreen, isTrue);
+      Navigator.of(ctx).pop();
+      await settle(tester);
+      // An opaque page fully covers it.
       final nav = tester.state<NavigatorState>(find.byType(Navigator));
       unawaited(
         nav.push(
@@ -283,13 +302,13 @@ void main() {
       expect(first().visibility, SessionVisibility.offscreen);
       nav.pop();
       await settle(tester);
-      expect(first().visibility, SessionVisibility.visible);
+      expect(first().visibility.isOnScreen, isTrue);
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
       await settle(tester);
       expect(first().visibility, SessionVisibility.background);
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
       await settle(tester);
-      expect(first().visibility, SessionVisibility.visible);
+      expect(first().visibility.isOnScreen, isTrue);
       await unmount(tester);
     });
   });

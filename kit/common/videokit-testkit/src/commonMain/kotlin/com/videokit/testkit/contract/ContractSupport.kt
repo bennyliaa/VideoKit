@@ -56,6 +56,15 @@ public interface VideoKitContractSubject {
      * when the subject has no way to do so; vectors starting in ERROR_FATAL are then reported as skipped.
      */
     public suspend fun driveToFatalError(session: com.videokit.api.VideoKitSession): Boolean = false
+
+    /**
+     * Creates an instance with [callbacks] over [budget] (multi-instance cases: decoder limits, 07 §3), or `null` when
+     * the subject cannot take a host budget; those cases then do not apply (feature [ContractFeature.BUDGET_INJECTION]).
+     */
+    public fun create(callbacks: VideoKitHostCallbacks, budget: com.videokit.api.ResourceBudget): VideoKit? = null
+
+    /** Off-screen time after which the created instances release a decoder (07 §5.3). */
+    public val offscreenReleaseMs: Long get() = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_OFFSCREEN_RELEASE_MS
 }
 
 /** Requirement group of a contract case (04 §11). */
@@ -83,6 +92,9 @@ public enum class ContractGroup {
 
     /** Snapshot compatibility. */
     SNAPSHOT_COMPATIBILITY,
+
+    /** Multiple sessions: slots, unique audio, visibility policy, budget, fault isolation (07 §6). */
+    MULTI_INSTANCE,
 }
 
 /** One contract case. */
@@ -201,4 +213,7 @@ public enum class ContractFeature {
 
     /** Edit projects and export. */
     EDITING,
+
+    /** Instances over a host supplied budget ([VideoKitContractSubject.create] with a budget). */
+    BUDGET_INJECTION,
 }

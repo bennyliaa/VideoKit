@@ -1,7 +1,7 @@
 // Pigeon definition of the VideoKit Flutter channel (14 §8.2, protocol rules 14 §8.3).
 //
 // Regenerate (from flutter/videokit_flutter_platform_interface):
-//   dart run pigeon --input pigeons/videokit_messages.dart
+//   dart run pigeon --input pigeons/videokit_messages.dart && dart format lib/src/gen pigeons
 // Generated files are committed (13 §2.1): lib/src/gen/messages.g.dart and
 // ../videokit_flutter_android/android/src/main/kotlin/com/videokit/flutter/gen/Messages.g.kt.
 //
@@ -19,14 +19,12 @@ import 'package:pigeon/pigeon.dart';
   PigeonOptions(
     dartOut: 'lib/src/gen/messages.g.dart',
     dartPackageName: 'videokit_flutter_platform_interface',
-    kotlinOut:
-        '../videokit_flutter_android/android/src/main/kotlin/com/videokit/flutter/gen/Messages.g.kt',
+    kotlinOut: '../videokit_flutter_android/android/src/main/kotlin/com/videokit/flutter/gen/Messages.g.kt',
     kotlinOptions: KotlinOptions(package: 'com.videokit.flutter.gen'),
     copyrightHeader: 'pigeons/copyright_header.txt',
   ),
 )
 // ---------------------------------------------------------------- handshake
-
 /// Sent first by the Dart side (14 §8.3).
 class HandshakeRequest {
   HandshakeRequest({
@@ -93,7 +91,13 @@ enum SessionPhaseMsg {
 
 enum SeekModeMsg { preview, closestSync, exact }
 
-enum CommandResultKind { executed, rejected, superseded, unsupported, sessionReleased }
+enum CommandResultKind {
+  executed,
+  rejected,
+  superseded,
+  unsupported,
+  sessionReleased,
+}
 
 enum EditPhaseMsg {
   created,
@@ -145,13 +149,23 @@ class CommandResultMsg {
 }
 
 class TrackInfoMsg {
-  TrackInfoMsg({required this.id, this.language, this.label, this.codec, required this.supported});
+  TrackInfoMsg({
+    required this.id,
+    this.language,
+    this.label,
+    this.codec,
+    required this.supported,
+    this.channelCount,
+  });
 
   String id;
   String? language;
   String? label;
   String? codec;
   bool supported;
+
+  /// Audio channels; audio tracks only, null when unknown (04A C1).
+  int? channelCount;
 }
 
 class TransformMsg {
@@ -173,7 +187,11 @@ class TransformMsg {
 }
 
 class OrientationStateMsg {
-  OrientationStateMsg({required this.request, required this.contentOrientation, required this.fullscreen});
+  OrientationStateMsg({
+    required this.request,
+    required this.contentOrientation,
+    required this.fullscreen,
+  });
 
   /// `OrientationRequest` wire name.
   String request;
@@ -220,7 +238,12 @@ class HostActionMsg {
 }
 
 class HostActionStateMsg {
-  HostActionStateMsg({required this.action, required this.pending, this.lastStatus, this.lastError});
+  HostActionStateMsg({
+    required this.action,
+    required this.pending,
+    this.lastStatus,
+    this.lastError,
+  });
 
   HostActionMsg action;
   bool pending;
@@ -282,7 +305,13 @@ class MediaInfoMsg {
 
 /// Thumbnail (04A P1): [bytes] with size and type, or [error].
 class ThumbnailResultMsg {
-  ThumbnailResultMsg({this.bytes, this.width, this.height, this.mimeType, this.error});
+  ThumbnailResultMsg({
+    this.bytes,
+    this.width,
+    this.height,
+    this.mimeType,
+    this.error,
+  });
 
   Uint8List? bytes;
   int? width;
@@ -419,7 +448,13 @@ class PlaybackStateMsg {
 
 /// One-off session event (14 §3.2). [type] is the event name, for example `SOURCE_RELEASED`.
 class EventMsg {
-  EventMsg({required this.type, this.actionId, this.error, this.noticeCode, this.mediaToken});
+  EventMsg({
+    required this.type,
+    this.actionId,
+    this.error,
+    this.noticeCode,
+    this.mediaToken,
+  });
 
   String type;
   String? actionId;
@@ -430,7 +465,12 @@ class EventMsg {
 
 /// One message of the session update stream (14 §8.1): a full state snapshot and/or one event.
 class SessionUpdateMessage {
-  SessionUpdateMessage({required this.sessionId, required this.seq, this.state, this.event});
+  SessionUpdateMessage({
+    required this.sessionId,
+    required this.seq,
+    this.state,
+    this.event,
+  });
 
   String sessionId;
 
@@ -553,7 +593,11 @@ class CapabilitiesMsg {
 // ---------------------------------------------------------------- host callbacks
 
 class HostActionRequestMsg {
-  HostActionRequestMsg({required this.actionId, required this.sessionId, required this.mediaToken});
+  HostActionRequestMsg({
+    required this.actionId,
+    required this.sessionId,
+    required this.mediaToken,
+  });
 
   String actionId;
   String sessionId;
@@ -561,7 +605,11 @@ class HostActionRequestMsg {
 }
 
 class HostActionResultMsg {
-  HostActionResultMsg({required this.status, this.updatedAction, this.messageKey});
+  HostActionResultMsg({
+    required this.status,
+    this.updatedAction,
+    this.messageKey,
+  });
 
   /// `HostActionStatus` wire name.
   String status;
@@ -570,7 +618,11 @@ class HostActionResultMsg {
 }
 
 class NavigationRequestMsg {
-  NavigationRequestMsg({required this.sessionId, this.mediaToken, required this.direction});
+  NavigationRequestMsg({
+    required this.sessionId,
+    this.mediaToken,
+    required this.direction,
+  });
 
   String sessionId;
   String? mediaToken;
@@ -613,7 +665,11 @@ class PlaybackEventMsg {
 // ---------------------------------------------------------------- edit projects
 
 class EditProjectConfigMsg {
-  EditProjectConfigMsg({required this.allowedPresets, required this.trackingAllowed, this.initialPositionUs});
+  EditProjectConfigMsg({
+    required this.allowedPresets,
+    required this.trackingAllowed,
+    this.initialPositionUs,
+  });
 
   /// `ExportPreset` wire names; empty = all.
   List<String> allowedPresets;
@@ -683,7 +739,13 @@ class EditCommandMsg {
 }
 
 class EditResultMsg {
-  EditResultMsg({required this.kind, this.revision, this.createdId, this.error, this.unsupportedReason});
+  EditResultMsg({
+    required this.kind,
+    this.revision,
+    this.createdId,
+    this.error,
+    this.unsupportedReason,
+  });
 
   EditResultKind kind;
   int? revision;
@@ -715,7 +777,13 @@ class SourceProbeMsg {
 }
 
 class EditSourceMsg {
-  EditSourceMsg({required this.sourceId, required this.mediaToken, this.displayName, this.probe, required this.mismatch});
+  EditSourceMsg({
+    required this.sourceId,
+    required this.mediaToken,
+    this.displayName,
+    this.probe,
+    required this.mismatch,
+  });
 
   String sourceId;
   String mediaToken;
@@ -725,7 +793,12 @@ class EditSourceMsg {
 }
 
 class ClipMsg {
-  ClipMsg({required this.clipId, required this.sourceId, required this.inUs, required this.outUs});
+  ClipMsg({
+    required this.clipId,
+    required this.sourceId,
+    required this.inUs,
+    required this.outUs,
+  });
 
   String clipId;
   String sourceId;
@@ -734,7 +807,12 @@ class ClipMsg {
 }
 
 class MaskKeyframeMsg {
-  MaskKeyframeMsg({required this.atUs, required this.region, required this.source, this.quality});
+  MaskKeyframeMsg({
+    required this.atUs,
+    required this.region,
+    required this.source,
+    this.quality,
+  });
 
   int atUs;
   MaskRegionMsg region;
@@ -784,7 +862,13 @@ class CoverageRangeMsg {
 }
 
 class TrackingRunMsg {
-  TrackingRunMsg({required this.maskId, required this.status, this.progress, required this.coverage, this.error});
+  TrackingRunMsg({
+    required this.maskId,
+    required this.status,
+    this.progress,
+    required this.coverage,
+    this.error,
+  });
 
   String maskId;
   String status;
@@ -849,7 +933,16 @@ class EditStateMsg {
 
 /// Edit project event. [type] is the event name, for example `EXPORT_STAGE_CHANGED`.
 class EditEventMsg {
-  EditEventMsg({required this.type, this.sourceId, this.maskId, this.exportId, this.stage, this.range, this.error, this.code});
+  EditEventMsg({
+    required this.type,
+    this.sourceId,
+    this.maskId,
+    this.exportId,
+    this.stage,
+    this.range,
+    this.error,
+    this.code,
+  });
 
   String type;
   String? sourceId;
@@ -862,7 +955,12 @@ class EditEventMsg {
 }
 
 class EditUpdateMessage {
-  EditUpdateMessage({required this.projectId, required this.seq, this.state, this.event});
+  EditUpdateMessage({
+    required this.projectId,
+    required this.seq,
+    this.state,
+    this.event,
+  });
 
   String projectId;
   int seq;
@@ -879,7 +977,12 @@ class SerializedProjectMsg {
 
 /// Export request with a reference to a native sink (04A I16): `registered:<id>` or `demo:memory`.
 class ExportRequestMsg {
-  ExportRequestMsg({required this.exportId, required this.preset, this.fileNameHint, required this.sinkRef});
+  ExportRequestMsg({
+    required this.exportId,
+    required this.preset,
+    this.fileNameHint,
+    required this.sinkRef,
+  });
 
   String exportId;
   String preset;
@@ -970,7 +1073,12 @@ class ExportResultMsg {
 }
 
 class TrackingCandidateMsg {
-  TrackingCandidateMsg({required this.candidateId, required this.kind, required this.region, this.confidence});
+  TrackingCandidateMsg({
+    required this.candidateId,
+    required this.kind,
+    required this.region,
+    this.confidence,
+  });
 
   String candidateId;
   String kind;
@@ -1011,7 +1119,12 @@ abstract class VideoKitHostApi {
   CreateResultMsg adoptSession(String sessionId);
 
   @async
-  CommandResultMsg bind(String sessionId, MediaSourceMsg source, PlaybackStateMsg? initial, List<HostActionMsg> actions);
+  CommandResultMsg bind(
+    String sessionId,
+    MediaSourceMsg source,
+    PlaybackStateMsg? initial,
+    List<HostActionMsg> actions,
+  );
 
   @async
   CommandResultMsg play(String sessionId);
@@ -1050,7 +1163,11 @@ abstract class VideoKitHostApi {
   CommandResultMsg setVisibility(String sessionId, String visibility);
 
   @async
-  CommandResultMsg setActiveAudio(String sessionId, bool active, int audioEpoch);
+  CommandResultMsg setActiveAudio(
+    String sessionId,
+    bool active,
+    int audioEpoch,
+  );
 
   @async
   CommandResultMsg hideContentForLock(String sessionId, bool hidden);
@@ -1061,7 +1178,12 @@ abstract class VideoKitHostApi {
 
   /// 04A P1: JPEG of the frame nearest to [atUs] fitting the size; failures in `ThumbnailResultMsg.error`.
   @async
-  ThumbnailResultMsg captureThumbnail(String sessionId, int atUs, int maxWidth, int maxHeight);
+  ThumbnailResultMsg captureThumbnail(
+    String sessionId,
+    int atUs,
+    int maxWidth,
+    int maxHeight,
+  );
 
   @async
   CommandResultMsg requestHostAction(String sessionId, String actionId);
@@ -1093,7 +1215,10 @@ abstract class VideoKitHostApi {
   CreateResultMsg createEditProject(EditProjectConfigMsg config);
 
   @async
-  CreateResultMsg restoreEditProject(SerializedProjectMsg serialized, EditProjectConfigMsg config);
+  CreateResultMsg restoreEditProject(
+    SerializedProjectMsg serialized,
+    EditProjectConfigMsg config,
+  );
 
   /// Returns the source id in [CreateResultMsg.id], or the probe error.
   @async

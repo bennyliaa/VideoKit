@@ -834,6 +834,11 @@ class FakeEditProject implements VideoKitEditProject {
         ),
       );
     }
+    // M4: the engine may refuse fast concatenation (scenario); the path
+    // falls back to a transcode and the UI explains why.
+    if (_scenario.fastConcatRejected && tl.sources.length > 1) {
+      warnings.add(ExportWarnings.fastConcatRejected);
+    }
     final estimate = _estimate(tl);
     final free = caps.knownFreeSpaceBytes;
     if (free != null &&

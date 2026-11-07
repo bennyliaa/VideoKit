@@ -817,6 +817,12 @@ abstract class ExampleLocalizations {
   /// **'取消较慢'**
   String get editScenarioCancelSlow;
 
+  /// Fake 场景：引擎拒绝快速拼接，改为统一转码（M4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'快速拼接被拒'**
+  String get editScenarioFastConcatRejected;
+
   /// 演示视频名。
   ///
   /// In zh, this message translates to:

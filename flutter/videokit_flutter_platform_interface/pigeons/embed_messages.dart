@@ -2,7 +2,7 @@
 // between `videokit-ui-android` (native) and the embed entry point `videokitEmbedMain` (Dart).
 //
 // Regenerate (from flutter/videokit_flutter_platform_interface):
-//   dart run pigeon --input pigeons/embed_messages.dart
+//   dart run pigeon --input pigeons/embed_messages.dart && dart format lib/src/gen pigeons
 // Generated files are committed (13 §2.1): lib/src/gen/embed_messages.g.dart and
 // ../../kit/android/videokit-ui-android/src/main/kotlin/com/videokit/ui/android/gen/EmbedMessages.g.kt.
 //
@@ -42,7 +42,13 @@ class PlayerEmbedOptionsMsg {
 
 /// Content of one embedded engine; replaced as a whole by `show*` calls.
 class EmbedContentMsg {
-  EmbedContentMsg({required this.kind, this.sessionId, required this.sessionIds, this.projectId, this.playerOptions});
+  EmbedContentMsg({
+    required this.kind,
+    this.sessionId,
+    required this.sessionIds,
+    this.projectId,
+    this.playerOptions,
+  });
 
   EmbedSurfaceKind kind;
 
@@ -68,7 +74,12 @@ class EmbedThemeMsg {
 
 /// Everything the Dart side needs when it starts (it may start before or after the native side configured it).
 class EmbedStartMsg {
-  EmbedStartMsg({required this.protocolVersion, this.content, this.theme, required this.strings});
+  EmbedStartMsg({
+    required this.protocolVersion,
+    this.content,
+    this.theme,
+    required this.strings,
+  });
 
   /// Embed protocol version of the native side (1).
   int protocolVersion;

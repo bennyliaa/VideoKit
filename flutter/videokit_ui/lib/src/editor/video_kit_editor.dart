@@ -467,6 +467,7 @@ class VideoKitEditorState extends State<VideoKitEditor> {
     sink: widget.sink,
     sinkProvider: widget.sinkProvider,
     presets: widget.presets,
+    fastConcatCapable: widget.fastConcatCapable,
     onBackToEdit: () => _c.mode = EditorMode.clips,
     onReviewCoverage: _reviewCoverage,
     successActions: widget.exportSuccessActions,

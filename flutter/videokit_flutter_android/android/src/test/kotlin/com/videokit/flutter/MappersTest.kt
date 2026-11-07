@@ -176,7 +176,10 @@ class MappersTest {
             speed = 1.5f,
             volume = 0.25f,
             muted = true,
-            audioTracks = listOf(TrackInfo("a1", "zh", null, "audio/ac3", false), TrackInfo("a2", "en", "Commentary", null, true)),
+            audioTracks = listOf(
+                TrackInfo("a1", "zh", null, "audio/ac3", false, channelCount = 6),
+                TrackInfo("a2", "en", "Commentary", null, true),
+            ),
             subtitleTracks = listOf(TrackInfo("s1", "ja", null, "text/x-ssa", true)),
             selectedAudioTrackId = "a2",
             selectedSubtitleTrackId = "s1",

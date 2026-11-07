@@ -67,7 +67,8 @@ class HistoryStore extends ChangeNotifier {
 
   Future<void> _save() async {
     notifyListeners();
-    await storage.write(
+    await writeQuietly(
+      storage,
       fileName,
       jsonEncode({
         'schema': 1,

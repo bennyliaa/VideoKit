@@ -11,6 +11,7 @@ import 'home/home_page.dart';
 import 'l10n/gen/app_localizations.dart';
 import 'pages/launcher.dart';
 import 'picker/media_picker.dart';
+import 'projects/project_store.dart';
 import 'settings/app_settings.dart';
 
 /// VideoKit App (01 §1, §4.13): the stand-alone player built on the
@@ -55,6 +56,10 @@ class VideoKitAppState extends State<VideoKitApp>
     now: widget.now,
   );
   late final SettingsStore settings = SettingsStore(widget.storage);
+  late final ProjectStore projects = ProjectStore(
+    storage: widget.storage,
+    now: widget.now,
+  );
   final GlobalKey<NavigatorState> _navigator = GlobalKey();
   StreamSubscription<List<PickedMedia>>? _incoming;
   late final Future<void> _ready = _load();
@@ -65,6 +70,7 @@ class VideoKitAppState extends State<VideoKitApp>
   Future<void> _load() async {
     await settings.load();
     await history.load();
+    await projects.load();
   }
 
   @override
@@ -86,6 +92,7 @@ class VideoKitAppState extends State<VideoKitApp>
     widget.backend.detach();
     history.dispose();
     settings.dispose();
+    projects.dispose();
     super.dispose();
   }
 
@@ -103,6 +110,7 @@ class VideoKitAppState extends State<VideoKitApp>
       storage: widget.storage,
       history: history,
       settings: settings,
+      projects: projects,
       child: ValueListenableBuilder<AppSettings>(
         valueListenable: settings,
         builder: (context, s, _) => MaterialApp(

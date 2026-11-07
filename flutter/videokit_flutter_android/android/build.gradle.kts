@@ -10,7 +10,6 @@
 // match gradle/libs.versions.toml (13 §2; Flutter platform packages may use Java/Kotlin 17, 04A B6).
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
 }
 
 // Builds that cannot use includeBuild (the generated Flutter module host of `flutter build aar`) resolve the Kit

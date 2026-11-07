@@ -19,7 +19,10 @@ enum EditDemoScenario {
   exportFails('exportFails'),
 
   /// Cancelling an export takes 2 s.
-  cancelSlow('exportCancelSlow');
+  cancelSlow('exportCancelSlow'),
+
+  /// The engine refuses fast concatenation (M4): the export transcodes.
+  fastConcatRejected('fastConcatRejected');
 
   const EditDemoScenario(this.id);
 
@@ -32,6 +35,7 @@ enum EditDemoScenario {
     trackingLost => g.l.editScenarioTrackingLost,
     exportFails => g.l.editScenarioExportFails,
     cancelSlow => g.l.editScenarioCancelSlow,
+    fastConcatRejected => g.l.editScenarioFastConcatRejected,
   });
 }
 

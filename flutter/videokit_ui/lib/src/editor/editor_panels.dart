@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' show listEquals, setEquals;
 import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 
@@ -19,8 +20,41 @@ String vkPreciseTime(int us) {
       '.${r.toString().padLeft(3, '0')}';
 }
 
+/// Why a multi-input export transcodes instead of fast concatenation (M4).
+enum ConcatFallbackReason {
+  /// The device cannot remux (`EditFeatures.fastConcat` false).
+  deviceUnsupported,
+
+  /// Inputs differ from the first one (see [ConcatCompatibility.differences]).
+  inputsDiffer,
+
+  /// The engine refused fast concatenation at the export check
+  /// (`ExportWarnings.fastConcatRejected`).
+  engineRejected,
+}
+
+/// Input property that differs from the first input.
+enum ConcatDifference {
+  /// Width or height.
+  resolution,
+
+  /// Frame rate.
+  frameRate,
+
+  /// Video codec.
+  codec,
+
+  /// Rotation.
+  rotation,
+
+  /// The project flagged the source as not concatenable as is.
+  other,
+}
+
 /// Multi-input compatibility (14 §5.6, design page 16): all inputs equal
-/// in size, frame rate, codec and rotation → fast concat possible.
+/// in size, frame rate, codec and rotation → fast concat possible. M4: the
+/// chosen path and, for a transcode, the reason ([reason], [differences];
+/// [withPrecheck] applies the engine's answer).
 @immutable
 final class ConcatCompatibility {
   /// Computes compatibility of [timeline]'s sources; [fastConcatCapable]
@@ -33,39 +67,109 @@ final class ConcatCompatibility {
     if (sources.length < 2) {
       return ConcatCompatibility._(
         mismatched: const [],
+        differences: const {},
         fastConcat: fastConcatCapable && sources.isNotEmpty,
+        reason: fastConcatCapable
+            ? null
+            : ConcatFallbackReason.deviceUnsupported,
+        multiInput: false,
       );
     }
     final ref = sources.first.probe;
-    final mismatched = [
-      for (final src in sources.skip(1))
-        if (src.mismatch ||
-            src.probe.width != ref.width ||
-            src.probe.height != ref.height ||
-            src.probe.fps != ref.fps ||
-            src.probe.videoCodec != ref.videoCodec ||
-            src.probe.rotationDeg != ref.rotationDeg)
-          src.sourceId,
-    ];
+    final differences = <ConcatDifference>{};
+    final mismatched = <String>[];
+    for (final src in sources.skip(1)) {
+      final p = src.probe;
+      final diff = {
+        if (p.width != ref.width || p.height != ref.height)
+          ConcatDifference.resolution,
+        if (p.fps != ref.fps) ConcatDifference.frameRate,
+        if (p.videoCodec != ref.videoCodec) ConcatDifference.codec,
+        if (p.rotationDeg != ref.rotationDeg) ConcatDifference.rotation,
+        if (src.mismatch) ConcatDifference.other,
+      };
+      if (diff.isNotEmpty) {
+        mismatched.add(src.sourceId);
+        differences.addAll(diff);
+      }
+    }
+    final fast = fastConcatCapable && mismatched.isEmpty;
     return ConcatCompatibility._(
       mismatched: mismatched,
-      fastConcat: fastConcatCapable && mismatched.isEmpty,
+      differences: differences,
+      fastConcat: fast,
+      reason: fast
+          ? null
+          : (fastConcatCapable
+                ? ConcatFallbackReason.inputsDiffer
+                : ConcatFallbackReason.deviceUnsupported),
+      multiInput: true,
     );
   }
 
   const ConcatCompatibility._({
     required this.mismatched,
+    required this.differences,
     required this.fastConcat,
+    required this.reason,
+    required this.multiInput,
   });
 
   /// Sources differing from the first one.
   final List<String> mismatched;
 
-  /// Fast (remux) concatenation possible.
+  /// Which properties differ (empty when they all match).
+  final Set<ConcatDifference> differences;
+
+  /// Fast (remux) concatenation is the chosen path.
   final bool fastConcat;
 
-  /// Whether a transcode is needed.
+  /// Why the export transcodes; null when fast.
+  final ConcatFallbackReason? reason;
+
+  /// More than one source (the path matters).
+  final bool multiInput;
+
+  /// Whether a transcode is needed because the inputs differ.
   bool get needsTranscode => mismatched.isNotEmpty;
+
+  /// Applies the export check: an engine refusal turns a fast path into a
+  /// transcode with [ConcatFallbackReason.engineRejected].
+  ConcatCompatibility withPrecheck(ExportPrecheck? precheck) {
+    if (precheck == null ||
+        !fastConcat ||
+        !ExportWarnings.has(
+          precheck.warnings,
+          ExportWarnings.fastConcatRejected,
+        )) {
+      return this;
+    }
+    return ConcatCompatibility._(
+      mismatched: mismatched,
+      differences: differences,
+      fastConcat: false,
+      reason: ConcatFallbackReason.engineRejected,
+      multiInput: multiInput,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is ConcatCompatibility &&
+      listEquals(other.mismatched, mismatched) &&
+      setEquals(other.differences, differences) &&
+      other.fastConcat == fastConcat &&
+      other.reason == reason &&
+      other.multiInput == multiInput;
+
+  @override
+  int get hashCode => Object.hash(
+    Object.hashAll(mismatched),
+    Object.hashAllUnordered(differences),
+    fastConcat,
+    reason,
+    multiInput,
+  );
 }
 
 /// "预计 01:42 · 约 96 MB · 快速拼接可用" — or "无法预估" when the project
@@ -120,6 +224,69 @@ class EstimateLine extends StatelessWidget {
   }
 }
 
+/// Chosen concat path and, for a transcode, why (M4): "拼接方式：快速拼接"
+/// or "拼接方式：统一转码" plus one line per reason. Shown only for more than
+/// one input.
+class ConcatPathInfo extends StatelessWidget {
+  /// Creates the info.
+  const ConcatPathInfo({super.key, required this.compatibility});
+
+  /// Compatibility (after [ConcatCompatibility.withPrecheck] when known).
+  final ConcatCompatibility compatibility;
+
+  /// Reason lines for [c], in display order.
+  static List<String> reasons(VkStrings s, ConcatCompatibility c) =>
+      switch (c.reason) {
+        null => const [],
+        ConcatFallbackReason.deviceUnsupported => [
+          s.text('concatReasonDevice'),
+        ],
+        ConcatFallbackReason.engineRejected => [s.text('concatReasonEngine')],
+        ConcatFallbackReason.inputsDiffer => [
+          for (final d in ConcatDifference.values)
+            if (c.differences.contains(d))
+              s.text(switch (d) {
+                ConcatDifference.resolution => 'concatDiffResolution',
+                ConcatDifference.frameRate => 'concatDiffFrameRate',
+                ConcatDifference.codec => 'concatDiffCodec',
+                ConcatDifference.rotation => 'concatDiffRotation',
+                ConcatDifference.other => 'concatDiffOther',
+              }),
+        ],
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    final c = compatibility;
+    if (!c.multiInput) return const SizedBox.shrink();
+    final t = VkTheme.of(context);
+    final s = VkStrings.of(context);
+    final d = t.dimensions;
+    return MergeSemantics(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            s.text(c.fastConcat ? 'concatPathFast' : 'concatPathTranscode'),
+            style: t.typography.label.copyWith(color: t.colors.textPrimary),
+          ),
+          for (final r in reasons(s, c))
+            Padding(
+              padding: EdgeInsetsDirectional.only(top: d.spacing4),
+              child: Text(
+                r,
+                style: t.typography.bodySmall.copyWith(
+                  color: t.colors.textSecondary,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 /// Compatibility notice card (design page 16): consistent → fast concat;
 /// otherwise how the export will unify the inputs.
 class CompatibilityNotice extends StatelessWidget {
@@ -134,7 +301,11 @@ class CompatibilityNotice extends StatelessWidget {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
-    final warn = compatibility.needsTranscode;
+    final c = compatibility;
+    final warn = !c.fastConcat;
+    final title = c.needsTranscode
+        ? 'concatTranscodeTitle'
+        : (c.fastConcat ? 'concatFast' : 'concatParamsMatch');
     return Semantics(
       container: true,
       child: Container(
@@ -157,12 +328,12 @@ class CompatibilityNotice extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    s.text(warn ? 'concatTranscodeTitle' : 'concatFast'),
+                    s.text(title),
                     style: t.typography.label.copyWith(
                       color: t.colors.textPrimary,
                     ),
                   ),
-                  if (warn) ...[
+                  if (c.needsTranscode) ...[
                     SizedBox(height: d.spacing4),
                     Text(
                       s.concatTranscodeDetail(compatibility.mismatched.length),
@@ -171,17 +342,8 @@ class CompatibilityNotice extends StatelessWidget {
                       ),
                     ),
                   ],
-                  SizedBox(height: d.spacing4),
-                  Text(
-                    s.text(
-                      compatibility.fastConcat
-                          ? 'fastConcatAvailable'
-                          : 'fastConcatUnavailable',
-                    ),
-                    style: t.typography.caption.copyWith(
-                      color: t.colors.textSecondary,
-                    ),
-                  ),
+                  SizedBox(height: d.spacing8),
+                  ConcatPathInfo(compatibility: compatibility),
                 ],
               ),
             ),

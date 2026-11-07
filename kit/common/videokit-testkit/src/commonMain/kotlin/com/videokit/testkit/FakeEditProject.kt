@@ -16,6 +16,7 @@ import com.videokit.api.ExportPrecheck
 import com.videokit.api.ExportPreset
 import com.videokit.api.ExportProgress
 import com.videokit.api.ExportStage
+import com.videokit.api.ExportWarnings
 import com.videokit.api.KeyframeSource
 import com.videokit.api.MaskKeyframe
 import com.videokit.api.MaskRegion
@@ -586,14 +587,20 @@ public class FakeEditProject internal constructor(
                 .forEach { range -> uncovered += range.copy(maskId = mask.maskId) }
             val run = tracking[mask.maskId]
             when {
-                run?.status != TrackingRunStatus.COMPLETED -> warnings += "TRACKING_INCOMPLETE:${mask.maskId}"
+                run?.status != TrackingRunStatus.COMPLETED ->
+                    warnings +=
+                        ExportWarnings.withArgument(ExportWarnings.TRACKING_INCOMPLETE, mask.maskId)
 
                 run.coverage?.ranges?.any { it.quality == CoverageQuality.LOST } == true -> {
                     val lost = run.coverage?.ranges.orEmpty().filter { it.quality == CoverageQuality.LOST }.map { it.rangeUs }
                     val allAccepted = lost.all { range ->
                         mask.isAccepted(range)
                     }
-                    warnings += if (allAccepted) "TRACKING_COVERAGE_ACCEPTED:${mask.maskId}" else "TRACKING_LOST_RANGES:${mask.maskId}"
+                    warnings +=
+                        ExportWarnings.withArgument(
+                            if (allAccepted) ExportWarnings.TRACKING_COVERAGE_ACCEPTED else ExportWarnings.TRACKING_LOST_RANGES,
+                            mask.maskId,
+                        )
                 }
             }
         }

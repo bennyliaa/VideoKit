@@ -111,16 +111,17 @@ final class ErrorRaised extends VideoKitEvent {
   String toString() => 'ErrorRaised($error)';
 }
 
-/// Known [TransientNotice] codes.
+/// Known [TransientNotice] codes (04A K1): upper snake case, registered in
+/// `spec/notices.json`; Dart and Kit tests compare against that file.
 abstract final class NoticeCodes {
   /// Seek target was clamped to the media bounds.
-  static const String seekClamped = 'seek_clamped';
+  static const String seekClamped = 'SEEK_CLAMPED';
 
   /// Session was degraded to free resources.
-  static const String resourceDegraded = 'resource_degraded';
+  static const String resourceDegraded = 'RESOURCE_DEGRADED';
 
   /// Navigation target unavailable.
-  static const String navigationUnavailable = 'navigation_unavailable';
+  static const String navigationUnavailable = 'NAVIGATION_UNAVAILABLE';
 
   /// The image engine reduced the decode resolution to stay within the
   /// memory budget (04A §4E I4).
@@ -135,6 +136,16 @@ abstract final class NoticeCodes {
   /// Another app took the system audio focus; the audio source was muted
   /// (M3; the Kit code is still to be defined, see the M3-A1 report).
   static const String audioFocusLost = 'AUDIO_FOCUS_LOST';
+
+  /// Every code above, in registry order.
+  static const List<String> all = [
+    seekClamped,
+    resourceDegraded,
+    navigationUnavailable,
+    imageMemoryReducedQuality,
+    audioUnsupportedPlayingSilent,
+    audioFocusLost,
+  ];
 }
 
 /// Playback event delivered to the host callback `onPlaybackEvent`

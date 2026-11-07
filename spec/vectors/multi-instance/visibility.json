@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "kind": "visibility-policy",
+  "description": "Visibility policy of a session (07 §3 / §5.3, 15 §2.7, 04A V1). For each SessionVisibility: 'pauses' (a playing session is paused and resumed when it is visible again), 'mayReduceQuality' (the engine may lower frame rate or resolution), 'releasesDecoder' (after 'releaseAfter' the decoder is released while the media stays bound; null = never), with the default delays 'defaults' in milliseconds. 'lockWins': the content lock (HideContentForLock) keeps the picture hidden and silent under every visibility. The multi-instance contract cases (multi.*) check the behaviour on sessions.",
+  "defaults": { "offscreenReleaseMs": 10000, "backgroundReleaseMs": 5000 },
+  "lockWins": true,
+  "visibilities": [
+    { "visibility": "VISIBLE", "pauses": false, "mayReduceQuality": false, "releaseAfter": null },
+    { "visibility": "PARTIALLY_VISIBLE", "pauses": false, "mayReduceQuality": true, "releaseAfter": null },
+    { "visibility": "OFFSCREEN", "pauses": true, "mayReduceQuality": false, "releaseAfter": "offscreenReleaseMs" },
+    { "visibility": "BACKGROUND", "pauses": true, "mayReduceQuality": false, "releaseAfter": "backgroundReleaseMs" }
+  ]
+}

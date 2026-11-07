@@ -71,10 +71,6 @@ class VideoKitAudioCoordinator extends ChangeNotifier {
     _setActive(null);
   }
 
-  /// The source lost audio by itself (another app took the system audio
-  /// focus, `AUDIO_FOCUS_LOST`): all stay muted until the user picks again.
-  void onAudioLost(String sessionId) => onReleased(sessionId);
-
   Future<void> _mute(VideoKitSession s, int e) async {
     if (s.state.value.phase == SessionPhase.released) return;
     await s.execute(SetActiveAudio(false, e));

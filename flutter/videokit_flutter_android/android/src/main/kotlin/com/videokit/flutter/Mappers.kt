@@ -212,9 +212,9 @@ internal object Mappers {
 
     // ------------------------------------------------------------------ session values
 
-    fun TrackInfo.toMsg(): TrackInfoMsg = TrackInfoMsg(id, language, label, codec, supported)
+    fun TrackInfo.toMsg(): TrackInfoMsg = TrackInfoMsg(id, language, label, codec, supported, channelCount?.toLong())
 
-    fun TrackInfoMsg.toTrack(): TrackInfo = TrackInfo(id, language, label, codec, supported)
+    fun TrackInfoMsg.toTrack(): TrackInfo = TrackInfo(id, language, label, codec, supported, channelCount?.toInt())
 
     fun MediaTransform.toMsg(): TransformMsg =
         TransformMsg(scale.toDouble(), panX.toDouble(), panY.toDouble(), rotationDeg.toLong(), fitMode.name)

@@ -7,6 +7,7 @@ import '../common/vk_buttons.dart';
 import '../foundation/format.dart';
 import '../l10n/vk_strings.dart';
 import '../theme/theme_scope.dart';
+import '../editor/editor_panels.dart';
 
 /// Display name of a codec / container MIME type (technical names, not
 /// translated).
@@ -46,6 +47,12 @@ String vkPresetLabel(VkStrings s, String presetId) => switch (presetId) {
   _ => presetId,
 };
 
+/// Resolves the sink right before an export starts, for example after the
+/// host's system "另存为" dialog; null = the user cancelled, nothing starts.
+typedef VideoKitSinkProvider = Future<VideoKitOutputSink?> Function(
+  VideoKitExportRequest request,
+);
+
 /// UI-08 `ExportPanel` (14 §5.8, design pages 20–21). Reads the project
 /// state, so reopening the panel during an export shows its progress:
 ///
@@ -55,12 +62,6 @@ String vkPresetLabel(VkStrings s, String presetId) => switch (presetId) {
 ///   project reports a fraction, otherwise an indeterminate bar; cancel;
 /// * cancelling / cancelled, failed (reason, impact, suggestion, error
 ///   code), completed (summary, host actions, demo notice).
-/// Resolves the sink right before an export starts, for example after the
-/// host's system "另存为" dialog; null = the user cancelled, nothing starts.
-typedef VideoKitSinkProvider = Future<VideoKitOutputSink?> Function(
-  VideoKitExportRequest request,
-);
-
 class ExportPanel extends StatefulWidget {
   /// Creates a panel.
   const ExportPanel({
@@ -70,6 +71,7 @@ class ExportPanel extends StatefulWidget {
     this.presets = const [],
     this.onBackToEdit,
     this.sinkProvider,
+    this.fastConcatCapable = true,
     this.onReviewCoverage,
     this.successActions,
   });
@@ -86,6 +88,9 @@ class ExportPanel extends StatefulWidget {
 
   /// Presets from the capability report (`outputFormats`).
   final List<OutputFormat> presets;
+
+  /// Device capability `EditFeatures.fastConcat` (M4: path shown).
+  final bool fastConcatCapable;
 
   /// Back to the editor.
   final VoidCallback? onBackToEdit;
@@ -304,6 +309,16 @@ class ExportPanelState extends State<ExportPanel> {
             ),
             style: t.typography.body.copyWith(color: t.colors.textSecondary),
           ),
+        // M4: the chosen concat path and why (after the export check).
+        Padding(
+          padding: EdgeInsetsDirectional.only(top: t.dimensions.spacing8),
+          child: ConcatPathInfo(
+            compatibility: ConcatCompatibility.of(
+              widget.project.state.value.timeline,
+              fastConcatCapable: widget.fastConcatCapable,
+            ).withPrecheck(pre),
+          ),
+        ),
         _section(context, s.text('exportChecks')),
         if (pre == null)
           _CheckRow(title: s.text('checkRunning'), detail: null, ok: null)
@@ -643,17 +658,23 @@ class ExportPanelState extends State<ExportPanel> {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
-    final warnings = [
+    // 04A K3: compare by code (`CODE` or `CODE:argument`); one line per
+    // kind; unknown codes are not shown raw.
+    final warnings = <String>{
       for (final w in m.warnings)
-        switch (w) {
+        ?switch (ExportWarnings.codeOf(w)) {
           ExportWarnings.boundaryAlignedToKeyframe => s.text('warnBoundary'),
           ExportWarnings.silenceInserted => s.text('warnSilence'),
           ExportWarnings.trackingCoverageAccepted => s.text('warnCoverage'),
-          ExportWarnings.demoNoRealFile => null,
-          _ => w,
+          ExportWarnings.trackingIncomplete => s.text('warnTrackingIncomplete'),
+          ExportWarnings.trackingLostRanges => s.text('warnTrackingLost'),
+          ExportWarnings.fastConcatRejected => s.text('concatReasonEngine'),
+          _ => null,
         },
-    ].whereType<String>().toList();
-    final demo = m.isDemo || m.warnings.contains(ExportWarnings.demoNoRealFile);
+    }.toList();
+    final demo =
+        m.isDemo ||
+        ExportWarnings.has(m.warnings, ExportWarnings.demoNoRealFile);
     Widget row(String k, String v) => MergeSemantics(
       child: Padding(
         padding: EdgeInsetsDirectional.symmetric(vertical: d.spacing8),

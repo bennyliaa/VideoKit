@@ -7,6 +7,7 @@ import 'package:videokit_ui/videokit_ui.dart';
 import '../app_scope.dart';
 import '../history/history_entry.dart';
 import '../host/entry_host.dart';
+import '../l10n/app_text.dart';
 
 /// Errors that mean "file moved / permission lost" (REQ-APP-07).
 bool isAccessError(ErrorCode code) =>
@@ -60,10 +61,41 @@ Future<void> saveAndClose(
   await session.close();
 }
 
+/// "没有打开成功" with "重试" (TEST-R2 R2-03), shared by player and image
+/// pages.
+Widget openFailedView(
+  BuildContext context, {
+  required Future<void> Function() onRetry,
+}) {
+  final a = AppText.of(context);
+  return VideoKitStateView(
+    model: StateViewModel(
+      kind: StateViewKind.error,
+      iconName: 'warning',
+      titleText: a(a.l.openFailedTitle),
+      detailText: a(a.l.openFailedDetail),
+      actions: const [StateAction.retry],
+    ),
+    onStateAction: (_) => unawaited(onRetry()),
+  );
+}
+
 /// UI-01 player for one record; resumes from the saved snapshot.
 class PlayerPage extends StatefulWidget {
   /// Creates the page.
-  const PlayerPage({super.key, required this.entry, this.fromStart = false});
+  const PlayerPage({
+    super.key,
+    required this.entry,
+    this.fromStart = false,
+    this.openTimeout = defaultOpenTimeout,
+  });
+
+  /// How long "正在打开" may last before the page offers a retry (TEST-R2
+  /// R2-03: an open that never finishes must reach a final state).
+  static const Duration defaultOpenTimeout = Duration(seconds: 45);
+
+  /// See [defaultOpenTimeout].
+  final Duration openTimeout;
 
   /// Record.
   final HistoryEntry entry;
@@ -83,6 +115,11 @@ class PlayerPageState extends State<PlayerPage> {
   bool _started = false;
   bool _closing = false;
   EntryHost? _host;
+  final GlobalKey<VideoKitPlayerState> _player = GlobalKey();
+
+  /// Opening did not finish (timed out, or the session was released while
+  /// opening): an error with "重试" is shown instead of "正在打开".
+  bool openFailed = false;
 
   @override
   void didChangeDependencies() {
@@ -95,10 +132,27 @@ class PlayerPageState extends State<PlayerPage> {
 
   @override
   void dispose() {
+    _unregister();
+    super.dispose();
+  }
+
+  void _unregister() {
     final s = session;
     final h = _host;
     if (s != null && h != null) _scope.backend.hosts.unregister(s.sessionId, h);
-    super.dispose();
+    _host = null;
+  }
+
+  /// "重试" after a failed open: a fresh session, bound again.
+  Future<void> retryOpen() async {
+    final old = session;
+    _unregister();
+    setState(() {
+      openFailed = false;
+      session = null;
+    });
+    if (old != null) unawaited(old.close());
+    await _open();
   }
 
   Future<void> _open() async {
@@ -118,12 +172,35 @@ class PlayerPageState extends State<PlayerPage> {
     _scope.backend.hosts.register(s.sessionId, host);
     _host = host;
     setState(() => session = s);
-    final r = await s.bind(
-      _scope.backend.sourceFor(widget.entry),
-      initialState: widget.fromStart ? null : widget.entry.playbackState,
-      hostActions: EntryHost.actionsFor(_scope, widget.entry),
-    );
-    if (!mounted) return;
+    // R2-03: released underneath while opening → final state at once.
+    void watch() {
+      if (s.state.value.phase.isReleasingOrReleased &&
+          !_closing &&
+          mounted &&
+          identical(s, session)) {
+        setState(() => openFailed = true);
+      }
+    }
+
+    s.state.addListener(watch);
+    final r = await s
+        .bind(
+          _scope.backend.sourceFor(widget.entry),
+          initialState: widget.fromStart ? null : widget.entry.playbackState,
+          hostActions: EntryHost.actionsFor(_scope, widget.entry),
+        )
+        .then<VideoKitCommandResult?>((r) => r)
+        .timeout(widget.openTimeout, onTimeout: () => null);
+    s.state.removeListener(watch);
+    if (!mounted || _closing || !identical(s, session) || openFailed) return;
+    // R2-03: no answer in time, or released underneath (e.g. the native
+    // player went away during a configuration change) → final state.
+    if (r == null ||
+        r is SessionReleased ||
+        s.state.value.phase.isReleasingOrReleased) {
+      setState(() => openFailed = true);
+      return;
+    }
     if (r is Rejected && isAccessError(r.error.code)) {
       await _scope.history.markUnavailable(widget.entry.id);
       return;
@@ -146,15 +223,20 @@ class PlayerPageState extends State<PlayerPage> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
-        if (!didPop) unawaited(close());
+        // R2-01: with a panel open the back press only closes the panel.
+        if (didPop || (_player.currentState?.hasOpenPanel ?? false)) return;
+        unawaited(close());
       },
       child: Scaffold(
         backgroundColor: t.colors.playerCanvas,
-        body: s == null
+        body: openFailed
+            ? SafeArea(child: openFailedView(context, onRetry: retryOpen))
+            : s == null
             ? VideoKitStateView(
                 model: mapSessionState(phase: SessionPhase.created)!,
               )
             : VideoKitPlayer(
+                key: _player,
                 session: s,
                 title: widget.entry.displayName,
                 pictureBuilder: _scope.backend.pictureBuilder,

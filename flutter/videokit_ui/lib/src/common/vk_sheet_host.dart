@@ -164,7 +164,11 @@ class _VkSheetHostState extends State<VkSheetHost> {
         builder: (context, _) => PopScope(
           canPop: !c.hasPanel,
           onPopInvokedWithResult: (didPop, _) {
-            if (!didPop) c.closeTop();
+            // TEST-R2 R2-01: every PopScope of the route hears the same back
+            // press. Closing is deferred so that, during this dispatch, the
+            // page can still see that a panel was open (`hasOpenPanel`) and
+            // leave the back press to it.
+            if (!didPop && c.hasPanel) scheduleMicrotask(c.closeTop);
           },
           child: CallbackShortcuts(
             bindings: {

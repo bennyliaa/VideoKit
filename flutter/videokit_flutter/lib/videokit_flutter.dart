@@ -8,4 +8,5 @@ library;
 
 export 'src/channel_edit_project.dart' show ChannelEditProject;
 export 'src/channel_session.dart' show ChannelSession;
-export 'src/flutter_videokit.dart' show FlutterVideoKit, VideoKitInitException, VideoKitInitFailure;
+export 'src/flutter_videokit.dart'
+    show FlutterVideoKit, VideoKitInitException, VideoKitInitFailure;

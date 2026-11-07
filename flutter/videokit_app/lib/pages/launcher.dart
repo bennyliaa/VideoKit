@@ -29,6 +29,21 @@ abstract final class MediaLauncher {
   }
 
   /// Opens freshly picked or incoming media (one record per file).
+  /// The history entry for [m] (recorded when the history is on, a
+  /// transient one otherwise).
+  static Future<HistoryEntry> entryFor(AppScope scope, PickedMedia m) async =>
+      scope.settings.value.recordHistory
+      ? await scope.history.recordOpened(m)
+      : HistoryEntry(
+          id: 'transient:${m.uri}',
+          uri: m.uri,
+          displayName: m.displayName,
+          kind: m.kind,
+          mimeType: m.mimeType,
+          lastOpenedAtEpochMs: scope.history.now().millisecondsSinceEpoch,
+          persistable: m.persistable,
+        );
+
   static Future<void> openPicked(
     BuildContext origin,
     List<PickedMedia> media,
@@ -36,23 +51,9 @@ abstract final class MediaLauncher {
     final context = Navigator.of(origin).context;
     if (media.isEmpty) return;
     final scope = AppScope.of(context);
-    final record = scope.settings.value.recordHistory;
-    final entries = <HistoryEntry>[];
-    for (final m in media) {
-      entries.add(
-        record
-            ? await scope.history.recordOpened(m)
-            : HistoryEntry(
-                id: 'transient:${m.uri}',
-                uri: m.uri,
-                displayName: m.displayName,
-                kind: m.kind,
-                mimeType: m.mimeType,
-                lastOpenedAtEpochMs: scope.history.now().millisecondsSinceEpoch,
-                persistable: m.persistable,
-              ),
-      );
-    }
+    final entries = <HistoryEntry>[
+      for (final m in media) await entryFor(scope, m),
+    ];
     if (!context.mounted) return;
     if (entries.length == 1) {
       await openEntry(context, entries.single, record: false);

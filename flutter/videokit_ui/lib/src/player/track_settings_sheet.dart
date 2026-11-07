@@ -93,13 +93,38 @@ class TrackSettingsSheet extends StatefulWidget {
   final List<double> speeds;
 
   /// Display name of a track.
-  static String trackName(VkStrings s, TrackInfo t, int index) {
-    final label = t.label;
-    if (label != null && label.isNotEmpty) return label;
-    final lang = t.language;
-    if (lang != null && lang.isNotEmpty) return lang;
-    return s.trackUnnamed(index + 1);
+  static String trackName(
+    VkStrings s,
+    TrackInfo t,
+    int index, {
+    bool audio = false,
+  }) {
+    final label = t.label?.trim();
+    if (label != null &&
+        label.isNotEmpty &&
+        !_noLanguage.contains(label.toLowerCase())) {
+      return label;
+    }
+    final lang = t.language?.trim();
+    // TEST-R2 R2-04: "und" (ISO 639 undetermined) and other non-language
+    // codes mean nothing to users: "音轨 N" instead.
+    if (lang != null &&
+        lang.isNotEmpty &&
+        !_noLanguage.contains(lang.toLowerCase())) {
+      return lang;
+    }
+    return audio ? s.trackAudioUnnamed(index + 1) : s.trackUnnamed(index + 1);
   }
+
+  /// ISO 639-2 codes that carry no language (undetermined, multiple, no
+  /// linguistic content, uncoded).
+  static const Set<String> _noLanguage = {
+    'und',
+    'mul',
+    'zxx',
+    'mis',
+    'unknown',
+  };
 
   @override
   State<TrackSettingsSheet> createState() => _TrackSettingsSheetState();
@@ -214,7 +239,7 @@ class _TrackSettingsSheetState extends State<TrackSettingsSheet> {
       children: [
         for (final (i, tr) in st.audioTracks.indexed)
           _TrackRow(
-            title: TrackSettingsSheet.trackName(s, tr, i),
+            title: TrackSettingsSheet.trackName(s, tr, i, audio: true),
             detail: vkTrackDetail(s, tr),
             selected: st.selectedAudioTrackId == tr.id,
             unsupported: !tr.supported,

@@ -65,4 +65,3 @@ class PigeonVideoKitPlatform extends VideoKitPlatform {
     VideoKitCallbacksApi.setUp(callbacks, binaryMessenger: _messenger);
   }
 }
-

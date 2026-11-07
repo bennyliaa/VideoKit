@@ -25,8 +25,11 @@ final class ChannelEditProject implements VideoKitEditProject {
   @override
   final bool isDemo;
 
-  final ValueNotifier<VideoKitEditState> _state = ValueNotifier(VideoKitEditState(phase: EditPhase.created));
-  final StreamController<VideoKitEditEvent> _events = StreamController.broadcast();
+  final ValueNotifier<VideoKitEditState> _state = ValueNotifier(
+    VideoKitEditState(phase: EditPhase.created),
+  );
+  final StreamController<VideoKitEditEvent> _events =
+      StreamController.broadcast();
   int _lastSeq = 0;
   int _exportCounter = 0;
   bool _closed = false;
@@ -46,14 +49,22 @@ final class ChannelEditProject implements VideoKitEditProject {
     final event = message.event;
     if (event != null) {
       // Only notices are forwarded; tracking and export completion are visible in state and results.
-      if (event.type == 'WARNING' && event.code != null) _events.add(EditNotice(event.code!));
-      if (event.type == 'TRACKING_LOST') _events.add(const EditNotice('TRACKING_LOST'));
+      if (event.type == 'WARNING' && event.code != null) {
+        _events.add(EditNotice(event.code!));
+      }
+      if (event.type == 'TRACKING_LOST') {
+        _events.add(const EditNotice('TRACKING_LOST'));
+      }
     }
     return true;
   }
 
   Never _released() => throw const VideoKitException(
-    VideoKitStableError(code: ErrorCode.sessionReleased, stage: ErrorStage.edit, diagnostic: 'PROJECT_RELEASED'),
+    VideoKitStableError(
+      code: ErrorCode.sessionReleased,
+      stage: ErrorStage.edit,
+      diagnostic: 'PROJECT_RELEASED',
+    ),
   );
 
   Future<EditCommandResult> _edit(Future<EditResultMsg> Function() call) async {
@@ -71,17 +82,28 @@ final class ChannelEditProject implements VideoKitEditProject {
     final msg = mediaSourceToMsg(source);
     if (msg == null) {
       throw VideoKitException(
-        VideoKitStableError(code: ErrorCode.invalidArgument, stage: ErrorStage.edit, diagnostic: 'DART_SOURCE_NOT_SUPPORTED'),
+        VideoKitStableError(
+          code: ErrorCode.invalidArgument,
+          stage: ErrorStage.edit,
+          diagnostic: 'DART_SOURCE_NOT_SUPPORTED',
+        ),
       );
     }
     final result = await _api.addSource(projectId, msg);
     final id = result.id;
-    if (id == null) throw VideoKitException(result.error == null ? channelError('MissingError') : errorFromMsg(result.error!));
+    if (id == null) {
+      throw VideoKitException(
+        result.error == null
+            ? channelError('MissingError')
+            : errorFromMsg(result.error!),
+      );
+    }
     return SourceToken(sourceId: id, mediaToken: source.mediaToken);
   }
 
   @override
-  Future<EditCommandResult> apply(VideoKitEditCommand command) => _edit(() => _api.applyEdit(projectId, editCommandToMsg(command)));
+  Future<EditCommandResult> apply(VideoKitEditCommand command) =>
+      _edit(() => _api.applyEdit(projectId, editCommandToMsg(command)));
 
   @override
   Future<EditCommandResult> undo() => _edit(() => _api.undo(projectId));
@@ -93,14 +115,23 @@ final class ChannelEditProject implements VideoKitEditProject {
   Future<SerializedEditProject> snapshot() async {
     final msg = await _api.snapshot(projectId);
     if (msg == null) _released();
-    return SerializedEditProject(schemaVersion: msg.schemaVersion, json: msg.json);
+    return SerializedEditProject(
+      schemaVersion: msg.schemaVersion,
+      json: msg.json,
+    );
   }
 
   @override
   Future<VideoKitSession> previewSession() async {
     final result = await _api.previewSession(projectId);
     final id = result.id;
-    if (id == null) throw VideoKitException(result.error == null ? channelError('MissingError') : errorFromMsg(result.error!));
+    if (id == null) {
+      throw VideoKitException(
+        result.error == null
+            ? channelError('MissingError')
+            : errorFromMsg(result.error!),
+      );
+    }
     return _sessionFor(id);
   }
 
@@ -114,11 +145,21 @@ final class ChannelEditProject implements VideoKitEditProject {
   }
 
   @override
-  Future<ExportPrecheck> checkExport(VideoKitExportRequest request, VideoKitOutputSink sink) async =>
-      precheckFromMsg(await _api.checkExport(projectId, exportRequestToMsg(request, sink, _nextExportId())));
+  Future<ExportPrecheck> checkExport(
+    VideoKitExportRequest request,
+    VideoKitOutputSink sink,
+  ) async => precheckFromMsg(
+    await _api.checkExport(
+      projectId,
+      exportRequestToMsg(request, sink, _nextExportId()),
+    ),
+  );
 
   @override
-  Future<VideoKitExportResult> export(VideoKitExportRequest request, VideoKitOutputSink sink) async {
+  Future<VideoKitExportResult> export(
+    VideoKitExportRequest request,
+    VideoKitOutputSink sink,
+  ) async {
     final msg = exportRequestToMsg(request, sink, _nextExportId());
     VideoKitExportResult result;
     try {
@@ -133,7 +174,8 @@ final class ChannelEditProject implements VideoKitEditProject {
   String _nextExportId() => '$projectId-export-${++_exportCounter}';
 
   @override
-  Future<void> cancelExport(String exportId) => _api.cancelExport(projectId, exportId);
+  Future<void> cancelExport(String exportId) =>
+      _api.cancelExport(projectId, exportId);
 
   @override
   Future<void> close() async {

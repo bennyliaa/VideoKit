@@ -25,6 +25,8 @@ public data class ImageInfo(
     val hasAlpha: Boolean? = null,
     /** Whether the engine can decode regions of this image (tiles, 06 §6.2). */
     val regionDecodable: Boolean = false,
+    /** Size of the encoded file in bytes, as read from the host source (04A P2 fileSizeBytes), if known. */
+    val fileSizeBytes: Long? = null,
 )
 
 /** A rectangle in pixels of the oriented image; [right] and [bottom] are exclusive. */

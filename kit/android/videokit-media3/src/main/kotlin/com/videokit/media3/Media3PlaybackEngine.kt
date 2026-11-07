@@ -167,6 +167,7 @@ internal class Media3PlaybackHandle(
     private var videoFormat: Format? = null
     private var audioTrackFormat: Format? = null
     private var pendingSeek: CompletableDeferred<Unit>? = null
+    private var focusLosses = 0
     private var seekDiscontinuity = false
     private var audioEnabled = options.audioEnabled
     private val positionUpdater = object : Runnable {
@@ -236,7 +237,11 @@ internal class Media3PlaybackHandle(
             publish()
         }
 
-        override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) = publish()
+        override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+            // Another app took the audio focus for good: ExoPlayer paused; the session reports it (07 §4).
+            if (!playWhenReady && reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS) focusLosses++
+            publish()
+        }
 
         override fun onTracksChanged(tracks: Tracks) {
             readTracks(tracks)
@@ -306,7 +311,8 @@ internal class Media3PlaybackHandle(
                 val format = group.getTrackFormat(index)
                 val id = "$prefix:$groupIndex:$index"
                 refs[id] = TrackRef(group, index)
-                val info = TrackInfo(id, format.language, format.label, format.sampleMimeType, group.isTrackSupported(index))
+                val channels = format.channelCount.takeIf { group.type == C.TRACK_TYPE_AUDIO && it != Format.NO_VALUE && it > 0 }
+                val info = TrackInfo(id, format.language, format.label, format.sampleMimeType, group.isTrackSupported(index), channels)
                 if (group.type == C.TRACK_TYPE_AUDIO) {
                     audio += info
                     if (group.isTrackSelected(index)) audioSelected = id
@@ -350,6 +356,7 @@ internal class Media3PlaybackHandle(
             selectedAudioTrackId = selectedAudio,
             selectedSubtitleTrackId = selectedSubtitle,
             mediaInfo = mediaInfo(exo),
+            audioFocusLosses = focusLosses,
         )
     }
 

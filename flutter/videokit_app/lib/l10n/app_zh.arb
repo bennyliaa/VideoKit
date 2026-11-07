@@ -218,5 +218,21 @@
   "historyFavorite": "已收藏",
   "@historyFavorite": { "description": "首页记录：收藏标识的读屏描述。" },
   "historyTags": "{count, plural, other{{count} 个标签}}",
-  "@historyTags": { "description": "首页记录：标签数量。", "placeholders": { "count": { "type": "int" } } }
+  "@historyTags": { "description": "首页记录：标签数量。", "placeholders": { "count": { "type": "int" } } },
+  "recentProjects": "最近工程",
+  "@recentProjects": { "description": "最近工程页标题与首页入口（M4）。" },
+  "recentProjectsEmpty": "还没有保存的工程。选择多个视频并“拼接为一个视频”，离开编辑器时会自动保存。",
+  "@recentProjectsEmpty": { "description": "最近工程为空时的说明。" },
+  "recentProjectSaved": "保存于 {when}",
+  "@recentProjectSaved": { "description": "最近工程条目：保存时间（相对时间）。", "placeholders": { "when": { "type": "String" } } },
+  "recentProjectClips": "{count, plural, other{{count} 个片段}}",
+  "@recentProjectClips": { "description": "最近工程条目：片段数量。", "placeholders": { "count": { "type": "int" } } },
+  "recentProjectDelete": "删除工程",
+  "@recentProjectDelete": { "description": "删除一个保存的工程。" },
+  "recentProjectRestoreFailed": "无法打开这个工程：格式版本过新或文件已损坏",
+  "@recentProjectRestoreFailed": { "description": "恢复工程失败（restoreEditProject 拒绝）。" },
+  "openFailedTitle": "没有打开成功",
+  "@openFailedTitle": { "description": "打开超时或打开过程中播放组件被释放（TEST-R2 R2-03）。" },
+  "openFailedDetail": "等待时间过长，或播放组件已中断。请重试；如果仍然失败，请返回后重新打开。",
+  "@openFailedDetail": { "description": "打开失败页的说明，下方有“重试”。" }
 }

@@ -747,6 +747,54 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'{count, plural, other{{count} 个标签}}'**
   String historyTags(int count);
+
+  /// 最近工程页标题与首页入口（M4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'最近工程'**
+  String get recentProjects;
+
+  /// 最近工程为空时的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有保存的工程。选择多个视频并“拼接为一个视频”，离开编辑器时会自动保存。'**
+  String get recentProjectsEmpty;
+
+  /// 最近工程条目：保存时间（相对时间）。
+  ///
+  /// In zh, this message translates to:
+  /// **'保存于 {when}'**
+  String recentProjectSaved(String when);
+
+  /// 最近工程条目：片段数量。
+  ///
+  /// In zh, this message translates to:
+  /// **'{count, plural, other{{count} 个片段}}'**
+  String recentProjectClips(int count);
+
+  /// 删除一个保存的工程。
+  ///
+  /// In zh, this message translates to:
+  /// **'删除工程'**
+  String get recentProjectDelete;
+
+  /// 恢复工程失败（restoreEditProject 拒绝）。
+  ///
+  /// In zh, this message translates to:
+  /// **'无法打开这个工程：格式版本过新或文件已损坏'**
+  String get recentProjectRestoreFailed;
+
+  /// 打开超时或打开过程中播放组件被释放（TEST-R2 R2-03）。
+  ///
+  /// In zh, this message translates to:
+  /// **'没有打开成功'**
+  String get openFailedTitle;
+
+  /// 打开失败页的说明，下方有“重试”。
+  ///
+  /// In zh, this message translates to:
+  /// **'等待时间过长，或播放组件已中断。请重试；如果仍然失败，请返回后重新打开。'**
+  String get openFailedDetail;
 }
 
 class _AppLocalizationsDelegate

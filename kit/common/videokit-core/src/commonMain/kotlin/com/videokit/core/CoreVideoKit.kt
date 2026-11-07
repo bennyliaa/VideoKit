@@ -49,6 +49,10 @@ public data class CoreOptions(
     val apiVersion: VideoKitApiVersion = VideoKitApiVersion.CURRENT,
     /** Whether the engines serve demo data (test engines); the UI then shows the demo badge (04A I6). */
     val isDemo: Boolean = false,
+    /** Off-screen time after which a session releases its decoder (07 §5.3, [com.videokit.core.runtime.VisibilityPolicy]). */
+    val offscreenReleaseMs: Long = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_OFFSCREEN_RELEASE_MS,
+    /** Background time after which a session releases its decoder. */
+    val backgroundReleaseMs: Long = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_BACKGROUND_RELEASE_MS,
 )
 
 /** Creates the media sessions of a [CoreVideoKit] (implemented by `videokit-playback`). */

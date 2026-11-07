@@ -31,7 +31,8 @@ final class VideoKitInitException implements Exception {
   final String? diagnostic;
 
   @override
-  String toString() => 'VideoKitInitException(${failure.name}${diagnostic == null ? '' : ': $diagnostic'})';
+  String toString() =>
+      'VideoKitInitException(${failure.name}${diagnostic == null ? '' : ': $diagnostic'})';
 }
 
 /// [VideoKit] over the native Kit through the Pigeon channel (14 §8.5).
@@ -61,7 +62,10 @@ final class FlutterVideoKit implements VideoKit {
 
   /// Connects to the native Kit. Throws [VideoKitInitException] on protocol mismatch, missing backend or
   /// unavailable channel.
-  static Future<FlutterVideoKit> connect(VideoKitConfig config, {VideoKitPlatform? platform}) async {
+  static Future<FlutterVideoKit> connect(
+    VideoKitConfig config, {
+    VideoKitPlatform? platform,
+  }) async {
     final p = platform ?? VideoKitPlatform.instance;
     final timeouts = config.callbackTimeouts;
     HandshakeResponse response;
@@ -79,7 +83,9 @@ final class FlutterVideoKit implements VideoKit {
     } on Object catch (failure) {
       final text = failure.toString();
       throw VideoKitInitException(
-        text.contains('VIDEOKIT_NO_BACKEND') ? VideoKitInitFailure.noBackend : VideoKitInitFailure.channelUnavailable,
+        text.contains('VIDEOKIT_NO_BACKEND')
+            ? VideoKitInitFailure.noBackend
+            : VideoKitInitFailure.channelUnavailable,
         'HANDSHAKE:${failure.runtimeType}',
       );
     }
@@ -97,22 +103,50 @@ final class FlutterVideoKit implements VideoKit {
   void _start() {
     _platform.setCallbacks(_CallbacksBridge(this, _config.hostCallbacks));
     _subscriptions
-      ..add(_platform.sessionUpdates().listen((m) => _sessions[m.sessionId]?.handleUpdate(m), onError: (Object _) {}))
-      ..add(_platform.editUpdates().listen((m) => _projects[m.projectId]?.handleUpdate(m), onError: (Object _) {}));
+      ..add(
+        _platform.sessionUpdates().listen(
+          (m) => _sessions[m.sessionId]?.handleUpdate(m),
+          onError: (Object _) {},
+        ),
+      )
+      ..add(
+        _platform.editUpdates().listen(
+          (m) => _projects[m.projectId]?.handleUpdate(m),
+          onError: (Object _) {},
+        ),
+      );
   }
 
-  ChannelSession _sessionFor(String id) => _sessions.putIfAbsent(id, () => ChannelSession(sessionId: id, api: _api, isDemo: isDemo));
+  ChannelSession _sessionFor(String id) => _sessions.putIfAbsent(
+    id,
+    () => ChannelSession(sessionId: id, api: _api, isDemo: isDemo),
+  );
 
   @override
   Future<VideoKitCapabilities> capabilities(CapabilityRequest request) async =>
-      capabilitiesFromMsg(await _api.capabilities(capabilityRequestToMsg(request)));
+      capabilitiesFromMsg(
+        await _api.capabilities(capabilityRequestToMsg(request)),
+      );
 
   @override
   Future<VideoKitSession> createSession(VideoKitSessionConfig config) async {
-    if (_closed) throw const VideoKitException(VideoKitStableError(code: ErrorCode.sessionReleased, stage: ErrorStage.bind));
+    if (_closed) {
+      throw const VideoKitException(
+        VideoKitStableError(
+          code: ErrorCode.sessionReleased,
+          stage: ErrorStage.bind,
+        ),
+      );
+    }
     final result = await _api.createSession(sessionConfigToMsg(config));
     final id = result.id;
-    if (id == null) throw VideoKitException(result.error == null ? channelError('MissingError') : errorFromMsg(result.error!));
+    if (id == null) {
+      throw VideoKitException(
+        result.error == null
+            ? channelError('MissingError')
+            : errorFromMsg(result.error!),
+      );
+    }
     return _sessionFor(id);
   }
 
@@ -121,29 +155,63 @@ final class FlutterVideoKit implements VideoKit {
   /// stops observing it; the host decides when the session ends. Throws [VideoKitException] (SESSION_RELEASED)
   /// when the id is not shared or already released.
   Future<VideoKitSession> adoptSession(String sessionId) async {
-    if (_closed) throw const VideoKitException(VideoKitStableError(code: ErrorCode.sessionReleased, stage: ErrorStage.bind));
+    if (_closed) {
+      throw const VideoKitException(
+        VideoKitStableError(
+          code: ErrorCode.sessionReleased,
+          stage: ErrorStage.bind,
+        ),
+      );
+    }
     final result = await _api.adoptSession(sessionId);
     final id = result.id;
-    if (id == null) throw VideoKitException(result.error == null ? channelError('MissingError') : errorFromMsg(result.error!));
+    if (id == null) {
+      throw VideoKitException(
+        result.error == null
+            ? channelError('MissingError')
+            : errorFromMsg(result.error!),
+      );
+    }
     return _sessionFor(id);
   }
 
   @override
-  Future<VideoKitEditProject> createEditProject(EditProjectConfig config) async =>
-      _project(await _api.createEditProject(editConfigToMsg(config)));
+  Future<VideoKitEditProject> createEditProject(
+    EditProjectConfig config,
+  ) async => _project(await _api.createEditProject(editConfigToMsg(config)));
 
   @override
-  Future<VideoKitEditProject> restoreEditProject(SerializedEditProject serialized, EditProjectConfig config) async => _project(
+  Future<VideoKitEditProject> restoreEditProject(
+    SerializedEditProject serialized,
+    EditProjectConfig config,
+  ) async => _project(
     await _api.restoreEditProject(
-      SerializedProjectMsg(schemaVersion: serialized.schemaVersion, json: serialized.json),
+      SerializedProjectMsg(
+        schemaVersion: serialized.schemaVersion,
+        json: serialized.json,
+      ),
       editConfigToMsg(config),
     ),
   );
 
   ChannelEditProject _project(CreateResultMsg result) {
     final id = result.id;
-    if (id == null) throw VideoKitException(result.error == null ? channelError('MissingError') : errorFromMsg(result.error!));
-    return _projects.putIfAbsent(id, () => ChannelEditProject(projectId: id, api: _api, isDemo: isDemo, sessionFor: _sessionFor));
+    if (id == null) {
+      throw VideoKitException(
+        result.error == null
+            ? channelError('MissingError')
+            : errorFromMsg(result.error!),
+      );
+    }
+    return _projects.putIfAbsent(
+      id,
+      () => ChannelEditProject(
+        projectId: id,
+        api: _api,
+        isDemo: isDemo,
+        sessionFor: _sessionFor,
+      ),
+    );
   }
 
   /// Session proxy for [sessionId], if this instance created it.
@@ -174,15 +242,21 @@ final class _CallbacksBridge implements VideoKitCallbacksApi {
   final VideoKitHostCallbacks _host;
 
   @override
-  Future<HostActionResultMsg> onHostActionRequested(HostActionRequestMsg request) async =>
-      hostActionResultToMsg(await _host.onHostActionRequested(hostActionRequestFromMsg(request)));
+  Future<HostActionResultMsg> onHostActionRequested(
+    HostActionRequestMsg request,
+  ) async => hostActionResultToMsg(
+    await _host.onHostActionRequested(hostActionRequestFromMsg(request)),
+  );
 
   @override
   Future<String> onNavigationRequested(NavigationRequestMsg request) async =>
-      wireOf(await _host.onNavigationRequested(navigationRequestFromMsg(request)));
+      wireOf(
+        await _host.onNavigationRequested(navigationRequestFromMsg(request)),
+      );
 
   @override
-  Future<void> onPlaybackSnapshot(PlaybackStateMsg snapshot) => _host.onPlaybackSnapshot(playbackStateFromMsg(snapshot));
+  Future<void> onPlaybackSnapshot(PlaybackStateMsg snapshot) =>
+      _host.onPlaybackSnapshot(playbackStateFromMsg(snapshot));
 
   @override
   Future<void> onPlaybackEvent(PlaybackEventMsg event) async {
@@ -191,13 +265,18 @@ final class _CallbacksBridge implements VideoKitCallbacksApi {
   }
 
   @override
-  Future<void> onControlsVisibilityChanged(String sessionId, bool visible) => _host.onControlsVisibilityChanged(sessionId, visible);
+  Future<void> onControlsVisibilityChanged(String sessionId, bool visible) =>
+      _host.onControlsVisibilityChanged(sessionId, visible);
 
   @override
-  Future<void> onSourceReleased(String sessionId, String mediaToken) => _host.onSourceReleased(sessionId, mediaToken);
+  Future<void> onSourceReleased(String sessionId, String mediaToken) =>
+      _host.onSourceReleased(sessionId, mediaToken);
 
   @override
-  Future<String> onRecoverableError(String sessionId, StableErrorMsg error) async =>
+  Future<String> onRecoverableError(
+    String sessionId,
+    StableErrorMsg error,
+  ) async =>
       wireOf(await _host.onRecoverableError(sessionId, errorFromMsg(error)));
 
   @override
@@ -205,5 +284,6 @@ final class _CallbacksBridge implements VideoKitCallbacksApi {
       _host.onFatalSessionError(sessionId, errorFromMsg(error));
 
   @override
-  void onTextureChanged(String sessionId, int? textureId) => _kit.sessionById(sessionId)?.handleTextureChanged(textureId);
+  void onTextureChanged(String sessionId, int? textureId) =>
+      _kit.sessionById(sessionId)?.handleTextureChanged(textureId);
 }

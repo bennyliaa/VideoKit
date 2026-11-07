@@ -90,6 +90,10 @@ public data class FakeVideoKitOptions(
     val trackingAvailable: Boolean = true,
     /** Reported API version. */
     val apiVersion: VideoKitApiVersion = VideoKitApiVersion.CURRENT,
+    /** Off-screen time after which a session releases its decoder (07 §5.3, `VisibilityPolicy`). */
+    val offscreenReleaseMs: Long = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_OFFSCREEN_RELEASE_MS,
+    /** Background time after which a session releases its decoder. */
+    val backgroundReleaseMs: Long = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_BACKGROUND_RELEASE_MS,
 )
 
 /**

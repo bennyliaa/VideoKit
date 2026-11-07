@@ -541,7 +541,9 @@ data class TrackInfoMsg (
   val language: String? = null,
   val label: String? = null,
   val codec: String? = null,
-  val supported: Boolean
+  val supported: Boolean,
+  /** Audio channels; audio tracks only, null when unknown (04A C1). */
+  val channelCount: Long? = null
 )
  {
   companion object {
@@ -551,7 +553,8 @@ data class TrackInfoMsg (
       val label = pigeonVar_list[2] as String?
       val codec = pigeonVar_list[3] as String?
       val supported = pigeonVar_list[4] as Boolean
-      return TrackInfoMsg(id, language, label, codec, supported)
+      val channelCount = pigeonVar_list[5] as Long?
+      return TrackInfoMsg(id, language, label, codec, supported, channelCount)
     }
   }
   fun toList(): List<Any?> {
@@ -561,6 +564,7 @@ data class TrackInfoMsg (
       label,
       codec,
       supported,
+      channelCount,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -571,7 +575,7 @@ data class TrackInfoMsg (
       return true
     }
     val other = other as TrackInfoMsg
-    return MessagesPigeonUtils.deepEquals(this.id, other.id) && MessagesPigeonUtils.deepEquals(this.language, other.language) && MessagesPigeonUtils.deepEquals(this.label, other.label) && MessagesPigeonUtils.deepEquals(this.codec, other.codec) && MessagesPigeonUtils.deepEquals(this.supported, other.supported)
+    return MessagesPigeonUtils.deepEquals(this.id, other.id) && MessagesPigeonUtils.deepEquals(this.language, other.language) && MessagesPigeonUtils.deepEquals(this.label, other.label) && MessagesPigeonUtils.deepEquals(this.codec, other.codec) && MessagesPigeonUtils.deepEquals(this.supported, other.supported) && MessagesPigeonUtils.deepEquals(this.channelCount, other.channelCount)
   }
 
   override fun hashCode(): Int {
@@ -581,10 +585,11 @@ data class TrackInfoMsg (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.label)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.codec)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.supported)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.channelCount)
     return result
   }
   override fun toString(): String {
-    return "TrackInfoMsg(id=$id, language=$language, label=$label, codec=$codec, supported=$supported)"
+    return "TrackInfoMsg(id=$id, language=$language, label=$label, codec=$codec, supported=$supported, channelCount=$channelCount)"
   }
 }
 
