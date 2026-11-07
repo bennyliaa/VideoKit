@@ -15,7 +15,8 @@ VK-M0  Flutter UI 框架 + API/Fake/TestKit + 示例宿主   ← 先把完整 UI
   ├─ VK-M4  时间线 + 拼接 + 工程（真实）    │
   ├─ VK-M5  打码 + 自动跟踪（真实）         │   ← 跟踪 Spike 与 M1–M3 并行
   ├─ VK-M6  导出 Sink + 取消 + 安全收尾     ┘
-  └─ VK-M7  AAR 发布 + LocalVideoBrowser 真实适配
+  ├─ VK-M7  模块发布（AAR + Flutter 包）+ LocalVideoBrowser 真实适配
+  └─ VK-M8  VideoKit App 发布（App 外壳自 M0 起并行搭建）
 ```
 
 ### 1.1 UI 先行与真实能力接入顺序（2026-11-06 确认）
@@ -88,6 +89,15 @@ VK-M0  Flutter UI 框架 + API/Fake/TestKit + 示例宿主   ← 先把完整 UI
 | --- | --- |
 | 范围 | 多 artifact 发布到受控 Maven 仓库，Flutter 包发布到受控 pub 仓库（或私有 Git 依赖）；API 参考文档与变更记录；Consumer R8 规则；SBOM/NOTICE；版本兼容测试；LocalVideoBrowser 真实适配配合与契约测试；移除/替换 AAR 回退验证 |
 | 退出条件 | 可移除/替换 AAR，宿主仍可降级运行；[11](11_TEST_AND_ACCEPTANCE_PLAN.md) §7 全部阻断项 PASS；原需求 §31 成功标准逐项有证据 |
+
+### VK-M8 VideoKit App 发布
+
+| 项 | 内容 |
+| --- | --- |
+| 范围 | VideoKit App（`flutter/videokit_app`）以 VideoKit 模块为内核的正式版本：App 外壳（启动、导航、打开媒体入口、权限、设置、关于）、全部功能接真实模块、Release 构建（无 Fake、无演示资源）、签名与发布材料；SkinKit 宿主接入在 SkinKit v2.0 支持 Flutter 后另行安排 |
+| 退出条件 | UI 逐页对照设计稿验收通过；App 只经公共 API 使用模块；Release 隔离检查通过；App 自身的测试与发布清单通过 |
+
+VideoKit App 的外壳从 VK-M0 起与模块并行搭建（先接 Fake，随各里程碑接入真实能力），VK-M8 只做收尾与发布；App 需要的能力一律先补进模块公共 API。
 
 ## 3. 并行工作
 

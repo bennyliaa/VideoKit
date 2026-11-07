@@ -55,7 +55,7 @@ V1.1 变更：为方便全平台开发，**UI 优先使用 Flutter 开发**（Fl
 | VideoKit V1.0（本套文档） | 原生 Android Kit（AAR）+ Flutter UI（`videokit_ui`、`videokit_flutter` 插件）+ 原生嵌入桥接 + TestKit/Fake + 示例宿主，原需求 §1–§31 全部 P0；只实现 Android |
 | 后续版本 | 其他平台（iOS、macOS、Windows）：新增对应原生 Kit 与插件实现，复用同一套 Flutter UI 与 Dart API；范围与时间另立需求 |
 | 主题 | VideoKit 先按 UI 设计稿实现自有 Theme（结构与键名已按 SkinKit 规范对齐，见 [03](03_UI_FRAMEWORK_DESIGN.md) §5.2）；SkinKit v2.0 支持 Flutter 后作为可选主题来源接入（03 §5.5）。SkinKit V1.0 规范见 `docs/SkinKit/`；SkinKit 为用户自有项目，无需另行授权 |
-| 产品形态 | 嵌入组件（宿主 App 内使用）+ VideoKit 独立 App（[01](01_PRODUCT_REQUIREMENTS.md) §1；独立 App 的额外功能范围待定义） |
+| 产品形态 | **VideoKit 模块**（实现内核：原生 Kit + Flutter 包，供 VideoKit App 与 LocalVideoBrowser 集成）与 **VideoKit App**（UI 设计稿所示的独立视频播放 App，以模块为内核）。术语定义见 [01](01_PRODUCT_REQUIREMENTS.md) §1；除特别说明，本套文档描述的都是 VideoKit 模块 |
 
 VideoKit 从一开始就使用 Flutter 开发 UI。全平台扩展约束见 [02](02_SYSTEM_ARCHITECTURE.md) 第 9 节。
 

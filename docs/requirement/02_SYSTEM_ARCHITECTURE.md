@@ -10,6 +10,14 @@
 
 ## 1. 总体结构
 
+> 术语（[01](01_PRODUCT_REQUIREMENTS.md) §1）：本文描述 **VideoKit 模块**（原生 Kit + Flutter 包）。**VideoKit App**（`flutter/videokit_app`）与 LocalVideoBrowser 一样是模块的宿主，只依赖 `videokit_ui`、`videokit_api`、`videokit_flutter`，不依赖模块内部实现。
+
+```text
+VideoKit App（独立视频播放 App） ─┐
+LocalVideoBrowser（原生宿主）  ─────┼─▶ VideoKit 模块（公共 API + UI 组件 + 原生 Kit）
+其他 Flutter / 原生宿主        ─────┘
+```
+
 ```mermaid
 flowchart TB
   subgraph Flutter[Flutter 层（全平台复用）]
@@ -143,7 +151,8 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 | `videokit_flutter_platform_interface` | 平台接口与 Pigeon 生成的 Dart 侧协议 | `videokit_api` |
 | `videokit_flutter_android` | Android 平台包：Pigeon Kotlin 侧、SurfaceProducer 纹理，包装原生 AAR（将来新增 `_ios`、`_macos`、`_windows`） | platform_interface、原生 Kit |
 | `videokit_fake` | Dart Fake、场景、演示数据、Dart 契约测试 | `videokit_api` |
-| `videokit_example` | Flutter 示例 App（含模拟 LocalVideoBrowser 宿主） | 以上全部 |
+| `videokit_example` | 模块的开发示例（演示场景面板、宿主扩展点示例、模拟 LocalVideoBrowser 宿主），仅 debug | 以上全部 + `videokit_fake` |
+| `videokit_app` | **VideoKit App**：独立视频播放 App。App 外壳（启动、导航、打开媒体入口、权限、设置、关于）+ 模块界面组件；Release 不含 Fake | `videokit_ui`、`videokit_api`、`videokit_flutter`（不得依赖 `videokit_fake` 与模块内部实现） |
 
 依赖规则：
 

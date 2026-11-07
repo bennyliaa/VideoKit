@@ -6,10 +6,18 @@
 
 VideoKit 是可复用的媒体播放与编辑能力库，不是 NAS 浏览器，也不是 LocalVideoBrowser 业务模块（§2）。首期以 Android AAR 为正式交付目标；领域模型、时间线和编辑计划与 UI 及具体解码器隔离。UI 优先使用 Flutter 开发，为以后其他 App 或其他平台保留可能；本阶段不承诺 iOS、macOS、Windows 交付时间。
 
-**两种产品形态（2026-11-07 用户确认）**：
+**术语：VideoKit 模块 与 VideoKit App（2026-11-07 用户确认，全部文档按此区分）**
 
-1. **嵌入组件**：VideoKit 作为组件嵌在宿主 App（首个为 LocalVideoBrowser）中使用——原生宿主经 AAR / add-to-app，Flutter 宿主直接用 Flutter 包。
-2. **VideoKit 独立 App**：VideoKit 项目本身也是一个独立 App，使用同一套 Kit 与 Flutter UI。独立 App 在 SkinKit 中是一个宿主 App（`appId = videokit`）。独立 App 在 Kit 之外的功能范围（如媒体来源、媒体库、设置页）待用户定义后补充需求编号与里程碑；在此之前，`videokit_example` 只作示例，不等同于独立 App。
+| 术语 | 是什么 | 使用者 |
+| --- | --- | --- |
+| **VideoKit 模块** | 可复用的实现内核：原生 Kit（`kit/` 下全部模块，AAR）+ Flutter 包（`videokit_api`、`videokit_ui`、`videokit_flutter`）。本套需求与设计文档描述的能力、API、界面组件都属于模块 | VideoKit App；LocalVideoBrowser 等宿主 App 集成使用 |
+| **VideoKit App** | 独立发布的视频播放 App，即 [UI 设计稿](VideoKit_UI_Design_V1.0.pptx) 所示的 App；以 VideoKit 模块为内核，按原需求提供播放、图片查看、多画面、编辑、打码跟踪、导出功能 | 最终用户 |
+
+- VideoKit App 是 VideoKit 模块的第一个宿主，和 LocalVideoBrowser 一样只通过公共 API 与扩展点使用模块，不使用模块内部实现；凡是 App 需要而模块没有的能力，应补进模块的公共 API，而不是在 App 里绕过。
+- VideoKit 模块不依赖 VideoKit App；LocalVideoBrowser 集成模块时不需要 App 的任何代码。
+- 在 SkinKit 中，VideoKit App 是一个宿主 App（`appId = videokit`）；VideoKit 模块嵌入其他宿主时跟随宿主主题（[03](03_UI_FRAMEWORK_DESIGN.md) §5.5）。
+- VideoKit App 自身需要、但不属于模块的部分只有 App 外壳：启动与导航、打开媒体的入口、权限、设置、关于。打开媒体的入口待确认（建议：系统文件选择器 + 系统“打开方式”调用），确认后补充需求编号。
+- `videokit_example` 是模块的开发示例（含演示场景面板、宿主扩展点示例），不是 VideoKit App。
 
 ## 2. 交付物
 
@@ -19,7 +27,7 @@ VideoKit 是可复用的媒体播放与编辑能力库，不是 NAS 浏览器，
 | Flutter UI 包 | `videokit_api`（Dart API）、`videokit_ui`（播放器 / 图片查看 / 多画面 / 编辑器 / 打码跟踪 / 导出界面）、`videokit_flutter`（插件）；UI 优先用 Flutter 开发以便全平台扩展 |
 | `videokit-testkit` / `videokit_fake` | Kotlin 与 Dart 两侧的 Fake、契约测试、故障注入 |
 | 示例宿主 | `videokit_example`（Flutter）与 `sample-host`（原生 Android，演示纯引擎与 add-to-app 嵌入），均可模拟 LocalVideoBrowser 的接入方式 |
-| VideoKit 独立 App | 独立发布的 VideoKit App（Flutter），复用全部 Kit 与 UI；Kit 之外的功能范围待定义 |
+| VideoKit App | 独立发布的视频播放 App（Flutter，`flutter/videokit_app`），以 VideoKit 模块为内核，界面按 UI 设计稿；App 外壳见 §1 |
 | 文档与报告 | API 参考、变更记录、能力说明、SBOM/NOTICE、性能/稳定性/输出/跟踪质量报告、已知问题清单（§25） |
 
 ## 3. 使用场景（§3）

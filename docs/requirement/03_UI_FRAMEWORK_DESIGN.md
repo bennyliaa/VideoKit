@@ -101,8 +101,8 @@ VideoKit 自有 Theme 从第一天起按 [SkinKit Ready 开发规范](../SkinKit
 - 依据：SkinKit V1.0 两份规范已收到（`docs/SkinKit/`）。当前 SkinKit 只交付 Android 原生 View 与 JVM 开发版 SDK，没有 Flutter 适配；VideoKit 等 SkinKit v2.0 支持 Flutter 后接入。SkinKit 为用户自有项目，无需另行商业授权。
 - 方式：新增可选包 `videokit_theme_skinkit`，依赖 SkinKit v2.0 的 Flutter 包，实现 `VideoKitThemeSource`；因 5.2 已按 SkinKit 键名与七类结构建立，映射基本是键名一一对应。`videokit_ui` 与原生 Kit 不直接依赖 SkinKit；不为 SkinKit 原生 Android 版做原生到 Flutter 的桥接。
 - **两种使用形态的主题来源**：
-  - **VideoKit 独立 App**：作为一个 SkinKit 宿主 App，`appId = videokit`；VideoKit 自有 Theme 即其 AppDefaultTheme，皮肤按四级回退（`apps.videokit.*` 扩展 → Common → AppDefaultTheme → 安全默认）。
-  - **嵌入其他宿主（如 LocalVideoBrowser）的组件**：Common Token 跟随宿主当前主题（宿主经 `VideoKitThemeSource` 或主题覆盖传入），VideoKit 专属 Token 使用 `apps.videokit.*` 扩展并回退到 VideoKit 默认值。嵌入组件能否在宿主 App 内拥有独立扩展命名空间，待 SkinKit v2.0 确认，确认前按“专属 Token 只用 VideoKit 默认值”处理。
+  - **VideoKit App**（[01](01_PRODUCT_REQUIREMENTS.md) §1）：作为一个 SkinKit 宿主 App，`appId = videokit`；VideoKit 自有 Theme 即其 AppDefaultTheme，皮肤按四级回退（`apps.videokit.*` 扩展 → Common → AppDefaultTheme → 安全默认）。
+  - **VideoKit 模块嵌入其他宿主（如 LocalVideoBrowser）**：Common Token 跟随宿主当前主题（宿主经 `VideoKitThemeSource` 或主题覆盖传入），VideoKit 专属 Token 使用 `apps.videokit.*` 扩展并回退到 VideoKit 默认值。嵌入组件能否在宿主 App 内拥有独立扩展命名空间，待 SkinKit v2.0 确认，确认前按“专属 Token 只用 VideoKit 默认值”处理。
 - 约束：不接入 SkinKit 时行为不变；SkinKit 无法表达的 Token 回退默认值并列入映射表；切换主题不改变会话状态、不破坏对比度与读屏语义；主题只改外观，不改布局、导航、触控区域与业务行为。
 - V1.0 必须做到：组件只读 Token；Token 集合带 `themeSchemaVersion`，新增 Token 有默认值；提供默认主题完整性检查（每个 Token 在浅色与深色都有值）与对比度检查（登记的前景/背景对 ≥ 4.5:1）。
 
