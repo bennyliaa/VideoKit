@@ -4,6 +4,7 @@ import 'package:videokit_flutter/videokit_flutter.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../history/history_entry.dart';
+import '../host/app_host.dart';
 import '../picker/channel_media_picker.dart';
 import '../picker/media_picker.dart';
 import '../startup/app_bootstrap.dart';
@@ -13,7 +14,10 @@ import 'app_backend.dart';
 /// Kit, with the system document picker (`ChannelMediaPicker`) and export
 /// "另存为" (`ChannelExportTarget`). Never imports `videokit_fake`.
 class PluginBackend implements AppBackend {
-  PluginBackend._(this._kit, this._picker, this._exportTarget);
+  PluginBackend._(this._kit, this._picker, this._exportTarget, this.hosts);
+
+  @override
+  final AppHostCallbacks hosts;
 
   final FlutterVideoKit _kit;
   final ChannelMediaPicker _picker;
@@ -25,14 +29,14 @@ class PluginBackend implements AppBackend {
 
   /// Connects to the native Kit; throws [AppStartupException] when the
   /// channel or backend is unavailable or the protocol does not match.
-  static Future<PluginBackend> connect([
-    VideoKitConfig config = const VideoKitConfig(),
-  ]) async {
+  static Future<PluginBackend> connect([AppHostCallbacks? hosts]) async {
+    final h = hosts ?? AppHostCallbacks();
     try {
       return PluginBackend._(
-        await FlutterVideoKit.connect(config),
+        await FlutterVideoKit.connect(VideoKitConfig(hostCallbacks: h)),
         const ChannelMediaPicker(),
         const ChannelExportTarget(),
+        h,
       );
     } on VideoKitInitException catch (e) {
       throw AppStartupException(startupFailureOf(e.failure), e.diagnostic);

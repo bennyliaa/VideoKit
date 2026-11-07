@@ -38,6 +38,27 @@ String vkTrackCodecName(String codec) =>
       _ => codec,
     };
 
+/// Channel layout of an audio track (04A C1): 1 → 单声道, 2 → 2.0, 6 → 5.1,
+/// 8 → 7.1, otherwise "N 声道"; null when unknown.
+String? vkChannelLayout(VkStrings s, int? channels) => switch (channels) {
+  null || <= 0 => null,
+  1 => s.text('trackChannelsMono'),
+  2 => '2.0',
+  6 => '5.1',
+  8 => '7.1',
+  final n => s.trackChannelsCount(n),
+};
+
+/// Track subtitle: codec name and channel layout ("AAC 2.0", "DTS 5.1");
+/// only the codec when the channel count is unknown (04A C1, R1-03).
+String? vkTrackDetail(VkStrings s, TrackInfo t) {
+  final codec = t.codec == null ? null : vkTrackCodecName(t.codec!);
+  final layout = vkChannelLayout(s, t.channelCount);
+  if (codec == null) return layout;
+  if (layout == null) return codec;
+  return s.trackCodecChannels(codec, layout);
+}
+
 /// Tabs of [TrackSettingsSheet].
 enum TrackSettingsTab { subtitles, audio, speed }
 
@@ -176,7 +197,7 @@ class _TrackSettingsSheetState extends State<TrackSettingsSheet> {
         for (final (i, tr) in st.subtitleTracks.indexed)
           _TrackRow(
             title: TrackSettingsSheet.trackName(s, tr, i),
-            detail: tr.codec == null ? null : vkTrackCodecName(tr.codec!),
+            detail: vkTrackDetail(s, tr),
             selected: st.selectedSubtitleTrackId == tr.id,
             unsupported: !tr.supported,
             onPressed: () => widget.onCommand(SelectSubtitleTrack(tr.id)),
@@ -194,7 +215,7 @@ class _TrackSettingsSheetState extends State<TrackSettingsSheet> {
         for (final (i, tr) in st.audioTracks.indexed)
           _TrackRow(
             title: TrackSettingsSheet.trackName(s, tr, i),
-            detail: tr.codec == null ? null : vkTrackCodecName(tr.codec!),
+            detail: vkTrackDetail(s, tr),
             selected: st.selectedAudioTrackId == tr.id,
             unsupported: !tr.supported,
             onPressed: () => widget.onCommand(SelectAudioTrack(tr.id)),

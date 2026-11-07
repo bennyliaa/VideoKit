@@ -222,6 +222,8 @@
   "@hostActionMore": { "description": "宿主动作溢出菜单按钮。" },
   "navigationUnavailable": "没有更多内容了",
   "@navigationUnavailable": { "description": "宿主返回 UNAVAILABLE 时的轻提示。" },
+  "navigationFailed": "无法切换到下一项，请重试",
+  "@navigationFailed": { "description": "宿主导航回调失败或超时（3 s）时的轻提示（M2）。" },
   "commandUnavailable": "此操作当前不可用",
   "@commandUnavailable": { "description": "命令返回 Unsupported 时的轻提示。" },
   "badgeClipped": "{text}…",
@@ -675,5 +677,11 @@
   "infoRotationValue": "{degrees}°",
   "@infoRotationValue": { "description": "旋转角度。", "placeholders": { "degrees": { "type": "int" } } },
   "infoDuration": "时长",
-  "@infoDuration": { "description": "参数面板：时长。" }
+  "@infoDuration": { "description": "参数面板：时长。" },
+  "trackChannelsMono": "单声道",
+  "@trackChannelsMono": { "description": "音轨声道布局：1 声道（04A C1）。" },
+  "trackChannelsCount": "{count, plural, other{{count} 声道}}",
+  "@trackChannelsCount": { "description": "音轨声道数（不是 1、2、6、8 时）。", "placeholders": { "count": { "type": "int" } } },
+  "trackCodecChannels": "{codec} {channels}",
+  "@trackCodecChannels": { "description": "音轨副标题：编码名与声道布局，例如“AAC 2.0”“DTS 5.1”。", "placeholders": { "codec": { "type": "String" }, "channels": { "type": "String" } } }
 }

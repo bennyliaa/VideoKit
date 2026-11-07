@@ -13,6 +13,7 @@ import '../common/vk_pressable.dart';
 import '../common/vk_sheet_host.dart';
 import '../common/vk_slider.dart';
 import '../foundation/auto_hide.dart';
+import '../foundation/controls_policy.dart';
 import '../foundation/format.dart';
 import '../foundation/layout_class.dart';
 import '../foundation/selector.dart';
@@ -602,7 +603,12 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                           context,
                           size,
                           st,
-                          blocked: _blocksControls(model),
+                          blocked:
+                              vkControlsMode(model, st) !=
+                              VkControlsMode.normal,
+                          minimal:
+                              vkControlsMode(model, st) ==
+                              VkControlsMode.minimal,
                         ),
                       ),
                     ),
@@ -797,36 +803,12 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
   VkStateStyleBox _onPictureStyle(BuildContext context) =>
       vkOnPictureIconStyle(context);
 
-  /// An error, released or locked state view is on screen (design page 12):
-  /// the playback controls look disabled and let taps through to the state
-  /// view's actions ("重试" sits where the bottom bar is on phones, R1-09).
-  /// The top bar (back, title, more) stays usable.
-  static bool _blocksControls(StateViewModel? model) => switch (model?.kind) {
-    StateViewKind.error ||
-    StateViewKind.released ||
-    StateViewKind.locked => true,
-    _ => false,
-  };
-
-  /// Glass gradient behind [child]; the gradient itself is not hit-testable,
-  /// so empty areas of the bars do not swallow taps meant for the layers
-  /// below (state view actions, picture gestures).
-  static Widget _glassBehind(Gradient gradient, Widget child) => Stack(
-    children: [
-      Positioned.fill(
-        child: IgnorePointer(
-          child: DecoratedBox(decoration: BoxDecoration(gradient: gradient)),
-        ),
-      ),
-      child,
-    ],
-  );
-
   Widget _controls(
     BuildContext context,
     Size size,
     VideoKitSessionState st, {
     bool blocked = false,
+    bool minimal = false,
   }) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
@@ -881,7 +863,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             ),
     );
 
-    final topBar = _glassBehind(
+    final topBar = vkGlassBehind(
       glass.gradient(fromTop: true),
       SafeArea(
         bottom: false,
@@ -928,22 +910,23 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                   ],
                 ),
               ),
-              if (landscape)
+              if (landscape && !minimal)
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: size.width * 0.45),
                   child: hostBar,
                 ),
-              VkIconButton(
-                icon: t.icons.resolve('more'),
-                semanticLabel: s.text('commonMore'),
-                pending: st.hostActions.any(
-                  (a) =>
-                      a.isPending &&
-                      _hostOverflowIds.contains(a.action.actionId),
+              if (!minimal)
+                VkIconButton(
+                  icon: t.icons.resolve('more'),
+                  semanticLabel: s.text('commonMore'),
+                  pending: st.hostActions.any(
+                    (a) =>
+                        a.isPending &&
+                        _hostOverflowIds.contains(a.action.actionId),
+                  ),
+                  onPressed: _openMore,
+                  style: pictureStyle,
                 ),
-                onPressed: _openMore,
-                style: pictureStyle,
-              ),
             ],
           ),
         ),
@@ -1007,7 +990,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             ),
           )
         : null;
-    final bottom = _glassBehind(
+    final bottom = vkGlassBehind(
       glass.gradient(fromTop: false),
       SafeArea(
         top: false,
@@ -1081,6 +1064,13 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
       ),
     );
 
+    if (minimal) {
+      return Stack(
+        children: [
+          PositionedDirectional(top: 0, start: 0, end: 0, child: topBar),
+        ],
+      );
+    }
     final bottomBar = IgnorePointer(ignoring: blocked, child: bottom);
     if (landscape) {
       return Stack(

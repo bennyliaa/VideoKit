@@ -305,7 +305,8 @@ void r1PlayerTests() {
     key.currentState!.openPanel(PlayerPanel.audio);
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.textContaining('audio/'), findsNothing, reason: 'no MIME');
-    expect(find.text('AAC'), findsWidgets);
+    expect(find.text('AAC 2.0'), findsWidgets);
+    expect(find.text('DTS 5.1'), findsOneWidget, reason: '04A C1');
     await tester.binding.handlePopRoute();
     await tester.pump(const Duration(milliseconds: 400));
     key.currentState!.openPanel(PlayerPanel.speed);

@@ -154,7 +154,11 @@ class HistoryStore extends ChangeNotifier {
     _replace(
       e.copyWith(
         playbackState: snapshot,
-        lastPositionUs: positionUs ?? snapshot?.positionUs,
+        // Images have no resume position (an animated image keeps its
+        // snapshot only for looping, 04A L3).
+        lastPositionUs: (kind ?? e.kind).isImage
+            ? null
+            : positionUs ?? snapshot?.positionUs,
         durationUs: durationUs,
         width: width,
         height: height,
@@ -181,6 +185,31 @@ class HistoryStore extends ChangeNotifier {
     if (e == null || e.unavailable) return;
     _replace(e.copyWith(unavailable: true));
     await _save();
+  }
+
+  /// Sets the favourite flag of [id] (App host action "收藏", M2).
+  Future<HistoryEntry?> setFavorite(String id, bool favorite) async {
+    final e = byId(id);
+    if (e == null) return null;
+    final next = e.copyWith(favorite: favorite);
+    _replace(next);
+    await _save();
+    return next;
+  }
+
+  /// Replaces the tags of [id] (trimmed, empty and duplicate tags dropped).
+  Future<HistoryEntry?> setTags(String id, List<String> tags) async {
+    final e = byId(id);
+    if (e == null) return null;
+    final clean = <String>[];
+    for (final t in tags) {
+      final v = t.trim();
+      if (v.isNotEmpty && !clean.contains(v)) clean.add(v);
+    }
+    final next = e.copyWith(tags: List.unmodifiable(clean));
+    _replace(next);
+    await _save();
+    return next;
   }
 
   /// Points [id] at a re-selected file ("重新选择").

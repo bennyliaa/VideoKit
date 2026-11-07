@@ -346,6 +346,9 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get navigationUnavailable => '没有更多内容了';
 
   @override
+  String get navigationFailed => '无法切换到下一项，请重试';
+
+  @override
   String get commandUnavailable => '此操作当前不可用';
 
   @override
@@ -1147,4 +1150,22 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
 
   @override
   String get infoDuration => '时长';
+
+  @override
+  String get trackChannelsMono => '单声道';
+
+  @override
+  String trackChannelsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 声道',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String trackCodecChannels(String codec, String channels) {
+    return '$codec $channels';
+  }
 }

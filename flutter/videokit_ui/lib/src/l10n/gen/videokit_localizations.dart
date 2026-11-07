@@ -697,6 +697,12 @@ abstract class VideoKitLocalizations {
   /// **'没有更多内容了'**
   String get navigationUnavailable;
 
+  /// 宿主导航回调失败或超时（3 s）时的轻提示（M2）。
+  ///
+  /// In zh, this message translates to:
+  /// **'无法切换到下一项，请重试'**
+  String get navigationFailed;
+
   /// 命令返回 Unsupported 时的轻提示。
   ///
   /// In zh, this message translates to:
@@ -2046,6 +2052,24 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'时长'**
   String get infoDuration;
+
+  /// 音轨声道布局：1 声道（04A C1）。
+  ///
+  /// In zh, this message translates to:
+  /// **'单声道'**
+  String get trackChannelsMono;
+
+  /// 音轨声道数（不是 1、2、6、8 时）。
+  ///
+  /// In zh, this message translates to:
+  /// **'{count, plural, other{{count} 声道}}'**
+  String trackChannelsCount(int count);
+
+  /// 音轨副标题：编码名与声道布局，例如“AAC 2.0”“DTS 5.1”。
+  ///
+  /// In zh, this message translates to:
+  /// **'{codec} {channels}'**
+  String trackCodecChannels(String codec, String channels);
 }
 
 class _VideoKitLocalizationsDelegate

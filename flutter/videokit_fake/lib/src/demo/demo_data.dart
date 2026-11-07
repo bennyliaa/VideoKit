@@ -196,12 +196,14 @@ final class DemoDataGenerator {
       language: 'en',
       label: 'English',
       codec: 'audio/mp4a-latm',
+      channelCount: 2,
     ),
     TrackInfo(
       id: 'audio-zh',
       language: 'zh',
       label: '中文',
       codec: 'audio/mp4a-latm',
+      channelCount: 2,
     ),
     TrackInfo(
       id: 'audio-dts',
@@ -209,6 +211,7 @@ final class DemoDataGenerator {
       label: 'DTS',
       codec: 'audio/vnd.dts',
       supported: false,
+      channelCount: 6,
     ),
   ];
 

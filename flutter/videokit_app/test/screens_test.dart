@@ -8,11 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:videokit_api/videokit_api.dart';
 
 import 'package:videokit_app/history/app_storage.dart';
+import 'package:videokit_app/history/history_entry.dart';
+import 'package:videokit_app/pages/image_page.dart';
 import 'package:videokit_app/startup/app_bootstrap.dart';
 
 import 'startup_test.dart' show ScriptedConnector;
+
 import 'support.dart';
 
 final String? _dir = Platform.environment['VK_SCREENS_DIR'];
@@ -169,5 +173,49 @@ void main() {
       await _shot(tester, name);
       await unmount(tester);
     }
+  }, skip: _dir == null);
+
+  testWidgets('M2-A1 screens', (tester) async {
+    final rig = AppRig.create(
+      entries: [
+        ...sampleHistory(),
+        HistoryEntry(
+          id: 'h6',
+          uri: 'demo:fireworks',
+          displayName: '烟花.gif',
+          kind: MediaKind.imageAnimated,
+          lastOpenedAtEpochMs: testNow
+              .subtract(const Duration(days: 6))
+              .millisecondsSinceEpoch,
+        ),
+      ],
+    );
+    await rig.pump(tester, fontFamily: _family, wrap: _wrap);
+    await tapText(tester, '沙丘.heic');
+    await settle(tester, 8);
+    final page = tester.state<ImagePageState>(find.byType(ImagePage));
+    page.session!.setControlsVisible(true);
+    await tester.tap(find.bySemanticsLabel('收藏这张图片'));
+    await settle(tester, 4);
+    await _shot(tester, 'm2_app_image_favorited');
+    await tester.tap(find.bySemanticsLabel('为这张图片添加标签'));
+    await settle(tester, 4);
+    await tester.enterText(find.byType(TextField), '沙漠');
+    await tester.tap(find.text('添加'));
+    await tester.pump();
+    await _shot(tester, 'm2_app_tag_editor');
+    await tester.tap(find.text('完成'));
+    await settle(tester, 4);
+    page.session!.setControlsVisible(true);
+    await tester.tap(find.bySemanticsLabel('下一张'));
+    await settle(tester, 8);
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 200)),
+    );
+    await _shot(tester, 'm2_app_image_next_animated');
+    await tester.binding.handlePopRoute();
+    await settle(tester, 6);
+    await _shot(tester, 'm2_app_home_favorite_tags');
+    await unmount(tester);
   }, skip: _dir == null);
 }

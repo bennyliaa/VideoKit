@@ -22,6 +22,8 @@ final class HistoryEntry {
     this.thumbnailPath,
     this.persistable = true,
     this.unavailable = false,
+    this.favorite = false,
+    this.tags = const [],
   });
 
   /// Stable record ID.
@@ -70,6 +72,12 @@ final class HistoryEntry {
   /// File moved, deleted or permission lost (shown as "无法打开").
   final bool unavailable;
 
+  /// Favourite (App host action, M2; stored only in the App).
+  final bool favorite;
+
+  /// User tags (App host action, M2), in the order added.
+  final List<String> tags;
+
   /// Whether this is an image record.
   bool get isImage => kind.isImage;
 
@@ -90,6 +98,8 @@ final class HistoryEntry {
     String? thumbnailPath,
     bool? persistable,
     bool? unavailable,
+    bool? favorite,
+    List<String>? tags,
   }) => HistoryEntry(
     id: id,
     uri: uri ?? this.uri,
@@ -108,6 +118,8 @@ final class HistoryEntry {
     thumbnailPath: thumbnailPath ?? this.thumbnailPath,
     persistable: persistable ?? this.persistable,
     unavailable: unavailable ?? this.unavailable,
+    favorite: favorite ?? this.favorite,
+    tags: tags ?? this.tags,
   );
 
   /// JSON form (schema 1).
@@ -127,6 +139,8 @@ final class HistoryEntry {
     'thumbnailPath': ?thumbnailPath,
     'persistable': persistable,
     'unavailable': unavailable,
+    if (favorite) 'favorite': true,
+    if (tags.isNotEmpty) 'tags': tags,
   };
 
   /// Parses [json]; unknown or broken snapshots are dropped, never fatal.
@@ -156,6 +170,11 @@ final class HistoryEntry {
       thumbnailPath: json['thumbnailPath'] as String?,
       persistable: json['persistable'] as bool? ?? true,
       unavailable: json['unavailable'] as bool? ?? false,
+      favorite: json['favorite'] as bool? ?? false,
+      tags: [
+        for (final t in json['tags'] as List<Object?>? ?? const [])
+          if (t is String) t,
+      ],
     );
   }
 
@@ -176,7 +195,9 @@ final class HistoryEntry {
       other.playbackState == playbackState &&
       other.thumbnailPath == thumbnailPath &&
       other.persistable == persistable &&
-      other.unavailable == unavailable;
+      other.unavailable == unavailable &&
+      other.favorite == favorite &&
+      listEquals(other.tags, tags);
 
   @override
   int get hashCode => Object.hash(
@@ -195,6 +216,8 @@ final class HistoryEntry {
     thumbnailPath,
     persistable,
     unavailable,
+    favorite,
+    Object.hashAll(tags),
   );
 
   @override

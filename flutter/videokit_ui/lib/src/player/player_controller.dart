@@ -191,15 +191,38 @@ class PlayerController extends ChangeNotifier {
     unawaited(dispatcher.requestHostAction(actionId));
   }
 
-  /// Requests navigation and shows a notice when unavailable.
-  Future<void> requestNavigation(NavigationDirection direction) async {
-    final r = await session.requestNavigation(direction);
-    if (_disposed) return;
-    if (r == NavigationResult.unavailable) {
-      sheets.showToast(
-        VkToastEntry(message: strings().text('navigationUnavailable')),
-      );
+  bool _navigating = false;
+
+  /// Whether a navigation request is waiting for the host.
+  bool get navigating => _navigating;
+
+  /// Requests navigation (M2: one request at a time; repeated swipes or
+  /// taps while the host decides are dropped) and shows a notice when the
+  /// host has nothing more or failed (the Kit applies the 3 s timeout, 14
+  /// §12, and reports it as `failed`).
+  Future<NavigationResult?> requestNavigation(
+    NavigationDirection direction,
+  ) async {
+    if (_navigating || _disposed) return null;
+    _navigating = true;
+    NavigationResult r;
+    try {
+      r = await session.requestNavigation(direction);
+    } on Object {
+      r = NavigationResult.failed;
+    } finally {
+      _navigating = false;
     }
+    if (_disposed) return r;
+    final key = switch (r) {
+      NavigationResult.unavailable => 'navigationUnavailable',
+      NavigationResult.failed => 'navigationFailed',
+      NavigationResult.accepted => null,
+    };
+    if (key != null) {
+      sheets.showToast(VkToastEntry(message: strings().text(key)));
+    }
+    return r;
   }
 
   /// Local gesture transform (scale/pan) while pinching.

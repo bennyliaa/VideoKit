@@ -146,6 +146,7 @@ final class VkStrings {
     'stateDetailGeneric': l10n.stateDetailGeneric,
     'hostActionMore': l10n.hostActionMore,
     'navigationUnavailable': l10n.navigationUnavailable,
+    'navigationFailed': l10n.navigationFailed,
     'commandUnavailable': l10n.commandUnavailable,
     'moreGroupPlayer': l10n.moreGroupPlayer,
     'viewerPicture': l10n.viewerPicture,
@@ -185,6 +186,7 @@ final class VkStrings {
     'slotPausedTitle': l10n.slotPausedTitle,
     'slotPausedDetail': l10n.slotPausedDetail,
     'slotPausedShort': l10n.slotPausedShort,
+    'trackChannelsMono': l10n.trackChannelsMono,
     'slotLowResolution': l10n.slotLowResolution,
     'slotErrorOnly': l10n.slotErrorOnly,
     'slotRemove': l10n.slotRemove,
@@ -354,6 +356,8 @@ final class VkStrings {
     'infoBitrateKbps',
     'infoBitrateMbps',
     'infoRotationValue',
+    'trackChannelsCount',
+    'trackCodecChannels',
     'editorClip',
     'editorClipProps',
     'editorClipSummary',
@@ -464,6 +468,13 @@ final class VkStrings {
   /// Bit rate value; [value] is locale-formatted, [mega] selects Mbps.
   String infoBitrateValue(String value, {required bool mega}) =>
       _out(mega ? l10n.infoBitrateMbps(value) : l10n.infoBitrateKbps(value));
+
+  /// Channel count (ICU plural), e.g. "4 声道".
+  String trackChannelsCount(int count) => _out(l10n.trackChannelsCount(count));
+
+  /// Codec and channel layout, e.g. "AAC 2.0".
+  String trackCodecChannels(String codec, String channels) =>
+      _out(l10n.trackCodecChannels(codec, channels));
 
   /// Rotation value in degrees.
   String infoRotationValue(int degrees) =>

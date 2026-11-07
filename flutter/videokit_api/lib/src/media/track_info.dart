@@ -12,6 +12,7 @@ final class TrackInfo {
     this.label,
     this.codec,
     this.supported = true,
+    this.channelCount,
   });
 
   /// Opaque track ID.
@@ -29,6 +30,9 @@ final class TrackInfo {
   /// Whether this device can decode/render the track.
   final bool supported;
 
+  /// Audio channel count (04A C1); null when unknown or for subtitles.
+  final int? channelCount;
+
   /// Returns a copy with the given fields replaced.
   TrackInfo copyWith({
     String? id,
@@ -36,12 +40,14 @@ final class TrackInfo {
     Object? label = undefined,
     Object? codec = undefined,
     bool? supported,
+    Object? channelCount = undefined,
   }) => TrackInfo(
     id: id ?? this.id,
     language: pick<String?>(language, this.language),
     label: pick<String?>(label, this.label),
     codec: pick<String?>(codec, this.codec),
     supported: supported ?? this.supported,
+    channelCount: pick<int?>(channelCount, this.channelCount),
   );
 
   @override
@@ -51,13 +57,15 @@ final class TrackInfo {
       other.language == language &&
       other.label == label &&
       other.codec == codec &&
-      other.supported == supported;
+      other.supported == supported &&
+      other.channelCount == channelCount;
 
   @override
-  int get hashCode => Object.hash(id, language, label, codec, supported);
+  int get hashCode =>
+      Object.hash(id, language, label, codec, supported, channelCount);
 
   @override
   String toString() =>
       'TrackInfo($id, lang: $language, label: $label, codec: $codec, '
-      'supported: $supported)';
+      'supported: $supported, channels: $channelCount)';
 }

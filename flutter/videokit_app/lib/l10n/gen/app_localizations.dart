@@ -645,6 +645,108 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'VideoKit_{stamp}'**
   String exportFileName(String stamp);
+
+  /// 宿主动作：收藏（App 本地，M2）。
+  ///
+  /// In zh, this message translates to:
+  /// **'收藏'**
+  String get hostFavorite;
+
+  /// 宿主动作：已收藏（选中态）。
+  ///
+  /// In zh, this message translates to:
+  /// **'已收藏'**
+  String get hostFavorited;
+
+  /// 读屏：收藏视频。
+  ///
+  /// In zh, this message translates to:
+  /// **'收藏这个视频'**
+  String get hostFavoriteVideoCd;
+
+  /// 读屏：取消收藏视频。
+  ///
+  /// In zh, this message translates to:
+  /// **'取消收藏这个视频'**
+  String get hostUnfavoriteVideoCd;
+
+  /// 读屏：收藏图片。
+  ///
+  /// In zh, this message translates to:
+  /// **'收藏这张图片'**
+  String get hostFavoriteImageCd;
+
+  /// 读屏：取消收藏图片。
+  ///
+  /// In zh, this message translates to:
+  /// **'取消收藏这张图片'**
+  String get hostUnfavoriteImageCd;
+
+  /// 宿主动作：标签（App 本地，M2）。
+  ///
+  /// In zh, this message translates to:
+  /// **'标签'**
+  String get hostTag;
+
+  /// 读屏：视频标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'为这个视频添加标签'**
+  String get hostTagVideoCd;
+
+  /// 读屏：图片标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'为这张图片添加标签'**
+  String get hostTagImageCd;
+
+  /// 标签编辑面板标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'标签'**
+  String get tagEditorTitle;
+
+  /// 标签输入框提示。
+  ///
+  /// In zh, this message translates to:
+  /// **'输入新标签'**
+  String get tagEditorHint;
+
+  /// 添加标签按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'添加'**
+  String get tagEditorAdd;
+
+  /// 关闭标签编辑面板并保存。
+  ///
+  /// In zh, this message translates to:
+  /// **'完成'**
+  String get tagEditorDone;
+
+  /// 没有标签时的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有标签'**
+  String get tagEditorEmpty;
+
+  /// 读屏：删除某个标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'删除标签“{tag}”'**
+  String tagEditorRemove(String tag);
+
+  /// 首页记录：收藏标识的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'已收藏'**
+  String get historyFavorite;
+
+  /// 首页记录：标签数量。
+  ///
+  /// In zh, this message translates to:
+  /// **'{count, plural, other{{count} 个标签}}'**
+  String historyTags(int count);
 }
 
 class _AppLocalizationsDelegate

@@ -349,4 +349,64 @@ class AppLocalizationsZh extends AppLocalizations {
   String exportFileName(String stamp) {
     return 'VideoKit_$stamp';
   }
+
+  @override
+  String get hostFavorite => '收藏';
+
+  @override
+  String get hostFavorited => '已收藏';
+
+  @override
+  String get hostFavoriteVideoCd => '收藏这个视频';
+
+  @override
+  String get hostUnfavoriteVideoCd => '取消收藏这个视频';
+
+  @override
+  String get hostFavoriteImageCd => '收藏这张图片';
+
+  @override
+  String get hostUnfavoriteImageCd => '取消收藏这张图片';
+
+  @override
+  String get hostTag => '标签';
+
+  @override
+  String get hostTagVideoCd => '为这个视频添加标签';
+
+  @override
+  String get hostTagImageCd => '为这张图片添加标签';
+
+  @override
+  String get tagEditorTitle => '标签';
+
+  @override
+  String get tagEditorHint => '输入新标签';
+
+  @override
+  String get tagEditorAdd => '添加';
+
+  @override
+  String get tagEditorDone => '完成';
+
+  @override
+  String get tagEditorEmpty => '还没有标签';
+
+  @override
+  String tagEditorRemove(String tag) {
+    return '删除标签“$tag”';
+  }
+
+  @override
+  String get historyFavorite => '已收藏';
+
+  @override
+  String historyTags(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个标签',
+    );
+    return '$_temp0';
+  }
 }

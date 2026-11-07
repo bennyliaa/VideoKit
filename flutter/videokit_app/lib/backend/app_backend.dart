@@ -3,6 +3,7 @@ import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../history/history_entry.dart';
+import '../host/app_host.dart';
 import '../picker/media_picker.dart';
 
 /// What the App needs from a VideoKit backend (REQ-APP-05: public API
@@ -27,6 +28,9 @@ abstract interface class AppBackend {
 
   /// Thumbnail of a record (small file, or a demo picture).
   Widget thumbnail(BuildContext context, HistoryEntry entry);
+
+  /// Host callbacks of the App (favourite, tag, image paging; M2).
+  AppHostCallbacks get hosts;
 
   /// Output sink for export prechecks (capabilities, free space).
   VideoKitOutputSink get exportSink;

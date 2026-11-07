@@ -212,6 +212,20 @@ void main() {
         await tester.pump(const Duration(seconds: 3));
         expect(p.visible, isFalse, reason: b.name);
       }
+      // M2: "not playing" stops the timer but a tap may still hide.
+      p
+        ..kick()
+        ..setBlocker(AutoHideBlocker.notPlaying, true);
+      await tester.pump(const Duration(seconds: 10));
+      expect(p.visible, isTrue, reason: 'no auto-hide while paused');
+      expect(p.hide(), isTrue, reason: 'explicit tap hides');
+      p
+        ..kick()
+        ..setBlocker(AutoHideBlocker.panelOpen, true);
+      expect(p.hide(), isFalse, reason: 'a panel still refuses');
+      p
+        ..setBlocker(AutoHideBlocker.panelOpen, false)
+        ..setBlocker(AutoHideBlocker.notPlaying, false);
       p.dispose();
     });
   });

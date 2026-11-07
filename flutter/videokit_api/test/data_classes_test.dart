@@ -44,6 +44,12 @@ void main() {
       expectValueSemantics(t, t.copyWith(), t.copyWith(id: 'a2'));
       expect(t.copyWith(language: null).language, isNull);
       expect(t.copyWith().language, 'en');
+      // 04A C1: channelCount.
+      const a = TrackInfo(id: 'a', codec: 'audio/ac3', channelCount: 6);
+      expectValueSemantics(a, a.copyWith(), a.copyWith(channelCount: 2));
+      expect(a.copyWith(channelCount: null).channelCount, isNull);
+      expect(a.copyWith().channelCount, 6);
+      expect(const TrackInfo(id: 'x').channelCount, isNull);
     });
 
     test('MediaTransform', () {

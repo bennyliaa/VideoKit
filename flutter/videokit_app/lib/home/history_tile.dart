@@ -109,6 +109,30 @@ class HistoryTile extends StatelessWidget {
               color: t.colors.textSecondary,
             ),
           ),
+        // M2: App host actions "收藏" / "标签".
+        if (e.favorite || e.tags.isNotEmpty)
+          Wrap(
+            spacing: d.spacing8,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              if (e.favorite)
+                Semantics(
+                  label: a(a.l.historyFavorite),
+                  child: Icon(
+                    t.icons.resolve('favorite'),
+                    size: d.icon16,
+                    color: t.colors.primary,
+                  ),
+                ),
+              if (e.tags.isNotEmpty)
+                Text(
+                  a(a.l.historyTags(e.tags.length)),
+                  style: t.typography.caption.copyWith(
+                    color: t.colors.textSecondary,
+                  ),
+                ),
+            ],
+          ),
         if (!e.persistable)
           Text(
             a(a.l.temporaryGrant),

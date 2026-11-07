@@ -6,6 +6,7 @@ import 'package:videokit_fake/videokit_fake.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../history/history_entry.dart';
+import '../host/app_host.dart';
 import '../l10n/app_text.dart';
 import '../picker/media_picker.dart';
 import 'app_backend.dart';
@@ -265,11 +266,20 @@ class _DemoPickerSheetState extends State<_DemoPickerSheet> {
 /// builds from M1).
 class DemoBackend implements AppBackend {
   /// Creates the backend.
-  DemoBackend({FakeVideoKit? kit, DemoMediaPicker? picker})
-    : _kit = kit ?? FakeVideoKit(),
-      _picker = picker ?? DemoMediaPicker();
+  DemoBackend({
+    FakeVideoKit? kit,
+    DemoMediaPicker? picker,
+    AppHostCallbacks? hosts,
+  }) : hosts = hosts ?? AppHostCallbacks(),
+       _picker = picker ?? DemoMediaPicker() {
+    _kit =
+        kit ?? FakeVideoKit(config: VideoKitConfig(hostCallbacks: this.hosts));
+  }
 
-  final FakeVideoKit _kit;
+  @override
+  final AppHostCallbacks hosts;
+
+  late final FakeVideoKit _kit;
   final DemoMediaPicker _picker;
 
   /// The Fake (tests drive its clock).

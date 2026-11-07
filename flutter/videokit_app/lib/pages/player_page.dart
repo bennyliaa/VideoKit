@@ -6,6 +6,7 @@ import 'package:videokit_ui/videokit_ui.dart';
 
 import '../app_scope.dart';
 import '../history/history_entry.dart';
+import '../host/entry_host.dart';
 
 /// Errors that mean "file moved / permission lost" (REQ-APP-07).
 bool isAccessError(ErrorCode code) =>
@@ -40,7 +41,10 @@ Future<void> saveAndClose(
     }
     await scope.history.updatePlayback(
       entry.id,
-      snapshot: entry.isImage ? null : snap,
+      // Images keep a snapshot only when animated (04A L3: looping).
+      snapshot: !entry.isImage || st.mediaKind == MediaKind.imageAnimated
+          ? snap
+          : null,
       positionUs: entry.isImage ? null : st.positionUs,
       durationUs: info?.durationUs ?? st.durationUs,
       width: info?.width ?? size?.width,
@@ -78,6 +82,7 @@ class PlayerPageState extends State<PlayerPage> {
   late AppScope _scope;
   bool _started = false;
   bool _closing = false;
+  EntryHost? _host;
 
   @override
   void didChangeDependencies() {
@@ -88,6 +93,14 @@ class PlayerPageState extends State<PlayerPage> {
     unawaited(_open());
   }
 
+  @override
+  void dispose() {
+    final s = session;
+    final h = _host;
+    if (s != null && h != null) _scope.backend.hosts.unregister(s.sessionId, h);
+    super.dispose();
+  }
+
   Future<void> _open() async {
     final s = await _scope.backend.videoKit.createSession(
       const VideoKitSessionConfig(debugLabel: 'app-player'),
@@ -96,10 +109,19 @@ class PlayerPageState extends State<PlayerPage> {
       await s.close();
       return;
     }
+    // M2: "收藏" / "标签" are App business (history), routed by session.
+    final host = EntryHost(
+      scope: _scope,
+      context: () => context,
+      entryId: widget.entry.id,
+    )..session = s;
+    _scope.backend.hosts.register(s.sessionId, host);
+    _host = host;
     setState(() => session = s);
     final r = await s.bind(
       _scope.backend.sourceFor(widget.entry),
       initialState: widget.fromStart ? null : widget.entry.playbackState,
+      hostActions: EntryHost.actionsFor(_scope, widget.entry),
     );
     if (!mounted) return;
     if (r is Rejected && isAccessError(r.error.code)) {
@@ -136,6 +158,7 @@ class PlayerPageState extends State<PlayerPage> {
                 session: s,
                 title: widget.entry.displayName,
                 pictureBuilder: _scope.backend.pictureBuilder,
+                resolveHostString: (k) => resolveAppHostString(context, k),
                 onBack: () => unawaited(close()),
                 onStateAction: (a) {
                   if (a == StateAction.retry ||
@@ -144,6 +167,7 @@ class PlayerPageState extends State<PlayerPage> {
                       s.bind(
                         _scope.backend.sourceFor(widget.entry),
                         initialState: widget.entry.playbackState,
+                        hostActions: EntryHost.actionsFor(_scope, widget.entry),
                       ),
                     );
                   }

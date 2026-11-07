@@ -9,6 +9,7 @@ import '../common/vk_badge.dart';
 import '../common/vk_buttons.dart';
 import '../common/vk_sheet_host.dart';
 import '../foundation/auto_hide.dart';
+import '../foundation/controls_policy.dart';
 import '../foundation/format.dart';
 import '../foundation/selector.dart';
 import '../host_action/host_action_bar.dart';
@@ -73,6 +74,7 @@ class VideoKitImageViewer extends StatefulWidget {
     this.onBack,
     this.onStateAction,
     this.onControlsVisibilityChanged,
+    this.hostPanel,
     this.pictureBuilder,
     this.resolveHostString,
     this.resolveHostIcon,
@@ -99,6 +101,11 @@ class VideoKitImageViewer extends StatefulWidget {
 
   /// Controls visibility changed.
   final ValueChanged<bool>? onControlsVisibilityChanged;
+
+  /// Host panel slot (14 §10, M2): shown and hidden together with the
+  /// controls; [controlsVisible] is passed so the host can animate. At the
+  /// end edge in landscape, above the toolbar in portrait.
+  final Widget Function(BuildContext context, bool controlsVisible)? hostPanel;
 
   /// Picture without texture (Dart Fake).
   final VideoKitPictureBuilder? pictureBuilder;
@@ -485,13 +492,21 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
                         skipTraversal: true,
                         onFocusChange: (f) =>
                             _c.setBlocker(AutoHideBlocker.focusInControls, f),
-                        child: _controls(context, size, st),
+                        child: _controls(
+                          context,
+                          size,
+                          st,
+                          vkControlsMode(model, st),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
+            if (widget.hostPanel != null &&
+                vkControlsMode(model, st) != VkControlsMode.minimal)
+              _hostPanel(context, size, visible),
             if (widget.session.isDemo)
               PositionedDirectional(
                 top: 0,
@@ -579,7 +594,48 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
     ];
   }
 
-  Widget _controls(BuildContext context, Size size, VideoKitSessionState st) {
+  /// Host panel slot, synchronised with the controls (same placement as
+  /// UI-01: end edge in landscape, above the toolbar in portrait).
+  Widget _hostPanel(BuildContext context, Size size, bool visible) {
+    final t = VkTheme.of(context);
+    final d = t.dimensions;
+    final landscape = size.width > size.height;
+    final motion = t.animations.normal;
+    final child = AnimatedOpacity(
+      opacity: visible ? 1 : 0,
+      duration: motion.duration,
+      curve: motion.curve,
+      child: IgnorePointer(
+        ignoring: !visible,
+        child: ExcludeSemantics(
+          excluding: !visible,
+          child: widget.hostPanel!(context, visible),
+        ),
+      ),
+    );
+    return landscape
+        ? PositionedDirectional(
+            top: d.controlBarHeight + d.spacing16,
+            bottom: d.controlBarHeight * 2 + d.spacing16,
+            end: d.spacing16,
+            child: SafeArea(left: false, right: false, child: child),
+          )
+        : PositionedDirectional(
+            start: 0,
+            end: 0,
+            bottom: d.controlBarHeight * 3.5,
+            child: child,
+          );
+  }
+
+  Widget _controls(
+    BuildContext context,
+    Size size,
+    VideoKitSessionState st,
+    VkControlsMode mode,
+  ) {
+    final blocked = mode != VkControlsMode.normal;
+    final minimal = mode == VkControlsMode.minimal;
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
@@ -619,9 +675,9 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
       collapseSecondary: false,
     );
 
-    final topBar = DecoratedBox(
-      decoration: BoxDecoration(gradient: glass.gradient(fromTop: true)),
-      child: SafeArea(
+    final topBar = vkGlassBehind(
+      glass.gradient(fromTop: true),
+      SafeArea(
         bottom: false,
         child: Padding(
           padding: EdgeInsetsDirectional.symmetric(
@@ -651,26 +707,29 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
                         ),
                       ),
               ),
-              VkIconButton(
-                icon: t.icons.resolve('info'),
-                semanticLabel: s.text('viewerInfo'),
-                onPressed: openInfo,
-                style: pictureStyle,
-              ),
-              VkIconButton(
-                icon: t.icons.resolve('more'),
-                semanticLabel: s.text('commonMore'),
-                pending: hostLayout.overflow.any((a) => a.isPending),
-                onPressed: () => _openMore(hostLayout.overflow),
-                style: pictureStyle,
-              ),
+              if (!minimal) ...[
+                VkIconButton(
+                  icon: t.icons.resolve('info'),
+                  semanticLabel: s.text('viewerInfo'),
+                  onPressed: openInfo,
+                  style: pictureStyle,
+                ),
+                VkIconButton(
+                  icon: t.icons.resolve('more'),
+                  semanticLabel: s.text('commonMore'),
+                  pending: hostLayout.overflow.any((a) => a.isPending),
+                  onPressed: () => _openMore(hostLayout.overflow),
+                  style: pictureStyle,
+                ),
+              ],
             ],
           ),
         ),
       ),
     );
 
-    Widget toolButton(_ToolItem i) => _ToolButton(item: i, style: pictureStyle);
+    Widget toolButton(_ToolItem i) =>
+        _ToolButton(item: blocked ? i.disabled() : i, style: pictureStyle);
     Widget hostButton(HostActionState a) => _ToolButton(
       item: _ToolItem(
         id: a.action.actionId,
@@ -684,16 +743,16 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
         selected: a.action.selected,
         pending: a.isPending,
         badgeText: a.action.badgeText,
-        onPressed: a.action.enabled
+        onPressed: a.action.enabled && !blocked
             ? () => _c.requestHostAction(a.action.actionId)
             : null,
       ),
       style: pictureStyle,
     );
 
-    final bottom = DecoratedBox(
-      decoration: BoxDecoration(gradient: glass.gradient(fromTop: false)),
-      child: SafeArea(
+    final bottom = vkGlassBehind(
+      glass.gradient(fromTop: false),
+      SafeArea(
         top: false,
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(
@@ -724,7 +783,7 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
     return Stack(
       children: [
         PositionedDirectional(top: 0, start: 0, end: 0, child: topBar),
-        if (animated)
+        if (animated && !minimal)
           PositionedDirectional(
             top: d.controlBarHeight,
             start: d.spacing16,
@@ -758,14 +817,23 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
             ),
           ),
         ],
-        if (animated)
+        if (animated && !minimal)
           PositionedDirectional(
             start: 0,
             end: 0,
             bottom: d.controlBarHeight * 2,
-            child: Center(child: _animationStrip(context, st)),
+            child: IgnorePointer(
+              ignoring: blocked,
+              child: Center(child: _animationStrip(context, st)),
+            ),
           ),
-        PositionedDirectional(bottom: 0, start: 0, end: 0, child: bottom),
+        if (!minimal)
+          PositionedDirectional(
+            bottom: 0,
+            start: 0,
+            end: 0,
+            child: IgnorePointer(ignoring: blocked, child: bottom),
+          ),
       ],
     );
   }
@@ -872,6 +940,18 @@ final class _ToolItem {
   final bool pending;
   final String? badgeText;
   final VoidCallback? onPressed;
+
+  /// The same item, disabled.
+  _ToolItem disabled() => _ToolItem(
+    id: id,
+    icon: icon,
+    label: label,
+    onPressed: null,
+    semanticLabel: semanticLabel,
+    selected: selected,
+    pending: pending,
+    badgeText: badgeText,
+  );
 }
 
 /// Toolbar item: icon button with its label underneath (design p. 13).

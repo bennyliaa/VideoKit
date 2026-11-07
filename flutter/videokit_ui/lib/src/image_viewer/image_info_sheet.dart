@@ -20,9 +20,11 @@ class ImageInfoSheet extends StatelessWidget {
   /// Bound source (MIME type / extension, known length).
   final VideoKitMediaSource? source;
 
-  /// Upper-case format name from the MIME type or extension, e.g. `GIF`.
-  static String? formatName(VideoKitMediaSource? source) {
-    final mime = source?.mimeType;
+  /// Upper-case format name from the MIME type or extension, e.g. `GIF`;
+  /// [container] (`mediaInfo.container`, 04A P2) is used when the source
+  /// does not say.
+  static String? formatName(VideoKitMediaSource? source, [String? container]) {
+    final mime = source?.mimeType ?? container;
     if (mime != null && mime.contains('/')) {
       final sub = mime.split('/').last.split(';').first.trim();
       if (sub.isNotEmpty) return sub.toUpperCase();
@@ -47,19 +49,23 @@ class ImageInfoSheet extends StatelessWidget {
       MediaKind.imageStatic => s.text('imageKindStatic'),
       _ => null,
     };
-    final format = formatName(source);
+    final info = st.mediaInfo;
+    final format = formatName(source, info?.container);
     final formatValue = format == null
         ? (kind ?? unknown)
         : (kind == null ? format : s.infoFormatValue(format, kind));
-    final length = source?.knownLength;
+    final length = source?.knownLength ?? info?.fileSizeBytes;
     final details = st.imageDetails;
+    final width = size?.width ?? info?.width;
+    final height = size?.height ?? info?.height;
+    final animated = st.mediaKind == MediaKind.imageAnimated;
     return [
       (s.text('infoFormat'), formatValue),
       (
         s.text('infoDimensions'),
-        size == null || size.width == 0
+        width == null || height == null || width == 0
             ? unknown
-            : s.infoDimensionsValue(size.width, size.height),
+            : s.infoDimensionsValue(width, height),
       ),
       (
         s.text('infoFileSize'),
@@ -77,6 +83,13 @@ class ImageInfoSheet extends StatelessWidget {
       // 04A L2: shown only when the engine reports them.
       if (details?.frameCount case final frames?)
         (s.text('infoFrameCount'), s.infoFrameCountValue(frames)),
+      // M2: animated images also show what mediaInfo reports.
+      if (animated)
+        if (info?.frameRate case final fps? when fps > 0)
+          (s.text('infoFrameRate'), VkFormat.frameRate(s, fps)),
+      if (animated)
+        if (info?.durationUs case final us? when us > 0)
+          (s.text('infoDuration'), VkFormat.timecode(us)),
       if (details?.decodedBytes case final bytes?)
         (s.text('infoDecodedMemory'), VkFormat.fileSize(s, bytes)),
       if (details?.sampleSize case final sample?)

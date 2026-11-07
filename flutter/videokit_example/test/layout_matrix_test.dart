@@ -123,6 +123,12 @@ void main() {
               await tester.pump(const Duration(milliseconds: 200));
             }
             expect(tester.takeException(), isNull, reason: 'page $index');
+            // 04A U1: the unsupported page keeps only back, title, paging.
+            if (index == 3) {
+              await tester.pumpWidget(const SizedBox());
+              await tester.pump(Duration.zero);
+              continue;
+            }
             key.currentState!.session!.setControlsVisible(true);
             await tester.tap(
               find

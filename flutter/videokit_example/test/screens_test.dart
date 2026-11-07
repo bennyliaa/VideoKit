@@ -565,4 +565,40 @@ void main() {
     await tester.pumpWidget(const SizedBox());
     await frames(tester, 5);
   }, skip: _dir == null);
+
+  testWidgets('M2-A1 screens', (tester) async {
+    // 04A U1: unsupported video keeps only back and title.
+    setViewSize(tester, compactSize);
+    final un = await PlayerRig.create('unsupported');
+    addTearDown(un.dispose);
+    await tester.pumpWidget(
+      _wrap(testApp(demoPlayer(un.session), fontFamily: _family)),
+    );
+    await un.advance(tester, const Duration(seconds: 1));
+    await _shot(tester, 'm2_u1_player_unsupported');
+    await unmount(tester);
+    // 04A U1 on the image viewer (paging stays).
+    final img = GlobalKey<ImageDemoPageState>();
+    await tester.pumpWidget(
+      _wrap(
+        testApp(ImageDemoPage(key: img, initialIndex: 3), fontFamily: _family),
+      ),
+    );
+    await frames(tester, 6);
+    img.currentState!.session!.setControlsVisible(true);
+    await _shot(tester, 'm2_u1_image_unsupported');
+    await tester.pumpWidget(const SizedBox());
+    await frames(tester, 5);
+    // Track subtitles with channel layouts (04A C1).
+    final key = GlobalKey<VideoKitPlayerState>();
+    final tr = await PlayerRig.create('normal');
+    addTearDown(tr.dispose);
+    await tester.pumpWidget(
+      _wrap(testApp(demoPlayer(tr.session, key: key), fontFamily: _family)),
+    );
+    await tr.advance(tester, const Duration(seconds: 1));
+    key.currentState!.openPanel(PlayerPanel.audio);
+    await _shot(tester, 'm2_c1_audio_channels');
+    await unmount(tester);
+  }, skip: _dir == null);
 }

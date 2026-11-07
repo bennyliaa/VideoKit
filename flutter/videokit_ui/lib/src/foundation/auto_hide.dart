@@ -84,9 +84,13 @@ class AutoHidePolicy extends ChangeNotifier {
   /// Shows controls (host handle).
   void show() => kick();
 
-  /// Hides controls unless blocked; returns whether they were hidden.
+  /// Hides controls (a tap on the picture); returns whether they were
+  /// hidden. "Not playing" only stops the automatic timer: a paused video or
+  /// a static image (which never plays) can still be hidden by the user
+  /// (M2). The other blockers (panel, drag, focus, screen reader, hover,
+  /// pending action) refuse it.
   bool hide() {
-    if (blocked) return false;
+    if (_blockers.any((b) => b != AutoHideBlocker.notPlaying)) return false;
     _timer?.cancel();
     _setVisible(false);
     return true;
