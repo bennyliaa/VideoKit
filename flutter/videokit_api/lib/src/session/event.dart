@@ -121,6 +121,20 @@ abstract final class NoticeCodes {
 
   /// Navigation target unavailable.
   static const String navigationUnavailable = 'navigation_unavailable';
+
+  /// The image engine reduced the decode resolution to stay within the
+  /// memory budget (04A §4E I4).
+  static const String imageMemoryReducedQuality =
+      'IMAGE_MEMORY_REDUCED_QUALITY';
+
+  /// The audio track cannot be decoded; the picture plays silently (Kit
+  /// `PlaybackSession.NOTICE_AUDIO_UNSUPPORTED`).
+  static const String audioUnsupportedPlayingSilent =
+      'AUDIO_UNSUPPORTED_PLAYING_SILENT';
+
+  /// Another app took the system audio focus; the audio source was muted
+  /// (M3; the Kit code is still to be defined, see the M3-A1 report).
+  static const String audioFocusLost = 'AUDIO_FOCUS_LOST';
 }
 
 /// Playback event delivered to the host callback `onPlaybackEvent`

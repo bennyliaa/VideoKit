@@ -44,6 +44,22 @@ final class DemoSlot {
 
   /// Low resolution (host degradation).
   bool lowResolution = false;
+
+  /// No decoder was available: static placeholder, no automatic retry
+  /// (07 §3).
+  bool placeholder = false;
+
+  /// Session events (notices).
+  StreamSubscription<VideoKitEvent>? events;
+
+  /// Stops listening and closes the session.
+  Future<void> close() async {
+    // Close first: awaiting the cancel of a Fake event stream can wait for
+    // the session, so it must not hold up the release.
+    unawaited(events?.cancel());
+    events = null;
+    await session.close();
+  }
 }
 
 /// Order in which "添加媒体" adds kinds (design page 14 mix).
@@ -75,6 +91,10 @@ class MultiViewDemoPage extends StatefulWidget {
   /// Concurrent videos the demo "device" suggests.
   static const int suggestedConcurrent = 6;
 
+  /// Video decoders the demo "device" has (Fake budget, M3): binds beyond
+  /// it are denied and the slot shows a placeholder.
+  static const int decoderBudget = 7;
+
   @override
   State<MultiViewDemoPage> createState() => MultiViewDemoPageState();
 }
@@ -82,7 +102,12 @@ class MultiViewDemoPage extends StatefulWidget {
 /// State (public for tests).
 class MultiViewDemoPageState extends State<MultiViewDemoPage>
     with SingleTickerProviderStateMixin {
-  late final FakeVideoKit kit = FakeVideoKit();
+  late final FakeVideoKit kit = FakeVideoKit(
+    videoDecoderBudget: MultiViewDemoPage.decoderBudget,
+  );
+
+  /// Single audio source (07 §4 epoch rules).
+  final VideoKitAudioCoordinator audio = VideoKitAudioCoordinator();
 
   /// Slots in grid order.
   final List<DemoSlot> slots = [];
@@ -91,9 +116,8 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
   SlotGridLayout layout = SlotGridLayout.auto;
 
   /// Session ID with audio, if any.
-  String? activeAudio;
+  String? get activeAudio => audio.active;
 
-  int _audioEpoch = 0;
   int _next = 1;
   bool _started = false;
 
@@ -101,6 +125,11 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
   void initState() {
     super.initState();
     kit.clock.attachTicker(this);
+    audio.addListener(_onAudio);
+  }
+
+  void _onAudio() {
+    if (mounted) setState(() {});
   }
 
   @override
@@ -137,6 +166,7 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
       return;
     }
     final slot = DemoSlot(number, kind, s);
+    slot.events = s.events.listen((e) => _onEvent(slot, e));
     setState(() => slots.add(slot));
     unawaited(_bind(slot));
     _applyBudget();
@@ -150,14 +180,19 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
       DemoSlotKind.unsupported => (MediaKind.video, 'unsupported'),
       DemoSlotKind.buffering => (MediaKind.video, 'buffering'),
     };
-    await slot.session.bind(
+    final r = await slot.session.bind(
       VideoKitMediaSource(
         mediaToken: 'slot-${slot.number}',
         mediaKind: mediaKind,
         sourceRef: DemoSourceRef(scenario),
       ),
     );
-    if (!mounted || slot.pausedForResources) return;
+    if (!mounted) return;
+    // 07 §3: no decoder left → placeholder; nothing retries by itself.
+    final denied =
+        r is Rejected && r.error.code == ErrorCode.decoderResourceExhausted;
+    if (denied != slot.placeholder) setState(() => slot.placeholder = denied);
+    if (denied || slot.pausedForResources) return;
     if (mediaKind != MediaKind.imageStatic) {
       await slot.session.execute(const SetMuted(true));
       await slot.session.execute(const Play());
@@ -189,40 +224,38 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
   /// Pausing count for the notice.
   int get pausedCount => slots.where((s) => s.pausedForResources).length;
 
-  /// Makes [sessionId] the only audio source (host-maintained epoch).
+  /// Makes [sessionId] the only audio source (07 §4, via [audio]).
   Future<void> activateAudio(String sessionId) async {
-    final epoch = ++_audioEpoch;
-    final previous = activeAudio;
-    setState(() => activeAudio = sessionId);
-    for (final s in slots) {
-      final id = s.session.sessionId;
-      if (id == previous && id != sessionId) {
-        await s.session.execute(SetActiveAudio(false, epoch));
-        await s.session.execute(const SetMuted(true));
-      }
-      if (id == sessionId) {
-        await s.session.execute(SetActiveAudio(true, epoch));
-        await s.session.execute(const SetMuted(false));
-      }
-    }
+    final slot = slots
+        .where((s) => s.session.sessionId == sessionId)
+        .firstOrNull;
+    if (slot == null) return;
+    await audio.activate(slot.session);
     // The audio slot is never the paused one: re-run the budget.
     _applyBudget();
   }
 
   /// Mutes everything; the user picks a new audio source afterwards.
-  Future<void> muteAll() async {
-    final epoch = ++_audioEpoch;
-    final previous = activeAudio;
-    setState(() => activeAudio = null);
-    for (final s in slots) {
-      if (s.session.sessionId == previous) {
-        await s.session.execute(SetActiveAudio(false, epoch));
-      }
-      await s.session.execute(const SetMuted(true));
+  Future<void> muteAll() => audio.muteAll();
+
+  void _onEvent(DemoSlot slot, VideoKitEvent e) {
+    if (e is! TransientNotice || !mounted) return;
+    if (e.code == NoticeCodes.audioFocusLost) {
+      audio.onAudioLost(slot.session.sessionId);
     }
+    final text = VkStrings.of(context).notice(e.code);
+    if (text == null) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(text)));
   }
 
   void _onTap(DemoSlot slot) {
+    if (slot.placeholder) {
+      // The user asks once more (no automatic loop).
+      unawaited(_bind(slot));
+      return;
+    }
     if (slot.pausedForResources) {
       // Resume this one; the budget pauses another instead.
       final other = slots.where(
@@ -247,16 +280,27 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
     }
   }
 
-  void _remove(DemoSlot slot) {
+  /// Removes [slot] and closes its session.
+  void remove(DemoSlot slot) {
     setState(() => slots.remove(slot));
-    unawaited(slot.session.close());
+    audio.onReleased(slot.session.sessionId);
     _applyBudget();
+    unawaited(
+      slot.close().then((_) {
+        // Its decoder is free now: one placeholder gets one more try.
+        final waiting = slots.where((s) => s.placeholder).firstOrNull;
+        if (mounted && waiting != null) unawaited(_bind(waiting));
+      }),
+    );
   }
 
   @override
   void dispose() {
+    audio
+      ..removeListener(_onAudio)
+      ..dispose();
     for (final s in slots) {
-      unawaited(s.session.close());
+      unawaited(s.close());
     }
     kit.clock.detachTicker();
     unawaited(kit.close());
@@ -336,7 +380,9 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
                           session: slot.session,
                           index: i + 1,
                           title: g(g.l.demoSlotTitle(slot.number)),
-                          degradation: slot.pausedForResources
+                          degradation: slot.placeholder
+                              ? SlotDegradation.placeholder
+                              : slot.pausedForResources
                               ? SlotDegradation.pausedForResources
                               : (slot.lowResolution
                                     ? SlotDegradation.lowResolution
@@ -346,7 +392,7 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
                           onActivateAudio: (id) => unawaited(activateAudio(id)),
                           onTap: () => _onTap(slot),
                           onRetry: () => unawaited(_bind(slot)),
-                          onRemove: () => _remove(slot),
+                          onRemove: () => remove(slot),
                         ),
                     ],
                   ),

@@ -96,6 +96,7 @@ Widget viewer(
 );
 
 void main() {
+  m2NoticeTests();
   group('04A U1', () {
     testWidgets('player: unsupported keeps only back and title', (
       tester,
@@ -345,5 +346,54 @@ void main() {
       await tester.pump(const Duration(milliseconds: 400));
       expect(shown.last, isTrue);
     });
+  });
+}
+
+/// 04A §4E I4: the image engine's memory notice is shown as a toast.
+void m2NoticeTests() {
+  test('notice text: IMAGE_MEMORY_REDUCED_QUALITY (any case); others none', () {
+    final s = VkStrings.forLocale(const Locale('zh'));
+    expect(s.notice(NoticeCodes.imageMemoryReducedQuality), '内存不足，已降低图片清晰度');
+    expect(s.notice('image_memory_reduced_quality'), '内存不足，已降低图片清晰度');
+    // M3-A1: notices without text so far.
+    expect(
+      s.notice(NoticeCodes.audioUnsupportedPlayingSilent),
+      '无法播放此音轨，正在静音播放',
+    );
+    expect(s.notice(NoticeCodes.audioFocusLost), '其他应用正在播放声音，已静音');
+    expect(
+      s.notice(NoticeCodes.resourceDegraded),
+      '设备资源紧张，已降低这路画面的画质',
+      reason: 'Dart spells it in lower case; matched case-insensitively',
+    );
+    expect(s.notice(NoticeCodes.seekClamped), isNull);
+    expect(s.notice(NoticeCodes.navigationUnavailable), isNull);
+    expect(s.notice('SOMETHING_NEW'), isNull);
+    final p = VkStrings.forLocale(VkPseudo.locale);
+    expect(
+      p.notice(NoticeCodes.imageMemoryReducedQuality),
+      isNot('内存不足，已降低图片清晰度'),
+    );
+  });
+
+  testWidgets('image viewer shows the memory notice as a toast', (
+    tester,
+  ) async {
+    setViewSize(tester, compactSize);
+    final rig = await ImageRig.create(kind: MediaKind.imageStatic);
+    addTearDown(rig.dispose);
+    final s = RecordingSession(rig.session);
+    await tester.pumpWidget(testApp(viewer(s)));
+    await rig.advance(tester, const Duration(seconds: 1));
+    s.injected.add(
+      const TransientNotice(NoticeCodes.imageMemoryReducedQuality),
+    );
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('内存不足，已降低图片清晰度'), findsOneWidget);
+    // Unknown codes stay silent.
+    s.injected.add(const TransientNotice('SOMETHING_NEW'));
+    await tester.pump();
+    expect(find.text('SOMETHING_NEW'), findsNothing);
   });
 }

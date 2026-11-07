@@ -6,7 +6,13 @@ plugins {
 
 android {
     namespace = "com.videokit.videokit_app"
-    compileSdk = flutter.compileSdkVersion
+    // Same platform as the videokit_flutter_android plugin and the Kit (37, minor 2): the plugin requires 37,
+    // and `compileSdk = 37` alone would ask for android-37, which is not an installed platform.
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 2
+        }
+    }
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

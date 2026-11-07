@@ -349,6 +349,18 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get navigationFailed => '无法切换到下一项，请重试';
 
   @override
+  String get noticeImageMemoryReduced => '内存不足，已降低图片清晰度';
+
+  @override
+  String get noticeAudioUnsupported => '无法播放此音轨，正在静音播放';
+
+  @override
+  String get noticeResourceDegraded => '设备资源紧张，已降低这路画面的画质';
+
+  @override
+  String get noticeAudioFocusLost => '其他应用正在播放声音，已静音';
+
+  @override
   String get commandUnavailable => '此操作当前不可用';
 
   @override
@@ -454,6 +466,15 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
 
   @override
   String get slotLowResolution => '已降为低分辨率';
+
+  @override
+  String get slotPlaceholderTitle => '资源不足 · 未播放';
+
+  @override
+  String get slotPlaceholderDetail => '减少画面数量后点按重试';
+
+  @override
+  String get slotPlaceholderShort => '未播放';
 
   @override
   String get slotErrorOnly => '仅此格受影响';

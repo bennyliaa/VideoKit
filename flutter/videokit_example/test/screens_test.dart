@@ -601,4 +601,38 @@ void main() {
     await _shot(tester, 'm2_c1_audio_channels');
     await unmount(tester);
   }, skip: _dir == null);
+
+  testWidgets('M3-A1 screens', (tester) async {
+    final mv = GlobalKey<MultiViewDemoPageState>();
+    setViewSize(tester, expandedSize);
+    await tester.pumpWidget(
+      _wrap(
+        testApp(
+          MultiViewDemoPage(key: mv, initialCount: 12),
+          fontFamily: _family,
+        ),
+      ),
+    );
+    await frames(tester, 12);
+    await _shot(tester, 'm3_multiview_12_placeholders');
+    await tester.tap(find.byType(VideoKitSlot).at(4));
+    await frames(tester, 4);
+    await _shot(tester, 'm3_audio_moved_to_slot5');
+    mv.currentState!.kit.preemptAudio();
+    await frames(tester, 2);
+    await _shot(tester, 'm3_audio_preempted_notice');
+    final s = mv.currentState!.kit.sessions.firstWhere(
+      (x) => x.sessionId == mv.currentState!.slots[1].session.sessionId,
+    );
+    s.injectFault(
+      const VideoKitStableError(
+        code: ErrorCode.decoderUnavailable,
+        stage: ErrorStage.playback,
+      ),
+    );
+    await frames(tester, 4);
+    await _shot(tester, 'm3_single_slot_fault');
+    await tester.pumpWidget(const SizedBox());
+    await frames(tester, 5);
+  }, skip: _dir == null);
 }

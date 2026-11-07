@@ -703,6 +703,30 @@ abstract class VideoKitLocalizations {
   /// **'无法切换到下一项，请重试'**
   String get navigationFailed;
 
+  /// 轻提示 IMAGE_MEMORY_REDUCED_QUALITY：图片引擎因内存额度不足降采样（04A §4E I4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'内存不足，已降低图片清晰度'**
+  String get noticeImageMemoryReduced;
+
+  /// 轻提示 AUDIO_UNSUPPORTED_PLAYING_SILENT：音频编码不受支持，只播放画面（M1，Kit 已发出）。
+  ///
+  /// In zh, this message translates to:
+  /// **'无法播放此音轨，正在静音播放'**
+  String get noticeAudioUnsupported;
+
+  /// 轻提示 RESOURCE_DEGRADED：会话为释放资源被降级（07 §3）。
+  ///
+  /// In zh, this message translates to:
+  /// **'设备资源紧张，已降低这路画面的画质'**
+  String get noticeResourceDegraded;
+
+  /// 轻提示 AUDIO_FOCUS_LOST：系统音频焦点被其他应用抢占，当前发声画面被静音（M3，待 Kit 定义同名码）。
+  ///
+  /// In zh, this message translates to:
+  /// **'其他应用正在播放声音，已静音'**
+  String get noticeAudioFocusLost;
+
   /// 命令返回 Unsupported 时的轻提示。
   ///
   /// In zh, this message translates to:
@@ -900,6 +924,24 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'已降为低分辨率'**
   String get slotLowResolution;
+
+  /// 设备没有可用解码器，宿主改为显示静态占位（M3，07 §3）。
+  ///
+  /// In zh, this message translates to:
+  /// **'资源不足 · 未播放'**
+  String get slotPlaceholderTitle;
+
+  /// 占位格的说明：不会自动重试。
+  ///
+  /// In zh, this message translates to:
+  /// **'减少画面数量后点按重试'**
+  String get slotPlaceholderDetail;
+
+  /// 小格中占位格的短文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'未播放'**
+  String get slotPlaceholderShort;
 
   /// 单格错误占位的说明。
   ///

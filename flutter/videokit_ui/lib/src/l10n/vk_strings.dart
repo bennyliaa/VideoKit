@@ -147,6 +147,10 @@ final class VkStrings {
     'hostActionMore': l10n.hostActionMore,
     'navigationUnavailable': l10n.navigationUnavailable,
     'navigationFailed': l10n.navigationFailed,
+    'noticeImageMemoryReduced': l10n.noticeImageMemoryReduced,
+    'noticeAudioUnsupported': l10n.noticeAudioUnsupported,
+    'noticeResourceDegraded': l10n.noticeResourceDegraded,
+    'noticeAudioFocusLost': l10n.noticeAudioFocusLost,
     'commandUnavailable': l10n.commandUnavailable,
     'moreGroupPlayer': l10n.moreGroupPlayer,
     'viewerPicture': l10n.viewerPicture,
@@ -186,6 +190,9 @@ final class VkStrings {
     'slotPausedTitle': l10n.slotPausedTitle,
     'slotPausedDetail': l10n.slotPausedDetail,
     'slotPausedShort': l10n.slotPausedShort,
+    'slotPlaceholderTitle': l10n.slotPlaceholderTitle,
+    'slotPlaceholderDetail': l10n.slotPlaceholderDetail,
+    'slotPlaceholderShort': l10n.slotPlaceholderShort,
     'trackChannelsMono': l10n.trackChannelsMono,
     'slotLowResolution': l10n.slotLowResolution,
     'slotErrorOnly': l10n.slotErrorOnly,
@@ -602,6 +609,18 @@ final class VkStrings {
   /// Slot screen-reader label.
   String slotLabel(int index, String title) =>
       _out(l10n.slotLabel(index, title));
+
+  /// Text of a [TransientNotice] code, or null when the notice has no
+  /// toast of its own (codes compare case-insensitively; the Kit sends
+  /// upper snake case). NAVIGATION_UNAVAILABLE is shown by the
+  /// navigation result instead, so it never toasts twice.
+  String? notice(String code) => switch (code.toUpperCase()) {
+    'IMAGE_MEMORY_REDUCED_QUALITY' => text('noticeImageMemoryReduced'),
+    'AUDIO_UNSUPPORTED_PLAYING_SILENT' => text('noticeAudioUnsupported'),
+    'RESOURCE_DEGRADED' => text('noticeResourceDegraded'),
+    'AUDIO_FOCUS_LOST' => text('noticeAudioFocusLost'),
+    _ => null,
+  };
 
   /// Host action failure notice.
   String hostActionFailed(String action) => _out(l10n.hostActionFailed(action));

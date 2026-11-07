@@ -18,7 +18,11 @@ const Size expandedSize = Size(1280, 800);
 /// Session proxy recording every command the UI sends.
 class RecordingSession implements VideoKitSession {
   /// Wraps [inner].
-  RecordingSession(this.inner);
+  RecordingSession(this.inner) {
+    inner.events.listen((e) {
+      if (!injected.isClosed) injected.add(e);
+    });
+  }
 
   /// Wrapped Fake session.
   final VideoKitSession inner;
@@ -41,7 +45,12 @@ class RecordingSession implements VideoKitSession {
   @override
   ValueListenable<VideoKitSessionState> get state => inner.state;
   @override
-  Stream<VideoKitEvent> get events => inner.events;
+  Stream<VideoKitEvent> get events => injected.stream;
+
+  /// The session's events; tests may add their own as if the engine had
+  /// sent them (e.g. notices).
+  final StreamController<VideoKitEvent> injected =
+      StreamController<VideoKitEvent>.broadcast();
   @override
   ValueListenable<int?> get textureId => inner.textureId;
   @override
@@ -94,7 +103,10 @@ class RecordingSession implements VideoKitSession {
   @override
   Future<VideoKitPlaybackState> release() => inner.release();
   @override
-  Future<void> close() => inner.close();
+  Future<void> close() async {
+    await inner.close();
+    await injected.close();
+  }
 }
 
 /// A Fake with demo host callbacks and a bound, recorded session.

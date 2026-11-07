@@ -6,6 +6,7 @@ import '../foundation/selector.dart';
 import '../l10n/vk_strings.dart';
 import '../player/media_surface.dart';
 import '../theme/theme_scope.dart';
+import 'visibility_reporter.dart';
 
 /// Degradation the host applied to a slot (14 §5.5; the host performs it,
 /// the slot explains it).
@@ -15,6 +16,11 @@ enum SlotDegradation {
 
   /// Paused to release the decoder; shows the cover, tap to resume.
   pausedForResources,
+
+  /// Not played at all (M3, 07 §3 "改显示静态占位"): the device has no
+  /// decoder left, so the host shows a placeholder instead of creating
+  /// sessions again and again; tap lets the host try once more.
+  placeholder,
 }
 
 /// What a slot needs from the session state; equal values skip rebuilds
@@ -97,6 +103,8 @@ class VideoKitSlot extends StatelessWidget {
     this.onRemove,
     this.degradation,
     this.pictureBuilder,
+    this.reportVisibility = true,
+    this.onVisibilityChanged,
   });
 
   /// Session of this slot.
@@ -129,12 +137,24 @@ class VideoKitSlot extends StatelessWidget {
   /// Picture without texture (Dart Fake).
   final VideoKitPictureBuilder? pictureBuilder;
 
+  /// Report scrolled-out, covered and background states to the session
+  /// (`SetVisibility`, 07 §5.3; [VideoKitVisibilityReporter]).
+  final bool reportVisibility;
+
+  /// Called after each visibility change sent to the session.
+  final ValueChanged<SessionVisibility>? onVisibilityChanged;
+
   @override
   Widget build(BuildContext context) {
-    return VkSelector<VideoKitSessionState, _SlotView>(
-      listenable: session.state,
-      select: _SlotView.new,
-      builder: _build,
+    return VideoKitVisibilityReporter(
+      session: session,
+      enabled: reportVisibility,
+      onChanged: onVisibilityChanged,
+      child: VkSelector<VideoKitSessionState, _SlotView>(
+        listenable: session.state,
+        select: _SlotView.new,
+        builder: _build,
+      ),
     );
   }
 
@@ -143,14 +163,17 @@ class VideoKitSlot extends StatelessWidget {
     final s = VkStrings.of(context);
     final d = t.dimensions;
     final paused = degradation == SlotDegradation.pausedForResources;
+    final placeholder = degradation == SlotDegradation.placeholder;
     final radius = BorderRadius.circular(d.cornerLarge);
     final label = s.slotLabel(index ?? 1, title ?? '');
     final value = [
       if (v.isVideo)
         v.activeAudio ? s.text('slotActiveAudio') : s.text('playerMute'),
       if (v.loading) s.text('slotLoading'),
-      if (v.failed) s.error(v.error?.code ?? ErrorCode.internalErrorRedacted),
+      if (v.failed && !placeholder)
+        s.error(v.error?.code ?? ErrorCode.internalErrorRedacted),
       if (paused) s.text('slotPausedTitle'),
+      if (placeholder) s.text('slotPlaceholderTitle'),
       if (degradation == SlotDegradation.lowResolution)
         s.text('slotLowResolution'),
     ].join('，');
@@ -159,7 +182,7 @@ class VideoKitSlot extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         ColoredBox(color: t.colors.playerCanvas),
-        if (!v.failed)
+        if (!v.failed && !placeholder)
           VkMediaSurface(session: session, builder: pictureBuilder),
         // Whole-slot gesture under the badges; Semantics below carries it.
         GestureDetector(
@@ -168,7 +191,7 @@ class VideoKitSlot extends StatelessWidget {
           onTap: onTap,
           onLongPress: onLongPress,
         ),
-        if (v.loading && !v.failed && !paused)
+        if (v.loading && !v.failed && !paused && !placeholder)
           Center(
             child: ExcludeSemantics(
               child: SizedBox.square(
@@ -181,7 +204,10 @@ class VideoKitSlot extends StatelessWidget {
             ),
           ),
         if (paused) _PausedCover(onTap: onTap),
-        if (v.failed)
+        // The host chose a placeholder for a denied slot (07 §3): it wins
+        // over the resource error the session reports.
+        if (placeholder) _PausedCover(onTap: onTap, placeholder: true),
+        if (v.failed && !placeholder)
           _ErrorPlaceholder(
             error: v.error,
             fatal: v.phase == SessionPhase.errorFatal,
@@ -189,7 +215,8 @@ class VideoKitSlot extends StatelessWidget {
             onRemove: onRemove,
           ),
         if (!v.failed) ..._badges(context, v),
-        if (v.isVideo && !v.failed && !paused) _progress(context, v),
+        if (v.isVideo && !v.failed && !paused && !placeholder)
+          _progress(context, v),
       ],
     );
 
@@ -377,9 +404,12 @@ class _Pill extends StatelessWidget {
 
 /// Cover shown while the host paused the slot for resources.
 class _PausedCover extends StatelessWidget {
-  const _PausedCover({this.onTap});
+  const _PausedCover({this.onTap, this.placeholder = false});
 
   final VoidCallback? onTap;
+
+  /// [SlotDegradation.placeholder] texts instead of the paused ones.
+  final bool placeholder;
 
   @override
   Widget build(BuildContext context) {
@@ -407,13 +437,19 @@ class _PausedCover extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        t.icons.pause,
+                        placeholder ? t.icons.resolve('movie') : t.icons.pause,
                         size: small ? d.icon24 : d.targetMin * 0.75,
                         color: white,
                       ),
                       SizedBox(height: d.spacing4),
                       Text(
-                        s.text(small ? 'slotPausedShort' : 'slotPausedTitle'),
+                        s.text(
+                          placeholder
+                              ? (small
+                                    ? 'slotPlaceholderShort'
+                                    : 'slotPlaceholderTitle')
+                              : (small ? 'slotPausedShort' : 'slotPausedTitle'),
+                        ),
                         textAlign: TextAlign.center,
                         maxLines: small ? 1 : null,
                         overflow: small ? TextOverflow.ellipsis : null,
@@ -421,7 +457,11 @@ class _PausedCover extends StatelessWidget {
                       ),
                       if (!small)
                         Text(
-                          s.text('slotPausedDetail'),
+                          s.text(
+                            placeholder
+                                ? 'slotPlaceholderDetail'
+                                : 'slotPausedDetail',
+                          ),
                           textAlign: TextAlign.center,
                           style: t.typography.caption.copyWith(
                             color: white.withValues(alpha: 0.8),

@@ -22,6 +22,7 @@ class FakeVideoKit implements VideoKit {
     this.defaultScenario = const Scenario.normal(),
     Map<String, Scenario> scenarioOverrides = const {},
     this.maxSessions = 12,
+    this.videoDecoderBudget,
   }) : clock = clock ?? FakeClock(),
        _overrides = Map.of(scenarioOverrides) {
     _host = FakeHostBridge(
@@ -42,6 +43,17 @@ class FakeVideoKit implements VideoKit {
 
   /// Hard session limit (07 §3).
   final int maxSessions;
+
+  /// Video decoders the demo "device" has (M3); null = unlimited. A video
+  /// bind beyond it is denied with `DECODER_RESOURCE_EXHAUSTED`.
+  final int? videoDecoderBudget;
+
+  /// Test hook (M3): another app takes the system audio focus.
+  void preemptAudio() {
+    for (final s in _sessions.values) {
+      s.loseAudioFocus();
+    }
+  }
 
   final Map<String, Scenario> _overrides;
   late final FakeHostBridge _host;
@@ -208,6 +220,14 @@ class FakeVideoKit implements VideoKit {
       scenarioFor: _resolve,
       config: config,
       onReleased: (s) => _sessions.remove(s.sessionId),
+      decoderAvailable: (FakeSession me) {
+        final budget = videoDecoderBudget;
+        if (budget == null) return true;
+        final held = _sessions.values
+            .where((o) => !identical(o, me) && o.holdsDecoder)
+            .length;
+        return held < budget;
+      },
     );
     _sessions[id] = session;
     return session;

@@ -115,10 +115,10 @@ class PlayerController extends ChangeNotifier {
             onAction: () => requestHostAction(actionId),
           ),
         );
-      case ErrorRaised() ||
-          PlaybackEnded() ||
-          SourceReleased() ||
-          TransientNotice():
+      case TransientNotice(:final code):
+        final message = s.notice(code);
+        if (message != null) sheets.showToast(VkToastEntry(message: message));
+      case ErrorRaised() || PlaybackEnded() || SourceReleased():
         break;
     }
   }

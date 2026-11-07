@@ -26,6 +26,8 @@ class FakeSession implements VideoKitSession {
     required this._scenarioFor,
     this.config = const VideoKitSessionConfig(),
     this._onReleased,
+    this._decoderAvailable,
+    this.offscreenReleaseDelay = const Duration(seconds: 5),
   }) {
     _state.value = VideoKitSessionState(
       phase: SessionPhase.created,
@@ -39,6 +41,41 @@ class FakeSession implements VideoKitSession {
 
   /// Clock.
   final FakeClock clock;
+
+  /// Whether a video decoder is free for this session (M3 budget; null =
+  /// unlimited).
+  final bool Function(FakeSession session)? _decoderAvailable;
+
+  /// How long an offscreen or background session keeps its decoder before
+  /// releasing it (07 §5.3; state stays restorable).
+  final Duration offscreenReleaseDelay;
+
+  bool _resumeOnVisible = false;
+  int _visibilityGeneration = 0;
+
+  /// Whether this session holds a video decoder now (M3 budget).
+  bool get holdsDecoder {
+    final s = _state.value;
+    return s.mediaKind == MediaKind.video &&
+        s.resourcesHeld &&
+        (s.phase.isBound || s.phase == SessionPhase.ended);
+  }
+
+  /// Test hook (M3): fails this session only, as a decoder crash or bad
+  /// media would. Other sessions are not affected.
+  void injectFault(VideoKitStableError error) {
+    if (_released) return;
+    _enterError(error);
+    _set(_s.copyWith(resourcesHeld: false));
+  }
+
+  /// Test hook (M3): another app took the system audio focus. The audio
+  /// source is muted and told so with `AUDIO_FOCUS_LOST`.
+  void loseAudioFocus() {
+    if (_released || !_s.activeAudio) return;
+    _set(_s.copyWith(activeAudio: false, muted: true));
+    _emit(const TransientNotice(NoticeCodes.audioFocusLost));
+  }
 
   /// Creation config.
   final VideoKitSessionConfig config;
@@ -176,6 +213,21 @@ class FakeSession implements VideoKitSession {
     if (_released) return const SessionReleased();
     if (generation != _bindGeneration) return const Superseded();
 
+    // M3: no decoder left on the device (budget) → recoverable denial;
+    // the host decides what to show (07 §3), nothing is retried here.
+    if (profile.kind == MediaKind.video &&
+        !(_decoderAvailable?.call(this) ?? true)) {
+      const denied = VideoKitStableError(
+        code: ErrorCode.decoderResourceExhausted,
+        stage: ErrorStage.bind,
+        retryable: true,
+        suggestedAction: SuggestedAction.closeOtherSessions,
+        diagnostic: 'decoder_budget',
+      );
+      _enterError(denied);
+      _set(_s.copyWith(resourcesHeld: false));
+      return const Rejected(denied);
+    }
     final bindError = _onceError('bind', _scenario.bindError);
     if (bindError != null) {
       _enterError(bindError);
@@ -447,6 +499,35 @@ class FakeSession implements VideoKitSession {
     }
   }
 
+  /// 07 §5.3: offscreen / background pause (and resume when visible
+  /// again); the decoder is released after [offscreenReleaseDelay] while the
+  /// position, tracks and transform stay.
+  void _applyVisibility(SessionVisibility v) {
+    final gen = ++_visibilityGeneration;
+    if (v == SessionVisibility.visible) {
+      if (!_s.resourcesHeld && _s.phase.isBound) {
+        _set(_s.copyWith(resourcesHeld: true));
+      }
+      if (_resumeOnVisible) {
+        _resumeOnVisible = false;
+        unawaited(execute(const Play()));
+      }
+      return;
+    }
+    if (_s.phase == SessionPhase.playing || _s.playWhenReady) {
+      _resumeOnVisible = true;
+      unawaited(execute(const Pause()));
+    }
+    unawaited(
+      clock.delay(offscreenReleaseDelay).then((_) {
+        if (_released || gen != _visibilityGeneration) return;
+        if (_s.visibility != SessionVisibility.visible && _s.resourcesHeld) {
+          _set(_s.copyWith(resourcesHeld: false));
+        }
+      }),
+    );
+  }
+
   // ------------------------------------------------------------ commands --
 
   @override
@@ -546,6 +627,7 @@ class FakeSession implements VideoKitSession {
       case SetVisibility(:final visibility):
         if (visibility != _s.visibility) {
           _set(_s.copyWith(visibility: visibility));
+          _applyVisibility(visibility);
           _host.notify(
             (c) => c.onPlaybackEvent(VisibilityChanged(sessionId, visibility)),
           );
