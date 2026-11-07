@@ -118,6 +118,9 @@
 | V1 | 可见性取值（M3-A1） | `SessionVisibility` 增加 `PARTIALLY_VISIBLE`（07 §3：可降低帧率或分辨率），两侧 + spec 同批修改。07 的 LOCKED 不进入可见性枚举，锁定继续用已有的内容锁定命令（06 §4.2），锁定优先于可见性 | Kotlin + spec + 通道（Coder B）；Dart + Fake + 上报（Coder A） |
 | V2 | 路由遮挡 | 只有不透明路由完全遮挡时，下面的格子才报 `OFFSCREEN`；半透明对话框、底部面板不改变可见性 | Flutter（Coder A） |
 | K1 | 轻提示码登记 | 新增 `spec/notices.json` 统一登记所有 `TransientNotice` 码，一律大写下划线（如 `SEEK_CLAMPED`），Kit 与 Dart 两侧测试对照该文件（与 errors.json 同样做法）。Kit 发出 `AUDIO_FOCUS_LOST`（系统音频焦点被抢占）与 `RESOURCE_DEGRADED`（资源不足降级）；Dart 原有小写码改为大写 | 登记与 Kit（Coder B）；Dart（Coder A） |
+| K2 | AUDIO_FOCUS_LOST 语义（M4-A1） | 按 Android 惯例：系统音频焦点被长期抢占时暂停播放（不是静音），发 `AUDIO_FOCUS_LOST`；短暂抢占按平台默认处理，不发提示。UI 文案为“其他应用正在播放，已暂停” | Kit（Coder B）；Fake 与文案（Coder A） |
+| K3 | 导出警告码 | `ExportWarnings` 与提示码同样一律大写下划线（如 `FAST_CONCAT_REJECTED`），登记在 `spec/notices.json` 的独立分组 `exportWarnings` 中，两侧对照测试 | 登记与 Kit（Coder B）；Dart（Coder A） |
+| E1 | 拼接方式字段（计划） | S3 完成后，`ExportPrecheck` 增加 `concatPath`（FAST / TRANSCODE）与 `concatReasons` 列表，由 Kit 决定；在那之前 UI 自行计算并用导出检查警告修正。随 M4 原生拼接引擎同批实现 | 两侧（M4 原生批次） |
 | U1 | 错误态下的底部控件 | 不支持（`UNSUPPORTED_*`）或致命错误：按设计稿第 12 页只保留返回和标题，底部控件隐藏；可恢复错误（带“重试”）：控件保留为禁用外观，点击放行给状态视图 | Flutter UI（Coder A） |
 
 ## 5. 工程与构建裁定
