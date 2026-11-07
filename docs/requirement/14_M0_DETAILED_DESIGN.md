@@ -386,8 +386,12 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 
 - 组件读取：`VkTheme.of(context).components.buttonPrimary`、`VkTheme.of(context).colors.textPrimary` 等（扩展方法，内部从 `Theme.of(context).extension<...>()` 取，缺失时回退默认）。业务组件优先读组件样式，其次读语义色，不读原始色板。
 - **键名登记**：每个 Token 在 `theme/tokens/vk_token_keys.dart` 登记一个 SkinKit 规则的稳定键（下表“键”列）与类型。键名只用于主题来源映射（宿主覆盖、将来的 SkinKit），组件代码使用强类型字段。
-- 宿主覆盖 `VideoKitThemeOverrides`：按键覆盖任意 Token，类型不符或越界的值忽略并记录诊断；合法的 `0`、`false`、透明色是有效值。只给主色时，派生色（`onprimary`、`primarycontainer`、`onprimarycontainer`）按对比度规则自动计算（WCAG AA 4.5:1，不满足时选黑/白）。
-- `DefaultThemeSource` 覆盖全部 Token 的深浅两套值；测试 `theme_completeness_test` 检查每个键在两种模式都有值，`theme_contrast_test` 检查登记的前景/背景对（文字/表面、onprimary/primary、状态 content/container 等）≥ 4.5:1，控件边界与焦点环 ≥ 3:1。
+- 宿主覆盖 `VideoKitThemeOverrides`：按原需求 §20（REQ-UX-06）与设计稿第 22 页，**宿主只能覆盖 `color.*` 与 `icon.*` 两类 Token**（文案覆盖走 `VideoKitStrings`）；typography、dimension、animation、drawable、component 不对宿主开放，以免破坏布局、触控目标与状态语义。其他键的覆盖被忽略并记录诊断；将来 SkinKit 主题来源也遵守“只改外观、不改布局与触控区域”。类型不符或越界的值忽略并记录诊断；合法的 `0`、`false`、透明色是有效值。只给主色时，派生色（`onprimary`、`primarycontainer`、`onprimarycontainer`）按对比度规则自动计算（WCAG AA 4.5:1，不满足时选黑/白）。
+- `DefaultThemeSource` 覆盖全部 Token 的深浅两套值；测试 `theme_completeness_test` 检查每个键在两种模式都有值，`theme_contrast_test` 登记全部前景/背景对并断言实际比值，**不设“已知例外”**：
+  - 正文类文字（text.primary/secondary/tertiary、onprimary、onprimarycontainer、status.*.content、player.controls.content 对其背景）≥ 4.5:1；对 surface、surfacevariant、background 三种背景都要满足。
+  - 非文字（WCAG 1.4.11）：`color.focusring`、`color.border.strong` 与 track 状态色对相邻表面 ≥ 3:1。
+  - 豁免（不检查）：`color.disabled.*`（禁用控件）、`color.border` / `color.divider`（装饰分隔线；凡是需要靠边框识别的控件，如输入框、未选中的勾选框，必须用 `color.border.strong`）。
+  - 2026-11-07 负责人裁定：设计稿取值与可访问性冲突时以需求为准（03 §5.4），下表已按此修正，设计稿同步修订。
 - `themeSchemaVersion` = 1；新增 Token 必须同时登记键、类型、深浅色默认值。
 
 ### 7.2 Token 取值（UI 设计稿 V1.0，2026-11-07 确认为开发与验收基准）
@@ -402,17 +406,18 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 | `color.surface` | `#171A21` | `#FFFFFF` | 设计稿 |
 | `color.surfacevariant` | `#1F232C` | `#F0F1F4` | 设计稿 |
 | `color.surfacehigh` | `#2A2F3A` | `#E3E6EB` | 设计稿 |
-| `color.border` | `#343A46` | `#D5D9E0` | 设计稿（outline） |
+| `color.border` | `#343A46` | `#D5D9E0` | 设计稿（outline）；装饰分隔，不参与对比度检查 |
+| `color.border.strong` | `#6E7582` | `#7C828E` | 2026-11-07 新增：需要靠边框识别的控件边界，对表面 ≥ 3:1 |
 | `color.divider` | `#262B35` | `#E6E8EC` | 派生 |
-| `color.text.primary` / `.secondary` / `.tertiary` | `#EEF0F4` / `#A3A9B5` / `#6E7582` | `#15181E` / `#4B5260` / `#8A909B` | 设计稿 |
-| `color.primary` / `color.onprimary` | `#FF7A45` / `#1A0E08` | `#E8590C` / `#FFFFFF` | 设计稿 |
+| `color.text.primary` / `.secondary` / `.tertiary` | `#EEF0F4` / `#A3A9B5` / `#858C9B` | `#15181E` / `#4B5260` / `#646B78` | 设计稿；tertiary 于 2026-11-07 为达到 4.5:1 调整（原 `#6E7582` / `#8A909B`） |
+| `color.primary` / `color.onprimary` | `#FF7A45` / `#1A0E08` | `#C2410C` / `#FFFFFF` | 设计稿；浅色 primary 于 2026-11-07 为白字达到 4.5:1 调整（原 `#E8590C`） |
 | `color.primarycontainer` / `color.onprimarycontainer` | `#3A2219` / `#FFD3C0` | `#FFE8DC` / `#7A2E06` | 容器色为设计稿 primarySoft；内容色派生 |
 | `color.focusring` | `#4CC9F0` | `#0E7FA8` | 深色同 selection；浅色派生 |
 | `color.scrim` | 黑 60% | 黑 60% | 设计稿 |
 | `color.disabled.content` / `.container` | `#6E7582` / `#1F232C` | `#8A909B` / `#F0F1F4` | 派生 |
-| `color.status.success` / `.content` / `.container` | `#34D399` / `#062A1C` / `#123A2C` | `#0F9F6E` / `#FFFFFF` / `#DDF6EC` | 深色主色为设计稿；其余派生 |
-| `color.status.warning` / `.content` / `.container` | `#FBBF24` / `#2A1E02` / `#3A2E10` | `#B7791F` / `#FFFFFF` / `#FDF1D8` | 同上 |
-| `color.status.error` / `.content` / `.container` | `#F87171` / `#2E0A0A` / `#3D1818` | `#D64545` / `#FFFFFF` / `#FBE3E3` | 同上 |
+| `color.status.success` / `.content` / `.container` | `#34D399` / `#062A1C` / `#123A2C` | `#047857` / `#FFFFFF` / `#DDF6EC` | 深色主色为设计稿；其余派生（浅色主色 2026-11-07 调整以满足 4.5:1） |
+| `color.status.warning` / `.content` / `.container` | `#FBBF24` / `#2A1E02` / `#3A2E10` | `#A16207` / `#FFFFFF` / `#FDF1D8` | 同上 |
+| `color.status.error` / `.content` / `.container` | `#F87171` / `#2E0A0A` / `#3D1818` | `#C53030` / `#FFFFFF` / `#FBE3E3` | 同上 |
 | `color.status.info` / `.content` / `.container` | `#4CC9F0` / `#05222C` / `#123340` | `#0E7FA8` / `#FFFFFF` / `#DDF1F8` | 派生（沿用 selection 色相） |
 | `apps.videokit.color.selection` | `#4CC9F0` | `#4CC9F0` | 设计稿（选区、跟踪目标） |
 | `apps.videokit.color.track.tracked` | `#34D399` | `#0F9F6E` | 深色设计稿；浅色派生 |
@@ -432,7 +437,7 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 | `typography.title` | 20/28 SemiBold | 设计稿 |
 | `typography.body` | 14/20 Regular | 设计稿 |
 | `typography.bodysmall` | 13/18 Regular | 派生 |
-| `typography.label` | 13/18 Medium | 设计稿 |
+| `typography.label` | 12/16 Medium | 设计稿第 5 页（“标签 12”） |
 | `typography.caption` | 12/16 Regular | 设计稿 |
 | `apps.videokit.typography.timecode` | 13/18 Medium，等宽数字 `FontFeature.tabularFigures()` | 设计稿 |
 
@@ -441,7 +446,7 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 | 键 | 取值 |
 | --- | --- |
 | `dimension.spacing.s4` / `s8` / `s12` / `s16` / `s24` / `s32` | 4 / 8 / 12 / 16 / 24 / 32 |
-| `dimension.corner.small` / `medium` / `large` / `xlarge` / `full` | 6 / 10 / 16 / 20 / 999（full 映射为完整圆角形状） |
+| `dimension.corner.small` / `medium` / `large` / `xlarge` / `full` | 6 / 10 / 14 / 20 / 999（large 按设计稿第 5 页为 14；full 映射为完整圆角形状） |
 | `dimension.target.min` | 48 |
 | `dimension.icon.s16` / `s20` / `s24` | 16 / 20 / 24 |
 | `apps.videokit.dimension.controlbar.height` | 56 |
