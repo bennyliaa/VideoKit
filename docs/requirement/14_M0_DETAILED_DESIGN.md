@@ -453,6 +453,13 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 | `apps.videokit.dimension.seekbar.track` / `.trackactive` / `.thumb` | 4 / 6 / 14 |
 | `apps.videokit.dimension.timeline.cliprow` / `.maskrow` / `.coveragestrip` | 56 / 20 / 8 |
 | `apps.videokit.dimension.maskbox.stroke` / `.handle` / `.handletarget` | 2 / 10 / 24 |
+| `dimension.badge.size` / `dimension.badge.inset` | 16 / 4（角标贴在 48 触控区的右上角内缩 4，不压图标；2026-11-07 M0-B2 审查补充） |
+| `apps.videokit.dimension.pendingring.size` / `.stroke` | 40 / 2（等待中环画在 24 图标外圈、48 触控区之内，不覆盖图标） |
+
+M0-B2 审查补充的组件规则（2026-11-07）：
+
+- **滑杆与进度条的两种用法**：在播放器画面上使用 `apps.videokit.component.seekbar`（白色半透明轨道，配合控件遮罩）；在普通表面上（编辑器属性、遮罩强度等）使用 `component.slider` 的表面变体：未选中轨道为 `color.border.strong`、缓冲段为 `color.text.tertiary`、已选段与拇指为 `color.primary`，保证浅色与深色下轨道对表面 ≥ 3:1。
+- **只保留一个“更多”**：宿主动作的溢出项并入播放器的“更多”面板，放在第一个分组（分组标题用宿主动作的文案），播放器自身的次要控件放在第二组；不再单独显示宿主溢出按钮（UI-01 / UI-04）。
 | 阴影（设计分类 elevation） | none：无；floating：y 2、blur 8、黑 24%；modal：y 8、blur 24、黑 40%（深色同时用 `color.surfacehigh` 提升层级） |
 
 **animation**
