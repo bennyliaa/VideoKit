@@ -8,6 +8,7 @@ import com.videokit.core.CoreOptions
 import com.videokit.core.spi.Clock
 import com.videokit.core.spi.PlatformEngines
 import com.videokit.core.spi.Scheduler
+import com.videokit.image.android.AndroidImageEngine
 import com.videokit.media3.Media3PlaybackEngine
 import com.videokit.media3.RetrieverFrameSource
 import com.videokit.playback.PlaybackVideoKit
@@ -17,8 +18,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * The real VideoKit on Android (02 §4.0.1 `VideoKitFactory` assembly): core runtime and playback sessions over the
- * Media3 playback engine and the Android capability probe. Reached through `VideoKitFactory.create`; images (VK-M2),
- * editing and export (VK-M4+) are not assembled yet and the capability report says so.
+ * Media3 playback engine, the platform image engine (VK-M2) and the Android capability probe. Reached through
+ * `VideoKitFactory.create`; editing and export (VK-M4+) are not assembled yet and the capability report says so.
  */
 public object AndroidVideoKitAssembly {
     /** Creates the real VideoKit; keeps only the application context. */
@@ -29,6 +30,7 @@ public object AndroidVideoKitAssembly {
             capabilities = AndroidCapabilityProbe(appContext),
             clock = AndroidClock,
             scheduler = AndroidScheduler,
+            images = AndroidImageEngine(),
             frames = RetrieverFrameSource(),
         )
         return PlaybackVideoKit.create(config, engines, CoreOptions())

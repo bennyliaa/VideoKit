@@ -19,6 +19,7 @@ public final class com/videokit/playback/PlaybackRules {
 public final class com/videokit/playback/PlaybackSession : com/videokit/api/VideoKitSession {
 	public static final field MAX_RETRIES I
 	public static final field NOTICE_AUDIO_UNSUPPORTED Ljava/lang/String;
+	public static final field NOTICE_IMAGE_DEGRADED Ljava/lang/String;
 	public fun attachSurface (Lcom/videokit/api/VideoKitSurfaceTarget;)Lcom/videokit/api/VideoKitCommandResult;
 	public fun bind (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/api/VideoKitPlaybackState;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun captureState (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

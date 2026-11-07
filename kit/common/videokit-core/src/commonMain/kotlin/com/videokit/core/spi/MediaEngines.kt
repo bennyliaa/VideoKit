@@ -132,40 +132,6 @@ public interface EffectRenderer {
     public suspend fun render(frame: FrameData, regions: List<EffectRegion>): FrameData
 }
 
-/** Information about an opened image. */
-public data class ImageInfo(
-    /** Size after orientation. */
-    val size: Size,
-    /** Whether animated. */
-    val animated: Boolean,
-    /** Animation loop duration, when animated. */
-    val loopDurationUs: Long? = null,
-)
-
-/** Image decoding and display (02 §4.2 `ImageEngine`). */
-public interface ImageEngine {
-    /** Opens [source]; throws [SpiException] for unsupported or corrupt images. */
-    public suspend fun open(source: VideoKitMediaSource): ImageHandle
-}
-
-/** An opened image. */
-public interface ImageHandle : AutoCloseable {
-    /** Image information. */
-    public val info: ImageInfo
-
-    /** Renders to [target]. */
-    public fun attach(target: VideoKitSurfaceTarget)
-
-    /** Stops rendering. */
-    public fun detach()
-
-    /** Sets the visible region (normalized) and zoom so the engine can choose tiles and sample size. */
-    public suspend fun setViewport(region: MaskRegion, scale: Float)
-
-    /** Starts or pauses animation (no effect for static images). */
-    public suspend fun setAnimating(animating: Boolean)
-}
-
 /** A detection or tracking result. */
 public data class TrackedRegion(
     /** Region, normalized. */

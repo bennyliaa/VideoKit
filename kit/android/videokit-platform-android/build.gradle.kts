@@ -27,6 +27,7 @@ dependencies {
     api(project(":videokit-api-android"))
     implementation(project(":videokit-playback"))
     implementation(project(":videokit-media3"))
+    implementation(project(":videokit-image-android"))
 
     testImplementation(libs.junit)
 }

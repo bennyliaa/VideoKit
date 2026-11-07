@@ -688,6 +688,35 @@ public final class com/videokit/testkit/spi/FakeFrameSource : com/videokit/core/
 	public fun open (Lcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class com/videokit/testkit/spi/FakeImageEngine : com/videokit/core/spi/ImageEngine {
+	public static final field FRAME_US J
+	public static final field HEADER_BYTES I
+	public fun <init> ()V
+	public fun <init> (Lcom/videokit/testkit/spi/FakeEngineOptions;)V
+	public synthetic fun <init> (Lcom/videokit/testkit/spi/FakeEngineOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getOpenHandles ()I
+	public final fun getRenderedPlans ()Ljava/util/List;
+	public fun open (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/core/spi/ImageOpenOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun supports (Lcom/videokit/api/VideoKitSurfaceTarget;)Z
+}
+
+public final class com/videokit/testkit/spi/FakeImageHandle : com/videokit/core/spi/ImageHandle {
+	public static final field BYTES_PER_PIXEL I
+	public static final field DECODE_DELAY_MS J
+	public fun attach (Lcom/videokit/api/VideoKitSurfaceTarget;)V
+	public fun close ()V
+	public fun detach ()V
+	public fun getInfo ()Lcom/videokit/core/spi/ImageInfo;
+	public fun getState ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun getTarget ()Lcom/videokit/api/VideoKitSurfaceTarget;
+	public fun pause (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun play (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun render (Lcom/videokit/core/spi/ImageRenderPlan;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun restart (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setLooping (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun thumbnail (Lcom/videokit/api/Size;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
 public final class com/videokit/testkit/spi/FakePlaybackEngine : com/videokit/core/spi/PlaybackEngine {
 	public static final field PROBE_BYTES I
 	public fun <init> ()V

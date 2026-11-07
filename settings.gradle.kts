@@ -52,9 +52,10 @@ buildscript {
 rootProject.name = "VideoKit"
 
 // 13 §1: platform independent modules (KMP commonMain) in kit/common, Android implementations in kit/android.
-val commonModules = listOf("videokit-api", "videokit-core", "videokit-playback", "videokit-testkit")
+val commonModules = listOf("videokit-api", "videokit-core", "videokit-image", "videokit-playback", "videokit-testkit")
 val androidModules = listOf(
     "videokit-api-android",
+    "videokit-image-android",
     "videokit-media3",
     "videokit-platform-android",
     "videokit-testkit-android",

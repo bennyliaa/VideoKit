@@ -31,10 +31,10 @@ import kotlin.coroutines.ContinuationInterceptor
  * [VideoKitContractSubject]: the same contract suite and `spec` vectors as the Kotlin Fake (12 §1.1 #2). Pass a
  * scope on the test dispatcher so that latencies and timeouts run on virtual time.
  *
- * Images (VK-M2) and editing (VK-M4) are not implemented yet; their cases are reported as skipped.
+ * Images run on the fake image engine; editing (VK-M4) is not implemented yet and its cases are reported as skipped.
  */
 class PlaybackContractSubject(private val scope: CoroutineScope, val clock: FakeClock = FakeClock()) : VideoKitContractSubject {
-    override val features: Set<ContractFeature> get() = emptySet()
+    override val features: Set<ContractFeature> get() = setOf(ContractFeature.IMAGES)
 
     override val callbackTimeouts: HostCallbackTimeouts get() = HostCallbackTimeouts()
 
@@ -50,6 +50,8 @@ class PlaybackContractSubject(private val scope: CoroutineScope, val clock: Fake
     override fun playableVideo(token: String): VideoKitMediaSource = FakeMediaSources.video(token)
 
     override fun playableImage(token: String): VideoKitMediaSource = FakeMediaSources.image(token, MediaKind.IMAGE_STATIC)
+
+    override fun playableAnimatedImage(token: String): VideoKitMediaSource = FakeMediaSources.image(token, MediaKind.IMAGE_ANIMATED)
 
     override suspend fun advanceMediaTime(us: Long) {
         clock.advanceUs(us)

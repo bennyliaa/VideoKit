@@ -69,6 +69,7 @@ public object FakeEngines {
             capabilities = FakeCapabilityProbe(options),
             clock = FakeSpiClock(options.clock),
             scheduler = FakeScheduler(dispatcher),
+            images = FakeImageEngine(options),
             frames = FakeFrameSource(),
         )
 }
@@ -102,6 +103,7 @@ public class FakeCapabilityProbe(private val options: FakeEngineOptions = FakeEn
             speeds = listOf(0.5f, 0.75f, 1f, 1.25f, 1.5f, 2f),
             exactSeek = true,
         ),
+        imageFeatures = com.videokit.api.ImageFeatures(staticImages = true, animatedImages = true, largeImageTiling = true),
     )
 
     override suspend fun media(source: VideoKitMediaSource): MediaProbeResult {

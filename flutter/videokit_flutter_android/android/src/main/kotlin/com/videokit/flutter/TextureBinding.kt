@@ -26,7 +26,7 @@ internal class TextureBinding(
     val textureId: Long get() = producer.id()
 
     init {
-        producer.setSize(width.coerceAtLeast(1), height.coerceAtLeast(1))
+        setSize(width, height)
         producer.setCallback(
             object : TextureRegistry.SurfaceProducer.Callback {
                 override fun onSurfaceAvailable() {
@@ -53,8 +53,19 @@ internal class TextureBinding(
 
     fun resize(width: Int, height: Int) {
         if (disposed) return
-        producer.setSize(width.coerceAtLeast(1), height.coerceAtLeast(1))
+        setSize(width, height)
         attach()
+    }
+
+    /**
+     * Sizes the producer to the content, at most [MAX_TEXTURE_SIDE] on the longest side (large images: the engine
+     * draws the whole image into the texture and adds tiles of zoomed regions, videokit-image `ImageRules`).
+     */
+    private fun setSize(width: Int, height: Int) {
+        val w = width.coerceAtLeast(1)
+        val h = height.coerceAtLeast(1)
+        val factor = minOf(1.0, MAX_TEXTURE_SIDE.toDouble() / maxOf(w, h))
+        producer.setSize((w * factor).toInt().coerceAtLeast(1), (h * factor).toInt().coerceAtLeast(1))
     }
 
     fun dispose() {
@@ -64,3 +75,6 @@ internal class TextureBinding(
         producer.release()
     }
 }
+
+/** Longest texture side (same as `ImageRules.MAX_TEXTURE_SIDE` of videokit-image). */
+internal const val MAX_TEXTURE_SIDE: Int = 4096

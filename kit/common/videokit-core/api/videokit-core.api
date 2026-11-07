@@ -117,16 +117,19 @@ public final class com/videokit/core/runtime/ConcurrentKt {
 
 public final class com/videokit/core/runtime/DefaultResourceBudget : com/videokit/api/ResourceBudget {
 	public static final field Companion Lcom/videokit/core/runtime/DefaultResourceBudget$Companion;
+	public static final field DEFAULT_IMAGE_MEMORY_BYTES J
 	public static final field HARD_VIDEO_LIMIT I
 	public fun <init> ()V
-	public fun <init> (Ljava/util/Map;)V
-	public synthetic fun <init> (Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/util/Map;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun freeBytes (Lcom/videokit/api/ResourceKind;)Ljava/lang/Long;
 	public fun reserve (Lcom/videokit/api/ResourceRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun snapshot ()Lcom/videokit/api/ResourceReport;
 }
 
 public final class com/videokit/core/runtime/DefaultResourceBudget$Companion {
-	public final fun forDevice (I)Lcom/videokit/core/runtime/DefaultResourceBudget;
+	public final fun forDevice (IJ)Lcom/videokit/core/runtime/DefaultResourceBudget;
+	public static synthetic fun forDevice$default (Lcom/videokit/core/runtime/DefaultResourceBudget$Companion;IJILjava/lang/Object;)Lcom/videokit/core/runtime/DefaultResourceBudget;
 }
 
 public final class com/videokit/core/runtime/HostCallbackRunner {
@@ -137,6 +140,22 @@ public final class com/videokit/core/runtime/HostCallbackRunner {
 	public final fun getTimeouts ()Lcom/videokit/api/HostCallbackTimeouts;
 	public final fun notify (Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
 	public final fun request (Ljava/lang/String;JLkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/core/runtime/HostInteractions {
+	public fun <init> (Ljava/lang/String;Lcom/videokit/core/runtime/HostCallbackRunner;Lkotlinx/coroutines/sync/Mutex;Lkotlinx/coroutines/flow/MutableStateFlow;Lkotlinx/coroutines/flow/MutableSharedFlow;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)V
+	public final fun requestHostAction (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun requestNavigation (Lcom/videokit/api/NavigationDirection;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setControlsVisible (Z)V
+	public final fun statesForBind (Ljava/util/List;)Ljava/util/List;
+	public final fun updateHostActions (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/core/runtime/SourceUses {
+	public fun <init> (Lkotlinx/coroutines/CoroutineScope;)V
+	public final fun closeAll (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getActive ()I
+	public final fun use (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/videokit/core/runtime/StableErrors {
@@ -293,29 +312,124 @@ public abstract interface class com/videokit/core/spi/FrameSource {
 }
 
 public abstract interface class com/videokit/core/spi/ImageEngine {
-	public abstract fun open (Lcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun open (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/core/spi/ImageOpenOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun open$default (Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/core/spi/ImageOpenOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun supports (Lcom/videokit/api/VideoKitSurfaceTarget;)Z
+}
+
+public final class com/videokit/core/spi/ImageEngine$DefaultImpls {
+	public static synthetic fun open$default (Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/core/spi/ImageOpenOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/videokit/core/spi/ImageEngineState {
+	public fun <init> (Lcom/videokit/core/spi/ImageStatus;ZJJLcom/videokit/core/spi/ImageRenderPlan;Lcom/videokit/api/VideoKitStableError;)V
+	public synthetic fun <init> (Lcom/videokit/core/spi/ImageStatus;ZJJLcom/videokit/core/spi/ImageRenderPlan;Lcom/videokit/api/VideoKitStableError;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/videokit/core/spi/ImageStatus;
+	public final fun component2 ()Z
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun component5 ()Lcom/videokit/core/spi/ImageRenderPlan;
+	public final fun component6 ()Lcom/videokit/api/VideoKitStableError;
+	public final fun copy (Lcom/videokit/core/spi/ImageStatus;ZJJLcom/videokit/core/spi/ImageRenderPlan;Lcom/videokit/api/VideoKitStableError;)Lcom/videokit/core/spi/ImageEngineState;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/ImageEngineState;Lcom/videokit/core/spi/ImageStatus;ZJJLcom/videokit/core/spi/ImageRenderPlan;Lcom/videokit/api/VideoKitStableError;ILjava/lang/Object;)Lcom/videokit/core/spi/ImageEngineState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAnimating ()Z
+	public final fun getDecodedBytes ()J
+	public final fun getError ()Lcom/videokit/api/VideoKitStableError;
+	public final fun getPlan ()Lcom/videokit/core/spi/ImageRenderPlan;
+	public final fun getPositionUs ()J
+	public final fun getStatus ()Lcom/videokit/core/spi/ImageStatus;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public abstract interface class com/videokit/core/spi/ImageHandle : java/lang/AutoCloseable {
 	public abstract fun attach (Lcom/videokit/api/VideoKitSurfaceTarget;)V
 	public abstract fun detach ()V
 	public abstract fun getInfo ()Lcom/videokit/core/spi/ImageInfo;
-	public abstract fun setAnimating (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun setViewport (Lcom/videokit/api/MaskRegion;FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getState ()Lkotlinx/coroutines/flow/StateFlow;
+	public abstract fun pause (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun play (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun render (Lcom/videokit/core/spi/ImageRenderPlan;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun restart (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setLooping (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun thumbnail (Lcom/videokit/api/Size;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/videokit/core/spi/ImageInfo {
-	public fun <init> (Lcom/videokit/api/Size;ZLjava/lang/Long;)V
-	public synthetic fun <init> (Lcom/videokit/api/Size;ZLjava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;Z)V
+	public synthetic fun <init> (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/api/Size;
 	public final fun component2 ()Z
 	public final fun component3 ()Ljava/lang/Long;
-	public final fun copy (Lcom/videokit/api/Size;ZLjava/lang/Long;)Lcom/videokit/core/spi/ImageInfo;
-	public static synthetic fun copy$default (Lcom/videokit/core/spi/ImageInfo;Lcom/videokit/api/Size;ZLjava/lang/Long;ILjava/lang/Object;)Lcom/videokit/core/spi/ImageInfo;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()I
+	public final fun component7 ()Ljava/lang/Boolean;
+	public final fun component8 ()Z
+	public final fun copy (Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;Z)Lcom/videokit/core/spi/ImageInfo;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/ImageInfo;Lcom/videokit/api/Size;ZLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Boolean;ZILjava/lang/Object;)Lcom/videokit/core/spi/ImageInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAnimated ()Z
+	public final fun getFormat ()Ljava/lang/String;
+	public final fun getFrameCount ()Ljava/lang/Integer;
+	public final fun getHasAlpha ()Ljava/lang/Boolean;
 	public final fun getLoopDurationUs ()Ljava/lang/Long;
+	public final fun getOrientationDeg ()I
+	public final fun getRegionDecodable ()Z
 	public final fun getSize ()Lcom/videokit/api/Size;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/spi/ImageOpenOptions {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lcom/videokit/core/spi/ImageOpenOptions;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/ImageOpenOptions;ZILjava/lang/Object;)Lcom/videokit/core/spi/ImageOpenOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLooping ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/spi/ImageRenderPlan {
+	public fun <init> (Lcom/videokit/api/Size;ILjava/util/List;)V
+	public synthetic fun <init> (Lcom/videokit/api/Size;ILjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/videokit/api/Size;
+	public final fun component2 ()I
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Lcom/videokit/api/Size;ILjava/util/List;)Lcom/videokit/core/spi/ImageRenderPlan;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/ImageRenderPlan;Lcom/videokit/api/Size;ILjava/util/List;ILjava/lang/Object;)Lcom/videokit/core/spi/ImageRenderPlan;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBaseSampleSize ()I
+	public final fun getDecodeSize ()Lcom/videokit/api/Size;
+	public final fun getTiles ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/spi/ImageStatus : java/lang/Enum {
+	public static final field ENDED Lcom/videokit/core/spi/ImageStatus;
+	public static final field FAILED Lcom/videokit/core/spi/ImageStatus;
+	public static final field OPENED Lcom/videokit/core/spi/ImageStatus;
+	public static final field READY Lcom/videokit/core/spi/ImageStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/core/spi/ImageStatus;
+	public static fun values ()[Lcom/videokit/core/spi/ImageStatus;
+}
+
+public final class com/videokit/core/spi/ImageTile {
+	public fun <init> (Lcom/videokit/core/spi/PixelRect;I)V
+	public final fun component1 ()Lcom/videokit/core/spi/PixelRect;
+	public final fun component2 ()I
+	public final fun copy (Lcom/videokit/core/spi/PixelRect;I)Lcom/videokit/core/spi/ImageTile;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/ImageTile;Lcom/videokit/core/spi/PixelRect;IILjava/lang/Object;)Lcom/videokit/core/spi/ImageTile;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRegion ()Lcom/videokit/core/spi/PixelRect;
+	public final fun getSampleSize ()I
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -377,6 +491,25 @@ public final class com/videokit/core/spi/PixelFormat : java/lang/Enum {
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/core/spi/PixelFormat;
 	public static fun values ()[Lcom/videokit/core/spi/PixelFormat;
+}
+
+public final class com/videokit/core/spi/PixelRect {
+	public fun <init> (IIII)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun copy (IIII)Lcom/videokit/core/spi/PixelRect;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/PixelRect;IIIIILjava/lang/Object;)Lcom/videokit/core/spi/PixelRect;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBottom ()I
+	public final fun getHeight ()I
+	public final fun getLeft ()I
+	public final fun getRight ()I
+	public final fun getTop ()I
+	public final fun getWidth ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/videokit/core/spi/PlanInput {

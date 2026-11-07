@@ -1,0 +1,25 @@
+public final class com/videokit/image/android/AndroidImageConfig {
+	public fun <init> ()V
+	public fun <init> (JJI)V
+	public synthetic fun <init> (JJIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()I
+	public final fun copy (JJI)Lcom/videokit/image/android/AndroidImageConfig;
+	public static synthetic fun copy$default (Lcom/videokit/image/android/AndroidImageConfig;JJIILjava/lang/Object;)Lcom/videokit/image/android/AndroidImageConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getJpegQuality ()I
+	public final fun getMaxEncodedBytes ()J
+	public final fun getReadTimeoutMs ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/image/android/AndroidImageEngine : com/videokit/core/spi/ImageEngine {
+	public fun <init> ()V
+	public fun <init> (Lcom/videokit/image/android/AndroidImageConfig;)V
+	public synthetic fun <init> (Lcom/videokit/image/android/AndroidImageConfig;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun open (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/core/spi/ImageOpenOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun supports (Lcom/videokit/api/VideoKitSurfaceTarget;)Z
+}
+

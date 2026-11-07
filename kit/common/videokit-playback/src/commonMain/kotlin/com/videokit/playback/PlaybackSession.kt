@@ -39,13 +39,18 @@ import com.videokit.api.VideoKitSurfaceTarget
 import com.videokit.core.SessionContext
 import com.videokit.core.runtime.AtomicValue
 import com.videokit.core.runtime.CallbackOutcome
+import com.videokit.core.runtime.HostInteractions
+import com.videokit.core.runtime.SourceUses
 import com.videokit.core.runtime.StableErrors
 import com.videokit.core.runtime.typeName
 import com.videokit.core.spi.EngineState
 import com.videokit.core.spi.EngineStatus
+import com.videokit.core.spi.ImageOpenOptions
 import com.videokit.core.spi.PlaybackHandle
 import com.videokit.core.spi.PlaybackOpenOptions
 import com.videokit.core.spi.SpiException
+import com.videokit.image.ImageController
+import com.videokit.image.ImageRules
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -84,8 +89,12 @@ import kotlin.concurrent.Volatile
  * - Release order of 06 §7: stop, cancel reads, release the engine (decoders, surface, read handles), then
  *   SourceReleased, then the resource lease, then RELEASED.
  *
- * Images arrive in VK-M2: binding an image source answers `Unsupported(NOT_IMPLEMENTED)` until an image engine is
- * assembled.
+ * Images (06 §6, VK-M2) run through the same state machine: the session opens them with the platform
+ * [com.videokit.core.spi.ImageEngine] as an [ImageController] (a [PlaybackHandle]), which holds the image memory lease
+ * and renders the plans of [com.videokit.image.ImageRules]; animations play, pause, loop and end like videos.
+ * Without an image engine an image bind answers `Unsupported(NOT_IMPLEMENTED)`.
+ *
+ * Host actions, navigation and the controls visibility follow the shared rules of [HostInteractions] (05 §5–§6).
  */
 public class PlaybackSession internal constructor(context: SessionContext) : VideoKitSession {
     override val sessionId: String = context.sessionId
@@ -115,7 +124,17 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
     private var seekGeneration = 0L
     private var pendingSeek: CompletableDeferred<VideoKitCommandResult>? = null
     private var retriesLeft = MAX_RETRIES
-    private val inFlightActions = mutableSetOf<String>()
+    private val sourceUses = SourceUses(scope)
+    private val host = HostInteractions(
+        sessionId = sessionId,
+        callbacks = callbacks,
+        lock = mutex,
+        state = mutableState,
+        events = mutableEvents,
+        boundToken = { source?.mediaToken },
+        navigationToken = { source?.mediaToken ?: lastMediaToken },
+        released = { released },
+    )
 
     @Volatile
     private var target: VideoKitSurfaceTarget? = null
@@ -188,10 +207,24 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
                 looping = false,
                 imageDetails = null,
                 orientation = it.orientation.copy(contentOrientation = MediaOrientation.UNKNOWN),
-                hostActions = actions.map { action -> HostActionState(action) },
+                hostActions = host.statesForBind(actions),
             )
         }
         try {
+            if (src.mediaKind.isImage) {
+                val images = engines.images ?: return failLocked(StableErrors.illegalState(ErrorStage.BIND, "NO_IMAGE_ENGINE"))
+                val opened = withTimeout(runtime.options.sourceTimeoutMs) {
+                    val looping = initial?.looping ?: true
+                    ImageController.open(images, src, runtime.budget, sessionId, priority, ImageOpenOptions(looping), scope).also {
+                        handle = it
+                        lease = it.lease
+                        it.renderNow()
+                    }
+                }
+                mutableState.update { it.copy(resourcesHeld = true, mediaKind = ImageRules.kindOf(src.mediaKind, opened.info)) }
+                becomeReadyLocked(opened, initial)
+                return VideoKitCommandResult.Executed
+            }
             val request = ResourceRequest(sessionId, ResourceKind.VIDEO_DECODER, ResourceEstimate(), priority)
             when (val reservation = runtime.budget.reserve(request)) {
                 is ReservationResult.Granted -> lease = reservation.lease
@@ -253,6 +286,7 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
                 orientation = current.orientation.copy(contentOrientation = PlaybackRules.orientationOf(engine.videoSize)),
                 looping = PlaybackRules.defaultLooping(current.mediaKind),
                 mediaInfo = withSourceSize(engine.mediaInfo),
+                imageDetails = (opened as? ImageController)?.details(),
                 resourcesHeld = true,
                 error = null,
             )
@@ -261,7 +295,12 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         // Push the (possibly restored) settings to the engine.
         val state = mutableState.value
         if (state.speed != 1f) opened.setSpeed(state.speed)
-        if (state.looping) opened.setLooping(true)
+        if (PlaybackRules.loops(state.mediaKind)) opened.setLooping(state.looping)
+        if (opened is ImageController) {
+            opened.setTransform(state.transform)
+            // 06 §6.2: the image memory quota was not enough for the wanted sampling.
+            if (opened.degraded) mutableEvents.tryEmit(VideoKitEvent.TransientNotice(NOTICE_IMAGE_DEGRADED))
+        }
         opened.setVolume(PlaybackRules.outputVolume(state))
         if (state.selectedAudioTrackId != engine.selectedAudioTrackId) opened.selectAudioTrack(state.selectedAudioTrackId)
         opened.selectSubtitleTrack(state.selectedSubtitleTrackId)
@@ -326,6 +365,8 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         val opened = handle
         handle = null
         if (opened != null) withContext(NonCancellable + engines.scheduler.io) { runCatching { opened.close() } }
+        // 05 §4: thumbnails and other uses of the media hold handles too; SourceReleased waits for them.
+        withContext(NonCancellable) { sourceUses.closeAll() }
         pendingSeek?.complete(VideoKitCommandResult.Superseded)
         pendingSeek = null
         bufferingSinceUs = null
@@ -357,10 +398,11 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
                 subtitleTracks = engine.subtitleTracks,
                 videoSize = engine.videoSize ?: it.videoSize,
                 mediaInfo = engine.mediaInfo?.let(::withSourceSize) ?: it.mediaInfo,
+                imageDetails = (opened as? ImageController)?.details() ?: it.imageDetails,
                 orientation = it.orientation.copy(contentOrientation = PlaybackRules.orientationOf(engine.videoSize ?: it.videoSize)),
             )
         }
-        if (current.phase == SessionPhase.PLAYING && current.seekingToUs == null) {
+        if (current.phase == SessionPhase.PLAYING && current.seekingToUs == null && current.mediaKind == MediaKind.VIDEO) {
             // Wrap-around of a looping playback is not watch time.
             if (advanced > 0) report(statistics.onPlayed(engine.positionUs, advanced, current.visibility == SessionVisibility.VISIBLE))
         }
@@ -476,6 +518,8 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
                 // Zoom, pan and rotation are applied by the UI on the texture (15 §2.6); the session keeps them.
                 if (!PlaybackRules.isValidTransform(command.transform)) return rejectedArgument("TRANSFORM")
                 mutableState.update { it.copy(transform = command.transform) }
+                // Zoomed large images decode tiles of the visible region (06 §6.2).
+                (handle as? ImageController)?.setTransform(command.transform)
                 VideoKitCommandResult.Executed
             }
 
@@ -670,95 +714,15 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
     // ---------------------------------------------------------------- host actions, navigation, controls
 
     override suspend fun updateHostActions(actions: List<VideoKitHostAction>) {
-        mutex.withLock {
-            if (released) return
-            mutableState.update { current ->
-                val previous = current.hostActions.associateBy { it.action.actionId }
-                current.copy(
-                    hostActions = actions.map { action ->
-                        val old = previous[action.actionId]
-                        HostActionState(
-                            action = action,
-                            pending = action.pending || action.actionId in inFlightActions,
-                            lastStatus = old?.lastStatus,
-                            lastError = old?.lastError,
-                        )
-                    },
-                )
-            }
-        }
+        host.updateHostActions(actions)
     }
 
-    override suspend fun requestHostAction(actionId: String): VideoKitCommandResult {
-        val request: HostActionRequest
-        mutex.withLock {
-            val current = mutableState.value
-            if (current.phase.isReleasedOrReleasing) return VideoKitCommandResult.SessionReleased
-            val token = source?.mediaToken ?: return rejected(ErrorStage.CALLBACK, "HOST_ACTION_WITHOUT_MEDIA")
-            val entry = current.hostActions.firstOrNull { it.action.actionId == actionId } ?: return rejectedArgument("HOST_ACTION_ID")
-            if (!entry.action.enabled) return rejected(ErrorStage.CALLBACK, "HOST_ACTION_DISABLED")
-            // 04A I1: repeated requests while pending are merged and never reach the host again.
-            if (entry.pending || actionId in inFlightActions) return VideoKitCommandResult.Superseded
-            inFlightActions += actionId
-            updateAction(actionId) { it.copy(pending = true, lastError = null) }
-            request = HostActionRequest(actionId, sessionId, token)
-        }
-        var outcome: CallbackOutcome<HostActionResult>? = null
-        try {
-            outcome = callbacks.request("onHostActionRequested", timeouts.hostActionMs) { onHostActionRequested(request) }
-        } finally {
-            withContext(NonCancellable) {
-                mutex.withLock {
-                    inFlightActions -= actionId
-                    if (outcome == null) updateAction(actionId) { it.copy(pending = false) }
-                }
-            }
-        }
-        return mutex.withLock {
-            if (released) return@withLock VideoKitCommandResult.SessionReleased
-            when (val result = outcome) {
-                is CallbackOutcome.Success -> {
-                    val answer = result.value
-                    val stillPending = answer.status == HostActionStatus.PENDING
-                    updateAction(actionId) {
-                        val action = (answer.updatedAction ?: it.action).copy(pending = stillPending)
-                        HostActionState(action, pending = stillPending, lastStatus = answer.status, lastError = null)
-                    }
-                    answer.messageKey?.let { mutableEvents.tryEmit(VideoKitEvent.TransientNotice(it)) }
-                    VideoKitCommandResult.Executed
-                }
+    override suspend fun requestHostAction(actionId: String): VideoKitCommandResult = host.requestHostAction(actionId)
 
-                is CallbackOutcome.Failure -> {
-                    updateAction(actionId) { it.copy(pending = false, lastStatus = HostActionStatus.FAILED, lastError = result.error) }
-                    mutableEvents.tryEmit(VideoKitEvent.HostActionFailed(actionId, result.error))
-                    VideoKitCommandResult.Rejected(result.error)
-                }
-            }
-        }
-    }
-
-    private fun updateAction(actionId: String, transform: (HostActionState) -> HostActionState) {
-        mutableState.update { current ->
-            current.copy(hostActions = current.hostActions.map { if (it.action.actionId == actionId) transform(it) else it })
-        }
-    }
-
-    override suspend fun requestNavigation(direction: NavigationDirection): NavigationResult {
-        if (released) return NavigationResult.UNAVAILABLE
-        val token = mutex.withLock { source?.mediaToken ?: lastMediaToken }
-        val request = NavigationRequest(sessionId, token, direction)
-        val outcome = callbacks.request("onNavigationRequested", timeouts.navigationMs) { onNavigationRequested(request) }
-        return (outcome as? CallbackOutcome.Success)?.value ?: NavigationResult.FAILED
-    }
+    override suspend fun requestNavigation(direction: NavigationDirection): NavigationResult = host.requestNavigation(direction)
 
     override fun setControlsVisible(visible: Boolean) {
-        if (released) return
-        var changed = false
-        mutableState.update { current ->
-            changed = current.controlsVisible != visible
-            current.copy(controlsVisible = visible)
-        }
-        if (changed) callbacks.notify("onControlsVisibilityChanged") { onControlsVisibilityChanged(sessionId, visible) }
+        host.setControlsVisible(visible)
     }
 
     // ---------------------------------------------------------------- media info & thumbnails
@@ -779,21 +743,25 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         if (atUs < 0 || maxWidth <= 0 || maxHeight <= 0) {
             return ThumbnailResult.Failed(StableErrors.invalidArgument(ErrorStage.PLAYBACK, "THUMBNAIL"))
         }
-        val (bound, durationUs) = mutex.withLock { source to mutableState.value.durationUs }
+        val (bound, durationUs, image) = mutex.withLock { Triple(source, mutableState.value.durationUs, handle as? ImageController) }
         val media = bound ?: return ThumbnailResult.Failed(StableErrors.illegalState(ErrorStage.PLAYBACK, "THUMBNAIL_WITHOUT_MEDIA"))
         val frames = engines.frames
-        if (frames == null || media.mediaKind.isImage) {
+        if (if (media.mediaKind.isImage) image == null else frames == null) {
             return ThumbnailResult.Failed(StableErrors.of(ErrorCode.INVALID_STATE, ErrorStage.PLAYBACK, "THUMBNAILS_NOT_AVAILABLE"))
         }
+        val released = ThumbnailResult.Failed(StableErrors.of(ErrorCode.SESSION_RELEASED, ErrorStage.PLAYBACK, "THUMBNAIL_SOURCE_RELEASED"))
         return try {
             withTimeout(runtime.options.sourceTimeoutMs) {
-                val reader = frames.open(media)
-                try {
-                    reader.thumbnailAt(atUs.coerceAtMost(durationUs ?: atUs), Size(maxWidth, maxHeight))
-                } finally {
-                    withContext(NonCancellable + engines.scheduler.io) { runCatching { reader.close() } }
+                sourceUses.use {
+                    if (image != null) return@use image.thumbnail(Size(maxWidth, maxHeight))
+                    val reader = checkNotNull(frames).open(media)
+                    try {
+                        reader.thumbnailAt(atUs.coerceAtMost(durationUs ?: atUs), Size(maxWidth, maxHeight))
+                    } finally {
+                        withContext(NonCancellable + engines.scheduler.io) { runCatching { reader.close() } }
+                    }
                 }
-            }
+            } ?: released
         } catch (timeout: TimeoutCancellationException) {
             ThumbnailResult.Failed(StableErrors.fromSourceFailure(timeout, ErrorStage.PLAYBACK))
         } catch (cancelled: CancellationException) {
@@ -855,7 +823,8 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
      */
     override fun attachSurface(target: VideoKitSurfaceTarget): VideoKitCommandResult {
         if (released) return VideoKitCommandResult.SessionReleased
-        if (!engines.playback.supports(target)) return VideoKitCommandResult.Unsupported(UnsupportedReason.DEVICE_CAPABILITY)
+        val drawable = engines.playback.supports(target) || engines.images?.supports(target) == true
+        if (!drawable) return VideoKitCommandResult.Unsupported(UnsupportedReason.DEVICE_CAPABILITY)
         this.target = target
         val opened = handle
         if (opened != null && !mutableState.value.hiddenForLock) opened.attach(target)
@@ -890,6 +859,7 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
     private companion object {
         const val MAX_RETRIES = 1
         const val NOTICE_AUDIO_UNSUPPORTED = "AUDIO_UNSUPPORTED_PLAYING_SILENT"
+        const val NOTICE_IMAGE_DEGRADED = "IMAGE_MEMORY_REDUCED_QUALITY"
 
         fun commandName(command: VideoKitCommand): String = command.typeName().uppercase()
     }

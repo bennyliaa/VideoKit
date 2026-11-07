@@ -8,6 +8,7 @@ import com.videokit.api.DecoderSummary
 import com.videokit.api.ErrorCode
 import com.videokit.api.ErrorStage
 import com.videokit.api.FormatSupport
+import com.videokit.api.ImageFeatures
 import com.videokit.api.MediaKind
 import com.videokit.api.MediaProbeResult
 import com.videokit.api.OpenPurpose
@@ -21,6 +22,7 @@ import com.videokit.api.VideoKitReadHandle
 import com.videokit.core.runtime.StableErrors
 import com.videokit.core.spi.CapabilityProbe
 import com.videokit.core.spi.SpiException
+import com.videokit.image.ImageFormats
 import kotlinx.coroutines.CancellationException
 
 /**
@@ -72,13 +74,13 @@ internal class AndroidCapabilityProbe(@Suppress("unused") private val context: C
                 speeds = listOf(0.25f, 0.5f, 0.75f, 1f, 1.25f, 1.5f, 2f, 3f, 4f),
                 exactSeek = true,
             ),
+            // ImageDecoder covers JPG, PNG, WebP, HEIF, AVIF, BMP and animations from API 31 (15 §2.3).
+            imageFeatures = ImageFeatures(staticImages = true, animatedImages = true, largeImageTiling = true),
         )
     }
 
     override suspend fun media(source: VideoKitMediaSource): MediaProbeResult {
-        if (source.mediaKind != MediaKind.VIDEO) {
-            return MediaProbeResult(source.mediaToken, SupportLevel.UNSUPPORTED, SupportLevel.UNSUPPORTED)
-        }
+        val image = source.mediaKind != MediaKind.VIDEO
         val header = ByteArray(ContainerSniffer.HEADER_BYTES)
         val read = try {
             val handle = source.sourceFactory.open(OpenPurpose.PROBE)
@@ -92,6 +94,7 @@ internal class AndroidCapabilityProbe(@Suppress("unused") private val context: C
         } catch (failure: Exception) {
             throw SpiException(StableErrors.fromSourceFailure(failure, ErrorStage.PROBE))
         }
+        if (image) return imageProbe(source, header.copyOf(read.coerceAtLeast(0)))
         val container = ContainerSniffer.detect(header, read)
         return if (container == null) {
             MediaProbeResult(
@@ -108,6 +111,17 @@ internal class AndroidCapabilityProbe(@Suppress("unused") private val context: C
                 editable = SupportLevel.UNSUPPORTED,
             )
         }
+    }
+
+    /** Images (06 §6.1): the format from the header; decoding problems show when the image is bound. */
+    private fun imageProbe(source: VideoKitMediaSource, header: ByteArray): MediaProbeResult {
+        val format = ImageFormats.sniff(header)
+        return MediaProbeResult(
+            mediaToken = source.mediaToken,
+            playable = if (format != null) SupportLevel.SUPPORTED else SupportLevel.UNSUPPORTED,
+            editable = SupportLevel.UNSUPPORTED,
+            error = if (format == null) StableErrors.of(ErrorCode.UNSUPPORTED_CONTAINER, ErrorStage.PROBE, "PROBE:UNKNOWN_IMAGE") else null,
+        )
     }
 
     private fun formatSupport(mimeTypes: Set<String>): List<FormatSupport> {
