@@ -48,7 +48,7 @@ flutter/
 │       └── util/                # value_listenable_stream.dart（ValueListenable ↔ Stream）
 ├── videokit_ui/lib/
 │   ├── videokit_ui.dart
-│   ├── l10n/                    # app_en.arb, app_zh.arb, app_zh_Hans.arb；生成代码输出到 src/l10n/gen
+│   ├── l10n/                    # app_zh.arb（模板，第一版唯一维护语言）；英文 ARB 在 VK-M6 后加入；生成代码输出到 src/l10n/gen
 │   └── src/
 │       ├── theme/               # tokens/, theme_source.dart, theme_scope.dart, default_theme_source.dart, icons.dart
 │       ├── foundation/          # selector.dart, command_dispatcher.dart, layout_class.dart, auto_hide.dart, time_format.dart
@@ -622,7 +622,7 @@ lib/
 │   └── gallery_page.dart      # 组件画廊：每个组件 × 每个状态，供人工走查与 golden 对照
 └── debug/
     ├── scenario_panel.dart    # 场景切换、时钟控制（暂停/快进/×10）、重置；仅 debug 构建
-    └── settings_panel.dart    # 主题（浅/深/宿主主色）、语言（中/英/伪本地化/RTL）、字体缩放、减少动画
+    └── settings_panel.dart    # 主题（浅/深/宿主主色）、语言（中文/伪本地化/RTL；英文加入后增加）、字体缩放、减少动画
 ```
 
 - `scenario_panel` 与 `videokit_fake` 只在 `kDebugMode` 下导入（`debug/` 目录通过条件导入在 release 中替换为空实现）；release 构建检查见 §11.4。
@@ -647,7 +647,7 @@ lib/
 | --- | --- | --- |
 | 单元 | `flutter_test` | 数据类相等性；`state_mapping` 全错误码映射；`TimelineScale` 换算与吸附；`HostActionBar` 布局算法；`Mappers.kt`（JVM 单元测试）全字段往返 |
 | 组件 | `testWidgets` + `fakeAsync` | 每个组件在每个场景下的交互与状态；自动隐藏条件；连续 Seek 只提交最后一次；面板返回键行为 |
-| Golden | `matchesGoldenFile`，字体固定为测试字体包 | 矩阵：组件 × {浅, 深} × {en, zh, 伪本地化, RTL} × {1.0, 1.3, 2.0} × {compact, expanded}；按组件拆分文件，只在固定 CI 镜像上更新基线 |
+| Golden | `matchesGoldenFile`，字体固定为测试字体包 | 矩阵：组件 × {浅, 深} × {zh, 伪本地化, RTL}（英文加入后补 en） × {1.0, 1.3, 2.0} × {compact, expanded}；按组件拆分文件，只在固定 CI 镜像上更新基线 |
 | 契约 | `videokit_fake/contract` | Dart Fake 全部通过；`FlutterVideoKit` 在设备上通过（经 Kotlin Fake） |
 | 集成 | `integration_test` | 示例 App 主流程（打开 → 播放 → 拖动 → 轨道 → 全屏 → 编辑 → 打码 → 导出 → 取消）；纹理回收与重建（切后台再回来） |
 | add-to-app | `sample-host` instrumented test | Fragment 嵌入显示、宿主面板同步显隐、旋转后会话不中断、引擎销毁释放会话 |

@@ -15,7 +15,7 @@
 | --- | --- | --- | --- |
 | 单元测试 | 状态机、命令、时间线、Schema 迁移、预算算法、错误映射 | JUnit、kotlinx-coroutines-test、Turbine | JVM |
 | 契约测试 | `VideoKitContractSuite`（[04](04_PUBLIC_API_CONTRACT.md) §11）、`BrowserIntegrationContract`（[05](05_LOCALVIDEOBROWSER_INTEGRATION.md) §10） | testkit | JVM（Fake）+ 设备（真实实现） |
-| UI 测试 | 组件交互、无障碍语义（Semantics）、golden 截图对比（中英、伪本地化、RTL、大字体、深浅色、手机/平板尺寸） | `flutter_test` widget 测试与 golden 测试 | 主机（无需设备，接 `videokit_fake`）|
+| UI 测试 | 组件交互、无障碍语义（Semantics）、golden 截图对比（中文、伪本地化（英文加入后补英文）、RTL、大字体、深浅色、手机/平板尺寸） | `flutter_test` widget 测试与 golden 测试 | 主机（无需设备，接 `videokit_fake`）|
 | Flutter 集成测试 | Flutter UI 经 `videokit_flutter` 连接真实原生 Kit；Dart 契约测试 | `integration_test` | 真机 |
 | add-to-app 嵌入 | 原生宿主嵌入 Flutter UI、回调转发、引擎预热、包体积与首帧耗时 | AndroidX Test | 真机 |
 | 集成测试 | 真实 Media3 播放、图片解码、导出、跟踪 | AndroidX Test | 真机 |
@@ -65,7 +65,7 @@ jpg/jpeg、png、webp、heic/heif、avif、bmp、gif；静态 WebP、动态 WebP
 | 设备 | ARM64 实体手机；10 英寸级实体平板（或明确记录的等价设备） |
 | 形态 | 竖屏、横屏、分屏、窗口变化 |
 | 字体 | 100%、130%、200% |
-| 语言 | 简体中文、英文、伪本地化、RTL 冒烟 |
+| 语言 | 简体中文、伪本地化、RTL 冒烟；英文在 VK-M6 后加入 |
 
 可用设备及型号在每个里程碑测试前登记。
 
