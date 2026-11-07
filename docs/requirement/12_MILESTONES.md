@@ -126,6 +126,13 @@ VideoKit App 的外壳从 VK-M0 起与模块并行搭建（先接 Fake，随各�
 - 缺陷由负责人裁定后整批交回 coder；修复后的回归随下一轮测试一起进行，除阻断问题外不单独开轮。
 - 测试机分配前不做真机测试，相关项标 NOT_RUN。
 
+### 3B. 开发先行、测试后补（2026-11-07 用户确认）
+
+- VK-M0 开发完成后**直接继续开发 VK-M1、VK-M2**，不等待测试资源；有测试资源（测试机、tester）时再回头集中测试。
+- 因此聚焦验证 S1、S2 暂不作为 VK-M1 的开工前置：M1 先按 [15](15_MEDIA_TECHNOLOGY_DECISIONS.md) 的“待验证”方案实现，S1/S2 有结果后若需调整，作为独立修正批处理。
+- 每批仍要求：编译通过、JVM/主机侧测试通过、Fake 契约与 `spec` 向量通过；需要设备的项标 NOT_RUN，并写入 `D:\CodexProjects\VideoKit test-workspace\reports\PENDING_TESTS.md`（待测清单：里程碑、项目、需要的资源、对应需求编号），测试资源到位后按清单集中补测。
+- 里程碑的“开发完成”与“验收通过”分开记录：未经真机与独立测试的里程碑只能标为“开发完成，待测”，不得写成通过。
+
 ## 4. 每个里程碑的交付物
 
 1. 源码（Git commit）与构建产物（AAR、Flutter 包、`videokit_example` 与 `sample-host` APK）及 SHA-256。
