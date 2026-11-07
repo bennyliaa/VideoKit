@@ -92,6 +92,7 @@
 | # | 项 | 裁定 | 改动方 |
 | --- | --- | --- | --- |
 | L1 | 循环播放 | 新增命令 `SetLooping(looping: Boolean)`，`VideoKitSessionState` 增加 `looping`。默认值按媒体类型：动态图 `true`，视频 `false`。`looping=false` 时播放到末尾停在末帧（视频为最后一帧、动图为最后一帧），进入 ENDED 并发出 `PlaybackEnded`；`looping=true` 时不发 `PlaybackEnded`。静态图收到该命令返回 `Unsupported(MEDIA_KIND)` | 两侧 + spec 向量（Coder B） |
+| L3 | 循环写入快照（V1.4 补充，M1-B1 提出） | 两侧 `VideoKitPlaybackState` 增加 `looping: Boolean?`：null 表示按媒体类型的默认值；bind 时 `initialState.looping` 非 null 则覆盖默认值。宿主按 05 §3 保存偏好时一并保存 | 两侧 + 通道 |
 | L2 | 图片详情 | `VideoKitSessionState` 增加可空字段 `imageDetails: ImageDetails?`，`ImageDetails(frameCount: Int?, decodedBytes: Long?, sampleSize: Int?)`；原生侧能提供就填，拿不到为 null，UI 只显示有值的项。视频会话恒为 null | 两侧 |
 
 ## 4D. 补充裁定（V1.4，2026-11-07，M0-B5 App 外壳提出）
