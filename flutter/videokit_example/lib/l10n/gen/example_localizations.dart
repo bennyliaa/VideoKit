@@ -738,6 +738,90 @@ abstract class ExampleLocalizations {
   /// In zh, this message translates to:
   /// **'演示画面 {index}'**
   String demoSlotTitle(int index);
+
+  /// 画廊：打开剪辑演示页。
+  ///
+  /// In zh, this message translates to:
+  /// **'剪辑'**
+  String get navEditor;
+
+  /// 演示工程名称。
+  ///
+  /// In zh, this message translates to:
+  /// **'海边旅行'**
+  String get editProjectTitle;
+
+  /// 剪辑演示的 Fake 场景选择。
+  ///
+  /// In zh, this message translates to:
+  /// **'场景'**
+  String get editScenario;
+
+  /// Fake 场景：一切正常。
+  ///
+  /// In zh, this message translates to:
+  /// **'正常'**
+  String get editScenarioNormal;
+
+  /// Fake 场景：跟踪在 4–6 秒丢失目标。
+  ///
+  /// In zh, this message translates to:
+  /// **'跟踪丢失'**
+  String get editScenarioTrackingLost;
+
+  /// Fake 场景：编码阶段因空间不足失败。
+  ///
+  /// In zh, this message translates to:
+  /// **'导出失败'**
+  String get editScenarioExportFails;
+
+  /// Fake 场景：取消导出需要 2 秒。
+  ///
+  /// In zh, this message translates to:
+  /// **'取消较慢'**
+  String get editScenarioCancelSlow;
+
+  /// 演示视频名。
+  ///
+  /// In zh, this message translates to:
+  /// **'海边.mp4'**
+  String get demoVideoSea;
+
+  /// 演示视频名。
+  ///
+  /// In zh, this message translates to:
+  /// **'山谷黄昏.mkv'**
+  String get demoVideoValley;
+
+  /// 演示视频名。
+  ///
+  /// In zh, this message translates to:
+  /// **'城市夜景.mov'**
+  String get demoVideoCity;
+
+  /// “添加视频”加入的演示视频名。
+  ///
+  /// In zh, this message translates to:
+  /// **'补充素材 {index}.mp4'**
+  String demoVideoMore(int index);
+
+  /// 导出完成后的宿主动作：打开。
+  ///
+  /// In zh, this message translates to:
+  /// **'打开'**
+  String get exportOpen;
+
+  /// 导出完成后的宿主动作：分享。
+  ///
+  /// In zh, this message translates to:
+  /// **'分享'**
+  String get exportShare;
+
+  /// 演示：宿主动作被触发。
+  ///
+  /// In zh, this message translates to:
+  /// **'宿主处理：{action}'**
+  String hostHandled(String action);
 }
 
 class _ExampleLocalizationsDelegate

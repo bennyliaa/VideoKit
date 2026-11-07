@@ -270,6 +270,16 @@ abstract final class VkTokenKeys {
     'previous',
     'next',
     'loop',
+    'zoomin',
+    'zoomout',
+    'add',
+    'reorder',
+    'clips',
+    'selectbox',
+    'radioon',
+    'radiooff',
+    'checkboxon',
+    'checkboxoff',
     'unknown',
   ];
 

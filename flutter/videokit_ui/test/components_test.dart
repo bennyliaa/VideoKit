@@ -265,6 +265,9 @@ void main() {
       'foundation',
       'image_viewer',
       'slot',
+      'editor',
+      'mask',
+      'export',
     ];
     final pattern = RegExp(
       r"Color\(0x|Colors\.|fontSize:|Text\(\s*'|label:\s*'",

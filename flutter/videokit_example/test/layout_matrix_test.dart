@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'dart:async';
+
+import 'package:videokit_example/editor/edit_demo_page.dart';
 import 'package:videokit_example/gallery/components_page.dart';
 import 'package:videokit_example/image/image_demo_page.dart';
 import 'package:videokit_example/multiview/multi_view_demo_page.dart';
@@ -137,6 +141,45 @@ void main() {
           }
         });
 
+        testWidgets('editor modes without overflow: $tag', (tester) async {
+          setViewSize(tester, size);
+          await tester.pumpWidget(
+            testApp(
+              const EditDemoPage(showScenarioPicker: false),
+              locale: locale,
+              textScale: scale,
+            ),
+          );
+          for (var i = 0; i < 15; i++) {
+            await tester.pump(const Duration(milliseconds: 200));
+          }
+          expect(tester.takeException(), isNull, reason: 'clips');
+          final e = tester.state<VideoKitEditorState>(
+            find.byType(VideoKitEditor),
+          );
+          e.controller.selectClip(e.controller.state.timeline.clips[1].clipId);
+          await tester.pump(const Duration(milliseconds: 200));
+          expect(tester.takeException(), isNull, reason: 'selected');
+          e.openMasks(MaskEditorTab.manual);
+          await tester.pump(const Duration(milliseconds: 200));
+          unawaited(e.maskEditor!.addManualMask());
+          await tester.pump(const Duration(milliseconds: 400));
+          expect(tester.takeException(), isNull, reason: 'mask');
+          e.openMasks(MaskEditorTab.tracking);
+          await tester.pump(const Duration(milliseconds: 200));
+          unawaited(e.maskEditor!.detectFaces());
+          for (var i = 0; i < 3; i++) {
+            await tester.pump(const Duration(milliseconds: 200));
+          }
+          expect(tester.takeException(), isNull, reason: 'tracking');
+          e.openExport();
+          for (var i = 0; i < 3; i++) {
+            await tester.pump(const Duration(milliseconds: 200));
+          }
+          expect(tester.takeException(), isNull, reason: 'export');
+          await tester.pumpWidget(const SizedBox());
+          await tester.pump(Duration.zero);
+        });
         testWidgets('multi-view page without overflow: $tag', (tester) async {
           setViewSize(tester, size);
           for (final count in [4, 12]) {
@@ -161,6 +204,46 @@ void main() {
 
   group('accessibility guidelines', () {
     for (final MapEntry(key: sizeName, value: size) in _sizes.entries) {
+      for (final mode in ['clips', 'mask', 'tracking', 'export']) {
+        testWidgets('editor $mode: tap targets, labels, contrast ($sizeName)', (
+          tester,
+        ) async {
+          final handle = tester.ensureSemantics();
+          setViewSize(tester, size);
+          await tester.pumpWidget(
+            testApp(const EditDemoPage(showScenarioPicker: false)),
+          );
+          for (var i = 0; i < 15; i++) {
+            await tester.pump(const Duration(milliseconds: 200));
+          }
+          final e = tester.state<VideoKitEditorState>(
+            find.byType(VideoKitEditor),
+          );
+          e.controller.selectClip(e.controller.state.timeline.clips[0].clipId);
+          switch (mode) {
+            case 'mask':
+              e.openMasks(MaskEditorTab.manual);
+              await tester.pump(const Duration(milliseconds: 200));
+              unawaited(e.maskEditor!.addManualMask());
+            case 'tracking':
+              e.openMasks(MaskEditorTab.tracking);
+              await tester.pump(const Duration(milliseconds: 200));
+              unawaited(e.maskEditor!.detectFaces());
+            case 'export':
+              e.openExport();
+          }
+          for (var i = 0; i < 4; i++) {
+            await tester.pump(const Duration(milliseconds: 200));
+          }
+          await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+          await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+          await expectLater(tester, meetsGuideline(textContrastGuideline));
+          await tester.pumpWidget(const SizedBox());
+          await tester.pump(Duration.zero);
+          handle.dispose();
+        });
+      }
+
       testWidgets('image viewer: tap targets, labels, contrast ($sizeName)', (
         tester,
       ) async {

@@ -489,4 +489,615 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String infoSampleSizeValue(int size) {
     return '按 1/$size 采样';
   }
+
+  @override
+  String get editorTitle => '剪辑';
+
+  @override
+  String get editorUndo => '撤销';
+
+  @override
+  String get editorRedo => '重做';
+
+  @override
+  String get editorExport => '导出';
+
+  @override
+  String get editorAddVideo => '添加视频';
+
+  @override
+  String get editorSplit => '分割';
+
+  @override
+  String get editorDelete => '删除';
+
+  @override
+  String get editorReorder => '排序';
+
+  @override
+  String get editorMask => '打码';
+
+  @override
+  String get editorTrack => '自动跟踪';
+
+  @override
+  String get editorTrackShort => '跟踪';
+
+  @override
+  String get editorClipsTab => '剪辑';
+
+  @override
+  String get editorAddTab => '添加';
+
+  @override
+  String get editorNoSelection => '点按时间线上的片段进行编辑';
+
+  @override
+  String get editorEmpty => '还没有片段，先添加视频';
+
+  @override
+  String editorClip(int index) {
+    return '片段 $index';
+  }
+
+  @override
+  String editorClipProps(int index) {
+    return '片段 $index 属性';
+  }
+
+  @override
+  String editorClipSummary(int index, String duration) {
+    return '片段 $index · $duration';
+  }
+
+  @override
+  String get propSource => '来源';
+
+  @override
+  String get propIn => '起点';
+
+  @override
+  String get propOut => '终点';
+
+  @override
+  String get propDuration => '时长';
+
+  @override
+  String durationSeconds(String seconds) {
+    return '$seconds 秒';
+  }
+
+  @override
+  String get keyframeAlignNotice => '快速拼接时边界将对齐到最近的关键帧';
+
+  @override
+  String get concatFast => '参数一致，可快速拼接';
+
+  @override
+  String get concatTranscodeTitle => '参数不一致，将统一转码';
+
+  @override
+  String concatTranscodeDetail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '有 $count 个视频的分辨率、帧率、编码或方向与第一个不同',
+    );
+    return '$_temp0：将按导出预设统一转码，并校正旋转方向。';
+  }
+
+  @override
+  String get fastConcatAvailable => '快速拼接可用';
+
+  @override
+  String get fastConcatUnavailable => '快速拼接（无重编码）：不可用';
+
+  @override
+  String estimateLine(String duration, String size) {
+    return '预计 $duration · 约 $size';
+  }
+
+  @override
+  String estimateDurationOnly(String duration) {
+    return '预计 $duration · 大小无法预估';
+  }
+
+  @override
+  String get estimateUnknown => '无法预估';
+
+  @override
+  String editorTime(String position, String duration) {
+    return '$position / $duration';
+  }
+
+  @override
+  String get timelineLabel => '时间线';
+
+  @override
+  String get timelineZoomIn => '放大时间线';
+
+  @override
+  String get timelineZoomOut => '缩小时间线';
+
+  @override
+  String clipSemantic(int index, String start, String end, String duration) {
+    return '片段 $index，$start 至 $end，时长 $duration';
+  }
+
+  @override
+  String get clipMoveEarlier => '前移一位';
+
+  @override
+  String get clipMoveLater => '后移一位';
+
+  @override
+  String get clipTrimStart => '调整起点';
+
+  @override
+  String get clipTrimEnd => '调整终点';
+
+  @override
+  String get sourcesTitle => '多视频拼接';
+
+  @override
+  String sourcesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个视频',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sourceMeta(int width, int height, String fps, String codec) {
+    return '$width × $height · $fps fps · $codec';
+  }
+
+  @override
+  String sourceRotated(int degrees) {
+    return '旋转 $degrees°';
+  }
+
+  @override
+  String get maskTitle => '打码';
+
+  @override
+  String get maskDone => '完成';
+
+  @override
+  String get maskListTitle => '遮罩';
+
+  @override
+  String get maskAdd => '添加遮罩';
+
+  @override
+  String maskName(int index) {
+    return '遮罩 $index';
+  }
+
+  @override
+  String maskSummary(String style, String start, String end) {
+    return '$style · $start – $end';
+  }
+
+  @override
+  String maskKeyframes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '关键帧 $count 个',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get maskKeyframesTracker => '关键帧由跟踪生成';
+
+  @override
+  String get maskTypeManual => '手动';
+
+  @override
+  String get maskTypeFace => '人脸跟踪';
+
+  @override
+  String get maskTypeObject => '物体跟踪';
+
+  @override
+  String get maskStyle => '样式';
+
+  @override
+  String get maskStyleMosaic => '马赛克';
+
+  @override
+  String get maskStyleBlur => '模糊';
+
+  @override
+  String get maskStrength => '强度';
+
+  @override
+  String get maskDelete => '删除遮罩';
+
+  @override
+  String get maskEnable => '启用遮罩';
+
+  @override
+  String maskKeyframeTitle(int index) {
+    return '遮罩 $index 关键帧';
+  }
+
+  @override
+  String get maskAddKeyframe => '在当前帧添加关键帧';
+
+  @override
+  String get maskRemoveKeyframe => '删除当前关键帧';
+
+  @override
+  String get maskBox => '遮罩区域';
+
+  @override
+  String get maskBoxHint => '拖动移动，四角与四边调整大小';
+
+  @override
+  String get maskNone => '还没有遮罩，点“添加遮罩”或使用自动跟踪';
+
+  @override
+  String get trackLocalOnly => '本机处理 · 不上传';
+
+  @override
+  String get trackDetectFaces => '检测人脸';
+
+  @override
+  String trackDetected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '检测到 $count 张人脸',
+      zero: '当前帧没有检测到人脸',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get trackChooseHint => '选择需要打码的目标，不会默认处理所有人';
+
+  @override
+  String trackTarget(String letter) {
+    return '目标 $letter';
+  }
+
+  @override
+  String trackFace(int index) {
+    return '人脸 $index';
+  }
+
+  @override
+  String get trackTapToSelect => '点按选择';
+
+  @override
+  String get trackObject => '框选物体';
+
+  @override
+  String get trackObjectHint => '在画面上点选或拖出物体所在区域';
+
+  @override
+  String get trackRunning => '跟踪中';
+
+  @override
+  String trackAnalyzed(String done, String total) {
+    return '已分析 $done / $total';
+  }
+
+  @override
+  String get trackAnalyzing => '正在分析…';
+
+  @override
+  String get trackCancel => '取消跟踪';
+
+  @override
+  String get trackCompleted => '跟踪完成';
+
+  @override
+  String get trackCancelled => '已取消跟踪';
+
+  @override
+  String get trackFailed => '跟踪失败';
+
+  @override
+  String get coverageTracked => '已跟踪';
+
+  @override
+  String get coverageLow => '置信度低';
+
+  @override
+  String get coverageAmbiguous => '可能混淆';
+
+  @override
+  String get coverageLost => '丢失';
+
+  @override
+  String get coverageNotAnalyzed => '未分析';
+
+  @override
+  String get coverageAccepted => '已确认';
+
+  @override
+  String coverageStripLabel(String name) {
+    return '$name 跟踪状态';
+  }
+
+  @override
+  String coverageSegment(String state, String start, String end) {
+    return '$state，$start – $end';
+  }
+
+  @override
+  String get trackCorrect => '纠正';
+
+  @override
+  String get trackCorrectHint => '在画面上拖出目标的新位置';
+
+  @override
+  String get trackRecomputing => '待重新计算';
+
+  @override
+  String checkTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '发现 $count 个未覆盖区间',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get checkSubtitle => '这些时间段内目标可能未被打码';
+
+  @override
+  String checkRange(String name, String start, String end) {
+    return '$name · $start – $end';
+  }
+
+  @override
+  String get checkJump => '跳转纠正';
+
+  @override
+  String get checkManual => '手动关键帧';
+
+  @override
+  String get checkFullFrame => '全画面打码';
+
+  @override
+  String get checkBack => '返回修正';
+
+  @override
+  String get checkForce => '仍要导出（结果将标记为“打码不完整”）';
+
+  @override
+  String get exportTitle => '导出';
+
+  @override
+  String get exportPresets => '导出预设';
+
+  @override
+  String get presetOriginal => '原始';
+
+  @override
+  String get presetOriginalDetail => '与源视频相同 · 推荐';
+
+  @override
+  String get preset1080 => '1080p';
+
+  @override
+  String get preset720 => '720p';
+
+  @override
+  String presetLongEdge(int px) {
+    return '长边 $px';
+  }
+
+  @override
+  String get presetUnavailable => '此设备不可用';
+
+  @override
+  String exportFormat(String format) {
+    return '格式 $format';
+  }
+
+  @override
+  String get exportChecks => '导出前检查';
+
+  @override
+  String get checkEncoder => '编码器';
+
+  @override
+  String get checkEncoderOk => '编码器可用';
+
+  @override
+  String get checkEncoderFail => '编码器不可用';
+
+  @override
+  String get checkOutput => '输出位置';
+
+  @override
+  String get checkOutputOk => '由宿主提供';
+
+  @override
+  String get checkOutputFail => '输出位置不支持写入';
+
+  @override
+  String get checkSpace => '空间';
+
+  @override
+  String checkSpaceValue(String need, String free) {
+    return '需约 $need，可用 $free';
+  }
+
+  @override
+  String checkSpaceNeed(String need) {
+    return '需约 $need';
+  }
+
+  @override
+  String get checkSpaceUnknown => '无法预估所需空间';
+
+  @override
+  String get checkSpaceFail => '空间不足';
+
+  @override
+  String get checkCoverage => '打码覆盖';
+
+  @override
+  String get checkCoverageOk => '全部目标已覆盖';
+
+  @override
+  String get checkCoverageNone => '没有自动跟踪遮罩';
+
+  @override
+  String checkCoverageFail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '有 $count 个未覆盖区间',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get checkPassed => '通过';
+
+  @override
+  String get checkProblem => '有问题';
+
+  @override
+  String get checkRunning => '正在检查…';
+
+  @override
+  String get exportSafety => '导出生成新文件，原视频不会被修改；保存位置与最终命名由宿主确认。';
+
+  @override
+  String get exportStart => '开始导出';
+
+  @override
+  String get exportReviewCoverage => '查看未覆盖区间';
+
+  @override
+  String get exporting => '正在导出';
+
+  @override
+  String get stagePreparing => '准备';
+
+  @override
+  String get stageTracking => '跟踪';
+
+  @override
+  String get stageEncoding => '编码';
+
+  @override
+  String get stageVerifying => '校验输出';
+
+  @override
+  String get stageWriting => '写入宿主位置';
+
+  @override
+  String get stageDone => '已完成';
+
+  @override
+  String get stageWaiting => '等待';
+
+  @override
+  String get stageInProgress => '进行中';
+
+  @override
+  String stageRemaining(String duration) {
+    return '约 $duration';
+  }
+
+  @override
+  String stageProcessed(String done, String total) {
+    return '已处理 $done / $total';
+  }
+
+  @override
+  String stageOutputSize(String size) {
+    return '已输出 $size';
+  }
+
+  @override
+  String get exportNoPause => '导出不支持暂停。取消后可重新导出，不会留下未完成的文件。';
+
+  @override
+  String get exportCancel => '取消导出';
+
+  @override
+  String get exportCancelling => '正在取消…';
+
+  @override
+  String get exportCancelled => '已取消，未生成文件';
+
+  @override
+  String get exportCancelledPartial => '已取消，部分输出未能删除';
+
+  @override
+  String get exportFailedTitle => '导出失败';
+
+  @override
+  String get exportImpactSource => '原视频未受影响';
+
+  @override
+  String get exportImpactDiscarded => '未完成的输出已丢弃';
+
+  @override
+  String exportErrorCode(String code) {
+    return '错误代码 $code';
+  }
+
+  @override
+  String get exportRetry => '重新导出';
+
+  @override
+  String exportUseSmaller(String preset) {
+    return '改用 $preset 重新导出';
+  }
+
+  @override
+  String get exportBackToEdit => '返回编辑';
+
+  @override
+  String get exportDoneTitle => '导出完成';
+
+  @override
+  String get exportDoneDetail => '文件已写入宿主提供的临时位置，正式保存由宿主确认。';
+
+  @override
+  String get summaryFormat => '格式';
+
+  @override
+  String get summaryResolution => '分辨率';
+
+  @override
+  String get summaryDuration => '时长';
+
+  @override
+  String get summarySize => '大小';
+
+  @override
+  String get summaryWarnings => '提示';
+
+  @override
+  String get warnBoundary => '边界已对齐到关键帧';
+
+  @override
+  String get warnSilence => '已为无声片段插入静音';
+
+  @override
+  String get warnCoverage => '打码不完整（已确认导出未覆盖区间）';
+
+  @override
+  String get warnDemo => '演示模式：未生成真实媒体文件';
+
+  @override
+  String maskNameTyped(int index, String type) {
+    return '遮罩 $index · $type';
+  }
 }

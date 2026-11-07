@@ -358,4 +358,50 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
   String demoSlotTitle(int index) {
     return '演示画面 $index';
   }
+
+  @override
+  String get navEditor => '剪辑';
+
+  @override
+  String get editProjectTitle => '海边旅行';
+
+  @override
+  String get editScenario => '场景';
+
+  @override
+  String get editScenarioNormal => '正常';
+
+  @override
+  String get editScenarioTrackingLost => '跟踪丢失';
+
+  @override
+  String get editScenarioExportFails => '导出失败';
+
+  @override
+  String get editScenarioCancelSlow => '取消较慢';
+
+  @override
+  String get demoVideoSea => '海边.mp4';
+
+  @override
+  String get demoVideoValley => '山谷黄昏.mkv';
+
+  @override
+  String get demoVideoCity => '城市夜景.mov';
+
+  @override
+  String demoVideoMore(int index) {
+    return '补充素材 $index.mp4';
+  }
+
+  @override
+  String get exportOpen => '打开';
+
+  @override
+  String get exportShare => '分享';
+
+  @override
+  String hostHandled(String action) {
+    return '宿主处理：$action';
+  }
 }

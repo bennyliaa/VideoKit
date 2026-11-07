@@ -509,7 +509,6 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
-    final glass = t.drawables.glassPlayer;
     final percent = VkFormat.percent(s, _zoomFraction);
     return [
       PositionedDirectional(
@@ -530,7 +529,12 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
                     vertical: d.spacing4,
                   ),
                   decoration: BoxDecoration(
-                    color: glass.color,
+                    // Design p. 13: opaque dark capsule, visible over the black
+                    // canvas and over bright pictures alike.
+                    color: Color.alphaBlend(
+                      t.colors.playerControlsContent.withValues(alpha: 0.12),
+                      t.colors.playerCanvas,
+                    ),
                     borderRadius: BorderRadius.circular(d.cornerFull),
                   ),
                   child: Text(

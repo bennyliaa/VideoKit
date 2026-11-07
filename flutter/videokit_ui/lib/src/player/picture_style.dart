@@ -28,3 +28,17 @@ VkStateStyle<VkBoxStyle> vkOnPictureIconStyle(BuildContext context) {
     ),
   );
 }
+
+/// Applies [f] to every state of a box style (package internal).
+extension VkBoxStateStyleCopy on VkStateStyle<VkBoxStyle> {
+  /// Copy with [f] applied to all six states.
+  VkStateStyle<VkBoxStyle> copyWithAll(VkBoxStyle Function(VkBoxStyle) f) =>
+      VkStateStyle<VkBoxStyle>(
+        normal: f(normal),
+        pressed: f(pressed),
+        focused: f(focused),
+        disabled: f(disabled),
+        selected: f(selected),
+        hovered: f(hovered),
+      );
+}

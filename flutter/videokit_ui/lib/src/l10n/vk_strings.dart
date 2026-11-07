@@ -180,6 +180,141 @@ final class VkStrings {
     'slotErrorOnly': l10n.slotErrorOnly,
     'slotRemove': l10n.slotRemove,
     'gridMuteAll': l10n.gridMuteAll,
+    'editorTitle': l10n.editorTitle,
+    'editorUndo': l10n.editorUndo,
+    'editorRedo': l10n.editorRedo,
+    'editorExport': l10n.editorExport,
+    'editorAddVideo': l10n.editorAddVideo,
+    'editorSplit': l10n.editorSplit,
+    'editorDelete': l10n.editorDelete,
+    'editorReorder': l10n.editorReorder,
+    'editorMask': l10n.editorMask,
+    'editorTrack': l10n.editorTrack,
+    'editorTrackShort': l10n.editorTrackShort,
+    'editorClipsTab': l10n.editorClipsTab,
+    'editorAddTab': l10n.editorAddTab,
+    'editorNoSelection': l10n.editorNoSelection,
+    'editorEmpty': l10n.editorEmpty,
+    'propSource': l10n.propSource,
+    'propIn': l10n.propIn,
+    'propOut': l10n.propOut,
+    'propDuration': l10n.propDuration,
+    'keyframeAlignNotice': l10n.keyframeAlignNotice,
+    'concatFast': l10n.concatFast,
+    'concatTranscodeTitle': l10n.concatTranscodeTitle,
+    'fastConcatAvailable': l10n.fastConcatAvailable,
+    'fastConcatUnavailable': l10n.fastConcatUnavailable,
+    'estimateUnknown': l10n.estimateUnknown,
+    'timelineLabel': l10n.timelineLabel,
+    'timelineZoomIn': l10n.timelineZoomIn,
+    'timelineZoomOut': l10n.timelineZoomOut,
+    'clipMoveEarlier': l10n.clipMoveEarlier,
+    'clipMoveLater': l10n.clipMoveLater,
+    'clipTrimStart': l10n.clipTrimStart,
+    'clipTrimEnd': l10n.clipTrimEnd,
+    'sourcesTitle': l10n.sourcesTitle,
+    'maskTitle': l10n.maskTitle,
+    'maskDone': l10n.maskDone,
+    'maskListTitle': l10n.maskListTitle,
+    'maskAdd': l10n.maskAdd,
+    'maskKeyframesTracker': l10n.maskKeyframesTracker,
+    'maskTypeManual': l10n.maskTypeManual,
+    'maskTypeFace': l10n.maskTypeFace,
+    'maskTypeObject': l10n.maskTypeObject,
+    'maskStyle': l10n.maskStyle,
+    'maskStyleMosaic': l10n.maskStyleMosaic,
+    'maskStyleBlur': l10n.maskStyleBlur,
+    'maskStrength': l10n.maskStrength,
+    'maskDelete': l10n.maskDelete,
+    'maskEnable': l10n.maskEnable,
+    'maskAddKeyframe': l10n.maskAddKeyframe,
+    'maskRemoveKeyframe': l10n.maskRemoveKeyframe,
+    'maskBox': l10n.maskBox,
+    'maskBoxHint': l10n.maskBoxHint,
+    'maskNone': l10n.maskNone,
+    'trackLocalOnly': l10n.trackLocalOnly,
+    'trackDetectFaces': l10n.trackDetectFaces,
+    'trackChooseHint': l10n.trackChooseHint,
+    'trackTapToSelect': l10n.trackTapToSelect,
+    'trackObject': l10n.trackObject,
+    'trackObjectHint': l10n.trackObjectHint,
+    'trackRunning': l10n.trackRunning,
+    'trackAnalyzing': l10n.trackAnalyzing,
+    'trackCancel': l10n.trackCancel,
+    'trackCompleted': l10n.trackCompleted,
+    'trackCancelled': l10n.trackCancelled,
+    'trackFailed': l10n.trackFailed,
+    'coverageTracked': l10n.coverageTracked,
+    'coverageLow': l10n.coverageLow,
+    'coverageAmbiguous': l10n.coverageAmbiguous,
+    'coverageLost': l10n.coverageLost,
+    'coverageNotAnalyzed': l10n.coverageNotAnalyzed,
+    'coverageAccepted': l10n.coverageAccepted,
+    'trackCorrect': l10n.trackCorrect,
+    'trackCorrectHint': l10n.trackCorrectHint,
+    'trackRecomputing': l10n.trackRecomputing,
+    'checkSubtitle': l10n.checkSubtitle,
+    'checkJump': l10n.checkJump,
+    'checkManual': l10n.checkManual,
+    'checkFullFrame': l10n.checkFullFrame,
+    'checkBack': l10n.checkBack,
+    'checkForce': l10n.checkForce,
+    'exportTitle': l10n.exportTitle,
+    'exportPresets': l10n.exportPresets,
+    'presetOriginal': l10n.presetOriginal,
+    'presetOriginalDetail': l10n.presetOriginalDetail,
+    'preset1080': l10n.preset1080,
+    'preset720': l10n.preset720,
+    'presetUnavailable': l10n.presetUnavailable,
+    'exportChecks': l10n.exportChecks,
+    'checkEncoder': l10n.checkEncoder,
+    'checkEncoderOk': l10n.checkEncoderOk,
+    'checkEncoderFail': l10n.checkEncoderFail,
+    'checkOutput': l10n.checkOutput,
+    'checkOutputOk': l10n.checkOutputOk,
+    'checkOutputFail': l10n.checkOutputFail,
+    'checkSpace': l10n.checkSpace,
+    'checkSpaceUnknown': l10n.checkSpaceUnknown,
+    'checkSpaceFail': l10n.checkSpaceFail,
+    'checkCoverage': l10n.checkCoverage,
+    'checkCoverageOk': l10n.checkCoverageOk,
+    'checkCoverageNone': l10n.checkCoverageNone,
+    'checkPassed': l10n.checkPassed,
+    'checkProblem': l10n.checkProblem,
+    'checkRunning': l10n.checkRunning,
+    'exportSafety': l10n.exportSafety,
+    'exportStart': l10n.exportStart,
+    'exportReviewCoverage': l10n.exportReviewCoverage,
+    'exporting': l10n.exporting,
+    'stagePreparing': l10n.stagePreparing,
+    'stageTracking': l10n.stageTracking,
+    'stageEncoding': l10n.stageEncoding,
+    'stageVerifying': l10n.stageVerifying,
+    'stageWriting': l10n.stageWriting,
+    'stageDone': l10n.stageDone,
+    'stageWaiting': l10n.stageWaiting,
+    'stageInProgress': l10n.stageInProgress,
+    'exportNoPause': l10n.exportNoPause,
+    'exportCancel': l10n.exportCancel,
+    'exportCancelling': l10n.exportCancelling,
+    'exportCancelled': l10n.exportCancelled,
+    'exportCancelledPartial': l10n.exportCancelledPartial,
+    'exportFailedTitle': l10n.exportFailedTitle,
+    'exportImpactSource': l10n.exportImpactSource,
+    'exportImpactDiscarded': l10n.exportImpactDiscarded,
+    'exportRetry': l10n.exportRetry,
+    'exportBackToEdit': l10n.exportBackToEdit,
+    'exportDoneTitle': l10n.exportDoneTitle,
+    'exportDoneDetail': l10n.exportDoneDetail,
+    'summaryFormat': l10n.summaryFormat,
+    'summaryResolution': l10n.summaryResolution,
+    'summaryDuration': l10n.summaryDuration,
+    'summarySize': l10n.summarySize,
+    'summaryWarnings': l10n.summaryWarnings,
+    'warnBoundary': l10n.warnBoundary,
+    'warnSilence': l10n.warnSilence,
+    'warnCoverage': l10n.warnCoverage,
+    'warnDemo': l10n.warnDemo,
     for (final a in SuggestedAction.values)
       if (a != SuggestedAction.none) actionKey(a): _action(a),
     for (final c in ErrorCode.values) errorKey(c): _error(c),
@@ -206,6 +341,41 @@ final class VkStrings {
     'slotLabel',
     'infoFrameCountValue',
     'infoSampleSizeValue',
+    'editorClip',
+    'editorClipProps',
+    'editorClipSummary',
+    'durationSeconds',
+    'concatTranscodeDetail',
+    'estimateLine',
+    'estimateDurationOnly',
+    'editorTime',
+    'clipSemantic',
+    'sourcesCount',
+    'sourceMeta',
+    'sourceRotated',
+    'maskName',
+    'maskNameTyped',
+    'maskSummary',
+    'maskKeyframes',
+    'maskKeyframeTitle',
+    'trackDetected',
+    'trackTarget',
+    'trackFace',
+    'trackAnalyzed',
+    'coverageStripLabel',
+    'coverageSegment',
+    'checkTitle',
+    'checkRange',
+    'presetLongEdge',
+    'exportFormat',
+    'checkSpaceValue',
+    'checkSpaceNeed',
+    'checkCoverageFail',
+    'stageRemaining',
+    'stageProcessed',
+    'stageOutputSize',
+    'exportErrorCode',
+    'exportUseSmaller',
   };
 
   /// Text for [key]: override, else localized default, else [key].
@@ -273,6 +443,125 @@ final class VkStrings {
 
   /// Decode sample size value (> 1).
   String infoSampleSizeValue(int size) => _out(l10n.infoSampleSizeValue(size));
+
+  /// 时间线片段名。
+  String editorClip(int index) => _out(l10n.editorClip(index));
+
+  /// 属性面板标题。
+  String editorClipProps(int index) => _out(l10n.editorClipProps(index));
+
+  /// 手机端选中片段卡片标题。
+  String editorClipSummary(int index, String duration) =>
+      _out(l10n.editorClipSummary(index, duration));
+
+  /// 以秒表示的时长，例如“18.6 秒”。
+  String durationSeconds(String seconds) => _out(l10n.durationSeconds(seconds));
+
+  /// 不一致时的说明。
+  String concatTranscodeDetail(int count) =>
+      _out(l10n.concatTranscodeDetail(count));
+
+  /// 预计输出时长与大小。
+  String estimateLine(String duration, String size) =>
+      _out(l10n.estimateLine(duration, size));
+
+  /// 只能估算时长。
+  String estimateDurationOnly(String duration) =>
+      _out(l10n.estimateDurationOnly(duration));
+
+  /// 预览时间。
+  String editorTime(String position, String duration) =>
+      _out(l10n.editorTime(position, duration));
+
+  /// 片段的读屏描述。
+  String clipSemantic(int index, String start, String end, String duration) =>
+      _out(l10n.clipSemantic(index, start, end, duration));
+
+  /// 视频数量。
+  String sourcesCount(int count) => _out(l10n.sourcesCount(count));
+
+  /// 视频参数。
+  String sourceMeta(int width, int height, String fps, String codec) =>
+      _out(l10n.sourceMeta(width, height, fps, codec));
+
+  /// 视频带旋转元数据。
+  String sourceRotated(int degrees) => _out(l10n.sourceRotated(degrees));
+
+  /// 遮罩名称。
+  String maskName(int index) => _out(l10n.maskName(index));
+
+  /// 遮罩样式与时间范围。
+  String maskSummary(String style, String start, String end) =>
+      _out(l10n.maskSummary(style, start, end));
+
+  /// 关键帧数量。
+  String maskKeyframes(int count) => _out(l10n.maskKeyframes(count));
+
+  /// 关键帧行标题。
+  String maskKeyframeTitle(int index) => _out(l10n.maskKeyframeTitle(index));
+
+  /// 检测结果。
+  String trackDetected(int count) => _out(l10n.trackDetected(count));
+
+  /// 已选目标。
+  String trackTarget(String letter) => _out(l10n.trackTarget(letter));
+
+  /// 未选人脸。
+  String trackFace(int index) => _out(l10n.trackFace(index));
+
+  /// 已分析时长。
+  String trackAnalyzed(String done, String total) =>
+      _out(l10n.trackAnalyzed(done, total));
+
+  /// 状态轨道的读屏标签。
+  String coverageStripLabel(String name) => _out(l10n.coverageStripLabel(name));
+
+  /// 状态区间的读屏描述。
+  String coverageSegment(String state, String start, String end) =>
+      _out(l10n.coverageSegment(state, start, end));
+
+  /// 导出前覆盖检查标题。
+  String checkTitle(int count) => _out(l10n.checkTitle(count));
+
+  /// 未覆盖区间。
+  String checkRange(String name, String start, String end) =>
+      _out(l10n.checkRange(name, start, end));
+
+  /// 预设长边像素。
+  String presetLongEdge(int px) => _out(l10n.presetLongEdge(px));
+
+  /// 输出格式。
+  String exportFormat(String format) => _out(l10n.exportFormat(format));
+
+  /// 所需与可用空间。
+  String checkSpaceValue(String need, String free) =>
+      _out(l10n.checkSpaceValue(need, free));
+
+  /// 只知道所需空间。
+  String checkSpaceNeed(String need) => _out(l10n.checkSpaceNeed(need));
+
+  /// 存在未覆盖区间。
+  String checkCoverageFail(int count) => _out(l10n.checkCoverageFail(count));
+
+  /// 剩余时间。
+  String stageRemaining(String duration) => _out(l10n.stageRemaining(duration));
+
+  /// 已处理时长。
+  String stageProcessed(String done, String total) =>
+      _out(l10n.stageProcessed(done, total));
+
+  /// 已输出大小。
+  String stageOutputSize(String size) => _out(l10n.stageOutputSize(size));
+
+  /// 保留的错误代码。
+  String exportErrorCode(String code) => _out(l10n.exportErrorCode(code));
+
+  /// 降低质量重新导出。
+  String exportUseSmaller(String preset) => _out(l10n.exportUseSmaller(preset));
+
+  /// Mask list title with type.
+  String maskNameTyped(int index, String type) =>
+      _out(l10n.maskNameTyped(index, type));
 
   /// Slot screen-reader label.
   String slotLabel(int index, String title) =>

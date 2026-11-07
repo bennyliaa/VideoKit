@@ -59,6 +59,16 @@ class VkIcons extends ThemeExtension<VkIcons> {
     'previous': Icons.chevron_left_rounded,
     'next': Icons.chevron_right_rounded,
     'loop': Icons.repeat_rounded,
+    'zoomin': Icons.zoom_in_rounded,
+    'zoomout': Icons.zoom_out_rounded,
+    'add': Icons.add_rounded,
+    'reorder': Icons.reorder_rounded,
+    'clips': Icons.view_carousel_outlined,
+    'selectbox': Icons.highlight_alt_rounded,
+    'radioon': Icons.radio_button_checked_rounded,
+    'radiooff': Icons.radio_button_unchecked_rounded,
+    'checkboxon': Icons.check_box_rounded,
+    'checkboxoff': Icons.check_box_outline_blank_rounded,
     'unknown': Icons.help_outline_rounded,
   };
 

@@ -3,6 +3,7 @@
 //   VK_SCREENS_DIR=<dir> flutter test test/screens_test.dart
 // Uses the Windows DengXian font and the SDK's Material icon font; the
 // images are review material only, not goldens.
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:videokit_api/videokit_api.dart';
+import 'package:videokit_example/editor/edit_demo_page.dart';
 import 'package:videokit_example/gallery/components_page.dart';
 import 'package:videokit_example/image/image_demo_page.dart';
 import 'package:videokit_example/multiview/multi_view_demo_page.dart';
@@ -245,6 +248,170 @@ void main() {
     await _shot(tester, 'fix1_player_portrait_single_more');
     key.currentState!.openPanel(PlayerPanel.more);
     await _shot(tester, 'fix1_more_panel_two_groups');
+    await unmount(tester);
+  }, skip: _dir == null);
+
+  testWidgets('M0-B4 editor screens', (tester) async {
+    Future<VideoKitEditorState> editor(
+      Size size, [
+      EditDemoScenario s = EditDemoScenario.normal,
+    ]) async {
+      setViewSize(tester, size);
+      await tester.pumpWidget(
+        _wrap(
+          testApp(
+            EditDemoPage(initialScenario: s, showScenarioPicker: false),
+            fontFamily: _family,
+          ),
+        ),
+      );
+      await frames(tester, 15);
+      return tester.state<VideoKitEditorState>(find.byType(VideoKitEditor));
+    }
+
+    var e = await editor(expandedSize);
+    e.controller.selectClip(e.controller.state.timeline.clips[1].clipId);
+    unawaited(e.controller.seek(26000000));
+    await frames(tester, 3);
+    await _shot(tester, 'ui06_editor_expanded');
+    await tester.tap(find.text('排序'));
+    await frames(tester, 3);
+    await _shot(tester, 'ui06_clip_order_sheet');
+    await unmount(tester);
+
+    e = await editor(compactSize);
+    e.controller.selectClip(e.controller.state.timeline.clips[1].clipId);
+    await frames(tester, 3);
+    await _shot(tester, 'ui06_editor_compact');
+    e.openExport();
+    await frames(tester, 4);
+    await _shot(tester, 'ui08_export_presets_checks');
+    await tester.ensureVisible(find.text('开始导出'));
+    await tester.pump();
+    await tester.tap(find.text('开始导出'));
+    await frames(tester, 6);
+    await _shot(tester, 'ui08_export_progress');
+    for (
+      var i = 0;
+      i < 40 && e.controller.state.phase != EditPhase.completed;
+      i++
+    ) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    await frames(tester, 2);
+    await _shot(tester, 'ui08_export_success');
+    await unmount(tester);
+
+    e = await editor(compactSize, EditDemoScenario.exportFails);
+    e.openExport();
+    await frames(tester, 4);
+    await tester.ensureVisible(find.text('开始导出'));
+    await tester.pump();
+    await tester.tap(find.text('开始导出'));
+    for (
+      var i = 0;
+      i < 40 && e.controller.state.phase != EditPhase.failed;
+      i++
+    ) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    await frames(tester, 2);
+    await _shot(tester, 'ui08_export_failed');
+    await unmount(tester);
+
+    e = await editor(compactSize, EditDemoScenario.cancelSlow);
+    e.openExport();
+    await frames(tester, 4);
+    await tester.ensureVisible(find.text('开始导出'));
+    await tester.pump();
+    await tester.tap(find.text('开始导出'));
+    await frames(tester, 3);
+    await tester.ensureVisible(find.text('取消导出'));
+    await tester.pump();
+    await tester.tap(find.text('取消导出'));
+    await frames(tester, 1);
+    await _shot(tester, 'ui08_export_cancelling');
+    for (
+      var i = 0;
+      i < 20 && e.controller.state.phase != EditPhase.cancelled;
+      i++
+    ) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    await frames(tester, 2);
+    await _shot(tester, 'ui08_export_cancelled');
+    await unmount(tester);
+
+    e = await editor(expandedSize);
+    e.openMasks(MaskEditorTab.manual);
+    await frames(tester, 2);
+    unawaited(e.maskEditor!.addManualMask());
+    await frames(tester, 3);
+    unawaited(e.controller.seek(2000000));
+    await frames(tester, 3);
+    await _shot(tester, 'ui07_mask_manual');
+    await unmount(tester);
+
+    e = await editor(expandedSize, EditDemoScenario.trackingLost);
+    e.openMasks(MaskEditorTab.tracking);
+    await frames(tester, 2);
+    unawaited(e.maskEditor!.detectFaces());
+    await frames(tester, 3);
+    await _shot(tester, 'ui07_track_candidates');
+    final cand = e.maskEditor!.candidates!.first;
+    unawaited(e.maskEditor!.chooseCandidate(cand));
+    await frames(tester, 6);
+    await _shot(tester, 'ui07_track_running');
+    for (var i = 0; i < 80; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+      if (e.controller.state.tracking.values.firstOrNull?.status ==
+          TrackingRunStatus.completed) {
+        break;
+      }
+    }
+    await frames(tester, 2);
+    await _shot(tester, 'ui07_track_coverage_lost');
+    await tester.tap(find.text('纠正').first);
+    await frames(tester, 3);
+    await _shot(tester, 'ui07_track_correction');
+    await unmount(tester);
+
+    e = await editor(compactSize, EditDemoScenario.trackingLost);
+    e.openMasks(MaskEditorTab.tracking);
+    await frames(tester, 2);
+    unawaited(e.maskEditor!.detectFaces());
+    await frames(tester, 3);
+    unawaited(e.maskEditor!.chooseCandidate(e.maskEditor!.candidates!.first));
+    for (var i = 0; i < 80; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+      if (e.controller.state.tracking.values.firstOrNull?.status ==
+          TrackingRunStatus.completed) {
+        break;
+      }
+    }
+    e.openExport();
+    await frames(tester, 4);
+    await tester.ensureVisible(find.text('查看未覆盖区间'));
+    await tester.pump();
+    await tester.tap(find.text('查看未覆盖区间'));
+    await frames(tester, 3);
+    await _shot(tester, 'ui07_coverage_check_sheet');
+    await unmount(tester);
+  }, skip: _dir == null);
+
+  testWidgets('M0-B4 fix: zoom capsule', (tester) async {
+    final key = GlobalKey<ImageDemoPageState>();
+    setViewSize(tester, compactSize);
+    await tester.pumpWidget(
+      _wrap(testApp(ImageDemoPage(key: key), fontFamily: _family)),
+    );
+    await frames(tester, 6);
+    final c = tester.getCenter(find.byType(VideoKitImageViewer));
+    await tester.tapAt(c);
+    await tester.pump(const Duration(milliseconds: 50));
+    await tester.tapAt(c);
+    await frames(tester, 3);
+    await _shot(tester, 'fix_ui03_zoom_capsule');
     await unmount(tester);
   }, skip: _dir == null);
 }

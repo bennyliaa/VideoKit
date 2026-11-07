@@ -1011,18 +1011,6 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
 /// `VkStateStyle<VkBoxStyle>` alias used by the player.
 typedef VkStateStyleBox = VkStateStyle<VkBoxStyle>;
 
-extension on VkStateStyleBox {
-  VkStateStyleBox copyWithAll(VkBoxStyle Function(VkBoxStyle) f) =>
-      VkStateStyleBox(
-        normal: f(normal),
-        pressed: f(pressed),
-        focused: f(focused),
-        disabled: f(disabled),
-        selected: f(selected),
-        hovered: f(hovered),
-      );
-}
-
 @immutable
 final class _ControlItem {
   const _ControlItem({
