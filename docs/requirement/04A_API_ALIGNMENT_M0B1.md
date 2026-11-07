@@ -104,11 +104,16 @@
 | P3 | 演示入口 | App 用独立入口文件 `lib/main_demo.dart`（只在 debug/开发使用，`flutter run -t lib/main_demo.dart`），`lib/main.dart` 不得 import `videokit_fake`；不使用 flavor。Release 隔离检查（14 §11.4）验证 `main.dart` 产物不含 Fake | App |
 | P4 | applicationId | VideoKit App 暂定 `com.videokit.app`；对外发布前核对域名与商标权利（02 §7 #1） | App |
 
-## 4E. 补充裁定（V1.5，2026-11-07，M1-A1 / TEST-R1 提出）
+## 4E. 补充裁定（V1.5，2026-11-07，M1-A1 / TEST-R1 / M2-B1 提出）
 
 | # | 项 | 裁定 | 改动方 |
 | --- | --- | --- | --- |
 | C1 | 音轨声道数 | `TrackInfo` 增加可空字段 `channelCount: Int?`（仅音轨有意义，拿不到为 null）。UI 显示“编码 + 声道布局”（1→单声道、2→2.0、6→5.1、8→7.1，其他显示“N 声道”），为 null 时只显示编码名。spec 与通道同批修改 | Kotlin + spec + 通道 + Media3 填充（Coder B）；Dart API + Fake + UI（Coder A） |
+| I1 | 图片编码数据读取（M2-B1） | 宿主只提供 `readAt`，且不写临时文件，因此编码数据整读进内存，上限 96 MiB，不计入图片额度；超过上限返回稳定错误。“大图分块”指解码分块（BitmapRegionDecoder），不是读取分块。真正按块读取需要宿主提供文件描述符，属于 API 变更，等真机数据后再定 | Kotlin（Coder B） |
+| I2 | ImageEngine SPI | 采用 M2-B1 改写版：规则（尺寸、分块、额度）在平台无关层；图片由 `PlaybackSession` 内的 `ImageController` 承载，共用状态机、宿主交互与释放顺序（videokit-playback 依赖 videokit-image） | Kotlin |
+| I3 | 放大清晰度 | M2 以纹理最长边 4096 为上限，缩放由 Flutter 对纹理变换（06 §5）。更高倍数的清晰度改为原生按视口渲染，等 S 项与真机测试后再定 | — |
+| I4 | 图片额度初值 | 每宿主 192 MiB、单会话 ≤ 64 MiB、分块余量 16 MiB、底图最长边 ≤ 2048；真机验证后调整（PENDING 22）。额度不足时降采样，并发轻提示 `IMAGE_MEMORY_REDUCED_QUALITY`（UI 需补中文文案） | Kotlin；文案 Coder A |
+| I5 | EXIF | 使用平台 `android.media.ExifInterface`（minSdk 31 已含修复），不加 androidx 依赖；lint 文件级抑制 | Kotlin |
 | U1 | 错误态下的底部控件 | 不支持（`UNSUPPORTED_*`）或致命错误：按设计稿第 12 页只保留返回和标题，底部控件隐藏；可恢复错误（带“重试”）：控件保留为禁用外观，点击放行给状态视图 | Flutter UI（Coder A） |
 
 ## 5. 工程与构建裁定
