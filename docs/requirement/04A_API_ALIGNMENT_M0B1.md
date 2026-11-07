@@ -122,6 +122,7 @@
 | K3 | 导出警告码 | `ExportWarnings` 与提示码同样一律大写下划线（如 `FAST_CONCAT_REJECTED`），登记在 `spec/notices.json` 的独立分组 `exportWarnings` 中，两侧对照测试 | 登记与 Kit（Coder B）；Dart（Coder A） |
 | E1 | 拼接方式字段（计划） | S3 完成后，`ExportPrecheck` 增加 `concatPath`（FAST / TRANSCODE）与 `concatReasons` 列表，由 Kit 决定；在那之前 UI 自行计算并用导出检查警告修正。随 M4 原生拼接引擎同批实现 | 两侧（M4 原生批次） |
 | U3 | 视频左右滑动（M4-A1） | 保留视频画面左右滑动 seek（相对拖动，常见做法）；进度条所在条带始终归进度条（控件隐藏时也接收拖动，按绝对位置跳转并显示控件）。图片左右滑动用于翻页（设计稿第 11 页） | Flutter UI（Coder A） |
+| B1 | 打开成功的判定（M3-B2，R2-03） | bind 在媒体解析完成、轨道已知时即算打开成功（不等缓冲到可播放），之后继续缓冲时报告 `BUFFERING`；10 s 打开超时只覆盖“解析到轨道已知”这一段。打开中途被 release 得到 `SessionReleased`；超时得到 `Rejected(SOURCE_TIMEOUT)`，会话进入 `ERROR_RECOVERABLE`。UI：打开成功后在 `BUFFERING` 时显示加载圈，不再显示“正在打开” | Kotlin（Coder B）；UI（Coder A） |
 | U1 | 错误态下的底部控件 | 不支持（`UNSUPPORTED_*`）或致命错误：按设计稿第 12 页只保留返回和标题，底部控件隐藏；可恢复错误（带“重试”）：控件保留为禁用外观，点击放行给状态视图 | Flutter UI（Coder A） |
 
 ## 5. 工程与构建裁定
