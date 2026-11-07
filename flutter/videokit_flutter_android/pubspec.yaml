@@ -1,0 +1,27 @@
+name: videokit_flutter_android
+description: Android implementation of the VideoKit Flutter plugin (14 §8.4). Wraps the native VideoKit Kit; M0 debug builds inject the Kotlin Fake backend.
+version: 1.0.0-dev.1
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.13.5 <3.14.0"
+  flutter: ">=3.47.7 <3.48.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  videokit_flutter_platform_interface: 1.0.0-dev.1
+
+dev_dependencies:
+  flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    implements: videokit_flutter
+    platforms:
+      android:
+        package: com.videokit.flutter
+        pluginClass: VideoKitPlugin

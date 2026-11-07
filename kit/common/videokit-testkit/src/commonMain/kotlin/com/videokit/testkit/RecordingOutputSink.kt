@@ -4,7 +4,7 @@ import com.videokit.api.OutputOpenRequest
 import com.videokit.api.SinkCapabilities
 import com.videokit.api.SinkErrorCode
 import com.videokit.api.VideoKitAbortReason
-import com.videokit.api.VideoKitExportedMedia
+import com.videokit.api.VideoKitOutputMetadata
 import com.videokit.api.VideoKitOutputSink
 import com.videokit.api.VideoKitOutputToken
 import com.videokit.api.VideoKitSinkException
@@ -51,7 +51,7 @@ public class RecordingOutputSink(
     private val ids = AtomicCounter()
     private val openRecord = RecordList<OutputOpenRequest>()
     private val handleRecord = RecordList<RecordingWriteHandle>()
-    private val readyRecord = RecordList<Pair<String, VideoKitExportedMedia>>()
+    private val readyRecord = RecordList<Pair<String, VideoKitOutputMetadata>>()
     private val abortRecord = RecordList<Pair<String, VideoKitAbortReason>>()
 
     /** Open requests in order. */
@@ -61,7 +61,7 @@ public class RecordingOutputSink(
     public val handles: List<RecordingWriteHandle> get() = handleRecord.snapshot
 
     /** `markReady` calls: handle id and metadata. */
-    public val readyCalls: List<Pair<String, VideoKitExportedMedia>> get() = readyRecord.snapshot
+    public val readyCalls: List<Pair<String, VideoKitOutputMetadata>> get() = readyRecord.snapshot
 
     /** `abort` calls: handle id and reason. */
     public val abortCalls: List<Pair<String, VideoKitAbortReason>> get() = abortRecord.snapshot
@@ -74,7 +74,7 @@ public class RecordingOutputSink(
         return handle
     }
 
-    override suspend fun markReady(handleId: String, metadata: VideoKitExportedMedia): VideoKitOutputToken {
+    override suspend fun markReady(handleId: String, metadata: VideoKitOutputMetadata): VideoKitOutputToken {
         (fault as? SinkFault.FailOnMarkReady)?.let { throw VideoKitSinkException(it.code) }
         readyRecord.add(handleId to metadata)
         return VideoKitOutputToken("token-$handleId")

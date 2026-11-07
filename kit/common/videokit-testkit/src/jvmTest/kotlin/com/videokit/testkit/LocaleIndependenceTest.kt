@@ -4,13 +4,13 @@ import com.videokit.api.EditProjectConfig
 import com.videokit.api.ExportPreset
 import com.videokit.api.MaskRegion
 import com.videokit.api.MaskType
+import com.videokit.api.SessionVisibility
 import com.videokit.api.TimeRangeUs
 import com.videokit.api.VideoKitCommand
 import com.videokit.api.VideoKitCommandResult
 import com.videokit.api.VideoKitEditCommand
 import com.videokit.api.VideoKitExportRequest
 import com.videokit.api.VideoKitSessionConfig
-import com.videokit.api.Visibility
 import com.videokit.testkit.internal.MiniJson
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -62,7 +62,7 @@ class LocaleIndependenceTest {
         val session = kit.createSession(VideoKitSessionConfig())
         val diagnostics = underEveryLocale {
             kotlinx.coroutines.runBlocking {
-                listOf(VideoKitCommand.Play, VideoKitCommand.SetVisibility(Visibility.VISIBLE), VideoKitCommand.SeekTo(1))
+                listOf(VideoKitCommand.Play, VideoKitCommand.SetVisibility(SessionVisibility.VISIBLE), VideoKitCommand.SeekTo(1))
                     .map { (session.execute(it) as? VideoKitCommandResult.Rejected)?.error?.diagnostic }
             }
         }

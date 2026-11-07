@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sample host texts. The first version is Chinese only (13 §3.1). -->
+<resources>
+    <string name="app_name">VideoKit 示例宿主</string>
+    <string name="demo_badge">演示数据（Kotlin Fake）</string>
+    <string name="engine_page_title">纯引擎接入</string>
+    <string name="engine_page_summary">宿主自己的 SurfaceView 显示原生会话，不含 Flutter。</string>
+    <string name="embed_page_title">嵌入 VideoKit 界面</string>
+    <string name="embed_page_summary">通过 videokit-ui-android 以 add-to-app 方式嵌入播放器。</string>
+    <string name="multiview4_title">多画面：四个嵌入引擎</string>
+    <string name="multiview4_summary">2×2 四个 VideoKitFlutterView，各自一个引擎（§9.3 内存对比）。</string>
+    <string name="multiview1_title">多画面：一个引擎</string>
+    <string name="multiview1_summary">一个引擎内显示四个会话（§9.3 内存对比）。</string>
+    <string name="embed_unavailable">未接入 Flutter 模块（flutter build aar），嵌入页不可用。</string>
+    <string name="embed_not_in_flavor">当前为纯引擎构建（engine flavor），不含嵌入界面。</string>
+    <string name="action_play">播放</string>
+    <string name="action_pause">暂停</string>
+    <string name="action_back_10">后退 10 秒</string>
+    <string name="action_forward_10">前进 10 秒</string>
+    <string name="state_line">状态：%1$s · %2$s / %3$s</string>
+    <string name="time_unknown">--:--</string>
+</resources>

@@ -17,6 +17,11 @@ class RootConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply("base")
+            // Maven coordinates com.videokit:<module>, so Flutter apps can substitute them with includeBuild (plugin build).
+            subprojects {
+                group = "com.videokit"
+                version = "1.0.0-dev.1"
+            }
             dependencyLocking {
                 lockAllConfigurations()
             }
@@ -38,14 +43,19 @@ class RootConventionPlugin : Plugin<Project> {
             val includes = listOf(
                 "kit/**/src/**/*.kt",
                 "kit/**/*.gradle.kts",
+                "sample-host/src/**/*.kt",
+                "sample-host/*.gradle.kts",
                 "build-logic/src/**/*.kt",
                 "build-logic/*.gradle.kts",
+                "flutter/videokit_flutter_android/android/src/**/*.kt",
+                "flutter/videokit_flutter_android/android/*.gradle.kts",
                 "*.gradle.kts",
             )
-            val patterns = includes + "!**/build/**"
+            // Pigeon generated code (gen/) is not ours to format.
+            val patterns = includes + "!**/build/**" + "!**/gen/**"
             val sources = fileTree(projectDir) {
                 include(includes)
-                exclude("**/build/**")
+                exclude("**/build/**", "**/gen/**")
             }
             val reportFile = layout.buildDirectory.file("reports/ktlint/ktlint.txt")
             val editorConfigPath = editorConfig.asFile.path
@@ -77,7 +87,25 @@ class RootConventionPlugin : Plugin<Project> {
                 workingDir = projectDir
                 args(listOf("--editorconfig=$editorConfigPath", "--relative", "--format") + patterns)
             }
-            tasks.named("check").configure { dependsOn(ktlintCheck) }
+            // spec/channel keeps byte-identical copies of the Pigeon definitions (13 §2.1).
+            val pigeonDir = layout.projectDirectory.dir("flutter/videokit_flutter_platform_interface/pigeons")
+            val specDir = layout.projectDirectory.dir("spec/channel")
+            val channelSpecs = listOf("videokit_messages", "embed_messages").map { name ->
+                pigeonDir.file("$name.dart").asFile to specDir.file("$name.pigeon.dart").asFile
+            }
+            val checkChannelSpec = tasks.register("checkChannelSpec") {
+                group = "verification"
+                description = "Checks that spec/channel holds the current Pigeon channel definitions."
+                inputs.files(channelSpecs.flatMap { listOf(it.first, it.second) }).withPropertyName("channelSpec")
+                doLast {
+                    channelSpecs.forEach { (definition, copy) ->
+                        check(copy.isFile && copy.readBytes().contentEquals(definition.readBytes())) {
+                            "spec/channel/${copy.name} differs from pigeons/${definition.name}; copy it again"
+                        }
+                    }
+                }
+            }
+            tasks.named("check").configure { dependsOn(ktlintCheck, checkChannelSpec) }
         }
     }
 }

@@ -67,7 +67,10 @@ public data class FakeVideoKitOptions(
     val sourceTimeoutMs: Long = 10_000L,
     /** Hard session limit (07 §3). */
     val maxSessions: Int = 12,
-    /** Test pattern target per render target; `null` = the target type is not supported (nothing is drawn). Android: `AndroidTestPattern.targetFactory`. */
+    /**
+     * Test pattern target per render target; `null` = the target type is not supported (nothing is drawn).
+     * Android: `AndroidTestPattern.targetFactory`.
+     */
     val patternTargetFactory: (VideoKitSurfaceTarget) -> TestPatternTarget? = { null },
     /** Wall clock in epoch milliseconds (timestamps of snapshots and export results). */
     val wallClockMs: () -> Long = { Clock.System.now().toEpochMilliseconds() },
@@ -179,8 +182,8 @@ public class FakeVideoKit(
                     handle.close()
                 }
             }
-            val playable = if (scenario.unsupportedVideoCodec &&
-                source.mediaKind == MediaKind.VIDEO
+            val playable = if (scenario.unsupportedContainer ||
+                (scenario.unsupportedVideoCodec && source.mediaKind == MediaKind.VIDEO)
             ) {
                 SupportLevel.UNSUPPORTED
             } else {
@@ -210,6 +213,7 @@ public class FakeVideoKit(
     )
 
     private fun demoCapabilities(): VideoKitCapabilities = VideoKitCapabilities(
+        isDemo = true,
         containerCodecSupport = listOf(
             FormatSupport(container = "mp4", videoCodec = "video/avc", level = SupportLevel.SUPPORTED),
             FormatSupport(container = "mkv", videoCodec = "video/hevc", level = SupportLevel.SUPPORTED),

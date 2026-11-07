@@ -60,8 +60,8 @@ public interface VideoKitSession : AutoCloseable {
 
     /**
      * Called by the UI when the user asks for the previous/next media (06 §5). The session forwards it
-     * to [VideoKitHostCallbacks.onNavigationRequested]; callback failures map to
-     * [NavigationResult.UNAVAILABLE].
+     * to [VideoKitHostCallbacks.onNavigationRequested]; callback failures and timeouts map to
+     * [NavigationResult.FAILED] (04A V4).
      */
     public suspend fun requestNavigation(direction: NavigationDirection): NavigationResult
 
@@ -80,8 +80,12 @@ public interface VideoKitSession : AutoCloseable {
      */
     public suspend fun release(): VideoKitPlaybackState
 
-    /** Attaches a render target, replacing the previous one. */
-    public fun attachSurface(target: VideoKitSurfaceTarget)
+    /**
+     * Attaches a render target, replacing the previous one (04A I13). Returns [VideoKitCommandResult.Executed],
+     * [VideoKitCommandResult.Unsupported] with [UnsupportedReason.DEVICE_CAPABILITY] for target types this
+     * platform does not know, or [VideoKitCommandResult.SessionReleased].
+     */
+    public fun attachSurface(target: VideoKitSurfaceTarget): VideoKitCommandResult
 
     /** Detaches the current render target, for example when the surface is destroyed. */
     public fun detachSurface()

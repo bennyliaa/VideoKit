@@ -65,7 +65,11 @@ internal object ProjectCodec {
     fun decode(serialized: SerializedEditProject): ProjectModel {
         if (serialized.schemaVersion < 1 || serialized.schemaVersion > SCHEMA_VERSION) {
             throw VideoKitException(
-                Errors.of(ErrorCode.INTERNAL_ERROR_REDACTED, ErrorStage.EDIT, "UNSUPPORTED_SCHEMA_VERSION:${serialized.schemaVersion}"),
+                Errors.of(
+                    ErrorCode.UNSUPPORTED_SNAPSHOT_VERSION,
+                    ErrorStage.EDIT,
+                    "UNSUPPORTED_SCHEMA_VERSION:${serialized.schemaVersion}",
+                ),
             )
         }
         val root = try {
@@ -77,7 +81,7 @@ internal object ProjectCodec {
         }
         val payloadVersion = (root["schemaVersion"] as? Long)?.toInt() ?: serialized.schemaVersion
         if (payloadVersion != serialized.schemaVersion) {
-            throw VideoKitException(Errors.of(ErrorCode.INTERNAL_ERROR_REDACTED, ErrorStage.EDIT, "SCHEMA_VERSION_MISMATCH"))
+            throw VideoKitException(Errors.of(ErrorCode.UNSUPPORTED_SNAPSHOT_VERSION, ErrorStage.EDIT, "SCHEMA_VERSION_MISMATCH"))
         }
         return try {
             ProjectModel(
@@ -157,6 +161,7 @@ internal object ProjectCodec {
                 "state" to keyframe.quality?.name,
             )
         },
+        "acceptedRangesUs" to mask.acceptedRangesUs.map { listOf(it.startUs, it.endUs) },
     )
 
     private fun maskFromJson(json: Map<*, *>): MaskTrack {
@@ -178,6 +183,10 @@ internal object ProjectCodec {
                         ?: KeyframeSource.USER,
                     quality = (keyframe["state"] as? String)?.let { name -> CoverageQuality.entries.firstOrNull { it.name == name } },
                 )
+            },
+            acceptedRangesUs = json.list("acceptedRangesUs").map { item ->
+                val bounds = (item as List<*>).map { (it as Number).toLong() }
+                TimeRangeUs(bounds[0], bounds[1])
             },
         )
     }

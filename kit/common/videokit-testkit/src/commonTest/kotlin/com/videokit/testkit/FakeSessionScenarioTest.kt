@@ -3,6 +3,7 @@ package com.videokit.testkit
 import com.videokit.api.ActionPlacement
 import com.videokit.api.ErrorCode
 import com.videokit.api.HostIcon
+import com.videokit.api.ImageDetails
 import com.videokit.api.MediaKind
 import com.videokit.api.RecoveryDecision
 import com.videokit.api.ResourceKind
@@ -28,6 +29,7 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
@@ -180,6 +182,21 @@ class FakeSessionScenarioTest {
     }
 
     @Test
+    fun imageDetailsArePresentForImagesOnly() = runTest {
+        val kit = kit(FakeScenario.normal())
+        val image = kit.createSession(VideoKitSessionConfig())
+        image.bind(FakeMediaSources.image("still"), null, emptyList())
+        assertEquals(ImageDetails(frameCount = 1, decodedBytes = 1920L * 1080 * 4, sampleSize = 1), image.state.value.imageDetails)
+        val animated = kit.createSession(VideoKitSessionConfig())
+        animated.bind(FakeMediaSources.image("gif", MediaKind.IMAGE_ANIMATED), null, emptyList())
+        assertEquals(20, animated.state.value.imageDetails?.frameCount)
+        assertTrue(animated.state.value.looping)
+        val video = ready(kit)
+        assertNull(video.state.value.imageDetails)
+        assertFalse(video.state.value.looping)
+    }
+
+    @Test
     fun hostActionTimeoutScenario() = runTest {
         val kit = kit(FakeScenario.normal().hostActionTimeout("delete"))
         val session = kit.createSession(VideoKitSessionConfig())
@@ -208,7 +225,7 @@ class FakeSessionScenarioTest {
         val session = ready(kit)
         session.execute(VideoKitCommand.Play)
         advanceClock(kit, 1_000_000)
-        session.execute(VideoKitCommand.SetVisibility(com.videokit.api.Visibility.OFFSCREEN))
+        session.execute(VideoKitCommand.SetVisibility(com.videokit.api.SessionVisibility.OFFSCREEN))
         advanceClock(kit, 3_000_000)
         settle()
         val watched = callbacks.playbackEvents.filterIsInstance<VideoKitPlaybackEvent.WatchTimeAccumulated>().sumOf { it.deltaUs }

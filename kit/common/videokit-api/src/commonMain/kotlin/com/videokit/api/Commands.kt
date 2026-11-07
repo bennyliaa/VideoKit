@@ -34,6 +34,16 @@ public sealed interface VideoKitCommand {
         val speed: Float,
     ) : VideoKitCommand
 
+    /**
+     * Loop or stop at the end (04A L1). Default per media kind: animated images loop, videos do not. Without
+     * looping playback stops on the last frame, enters ENDED and emits PlaybackEnded; with looping it never ends.
+     * Static images answer `Unsupported(MEDIA_KIND)`.
+     */
+    public data class SetLooping(
+        /** Whether to loop. */
+        val looping: Boolean,
+    ) : VideoKitCommand
+
     /** Mute or unmute the session. */
     public data class SetMuted(
         /** Whether to mute. */
@@ -79,7 +89,7 @@ public sealed interface VideoKitCommand {
     /** Report visibility (07 §3). */
     public data class SetVisibility(
         /** New visibility. */
-        val visibility: Visibility,
+        val visibility: SessionVisibility,
     ) : VideoKitCommand
 
     /**
@@ -125,6 +135,15 @@ public enum class UnsupportedReason {
 
     /** The optional module (tracking, export) is not installed. */
     MODULE_NOT_INSTALLED,
+
+    /** A requested value is outside the supported range (04A V1). */
+    VALUE_OUT_OF_RANGE,
+
+    /** The requested track does not exist (04A V1). */
+    TRACK_NOT_FOUND,
+
+    /** The content is hidden because the host is locked (04A V1). */
+    CONTENT_LOCKED,
 
     /** Unknown reason (also used for unknown wire values). */
     UNKNOWN,
@@ -242,11 +261,11 @@ public sealed interface VideoKitPlaybackEvent {
         val toUs: Long,
     ) : VideoKitPlaybackEvent
 
-    /** Visibility changed. */
+    /** SessionVisibility changed. */
     public data class VisibilityChanged(
         override val sessionId: String,
         /** New visibility. */
-        val visibility: Visibility,
+        val visibility: SessionVisibility,
     ) : VideoKitPlaybackEvent
 
     /** Foreground state changed. */

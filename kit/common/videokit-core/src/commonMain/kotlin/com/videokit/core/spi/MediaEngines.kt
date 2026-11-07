@@ -10,8 +10,8 @@ import com.videokit.api.MediaProbeResult
 import com.videokit.api.SinkWriteMode
 import com.videokit.api.Size
 import com.videokit.api.VideoKitCapabilities
-import com.videokit.api.VideoKitExportedMedia
 import com.videokit.api.VideoKitMediaSource
+import com.videokit.api.VideoKitOutputMetadata
 import com.videokit.api.VideoKitSurfaceTarget
 import com.videokit.api.VideoKitWriteHandle
 import kotlinx.coroutines.flow.Flow
@@ -101,7 +101,7 @@ public interface CompositionExporter {
      * Executes [plan], writing to [output], reporting [progress]. Returns the metadata of the written media;
      * throws [SpiException] on failure. Never marks the output ready; the export runtime does that.
      */
-    public suspend fun export(plan: ExportPlan, output: VideoKitWriteHandle, progress: (ExporterProgress) -> Unit): VideoKitExportedMedia
+    public suspend fun export(plan: ExportPlan, output: VideoKitWriteHandle, progress: (ExporterProgress) -> Unit): VideoKitOutputMetadata
 }
 
 /** One region of an effect pass. */

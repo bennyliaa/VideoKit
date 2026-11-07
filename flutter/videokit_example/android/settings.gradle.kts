@@ -19,8 +19,12 @@ pluginManagement {
 
 plugins {
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    id("com.android.application") version "9.1.0" apply false
-    id("org.jetbrains.kotlin.android") version "2.4.0" apply false
+    id("com.android.application") version "9.4.1" apply false
+    id("org.jetbrains.kotlin.android") version "2.4.21" apply false
 }
 
 include(":app")
+
+// VideoKit native Kit from this repository (04A S8): substitutes the com.videokit:* dependencies of the
+// videokit_flutter_android plugin with the Kit projects of the root build.
+includeBuild("../../..")

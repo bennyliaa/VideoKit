@@ -1,0 +1,21 @@
+name: videokit_flutter_platform_interface
+description: Platform interface of the VideoKit Flutter plugin and the generated Pigeon channel protocol (14 §8).
+version: 1.0.0-dev.1
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.13.5 <3.14.0"
+  flutter: ">=3.47.7 <3.48.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: 2.1.8
+
+dev_dependencies:
+  flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter
+  # Code generator only; generated files are committed (13 §2.1).
+  pigeon: 29.1.1

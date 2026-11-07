@@ -1,0 +1,32 @@
+name: videokit_embed
+description: >-
+  VideoKit add-to-app Flutter module (14 §9.2): the `videokitEmbedMain` entry point that native hosts run through
+  videokit-ui-android. Built with `flutter build aar` (13 §2.1); uses only the public APIs of videokit_ui and
+  videokit_flutter.
+version: 1.0.0-dev.1
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.13.5 <3.14.0"
+  flutter: ">=3.47.7 <3.48.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  videokit_api: 1.0.0-dev.1
+  videokit_flutter: 1.0.0-dev.1
+  videokit_flutter_platform_interface: 1.0.0-dev.1
+  videokit_ui: 1.0.0-dev.1
+
+dev_dependencies:
+  flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  # Flutter module (add-to-app): the generated Android host project (.android/) is ephemeral and not committed.
+  module:
+    androidX: true
+    androidPackage: com.videokit.embed
+    iosBundleIdentifier: com.videokit.embed

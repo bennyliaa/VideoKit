@@ -46,9 +46,9 @@ class AndroidTypesTest {
 
             override suspend fun onSourceReleased(sessionId: String, mediaToken: String) = Unit
 
-            override suspend fun onRecoverableError(error: VideoKitStableError) = RecoveryDecision.KEEP_ERROR
+            override suspend fun onRecoverableError(sessionId: String, error: VideoKitStableError) = RecoveryDecision.KEEP_ERROR
 
-            override suspend fun onFatalSessionError(error: VideoKitStableError) = Unit
+            override suspend fun onFatalSessionError(sessionId: String, error: VideoKitStableError) = Unit
         }
         val budget = object : ResourceBudget {
             override suspend fun reserve(request: ResourceRequest): ReservationResult =

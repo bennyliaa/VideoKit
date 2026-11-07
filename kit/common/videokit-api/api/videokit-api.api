@@ -7,6 +7,21 @@ public final class com/videokit/api/ActionPlacement : java/lang/Enum {
 	public static fun values ()[Lcom/videokit/api/ActionPlacement;
 }
 
+public final class com/videokit/api/CandidateDetectionResult {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Lcom/videokit/api/VideoKitStableError;)V
+	public synthetic fun <init> (Ljava/util/List;Lcom/videokit/api/VideoKitStableError;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lcom/videokit/api/VideoKitStableError;
+	public final fun copy (Ljava/util/List;Lcom/videokit/api/VideoKitStableError;)Lcom/videokit/api/CandidateDetectionResult;
+	public static synthetic fun copy$default (Lcom/videokit/api/CandidateDetectionResult;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;ILjava/lang/Object;)Lcom/videokit/api/CandidateDetectionResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCandidates ()Ljava/util/List;
+	public final fun getError ()Lcom/videokit/api/VideoKitStableError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/videokit/api/CapabilityRequest {
 	public fun <init> ()V
 	public fun <init> (Lcom/videokit/api/VideoKitMediaSource;)V
@@ -56,15 +71,6 @@ public final class com/videokit/api/CodecInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/videokit/api/ContentOrientation : java/lang/Enum {
-	public static final field LANDSCAPE Lcom/videokit/api/ContentOrientation;
-	public static final field PORTRAIT Lcom/videokit/api/ContentOrientation;
-	public static final field SQUARE Lcom/videokit/api/ContentOrientation;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/ContentOrientation;
-	public static fun values ()[Lcom/videokit/api/ContentOrientation;
-}
-
 public final class com/videokit/api/CoverageQuality : java/lang/Enum {
 	public static final field AMBIGUOUS Lcom/videokit/api/CoverageQuality;
 	public static final field LOST Lcom/videokit/api/CoverageQuality;
@@ -76,12 +82,15 @@ public final class com/videokit/api/CoverageQuality : java/lang/Enum {
 }
 
 public final class com/videokit/api/CoverageRange {
-	public fun <init> (Lcom/videokit/api/TimeRangeUs;Lcom/videokit/api/CoverageQuality;)V
+	public fun <init> (Lcom/videokit/api/TimeRangeUs;Lcom/videokit/api/CoverageQuality;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/videokit/api/TimeRangeUs;Lcom/videokit/api/CoverageQuality;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/api/TimeRangeUs;
 	public final fun component2 ()Lcom/videokit/api/CoverageQuality;
-	public final fun copy (Lcom/videokit/api/TimeRangeUs;Lcom/videokit/api/CoverageQuality;)Lcom/videokit/api/CoverageRange;
-	public static synthetic fun copy$default (Lcom/videokit/api/CoverageRange;Lcom/videokit/api/TimeRangeUs;Lcom/videokit/api/CoverageQuality;ILjava/lang/Object;)Lcom/videokit/api/CoverageRange;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Lcom/videokit/api/TimeRangeUs;Lcom/videokit/api/CoverageQuality;Ljava/lang/String;)Lcom/videokit/api/CoverageRange;
+	public static synthetic fun copy$default (Lcom/videokit/api/CoverageRange;Lcom/videokit/api/TimeRangeUs;Lcom/videokit/api/CoverageQuality;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/CoverageRange;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaskId ()Ljava/lang/String;
 	public final fun getQuality ()Lcom/videokit/api/CoverageQuality;
 	public final fun getRangeUs ()Lcom/videokit/api/TimeRangeUs;
 	public fun hashCode ()I
@@ -131,11 +140,14 @@ public abstract interface class com/videokit/api/EditCommandResult {
 }
 
 public final class com/videokit/api/EditCommandResult$Applied : com/videokit/api/EditCommandResult {
-	public fun <init> (J)V
+	public fun <init> (JLjava/lang/String;)V
+	public synthetic fun <init> (JLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()J
-	public final fun copy (J)Lcom/videokit/api/EditCommandResult$Applied;
-	public static synthetic fun copy$default (Lcom/videokit/api/EditCommandResult$Applied;JILjava/lang/Object;)Lcom/videokit/api/EditCommandResult$Applied;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (JLjava/lang/String;)Lcom/videokit/api/EditCommandResult$Applied;
+	public static synthetic fun copy$default (Lcom/videokit/api/EditCommandResult$Applied;JLjava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/EditCommandResult$Applied;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCreatedId ()Ljava/lang/String;
 	public final fun getRevision ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -282,6 +294,8 @@ public final class com/videokit/api/ErrorCode : java/lang/Enum {
 	public static final field EXPORT_FAILED Lcom/videokit/api/ErrorCode;
 	public static final field HOST_CALLBACK_FAILED Lcom/videokit/api/ErrorCode;
 	public static final field INTERNAL_ERROR_REDACTED Lcom/videokit/api/ErrorCode;
+	public static final field INVALID_ARGUMENT Lcom/videokit/api/ErrorCode;
+	public static final field INVALID_STATE Lcom/videokit/api/ErrorCode;
 	public static final field OUTPUT_CAPABILITY_UNSUPPORTED Lcom/videokit/api/ErrorCode;
 	public static final field OUTPUT_PERMISSION_DENIED Lcom/videokit/api/ErrorCode;
 	public static final field OUTPUT_SPACE_INSUFFICIENT Lcom/videokit/api/ErrorCode;
@@ -295,6 +309,7 @@ public final class com/videokit/api/ErrorCode : java/lang/Enum {
 	public static final field TRACKING_MODEL_UNAVAILABLE Lcom/videokit/api/ErrorCode;
 	public static final field UNSUPPORTED_AUDIO_CODEC Lcom/videokit/api/ErrorCode;
 	public static final field UNSUPPORTED_CONTAINER Lcom/videokit/api/ErrorCode;
+	public static final field UNSUPPORTED_SNAPSHOT_VERSION Lcom/videokit/api/ErrorCode;
 	public static final field UNSUPPORTED_VIDEO_CODEC Lcom/videokit/api/ErrorCode;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/ErrorCode;
@@ -316,6 +331,7 @@ public final class com/videokit/api/ErrorStage : java/lang/Enum {
 	public static final field PROBE Lcom/videokit/api/ErrorStage;
 	public static final field SINK Lcom/videokit/api/ErrorStage;
 	public static final field TRACKING Lcom/videokit/api/ErrorStage;
+	public static final field UNKNOWN Lcom/videokit/api/ErrorStage;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/ErrorStage;
 	public static fun values ()[Lcom/videokit/api/ErrorStage;
@@ -326,19 +342,21 @@ public final class com/videokit/api/ErrorStage$Companion {
 }
 
 public final class com/videokit/api/ExportPrecheck {
-	public fun <init> (ZLcom/videokit/api/SinkWriteMode;Lcom/videokit/api/EditEstimate;Ljava/util/List;Ljava/util/List;)V
-	public synthetic fun <init> (ZLcom/videokit/api/SinkWriteMode;Lcom/videokit/api/EditEstimate;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (ZLcom/videokit/api/SinkWriteMode;Lcom/videokit/api/EditEstimate;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (ZLcom/videokit/api/SinkWriteMode;Lcom/videokit/api/EditEstimate;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
 	public final fun component2 ()Lcom/videokit/api/SinkWriteMode;
 	public final fun component3 ()Lcom/videokit/api/EditEstimate;
 	public final fun component4 ()Ljava/util/List;
 	public final fun component5 ()Ljava/util/List;
-	public final fun copy (ZLcom/videokit/api/SinkWriteMode;Lcom/videokit/api/EditEstimate;Ljava/util/List;Ljava/util/List;)Lcom/videokit/api/ExportPrecheck;
-	public static synthetic fun copy$default (Lcom/videokit/api/ExportPrecheck;ZLcom/videokit/api/SinkWriteMode;Lcom/videokit/api/EditEstimate;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/videokit/api/ExportPrecheck;
+	public final fun component6 ()Ljava/util/List;
+	public final fun copy (ZLcom/videokit/api/SinkWriteMode;Lcom/videokit/api/EditEstimate;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lcom/videokit/api/ExportPrecheck;
+	public static synthetic fun copy$default (Lcom/videokit/api/ExportPrecheck;ZLcom/videokit/api/SinkWriteMode;Lcom/videokit/api/EditEstimate;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/videokit/api/ExportPrecheck;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getEstimate ()Lcom/videokit/api/EditEstimate;
 	public final fun getOk ()Z
 	public final fun getProblems ()Ljava/util/List;
+	public final fun getUncoveredRanges ()Ljava/util/List;
 	public final fun getWarnings ()Ljava/util/List;
 	public final fun getWriteMode ()Lcom/videokit/api/SinkWriteMode;
 	public fun hashCode ()I
@@ -385,7 +403,7 @@ public final class com/videokit/api/ExportStage : java/lang/Enum {
 	public static final field PREPARING Lcom/videokit/api/ExportStage;
 	public static final field TRACKING Lcom/videokit/api/ExportStage;
 	public static final field VERIFYING Lcom/videokit/api/ExportStage;
-	public static final field WRITING_COMPLETE Lcom/videokit/api/ExportStage;
+	public static final field WRITING Lcom/videokit/api/ExportStage;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/ExportStage;
 	public static fun values ()[Lcom/videokit/api/ExportStage;
@@ -393,6 +411,7 @@ public final class com/videokit/api/ExportStage : java/lang/Enum {
 
 public final class com/videokit/api/FeatureKey : java/lang/Enum {
 	public static final field AUDIO_TRACK_SELECTION Lcom/videokit/api/FeatureKey;
+	public static final field Companion Lcom/videokit/api/FeatureKey$Companion;
 	public static final field EDIT_CLIPS Lcom/videokit/api/FeatureKey;
 	public static final field EDIT_CONCAT Lcom/videokit/api/FeatureKey;
 	public static final field EXACT_SEEK Lcom/videokit/api/FeatureKey;
@@ -406,16 +425,21 @@ public final class com/videokit/api/FeatureKey : java/lang/Enum {
 	public static final field OBJECT_TRACKING Lcom/videokit/api/FeatureKey;
 	public static final field SPEED_CONTROL Lcom/videokit/api/FeatureKey;
 	public static final field SUBTITLES Lcom/videokit/api/FeatureKey;
+	public static final field UNKNOWN Lcom/videokit/api/FeatureKey;
 	public static final field VIDEO_PLAYBACK Lcom/videokit/api/FeatureKey;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/FeatureKey;
 	public static fun values ()[Lcom/videokit/api/FeatureKey;
 }
 
+public final class com/videokit/api/FeatureKey$Companion {
+	public final fun fromWireName (Ljava/lang/String;)Lcom/videokit/api/FeatureKey;
+}
+
 public final class com/videokit/api/FitMode : java/lang/Enum {
 	public static final field FILL Lcom/videokit/api/FitMode;
 	public static final field FIT Lcom/videokit/api/FitMode;
-	public static final field STRETCH Lcom/videokit/api/FitMode;
+	public static final field ORIGINAL Lcom/videokit/api/FitMode;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/FitMode;
 	public static fun values ()[Lcom/videokit/api/FitMode;
@@ -533,13 +557,30 @@ public final class com/videokit/api/HostIcon$BuiltIn : com/videokit/api/HostIcon
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/videokit/api/HostIcon$HostDrawable : com/videokit/api/HostIcon {
-	public fun <init> (I)V
-	public final fun component1 ()I
-	public final fun copy (I)Lcom/videokit/api/HostIcon$HostDrawable;
-	public static synthetic fun copy$default (Lcom/videokit/api/HostIcon$HostDrawable;IILjava/lang/Object;)Lcom/videokit/api/HostIcon$HostDrawable;
+public final class com/videokit/api/HostIcon$Resource : com/videokit/api/HostIcon {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/videokit/api/HostIcon$Resource;
+	public static synthetic fun copy$default (Lcom/videokit/api/HostIcon$Resource;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/HostIcon$Resource;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getResId ()I
+	public final fun getResourceRef ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/api/ImageDetails {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/Long;Ljava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/Long;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/Long;Ljava/lang/Integer;)Lcom/videokit/api/ImageDetails;
+	public static synthetic fun copy$default (Lcom/videokit/api/ImageDetails;Ljava/lang/Integer;Ljava/lang/Long;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/videokit/api/ImageDetails;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDecodedBytes ()Ljava/lang/Long;
+	public final fun getFrameCount ()Ljava/lang/Integer;
+	public final fun getSampleSize ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -652,8 +693,8 @@ public final class com/videokit/api/MaskStyle : java/lang/Enum {
 }
 
 public final class com/videokit/api/MaskTrack {
-	public fun <init> (Ljava/lang/String;Lcom/videokit/api/MaskType;Lcom/videokit/api/MaskStyle;FZLcom/videokit/api/TimeRangeUs;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/String;Lcom/videokit/api/MaskType;Lcom/videokit/api/MaskStyle;FZLcom/videokit/api/TimeRangeUs;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/MaskType;Lcom/videokit/api/MaskStyle;FZLcom/videokit/api/TimeRangeUs;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/videokit/api/MaskType;Lcom/videokit/api/MaskStyle;FZLcom/videokit/api/TimeRangeUs;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Lcom/videokit/api/MaskType;
 	public final fun component3 ()Lcom/videokit/api/MaskStyle;
@@ -661,9 +702,11 @@ public final class com/videokit/api/MaskTrack {
 	public final fun component5 ()Z
 	public final fun component6 ()Lcom/videokit/api/TimeRangeUs;
 	public final fun component7 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/String;Lcom/videokit/api/MaskType;Lcom/videokit/api/MaskStyle;FZLcom/videokit/api/TimeRangeUs;Ljava/util/List;)Lcom/videokit/api/MaskTrack;
-	public static synthetic fun copy$default (Lcom/videokit/api/MaskTrack;Ljava/lang/String;Lcom/videokit/api/MaskType;Lcom/videokit/api/MaskStyle;FZLcom/videokit/api/TimeRangeUs;Ljava/util/List;ILjava/lang/Object;)Lcom/videokit/api/MaskTrack;
+	public final fun component8 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/MaskType;Lcom/videokit/api/MaskStyle;FZLcom/videokit/api/TimeRangeUs;Ljava/util/List;Ljava/util/List;)Lcom/videokit/api/MaskTrack;
+	public static synthetic fun copy$default (Lcom/videokit/api/MaskTrack;Ljava/lang/String;Lcom/videokit/api/MaskType;Lcom/videokit/api/MaskStyle;FZLcom/videokit/api/TimeRangeUs;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/videokit/api/MaskTrack;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAcceptedRangesUs ()Ljava/util/List;
 	public final fun getEnabled ()Z
 	public final fun getKeyframes ()Ljava/util/List;
 	public final fun getMaskId ()Ljava/lang/String;
@@ -693,6 +736,16 @@ public final class com/videokit/api/MediaKind : java/lang/Enum {
 	public final fun isImage ()Z
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/MediaKind;
 	public static fun values ()[Lcom/videokit/api/MediaKind;
+}
+
+public final class com/videokit/api/MediaOrientation : java/lang/Enum {
+	public static final field LANDSCAPE Lcom/videokit/api/MediaOrientation;
+	public static final field PORTRAIT Lcom/videokit/api/MediaOrientation;
+	public static final field SQUARE Lcom/videokit/api/MediaOrientation;
+	public static final field UNKNOWN Lcom/videokit/api/MediaOrientation;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/MediaOrientation;
+	public static fun values ()[Lcom/videokit/api/MediaOrientation;
 }
 
 public final class com/videokit/api/MediaProbeResult {
@@ -765,6 +818,7 @@ public final class com/videokit/api/NavigationRequest {
 
 public final class com/videokit/api/NavigationResult : java/lang/Enum {
 	public static final field ACCEPTED Lcom/videokit/api/NavigationResult;
+	public static final field FAILED Lcom/videokit/api/NavigationResult;
 	public static final field UNAVAILABLE Lcom/videokit/api/NavigationResult;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/NavigationResult;
@@ -793,15 +847,15 @@ public final class com/videokit/api/OrientationRequest : java/lang/Enum {
 
 public final class com/videokit/api/OrientationState {
 	public fun <init> ()V
-	public fun <init> (Lcom/videokit/api/OrientationRequest;Lcom/videokit/api/ContentOrientation;Z)V
-	public synthetic fun <init> (Lcom/videokit/api/OrientationRequest;Lcom/videokit/api/ContentOrientation;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/api/OrientationRequest;Lcom/videokit/api/MediaOrientation;Z)V
+	public synthetic fun <init> (Lcom/videokit/api/OrientationRequest;Lcom/videokit/api/MediaOrientation;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/api/OrientationRequest;
-	public final fun component2 ()Lcom/videokit/api/ContentOrientation;
+	public final fun component2 ()Lcom/videokit/api/MediaOrientation;
 	public final fun component3 ()Z
-	public final fun copy (Lcom/videokit/api/OrientationRequest;Lcom/videokit/api/ContentOrientation;Z)Lcom/videokit/api/OrientationState;
-	public static synthetic fun copy$default (Lcom/videokit/api/OrientationState;Lcom/videokit/api/OrientationRequest;Lcom/videokit/api/ContentOrientation;ZILjava/lang/Object;)Lcom/videokit/api/OrientationState;
+	public final fun copy (Lcom/videokit/api/OrientationRequest;Lcom/videokit/api/MediaOrientation;Z)Lcom/videokit/api/OrientationState;
+	public static synthetic fun copy$default (Lcom/videokit/api/OrientationState;Lcom/videokit/api/OrientationRequest;Lcom/videokit/api/MediaOrientation;ZILjava/lang/Object;)Lcom/videokit/api/OrientationState;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getContentOrientation ()Lcom/videokit/api/ContentOrientation;
+	public final fun getContentOrientation ()Lcom/videokit/api/MediaOrientation;
 	public final fun getFullscreen ()Z
 	public final fun getRequest ()Lcom/videokit/api/OrientationRequest;
 	public fun hashCode ()I
@@ -864,16 +918,6 @@ public final class com/videokit/api/PlaybackFeatures {
 	public final fun getSubtitles ()Lcom/videokit/api/SupportLevel;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/videokit/api/Priority : java/lang/Enum {
-	public static final field OFFSCREEN Lcom/videokit/api/Priority;
-	public static final field OPTIONAL Lcom/videokit/api/Priority;
-	public static final field VISIBLE Lcom/videokit/api/Priority;
-	public static final field VISIBLE_AUDIBLE Lcom/videokit/api/Priority;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/Priority;
-	public static fun values ()[Lcom/videokit/api/Priority;
 }
 
 public final class com/videokit/api/RecoveryDecision : java/lang/Enum {
@@ -957,6 +1001,16 @@ public abstract interface class com/videokit/api/ResourceLease : java/lang/AutoC
 	public abstract fun getLeaseId ()Ljava/lang/String;
 }
 
+public final class com/videokit/api/ResourcePriority : java/lang/Enum {
+	public static final field OFFSCREEN Lcom/videokit/api/ResourcePriority;
+	public static final field OPTIONAL Lcom/videokit/api/ResourcePriority;
+	public static final field VISIBLE Lcom/videokit/api/ResourcePriority;
+	public static final field VISIBLE_AUDIBLE Lcom/videokit/api/ResourcePriority;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/ResourcePriority;
+	public static fun values ()[Lcom/videokit/api/ResourcePriority;
+}
+
 public final class com/videokit/api/ResourceReport {
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
@@ -969,17 +1023,17 @@ public final class com/videokit/api/ResourceReport {
 }
 
 public final class com/videokit/api/ResourceRequest {
-	public fun <init> (Ljava/lang/String;Lcom/videokit/api/ResourceKind;Lcom/videokit/api/ResourceEstimate;Lcom/videokit/api/Priority;)V
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/ResourceKind;Lcom/videokit/api/ResourceEstimate;Lcom/videokit/api/ResourcePriority;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Lcom/videokit/api/ResourceKind;
 	public final fun component3 ()Lcom/videokit/api/ResourceEstimate;
-	public final fun component4 ()Lcom/videokit/api/Priority;
-	public final fun copy (Ljava/lang/String;Lcom/videokit/api/ResourceKind;Lcom/videokit/api/ResourceEstimate;Lcom/videokit/api/Priority;)Lcom/videokit/api/ResourceRequest;
-	public static synthetic fun copy$default (Lcom/videokit/api/ResourceRequest;Ljava/lang/String;Lcom/videokit/api/ResourceKind;Lcom/videokit/api/ResourceEstimate;Lcom/videokit/api/Priority;ILjava/lang/Object;)Lcom/videokit/api/ResourceRequest;
+	public final fun component4 ()Lcom/videokit/api/ResourcePriority;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/ResourceKind;Lcom/videokit/api/ResourceEstimate;Lcom/videokit/api/ResourcePriority;)Lcom/videokit/api/ResourceRequest;
+	public static synthetic fun copy$default (Lcom/videokit/api/ResourceRequest;Ljava/lang/String;Lcom/videokit/api/ResourceKind;Lcom/videokit/api/ResourceEstimate;Lcom/videokit/api/ResourcePriority;ILjava/lang/Object;)Lcom/videokit/api/ResourceRequest;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getEstimate ()Lcom/videokit/api/ResourceEstimate;
 	public final fun getKind ()Lcom/videokit/api/ResourceKind;
-	public final fun getPriority ()Lcom/videokit/api/Priority;
+	public final fun getPriority ()Lcom/videokit/api/ResourcePriority;
 	public final fun getSessionId ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1064,6 +1118,15 @@ public final class com/videokit/api/SessionPurpose : java/lang/Enum {
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/SessionPurpose;
 	public static fun values ()[Lcom/videokit/api/SessionPurpose;
+}
+
+public final class com/videokit/api/SessionVisibility : java/lang/Enum {
+	public static final field BACKGROUND Lcom/videokit/api/SessionVisibility;
+	public static final field OFFSCREEN Lcom/videokit/api/SessionVisibility;
+	public static final field VISIBLE Lcom/videokit/api/SessionVisibility;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/SessionVisibility;
+	public static fun values ()[Lcom/videokit/api/SessionVisibility;
 }
 
 public final class com/videokit/api/SinkCapabilities {
@@ -1185,8 +1248,10 @@ public final class com/videokit/api/SourceToken {
 
 public final class com/videokit/api/SuggestedAction : java/lang/Enum {
 	public static final field CHECK_PERMISSION Lcom/videokit/api/SuggestedAction;
+	public static final field CHOOSE_OTHER_SOURCE Lcom/videokit/api/SuggestedAction;
 	public static final field CHOOSE_OTHER_TRACK Lcom/videokit/api/SuggestedAction;
 	public static final field CLOSE_OTHER_SESSIONS Lcom/videokit/api/SuggestedAction;
+	public static final field CORRECT_TRACKING Lcom/videokit/api/SuggestedAction;
 	public static final field Companion Lcom/videokit/api/SuggestedAction$Companion;
 	public static final field FREE_SPACE Lcom/videokit/api/SuggestedAction;
 	public static final field NONE Lcom/videokit/api/SuggestedAction;
@@ -1263,6 +1328,32 @@ public final class com/videokit/api/TrackInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/videokit/api/TrackingCandidate {
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/TrackingKind;Lcom/videokit/api/MaskRegion;Ljava/lang/Float;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/videokit/api/TrackingKind;Lcom/videokit/api/MaskRegion;Ljava/lang/Float;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/videokit/api/TrackingKind;
+	public final fun component3 ()Lcom/videokit/api/MaskRegion;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/TrackingKind;Lcom/videokit/api/MaskRegion;Ljava/lang/Float;)Lcom/videokit/api/TrackingCandidate;
+	public static synthetic fun copy$default (Lcom/videokit/api/TrackingCandidate;Ljava/lang/String;Lcom/videokit/api/TrackingKind;Lcom/videokit/api/MaskRegion;Ljava/lang/Float;ILjava/lang/Object;)Lcom/videokit/api/TrackingCandidate;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCandidateId ()Ljava/lang/String;
+	public final fun getConfidence ()Ljava/lang/Float;
+	public final fun getKind ()Lcom/videokit/api/TrackingKind;
+	public final fun getRegion ()Lcom/videokit/api/MaskRegion;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/api/TrackingKind : java/lang/Enum {
+	public static final field FACE Lcom/videokit/api/TrackingKind;
+	public static final field OBJECT Lcom/videokit/api/TrackingKind;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/TrackingKind;
+	public static fun values ()[Lcom/videokit/api/TrackingKind;
+}
+
 public final class com/videokit/api/TrackingModuleStatus : java/lang/Enum {
 	public static final field AVAILABLE Lcom/videokit/api/TrackingModuleStatus;
 	public static final field DISABLED Lcom/videokit/api/TrackingModuleStatus;
@@ -1323,6 +1414,7 @@ public final class com/videokit/api/TrackingStatus {
 }
 
 public final class com/videokit/api/UnsupportedReason : java/lang/Enum {
+	public static final field CONTENT_LOCKED Lcom/videokit/api/UnsupportedReason;
 	public static final field Companion Lcom/videokit/api/UnsupportedReason$Companion;
 	public static final field DEVICE_CAPABILITY Lcom/videokit/api/UnsupportedReason;
 	public static final field FORMAT Lcom/videokit/api/UnsupportedReason;
@@ -1331,7 +1423,9 @@ public final class com/videokit/api/UnsupportedReason : java/lang/Enum {
 	public static final field MODULE_NOT_INSTALLED Lcom/videokit/api/UnsupportedReason;
 	public static final field NOT_IMPLEMENTED Lcom/videokit/api/UnsupportedReason;
 	public static final field SOURCE_SEQUENTIAL_ONLY Lcom/videokit/api/UnsupportedReason;
+	public static final field TRACK_NOT_FOUND Lcom/videokit/api/UnsupportedReason;
 	public static final field UNKNOWN Lcom/videokit/api/UnsupportedReason;
+	public static final field VALUE_OUT_OF_RANGE Lcom/videokit/api/UnsupportedReason;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/UnsupportedReason;
 	public static fun values ()[Lcom/videokit/api/UnsupportedReason;
@@ -1393,8 +1487,8 @@ public final class com/videokit/api/VideoKitCapabilities {
 	public static final field CURRENT_SCHEMA_VERSION I
 	public static final field Companion Lcom/videokit/api/VideoKitCapabilities$Companion;
 	public fun <init> ()V
-	public fun <init> (ILcom/videokit/api/DecoderSummary;Ljava/util/List;ILcom/videokit/api/Size;ILcom/videokit/api/PlaybackFeatures;Lcom/videokit/api/ImageFeatures;Lcom/videokit/api/EditFeatures;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/TrackingStatus;Lcom/videokit/api/SinkRequirements;Ljava/util/Map;Lcom/videokit/api/MediaProbeResult;)V
-	public synthetic fun <init> (ILcom/videokit/api/DecoderSummary;Ljava/util/List;ILcom/videokit/api/Size;ILcom/videokit/api/PlaybackFeatures;Lcom/videokit/api/ImageFeatures;Lcom/videokit/api/EditFeatures;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/TrackingStatus;Lcom/videokit/api/SinkRequirements;Ljava/util/Map;Lcom/videokit/api/MediaProbeResult;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (ILcom/videokit/api/DecoderSummary;Ljava/util/List;ILcom/videokit/api/Size;ILcom/videokit/api/PlaybackFeatures;Lcom/videokit/api/ImageFeatures;Lcom/videokit/api/EditFeatures;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/TrackingStatus;Lcom/videokit/api/SinkRequirements;Ljava/util/Map;Lcom/videokit/api/MediaProbeResult;Z)V
+	public synthetic fun <init> (ILcom/videokit/api/DecoderSummary;Ljava/util/List;ILcom/videokit/api/Size;ILcom/videokit/api/PlaybackFeatures;Lcom/videokit/api/ImageFeatures;Lcom/videokit/api/EditFeatures;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/TrackingStatus;Lcom/videokit/api/SinkRequirements;Ljava/util/Map;Lcom/videokit/api/MediaProbeResult;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()I
 	public final fun component10 ()Ljava/util/List;
 	public final fun component11 ()Ljava/util/List;
@@ -1402,6 +1496,7 @@ public final class com/videokit/api/VideoKitCapabilities {
 	public final fun component13 ()Lcom/videokit/api/SinkRequirements;
 	public final fun component14 ()Ljava/util/Map;
 	public final fun component15 ()Lcom/videokit/api/MediaProbeResult;
+	public final fun component16 ()Z
 	public final fun component2 ()Lcom/videokit/api/DecoderSummary;
 	public final fun component3 ()Ljava/util/List;
 	public final fun component4 ()I
@@ -1410,8 +1505,8 @@ public final class com/videokit/api/VideoKitCapabilities {
 	public final fun component7 ()Lcom/videokit/api/PlaybackFeatures;
 	public final fun component8 ()Lcom/videokit/api/ImageFeatures;
 	public final fun component9 ()Lcom/videokit/api/EditFeatures;
-	public final fun copy (ILcom/videokit/api/DecoderSummary;Ljava/util/List;ILcom/videokit/api/Size;ILcom/videokit/api/PlaybackFeatures;Lcom/videokit/api/ImageFeatures;Lcom/videokit/api/EditFeatures;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/TrackingStatus;Lcom/videokit/api/SinkRequirements;Ljava/util/Map;Lcom/videokit/api/MediaProbeResult;)Lcom/videokit/api/VideoKitCapabilities;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitCapabilities;ILcom/videokit/api/DecoderSummary;Ljava/util/List;ILcom/videokit/api/Size;ILcom/videokit/api/PlaybackFeatures;Lcom/videokit/api/ImageFeatures;Lcom/videokit/api/EditFeatures;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/TrackingStatus;Lcom/videokit/api/SinkRequirements;Ljava/util/Map;Lcom/videokit/api/MediaProbeResult;ILjava/lang/Object;)Lcom/videokit/api/VideoKitCapabilities;
+	public final fun copy (ILcom/videokit/api/DecoderSummary;Ljava/util/List;ILcom/videokit/api/Size;ILcom/videokit/api/PlaybackFeatures;Lcom/videokit/api/ImageFeatures;Lcom/videokit/api/EditFeatures;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/TrackingStatus;Lcom/videokit/api/SinkRequirements;Ljava/util/Map;Lcom/videokit/api/MediaProbeResult;Z)Lcom/videokit/api/VideoKitCapabilities;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitCapabilities;ILcom/videokit/api/DecoderSummary;Ljava/util/List;ILcom/videokit/api/Size;ILcom/videokit/api/PlaybackFeatures;Lcom/videokit/api/ImageFeatures;Lcom/videokit/api/EditFeatures;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/TrackingStatus;Lcom/videokit/api/SinkRequirements;Ljava/util/Map;Lcom/videokit/api/MediaProbeResult;ZILjava/lang/Object;)Lcom/videokit/api/VideoKitCapabilities;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getContainerCodecSupport ()Ljava/util/List;
 	public final fun getDecoders ()Lcom/videokit/api/DecoderSummary;
@@ -1429,6 +1524,7 @@ public final class com/videokit/api/VideoKitCapabilities {
 	public final fun getTracking ()Lcom/videokit/api/TrackingStatus;
 	public final fun getUnavailableReasons ()Ljava/util/Map;
 	public fun hashCode ()I
+	public final fun isDemo ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -1530,6 +1626,17 @@ public final class com/videokit/api/VideoKitCommand$SetFullscreen : com/videokit
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/videokit/api/VideoKitCommand$SetLooping : com/videokit/api/VideoKitCommand {
+	public fun <init> (Z)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lcom/videokit/api/VideoKitCommand$SetLooping;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitCommand$SetLooping;ZILjava/lang/Object;)Lcom/videokit/api/VideoKitCommand$SetLooping;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLooping ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/videokit/api/VideoKitCommand$SetMuted : com/videokit/api/VideoKitCommand {
 	public fun <init> (Z)V
 	public final fun component1 ()Z
@@ -1575,12 +1682,12 @@ public final class com/videokit/api/VideoKitCommand$SetTransform : com/videokit/
 }
 
 public final class com/videokit/api/VideoKitCommand$SetVisibility : com/videokit/api/VideoKitCommand {
-	public fun <init> (Lcom/videokit/api/Visibility;)V
-	public final fun component1 ()Lcom/videokit/api/Visibility;
-	public final fun copy (Lcom/videokit/api/Visibility;)Lcom/videokit/api/VideoKitCommand$SetVisibility;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitCommand$SetVisibility;Lcom/videokit/api/Visibility;ILjava/lang/Object;)Lcom/videokit/api/VideoKitCommand$SetVisibility;
+	public fun <init> (Lcom/videokit/api/SessionVisibility;)V
+	public final fun component1 ()Lcom/videokit/api/SessionVisibility;
+	public final fun copy (Lcom/videokit/api/SessionVisibility;)Lcom/videokit/api/VideoKitCommand$SetVisibility;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitCommand$SetVisibility;Lcom/videokit/api/SessionVisibility;ILjava/lang/Object;)Lcom/videokit/api/VideoKitCommand$SetVisibility;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getVisibility ()Lcom/videokit/api/Visibility;
+	public final fun getVisibility ()Lcom/videokit/api/SessionVisibility;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1661,6 +1768,19 @@ public final class com/videokit/api/VideoKitConfig {
 }
 
 public abstract interface class com/videokit/api/VideoKitEditCommand {
+}
+
+public final class com/videokit/api/VideoKitEditCommand$AcceptTrackingRange : com/videokit/api/VideoKitEditCommand {
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/TimeRangeUs;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/videokit/api/TimeRangeUs;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/TimeRangeUs;)Lcom/videokit/api/VideoKitEditCommand$AcceptTrackingRange;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitEditCommand$AcceptTrackingRange;Ljava/lang/String;Lcom/videokit/api/TimeRangeUs;ILjava/lang/Object;)Lcom/videokit/api/VideoKitEditCommand$AcceptTrackingRange;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaskId ()Ljava/lang/String;
+	public final fun getRangeUs ()Lcom/videokit/api/TimeRangeUs;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/videokit/api/VideoKitEditCommand$AddClip : com/videokit/api/VideoKitEditCommand {
@@ -1817,12 +1937,19 @@ public final class com/videokit/api/VideoKitEditCommand$SplitAt : com/videokit/a
 }
 
 public final class com/videokit/api/VideoKitEditCommand$StartTracking : com/videokit/api/VideoKitEditCommand {
-	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/TrackingKind;Lcom/videokit/api/MaskRegion;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/videokit/api/TrackingKind;Lcom/videokit/api/MaskRegion;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lcom/videokit/api/VideoKitEditCommand$StartTracking;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitEditCommand$StartTracking;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitEditCommand$StartTracking;
+	public final fun component2 ()Lcom/videokit/api/TrackingKind;
+	public final fun component3 ()Lcom/videokit/api/MaskRegion;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/TrackingKind;Lcom/videokit/api/MaskRegion;Ljava/lang/String;)Lcom/videokit/api/VideoKitEditCommand$StartTracking;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitEditCommand$StartTracking;Ljava/lang/String;Lcom/videokit/api/TrackingKind;Lcom/videokit/api/MaskRegion;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitEditCommand$StartTracking;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKind ()Lcom/videokit/api/TrackingKind;
 	public final fun getMaskId ()Ljava/lang/String;
+	public final fun getSeedRegion ()Lcom/videokit/api/MaskRegion;
+	public final fun getTargetId ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1967,6 +2094,7 @@ public abstract interface class com/videokit/api/VideoKitEditProject : java/lang
 	public abstract fun cancelExport (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun checkExport (Lcom/videokit/api/VideoKitExportRequest;Lcom/videokit/api/VideoKitOutputSink;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun close ()V
+	public abstract fun detectCandidates (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun export (Lcom/videokit/api/VideoKitExportRequest;Lcom/videokit/api/VideoKitOutputSink;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getEvents ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun getProjectId ()Ljava/lang/String;
@@ -2086,29 +2214,76 @@ public final class com/videokit/api/VideoKitExportRequest {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/videokit/api/VideoKitExportResult {
-	public fun <init> (Ljava/lang/String;Lcom/videokit/api/VideoKitOutputToken;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZJLjava/util/List;Ljava/lang/String;Lcom/videokit/api/ExportPreset;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/String;Lcom/videokit/api/VideoKitOutputToken;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZJLjava/util/List;Ljava/lang/String;Lcom/videokit/api/ExportPreset;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+public abstract interface class com/videokit/api/VideoKitExportResult {
+	public abstract fun getExportId ()Ljava/lang/String;
+}
+
+public final class com/videokit/api/VideoKitExportResult$Cancelled : com/videokit/api/VideoKitExportResult {
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/String;Z)Lcom/videokit/api/VideoKitExportResult$Cancelled;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitExportResult$Cancelled;Ljava/lang/String;ZILjava/lang/Object;)Lcom/videokit/api/VideoKitExportResult$Cancelled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getExportId ()Ljava/lang/String;
+	public final fun getPartialOutputRemoved ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/api/VideoKitExportResult$Failed : com/videokit/api/VideoKitExportResult {
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/VideoKitStableError;Lcom/videokit/api/ExportStage;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/videokit/api/VideoKitStableError;Lcom/videokit/api/ExportStage;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/videokit/api/VideoKitStableError;
+	public final fun component3 ()Lcom/videokit/api/ExportStage;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/VideoKitStableError;Lcom/videokit/api/ExportStage;)Lcom/videokit/api/VideoKitExportResult$Failed;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitExportResult$Failed;Ljava/lang/String;Lcom/videokit/api/VideoKitStableError;Lcom/videokit/api/ExportStage;ILjava/lang/Object;)Lcom/videokit/api/VideoKitExportResult$Failed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/videokit/api/VideoKitStableError;
+	public fun getExportId ()Ljava/lang/String;
+	public final fun getStage ()Lcom/videokit/api/ExportStage;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/api/VideoKitExportResult$Succeeded : com/videokit/api/VideoKitExportResult {
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/VideoKitExportedMedia;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/videokit/api/VideoKitExportedMedia;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/VideoKitExportedMedia;)Lcom/videokit/api/VideoKitExportResult$Succeeded;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitExportResult$Succeeded;Ljava/lang/String;Lcom/videokit/api/VideoKitExportedMedia;ILjava/lang/Object;)Lcom/videokit/api/VideoKitExportResult$Succeeded;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getExportId ()Ljava/lang/String;
+	public final fun getMedia ()Lcom/videokit/api/VideoKitExportedMedia;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/api/VideoKitExportedMedia {
+	public fun <init> (Lcom/videokit/api/VideoKitOutputToken;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZJLjava/util/List;Ljava/lang/String;Lcom/videokit/api/ExportPreset;Ljava/util/List;Z)V
+	public synthetic fun <init> (Lcom/videokit/api/VideoKitOutputToken;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZJLjava/util/List;Ljava/lang/String;Lcom/videokit/api/ExportPreset;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/videokit/api/VideoKitOutputToken;
 	public final fun component10 ()J
-	public final fun component11 ()J
-	public final fun component12 ()Ljava/lang/Float;
-	public final fun component13 ()Z
-	public final fun component14 ()J
-	public final fun component15 ()Ljava/util/List;
-	public final fun component16 ()Ljava/lang/String;
-	public final fun component17 ()Lcom/videokit/api/ExportPreset;
-	public final fun component18 ()Ljava/util/List;
-	public final fun component2 ()Lcom/videokit/api/VideoKitOutputToken;
+	public final fun component11 ()Ljava/lang/Float;
+	public final fun component12 ()Z
+	public final fun component13 ()J
+	public final fun component14 ()Ljava/util/List;
+	public final fun component15 ()Ljava/lang/String;
+	public final fun component16 ()Lcom/videokit/api/ExportPreset;
+	public final fun component17 ()Ljava/util/List;
+	public final fun component18 ()Z
+	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/String;
+	public final fun component6 ()I
 	public final fun component7 ()I
 	public final fun component8 ()I
-	public final fun component9 ()I
-	public final fun copy (Ljava/lang/String;Lcom/videokit/api/VideoKitOutputToken;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZJLjava/util/List;Ljava/lang/String;Lcom/videokit/api/ExportPreset;Ljava/util/List;)Lcom/videokit/api/VideoKitExportResult;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitExportResult;Ljava/lang/String;Lcom/videokit/api/VideoKitOutputToken;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZJLjava/util/List;Ljava/lang/String;Lcom/videokit/api/ExportPreset;Ljava/util/List;ILjava/lang/Object;)Lcom/videokit/api/VideoKitExportResult;
+	public final fun component9 ()J
+	public final fun copy (Lcom/videokit/api/VideoKitOutputToken;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZJLjava/util/List;Ljava/lang/String;Lcom/videokit/api/ExportPreset;Ljava/util/List;Z)Lcom/videokit/api/VideoKitExportedMedia;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitExportedMedia;Lcom/videokit/api/VideoKitOutputToken;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZJLjava/util/List;Ljava/lang/String;Lcom/videokit/api/ExportPreset;Ljava/util/List;ZILjava/lang/Object;)Lcom/videokit/api/VideoKitExportedMedia;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudioCodec ()Ljava/lang/String;
 	public final fun getAudioPresent ()Z
@@ -2116,7 +2291,6 @@ public final class com/videokit/api/VideoKitExportResult {
 	public final fun getCreatedAtEpochMs ()J
 	public final fun getDurationUs ()J
 	public final fun getEditProjectId ()Ljava/lang/String;
-	public final fun getExportId ()Ljava/lang/String;
 	public final fun getExportPreset ()Lcom/videokit/api/ExportPreset;
 	public final fun getExtension ()Ljava/lang/String;
 	public final fun getFrameRate ()Ljava/lang/Float;
@@ -2129,37 +2303,7 @@ public final class com/videokit/api/VideoKitExportResult {
 	public final fun getWarnings ()Ljava/util/List;
 	public final fun getWidth ()I
 	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/videokit/api/VideoKitExportedMedia {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;Z)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()Ljava/lang/Float;
-	public final fun component11 ()Z
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()I
-	public final fun component6 ()I
-	public final fun component7 ()I
-	public final fun component8 ()J
-	public final fun component9 ()J
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;Z)Lcom/videokit/api/VideoKitExportedMedia;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitExportedMedia;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZILjava/lang/Object;)Lcom/videokit/api/VideoKitExportedMedia;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAudioCodec ()Ljava/lang/String;
-	public final fun getAudioPresent ()Z
-	public final fun getContainer ()Ljava/lang/String;
-	public final fun getDurationUs ()J
-	public final fun getExtension ()Ljava/lang/String;
-	public final fun getFrameRate ()Ljava/lang/Float;
-	public final fun getHeight ()I
-	public final fun getRotationDeg ()I
-	public final fun getSizeBytes ()J
-	public final fun getVideoCodec ()Ljava/lang/String;
-	public final fun getWidth ()I
-	public fun hashCode ()I
+	public final fun isDemo ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -2195,12 +2339,12 @@ public final class com/videokit/api/VideoKitHostAction {
 
 public abstract interface class com/videokit/api/VideoKitHostCallbacks {
 	public abstract fun onControlsVisibilityChanged (Ljava/lang/String;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun onFatalSessionError (Lcom/videokit/api/VideoKitStableError;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun onFatalSessionError (Ljava/lang/String;Lcom/videokit/api/VideoKitStableError;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun onHostActionRequested (Lcom/videokit/api/HostActionRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun onNavigationRequested (Lcom/videokit/api/NavigationRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun onPlaybackEvent (Lcom/videokit/api/VideoKitPlaybackEvent;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun onPlaybackSnapshot (Lcom/videokit/api/VideoKitPlaybackState;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun onRecoverableError (Lcom/videokit/api/VideoKitStableError;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun onRecoverableError (Ljava/lang/String;Lcom/videokit/api/VideoKitStableError;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun onSourceReleased (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
@@ -2234,10 +2378,44 @@ public final class com/videokit/api/VideoKitMediaSource {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/videokit/api/VideoKitOutputMetadata {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZZ)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/Float;
+	public final fun component11 ()Z
+	public final fun component12 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()J
+	public final fun component9 ()J
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZZ)Lcom/videokit/api/VideoKitOutputMetadata;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitOutputMetadata;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIIJJLjava/lang/Float;ZZILjava/lang/Object;)Lcom/videokit/api/VideoKitOutputMetadata;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAudioCodec ()Ljava/lang/String;
+	public final fun getAudioPresent ()Z
+	public final fun getContainer ()Ljava/lang/String;
+	public final fun getDurationUs ()J
+	public final fun getExtension ()Ljava/lang/String;
+	public final fun getFrameRate ()Ljava/lang/Float;
+	public final fun getHeight ()I
+	public final fun getRotationDeg ()I
+	public final fun getSizeBytes ()J
+	public final fun getVideoCodec ()Ljava/lang/String;
+	public final fun getWidth ()I
+	public fun hashCode ()I
+	public final fun isDemo ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
 public abstract interface class com/videokit/api/VideoKitOutputSink {
 	public abstract fun abort (Ljava/lang/String;Lcom/videokit/api/VideoKitAbortReason;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getCapabilities ()Lcom/videokit/api/SinkCapabilities;
-	public abstract fun markReady (Ljava/lang/String;Lcom/videokit/api/VideoKitExportedMedia;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun markReady (Ljava/lang/String;Lcom/videokit/api/VideoKitOutputMetadata;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun openTemporary (Lcom/videokit/api/OutputOpenRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
@@ -2352,14 +2530,14 @@ public final class com/videokit/api/VideoKitPlaybackEvent$UserSeek : com/videoki
 }
 
 public final class com/videokit/api/VideoKitPlaybackEvent$VisibilityChanged : com/videokit/api/VideoKitPlaybackEvent {
-	public fun <init> (Ljava/lang/String;Lcom/videokit/api/Visibility;)V
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/SessionVisibility;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Lcom/videokit/api/Visibility;
-	public final fun copy (Ljava/lang/String;Lcom/videokit/api/Visibility;)Lcom/videokit/api/VideoKitPlaybackEvent$VisibilityChanged;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitPlaybackEvent$VisibilityChanged;Ljava/lang/String;Lcom/videokit/api/Visibility;ILjava/lang/Object;)Lcom/videokit/api/VideoKitPlaybackEvent$VisibilityChanged;
+	public final fun component2 ()Lcom/videokit/api/SessionVisibility;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/SessionVisibility;)Lcom/videokit/api/VideoKitPlaybackEvent$VisibilityChanged;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitPlaybackEvent$VisibilityChanged;Ljava/lang/String;Lcom/videokit/api/SessionVisibility;ILjava/lang/Object;)Lcom/videokit/api/VideoKitPlaybackEvent$VisibilityChanged;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getSessionId ()Ljava/lang/String;
-	public final fun getVisibility ()Lcom/videokit/api/Visibility;
+	public final fun getVisibility ()Lcom/videokit/api/SessionVisibility;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -2381,8 +2559,8 @@ public final class com/videokit/api/VideoKitPlaybackState {
 	public static final field CURRENT_SCHEMA_VERSION I
 	public static final field Companion Lcom/videokit/api/VideoKitPlaybackState$Companion;
 	public fun <init> ()V
-	public fun <init> (ILjava/lang/String;Ljava/lang/String;FFFILcom/videokit/api/FitMode;Lcom/videokit/api/OrientationRequest;ZLjava/lang/Long;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;)V
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;FFFILcom/videokit/api/FitMode;Lcom/videokit/api/OrientationRequest;ZLjava/lang/Long;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;FFFILcom/videokit/api/FitMode;Lcom/videokit/api/OrientationRequest;ZLjava/lang/Long;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Long;)V
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;FFFILcom/videokit/api/FitMode;Lcom/videokit/api/OrientationRequest;ZLjava/lang/Long;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()I
 	public final fun component10 ()Z
 	public final fun component11 ()Ljava/lang/Long;
@@ -2390,8 +2568,9 @@ public final class com/videokit/api/VideoKitPlaybackState {
 	public final fun component13 ()Ljava/lang/Float;
 	public final fun component14 ()Ljava/lang/Boolean;
 	public final fun component15 ()Ljava/lang/String;
-	public final fun component16 ()Ljava/lang/String;
-	public final fun component17 ()Ljava/lang/Long;
+	public final fun component16 ()Ljava/lang/Boolean;
+	public final fun component17 ()Ljava/lang/String;
+	public final fun component18 ()Ljava/lang/Long;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()F
@@ -2400,8 +2579,8 @@ public final class com/videokit/api/VideoKitPlaybackState {
 	public final fun component7 ()I
 	public final fun component8 ()Lcom/videokit/api/FitMode;
 	public final fun component9 ()Lcom/videokit/api/OrientationRequest;
-	public final fun copy (ILjava/lang/String;Ljava/lang/String;FFFILcom/videokit/api/FitMode;Lcom/videokit/api/OrientationRequest;ZLjava/lang/Long;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;)Lcom/videokit/api/VideoKitPlaybackState;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitPlaybackState;ILjava/lang/String;Ljava/lang/String;FFFILcom/videokit/api/FitMode;Lcom/videokit/api/OrientationRequest;ZLjava/lang/Long;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;ILjava/lang/Object;)Lcom/videokit/api/VideoKitPlaybackState;
+	public final fun copy (ILjava/lang/String;Ljava/lang/String;FFFILcom/videokit/api/FitMode;Lcom/videokit/api/OrientationRequest;ZLjava/lang/Long;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Long;)Lcom/videokit/api/VideoKitPlaybackState;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitPlaybackState;ILjava/lang/String;Ljava/lang/String;FFFILcom/videokit/api/FitMode;Lcom/videokit/api/OrientationRequest;ZLjava/lang/Long;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/String;Ljava/lang/Long;ILjava/lang/Object;)Lcom/videokit/api/VideoKitPlaybackState;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudioTrackId ()Ljava/lang/String;
 	public final fun getFitMode ()Lcom/videokit/api/FitMode;
@@ -2418,6 +2597,7 @@ public final class com/videokit/api/VideoKitPlaybackState {
 	public final fun getSessionId ()Ljava/lang/String;
 	public final fun getSpeed ()Ljava/lang/Float;
 	public final fun getSubtitleTrackId ()Ljava/lang/String;
+	public final fun getSubtitlesEnabled ()Ljava/lang/Boolean;
 	public final fun getVolume ()Ljava/lang/Float;
 	public final fun getZoom ()F
 	public fun hashCode ()I
@@ -2433,7 +2613,7 @@ public abstract interface class com/videokit/api/VideoKitReadHandle : java/lang/
 }
 
 public abstract interface class com/videokit/api/VideoKitSession : java/lang/AutoCloseable {
-	public abstract fun attachSurface (Lcom/videokit/api/VideoKitSurfaceTarget;)V
+	public abstract fun attachSurface (Lcom/videokit/api/VideoKitSurfaceTarget;)Lcom/videokit/api/VideoKitCommandResult;
 	public abstract fun bind (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/api/VideoKitPlaybackState;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun captureState (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun close ()V
@@ -2456,20 +2636,20 @@ public final class com/videokit/api/VideoKitSession$DefaultImpls {
 
 public final class com/videokit/api/VideoKitSessionConfig {
 	public fun <init> ()V
-	public fun <init> (Lcom/videokit/api/SessionPurpose;Lcom/videokit/api/Priority;Lcom/videokit/api/Visibility;ZLjava/lang/String;)V
-	public synthetic fun <init> (Lcom/videokit/api/SessionPurpose;Lcom/videokit/api/Priority;Lcom/videokit/api/Visibility;ZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/api/SessionPurpose;Lcom/videokit/api/ResourcePriority;Lcom/videokit/api/SessionVisibility;ZLjava/lang/String;)V
+	public synthetic fun <init> (Lcom/videokit/api/SessionPurpose;Lcom/videokit/api/ResourcePriority;Lcom/videokit/api/SessionVisibility;ZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/api/SessionPurpose;
-	public final fun component2 ()Lcom/videokit/api/Priority;
-	public final fun component3 ()Lcom/videokit/api/Visibility;
+	public final fun component2 ()Lcom/videokit/api/ResourcePriority;
+	public final fun component3 ()Lcom/videokit/api/SessionVisibility;
 	public final fun component4 ()Z
 	public final fun component5 ()Ljava/lang/String;
-	public final fun copy (Lcom/videokit/api/SessionPurpose;Lcom/videokit/api/Priority;Lcom/videokit/api/Visibility;ZLjava/lang/String;)Lcom/videokit/api/VideoKitSessionConfig;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitSessionConfig;Lcom/videokit/api/SessionPurpose;Lcom/videokit/api/Priority;Lcom/videokit/api/Visibility;ZLjava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitSessionConfig;
+	public final fun copy (Lcom/videokit/api/SessionPurpose;Lcom/videokit/api/ResourcePriority;Lcom/videokit/api/SessionVisibility;ZLjava/lang/String;)Lcom/videokit/api/VideoKitSessionConfig;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitSessionConfig;Lcom/videokit/api/SessionPurpose;Lcom/videokit/api/ResourcePriority;Lcom/videokit/api/SessionVisibility;ZLjava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitSessionConfig;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDebugTag ()Ljava/lang/String;
 	public final fun getInitialActiveAudio ()Z
-	public final fun getInitialVisibility ()Lcom/videokit/api/Visibility;
-	public final fun getPriority ()Lcom/videokit/api/Priority;
+	public final fun getInitialVisibility ()Lcom/videokit/api/SessionVisibility;
+	public final fun getPriority ()Lcom/videokit/api/ResourcePriority;
 	public final fun getPurpose ()Lcom/videokit/api/SessionPurpose;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -2477,8 +2657,8 @@ public final class com/videokit/api/VideoKitSessionConfig {
 
 public final class com/videokit/api/VideoKitSessionState {
 	public fun <init> ()V
-	public fun <init> (Lcom/videokit/api/SessionPhase;Lcom/videokit/api/MediaKind;JLjava/lang/Long;Ljava/lang/Long;ZFFZLjava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/MediaTransform;Lcom/videokit/api/OrientationState;Lcom/videokit/api/Visibility;ZZLcom/videokit/api/VideoKitStableError;ZLjava/lang/Long;Ljava/util/List;Lcom/videokit/api/Size;Z)V
-	public synthetic fun <init> (Lcom/videokit/api/SessionPhase;Lcom/videokit/api/MediaKind;JLjava/lang/Long;Ljava/lang/Long;ZFFZLjava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/MediaTransform;Lcom/videokit/api/OrientationState;Lcom/videokit/api/Visibility;ZZLcom/videokit/api/VideoKitStableError;ZLjava/lang/Long;Ljava/util/List;Lcom/videokit/api/Size;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/api/SessionPhase;Lcom/videokit/api/MediaKind;JLjava/lang/Long;Ljava/lang/Long;ZFFZLjava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/MediaTransform;Lcom/videokit/api/OrientationState;Lcom/videokit/api/SessionVisibility;ZZLcom/videokit/api/VideoKitStableError;ZLjava/lang/Long;Ljava/util/List;Lcom/videokit/api/Size;ZZLcom/videokit/api/ImageDetails;)V
+	public synthetic fun <init> (Lcom/videokit/api/SessionPhase;Lcom/videokit/api/MediaKind;JLjava/lang/Long;Ljava/lang/Long;ZFFZLjava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/MediaTransform;Lcom/videokit/api/OrientationState;Lcom/videokit/api/SessionVisibility;ZZLcom/videokit/api/VideoKitStableError;ZLjava/lang/Long;Ljava/util/List;Lcom/videokit/api/Size;ZZLcom/videokit/api/ImageDetails;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/api/SessionPhase;
 	public final fun component10 ()Ljava/util/List;
 	public final fun component11 ()Ljava/util/List;
@@ -2486,7 +2666,7 @@ public final class com/videokit/api/VideoKitSessionState {
 	public final fun component13 ()Ljava/lang/String;
 	public final fun component14 ()Lcom/videokit/api/MediaTransform;
 	public final fun component15 ()Lcom/videokit/api/OrientationState;
-	public final fun component16 ()Lcom/videokit/api/Visibility;
+	public final fun component16 ()Lcom/videokit/api/SessionVisibility;
 	public final fun component17 ()Z
 	public final fun component18 ()Z
 	public final fun component19 ()Lcom/videokit/api/VideoKitStableError;
@@ -2496,6 +2676,8 @@ public final class com/videokit/api/VideoKitSessionState {
 	public final fun component22 ()Ljava/util/List;
 	public final fun component23 ()Lcom/videokit/api/Size;
 	public final fun component24 ()Z
+	public final fun component25 ()Z
+	public final fun component26 ()Lcom/videokit/api/ImageDetails;
 	public final fun component3 ()J
 	public final fun component4 ()Ljava/lang/Long;
 	public final fun component5 ()Ljava/lang/Long;
@@ -2503,8 +2685,8 @@ public final class com/videokit/api/VideoKitSessionState {
 	public final fun component7 ()F
 	public final fun component8 ()F
 	public final fun component9 ()Z
-	public final fun copy (Lcom/videokit/api/SessionPhase;Lcom/videokit/api/MediaKind;JLjava/lang/Long;Ljava/lang/Long;ZFFZLjava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/MediaTransform;Lcom/videokit/api/OrientationState;Lcom/videokit/api/Visibility;ZZLcom/videokit/api/VideoKitStableError;ZLjava/lang/Long;Ljava/util/List;Lcom/videokit/api/Size;Z)Lcom/videokit/api/VideoKitSessionState;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitSessionState;Lcom/videokit/api/SessionPhase;Lcom/videokit/api/MediaKind;JLjava/lang/Long;Ljava/lang/Long;ZFFZLjava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/MediaTransform;Lcom/videokit/api/OrientationState;Lcom/videokit/api/Visibility;ZZLcom/videokit/api/VideoKitStableError;ZLjava/lang/Long;Ljava/util/List;Lcom/videokit/api/Size;ZILjava/lang/Object;)Lcom/videokit/api/VideoKitSessionState;
+	public final fun copy (Lcom/videokit/api/SessionPhase;Lcom/videokit/api/MediaKind;JLjava/lang/Long;Ljava/lang/Long;ZFFZLjava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/MediaTransform;Lcom/videokit/api/OrientationState;Lcom/videokit/api/SessionVisibility;ZZLcom/videokit/api/VideoKitStableError;ZLjava/lang/Long;Ljava/util/List;Lcom/videokit/api/Size;ZZLcom/videokit/api/ImageDetails;)Lcom/videokit/api/VideoKitSessionState;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitSessionState;Lcom/videokit/api/SessionPhase;Lcom/videokit/api/MediaKind;JLjava/lang/Long;Ljava/lang/Long;ZFFZLjava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/MediaTransform;Lcom/videokit/api/OrientationState;Lcom/videokit/api/SessionVisibility;ZZLcom/videokit/api/VideoKitStableError;ZLjava/lang/Long;Ljava/util/List;Lcom/videokit/api/Size;ZZLcom/videokit/api/ImageDetails;ILjava/lang/Object;)Lcom/videokit/api/VideoKitSessionState;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getActiveAudio ()Z
 	public final fun getAudioTracks ()Ljava/util/List;
@@ -2514,6 +2696,8 @@ public final class com/videokit/api/VideoKitSessionState {
 	public final fun getError ()Lcom/videokit/api/VideoKitStableError;
 	public final fun getHiddenForLock ()Z
 	public final fun getHostActions ()Ljava/util/List;
+	public final fun getImageDetails ()Lcom/videokit/api/ImageDetails;
+	public final fun getLooping ()Z
 	public final fun getMediaKind ()Lcom/videokit/api/MediaKind;
 	public final fun getMuted ()Z
 	public final fun getOrientation ()Lcom/videokit/api/OrientationState;
@@ -2528,7 +2712,7 @@ public final class com/videokit/api/VideoKitSessionState {
 	public final fun getSubtitleTracks ()Ljava/util/List;
 	public final fun getTransform ()Lcom/videokit/api/MediaTransform;
 	public final fun getVideoSize ()Lcom/videokit/api/Size;
-	public final fun getVisibility ()Lcom/videokit/api/Visibility;
+	public final fun getVisibility ()Lcom/videokit/api/SessionVisibility;
 	public final fun getVolume ()F
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -2582,14 +2766,5 @@ public abstract interface class com/videokit/api/VideoKitWriteHandle : java/lang
 	public abstract fun getHandleId ()Ljava/lang/String;
 	public abstract fun write ([BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun writeAt (J[BIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class com/videokit/api/Visibility : java/lang/Enum {
-	public static final field BACKGROUND Lcom/videokit/api/Visibility;
-	public static final field OFFSCREEN Lcom/videokit/api/Visibility;
-	public static final field VISIBLE Lcom/videokit/api/Visibility;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/Visibility;
-	public static fun values ()[Lcom/videokit/api/Visibility;
 }
 

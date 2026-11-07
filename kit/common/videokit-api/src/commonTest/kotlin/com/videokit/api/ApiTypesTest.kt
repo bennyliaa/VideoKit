@@ -31,15 +31,18 @@ class ApiTypesTest {
         assertEquals(ErrorCode.SOURCE_TIMEOUT, ErrorCode.fromWireName("SOURCE_TIMEOUT"))
         assertEquals(ErrorCode.INTERNAL_ERROR_REDACTED, ErrorCode.fromWireName("SOME_FUTURE_CODE"))
         assertEquals(ErrorCode.INTERNAL_ERROR_REDACTED, ErrorCode.fromWireName(null))
-        assertEquals(22, ErrorCode.entries.size)
+        assertEquals(25, ErrorCode.entries.size)
     }
 
     @Test
     fun otherWireNameFallbacks() {
         assertEquals(SuggestedAction.NONE, SuggestedAction.fromWireName("FUTURE"))
         assertEquals(UnsupportedReason.UNKNOWN, UnsupportedReason.fromWireName("FUTURE"))
-        assertNull(ErrorStage.fromWireName("FUTURE"))
+        assertEquals(ErrorStage.UNKNOWN, ErrorStage.fromWireName("FUTURE"))
         assertEquals(ErrorStage.SINK, ErrorStage.fromWireName("SINK"))
+        // 04A T3: unknown feature keys decode to UNKNOWN.
+        assertEquals(FeatureKey.UNKNOWN, FeatureKey.fromWireName("FEATURE_FROM_THE_FUTURE"))
+        assertEquals(FeatureKey.EXPORT, FeatureKey.fromWireName("EXPORT"))
     }
 
     @Test

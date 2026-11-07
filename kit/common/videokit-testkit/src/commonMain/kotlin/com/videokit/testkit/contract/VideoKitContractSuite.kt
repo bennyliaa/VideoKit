@@ -32,6 +32,7 @@ import com.videokit.api.VideoKitEditProject
 import com.videokit.api.VideoKitEvent
 import com.videokit.api.VideoKitException
 import com.videokit.api.VideoKitExportRequest
+import com.videokit.api.VideoKitExportResult
 import com.videokit.api.VideoKitHostAction
 import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitPlaybackState
@@ -157,7 +158,7 @@ public object VideoKitContractSuite {
             val session = kit.createSession(VideoKitSessionConfig())
             listOf(VideoKitCommand.Play, VideoKitCommand.Pause, VideoKitCommand.SeekTo(1_000L)).forEach { command ->
                 val result = session.execute(command)
-                expect(result is VideoKitCommandResult.Rejected) { "$command before bind returned $result" }
+                expectEquals(ErrorCode.INVALID_STATE, (result as? VideoKitCommandResult.Rejected)?.error?.code, "$command before bind")
             }
             expectEquals(SessionPhase.CREATED, session.state.value.phase, "phase unchanged")
         },
@@ -229,7 +230,7 @@ public object VideoKitContractSuite {
                 VideoKitCommand.SeekTo(-5L),
             ).forEach { command ->
                 val result = session.execute(command)
-                expect(result is VideoKitCommandResult.Rejected) { "$command returned $result" }
+                expectEquals(ErrorCode.INVALID_ARGUMENT, (result as? VideoKitCommandResult.Rejected)?.error?.code, "$command")
             }
         },
         case("command.settings_round_trip", ContractGroup.COMMAND_RESULTS, "setting commands are Executed and reflected in state") {
@@ -244,7 +245,7 @@ public object VideoKitContractSuite {
                 VideoKitCommand.SetTransform(com.videokit.api.MediaTransform(2f, 0.1f, -0.1f, 90, FitMode.FILL)),
                 VideoKitCommand.SetOrientation(OrientationRequest.LANDSCAPE),
                 VideoKitCommand.SetFullscreen(true),
-                VideoKitCommand.SetVisibility(com.videokit.api.Visibility.OFFSCREEN),
+                VideoKitCommand.SetVisibility(com.videokit.api.SessionVisibility.OFFSCREEN),
             ).forEach { expectEquals(VideoKitCommandResult.Executed, session.execute(it), "$it") }
             val state = session.state.value
             expect(state.speed == 1.5f && state.muted && state.volume == 0.5f && state.selectedAudioTrackId == second.id) { "state $state" }
@@ -285,6 +286,24 @@ public object VideoKitContractSuite {
             expectEquals(VideoKitCommandResult.Executed, session.requestHostAction("tag"), "request after completion")
             expectEquals(2, callbacks.hostActionRequests.size, "callback invocations")
             expectEquals("actions", callbacks.hostActionRequests.first().mediaToken, "request mediaToken")
+        },
+        case(
+            "command.attach_unknown_target",
+            ContractGroup.COMMAND_RESULTS,
+            "a foreign render target type is Unsupported(DEVICE_CAPABILITY)",
+        ) {
+            val session = boundVideo("foreign-target")
+            val foreign = object : com.videokit.api.VideoKitSurfaceTarget {
+                override val width: Int = 16
+                override val height: Int = 9
+            }
+            expectEquals(
+                VideoKitCommandResult.Unsupported(UnsupportedReason.DEVICE_CAPABILITY),
+                session.attachSurface(foreign),
+                "attach result",
+            )
+            session.release()
+            expectEquals(VideoKitCommandResult.SessionReleased, session.attachSurface(foreign), "attach after release")
         },
         case("command.unknown_host_action", ContractGroup.COMMAND_RESULTS, "unknown host actions are Rejected without calling the host") {
             val session = boundVideo("unknown-action")
@@ -355,15 +374,15 @@ public object VideoKitContractSuite {
             val project = projectWithClip("cancel-export")
             val sink = RecordingOutputSink()
             val request = VideoKitExportRequest(exportId = "export-cancel")
-            val outcome = kotlinx.coroutines.CompletableDeferred<Throwable?>()
+            val outcome = kotlinx.coroutines.CompletableDeferred<VideoKitExportResult>()
             launchInBackground {
-                outcome.complete(runCatching { project.export(request, sink) }.exceptionOrNull())
+                outcome.complete(project.export(request, sink))
             }
             awaitState(project.state, what = "EXPORTING") { it.phase == EditPhase.EXPORTING }
             eventually("sink opened") { sink.handles.isNotEmpty() }
             project.cancelExport("export-cancel")
-            val failure = within("export to finish") { outcome.await() }
-            expectEquals(ErrorCode.CANCELLED, (failure as? VideoKitException)?.error?.code, "export failure")
+            val result = within("export to finish") { outcome.await() }
+            expect(result is VideoKitExportResult.Cancelled && result.exportId == "export-cancel") { "export returned $result" }
             awaitState(project.state, what = "CANCELLED") { it.phase == EditPhase.CANCELLED }
             expect(sink.readyCalls.isEmpty()) { "markReady called after cancel" }
             expect(sink.abortCalls.any { it.second == VideoKitAbortReason.CANCELLED }) { "abort not called: ${sink.abortCalls}" }
@@ -459,7 +478,7 @@ public object VideoKitContractSuite {
             expectEquals(VideoKitCommandResult.Executed, session.execute(VideoKitCommand.Pause), "pause")
             val action = session.requestHostAction("tag")
             expectEquals(ErrorCode.HOST_CALLBACK_FAILED, (action as? VideoKitCommandResult.Rejected)?.error?.code, "host action")
-            expectEquals(NavigationResult.UNAVAILABLE, session.requestNavigation(NavigationDirection.PREVIOUS), "navigation")
+            expectEquals(NavigationResult.FAILED, session.requestNavigation(NavigationDirection.PREVIOUS), "navigation")
             session.setControlsVisible(false)
             within("release with throwing callbacks") { session.release() }
         },
@@ -475,7 +494,7 @@ public object VideoKitContractSuite {
             within("commands with hanging callbacks") {
                 session.execute(VideoKitCommand.Play)
                 session.execute(VideoKitCommand.Pause)
-                session.execute(VideoKitCommand.SetVisibility(com.videokit.api.Visibility.BACKGROUND))
+                session.execute(VideoKitCommand.SetVisibility(com.videokit.api.SessionVisibility.BACKGROUND))
             }
             within("release with hanging callbacks") { session.release() }
         },
@@ -528,16 +547,16 @@ public object VideoKitContractSuite {
         case("faults.sink_open", ContractGroup.FAULT_MAPPING, "a sink that refuses to open maps to OUTPUT_PERMISSION_DENIED") {
             val project = projectWithClip("sink-open")
             val sink = RecordingOutputSink(fault = SinkFault.FailOnOpen(SinkErrorCode.PERMISSION_DENIED))
-            val failure = runCatching { project.export(VideoKitExportRequest(), sink) }.exceptionOrNull()
-            expectEquals(ErrorCode.OUTPUT_PERMISSION_DENIED, (failure as? VideoKitException)?.error?.code, "export failure")
+            val failure = (project.export(VideoKitExportRequest(), sink) as? VideoKitExportResult.Failed)?.error
+            expectEquals(ErrorCode.OUTPUT_PERMISSION_DENIED, failure?.code, "export failure")
             awaitState(project.state, what = "FAILED") { it.phase == EditPhase.FAILED }
             expect(sink.readyCalls.isEmpty()) { "markReady called" }
         },
         case("faults.sink_write", ContractGroup.FAULT_MAPPING, "a sink write failure aborts the output and never marks it ready") {
             val project = projectWithClip("sink-write")
             val sink = RecordingOutputSink(fault = SinkFault.FailOnWrite(SinkErrorCode.SPACE_INSUFFICIENT, afterBytes = 1L))
-            val failure = runCatching { project.export(VideoKitExportRequest(), sink) }.exceptionOrNull()
-            expectEquals(ErrorCode.OUTPUT_SPACE_INSUFFICIENT, (failure as? VideoKitException)?.error?.code, "export failure")
+            val failure = (project.export(VideoKitExportRequest(), sink) as? VideoKitExportResult.Failed)?.error
+            expectEquals(ErrorCode.OUTPUT_SPACE_INSUFFICIENT, failure?.code, "export failure")
             expect(sink.readyCalls.isEmpty()) { "markReady called" }
             expectEquals(1, sink.abortCalls.size, "abort calls")
             expectEquals(VideoKitAbortReason.EXPORT_FAILED, sink.abortCalls.single().second, "abort reason")
@@ -548,8 +567,8 @@ public object VideoKitContractSuite {
                 RecordingOutputSink(capabilities = SinkCapabilities(sequentialWrite = false, randomWrite = false, fileDescriptor = false))
             val precheck = project.checkExport(VideoKitExportRequest(), sink)
             expect(!precheck.ok && precheck.problems.any { it.code == ErrorCode.OUTPUT_CAPABILITY_UNSUPPORTED }) { "precheck $precheck" }
-            val failure = runCatching { project.export(VideoKitExportRequest(), sink) }.exceptionOrNull()
-            expectEquals(ErrorCode.OUTPUT_CAPABILITY_UNSUPPORTED, (failure as? VideoKitException)?.error?.code, "export failure")
+            val failure = (project.export(VideoKitExportRequest(), sink) as? VideoKitExportResult.Failed)?.error
+            expectEquals(ErrorCode.OUTPUT_CAPABILITY_UNSUPPORTED, failure?.code, "export failure")
             expect(sink.openRequests.isEmpty()) { "sink opened despite failed precheck" }
         },
         case("faults.sink_space", ContractGroup.FAULT_MAPPING, "known insufficient free space fails the precheck") {
@@ -563,11 +582,13 @@ public object VideoKitContractSuite {
             val project = projectWithClip("export-ok")
             val sink = RecordingOutputSink()
             val result = within("export") { project.export(VideoKitExportRequest(exportId = "export-ok"), sink) }
+            val succeeded = result as? VideoKitExportResult.Succeeded ?: throw ContractViolation("export returned $result")
             expectEquals(1, sink.readyCalls.size, "markReady calls")
             expect(sink.abortCalls.isEmpty()) { "abort called on success" }
-            expectEquals("export-ok", result.exportId, "exportId")
-            expect(result.sourceTokens == listOf("export-ok")) { "sourceTokens ${result.sourceTokens}" }
-            expectEquals(project.state.value.timeline.durationUs, result.durationUs, "durationUs")
+            expectEquals("export-ok", succeeded.exportId, "exportId")
+            expect(succeeded.media.sourceTokens == listOf("export-ok")) { "sourceTokens ${succeeded.media.sourceTokens}" }
+            expectEquals(project.state.value.timeline.durationUs, succeeded.media.durationUs, "durationUs")
+            expectEquals(kit.isDemo, succeeded.media.isDemo, "isDemo")
             awaitState(project.state, what = "COMPLETED") { it.phase == EditPhase.COMPLETED }
         },
         case("faults.edit_commands", ContractGroup.FAULT_MAPPING, "invalid edit commands are Rejected; undo/redo restore the timeline") {
@@ -660,7 +681,7 @@ public object VideoKitContractSuite {
             val project = projectWithClip("future")
             val future = project.snapshot().let { it.copy(schemaVersion = it.schemaVersion + 1) }
             val failure = runCatching { kit.restoreEditProject(future, EditProjectConfig()) }.exceptionOrNull()
-            expect(failure is VideoKitException) { "future snapshot returned/threw $failure" }
+            expectEquals(ErrorCode.UNSUPPORTED_SNAPSHOT_VERSION, (failure as? VideoKitException)?.error?.code, "future snapshot error")
         },
     )
 

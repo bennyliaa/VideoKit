@@ -1,0 +1,151 @@
+public final class com/videokit/ui/android/EmbedBrightness : java/lang/Enum {
+	public static final field DARK Lcom/videokit/ui/android/EmbedBrightness;
+	public static final field LIGHT Lcom/videokit/ui/android/EmbedBrightness;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/ui/android/EmbedBrightness;
+	public static fun values ()[Lcom/videokit/ui/android/EmbedBrightness;
+}
+
+public final class com/videokit/ui/android/EmbedContentKind : java/lang/Enum {
+	public static final field EDITOR Lcom/videokit/ui/android/EmbedContentKind;
+	public static final field IMAGE_VIEWER Lcom/videokit/ui/android/EmbedContentKind;
+	public static final field MULTI_VIEW Lcom/videokit/ui/android/EmbedContentKind;
+	public static final field PLAYER Lcom/videokit/ui/android/EmbedContentKind;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/ui/android/EmbedContentKind;
+	public static fun values ()[Lcom/videokit/ui/android/EmbedContentKind;
+}
+
+public final class com/videokit/ui/android/PlayerEmbedOptions {
+	public fun <init> ()V
+	public fun <init> (JZZZ)V
+	public synthetic fun <init> (JZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun copy (JZZZ)Lcom/videokit/ui/android/PlayerEmbedOptions;
+	public static synthetic fun copy$default (Lcom/videokit/ui/android/PlayerEmbedOptions;JZZZILjava/lang/Object;)Lcom/videokit/ui/android/PlayerEmbedOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowFullscreen ()Z
+	public final fun getAutoHideControlsMs ()J
+	public final fun getShowNavigation ()Z
+	public final fun getStartFullscreen ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/ui/android/VideoKitEditorFragment : com/videokit/ui/android/VideoKitEmbedFragment {
+	public static final field Companion Lcom/videokit/ui/android/VideoKitEditorFragment$Companion;
+	public fun <init> ()V
+	public static final fun newInstance (Ljava/lang/String;)Lcom/videokit/ui/android/VideoKitEditorFragment;
+}
+
+public final class com/videokit/ui/android/VideoKitEditorFragment$Companion {
+	public final fun newInstance (Ljava/lang/String;)Lcom/videokit/ui/android/VideoKitEditorFragment;
+}
+
+public abstract class com/videokit/ui/android/VideoKitEmbedFragment : androidx/fragment/app/Fragment {
+	public static final field ARG_OPTIONS Ljava/lang/String;
+	public static final field ARG_PROJECT_ID Ljava/lang/String;
+	public static final field ARG_REQUESTED_AT Ljava/lang/String;
+	public static final field ARG_SESSION_ID Ljava/lang/String;
+	public fun <init> ()V
+	public final fun getHostPanelContainer ()Landroid/widget/FrameLayout;
+	public final fun getListener ()Lcom/videokit/ui/android/VideoKitEmbedListener;
+	public fun onCreate (Landroid/os/Bundle;)V
+	public fun onCreateView (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
+	public fun onDestroy ()V
+	public fun onDestroyView ()V
+	public fun onSaveInstanceState (Landroid/os/Bundle;)V
+	public final fun setListener (Lcom/videokit/ui/android/VideoKitEmbedListener;)V
+}
+
+public abstract interface class com/videokit/ui/android/VideoKitEmbedListener {
+	public fun onControlsVisibilityChanged (Z)V
+	public fun onEditRequested (Ljava/lang/String;)V
+	public fun onFirstFrame (Lcom/videokit/ui/android/EmbedContentKind;JZ)V
+	public fun onFullscreenRequested (Z)V
+	public fun onNavigationRequested (Lcom/videokit/api/NavigationDirection;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/ui/android/VideoKitEmbedListener$DefaultImpls {
+	public static fun onControlsVisibilityChanged (Lcom/videokit/ui/android/VideoKitEmbedListener;Z)V
+	public static fun onEditRequested (Lcom/videokit/ui/android/VideoKitEmbedListener;Ljava/lang/String;)V
+	public static fun onFirstFrame (Lcom/videokit/ui/android/VideoKitEmbedListener;Lcom/videokit/ui/android/EmbedContentKind;JZ)V
+	public static fun onFullscreenRequested (Lcom/videokit/ui/android/VideoKitEmbedListener;Z)V
+	public static fun onNavigationRequested (Lcom/videokit/ui/android/VideoKitEmbedListener;Lcom/videokit/api/NavigationDirection;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/ui/android/VideoKitFlutter {
+	public static final field INSTANCE Lcom/videokit/ui/android/VideoKitFlutter;
+	public final fun getActiveEngineCount ()I
+	public final fun initialize (Landroid/app/Application;Lcom/videokit/ui/android/VideoKitFlutterConfig;)V
+	public final fun isInitialized ()Z
+	public final fun prewarm ()V
+	public final fun share (Lcom/videokit/api/VideoKitSession;)V
+	public final fun unshare (Ljava/lang/String;)V
+}
+
+public final class com/videokit/ui/android/VideoKitFlutterConfig {
+	public static final field Companion Lcom/videokit/ui/android/VideoKitFlutterConfig$Companion;
+	public static final field DEFAULT_DART_ENTRYPOINT Ljava/lang/String;
+	public fun <init> (Lcom/videokit/api/VideoKit;ZLcom/videokit/ui/android/VideoKitThemeOverrides;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/videokit/api/VideoKit;ZLcom/videokit/ui/android/VideoKitThemeOverrides;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDartEntrypoint ()Ljava/lang/String;
+	public final fun getDartLibraryUri ()Ljava/lang/String;
+	public final fun getPrewarmOnInit ()Z
+	public final fun getStrings ()Ljava/util/Map;
+	public final fun getTheme ()Lcom/videokit/ui/android/VideoKitThemeOverrides;
+	public final fun getVideoKit ()Lcom/videokit/api/VideoKit;
+}
+
+public final class com/videokit/ui/android/VideoKitFlutterConfig$Companion {
+}
+
+public final class com/videokit/ui/android/VideoKitFlutterView : android/widget/FrameLayout {
+	public fun <init> (Landroid/content/Context;)V
+	public fun <init> (Landroid/content/Context;Landroid/util/AttributeSet;)V
+	public synthetic fun <init> (Landroid/content/Context;Landroid/util/AttributeSet;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun destroy ()V
+	public final fun getHostPanelContainer ()Landroid/widget/FrameLayout;
+	public final fun getListener ()Lcom/videokit/ui/android/VideoKitEmbedListener;
+	public final fun setListener (Lcom/videokit/ui/android/VideoKitEmbedListener;)V
+	public final fun showImageViewer (Ljava/lang/String;)V
+	public final fun showMultiView (Ljava/util/List;)V
+	public final fun showPlayer (Lcom/videokit/api/VideoKitSession;Lcom/videokit/ui/android/PlayerEmbedOptions;)V
+	public static synthetic fun showPlayer$default (Lcom/videokit/ui/android/VideoKitFlutterView;Lcom/videokit/api/VideoKitSession;Lcom/videokit/ui/android/PlayerEmbedOptions;ILjava/lang/Object;)V
+}
+
+public final class com/videokit/ui/android/VideoKitImageViewerFragment : com/videokit/ui/android/VideoKitEmbedFragment {
+	public static final field Companion Lcom/videokit/ui/android/VideoKitImageViewerFragment$Companion;
+	public fun <init> ()V
+	public static final fun newInstance (Ljava/lang/String;)Lcom/videokit/ui/android/VideoKitImageViewerFragment;
+}
+
+public final class com/videokit/ui/android/VideoKitImageViewerFragment$Companion {
+	public final fun newInstance (Ljava/lang/String;)Lcom/videokit/ui/android/VideoKitImageViewerFragment;
+}
+
+public final class com/videokit/ui/android/VideoKitPlayerFragment : com/videokit/ui/android/VideoKitEmbedFragment {
+	public static final field Companion Lcom/videokit/ui/android/VideoKitPlayerFragment$Companion;
+	public fun <init> ()V
+	public static final fun newInstance (Lcom/videokit/api/VideoKitSession;Lcom/videokit/ui/android/PlayerEmbedOptions;)Lcom/videokit/ui/android/VideoKitPlayerFragment;
+	public static final fun newInstance (Ljava/lang/String;Lcom/videokit/ui/android/PlayerEmbedOptions;)Lcom/videokit/ui/android/VideoKitPlayerFragment;
+}
+
+public final class com/videokit/ui/android/VideoKitPlayerFragment$Companion {
+	public final fun newInstance (Lcom/videokit/api/VideoKitSession;Lcom/videokit/ui/android/PlayerEmbedOptions;)Lcom/videokit/ui/android/VideoKitPlayerFragment;
+	public final fun newInstance (Ljava/lang/String;Lcom/videokit/ui/android/PlayerEmbedOptions;)Lcom/videokit/ui/android/VideoKitPlayerFragment;
+	public static synthetic fun newInstance$default (Lcom/videokit/ui/android/VideoKitPlayerFragment$Companion;Lcom/videokit/api/VideoKitSession;Lcom/videokit/ui/android/PlayerEmbedOptions;ILjava/lang/Object;)Lcom/videokit/ui/android/VideoKitPlayerFragment;
+	public static synthetic fun newInstance$default (Lcom/videokit/ui/android/VideoKitPlayerFragment$Companion;Ljava/lang/String;Lcom/videokit/ui/android/PlayerEmbedOptions;ILjava/lang/Object;)Lcom/videokit/ui/android/VideoKitPlayerFragment;
+}
+
+public final class com/videokit/ui/android/VideoKitThemeOverrides {
+	public fun <init> ()V
+	public fun <init> (Lcom/videokit/ui/android/EmbedBrightness;Ljava/util/Map;)V
+	public synthetic fun <init> (Lcom/videokit/ui/android/EmbedBrightness;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBrightness ()Lcom/videokit/ui/android/EmbedBrightness;
+	public final fun getColors ()Ljava/util/Map;
+}
+

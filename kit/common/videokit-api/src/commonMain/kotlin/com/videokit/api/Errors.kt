@@ -72,6 +72,15 @@ public enum class ErrorCode {
 
     /** An internal error; details are redacted. Also used for every unknown code. */
     INTERNAL_ERROR_REDACTED,
+
+    /** A command is not allowed in the current state (illegal state transition, 04A V7). */
+    INVALID_STATE,
+
+    /** An argument is out of range or malformed (04A V7). */
+    INVALID_ARGUMENT,
+
+    /** A snapshot or project schema version is not supported, for example a future major version (04A V7). */
+    UNSUPPORTED_SNAPSHOT_VERSION,
     ;
 
     public companion object {
@@ -108,11 +117,14 @@ public enum class ErrorStage {
 
     /** Calling a host callback. */
     CALLBACK,
+
+    /** Unknown stage (fallback for unknown wire values). */
+    UNKNOWN,
     ;
 
     public companion object {
-        /** Maps a stage name to an [ErrorStage]; returns `null` for unknown names. */
-        public fun fromWireName(name: String?): ErrorStage? = entries.firstOrNull { it.name == name }
+        /** Maps a stage name to an [ErrorStage]; unknown names map to [UNKNOWN] (04A V6). */
+        public fun fromWireName(name: String?): ErrorStage = entries.firstOrNull { it.name == name } ?: UNKNOWN
     }
 }
 
@@ -141,6 +153,12 @@ public enum class SuggestedAction {
 
     /** Close or pause other sessions to free resources. */
     CLOSE_OTHER_SESSIONS,
+
+    /** Correct the tracked region (09). */
+    CORRECT_TRACKING,
+
+    /** Choose another media source. */
+    CHOOSE_OTHER_SOURCE,
     ;
 
     public companion object {

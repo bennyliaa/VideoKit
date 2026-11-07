@@ -20,6 +20,10 @@ gradlePlugin {
             id = "videokit.android.library"
             implementationClass = "com.videokit.buildlogic.AndroidLibraryConventionPlugin"
         }
+        register("videokitAndroidApplication") {
+            id = "videokit.android.application"
+            implementationClass = "com.videokit.buildlogic.AndroidApplicationConventionPlugin"
+        }
         register("videokitDependencyRules") {
             id = "videokit.dependency-rules"
             implementationClass = "com.videokit.buildlogic.DependencyRulesPlugin"

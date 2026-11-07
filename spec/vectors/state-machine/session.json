@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "kind": "session-state-machine",
-  "description": "Legal and illegal session transitions (04 §3.1, §4). Each case starts a new session in state 'from' (media 'VIDEO' unless 'media' says IMAGE_STATIC), then runs the steps in order. 'expect.result' is the command result kind; 'expect.phase' (optional) is the phase after the step; 'expect.reason' (optional) the UnsupportedReason. Implementations without a way to reach ERROR_FATAL may skip cases with from=ERROR_FATAL and must report them as skipped.",
+  "description": "Legal and illegal session transitions (04 §3.1, §4; 04A I1, V7). Optional case fields: 'hostActions' (action ids bound with the media) and 'hostActionAnswer' (COMPLETED | PENDING | FAILED, what the host answers). Optional expectations: 'code' (stable error code of a REJECTED result) and 'hostCalls' (total host action callback invocations so far). Looping cases (04A L1) use the steps 'SET_LOOPING' (field 'looping'), 'SEEK_NEAR_END' (0.5 s before the end) and 'ADVANCE' (field 'us', media time) and the expectations 'looping' (state flag), 'atEnd' (position equals duration) and 'playbackEnded' (PlaybackEnded events so far). Each case starts a new session in state 'from' (media 'VIDEO' unless 'media' says IMAGE_STATIC or IMAGE_ANIMATED; subjects without an animated image report those cases as skipped), then runs the steps in order. 'expect.result' is the command result kind; 'expect.phase' (optional) is the phase after the step; 'expect.reason' (optional) the UnsupportedReason. Implementations without a way to reach ERROR_FATAL may skip cases with from=ERROR_FATAL and must report them as skipped.",
   "cases": [
-    { "id": "created.play.rejected", "from": "CREATED", "steps": [ { "command": "PLAY", "expect": { "result": "REJECTED", "phase": "CREATED" } } ] },
-    { "id": "created.pause.rejected", "from": "CREATED", "steps": [ { "command": "PAUSE", "expect": { "result": "REJECTED", "phase": "CREATED" } } ] },
-    { "id": "created.seek.rejected", "from": "CREATED", "steps": [ { "command": "SEEK_TO", "positionUs": 1000000, "expect": { "result": "REJECTED", "phase": "CREATED" } } ] },
+    { "id": "created.play.rejected", "from": "CREATED", "steps": [ { "command": "PLAY", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "CREATED" } } ] },
+    { "id": "created.pause.rejected", "from": "CREATED", "steps": [ { "command": "PAUSE", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "CREATED" } } ] },
+    { "id": "created.seek.rejected", "from": "CREATED", "steps": [ { "command": "SEEK_TO", "positionUs": 1000000, "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "CREATED" } } ] },
     { "id": "created.set_visibility.executed", "from": "CREATED", "steps": [ { "command": "SET_VISIBILITY", "visibility": "OFFSCREEN", "expect": { "result": "EXECUTED", "phase": "CREATED" } } ] },
     { "id": "created.bind.ready", "from": "CREATED", "steps": [ { "command": "BIND", "expect": { "result": "EXECUTED", "phase": "READY" } } ] },
     { "id": "created.release.released", "from": "CREATED", "steps": [ { "command": "RELEASE", "expect": { "result": "EXECUTED", "phase": "RELEASED" } } ] },
@@ -13,10 +13,10 @@
     { "id": "ready.play.playing", "from": "READY", "steps": [ { "command": "PLAY", "expect": { "result": "EXECUTED", "phase": "PLAYING" } } ] },
     { "id": "ready.pause.stays_ready", "from": "READY", "steps": [ { "command": "PAUSE", "expect": { "result": "EXECUTED", "phase": "READY" } } ] },
     { "id": "ready.seek.executed", "from": "READY", "steps": [ { "command": "SEEK_TO", "positionUs": 1000000, "expect": { "result": "EXECUTED", "phase": "READY" } } ] },
-    { "id": "ready.seek_negative.rejected", "from": "READY", "steps": [ { "command": "SEEK_TO", "positionUs": -1, "expect": { "result": "REJECTED", "phase": "READY" } } ] },
-    { "id": "ready.speed_out_of_range.rejected", "from": "READY", "steps": [ { "command": "SET_SPEED", "speed": 100.0, "expect": { "result": "REJECTED", "phase": "READY" } } ] },
-    { "id": "ready.volume_out_of_range.rejected", "from": "READY", "steps": [ { "command": "SET_VOLUME", "volume": 1.5, "expect": { "result": "REJECTED", "phase": "READY" } } ] },
-    { "id": "ready.unknown_audio_track.rejected", "from": "READY", "steps": [ { "command": "SELECT_AUDIO_TRACK", "trackId": "no-such-track", "expect": { "result": "REJECTED", "phase": "READY" } } ] },
+    { "id": "ready.seek_negative.rejected", "from": "READY", "steps": [ { "command": "SEEK_TO", "positionUs": -1, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "phase": "READY" } } ] },
+    { "id": "ready.speed_out_of_range.rejected", "from": "READY", "steps": [ { "command": "SET_SPEED", "speed": 100.0, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "phase": "READY" } } ] },
+    { "id": "ready.volume_out_of_range.rejected", "from": "READY", "steps": [ { "command": "SET_VOLUME", "volume": 1.5, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "phase": "READY" } } ] },
+    { "id": "ready.unknown_audio_track.rejected", "from": "READY", "steps": [ { "command": "SELECT_AUDIO_TRACK", "trackId": "no-such-track", "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "phase": "READY" } } ] },
     { "id": "ready.subtitles_off.executed", "from": "READY", "steps": [ { "command": "SELECT_SUBTITLE_TRACK", "trackId": null, "expect": { "result": "EXECUTED", "phase": "READY" } } ] },
     { "id": "ready.release.released", "from": "READY", "steps": [ { "command": "RELEASE", "expect": { "result": "EXECUTED", "phase": "RELEASED" } } ] },
     { "id": "ready.rebind.ready", "from": "READY", "steps": [ { "command": "BIND", "expect": { "result": "EXECUTED", "phase": "READY" } } ] },
@@ -28,18 +28,25 @@
     { "id": "ended.play.restarts", "from": "ENDED", "steps": [ { "command": "PLAY", "expect": { "result": "EXECUTED", "phase": "PLAYING" } } ] },
     { "id": "ended.seek.paused", "from": "ENDED", "steps": [ { "command": "SEEK_TO", "positionUs": 0, "expect": { "result": "EXECUTED", "phase": "PAUSED" } } ] },
 
+    { "id": "looping.created.rejected", "from": "CREATED", "steps": [ { "command": "SET_LOOPING", "looping": true, "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "CREATED" } } ] },
+    { "id": "looping.video.default_off_and_ends", "from": "READY", "steps": [ { "command": "SEEK_NEAR_END", "expect": { "result": "EXECUTED", "looping": false } }, { "command": "PLAY", "expect": { "result": "EXECUTED", "phase": "PLAYING" } }, { "command": "ADVANCE", "us": 1000000, "expect": { "result": "EXECUTED", "phase": "ENDED", "atEnd": true, "playbackEnded": 1 } } ] },
+    { "id": "looping.video.on_never_ends", "from": "READY", "steps": [ { "command": "SET_LOOPING", "looping": true, "expect": { "result": "EXECUTED", "looping": true } }, { "command": "SEEK_NEAR_END", "expect": { "result": "EXECUTED" } }, { "command": "PLAY", "expect": { "result": "EXECUTED", "phase": "PLAYING" } }, { "command": "ADVANCE", "us": 1000000, "expect": { "result": "EXECUTED", "phase": "PLAYING", "atEnd": false, "playbackEnded": 0 } } ] },
+    { "id": "looping.animated.default_on_never_ends", "from": "READY", "media": "IMAGE_ANIMATED", "steps": [ { "command": "PLAY", "expect": { "result": "EXECUTED", "phase": "PLAYING", "looping": true } }, { "command": "ADVANCE", "us": 5000000, "expect": { "result": "EXECUTED", "phase": "PLAYING", "playbackEnded": 0 } } ] },
+    { "id": "looping.animated.off_stops_on_last_frame", "from": "READY", "media": "IMAGE_ANIMATED", "steps": [ { "command": "SET_LOOPING", "looping": false, "expect": { "result": "EXECUTED", "looping": false } }, { "command": "PLAY", "expect": { "result": "EXECUTED", "phase": "PLAYING" } }, { "command": "ADVANCE", "us": 5000000, "expect": { "result": "EXECUTED", "phase": "ENDED", "atEnd": true, "playbackEnded": 1 } } ] },
+    { "id": "looping.static_image.unsupported", "from": "READY", "media": "IMAGE_STATIC", "steps": [ { "command": "SET_LOOPING", "looping": true, "expect": { "result": "UNSUPPORTED", "reason": "MEDIA_KIND", "looping": false } } ] },
+
     {
       "id": "audio.stale_epoch.rejected", "from": "READY",
       "steps": [
         { "command": "SET_ACTIVE_AUDIO", "active": true, "audioEpoch": 5, "expect": { "result": "EXECUTED" } },
-        { "command": "SET_ACTIVE_AUDIO", "active": false, "audioEpoch": 4, "expect": { "result": "REJECTED", "phase": "READY" } }
+        { "command": "SET_ACTIVE_AUDIO", "active": false, "audioEpoch": 4, "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "READY" } }
       ]
     },
     {
       "id": "lock.blocks_audio_activation", "from": "READY",
       "steps": [
         { "command": "HIDE_CONTENT_FOR_LOCK", "hidden": true, "expect": { "result": "EXECUTED" } },
-        { "command": "SET_ACTIVE_AUDIO", "active": true, "audioEpoch": 100, "expect": { "result": "REJECTED" } },
+        { "command": "SET_ACTIVE_AUDIO", "active": true, "audioEpoch": 100, "expect": { "result": "REJECTED", "code": "INVALID_STATE" } },
         { "command": "HIDE_CONTENT_FOR_LOCK", "hidden": false, "expect": { "result": "EXECUTED", "phase": "READY" } }
       ]
     },
@@ -49,14 +56,28 @@
     { "id": "image.seek.unsupported", "from": "READY", "media": "IMAGE_STATIC", "steps": [ { "command": "SEEK_TO", "positionUs": 0, "expect": { "result": "UNSUPPORTED", "reason": "MEDIA_KIND" } } ] },
     { "id": "image.transform.executed", "from": "READY", "media": "IMAGE_STATIC", "steps": [ { "command": "SET_FULLSCREEN", "fullscreen": true, "expect": { "result": "EXECUTED", "phase": "READY" } } ] },
 
-    { "id": "error_recoverable.play.rejected", "from": "ERROR_RECOVERABLE", "steps": [ { "command": "PLAY", "expect": { "result": "REJECTED", "phase": "ERROR_RECOVERABLE" } } ] },
+    { "id": "error_recoverable.play.rejected", "from": "ERROR_RECOVERABLE", "steps": [ { "command": "PLAY", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "ERROR_RECOVERABLE" } } ] },
     { "id": "error_recoverable.rebind.ready", "from": "ERROR_RECOVERABLE", "steps": [ { "command": "BIND", "expect": { "result": "EXECUTED", "phase": "READY" } } ] },
-    { "id": "error_fatal.play.rejected", "from": "ERROR_FATAL", "steps": [ { "command": "PLAY", "expect": { "result": "REJECTED", "phase": "ERROR_FATAL" } } ] },
-    { "id": "error_fatal.rebind.rejected", "from": "ERROR_FATAL", "steps": [ { "command": "BIND", "expect": { "result": "REJECTED", "phase": "ERROR_FATAL" } } ] },
+    { "id": "error_fatal.play.rejected", "from": "ERROR_FATAL", "steps": [ { "command": "PLAY", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "ERROR_FATAL" } } ] },
+    { "id": "error_fatal.rebind.rejected", "from": "ERROR_FATAL", "steps": [ { "command": "BIND", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "ERROR_FATAL" } } ] },
     { "id": "error_fatal.release.released", "from": "ERROR_FATAL", "steps": [ { "command": "RELEASE", "expect": { "result": "EXECUTED", "phase": "RELEASED" } } ] },
 
     { "id": "released.play.session_released", "from": "RELEASED", "steps": [ { "command": "PLAY", "expect": { "result": "SESSION_RELEASED", "phase": "RELEASED" } } ] },
     { "id": "released.bind.session_released", "from": "RELEASED", "steps": [ { "command": "BIND", "expect": { "result": "SESSION_RELEASED", "phase": "RELEASED" } } ] },
+
+    {
+      "id": "host_action.pending_repeat.superseded", "from": "READY", "hostActions": ["tag"], "hostActionAnswer": "PENDING",
+      "steps": [
+        { "command": "REQUEST_HOST_ACTION", "actionId": "tag", "expect": { "result": "EXECUTED", "hostCalls": 1 } },
+        { "command": "REQUEST_HOST_ACTION", "actionId": "tag", "expect": { "result": "SUPERSEDED", "hostCalls": 1 } },
+        { "command": "HOST_ACTIONS_SETTLED", "expect": { "result": "EXECUTED" } },
+        { "command": "REQUEST_HOST_ACTION", "actionId": "tag", "expect": { "result": "EXECUTED", "hostCalls": 2, "phase": "READY" } }
+      ]
+    },
+    { "id": "host_action.unknown_id.rejected", "from": "READY", "hostActions": ["tag"], "steps": [ { "command": "REQUEST_HOST_ACTION", "actionId": "nope", "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "hostCalls": 0 } } ] },
+    { "id": "host_action.before_bind.rejected", "from": "CREATED", "steps": [ { "command": "REQUEST_HOST_ACTION", "actionId": "tag", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "hostCalls": 0 } } ] },
+    { "id": "host_action.completed_twice.executed", "from": "READY", "hostActions": ["tag"], "steps": [ { "command": "REQUEST_HOST_ACTION", "actionId": "tag", "expect": { "result": "EXECUTED", "hostCalls": 1 } }, { "command": "REQUEST_HOST_ACTION", "actionId": "tag", "expect": { "result": "EXECUTED", "hostCalls": 2 } } ] },
+    { "id": "released.host_action.session_released", "from": "RELEASED", "hostActions": ["tag"], "steps": [ { "command": "REQUEST_HOST_ACTION", "actionId": "tag", "expect": { "result": "SESSION_RELEASED" } } ] },
     { "id": "released.release.session_released", "from": "RELEASED", "steps": [ { "command": "RELEASE", "expect": { "result": "SESSION_RELEASED", "phase": "RELEASED" } } ] }
   ]
 }

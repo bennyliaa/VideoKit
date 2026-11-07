@@ -1,26 +1,28 @@
 package com.videokit.testkit
 
-import com.videokit.api.ContentOrientation
 import com.videokit.api.ErrorCode
 import com.videokit.api.ErrorStage
 import com.videokit.api.HostActionRequest
 import com.videokit.api.HostActionState
 import com.videokit.api.HostActionStatus
+import com.videokit.api.ImageDetails
 import com.videokit.api.MediaKind
+import com.videokit.api.MediaOrientation
 import com.videokit.api.MediaTransform
 import com.videokit.api.NavigationDirection
 import com.videokit.api.NavigationRequest
 import com.videokit.api.NavigationResult
 import com.videokit.api.OpenPurpose
-import com.videokit.api.Priority
 import com.videokit.api.RecoveryDecision
 import com.videokit.api.ReservationResult
 import com.videokit.api.ResourceEstimate
 import com.videokit.api.ResourceKind
 import com.videokit.api.ResourceLease
+import com.videokit.api.ResourcePriority
 import com.videokit.api.ResourceRequest
 import com.videokit.api.Seekability
 import com.videokit.api.SessionPhase
+import com.videokit.api.SessionVisibility
 import com.videokit.api.Size
 import com.videokit.api.UnsupportedReason
 import com.videokit.api.VideoKitCommand
@@ -36,7 +38,6 @@ import com.videokit.api.VideoKitSessionConfig
 import com.videokit.api.VideoKitSessionState
 import com.videokit.api.VideoKitStableError
 import com.videokit.api.VideoKitSurfaceTarget
-import com.videokit.api.Visibility
 import com.videokit.testkit.internal.AtomicCounter
 import com.videokit.testkit.internal.AtomicValue
 import com.videokit.testkit.internal.CallbackOutcome
@@ -91,7 +92,7 @@ public class FakeSession internal constructor(
         VideoKitSessionState(visibility = config.initialVisibility, activeAudio = config.initialActiveAudio),
     )
     private val mutableEvents = MutableSharedFlow<VideoKitEvent>(extraBufferCapacity = 64, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    private val priority: Priority = config.priority
+    private val priority: ResourcePriority = config.priority
 
     // Guarded by mutex.
     private var source: VideoKitMediaSource? = null
@@ -190,6 +191,7 @@ public class FakeSession internal constructor(
                 error = null,
                 seekingToUs = null,
                 videoSize = null,
+                orientation = it.orientation.copy(contentOrientation = MediaOrientation.UNKNOWN),
                 hostActions = actions.map { action -> HostActionState(action) },
             )
         }
@@ -226,6 +228,9 @@ public class FakeSession internal constructor(
             }
             mutableState.update { it.copy(resourcesHeld = true) }
             delay(currentScenario.loadDelayMs)
+            if (currentScenario.unsupportedContainer) {
+                return failLocked(Errors.of(ErrorCode.UNSUPPORTED_CONTAINER, ErrorStage.PROBE, "SCENARIO"))
+            }
             if (currentScenario.unsupportedVideoCodec && src.mediaKind == MediaKind.VIDEO) {
                 return failLocked(Errors.of(ErrorCode.UNSUPPORTED_VIDEO_CODEC, ErrorStage.PROBE, "SCENARIO"))
             }
@@ -278,6 +283,8 @@ public class FakeSession internal constructor(
                 selectedSubtitleTrackId = null,
                 videoSize = scenario.videoSize,
                 orientation = current.orientation.copy(contentOrientation = orientationOf(scenario.videoSize)),
+                looping = src.mediaKind == MediaKind.IMAGE_ANIMATED,
+                imageDetails = imageDetailsFor(src.mediaKind, scenario),
                 resourcesHeld = true,
                 error = null,
             )
@@ -303,8 +310,12 @@ public class FakeSession internal constructor(
         initial.audioTrackId?.let { id ->
             if (state.audioTracks.any { it.id == id && it.supported }) result = result.copy(selectedAudioTrackId = id)
         }
-        initial.subtitleTrackId?.let { id ->
-            if (state.subtitleTracks.any { it.id == id }) result = result.copy(selectedSubtitleTrackId = id)
+        when (initial.subtitlesEnabled) {
+            false -> result = result.copy(selectedSubtitleTrackId = null)
+
+            else -> initial.subtitleTrackId?.let { id ->
+                if (state.subtitleTracks.any { it.id == id }) result = result.copy(selectedSubtitleTrackId = id)
+            }
         }
         return result
     }
@@ -329,11 +340,11 @@ public class FakeSession internal constructor(
         mutableEvents.tryEmit(VideoKitEvent.ErrorRaised(error))
         notifyPlayState()
         if (fatal) {
-            kit.callbacks.notify("onFatalSessionError") { onFatalSessionError(error) }
+            kit.callbacks.notify("onFatalSessionError") { onFatalSessionError(sessionId, error) }
             return
         }
         kit.scope.launch {
-            val outcome = kit.callbacks.request("onRecoverableError", timeouts.recoveryDecisionMs) { onRecoverableError(error) }
+            val outcome = kit.callbacks.request("onRecoverableError", timeouts.recoveryDecisionMs) { onRecoverableError(sessionId, error) }
             val decision = (outcome as? CallbackOutcome.Success)?.value ?: RecoveryDecision.KEEP_ERROR
             when (decision) {
                 RecoveryDecision.RETRY -> retry()
@@ -408,7 +419,17 @@ public class FakeSession internal constructor(
         val from = current.positionUs
         if (current.mediaKind == MediaKind.IMAGE_ANIMATED) {
             val loop = currentScenario.animationLoopUs.coerceAtLeast(1L)
-            mutableState.update { it.copy(positionUs = (from + mediaDelta) % loop) }
+            when {
+                current.looping -> mutableState.update { it.copy(positionUs = (from + mediaDelta) % loop) }
+
+                from + mediaDelta < loop -> mutableState.update { it.copy(positionUs = from + mediaDelta) }
+
+                // Not looping: stop on the last frame and end (04A L1).
+                else -> {
+                    mutableState.update { it.copy(positionUs = loop) }
+                    endLocked()
+                }
+            }
             return
         }
         val duration = current.durationUs ?: return
@@ -437,15 +458,31 @@ public class FakeSession internal constructor(
 
             Trigger.DISCONNECT -> failLocked(Errors.of(ErrorCode.SOURCE_DISCONNECTED, ErrorStage.PLAYBACK, "SCENARIO"))
 
-            Trigger.END -> {
-                mutableState.update { it.copy(phase = SessionPhase.ENDED, playWhenReady = false) }
-                mutableEvents.tryEmit(VideoKitEvent.PlaybackEnded)
-                notifyPlayState()
-                notifySnapshot()
+            Trigger.END -> if (current.looping) {
+                // Looping video (04A L1): restart from the beginning, never ENDED, no PlaybackEnded.
+                mutableState.update { it.copy(positionUs = 0L) }
+            } else {
+                endLocked()
             }
 
             null -> Unit
         }
+    }
+
+    /** End of media without looping (04A L1): stays on the last frame, ENDED, PlaybackEnded. */
+    private fun endLocked() {
+        mutableState.update { it.copy(phase = SessionPhase.ENDED, playWhenReady = false) }
+        mutableEvents.tryEmit(VideoKitEvent.PlaybackEnded)
+        notifyPlayState()
+        notifySnapshot()
+    }
+
+    /** Image facts of the Fake (04A L2): frames from the loop length, decoded ARGB bytes, no subsampling. */
+    private fun imageDetailsFor(kind: MediaKind?, scenario: FakeScenario): ImageDetails? {
+        if (kind == null || !kind.isImage) return null
+        val frames = if (kind == MediaKind.IMAGE_ANIMATED) (scenario.animationLoopUs / ANIMATION_FRAME_US).toInt().coerceAtLeast(1) else 1
+        val size = scenario.videoSize
+        return ImageDetails(frameCount = frames, decodedBytes = size.width.toLong() * size.height * BYTES_PER_PIXEL, sampleSize = 1)
     }
 
     private fun accumulateWatchTime(current: VideoKitSessionState, advancedUs: Long) {
@@ -456,7 +493,7 @@ public class FakeSession internal constructor(
             val position = current.positionUs + advancedUs
             kit.callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.PositionTick(sessionId, position)) }
         }
-        if (current.visibility != Visibility.VISIBLE) return
+        if (current.visibility != SessionVisibility.VISIBLE) return
         watchAccumUs += advancedUs
         if (watchAccumUs >= WATCH_TIME_REPORT_US) {
             val delta = watchAccumUs
@@ -492,6 +529,15 @@ public class FakeSession internal constructor(
             is VideoKitCommand.SetSpeed -> mediaCommand(current, command, videoOnly = true) {
                 if (!isValidSpeed(command.speed)) return rejectedArgument("SPEED")
                 mutableState.update { it.copy(speed = command.speed) }
+                VideoKitCommandResult.Executed
+            }
+
+            is VideoKitCommand.SetLooping -> {
+                bindRequired(current, "SET_LOOPING")?.let { return it }
+                if (current.mediaKind == MediaKind.IMAGE_STATIC || current.mediaKind == MediaKind.IMAGE_UNKNOWN) {
+                    return VideoKitCommandResult.Unsupported(UnsupportedReason.MEDIA_KIND)
+                }
+                mutableState.update { it.copy(looping = command.looping) }
                 VideoKitCommandResult.Executed
             }
 
@@ -590,12 +636,12 @@ public class FakeSession internal constructor(
         return VideoKitCommandResult.Executed
     }
 
-    private fun setVisibility(current: VideoKitSessionState, visibility: Visibility): VideoKitCommandResult {
+    private fun setVisibility(current: VideoKitSessionState, visibility: SessionVisibility): VideoKitCommandResult {
         if (current.visibility == visibility) return VideoKitCommandResult.Executed
         mutableState.update { it.copy(visibility = visibility) }
         kit.callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.VisibilityChanged(sessionId, visibility)) }
-        val wasForeground = current.visibility != Visibility.BACKGROUND
-        val isForeground = visibility != Visibility.BACKGROUND
+        val wasForeground = current.visibility != SessionVisibility.BACKGROUND
+        val isForeground = visibility != SessionVisibility.BACKGROUND
         if (wasForeground != isForeground) {
             kit.callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.ForegroundChanged(sessionId, isForeground)) }
         }
@@ -760,7 +806,7 @@ public class FakeSession internal constructor(
         val token = mutex.withLock { source?.mediaToken ?: lastMediaToken }
         val request = NavigationRequest(sessionId, token, direction)
         val outcome = kit.callbacks.request("onNavigationRequested", timeouts.navigationMs) { onNavigationRequested(request) }
-        return (outcome as? CallbackOutcome.Success)?.value ?: NavigationResult.UNAVAILABLE
+        return (outcome as? CallbackOutcome.Success)?.value ?: NavigationResult.FAILED
     }
 
     override fun setControlsVisible(visible: Boolean) {
@@ -797,6 +843,7 @@ public class FakeSession internal constructor(
             volume = if (isVideo) current.volume else null,
             muted = if (isVideo) current.muted else null,
             subtitleTrackId = if (isVideo) current.selectedSubtitleTrackId else null,
+            subtitlesEnabled = if (isVideo) current.selectedSubtitleTrackId != null else null,
             audioTrackId = if (isVideo) current.selectedAudioTrackId else null,
             lastViewedAtEpochMs = boundAtEpochMs,
         )
@@ -838,25 +885,25 @@ public class FakeSession internal constructor(
     // ---------------------------------------------------------------- rendering
 
     /**
-     * Attaches [target]. Target types the platform pattern factory does not support are recorded as attached
-     * but nothing is drawn (04 §4.4: a platform only accepts its own target types).
+     * Attaches [target] (04A I13). Target types the platform pattern factory does not support are refused with
+     * `Unsupported(DEVICE_CAPABILITY)`; the previous target stays attached.
      */
-    override fun attachSurface(target: VideoKitSurfaceTarget) {
-        if (released) return
-        val patternTargetNow = options.patternTargetFactory(target)
-        val job = patternTargetNow?.let { drawing ->
-            scope.launch {
-                while (isActive) {
-                    val current = mutableState.value
-                    if (!current.hiddenForLock) {
-                        val frame = TestPattern.frame(sessionId, current.seekingToUs ?: current.positionUs, target.width, target.height)
-                        if (drawing.draw(frame)) framesRendered.incrementAndGet()
-                    }
-                    delay(options.renderIntervalMs)
+    override fun attachSurface(target: VideoKitSurfaceTarget): VideoKitCommandResult {
+        if (released) return VideoKitCommandResult.SessionReleased
+        val drawing = options.patternTargetFactory(target)
+            ?: return VideoKitCommandResult.Unsupported(UnsupportedReason.DEVICE_CAPABILITY)
+        val job = scope.launch {
+            while (isActive) {
+                val current = mutableState.value
+                if (!current.hiddenForLock) {
+                    val frame = TestPattern.frame(sessionId, current.seekingToUs ?: current.positionUs, target.width, target.height)
+                    if (drawing.draw(frame)) framesRendered.incrementAndGet()
                 }
+                delay(options.renderIntervalMs)
             }
         }
-        rendering.getAndSet(Rendering(job, patternTargetNow))?.stop()
+        rendering.getAndSet(Rendering(job, drawing))?.stop()
+        return VideoKitCommandResult.Executed
     }
 
     override fun detachSurface() {
@@ -909,6 +956,8 @@ public class FakeSession internal constructor(
         const val PROBE_BYTES = 64
         const val MAX_RETRIES = 1
         const val BUFFER_AHEAD_US = 10_000_000L
+        const val ANIMATION_FRAME_US = 100_000L
+        const val BYTES_PER_PIXEL = 4L
         const val POSITION_TICK_US = 250_000L
         const val WATCH_TIME_REPORT_US = 1_000_000L
         const val NOTICE_AUDIO_UNSUPPORTED = "AUDIO_UNSUPPORTED_PLAYING_SILENT"
@@ -924,10 +973,11 @@ public class FakeSession internal constructor(
             transform.panY.isFinite() &&
             transform.rotationDeg in VALID_ROTATIONS
 
-        fun orientationOf(size: Size): ContentOrientation = when {
-            size.width > size.height -> ContentOrientation.LANDSCAPE
-            size.width < size.height -> ContentOrientation.PORTRAIT
-            else -> ContentOrientation.SQUARE
+        fun orientationOf(size: Size): MediaOrientation = when {
+            size.width <= 0 || size.height <= 0 -> MediaOrientation.UNKNOWN
+            size.width > size.height -> MediaOrientation.LANDSCAPE
+            size.width < size.height -> MediaOrientation.PORTRAIT
+            else -> MediaOrientation.SQUARE
         }
 
         fun commandName(command: VideoKitCommand): String = command.typeName().uppercase()

@@ -10,6 +10,11 @@ public abstract interface class com/videokit/api/android/FileDescriptorWriteHand
 	public abstract fun fileDescriptor ()Landroid/os/ParcelFileDescriptor;
 }
 
+public final class com/videokit/api/android/HostIcons {
+	public static final field INSTANCE Lcom/videokit/api/android/HostIcons;
+	public final fun drawableId (Landroid/content/Context;Lcom/videokit/api/HostIcon$Resource;)I
+}
+
 public final class com/videokit/api/android/MediaSources {
 	public static final field INSTANCE Lcom/videokit/api/android/MediaSources;
 	public final fun fromFile (Ljava/io/File;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;

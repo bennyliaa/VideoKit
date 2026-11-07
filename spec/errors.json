@@ -1,5 +1,6 @@
 {
   "schemaVersion": 1,
+  "apiAlignment": "04A V7 (2026-11-07): INVALID_STATE, INVALID_ARGUMENT, UNSUPPORTED_SNAPSHOT_VERSION added; ErrorStage.UNKNOWN is the fallback for unknown stages.",
   "description": "VideoKit stable error code registry (04 §9.1, 02 §4.0.2). Kotlin ErrorCode and Dart ErrorCode are verified against this file. 'stage' is the typical stage; an error may also be reported from other stages. 'retryable' and 'suggestedAction' are the defaults the runtime uses. Unknown codes must be handled as 'unknownCodeFallback'. New codes are a minor API version change and are appended at the end.",
   "unknownCodeFallback": "INTERNAL_ERROR_REDACTED",
   "codes": [
@@ -24,6 +25,9 @@
     { "code": "CANCELLED", "stage": "EXPORT", "retryable": true, "suggestedAction": "RETRY" },
     { "code": "HOST_CALLBACK_FAILED", "stage": "CALLBACK", "retryable": true, "suggestedAction": "RETRY" },
     { "code": "SESSION_RELEASED", "stage": "PLAYBACK", "retryable": false, "suggestedAction": "NONE" },
-    { "code": "INTERNAL_ERROR_REDACTED", "stage": "PLAYBACK", "retryable": false, "suggestedAction": "NONE" }
+    { "code": "INTERNAL_ERROR_REDACTED", "stage": "PLAYBACK", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "INVALID_STATE", "stage": "PLAYBACK", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "INVALID_ARGUMENT", "stage": "PLAYBACK", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "UNSUPPORTED_SNAPSHOT_VERSION", "stage": "EDIT", "retryable": false, "suggestedAction": "NONE" }
   ]
 }

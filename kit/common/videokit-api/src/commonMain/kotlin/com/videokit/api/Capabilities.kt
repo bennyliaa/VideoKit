@@ -58,6 +58,15 @@ public enum class FeatureKey {
 
     /** Export. */
     EXPORT,
+
+    /** A feature this version does not know (decoding fallback, 04A T3); never reported by this version. */
+    UNKNOWN,
+    ;
+
+    public companion object {
+        /** Maps a feature name to a [FeatureKey]; unknown or future names map to [UNKNOWN]. */
+        public fun fromWireName(name: String?): FeatureKey = entries.firstOrNull { it.name == name } ?: UNKNOWN
+    }
 }
 
 /** A decoder or encoder entry. */
@@ -242,6 +251,8 @@ public data class VideoKitCapabilities(
     val unavailableReasons: Map<FeatureKey, UnsupportedReason> = emptyMap(),
     /** Probe result when the request named a source. */
     val mediaProbe: MediaProbeResult? = null,
+    /** Whether the report comes from a demo/fake backend (04A I6); demo capabilities are not device facts. */
+    val isDemo: Boolean = false,
 ) {
     public companion object {
         /** Schema version written by this API version. */

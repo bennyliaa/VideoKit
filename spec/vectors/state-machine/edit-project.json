@@ -1,36 +1,36 @@
 {
   "schemaVersion": 1,
   "kind": "edit-state-machine",
-  "description": "Legal and illegal edit project transitions (04 §6, 08 §2.2). 'from': EMPTY (no source), READY_WITH_SOURCE (one video source, no clip), READY_WITH_CLIP (one source + one clip [0, 3 s)), RELEASED. Clip and mask commands address the first clip / first mask; times are microseconds; 'source' is 'first' or 'unknown'. 'expect.result': APPLIED | REJECTED | UNSUPPORTED | PROJECT_RELEASED (ADD_SOURCE: APPLIED = returned a token, REJECTED = threw). 'expect.phase' (optional) is the phase after the step.",
+  "description": "Legal and illegal edit project transitions (04 §6, 08 §2.2). 'from': EMPTY (no source), READY_WITH_SOURCE (one video source, no clip), READY_WITH_CLIP (one source + one clip [0, 3 s)), RELEASED. Clip and mask commands address the first clip / first mask; times are microseconds; 'source' is 'first' or 'unknown'. 'expect.result': APPLIED | REJECTED | UNSUPPORTED | PROJECT_RELEASED (ADD_SOURCE: APPLIED = returned a token, REJECTED = threw). 'expect.phase' (optional) is the phase after the step; 'expect.code' (optional) the stable error code of a REJECTED or FAILED result. EXPORT exports to an in-memory sink: SUCCEEDED | FAILED | CANCELLED (04A I5). RESTORE_FUTURE_SNAPSHOT restores the project's snapshot with schemaVersion + 1. DETECT_CANDIDATES: APPLIED = at least one candidate and no error (04A I10). ACCEPT_TRACKING_RANGE_FIRST_MASK: 04A I11. Edit commands after COMPLETED, FAILED or CANCELLED return the project to READY (04A I12).",
   "cases": [
-    { "id": "empty.phase_is_created", "from": "EMPTY", "steps": [ { "command": "UNDO", "expect": { "result": "REJECTED", "phase": "CREATED" } } ] },
+    { "id": "empty.phase_is_created", "from": "EMPTY", "steps": [ { "command": "UNDO", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "CREATED" } } ] },
     { "id": "empty.add_source.ready", "from": "EMPTY", "steps": [ { "command": "ADD_SOURCE", "expect": { "result": "APPLIED", "phase": "READY" } } ] },
-    { "id": "empty.add_clip_unknown_source.rejected", "from": "EMPTY", "steps": [ { "command": "ADD_CLIP", "source": "unknown", "inUs": 0, "outUs": 1000000, "expect": { "result": "REJECTED", "phase": "CREATED" } } ] },
+    { "id": "empty.add_clip_unknown_source.rejected", "from": "EMPTY", "steps": [ { "command": "ADD_CLIP", "source": "unknown", "inUs": 0, "outUs": 1000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "phase": "CREATED" } } ] },
 
     { "id": "source.add_clip.applied", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_CLIP", "source": "first", "inUs": 0, "outUs": 1000000, "expect": { "result": "APPLIED", "phase": "READY" } } ] },
-    { "id": "source.add_clip_empty_range.rejected", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_CLIP", "source": "first", "inUs": 1000000, "outUs": 1000000, "expect": { "result": "REJECTED", "phase": "READY" } } ] },
-    { "id": "source.add_clip_bad_index.rejected", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_CLIP", "source": "first", "inUs": 0, "outUs": 1000000, "index": 5, "expect": { "result": "REJECTED" } } ] },
-    { "id": "source.add_mask_without_timeline.rejected", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "expect": { "result": "REJECTED" } } ] },
+    { "id": "source.add_clip_empty_range.rejected", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_CLIP", "source": "first", "inUs": 1000000, "outUs": 1000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "phase": "READY" } } ] },
+    { "id": "source.add_clip_bad_index.rejected", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_CLIP", "source": "first", "inUs": 0, "outUs": 1000000, "index": 5, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
+    { "id": "source.add_mask_without_timeline.rejected", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
 
     { "id": "clip.split_inside.applied", "from": "READY_WITH_CLIP", "steps": [ { "command": "SPLIT_FIRST", "atUs": 1000000, "expect": { "result": "APPLIED", "phase": "READY" } } ] },
-    { "id": "clip.split_at_in_point.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "SPLIT_FIRST", "atUs": 0, "expect": { "result": "REJECTED" } } ] },
-    { "id": "clip.trim_inverted.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "TRIM_FIRST", "inUs": 2000000, "outUs": 1000000, "expect": { "result": "REJECTED" } } ] },
-    { "id": "clip.move_out_of_range.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "MOVE_FIRST", "toIndex": 3, "expect": { "result": "REJECTED" } } ] },
+    { "id": "clip.split_at_in_point.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "SPLIT_FIRST", "atUs": 0, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
+    { "id": "clip.trim_inverted.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "TRIM_FIRST", "inUs": 2000000, "outUs": 1000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
+    { "id": "clip.move_out_of_range.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "MOVE_FIRST", "toIndex": 3, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
     {
       "id": "clip.remove_undo_redo", "from": "READY_WITH_CLIP",
       "steps": [
         { "command": "REMOVE_FIRST", "expect": { "result": "APPLIED" } },
         { "command": "UNDO", "expect": { "result": "APPLIED" } },
         { "command": "REDO", "expect": { "result": "APPLIED" } },
-        { "command": "REDO", "expect": { "result": "REJECTED", "phase": "READY" } }
+        { "command": "REDO", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "READY" } }
       ]
     },
-    { "id": "clip.mask_out_of_frame.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "ADD_MASK", "type": "MANUAL", "x": 0.9, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "expect": { "result": "REJECTED" } } ] },
+    { "id": "clip.mask_out_of_frame.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "ADD_MASK", "type": "MANUAL", "x": 0.9, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
     {
       "id": "clip.manual_mask_not_trackable", "from": "READY_WITH_CLIP",
       "steps": [
         { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "expect": { "result": "APPLIED" } },
-        { "command": "START_TRACKING_FIRST_MASK", "expect": { "result": "REJECTED", "phase": "READY" } }
+        { "command": "START_TRACKING_FIRST_MASK", "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "phase": "READY" } }
       ]
     },
     {
@@ -38,15 +38,51 @@
       "steps": [
         { "command": "ADD_MASK", "type": "FACE", "x": 0.4, "y": 0.4, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 2000000, "expect": { "result": "APPLIED" } },
         { "command": "START_TRACKING_FIRST_MASK", "expect": { "result": "APPLIED", "phase": "TRACKING" } },
-        { "command": "REMOVE_FIRST", "expect": { "result": "REJECTED", "phase": "TRACKING" } },
+        { "command": "REMOVE_FIRST", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "TRACKING" } },
         { "command": "CANCEL_TRACKING_FIRST_MASK", "expect": { "result": "APPLIED", "phase": "READY" } },
-        { "command": "CANCEL_TRACKING_FIRST_MASK", "expect": { "result": "REJECTED", "phase": "READY" } }
+        { "command": "CANCEL_TRACKING_FIRST_MASK", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "READY" } }
       ]
     },
     { "id": "clip.close.released", "from": "READY_WITH_CLIP", "steps": [ { "command": "CLOSE", "expect": { "result": "APPLIED", "phase": "RELEASED" } } ] },
 
+
+    {
+      "id": "export.then_edit_returns_ready", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "EXPORT", "expect": { "result": "SUCCEEDED", "phase": "COMPLETED" } },
+        { "command": "SPLIT_FIRST", "atUs": 1000000, "expect": { "result": "APPLIED", "phase": "READY" } }
+      ]
+    },
+    {
+      "id": "export.then_undo_returns_ready", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "EXPORT", "expect": { "result": "SUCCEEDED", "phase": "COMPLETED" } },
+        { "command": "UNDO", "expect": { "result": "APPLIED", "phase": "READY" } }
+      ]
+    },
+    { "id": "export.empty_project.failed", "from": "EMPTY", "steps": [ { "command": "EXPORT", "expect": { "result": "FAILED", "code": "INVALID_STATE", "phase": "CREATED" } } ] },
+    { "id": "export.empty_timeline.failed", "from": "READY_WITH_SOURCE", "steps": [ { "command": "EXPORT", "expect": { "result": "FAILED", "code": "EXPORT_FAILED", "phase": "READY" } } ] },
+    { "id": "snapshot.future_major.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "RESTORE_FUTURE_SNAPSHOT", "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } } ] },
+    { "id": "candidates.inside_timeline.found", "from": "READY_WITH_CLIP", "steps": [ { "command": "DETECT_CANDIDATES", "atUs": 1000000, "expect": { "result": "APPLIED", "phase": "READY" } } ] },
+    { "id": "candidates.outside_timeline.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "DETECT_CANDIDATES", "atUs": 10000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
+    {
+      "id": "tracking.accept_range", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "ADD_MASK", "type": "FACE", "x": 0.4, "y": 0.4, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 2000000, "expect": { "result": "APPLIED" } },
+        { "command": "ACCEPT_TRACKING_RANGE_FIRST_MASK", "startUs": 500000, "endUs": 1000000, "expect": { "result": "APPLIED", "phase": "READY" } },
+        { "command": "ACCEPT_TRACKING_RANGE_FIRST_MASK", "startUs": 1000000, "endUs": 5000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } },
+        { "command": "UNDO", "expect": { "result": "APPLIED" } }
+      ]
+    },
+    {
+      "id": "tracking.accept_range_on_manual_mask.rejected", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "expect": { "result": "APPLIED" } },
+        { "command": "ACCEPT_TRACKING_RANGE_FIRST_MASK", "startUs": 0, "endUs": 500000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } }
+      ]
+    },
     { "id": "released.add_clip.project_released", "from": "RELEASED", "steps": [ { "command": "REMOVE_FIRST", "expect": { "result": "PROJECT_RELEASED", "phase": "RELEASED" } } ] },
     { "id": "released.undo.project_released", "from": "RELEASED", "steps": [ { "command": "UNDO", "expect": { "result": "PROJECT_RELEASED", "phase": "RELEASED" } } ] },
-    { "id": "released.add_source.rejected", "from": "RELEASED", "steps": [ { "command": "ADD_SOURCE", "expect": { "result": "REJECTED", "phase": "RELEASED" } } ] }
+    { "id": "released.add_source.rejected", "from": "RELEASED", "steps": [ { "command": "ADD_SOURCE", "expect": { "result": "REJECTED", "code": "SESSION_RELEASED", "phase": "RELEASED" } } ] }
   ]
 }

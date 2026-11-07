@@ -13,12 +13,12 @@ internal object Errors {
     fun of(code: ErrorCode, stage: ErrorStage, diagnostic: String? = null): VideoKitStableError =
         VideoKitStableError(code, stage, retryable(code), suggestion(code), diagnostic)
 
-    /** Illegal state transition. The contract has no dedicated code yet; see the M0-B1-B report. */
+    /** Illegal state transition (04A V7). */
     fun illegalState(stage: ErrorStage, what: String): VideoKitStableError =
-        VideoKitStableError(ErrorCode.INTERNAL_ERROR_REDACTED, stage, false, SuggestedAction.NONE, "ILLEGAL_STATE:$what")
+        VideoKitStableError(ErrorCode.INVALID_STATE, stage, false, SuggestedAction.NONE, "ILLEGAL_STATE:$what")
 
     fun invalidArgument(stage: ErrorStage, what: String): VideoKitStableError =
-        VideoKitStableError(ErrorCode.INTERNAL_ERROR_REDACTED, stage, false, SuggestedAction.NONE, "INVALID_ARGUMENT:$what")
+        VideoKitStableError(ErrorCode.INVALID_ARGUMENT, stage, false, SuggestedAction.NONE, "INVALID_ARGUMENT:$what")
 
     fun callbackFailed(
         callback: String,

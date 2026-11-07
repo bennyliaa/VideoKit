@@ -224,6 +224,8 @@ public data class MaskTrack(
     val rangeUs: TimeRangeUs,
     /** Keyframes sorted by time. */
     val keyframes: List<MaskKeyframe> = emptyList(),
+    /** Ranges the user explicitly accepted although tracking did not cover them (09 §4). */
+    val acceptedRangesUs: List<TimeRangeUs> = emptyList(),
 )
 
 /** One coverage range of a tracking run (09). */
@@ -232,6 +234,8 @@ public data class CoverageRange(
     val rangeUs: TimeRangeUs,
     /** Quality. */
     val quality: CoverageQuality,
+    /** Mask the range belongs to; set where ranges of several masks are listed together (04A T2 precheck). */
+    val maskId: String? = null,
 )
 
 /** Coverage report of a tracking run (09). */
@@ -283,8 +287,8 @@ public enum class ExportStage {
     /** Verifying the output. */
     VERIFYING,
 
-    /** Output written and verified. */
-    WRITING_COMPLETE,
+    /** Writing the verified output to the sink; completion is `EditPhase.COMPLETED` (04A S3). */
+    WRITING,
 }
 
 /** Export progress (08 §6, original requirement §17.4). Percentages are never faked. */
@@ -441,10 +445,19 @@ public sealed interface VideoKitEditCommand {
         val maskId: String,
     ) : VideoKitEditCommand
 
-    /** Starts tracking [maskId] (FACE or OBJECT masks) over its range. */
+    /**
+     * Starts tracking [maskId] (FACE or OBJECT masks) over its range (04A S4). [seedRegion] is the object
+     * point/box selection (14 §5.7); [targetId] a picked `TrackingCandidate.candidateId`.
+     */
     public data class StartTracking(
         /** Mask id. */
         val maskId: String,
+        /** What is tracked. */
+        val kind: TrackingKind,
+        /** Seed region of an object selection, normalized like [MaskRegion]. */
+        val seedRegion: MaskRegion? = null,
+        /** Picked candidate id. */
+        val targetId: String? = null,
     ) : VideoKitEditCommand
 
     /** Adds a user correction keyframe to a tracked mask (09). */
@@ -462,6 +475,17 @@ public sealed interface VideoKitEditCommand {
         /** Mask id. */
         val maskId: String,
     ) : VideoKitEditCommand
+
+    /**
+     * Explicitly accepts an uncovered or lost interval of a tracked mask (04A I11, 09 §4); the export reports it as
+     * the warning `TRACKING_COVERAGE_ACCEPTED` instead of blocking.
+     */
+    public data class AcceptTrackingRange(
+        /** Mask id. */
+        val maskId: String,
+        /** Accepted range on the timeline, inside the mask range. */
+        val rangeUs: TimeRangeUs,
+    ) : VideoKitEditCommand
 }
 
 /** Result of an edit command, undo or redo. */
@@ -470,6 +494,8 @@ public sealed interface EditCommandResult {
     public data class Applied(
         /** New revision. */
         val revision: Long,
+        /** Id of the clip or mask the command created (AddClip, SplitAt: the new second clip, AddMask), if any (04A N12). */
+        val createdId: String? = null,
     ) : EditCommandResult
 
     /** Rejected (out of range, conflict, illegal phase). */
@@ -609,14 +635,51 @@ public interface VideoKitEditProject : AutoCloseable {
     public suspend fun checkExport(request: VideoKitExportRequest, sink: VideoKitOutputSink): ExportPrecheck
 
     /**
-     * Exports. On failure or cancellation the sink is aborted and a [VideoKitException] is thrown
-     * ([ErrorCode.CANCELLED] after [cancelExport]); partial output is never marked ready.
+     * Exports (04A I5). Normal failures and cancellation are returned as [VideoKitExportResult.Failed] and
+     * [VideoKitExportResult.Cancelled], not thrown; the sink is then aborted and partial output is never marked
+     * ready. Only programming errors (for example a released project) throw [VideoKitException]. Cancelling the
+     * calling coroutine also aborts the sink and rethrows the cancellation.
      */
     public suspend fun export(request: VideoKitExportRequest, sink: VideoKitOutputSink): VideoKitExportResult
 
     /** Cancels the export [exportId] within a bounded time; unknown ids are ignored. */
     public suspend fun cancelExport(exportId: String)
 
+    /**
+     * Detects tracking candidates (for example faces) on the timeline at [atUs] (04A I10, 09 §1). Failures are
+     * reported in [CandidateDetectionResult.error] (for example [ErrorCode.TRACKING_MODEL_UNAVAILABLE]).
+     */
+    public suspend fun detectCandidates(atUs: Long): CandidateDetectionResult
+
     /** Releases the project, its preview session and all handles. Idempotent. */
     override fun close()
 }
+
+/** Kind of a tracking target (09). */
+public enum class TrackingKind {
+    /** A face. */
+    FACE,
+
+    /** A generic object. */
+    OBJECT,
+}
+
+/** A detected tracking candidate the user can pick (04A I10, 09 §1). */
+public data class TrackingCandidate(
+    /** Candidate id, valid within the project only. */
+    val candidateId: String,
+    /** Kind. */
+    val kind: TrackingKind,
+    /** Region at the detection time, normalized. */
+    val region: MaskRegion,
+    /** Confidence 0..1, if the detector reports one. */
+    val confidence: Float? = null,
+)
+
+/** Result of [VideoKitEditProject.detectCandidates]. */
+public data class CandidateDetectionResult(
+    /** Candidates, possibly empty. */
+    val candidates: List<TrackingCandidate> = emptyList(),
+    /** Error, for example [ErrorCode.TRACKING_MODEL_UNAVAILABLE] or [ErrorCode.INVALID_ARGUMENT]. */
+    val error: VideoKitStableError? = null,
+)

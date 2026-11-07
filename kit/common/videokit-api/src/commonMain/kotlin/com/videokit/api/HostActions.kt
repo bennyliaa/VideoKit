@@ -20,10 +20,13 @@ public sealed interface HostIcon {
         val iconKey: String,
     ) : HostIcon
 
-    /** A drawable resource of the host app (native hosts only). */
-    public data class HostDrawable(
-        /** Android drawable resource id. */
-        val resId: Int,
+    /**
+     * An icon resource of the host app (04A N9, T4), identified by a platform independent resource name, never a
+     * numeric resource id. Android: a `drawable` resource name such as `ic_tag`, resolved by api-android `HostIcons`.
+     */
+    public data class Resource(
+        /** Resource name (Android: drawable name, optionally prefixed with `drawable/`). */
+        val resourceRef: String,
     ) : HostIcon
 }
 
@@ -116,8 +119,11 @@ public enum class NavigationResult {
     /** The host will bind the requested media. */
     ACCEPTED,
 
-    /** There is no media in that direction (or the request failed); the UI bounces back. */
+    /** There is no media in that direction; the UI bounces back. */
     UNAVAILABLE,
+
+    /** The host callback failed or timed out (04A V4). */
+    FAILED,
 }
 
 /** Host decision for a recoverable error. */
@@ -158,11 +164,11 @@ public interface VideoKitHostCallbacks {
     /** All read handles of [mediaToken] used by [sessionId] are closed; queued file operations may run. */
     public suspend fun onSourceReleased(sessionId: String, mediaToken: String)
 
-    /** A recoverable error happened; the host decides what to do. */
-    public suspend fun onRecoverableError(error: VideoKitStableError): RecoveryDecision
+    /** A recoverable error happened in [sessionId] (04A I7); the host decides what to do. */
+    public suspend fun onRecoverableError(sessionId: String, error: VideoKitStableError): RecoveryDecision
 
-    /** A fatal session error happened. */
-    public suspend fun onFatalSessionError(error: VideoKitStableError)
+    /** A fatal error happened in [sessionId] (04A I7). */
+    public suspend fun onFatalSessionError(sessionId: String, error: VideoKitStableError)
 }
 
 /**

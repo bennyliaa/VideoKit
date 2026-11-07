@@ -83,8 +83,8 @@ public enum class FitMode {
     /** Fill the target, keeping aspect ratio (crop). */
     FILL,
 
-    /** Stretch to the target, ignoring aspect ratio. */
-    STRETCH,
+    /** Original pixel size (1:1), centered; may crop or letterbox (04A N11). */
+    ORIGINAL,
 }
 
 /**
@@ -120,7 +120,7 @@ public enum class OrientationRequest {
 }
 
 /** Orientation of the content after applying rotation metadata. */
-public enum class ContentOrientation {
+public enum class MediaOrientation {
     /** Taller than wide. */
     PORTRAIT,
 
@@ -129,20 +129,23 @@ public enum class ContentOrientation {
 
     /** Square. */
     SQUARE,
+
+    /** Unknown (metadata missing or nothing bound). */
+    UNKNOWN,
 }
 
 /** Orientation and fullscreen state of a session. */
 public data class OrientationState(
     /** Last accepted orientation request. */
     val request: OrientationRequest = OrientationRequest.AUTO,
-    /** Orientation of the bound content, when known. */
-    val contentOrientation: ContentOrientation? = null,
+    /** Orientation of the bound content; UNKNOWN before binding or when metadata is missing. */
+    val contentOrientation: MediaOrientation = MediaOrientation.UNKNOWN,
     /** Whether the host has the session in fullscreen. */
     val fullscreen: Boolean = false,
 )
 
-/** Visibility of a session as reported by the host (07 §3, 06 §4.2). */
-public enum class Visibility {
+/** SessionVisibility of a session as reported by the host (07 §3, 06 §4.2). */
+public enum class SessionVisibility {
     /** On screen. */
     VISIBLE,
 
@@ -203,8 +206,8 @@ public data class VideoKitSessionState(
     val transform: MediaTransform = MediaTransform(),
     /** Orientation and fullscreen. */
     val orientation: OrientationState = OrientationState(),
-    /** Visibility reported by the host. */
-    val visibility: Visibility = Visibility.VISIBLE,
+    /** SessionVisibility reported by the host. */
+    val visibility: SessionVisibility = SessionVisibility.VISIBLE,
     /** Whether this session is the one allowed to play audio (07 §4). */
     val activeAudio: Boolean = true,
     /** Whether the playback controls are visible (original requirement §15.2). */
@@ -221,6 +224,23 @@ public data class VideoKitSessionState(
     val videoSize: Size? = null,
     /** Whether the content is hidden because the host is locked (06 §4.2). */
     val hiddenForLock: Boolean = false,
+    /** Whether playback loops (04A L1); set from the media kind at bind (animated images true, videos false). */
+    val looping: Boolean = false,
+    /** Image facts the engine knows (04A L2); always `null` for videos. */
+    val imageDetails: ImageDetails? = null,
+)
+
+/**
+ * Image facts for the details panel (04A L2). Every field is optional: the engine fills what it knows and the UI
+ * shows only present values.
+ */
+public data class ImageDetails(
+    /** Number of frames (1 for a static image), if known. */
+    val frameCount: Int? = null,
+    /** Bytes of the decoded bitmap(s) currently held, if known. */
+    val decodedBytes: Long? = null,
+    /** Decode subsampling factor (1 = full resolution, 2 = half, ...), if known. */
+    val sampleSize: Int? = null,
 )
 
 /**
@@ -257,8 +277,13 @@ public data class VideoKitPlaybackState(
     val volume: Float? = null,
     /** Muted (video only). */
     val muted: Boolean? = null,
-    /** Selected subtitle track id (video only); `null` = off or unknown. */
+    /**
+     * Selected subtitle track id (video only). Together with [subtitlesEnabled]: enabled + id = that track,
+     * `subtitlesEnabled == false` = subtitles switched off, `null` id with `null` flag = nothing chosen (04A I9).
+     */
     val subtitleTrackId: String? = null,
+    /** Whether subtitles are on (video only); `null` = not chosen, the implementation default applies. */
+    val subtitlesEnabled: Boolean? = null,
     /** Selected audio track id (video only). */
     val audioTrackId: String? = null,
     /** Wall clock time of the last view in epoch milliseconds, if known. */
@@ -287,9 +312,9 @@ public data class VideoKitSessionConfig(
     /** Purpose of the session. */
     val purpose: SessionPurpose = SessionPurpose.SINGLE,
     /** Resource priority used when reserving decoders (07 §2). */
-    val priority: Priority = Priority.VISIBLE,
+    val priority: ResourcePriority = ResourcePriority.VISIBLE,
     /** Initial visibility. */
-    val initialVisibility: Visibility = Visibility.VISIBLE,
+    val initialVisibility: SessionVisibility = SessionVisibility.VISIBLE,
     /** Initial audio activation; multi-view hosts start slots inactive and activate one (07 §4). */
     val initialActiveAudio: Boolean = true,
     /** Opaque, host-chosen tag for diagnostics; never shown to the user. */

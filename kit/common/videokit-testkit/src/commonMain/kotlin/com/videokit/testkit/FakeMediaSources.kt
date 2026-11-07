@@ -176,3 +176,31 @@ public object FakeMediaSources {
         )
     }
 }
+
+/**
+ * Source factory of a demo source selected by scenario id (04A B9): the Flutter plugin maps the Dart
+ * `DemoSourceRef(scenarioId)` (wire form `demo:<scenarioId>`) to it. It serves [SourceBehavior.DEMO_BYTES].
+ */
+public class DemoSourceFactory(
+    /** Scenario id from [FakeScenario.NAMES]; unknown ids play [FakeScenario.normal]. */
+    public val scenarioId: String,
+) : VideoKitSourceFactory {
+    private val delegate = CountingSourceFactory()
+
+    override suspend fun open(purpose: OpenPurpose): VideoKitReadHandle = delegate.open(purpose)
+
+    /** Handles currently open (diagnostics). */
+    public val openHandles: Int get() = delegate.openHandles
+}
+
+/** Builds a demo source for [scenarioId] (`demo:<scenarioId>` references). */
+public fun FakeMediaSources.demo(
+    scenarioId: String,
+    token: String,
+    kind: MediaKind = MediaKind.VIDEO,
+    displayName: String? = null,
+): VideoKitMediaSource = if (kind == MediaKind.VIDEO) {
+    video(token, DemoSourceFactory(scenarioId), displayName = displayName)
+} else {
+    image(token, kind, DemoSourceFactory(scenarioId), displayName)
+}

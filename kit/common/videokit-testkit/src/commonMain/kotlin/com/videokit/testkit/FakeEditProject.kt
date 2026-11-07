@@ -1,5 +1,6 @@
 package com.videokit.testkit
 
+import com.videokit.api.CandidateDetectionResult
 import com.videokit.api.Clip
 import com.videokit.api.CoverageQuality
 import com.videokit.api.CoverageRange
@@ -29,6 +30,8 @@ import com.videokit.api.SourceProbe
 import com.videokit.api.SourceToken
 import com.videokit.api.TimeRangeUs
 import com.videokit.api.Timeline
+import com.videokit.api.TrackingCandidate
+import com.videokit.api.TrackingKind
 import com.videokit.api.TrackingRun
 import com.videokit.api.TrackingRunStatus
 import com.videokit.api.UnsupportedReason
@@ -42,6 +45,7 @@ import com.videokit.api.VideoKitExportRequest
 import com.videokit.api.VideoKitExportResult
 import com.videokit.api.VideoKitExportedMedia
 import com.videokit.api.VideoKitMediaSource
+import com.videokit.api.VideoKitOutputMetadata
 import com.videokit.api.VideoKitOutputSink
 import com.videokit.api.VideoKitSession
 import com.videokit.api.VideoKitStableError
@@ -213,19 +217,19 @@ public class FakeEditProject internal constructor(
             return@withLock rejected("${commandName(command)}_IN_$phase")
         }
         when (command) {
-            is VideoKitEditCommand.StartTracking -> startTrackingLocked(command.maskId)
+            is VideoKitEditCommand.StartTracking -> startTrackingLocked(command)
 
             is VideoKitEditCommand.CancelTracking -> cancelTrackingLocked(command.maskId)
 
             else -> when (val outcome = edit(command)) {
-                is Edit.Ok -> commitLocked(outcome.content)
+                is Edit.Ok -> commitLocked(outcome.content, outcome.createdId)
                 is Edit.Fail -> outcome.result
             }
         }
     }
 
     private sealed interface Edit {
-        data class Ok(val content: Content) : Edit
+        data class Ok(val content: Content, val createdId: String? = null) : Edit
 
         data class Fail(val result: EditCommandResult) : Edit
     }
@@ -243,7 +247,7 @@ public class FakeEditProject internal constructor(
                 val index = command.index ?: clips.size
                 if (index !in 0..clips.size) return fail("CLIP_INDEX")
                 val clip = Clip("clip-${nextId++}", command.sourceId, command.inUs, command.outUs)
-                Edit.Ok(content.copy(clips = clips.toMutableList().apply { add(index, clip) }))
+                Edit.Ok(content.copy(clips = clips.toMutableList().apply { add(index, clip) }), createdId = clip.clipId)
             }
 
             is VideoKitEditCommand.SplitAt -> {
@@ -259,6 +263,7 @@ public class FakeEditProject internal constructor(
                             add(index + 1, second)
                         },
                     ),
+                    createdId = second.clipId,
                 )
             }
 
@@ -305,7 +310,7 @@ public class FakeEditProject internal constructor(
                     rangeUs = command.rangeUs,
                     keyframes = listOf(MaskKeyframe(command.rangeUs.startUs, command.region, KeyframeSource.USER)),
                 )
-                Edit.Ok(content.copy(masks = masks + mask))
+                Edit.Ok(content.copy(masks = masks + mask), createdId = mask.maskId)
             }
 
             is VideoKitEditCommand.UpdateMaskKeyframe -> {
@@ -348,25 +353,33 @@ public class FakeEditProject internal constructor(
                 Edit.Ok(content.copy(masks = masks.filterNot { it.maskId == command.maskId }))
             }
 
+            is VideoKitEditCommand.AcceptTrackingRange -> {
+                val mask = maskOf(command.maskId) ?: return fail("UNKNOWN_MASK")
+                if (mask.type == MaskType.MANUAL) return fail("MASK_NOT_TRACKED")
+                val range = command.rangeUs
+                if (!range.isValid || range.startUs < mask.rangeUs.startUs || range.endUs > mask.rangeUs.endUs) return fail("ACCEPT_RANGE")
+                replaceMask(mask.copy(acceptedRangesUs = (mask.acceptedRangesUs + range).sortedBy { it.startUs }))
+            }
+
             is VideoKitEditCommand.StartTracking, is VideoKitEditCommand.CancelTracking -> error("handled by apply")
         }
     }
 
-    private fun commitLocked(newContent: Content): EditCommandResult {
+    private fun commitLocked(newContent: Content, createdId: String? = null): EditCommandResult {
         undoStack.addLast(content)
         while (undoStack.size > UNDO_LIMIT) undoStack.removeFirst()
         redoStack.clear()
         content = newContent
-        return bumpLocked()
+        return bumpLocked(createdId)
     }
 
-    private fun bumpLocked(): EditCommandResult {
+    private fun bumpLocked(createdId: String? = null): EditCommandResult {
         revision++
         if (phase in FINISHED_PHASES || (phase == EditPhase.CREATED && sources.isNotEmpty())) phase = EditPhase.READY
         error = null
         publish()
         syncPreview()
-        return EditCommandResult.Applied(revision)
+        return EditCommandResult.Applied(revision, createdId)
     }
 
     override suspend fun undo(): EditCommandResult = mutex.withLock {
@@ -389,7 +402,9 @@ public class FakeEditProject internal constructor(
 
     // ---------------------------------------------------------------- tracking
 
-    private fun startTrackingLocked(maskId: String): EditCommandResult {
+    private fun startTrackingLocked(command: VideoKitEditCommand.StartTracking): EditCommandResult {
+        val maskId = command.maskId
+        if (command.seedRegion?.isValid == false) return rejectedArgument("SEED_REGION")
         val mask = content.masks.firstOrNull { it.maskId == maskId } ?: return rejectedArgument("UNKNOWN_MASK")
         if (mask.type == MaskType.MANUAL) return rejectedArgument("MASK_NOT_TRACKABLE")
         if (!config.trackingAllowed) return EditCommandResult.Unsupported(UnsupportedReason.HOST_DISABLED)
@@ -469,6 +484,30 @@ public class FakeEditProject internal constructor(
 
     // ---------------------------------------------------------------- snapshot & preview
 
+    /**
+     * Demo candidate detection (04A I10): two deterministic face candidates at any time inside the timeline.
+     * Errors are returned in the result: tracking unavailable or disallowed, or [atUs] outside the timeline.
+     */
+    override suspend fun detectCandidates(atUs: Long): CandidateDetectionResult = mutex.withLock {
+        if (releasedFlag.value) {
+            return@withLock CandidateDetectionResult(error = Errors.of(ErrorCode.SESSION_RELEASED, ErrorStage.TRACKING, "PROJECT_RELEASED"))
+        }
+        if (!options.trackingAvailable || !config.trackingAllowed) {
+            return@withLock CandidateDetectionResult(error = Errors.of(ErrorCode.TRACKING_MODEL_UNAVAILABLE, ErrorStage.TRACKING, "DEMO"))
+        }
+        val duration = content.clips.sumOf { it.durationUs }
+        if (atUs < 0 || atUs >= duration) {
+            return@withLock CandidateDetectionResult(error = Errors.invalidArgument(ErrorStage.TRACKING, "DETECT_TIME"))
+        }
+        val drift = (atUs % 4_000_000L) / 4_000_000f * 0.1f
+        CandidateDetectionResult(
+            candidates = listOf(
+                TrackingCandidate("candidate-1", TrackingKind.FACE, MaskRegion(0.2f + drift, 0.25f, 0.15f, 0.2f), confidence = 0.93f),
+                TrackingCandidate("candidate-2", TrackingKind.FACE, MaskRegion(0.6f - drift, 0.3f, 0.12f, 0.16f), confidence = 0.71f),
+            ),
+        )
+    }
+
     override suspend fun snapshot(): SerializedEditProject = mutex.withLock {
         ProjectCodec.encode(
             ProjectModel(
@@ -540,14 +579,22 @@ public class FakeEditProject internal constructor(
         if (free != null && needed != null && free < needed) {
             problems += Errors.of(ErrorCode.OUTPUT_SPACE_INSUFFICIENT, ErrorStage.SINK, "FREE_SPACE")
         }
+        val uncovered = mutableListOf<CoverageRange>()
         content.masks.filter { it.type != MaskType.MANUAL && it.enabled }.forEach { mask ->
+            tracking[mask.maskId]?.coverage?.ranges.orEmpty()
+                .filter { range -> range.quality != CoverageQuality.TRACKED && !mask.isAccepted(range.rangeUs) }
+                .forEach { range -> uncovered += range.copy(maskId = mask.maskId) }
             val run = tracking[mask.maskId]
             when {
                 run?.status != TrackingRunStatus.COMPLETED -> warnings += "TRACKING_INCOMPLETE:${mask.maskId}"
 
-                run.coverage?.ranges?.any { it.quality == CoverageQuality.LOST } == true ->
-                    warnings +=
-                        "TRACKING_LOST_RANGES:${mask.maskId}"
+                run.coverage?.ranges?.any { it.quality == CoverageQuality.LOST } == true -> {
+                    val lost = run.coverage?.ranges.orEmpty().filter { it.quality == CoverageQuality.LOST }.map { it.rangeUs }
+                    val allAccepted = lost.all { range ->
+                        mask.isAccepted(range)
+                    }
+                    warnings += if (allAccepted) "TRACKING_COVERAGE_ACCEPTED:${mask.maskId}" else "TRACKING_LOST_RANGES:${mask.maskId}"
+                }
             }
         }
         return ExportPrecheck(
@@ -558,6 +605,7 @@ public class FakeEditProject internal constructor(
             estimate = estimate,
             problems = problems,
             warnings = warnings,
+            uncoveredRanges = uncovered,
         )
     }
 
@@ -575,9 +623,11 @@ public class FakeEditProject internal constructor(
     override suspend fun export(request: VideoKitExportRequest, sink: VideoKitOutputSink): VideoKitExportResult {
         val job = mutex.withLock {
             requireNotReleased()
-            if (exportJob != null) throw VideoKitException(Errors.illegalState(ErrorStage.EXPORT, "EXPORT_IN_PROGRESS"))
+            if (exportJob != null) {
+                return VideoKitExportResult.Failed(request.exportId, Errors.illegalState(ErrorStage.EXPORT, "EXPORT_IN_PROGRESS"))
+            }
             val precheck = precheckLocked(request, sink)
-            if (!precheck.ok) throw VideoKitException(precheck.problems.first())
+            if (!precheck.ok) return VideoKitExportResult.Failed(request.exportId, precheck.problems.first(), ExportStage.PREPARING)
             phase = EditPhase.EXPORTING
             error = null
             exportProgress = ExportProgress(request.exportId, ExportStage.PREPARING)
@@ -593,12 +643,12 @@ public class FakeEditProject internal constructor(
             job.await()
         } catch (cancelled: CancellationException) {
             if (currentCoroutineContext().isActive) {
-                // The export itself was cancelled (cancelExport or release), not the caller.
+                // The export itself was cancelled (cancelExport or release), not the caller: a result, not a throw (04A I5).
                 withContext(NonCancellable) {
                     job.join()
                     finishIfCancelledBeforeStart(request.exportId)
                 }
-                throw VideoKitException(Errors.of(ErrorCode.CANCELLED, ErrorStage.EXPORT, "EXPORT_CANCELLED"))
+                return VideoKitExportResult.Cancelled(request.exportId, partialOutputRemoved = true)
             }
             withContext(NonCancellable) {
                 job.cancelAndJoin()
@@ -634,41 +684,31 @@ public class FakeEditProject internal constructor(
         val mode = precheck.writeMode ?: SinkWriteMode.SEQUENTIAL
         var handle: VideoKitWriteHandle? = null
         var written = 0L
+        var currentStage = ExportStage.PREPARING
         suspend fun stage(stage: ExportStage, fraction: Float?, processedUs: Long) {
+            currentStage = stage
             mutex.withLock {
                 val stageChanged = exportProgress?.stage != stage
-                exportProgress =
-                    ExportProgress(
-                        request.exportId,
-                        stage,
-                        fraction,
-                        processedUs,
-                        null,
-                        written,
-                        null,
-                        cancellable =
-                        stage != ExportStage.WRITING_COMPLETE,
-                    )
+                exportProgress = ExportProgress(
+                    exportId = request.exportId,
+                    stage = stage,
+                    fraction = fraction,
+                    processedUs = processedUs,
+                    outputBytes = written,
+                    cancellable = stage != ExportStage.WRITING,
+                )
                 if (stageChanged) mutableEvents.tryEmit(VideoKitEditEvent.ExportStageChanged(request.exportId, stage))
                 publish()
             }
-            if (failure?.stage ==
-                stage
-            ) {
-                throw VideoKitException(
-                    Errors.of(
-                        failure.code,
-                        if (failure.code.name.startsWith("OUTPUT")) ErrorStage.SINK else ErrorStage.EXPORT,
-                        "SCENARIO",
-                    ),
-                )
+            if (failure?.stage == stage) {
+                val failureStage = if (failure.code.name.startsWith("OUTPUT")) ErrorStage.SINK else ErrorStage.EXPORT
+                throw VideoKitException(Errors.of(failure.code, failureStage, "SCENARIO"))
             }
         }
         try {
-            handle =
-                sink.openTemporary(
-                    OutputOpenRequest(request.exportId, "video/mp4", "mp4", mode, precheck.estimate.sizeBytes, request.fileNameHint),
-                )
+            handle = sink.openTemporary(
+                OutputOpenRequest(request.exportId, "video/mp4", "mp4", mode, precheck.estimate.sizeBytes, request.fileNameHint),
+            )
             stage(ExportStage.PREPARING, 0f, 0L)
             delay(scenario.exportStageDelayMs)
             if (content.masks.any { it.type != MaskType.MANUAL && it.enabled }) {
@@ -676,39 +716,36 @@ public class FakeEditProject internal constructor(
                 delay(scenario.exportStageDelayMs)
             }
             for (chunk in 0 until EXPORT_CHUNKS) {
-                val processed = durationUs * chunk / EXPORT_CHUNKS
-                stage(ExportStage.ENCODING, chunk / EXPORT_CHUNKS.toFloat(), processed)
+                stage(ExportStage.ENCODING, chunk / EXPORT_CHUNKS.toFloat(), durationUs * chunk / EXPORT_CHUNKS)
                 val payload = demoChunk(request.exportId, chunk)
                 handle.write(payload, 0, payload.size)
                 written += payload.size
                 delay(scenario.exportStageDelayMs / EXPORT_CHUNKS)
             }
-            if (mode == SinkWriteMode.RANDOM_WRITE) {
-                val header = DEMO_HEADER
-                handle.writeAt(0L, header, 0, header.size)
-            }
+            if (mode == SinkWriteMode.RANDOM_WRITE) handle.writeAt(0L, DEMO_HEADER, 0, DEMO_HEADER.size)
             handle.flush()
             stage(ExportStage.VERIFYING, 1f, durationUs)
             delay(scenario.exportStageDelayMs)
-            stage(ExportStage.WRITING_COMPLETE, 1f, durationUs)
+            stage(ExportStage.WRITING, 1f, durationUs)
             currentCoroutineContext().ensureActive()
             val size = outputSize(request.preset)
-            val metadata = VideoKitExportedMedia(
+            val hasAudio = sources.any { it.probe?.hasAudio == true }
+            val metadata = VideoKitOutputMetadata(
                 container = "mp4",
                 extension = "mp4",
                 videoCodec = "video/avc",
-                audioCodec = if (sources.any { it.probe?.hasAudio == true }) "audio/mp4a-latm" else null,
+                audioCodec = if (hasAudio) "audio/mp4a-latm" else null,
                 width = size.first,
                 height = size.second,
                 rotationDeg = 0,
                 durationUs = durationUs,
                 sizeBytes = written,
                 frameRate = 30f,
-                audioPresent = sources.any { it.probe?.hasAudio == true },
+                audioPresent = hasAudio,
+                isDemo = true,
             )
             val token = sink.markReady(handle.handleId, metadata)
-            val result = VideoKitExportResult(
-                exportId = request.exportId,
+            val media = VideoKitExportedMedia(
                 outputToken = token,
                 container = metadata.container,
                 extension = metadata.extension,
@@ -722,13 +759,15 @@ public class FakeEditProject internal constructor(
                 frameRate = metadata.frameRate,
                 audioPresent = metadata.audioPresent,
                 createdAtEpochMs = options.wallClockMs(),
-                sourceTokens = content.clips.mapNotNull { clip ->
-                    sources.firstOrNull { it.sourceId == clip.sourceId }?.mediaToken
-                }.distinct(),
+                sourceTokens = content.clips
+                    .mapNotNull { clip -> sources.firstOrNull { it.sourceId == clip.sourceId }?.mediaToken }
+                    .distinct(),
                 editProjectId = projectId,
                 exportPreset = request.preset,
                 warnings = listOf(FakeScenario.DEMO_OUTPUT_WARNING) + precheck.warnings,
+                isDemo = true,
             )
+            val result = VideoKitExportResult.Succeeded(request.exportId, media)
             mutex.withLock {
                 phase = EditPhase.COMPLETED
                 exportJob = null
@@ -773,7 +812,7 @@ public class FakeEditProject internal constructor(
                     publish()
                 }
             }
-            throw VideoKitException(mapped)
+            return VideoKitExportResult.Failed(request.exportId, mapped, currentStage)
         } finally {
             handle?.let { runCatching { it.close() } }
         }
@@ -860,6 +899,9 @@ public class FakeEditProject internal constructor(
 
     private fun rejectedArgument(what: String): EditCommandResult =
         EditCommandResult.Rejected(Errors.invalidArgument(ErrorStage.EDIT, what))
+
+    private fun MaskTrack.isAccepted(range: TimeRangeUs): Boolean =
+        acceptedRangesUs.any { range.startUs >= it.startUs && range.endUs <= it.endUs }
 
     private fun MaskTrack.withKeyframe(keyframe: MaskKeyframe): MaskTrack =
         copy(keyframes = (keyframes.filterNot { it.atUs == keyframe.atUs } + keyframe).sortedBy { it.atUs })

@@ -51,6 +51,8 @@ public data class FakeScenario(
     val buffering: BufferingSpec? = null,
     /** Bind fails with UNSUPPORTED_VIDEO_CODEC. */
     val unsupportedVideoCodec: Boolean = false,
+    /** Bind fails with UNSUPPORTED_CONTAINER. */
+    val unsupportedContainer: Boolean = false,
     /** Audio cannot be decoded: video plays silently with a notice. */
     val unsupportedAudioCodec: Boolean = false,
     /** Fatal CORRUPT_MEDIA at this media position. */
@@ -81,6 +83,9 @@ public data class FakeScenario(
 
     /** The video codec is unsupported. */
     public fun unsupportedVideoCodec(): FakeScenario = copy(name = "$name+unsupportedVideoCodec", unsupportedVideoCodec = true)
+
+    /** The container is unsupported. */
+    public fun unsupportedContainer(): FakeScenario = copy(name = "$name+unsupportedContainer", unsupportedContainer = true)
 
     /** The audio codec is unsupported. */
     public fun unsupportedAudioCodec(): FakeScenario = copy(name = "$name+unsupportedAudioCodec", unsupportedAudioCodec = true)
@@ -130,19 +135,20 @@ public data class FakeScenario(
         /** Normal playback. */
         public fun normal(): FakeScenario = FakeScenario()
 
-        /** Names accepted by [named]. */
+        /** Scenario ids, identical to the Dart Fake catalogue (`Scenarios.catalog`, 04A B9). */
         public val NAMES: List<String> = listOf(
-            "normal", "slowLoad", "buffering", "unsupportedVideoCodec", "unsupportedAudioCodec", "corrupt",
+            "normal", "slowLoad", "buffering", "unsupported", "unsupportedContainer", "unsupportedAudio", "corrupt",
             "disconnect", "resourceExhausted", "hostActionTimeout", "trackingLost", "exportFails", "exportCancelSlow",
         )
 
-        /** Scenario for a name in [NAMES] with default parameters; `null` for unknown names. */
+        /** Scenario for an id in [NAMES] (older Kotlin names are accepted as aliases); `null` for unknown ids. */
         public fun named(name: String): FakeScenario? = when (name) {
             "normal" -> normal()
             "slowLoad" -> normal().slowLoad()
             "buffering" -> normal().buffering()
-            "unsupportedVideoCodec" -> normal().unsupportedVideoCodec()
-            "unsupportedAudioCodec" -> normal().unsupportedAudioCodec()
+            "unsupported", "unsupportedVideoCodec" -> normal().unsupportedVideoCodec()
+            "unsupportedContainer" -> normal().unsupportedContainer()
+            "unsupportedAudio", "unsupportedAudioCodec" -> normal().unsupportedAudioCodec()
             "corrupt" -> normal().corrupt()
             "disconnect" -> normal().disconnect()
             "resourceExhausted" -> normal().resourceExhausted()
@@ -154,10 +160,12 @@ public data class FakeScenario(
         }
 
         /**
-         * Default scenario resolver: media tokens `demo:<name>` (optionally `demo:<name>:<suffix>`) select
-         * [named]; everything else plays [normal].
+         * Default scenario resolver (04A B9): a [DemoSourceFactory] (the plugin maps `demo:<scenarioId>` source
+         * references to it) or a media token `demo:<scenarioId>[:<suffix>]` selects [named]; everything else
+         * plays [normal].
          */
         public fun forSource(source: VideoKitMediaSource): FakeScenario {
+            (source.sourceFactory as? DemoSourceFactory)?.let { return named(it.scenarioId) ?: normal() }
             val token = source.mediaToken
             if (!token.startsWith(DEMO_TOKEN_PREFIX)) return normal()
             val name = token.removePrefix(DEMO_TOKEN_PREFIX).substringBefore(':')

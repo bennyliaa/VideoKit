@@ -41,6 +41,8 @@ public class FakeContractSubject(
 
     override fun playableImage(token: String): VideoKitMediaSource = FakeMediaSources.image(token, MediaKind.IMAGE_STATIC)
 
+    override fun playableAnimatedImage(token: String): VideoKitMediaSource = FakeMediaSources.image(token, MediaKind.IMAGE_ANIMATED)
+
     override suspend fun advanceMediaTime(us: Long) {
         clock.advanceUs(us)
         yield()

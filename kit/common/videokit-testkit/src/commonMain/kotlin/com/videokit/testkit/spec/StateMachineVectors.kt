@@ -1,28 +1,48 @@
 package com.videokit.testkit.spec
 
+import com.videokit.api.ActionPlacement
 import com.videokit.api.EditCommandResult
 import com.videokit.api.EditPhase
 import com.videokit.api.EditProjectConfig
+import com.videokit.api.ErrorCode
+import com.videokit.api.HostActionResult
+import com.videokit.api.HostActionStatus
+import com.videokit.api.HostIcon
 import com.videokit.api.MaskRegion
 import com.videokit.api.MaskType
 import com.videokit.api.SessionPhase
+import com.videokit.api.SessionVisibility
 import com.videokit.api.SourceErrorCode
 import com.videokit.api.TimeRangeUs
+import com.videokit.api.TrackingKind
 import com.videokit.api.UnsupportedReason
+import com.videokit.api.VideoKit
 import com.videokit.api.VideoKitCommand
 import com.videokit.api.VideoKitCommandResult
 import com.videokit.api.VideoKitEditCommand
 import com.videokit.api.VideoKitEditProject
+import com.videokit.api.VideoKitEvent
 import com.videokit.api.VideoKitException
+import com.videokit.api.VideoKitExportRequest
+import com.videokit.api.VideoKitExportResult
+import com.videokit.api.VideoKitHostAction
+import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitSession
 import com.videokit.api.VideoKitSessionConfig
-import com.videokit.api.Visibility
+import com.videokit.api.VideoKitStableError
+import com.videokit.testkit.CountingSourceFactory
 import com.videokit.testkit.RecordingHostCallbacks
+import com.videokit.testkit.RecordingOutputSink
 import com.videokit.testkit.SourceBehavior
 import com.videokit.testkit.contract.ContractViolation
 import com.videokit.testkit.contract.VideoKitContractSubject
+import com.videokit.testkit.internal.AtomicCounter
 import com.videokit.testkit.internal.MiniJson
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
 /** One case of a `spec/vectors/state-machine` file. */
@@ -31,6 +51,8 @@ public class StateMachineVector internal constructor(
     public val id: String,
     internal val from: String,
     internal val media: String,
+    internal val hostActions: List<String>,
+    internal val hostActionAnswer: String,
     internal val steps: List<Map<*, *>>,
 ) {
     override fun toString(): String = id
@@ -47,7 +69,7 @@ public enum class VectorOutcome {
 
 /**
  * Runner of the language independent state machine vectors in `spec/vectors/state-machine/` (02 §4.0.2,
- * 13 §3.2). The runner is platform independent: callers load the JSON text (on the JVM from the
+ * 13 §3.2, 04A §1.4). The runner is platform independent: callers load the JSON text (on the JVM from the
  * `videokit.specDir` system property) and pass it in. A violated expectation throws [ContractViolation].
  */
 public object StateMachineVectors {
@@ -58,6 +80,9 @@ public object StateMachineVectors {
     public const val EDIT_KIND: String = "edit-state-machine"
 
     private const val WAIT_MS = 15_000L
+    private const val EVENT_SETTLE_MS = 1_000L
+    private const val EVENT_POLL_MS = 10L
+    private const val NEAR_END_US = 500_000L
 
     /** Parses a vector file of [expectedKind]. */
     public fun parse(json: String, expectedKind: String): List<StateMachineVector> {
@@ -70,35 +95,73 @@ public object StateMachineVectors {
                 id = case["id"] as String,
                 from = case["from"] as String,
                 media = case["media"] as? String ?: "VIDEO",
+                hostActions = (case["hostActions"] as? List<*>).orEmpty().map { it as String },
+                hostActionAnswer = case["hostActionAnswer"] as? String ?: "COMPLETED",
                 steps = (case["steps"] as List<*>).map { it as Map<*, *> },
             )
         }
     }
 
     /** Runs one session vector against a fresh instance from [subject]. */
-    public suspend fun runSession(vector: StateMachineVector, subject: VideoKitContractSubject): VectorOutcome {
-        val kit = subject.create(RecordingHostCallbacks())
+    public suspend fun runSession(vector: StateMachineVector, subject: VideoKitContractSubject): VectorOutcome = coroutineScope {
+        val callbacks = RecordingHostCallbacks()
+        val answer = HostActionStatus.valueOf(vector.hostActionAnswer)
+        callbacks.hostActionAnswer = { HostActionResult(answer) }
+        val kit = subject.create(callbacks)
         try {
             val session = kit.createSession(VideoKitSessionConfig())
-            if (!prepareSession(session, vector, subject)) return VectorOutcome.SKIPPED
-            vector.steps.forEachIndexed { index, step ->
-                val result = executeSessionStep(session, step, vector, subject)
-                val expect = step["expect"] as Map<*, *>
-                val where = "${vector.id} step ${index + 1} (${step["command"]})"
-                checkResult(where, sessionResultKind(result), expect["result"] as String)
-                (expect["reason"] as? String)?.let { reason ->
-                    val actual = (result as? VideoKitCommandResult.Unsupported)?.reason
-                    if (actual !=
-                        UnsupportedReason.fromWireName(reason)
-                    ) {
-                        throw ContractViolation("$where: reason expected $reason but was $actual")
-                    }
-                }
-                (expect["phase"] as? String)?.let { phase -> awaitSessionPhase(session, SessionPhase.valueOf(phase), where) }
+            // Counts PlaybackEnded for `expect.playbackEnded` (04A L1); subscribed before anything can end.
+            val ended = AtomicCounter()
+            val events = launch(start = CoroutineStart.UNDISPATCHED) {
+                session.events.collect { if (it == VideoKitEvent.PlaybackEnded) ended.incrementAndGet() }
             }
-            return VectorOutcome.PASSED
+            try {
+                if (!prepareSession(session, vector, subject)) return@coroutineScope VectorOutcome.SKIPPED
+                vector.steps.forEachIndexed { index, step ->
+                    val where = "${vector.id} step ${index + 1} (${step["command"]})"
+                    val result = executeSessionStep(session, step, vector, subject)
+                    val expect = step["expect"] as Map<*, *>
+                    checkResult(where, sessionResultKind(result), expect["result"] as String)
+                    checkCode(where, (result as? VideoKitCommandResult.Rejected)?.error, expect)
+                    (expect["reason"] as? String)?.let { reason ->
+                        val actual = (result as? VideoKitCommandResult.Unsupported)?.reason
+                        if (actual != UnsupportedReason.fromWireName(reason)) {
+                            throw ContractViolation("$where: reason expected $reason but was $actual")
+                        }
+                    }
+                    (expect["hostCalls"] as? Long)?.let { calls ->
+                        val actual = callbacks.hostActionRequests.size.toLong()
+                        if (actual != calls) throw ContractViolation("$where: host calls expected $calls but was $actual")
+                    }
+                    (expect["phase"] as? String)?.let { phase -> awaitSessionPhase(session, SessionPhase.valueOf(phase), where) }
+                    checkLooping(where, session, expect, ended)
+                }
+                VectorOutcome.PASSED
+            } finally {
+                events.cancel()
+            }
         } finally {
             kit.close()
+        }
+    }
+
+    /** `expect.looping`, `expect.atEnd` and `expect.playbackEnded` (04A L1). */
+    private suspend fun checkLooping(where: String, session: VideoKitSession, expect: Map<*, *>, ended: AtomicCounter) {
+        (expect["looping"] as? Boolean)?.let { looping ->
+            val actual = session.state.value.looping
+            if (actual != looping) throw ContractViolation("$where: looping expected $looping but was $actual")
+        }
+        (expect["atEnd"] as? Boolean)?.let { atEnd ->
+            val state = session.state.value
+            val actual = state.durationUs != null && state.positionUs == state.durationUs
+            if (actual != atEnd) {
+                throw ContractViolation("$where: atEnd expected $atEnd but position ${state.positionUs} of ${state.durationUs}")
+            }
+        }
+        (expect["playbackEnded"] as? Long)?.let { count ->
+            // The event is emitted together with the ENDED state; give the collector a moment to catch up.
+            withTimeoutOrNull(EVENT_SETTLE_MS) { while (ended.value < count) delay(EVENT_POLL_MS) }
+            if (ended.value != count) throw ContractViolation("$where: PlaybackEnded expected $count times but was ${ended.value}")
         }
     }
 
@@ -110,9 +173,10 @@ public object StateMachineVectors {
             prepareProject(project, vector, subject)
             vector.steps.forEachIndexed { index, step ->
                 val where = "${vector.id} step ${index + 1} (${step["command"]})"
-                val result = executeEditStep(project, step, subject)
+                val (kind, error) = executeEditStep(kit, project, step, subject)
                 val expect = step["expect"] as Map<*, *>
-                checkResult(where, result, expect["result"] as String)
+                checkResult(where, kind, expect["result"] as String)
+                checkCode(where, error, expect)
                 (expect["phase"] as? String)?.let { phase -> awaitEditPhase(project, EditPhase.valueOf(phase), where) }
             }
             return VectorOutcome.PASSED
@@ -123,8 +187,17 @@ public object StateMachineVectors {
 
     // ------------------------------------------------------------------ sessions
 
+    /** Media of the case: `VIDEO` (default), `IMAGE_STATIC` or `IMAGE_ANIMATED`; `null` if the subject has none. */
+    private fun mediaFor(vector: StateMachineVector, subject: VideoKitContractSubject, token: String): VideoKitMediaSource? =
+        when (vector.media) {
+            "IMAGE_STATIC" -> subject.playableImage(token)
+            "IMAGE_ANIMATED" -> subject.playableAnimatedImage(token)
+            "VIDEO" -> subject.playableVideo(token)
+            else -> throw IllegalArgumentException("${vector.id}: unknown media ${vector.media}")
+        }
+
     private suspend fun prepareSession(session: VideoKitSession, vector: StateMachineVector, subject: VideoKitContractSubject): Boolean {
-        val media = if (vector.media == "IMAGE_STATIC") subject.playableImage("vector-image") else subject.playableVideo("vector-video")
+        val media = mediaFor(vector, subject, "vector-media") ?: return false
         when (vector.from) {
             "CREATED" -> Unit
 
@@ -153,9 +226,7 @@ public object StateMachineVectors {
             }
 
             "ERROR_RECOVERABLE" -> {
-                val broken = media.copy(
-                    sourceFactory = com.videokit.testkit.CountingSourceFactory(SourceBehavior.FailOnOpen(SourceErrorCode.DISCONNECTED)),
-                )
+                val broken = media.copy(sourceFactory = CountingSourceFactory(SourceBehavior.FailOnOpen(SourceErrorCode.DISCONNECTED)))
                 session.bind(broken, null, emptyList())
                 awaitSessionPhase(session, SessionPhase.ERROR_RECOVERABLE, "${vector.id} setup")
             }
@@ -172,11 +243,20 @@ public object StateMachineVectors {
         return true
     }
 
-    private suspend fun bindReady(session: VideoKitSession, media: com.videokit.api.VideoKitMediaSource, vector: StateMachineVector) {
-        val result = session.bind(media, null, emptyList())
+    private suspend fun bindReady(session: VideoKitSession, media: VideoKitMediaSource, vector: StateMachineVector) {
+        val result = session.bind(media, null, vector.hostActions.map { hostAction(it) })
         if (result != VideoKitCommandResult.Executed) throw ContractViolation("${vector.id} setup: bind returned $result")
         awaitSessionPhase(session, SessionPhase.READY, "${vector.id} setup")
     }
+
+    private fun hostAction(id: String, pending: Boolean = false): VideoKitHostAction = VideoKitHostAction(
+        actionId = id,
+        labelKey = "action.$id",
+        contentDescriptionKey = "action.$id.description",
+        icon = HostIcon.BuiltIn(id),
+        pending = pending,
+        placement = ActionPlacement.PRIMARY_BAR,
+    )
 
     private suspend fun executeSessionStep(
         session: VideoKitSession,
@@ -185,12 +265,31 @@ public object StateMachineVectors {
         subject: VideoKitContractSubject,
     ): VideoKitCommandResult = when (val command = step["command"] as String) {
         "BIND" -> session.bind(
-            if (vector.media == "IMAGE_STATIC") subject.playableImage("vector-rebind") else subject.playableVideo("vector-rebind"),
+            mediaFor(vector, subject, "vector-rebind") ?: throw ContractViolation("${vector.id}: no ${vector.media} media"),
             null,
-            emptyList(),
+            vector.hostActions.map { hostAction(it) },
         )
 
+        "SEEK_NEAR_END" -> {
+            // 0.5 s before the end, so one ADVANCE of 1 s crosses it (04A L1 vectors).
+            val duration = session.state.value.durationUs ?: throw ContractViolation("${vector.id}: no duration")
+            session.execute(VideoKitCommand.SeekTo(duration - NEAR_END_US))
+        }
+
+        "ADVANCE" -> {
+            subject.advanceMediaTime(step.long("us"))
+            VideoKitCommandResult.Executed
+        }
+
         "RELEASE" -> session.execute(VideoKitCommand.Release)
+
+        "REQUEST_HOST_ACTION" -> session.requestHostAction(step["actionId"] as String)
+
+        "HOST_ACTIONS_SETTLED" -> {
+            // The host reports that its pending actions finished (pending = false).
+            session.updateHostActions(vector.hostActions.map { hostAction(it, pending = false) })
+            VideoKitCommandResult.Executed
+        }
 
         else -> session.execute(sessionCommand(command, step))
     }
@@ -202,9 +301,10 @@ public object StateMachineVectors {
         "SET_SPEED" -> VideoKitCommand.SetSpeed(step.float("speed"))
         "SET_VOLUME" -> VideoKitCommand.SetVolume(step.float("volume"))
         "SET_MUTED" -> VideoKitCommand.SetMuted(step["muted"] as Boolean)
+        "SET_LOOPING" -> VideoKitCommand.SetLooping(step["looping"] as Boolean)
         "SELECT_AUDIO_TRACK" -> VideoKitCommand.SelectAudioTrack(step["trackId"] as String?)
         "SELECT_SUBTITLE_TRACK" -> VideoKitCommand.SelectSubtitleTrack(step["trackId"] as String?)
-        "SET_VISIBILITY" -> VideoKitCommand.SetVisibility(Visibility.valueOf(step["visibility"] as String))
+        "SET_VISIBILITY" -> VideoKitCommand.SetVisibility(SessionVisibility.valueOf(step["visibility"] as String))
         "SET_FULLSCREEN" -> VideoKitCommand.SetFullscreen(step["fullscreen"] as Boolean)
         "SET_ACTIVE_AUDIO" -> VideoKitCommand.SetActiveAudio(step["active"] as Boolean, step.long("audioEpoch"))
         "HIDE_CONTENT_FOR_LOCK" -> VideoKitCommand.HideContentForLock(step["hidden"] as Boolean)
@@ -246,26 +346,51 @@ public object StateMachineVectors {
         }
     }
 
-    private suspend fun executeEditStep(project: VideoKitEditProject, step: Map<*, *>, subject: VideoKitContractSubject): String {
+    /** Executes one edit step; returns the result kind and the error, if any. */
+    private suspend fun executeEditStep(
+        kit: VideoKit,
+        project: VideoKitEditProject,
+        step: Map<*, *>,
+        subject: VideoKitContractSubject,
+    ): Pair<String, VideoKitStableError?> {
         val state = project.state.value
         val firstClip = state.timeline.clips.firstOrNull()?.clipId ?: "no-clip"
         val firstMask = state.masks.firstOrNull()?.maskId ?: "no-mask"
         val command: VideoKitEditCommand = when (val name = step["command"] as String) {
             "ADD_SOURCE" -> return try {
                 project.addSource(subject.playableVideo("vector-added"))
-                "APPLIED"
-            } catch (_: VideoKitException) {
-                "REJECTED"
+                "APPLIED" to null
+            } catch (failure: VideoKitException) {
+                "REJECTED" to failure.error
             }
 
             "CLOSE" -> {
                 project.close()
-                return "APPLIED"
+                return "APPLIED" to null
             }
 
-            "UNDO" -> return editResultKind(project.undo())
+            "EXPORT" -> return when (val result = project.export(VideoKitExportRequest(), RecordingOutputSink())) {
+                is VideoKitExportResult.Succeeded -> "SUCCEEDED" to null
+                is VideoKitExportResult.Failed -> "FAILED" to result.error
+                is VideoKitExportResult.Cancelled -> "CANCELLED" to null
+            }
 
-            "REDO" -> return editResultKind(project.redo())
+            "RESTORE_FUTURE_SNAPSHOT" -> return try {
+                val snapshot = project.snapshot()
+                kit.restoreEditProject(snapshot.copy(schemaVersion = snapshot.schemaVersion + 1), EditProjectConfig())
+                "APPLIED" to null
+            } catch (failure: VideoKitException) {
+                "REJECTED" to failure.error
+            }
+
+            "DETECT_CANDIDATES" -> return project.detectCandidates(step.long("atUs")).let { result ->
+                val error = result.error
+                if (error == null && result.candidates.isNotEmpty()) "APPLIED" to null else "REJECTED" to error
+            }
+
+            "UNDO" -> return editResult(project.undo())
+
+            "REDO" -> return editResult(project.redo())
 
             "ADD_CLIP" -> VideoKitEditCommand.AddClip(
                 sourceId = if (step["source"] ==
@@ -294,20 +419,26 @@ public object StateMachineVectors {
                 rangeUs = TimeRangeUs(step.long("startUs"), step.long("endUs")),
             )
 
-            "START_TRACKING_FIRST_MASK" -> VideoKitEditCommand.StartTracking(firstMask)
+            "START_TRACKING_FIRST_MASK" -> VideoKitEditCommand.StartTracking(
+                firstMask,
+                TrackingKind.valueOf(step["kind"] as? String ?: "FACE"),
+            )
 
             "CANCEL_TRACKING_FIRST_MASK" -> VideoKitEditCommand.CancelTracking(firstMask)
 
+            "ACCEPT_TRACKING_RANGE_FIRST_MASK" ->
+                VideoKitEditCommand.AcceptTrackingRange(firstMask, TimeRangeUs(step.long("startUs"), step.long("endUs")))
+
             else -> throw IllegalArgumentException("unknown edit command $name")
         }
-        return editResultKind(project.apply(command))
+        return editResult(project.apply(command))
     }
 
-    private fun editResultKind(result: EditCommandResult): String = when (result) {
-        is EditCommandResult.Applied -> "APPLIED"
-        is EditCommandResult.Rejected -> "REJECTED"
-        is EditCommandResult.Unsupported -> "UNSUPPORTED"
-        EditCommandResult.ProjectReleased -> "PROJECT_RELEASED"
+    private fun editResult(result: EditCommandResult): Pair<String, VideoKitStableError?> = when (result) {
+        is EditCommandResult.Applied -> "APPLIED" to null
+        is EditCommandResult.Rejected -> "REJECTED" to result.error
+        is EditCommandResult.Unsupported -> "UNSUPPORTED" to null
+        EditCommandResult.ProjectReleased -> "PROJECT_RELEASED" to null
     }
 
     private suspend fun awaitEditPhase(project: VideoKitEditProject, phase: EditPhase, where: String) {
@@ -319,6 +450,12 @@ public object StateMachineVectors {
 
     private fun checkResult(where: String, actual: String, expected: String) {
         if (actual != expected) throw ContractViolation("$where: result expected $expected but was $actual")
+    }
+
+    /** `expect.code` (optional): the stable error code of a REJECTED or FAILED result. */
+    private fun checkCode(where: String, error: VideoKitStableError?, expect: Map<*, *>) {
+        val code = expect["code"] as? String ?: return
+        if (error?.code != ErrorCode.fromWireName(code)) throw ContractViolation("$where: code expected $code but was ${error?.code}")
     }
 
     private fun Map<*, *>.long(key: String): Long = (this[key] as Number).toLong()

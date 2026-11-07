@@ -88,6 +88,11 @@ public class RecordingHostCallbacks(
     /** Recorded fatal errors. */
     public val fatalErrors: List<VideoKitStableError> get() = fatalErrorsRecord.snapshot
 
+    private val errorSessionsRecord = RecordList<Pair<String, VideoKitStableError>>()
+
+    /** Recoverable and fatal errors with their session id, in order (04A I7). */
+    public val errorsBySession: List<Pair<String, VideoKitStableError>> get() = errorSessionsRecord.snapshot
+
     override suspend fun onHostActionRequested(request: HostActionRequest): HostActionResult {
         hostActionRequestsRecord.add(request)
         misbehave("onHostActionRequested")
@@ -120,13 +125,15 @@ public class RecordingHostCallbacks(
         misbehave("onSourceReleased")
     }
 
-    override suspend fun onRecoverableError(error: VideoKitStableError): RecoveryDecision {
+    override suspend fun onRecoverableError(sessionId: String, error: VideoKitStableError): RecoveryDecision {
+        errorSessionsRecord.add(sessionId to error)
         recoverableErrorsRecord.add(error)
         misbehave("onRecoverableError")
         return recoveryAnswer(error)
     }
 
-    override suspend fun onFatalSessionError(error: VideoKitStableError) {
+    override suspend fun onFatalSessionError(sessionId: String, error: VideoKitStableError) {
+        errorSessionsRecord.add(sessionId to error)
         fatalErrorsRecord.add(error)
         misbehave("onFatalSessionError")
     }

@@ -39,6 +39,12 @@ public interface VideoKitContractSubject {
     /** A displayable static image. */
     public fun playableImage(token: String): VideoKitMediaSource
 
+    /**
+     * A displayable animated image of a few seconds per loop, or `null` when the subject has none; looping vectors
+     * on animated images (04A L1) are then reported as skipped.
+     */
+    public fun playableAnimatedImage(token: String): VideoKitMediaSource? = null
+
     /** Lets [us] microseconds of media time pass (Fake: advance the clock; real: wait). */
     public suspend fun advanceMediaTime(us: Long)
 

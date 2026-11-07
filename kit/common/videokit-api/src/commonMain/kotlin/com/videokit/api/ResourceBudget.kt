@@ -19,7 +19,7 @@ public enum class ResourceKind {
 }
 
 /** Resource priority; higher priorities are served first (07 §2). */
-public enum class Priority {
+public enum class ResourcePriority {
     /** Optional work (prefetch, thumbnails). */
     OPTIONAL,
 
@@ -57,8 +57,8 @@ public data class ResourceRequest(
     val kind: ResourceKind,
     /** Estimate. */
     val estimate: ResourceEstimate,
-    /** Priority. */
-    val priority: Priority,
+    /** ResourcePriority. */
+    val priority: ResourcePriority,
 )
 
 /** Degradation the host may apply when a reservation is denied (07 §3). */
