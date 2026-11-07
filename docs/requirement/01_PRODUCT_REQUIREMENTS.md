@@ -16,7 +16,7 @@ VideoKit 是可复用的媒体播放与编辑能力库，不是 NAS 浏览器，
 - VideoKit App 是 VideoKit 模块的第一个宿主，和 LocalVideoBrowser 一样只通过公共 API 与扩展点使用模块，不使用模块内部实现；凡是 App 需要而模块没有的能力，应补进模块的公共 API，而不是在 App 里绕过。
 - VideoKit 模块不依赖 VideoKit App；LocalVideoBrowser 集成模块时不需要 App 的任何代码。
 - 在 SkinKit 中，VideoKit App 是一个宿主 App（`appId = videokit`）；VideoKit 模块嵌入其他宿主时跟随宿主主题（[03](03_UI_FRAMEWORK_DESIGN.md) §5.5）。
-- VideoKit App 自身需要、但不属于模块的部分只有 App 外壳：启动与导航、打开媒体的入口、权限、设置、关于。打开媒体的入口待确认（建议：系统文件选择器 + 系统“打开方式”调用），确认后补充需求编号。
+- VideoKit App 自身需要、但不属于模块的部分只有 App 外壳：启动与导航、打开媒体的入口（系统文件选择器 + 系统“打开方式”，2026-11-07 确认）、权限、设置、关于；需求见 §4.13。
 - `videokit_example` 是模块的开发示例（含演示场景面板、宿主扩展点示例），不是 VideoKit App。
 
 ## 2. 交付物
@@ -160,7 +160,7 @@ VideoKit 是可复用的媒体播放与编辑能力库，不是 NAS 浏览器，
 | REQ-UX-02 | 适配系统手势区、刘海、圆角、安全区域 | P0 | §20 |
 | REQ-UX-03 | 触摸、鼠标/触控板、基本键盘操作 | P0 | §20 |
 | REQ-UX-04 | 大字体下关键按钮不重叠、可达；内容描述、焦点顺序、无障碍状态 | P0 | §20 |
-| REQ-UX-05 | 所有可见文本可国际化，至少简体中文和英文 | P0 | §20 |
+| REQ-UX-05 | 所有可见文本可国际化（机制从第一天建好）；第一版维护简体中文，英文在 VK-M6 后整批加入（用户 2026-11-06 决定，见 [13](13_ENGINEERING_CONVENTIONS.md) §3.1） | P0 | §20 |
 | REQ-UX-06 | 宿主可替换主题颜色、图标和部分文案，不破坏状态与无障碍语义 | P0 | §20 |
 | REQ-UX-07 | UI 不硬编码 LocalVideoBrowser 名称、标签名或 NAS 概念 | P0 | §20 |
 | REQ-UX-08 | VideoKit 自有 Theme（Token 化，浅/深色，宿主覆盖）；SkinKit 后期作为可选主题来源接入 | P0（自有 Theme）/ 后续（SkinKit） | 用户 2026-11-06 决定 |
@@ -197,6 +197,19 @@ VideoKit 是可复用的媒体播放与编辑能力库，不是 NAS 浏览器，
 | REQ-BR-05 | 只发送“请求移除当前项”等动作 ID，不修改集合 | P0 | §16.3 |
 | REQ-BR-06 | 输出结果提供 editProjectId、输入 token 列表和输出 token，便于宿主建立新旧配对；不执行替换、不维护 dump 数据库 | P0 | §12 |
 | REQ-BR-07 | 移除 AAR 后宿主可用临时播放器；VideoKit 崩溃或加载失败不阻止宿主启动 | P0 | §15.1、§26.7 |
+
+### 4.13 VideoKit App（APP）
+
+VideoKit App 是以 VideoKit 模块为内核的独立视频播放 App（§1 术语），界面以 [UI 设计稿](VideoKit_UI_Design_V1.0.pptx) 为准。以下只列 App 外壳需求；播放、图片、多画面、编辑、打码、导出等功能由模块提供，App 通过公共 API 使用。
+
+| ID | 需求 | 级别 | 依据 |
+| --- | --- | --- | --- |
+| REQ-APP-01 | 打开媒体：通过**系统文件选择器**选择视频或图片（可多选，用于多画面与多视频拼接）；不扫描设备、不建媒体库，不申请宽泛存储权限 | P0 | 用户 2026-11-07 确认 |
+| REQ-APP-02 | 系统“打开方式”：在文件管理器、相册等应用中选“用 VideoKit 打开”（Android `ACTION_VIEW` / `ACTION_SEND` 的视频与图片类型）直接进入播放器或图片查看器 | P0 | 用户 2026-11-07 确认 |
+| REQ-APP-03 | 读取经系统授予的 Content URI，只读；导出结果经系统“另存为”（`ACTION_CREATE_DOCUMENT`）写到用户选择的位置，不覆盖源文件 | P0 | 原需求 §11、§22 |
+| REQ-APP-04 | App 外壳：启动、导航、设置（主题深浅色、语言、减少动画等）、关于与开源许可页 | P0 | 用户 2026-11-07 |
+| REQ-APP-05 | App 只经公共 API 与扩展点使用模块；App 需要的能力先补进模块公共 API | P0 | 用户 2026-11-07 |
+| REQ-APP-06 | Release 构建不含 Fake 与演示资源；SkinKit 宿主接入（`appId = videokit`）在 SkinKit v2.0 支持 Flutter 后安排 | P0 / 后续 | 用户 2026-11-07 |
 
 ## 5. 不在首版范围
 
