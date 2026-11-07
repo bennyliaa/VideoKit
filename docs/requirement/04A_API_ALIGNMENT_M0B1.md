@@ -124,6 +124,7 @@
 | U3 | 视频左右滑动（M4-A1） | 保留视频画面左右滑动 seek（相对拖动，常见做法）；进度条所在条带始终归进度条（控件隐藏时也接收拖动，按绝对位置跳转并显示控件）。图片左右滑动用于翻页（设计稿第 11 页） | Flutter UI（Coder A） |
 | B1 | 打开成功的判定（M3-B2，R2-03） | bind 在媒体解析完成、轨道已知时即算打开成功（不等缓冲到可播放），之后继续缓冲时报告 `BUFFERING`；10 s 打开超时只覆盖“解析到轨道已知”这一段。打开中途被 release 得到 `SessionReleased`；超时得到 `Rejected(SOURCE_TIMEOUT)`，会话进入 `ERROR_RECOVERABLE`。UI：打开成功后在 `BUFFERING` 时显示加载圈，不再显示“正在打开” | Kotlin（Coder B）；UI（Coder A） |
 | A1 | 发声默认值（TEST-R3 R3-01） | 两侧 `activeAudio` 默认值统一为 `false`：会话 bind 后默认不发声，由宿主经 `SetActiveAudio(true, epoch)` 授予（07 §4）。单播放器宿主（VideoKitPlayer、App 播放页）在 bind 成功后自动授予；多画面由协调器授予 | Kotlin 默认值与向量（Coder B）；宿主侧授予（Coder A） |
+| P5 | 缩略图的可取消性（S1 结论） | `captureThumbnail` 与拖动预览帧必须有硬超时并可取消：取帧在专用工作线程执行，并持有自己的宿主读取句柄；取消或超时时关闭该句柄，使阻塞的读取返回错误，然后丢弃该线程的结果，绝不阻塞会话和主线程。默认硬超时 3 s（14 §12 回调超时同级）。对宿主标记为慢速或网络的源，拖动预览帧默认关闭，只显示时间气泡；单张缩略图仍可取，但遵守硬超时。MediaMetadataRetriever 与 Media3 帧提取的取舍在真机对比后定（PENDING 41） | Kotlin（Coder B，M4 之前的 Kit 批次） |
 | U1 | 错误态下的底部控件 | 不支持（`UNSUPPORTED_*`）或致命错误：按设计稿第 12 页只保留返回和标题，底部控件隐藏；可恢复错误（带“重试”）：控件保留为禁用外观，点击放行给状态视图 | Flutter UI（Coder A） |
 
 ## 5. 工程与构建裁定
