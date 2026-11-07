@@ -1,6 +1,6 @@
 # 04A 公共 API 对齐裁定（M0-B1）
 
-版本：V1.4（新增 §4A–§4D 补充裁定）；日期：2026-11-07；裁定人：负责人。依据：Coder A 报告 `test-workspace/reports/M0-B1-A/REPORT.md` §6，Coder B 报告 `test-workspace/reports/M0-B1-B/REPORT.md` §6 与附录 A–C。
+版本：V1.5（新增 §4A–§4E 补充裁定）；日期：2026-11-07；裁定人：负责人。依据：Coder A 报告 `test-workspace/reports/M0-B1-A/REPORT.md` §6，Coder B 报告 `test-workspace/reports/M0-B1-B/REPORT.md` §6 与附录 A–C。
 
 > 本文件是 [04 公共 API 契约](04_PUBLIC_API_CONTRACT.md) 的补充裁定，与 04 冲突时以本文件为准；API 1.0.0 冻结时并入 04。
 > 适用范围：Kotlin `videokit-api` / `videokit-api-android` 与 Dart `videokit_api`。两侧必须按本表一一对应，M0-B2 内完成对齐。
@@ -103,6 +103,13 @@
 | P2 | 媒体参数 | `VideoKitSessionState.mediaInfo: MediaInfo?`：`container`、`videoCodec`、`audioCodec`、`width`、`height`、`frameRate`、`bitrateBps`、`rotationDeg`、`durationUs`、`fileSizeBytes`（均可空，拿不到为 null）；bind 完成后填充 | 两侧 |
 | P3 | 演示入口 | App 用独立入口文件 `lib/main_demo.dart`（只在 debug/开发使用，`flutter run -t lib/main_demo.dart`），`lib/main.dart` 不得 import `videokit_fake`；不使用 flavor。Release 隔离检查（14 §11.4）验证 `main.dart` 产物不含 Fake | App |
 | P4 | applicationId | VideoKit App 暂定 `com.videokit.app`；对外发布前核对域名与商标权利（02 §7 #1） | App |
+
+## 4E. 补充裁定（V1.5，2026-11-07，M1-A1 / TEST-R1 提出）
+
+| # | 项 | 裁定 | 改动方 |
+| --- | --- | --- | --- |
+| C1 | 音轨声道数 | `TrackInfo` 增加可空字段 `channelCount: Int?`（仅音轨有意义，拿不到为 null）。UI 显示“编码 + 声道布局”（1→单声道、2→2.0、6→5.1、8→7.1，其他显示“N 声道”），为 null 时只显示编码名。spec 与通道同批修改 | Kotlin + spec + 通道 + Media3 填充（Coder B）；Dart API + Fake + UI（Coder A） |
+| U1 | 错误态下的底部控件 | 不支持（`UNSUPPORTED_*`）或致命错误：按设计稿第 12 页只保留返回和标题，底部控件隐藏；可恢复错误（带“重试”）：控件保留为禁用外观，点击放行给状态视图 | Flutter UI（Coder A） |
 
 ## 5. 工程与构建裁定
 
