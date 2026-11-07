@@ -31,7 +31,7 @@
 | 其他 pub 包 | — | 逐个审查 | 默认不引入 | 新增需许可审查、固定版本 |
 | FFmpeg | — | LGPL/GPL | 不集成 | 需用户明确批准 |
 | libVLC、libmpv | — | LGPL/GPL | 不集成 | — |
-| SkinKit v2.0（Flutter 包） | 后期主题来源 | 待核 | 后期（SkinKit v2.0 支持 Flutter 后） | 收到接口文档后核查许可、版本与分发条款 |
+| SkinKit v2.0（Flutter 包） | 后期主题来源 | 用户自有项目，无需另行商业授权（2026-11-07 用户确认） | 后期（SkinKit v2.0 支持 Flutter 后） | 接入时核对版本锁定与其第三方依赖的许可 |
 
 测试依赖只用于测试配置，不进入发布的 AAR。
 

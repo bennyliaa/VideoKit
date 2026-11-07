@@ -369,51 +369,116 @@ abstract interface class VideoKitThemeSource {
 }
 
 @immutable
-final class VideoKitThemeData {
-  final VkColors colors; final VkTypography typography; final VkSpacing spacing;
-  final VkRadii radii; final VkMotion motion; final VkSizes sizes;
-  final VideoKitIcons icons;
-  ThemeData toMaterialTheme(ThemeData base);     // 把 Vk* 作为 ThemeExtension 注入，并设置 colorScheme
+final class VideoKitThemeData {               // 一次渲染使用的不可变快照
+  final VkColors colors; final VkTypography typography; final VkDimensions dimensions;
+  final VkAnimations animations; final VkIcons icons; final VkDrawables drawables;
+  final VkComponentStyles components;          // 七类，与 SkinKit Contract 对应（03 §5.2）
+  ThemeData toMaterialTheme(ThemeData base);   // 把 Vk* 作为 ThemeExtension 注入，并设置 colorScheme
+}
+
+@immutable
+final class VkStateStyle<T> {                  // 组件状态样式
+  final T normal; final T pressed; final T focused; final T disabled; final T selected; final T hovered;
 }
 
 class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任意层级；未放置时组件使用 DefaultThemeSource
 ```
 
-- 组件读取：`VkTheme.of(context).colors.primary`（扩展方法，内部从 `Theme.of(context).extension<VkColors>()` 取，缺失时回退默认）。
-- 宿主覆盖 `VideoKitThemeOverrides`：每个 Token 可选覆盖；只给主色时，派生色（`primarySoft`、`onPrimary`）按对比度规则自动计算（WCAG AA 4.5:1，不满足时选黑/白）。
-- `themeSchemaVersion` 变化时新增 Token 必须有默认值；`DefaultThemeSource` 覆盖全部 Token。
+- 组件读取：`VkTheme.of(context).components.buttonPrimary`、`VkTheme.of(context).colors.textPrimary` 等（扩展方法，内部从 `Theme.of(context).extension<...>()` 取，缺失时回退默认）。业务组件优先读组件样式，其次读语义色，不读原始色板。
+- **键名登记**：每个 Token 在 `theme/tokens/vk_token_keys.dart` 登记一个 SkinKit 规则的稳定键（下表“键”列）与类型。键名只用于主题来源映射（宿主覆盖、将来的 SkinKit），组件代码使用强类型字段。
+- 宿主覆盖 `VideoKitThemeOverrides`：按键覆盖任意 Token，类型不符或越界的值忽略并记录诊断；合法的 `0`、`false`、透明色是有效值。只给主色时，派生色（`onprimary`、`primarycontainer`、`onprimarycontainer`）按对比度规则自动计算（WCAG AA 4.5:1，不满足时选黑/白）。
+- `DefaultThemeSource` 覆盖全部 Token 的深浅两套值；测试 `theme_completeness_test` 检查每个键在两种模式都有值，`theme_contrast_test` 检查登记的前景/背景对（文字/表面、onprimary/primary、状态 content/container 等）≥ 4.5:1，控件边界与焦点环 ≥ 3:1。
+- `themeSchemaVersion` = 1；新增 Token 必须同时登记键、类型、深浅色默认值。
 
 ### 7.2 Token 取值（UI 设计稿 V1.0，2026-11-07 确认为开发与验收基准）
 
-来源：[VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 第 4 页；视觉基准规则见 03 §5.4。各组件的布局与状态按设计稿对应页面实现（UI-01 第 6–9 页，UI-03 第 10 页，UI-05 第 11 页，UI-06 第 12–13 页，UI-07 第 14–16 页，UI-08 第 17–18 页，主题第 19 页，无障碍第 20 页，演示模式第 21 页）。
+来源：[VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 第 4 页；视觉基准规则见 03 §5.4。**VideoKit 先按设计稿实现自有 Theme，SkinKit 以后再接入**；下表结构与键名按 SkinKit 规则（03 §5.2），取值以设计稿为准。标“派生”的是设计稿未直接给出、按设计稿色板推导的值，实现后在主题画廊页与设计稿第 4、19 页对照确认。各组件的布局与状态按设计稿对应页面实现（UI-01 第 6–9 页，UI-03 第 10 页，UI-05 第 11 页，UI-06 第 12–13 页，UI-07 第 14–16 页，UI-08 第 17–18 页，主题第 19 页，无障碍第 20 页，演示模式第 21 页）。
 
-| Token | 深色 | 浅色 |
+**color**
+
+| 键 | 深色 | 浅色 | 来源 |
+| --- | --- | --- | --- |
+| `color.background` | `#0E1015` | `#F4F5F7` | 设计稿 |
+| `color.surface` | `#171A21` | `#FFFFFF` | 设计稿 |
+| `color.surfacevariant` | `#1F232C` | `#F0F1F4` | 设计稿 |
+| `color.surfacehigh` | `#2A2F3A` | `#E3E6EB` | 设计稿 |
+| `color.border` | `#343A46` | `#D5D9E0` | 设计稿（outline） |
+| `color.divider` | `#262B35` | `#E6E8EC` | 派生 |
+| `color.text.primary` / `.secondary` / `.tertiary` | `#EEF0F4` / `#A3A9B5` / `#6E7582` | `#15181E` / `#4B5260` / `#8A909B` | 设计稿 |
+| `color.primary` / `color.onprimary` | `#FF7A45` / `#1A0E08` | `#E8590C` / `#FFFFFF` | 设计稿 |
+| `color.primarycontainer` / `color.onprimarycontainer` | `#3A2219` / `#FFD3C0` | `#FFE8DC` / `#7A2E06` | 容器色为设计稿 primarySoft；内容色派生 |
+| `color.focusring` | `#4CC9F0` | `#0E7FA8` | 深色同 selection；浅色派生 |
+| `color.scrim` | 黑 60% | 黑 60% | 设计稿 |
+| `color.disabled.content` / `.container` | `#6E7582` / `#1F232C` | `#8A909B` / `#F0F1F4` | 派生 |
+| `color.status.success` / `.content` / `.container` | `#34D399` / `#062A1C` / `#123A2C` | `#0F9F6E` / `#FFFFFF` / `#DDF6EC` | 深色主色为设计稿；其余派生 |
+| `color.status.warning` / `.content` / `.container` | `#FBBF24` / `#2A1E02` / `#3A2E10` | `#B7791F` / `#FFFFFF` / `#FDF1D8` | 同上 |
+| `color.status.error` / `.content` / `.container` | `#F87171` / `#2E0A0A` / `#3D1818` | `#D64545` / `#FFFFFF` / `#FBE3E3` | 同上 |
+| `color.status.info` / `.content` / `.container` | `#4CC9F0` / `#05222C` / `#123340` | `#0E7FA8` / `#FFFFFF` / `#DDF1F8` | 派生（沿用 selection 色相） |
+| `apps.videokit.color.selection` | `#4CC9F0` | `#4CC9F0` | 设计稿（选区、跟踪目标） |
+| `apps.videokit.color.track.tracked` | `#34D399` | `#0F9F6E` | 深色设计稿；浅色派生 |
+| `apps.videokit.color.track.lowconfidence` | `#FBBF24` | `#B7791F` | 同上 |
+| `apps.videokit.color.track.ambiguous` | `#A78BFA` | `#7C5CD6` | 同上 |
+| `apps.videokit.color.track.lost` | `#F87171` | `#D64545` | 同上 |
+| `apps.videokit.color.demo` | `#EC4899` | `#D63384` | 深色设计稿；浅色派生 |
+| `apps.videokit.color.player.canvas` | `#000000` | `#000000` | 设计稿（画面背景不随主题） |
+| `apps.videokit.color.player.controls.content` | `#FFFFFF` | `#FFFFFF` | 派生（画面上的控件始终白色内容） |
+
+**typography**（字体族默认跟随平台：Android Roboto / Noto Sans CJK，不打包字体；单位 sp，格式 字号/行高 字重）
+
+| 键 | 取值 | 来源 |
 | --- | --- | --- |
-| `background` | `#0E1015` | `#F4F5F7` |
-| `surface` | `#171A21` | `#FFFFFF` |
-| `surfaceVariant` | `#1F232C` | `#F0F1F4` |
-| `surfaceHigh` | `#2A2F3A` | `#E3E6EB` |
-| `outline` | `#343A46` | `#D5D9E0` |
-| `textPrimary` / `textSecondary` / `textTertiary` | `#EEF0F4` / `#A3A9B5` / `#6E7582` | `#15181E` / `#4B5260` / `#8A909B` |
-| `primary` / `onPrimary` / `primarySoft` | `#FF7A45` / `#1A0E08` / `#3A2219` | `#E8590C` / `#FFFFFF` / `#FFE8DC` |
-| `selection` | `#4CC9F0` | `#4CC9F0` |
-| `success`（TRACKED） | `#34D399` | 同左 |
-| `warning`（LOW_CONFIDENCE） | `#FBBF24` | 同左 |
-| `trackAmbiguous` | `#A78BFA` | 同左 |
-| `error`（LOST） | `#F87171` | 同左 |
-| `demoBadge` | `#EC4899` | 同左 |
-| `scrim` | 黑 60% | 黑 60% |
-| 画面背景（播放器） | 始终 `#000000`，不随主题 | — |
+| `typography.display` | 28/36 SemiBold | 派生（SkinKit 范围内） |
+| `typography.titlelarge` | 22/30 SemiBold | 派生 |
+| `typography.title` | 20/28 SemiBold | 设计稿 |
+| `typography.body` | 14/20 Regular | 设计稿 |
+| `typography.bodysmall` | 13/18 Regular | 派生 |
+| `typography.label` | 13/18 Medium | 设计稿 |
+| `typography.caption` | 12/16 Regular | 设计稿 |
+| `apps.videokit.typography.timecode` | 13/18 Medium，等宽数字 `FontFeature.tabularFigures()` | 设计稿 |
 
-其他 Token：
+**dimension**（单位 dp）
 
-| 组 | 取值 |
+| 键 | 取值 |
 | --- | --- |
-| 文字 | title 20/28 SemiBold；body 14/20；label 13/18 Medium；caption 12/16；timecode 13 等宽数字（`FontFeature.tabularFigures()`）。字体族默认跟随平台（Android Roboto / Noto Sans CJK），不打包字体 |
-| 间距 | xs 4、sm 8、md 12、lg 16、xl 24 |
-| 圆角 | sm 6、md 10、lg 16、full 999 |
-| 动效 | fast 120 ms、normal 200 ms、slow 320 ms，曲线 `easeOutCubic`；减少动画时全部为 0（显隐改为直接切换） |
-| 尺寸 | 最小触控 48；控制栏图标 24；进度条 4（拖动时 6，拇指 14）；时间线片段行 56、遮罩行 20、覆盖条 8；遮罩框线宽 2、手柄 10（触控区 24） |
+| `dimension.spacing.s4` / `s8` / `s12` / `s16` / `s24` / `s32` | 4 / 8 / 12 / 16 / 24 / 32 |
+| `dimension.corner.small` / `medium` / `large` / `xlarge` / `full` | 6 / 10 / 16 / 20 / 999（full 映射为完整圆角形状） |
+| `dimension.target.min` | 48 |
+| `dimension.icon.s16` / `s20` / `s24` | 16 / 20 / 24 |
+| `apps.videokit.dimension.controlbar.height` | 56 |
+| `apps.videokit.dimension.seekbar.track` / `.trackactive` / `.thumb` | 4 / 6 / 14 |
+| `apps.videokit.dimension.timeline.cliprow` / `.maskrow` / `.coveragestrip` | 56 / 20 / 8 |
+| `apps.videokit.dimension.maskbox.stroke` / `.handle` / `.handletarget` | 2 / 10 / 24 |
+| 阴影（设计分类 elevation） | none：无；floating：y 2、blur 8、黑 24%；modal：y 8、blur 24、黑 40%（深色同时用 `color.surfacehigh` 提升层级） |
+
+**animation**
+
+| 键 | 取值 |
+| --- | --- |
+| `animation.press` / `small` / `normal` / `page` | 100 / 160 / 200 / 280 ms，曲线 `easeOutCubic` |
+| 减少动画时 | 全部为 disabled（显隐改为直接切换） |
+
+**drawable / icon**
+
+| 键 | 取值 |
+| --- | --- |
+| `drawable.glass.player` | 播放器顶部/底部控件背景：tint 黑，opacity 0.55，blur 0（V1.0 不启用实时模糊），fallbackSurface `color.scrim`；用渐变遮罩实现，与设计稿一致 |
+| `icon.*` | `play`、`pause`、`seekback`、`seekforward`、`volume`、`mute`、`subtitles`、`audiotrack`、`speed`、`rotate`、`orientationlock`、`fullscreen`、`exitfullscreen`、`edit`、`more`、`back`、`close`、`retry`、`split`、`trim`、`delete`、`undo`、`redo`、`mask`、`face`、`object`、`export`、`check`、`warning`、`info` 等；默认用 Material Symbols Rounded（Apache-2.0）风格，宿主可替换 |
+
+**component**（每个组件样式含 normal / pressed / focused / disabled / selected / hovered 的背景、内容色、边框、圆角、内边距；具体字段在实现时登记）
+
+| 键 | 用途（设计稿第 5 页组件库） |
+| --- | --- |
+| `component.button.primary` / `.secondary` / `.text` / `.icon` | 主按钮、次按钮、文字按钮、图标按钮 |
+| `component.chip.default` | 倍速、预设等选项片 |
+| `component.sheet.default` / `component.menu.default` / `component.toast.default` / `component.badge.default` | 面板、菜单、轻提示、角标 |
+| `component.progress.default` | 通用进度（导出阶段、跟踪进度） |
+| `apps.videokit.component.seekbar` | 播放进度条（已播、缓冲、拖动预览、拇指） |
+| `apps.videokit.component.hostactionbar` | 宿主动作条（enabled/selected/pending/badge） |
+| `apps.videokit.component.slot` | 多画面槽位与角标 |
+| `apps.videokit.component.timeline.clip` | 时间线片段块（选中、拖动、裁剪手柄） |
+| `apps.videokit.component.maskbox` | 遮罩框与手柄 |
+| `apps.videokit.component.coveragestrip` | 跟踪覆盖条（四种状态 + 图案） |
+| `apps.videokit.component.exportsteps` | 导出阶段步骤条 |
 
 ## 8. 通道与插件（`videokit_flutter`）
 

@@ -57,20 +57,32 @@
 ### 5.1 机制
 
 - **先实现 VideoKit 自有 Theme**；SkinKit v2.0 支持 Flutter 后接入（5.5），当前不依赖 SkinKit。
-- 用 Flutter `ThemeData` + 一组 `ThemeExtension`（如 `VkColors`、`VkTypography`、`VkSpacing`、`VkRadii`、`VkMotion`、`VkPlayerTheme`、`VkTimelineTheme`）组成 `VideoKitTheme`，通过 `VideoKitThemeScope` 下发。
+- 用 Flutter `ThemeData` + 一组 `ThemeExtension`（`VkColors`、`VkTypography`、`VkDimensions`、`VkAnimations`、`VkIcons`、`VkDrawables`、`VkComponentStyles`，与 SkinKit 七类 Token 对应）组成 `VideoKitTheme`，通过 `VideoKitThemeScope` 下发。
 - 主题值来自 `VideoKitThemeSource` 接口：V1.0 提供内置 `DefaultThemeSource`（浅色、深色）和宿主覆盖实现；SkinKit 将来作为另一个 `ThemeSource` 接入，组件代码不变。
 - 宿主可覆盖颜色、图标（`VideoKitIcons`）、部分文案（`VideoKitStrings` 覆盖表）（§20）；覆盖不改变状态逻辑与无障碍语义（`Semantics` 始终由 VideoKit 设置），缺失时回退默认值。
 - 浅色、深色、跟随宿主/系统；“减少动画”跟随系统（`MediaQuery.disableAnimations`），宿主也可显式指定。
 
-### 5.2 Token 分类（框架确定）
+### 5.2 Token 分类（与 SkinKit Contract 对齐，2026-11-07 确认）
 
-| 组 | 内容 |
+VideoKit 自有 Theme 从第一天起按 [SkinKit Ready 开发规范](../SkinKit/SkinKit%20Ready%20开发规范%20V1.0.md) 与 [SkinKit 默认主题 UI 设计规范](../SkinKit/SkinKit%20Default%20Theme%20UI%20Design%20Specification%20V1.0.md) 的结构建立，但**不依赖 SkinKit 代码**：
+
+1. **七类 Token**：color、typography、dimension、drawable、icon、animation、component（组件样式）。每个 Token 有一个 SkinKit 规则的稳定键（全小写点分段）；VideoKit 专属 Token 放在 `apps.videokit.*` 命名空间。
+2. **组件样式带状态**：component 类 Token 包含 normal、pressed、focused、disabled、selected、hovered 各状态的完整字段（loading 由组件业务状态映射）。
+3. **浅色与深色都完整**：两种模式覆盖全部 Token；深色独立设计，不反色。
+4. **键名表**：Token 完整清单、键名、类型与深浅色取值见 [14](14_M0_DETAILED_DESIGN.md) §7.2；新增 Token 必须同时给出键名、类型、深浅色默认值。
+
+| 类型 | VideoKit 中的 Token（概要） |
 | --- | --- |
-| 颜色 | primary、onPrimary、accent、selection、surface、surfaceVariant、scrim、error、warning、success、trackLowConfidence、trackAmbiguous、trackLost、demoBadge |
-| 文字 | title、body、label、caption、timecode（等宽数字） |
-| 间距 / 圆角 | xs–xl；sm、md、lg、full |
-| 动效 | fast、normal、slow，以及减少动画时的替代值 |
-| 组件尺寸 | 控制栏高度、最小触控目标 48dp、进度条、时间线轨道、遮罩框线宽 |
+| color | background、surface、surfacevariant、surfacehigh、border、divider、focusring、scrim、text.primary/secondary/tertiary、primary、onprimary、primarycontainer、onprimarycontainer、disabled.content/container、status.success/warning/error/info（各含 content、container）；VideoKit 专属：`apps.videokit.color.selection`、`.track.tracked/lowconfidence/ambiguous/lost`、`.demo`、`.player.canvas` |
+| typography | display、titlelarge、title、body、bodysmall、label、caption；VideoKit 专属：`apps.videokit.typography.timecode`（等宽数字） |
+| dimension | spacing.s4/s8/s12/s16/s24/s32、corner.small/medium/large/xlarge/full、target.min（48dp）、icon.s16/s20/s24；VideoKit 专属：控制栏高度、进度条高度、时间线行高、遮罩框线宽与手柄 |
+| animation | press、small、normal、page（各含时长与曲线；减少动画时为 disabled/static） |
+| icon | VideoKit 使用的全部图标（`icon.play`、`icon.pause` 等），宿主可替换 |
+| drawable | `drawable.glass.player`（播放器控件局部 Glass：tint、opacity、blur、border、fallbackSurface）及占位图 |
+| component | `component.button.primary/secondary/text/icon`、`component.chip.default`、`component.sheet.default`、`component.menu.default`、`component.toast.default`、`component.badge.default`、`component.progress.default`；VideoKit 专属：`apps.videokit.component.seekbar`、`.hostactionbar`、`.slot`、`.timeline.clip`、`.maskbox`、`.coveragestrip`、`.exportsteps` |
+| elevation（设计分类） | none、floating、modal —— 按 SkinKit 规范落为 dimension 与 color 组合，不新增第八类 getter |
+
+规则：业务组件只读组件样式或语义 Token，不直接读原始色板；合法的 `0`、`false`、透明色不能被当成“缺失”回退；同一次渲染读取同一份主题快照（Flutter 中即同一个 `VideoKitThemeData` 实例）。
 
 ### 5.3 规则
 
@@ -86,10 +98,13 @@
 
 ### 5.5 SkinKit 后期接入（预留）
 
-- 时机：SkinKit v2.0 支持 Flutter 后，且 VideoKit 自有 Theme 已稳定；SkinKit 接口文档由用户提供，收到后补充映射设计与里程碑。
-- 方式：新增可选包 `videokit_theme_skinkit`，依赖 SkinKit v2.0 的 Flutter 包，实现 `VideoKitThemeSource`，把 SkinKit 主题数据映射为 VideoKit Token；`videokit_ui` 与原生 Kit 不直接依赖 SkinKit。不为 SkinKit 早期原生版本做原生到 Flutter 的桥接。
-- 约束：不接入 SkinKit 的宿主行为不变；SkinKit 无法表达的 Token 回退默认值并列入映射表；切换主题不改变会话状态、不破坏对比度与读屏语义；接入前核查许可、版本与分发条款。
-- V1.0 必须做到：组件只读 Token；Token 集合带 `themeSchemaVersion`，新增 Token 有默认值。
+- 依据：SkinKit V1.0 两份规范已收到（`docs/SkinKit/`）。当前 SkinKit 只交付 Android 原生 View 与 JVM 开发版 SDK，没有 Flutter 适配；VideoKit 等 SkinKit v2.0 支持 Flutter 后接入。SkinKit 为用户自有项目，无需另行商业授权。
+- 方式：新增可选包 `videokit_theme_skinkit`，依赖 SkinKit v2.0 的 Flutter 包，实现 `VideoKitThemeSource`；因 5.2 已按 SkinKit 键名与七类结构建立，映射基本是键名一一对应。`videokit_ui` 与原生 Kit 不直接依赖 SkinKit；不为 SkinKit 原生 Android 版做原生到 Flutter 的桥接。
+- **两种使用形态的主题来源**：
+  - **VideoKit 独立 App**：作为一个 SkinKit 宿主 App，`appId = videokit`；VideoKit 自有 Theme 即其 AppDefaultTheme，皮肤按四级回退（`apps.videokit.*` 扩展 → Common → AppDefaultTheme → 安全默认）。
+  - **嵌入其他宿主（如 LocalVideoBrowser）的组件**：Common Token 跟随宿主当前主题（宿主经 `VideoKitThemeSource` 或主题覆盖传入），VideoKit 专属 Token 使用 `apps.videokit.*` 扩展并回退到 VideoKit 默认值。嵌入组件能否在宿主 App 内拥有独立扩展命名空间，待 SkinKit v2.0 确认，确认前按“专属 Token 只用 VideoKit 默认值”处理。
+- 约束：不接入 SkinKit 时行为不变；SkinKit 无法表达的 Token 回退默认值并列入映射表；切换主题不改变会话状态、不破坏对比度与读屏语义；主题只改外观，不改布局、导航、触控区域与业务行为。
+- V1.0 必须做到：组件只读 Token；Token 集合带 `themeSchemaVersion`，新增 Token 有默认值；提供默认主题完整性检查（每个 Token 在浅色与深色都有值）与对比度检查（登记的前景/背景对 ≥ 4.5:1）。
 
 ## 6. 宿主扩展点
 

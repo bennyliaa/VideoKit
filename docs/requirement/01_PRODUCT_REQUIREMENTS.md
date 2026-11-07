@@ -4,7 +4,12 @@
 
 ## 1. 产品定位
 
-VideoKit 是可复用的媒体播放与编辑能力库，不是 NAS 浏览器，也不是 LocalVideoBrowser 业务模块（§2）。首期以 Android AAR 为正式交付目标；领域模型、时间线和编辑计划与 UI 及具体解码器隔离。UI 优先使用 Flutter 开发，为以后其他 App、独立 App 或其他平台保留可能；本阶段不承诺 iOS、macOS、Windows 交付时间。
+VideoKit 是可复用的媒体播放与编辑能力库，不是 NAS 浏览器，也不是 LocalVideoBrowser 业务模块（§2）。首期以 Android AAR 为正式交付目标；领域模型、时间线和编辑计划与 UI 及具体解码器隔离。UI 优先使用 Flutter 开发，为以后其他 App 或其他平台保留可能；本阶段不承诺 iOS、macOS、Windows 交付时间。
+
+**两种产品形态（2026-11-07 用户确认）**：
+
+1. **嵌入组件**：VideoKit 作为组件嵌在宿主 App（首个为 LocalVideoBrowser）中使用——原生宿主经 AAR / add-to-app，Flutter 宿主直接用 Flutter 包。
+2. **VideoKit 独立 App**：VideoKit 项目本身也是一个独立 App，使用同一套 Kit 与 Flutter UI。独立 App 在 SkinKit 中是一个宿主 App（`appId = videokit`）。独立 App 在 Kit 之外的功能范围（如媒体来源、媒体库、设置页）待用户定义后补充需求编号与里程碑；在此之前，`videokit_example` 只作示例，不等同于独立 App。
 
 ## 2. 交付物
 
@@ -14,6 +19,7 @@ VideoKit 是可复用的媒体播放与编辑能力库，不是 NAS 浏览器，
 | Flutter UI 包 | `videokit_api`（Dart API）、`videokit_ui`（播放器 / 图片查看 / 多画面 / 编辑器 / 打码跟踪 / 导出界面）、`videokit_flutter`（插件）；UI 优先用 Flutter 开发以便全平台扩展 |
 | `videokit-testkit` / `videokit_fake` | Kotlin 与 Dart 两侧的 Fake、契约测试、故障注入 |
 | 示例宿主 | `videokit_example`（Flutter）与 `sample-host`（原生 Android，演示纯引擎与 add-to-app 嵌入），均可模拟 LocalVideoBrowser 的接入方式 |
+| VideoKit 独立 App | 独立发布的 VideoKit App（Flutter），复用全部 Kit 与 UI；Kit 之外的功能范围待定义 |
 | 文档与报告 | API 参考、变更记录、能力说明、SBOM/NOTICE、性能/稳定性/输出/跟踪质量报告、已知问题清单（§25） |
 
 ## 3. 使用场景（§3）
