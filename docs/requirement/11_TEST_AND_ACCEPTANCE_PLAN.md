@@ -66,6 +66,7 @@ jpg/jpeg、png、webp、heic/heif、avif、bmp、gif；静态 WebP、动态 WebP
 | 形态 | 竖屏、横屏、分屏、窗口变化 |
 | 字体 | 100%、130%、200% |
 | 语言 | 简体中文、伪本地化、RTL 冒烟；英文在 VK-M6 后加入 |
+| UI 效果 | 逐页对照 [VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 的效果图与标注：布局结构、元素与状态齐全、配色与层级一致（不做像素级比对，见 [03](03_UI_FRAMEWORK_DESIGN.md) §5.4） |
 
 可用设备及型号在每个里程碑测试前登记。
 

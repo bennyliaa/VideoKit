@@ -35,7 +35,8 @@ VK-M0  Flutter UI 框架 + API/Fake/TestKit + 示例宿主   ← 先把完整 UI
 | --- | --- |
 | 范围 | 工程骨架（Gradle 多模块 + Flutter 包工作区、Version Catalog 与 `pubspec.lock`、锁定与校验、CI）；许可证审查初版；Kotlin `videokit-api` 与 Dart `videokit_api` 全部接口草案（[04](04_PUBLIC_API_CONTRACT.md)）；`videokit_fake`（Dart Fake、场景、演示数据、Dart 契约测试）与 `videokit-testkit`（Kotlin Fake、契约测试初版）；**`videokit_ui` 全部 Flutter 界面 UI-01–UI-09**（[03](03_UI_FRAMEWORK_DESIGN.md)），VideoKit 自有 Theme（Token、浅深色、宿主覆盖）；中英 ARB 资源、RTL、无障碍语义；`videokit_flutter` 插件骨架（通道协议、纹理注册，连接原生 Fake）；`videokit_example` Flutter 示例 App 与原生 `sample-host`（add-to-app 嵌入最小示例），均含模拟 Browser 宿主（假源、标签/收藏动作、邻近列表、多画面网格、临时 Sink） |
 | 详细设计 | [14 VK-M0 详细设计](14_M0_DETAILED_DESIGN.md) |
-| 不含 | 任何真实解码、编码、跟踪；视觉设计取值（待用户通知 UI 设计后更新 Token） |
+| 视觉基准 | UI 开发与验收以 [VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 为准（[03](03_UI_FRAMEWORK_DESIGN.md) §5.4） |
+| 不含 | 任何真实解码、编码、跟踪 |
 | 退出条件 | ① [03](03_UI_FRAMEWORK_DESIGN.md) §9 全部 UI 退出条件；② API（Kotlin 与 Dart）评审通过并冻结 1.0.0（允许后续次版本增加）；③ 两侧 Fake 通过各自契约测试；④ LocalVideoBrowser 可只用 Fake 完成契约集成（原需求 VK-M0 退出条件）；⑤ add-to-app 嵌入的包体积与首帧耗时实测并记录；⑥ 追踪表 TRACEABILITY.csv 建立 |
 
 ### VK-M1 单视频播放
@@ -94,7 +95,7 @@ VK-M0  Flutter UI 框架 + API/Fake/TestKit + 示例宿主   ← 先把完整 UI
 | --- | --- | --- |
 | 聚焦验证 S1–S5 | 与 VK-M0 并行 | S1、S2 在 VK-M1 前；S5 在 VK-M3 前；S3、S4 在 VK-M4 前（[15](15_MEDIA_TECHNOLOGY_DECISIONS.md) §4） |
 | 跟踪 Spike（S6） | 与 VK-M0–M3 并行 | P0 风险最高，必须提早；结果决定 VK-M5 方案 |
-| UI 视觉设计 | 用户通知后 | 只更新 Token 与组件样式，不影响功能里程碑 |
+| UI 设计稿修订 | 按需 | 以 V1.0 设计稿为基准；修订只更新 Token 与组件样式，不影响功能里程碑 |
 | 测试样本补充 | VK-M0 起持续 | 按 [11](11_TEST_AND_ACCEPTANCE_PLAN.md) §4 缺口补充 |
 | SkinKit 接入 | SkinKit v2.0 支持 Flutter 后，且自有 Theme 稳定、收到接口文档后 | 作为可选主题来源包 `videokit_theme_skinkit`（[03](03_UI_FRAMEWORK_DESIGN.md) §5.5），排期另定 |
 

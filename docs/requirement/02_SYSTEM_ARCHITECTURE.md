@@ -150,7 +150,7 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 | 8 | Compose、View、纯引擎组合 | 纯引擎（原生 api + 实现）为基础；UI 用 Flutter（`videokit_ui`）；原生宿主经 `videokit-ui-android` 以 add-to-app 嵌入（Fragment/View 形式），不另做 Compose 版 UI | add-to-app 增加包体积与引擎启动耗时，VK-M0 实测；不接受时原生宿主可用纯引擎自画 UI | VK-M0 |
 | 9 | OutputSink 写入能力 | 声明式能力：顺序写、随机写、文件描述符模式；导出前按 muxer 需求协商（见 [08](08_EDIT_TIMELINE_AND_EXPORT_DESIGN.md) 第 5 节） | MP4 muxer 通常需要随机写或 FD，纯顺序写需先写私有暂存再顺序复制 | VK-M4 起用，VK-M6 冻结 |
 | 10 | 编辑工程 Schema 与恢复 | 版本化 JSON；时间用微秒；坐标归一化；进程终止后编码任务从头重启 | — | VK-M4 |
-| 11 | 默认控件布局、主题扩展、宿主叠加层 API | 控件可见性与宿主面板插槽由 API 暴露；主题通过 Flutter `VideoKitTheme`（ThemeExtension Token）与 `VideoKitThemeSource` 覆盖（见 [03](03_UI_FRAMEWORK_DESIGN.md) 第 5、6 节） | 视觉取值待 UI 设计 | VK-M0（API）；视觉在 UI 设计后 |
+| 11 | 默认控件布局、主题扩展、宿主叠加层 API | 控件可见性与宿主面板插槽由 API 暴露；主题通过 Flutter `VideoKitTheme`（ThemeExtension Token）与 `VideoKitThemeSource` 覆盖（见 [03](03_UI_FRAMEWORK_DESIGN.md) 第 5、6 节） | 视觉以 UI 设计稿 V1.0 为准（03 §5.4） | VK-M0 |
 | 12 | 共享资源池与解码器预算 | 宿主范围的 `ResourceBudget`，先预留后创建，失败有界回退（见 [07](07_MULTI_INSTANCE_AND_RESOURCE_DESIGN.md)） | 设备声明值不可靠，需实测校准 | VK-M3 |
 
 ## 8. 原需求 §30 必答问题

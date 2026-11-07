@@ -63,5 +63,5 @@ VideoKit 从一开始就使用 Flutter 开发 UI。全平台扩展约束见 [02]
 - 早期 Android 原型（`app/` Compose 模板与验证代码、`spikes/d1c14/` 隔离进程验证代码及其 Gradle 配置）已于 2026-11-06 移到 `D:\CodexProjects\VideoKit test-workspace\archive\d1-android-prototype`，只作技术参考；正式工程按 [13 工程规范](13_ENGINEERING_CONVENTIONS.md) 新建。
 - Flutter SDK：`D:\CodexProjects\flutter`（stable 3.47.7，Dart 3.13.5）。
 - 测试样本位于 `D:\CodexProjects\VideoKit test-workspace\test_media`，只读，不打包、不上传。
-- UI 视觉设计（视觉稿、配色取值、图标、细节交互）由用户另行通知后重新设计；[03](03_UI_FRAMEWORK_DESIGN.md) 只确定框架层，视觉取值标为“待 UI 设计”。
+- UI 开发与验收效果以 [VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 为准（2026-11-07 用户确认，规则见 [03](03_UI_FRAMEWORK_DESIGN.md) §5.4）。
 - 文档中“决定”是负责人建议，评审通过后冻结；“待定”项在对应里程碑开始前冻结。冻结后的变更必须记录原因和影响。

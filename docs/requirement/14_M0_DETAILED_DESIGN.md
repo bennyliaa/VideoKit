@@ -378,9 +378,9 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 - 宿主覆盖 `VideoKitThemeOverrides`：每个 Token 可选覆盖；只给主色时，派生色（`primarySoft`、`onPrimary`）按对比度规则自动计算（WCAG AA 4.5:1，不满足时选黑/白）。
 - `themeSchemaVersion` 变化时新增 Token 必须有默认值；`DefaultThemeSource` 覆盖全部 Token。
 
-### 7.2 Token 取值（UI 设计稿 V1.0 建议值，评审后冻结）
+### 7.2 Token 取值（UI 设计稿 V1.0，2026-11-07 确认为开发与验收基准）
 
-来源：[VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 第 4 页。冻结后替换 03 §5.4 的“中性占位取值”。
+来源：[VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 第 4 页；视觉基准规则见 03 §5.4。各组件的布局与状态按设计稿对应页面实现（UI-01 第 6–9 页，UI-03 第 10 页，UI-05 第 11 页，UI-06 第 12–13 页，UI-07 第 14–16 页，UI-08 第 17–18 页，主题第 19 页，无障碍第 20 页，演示模式第 21 页）。
 
 | Token | 深色 | 浅色 |
 | --- | --- | --- |
