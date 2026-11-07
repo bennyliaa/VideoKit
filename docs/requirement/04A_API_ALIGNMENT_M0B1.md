@@ -115,6 +115,9 @@
 | I4 | 图片额度初值 | 每宿主 192 MiB、单会话 ≤ 64 MiB、分块余量 16 MiB、底图最长边 ≤ 2048；真机验证后调整（PENDING 22）。额度不足时降采样，并发轻提示 `IMAGE_MEMORY_REDUCED_QUALITY`（UI 需补中文文案） | Kotlin；文案 Coder A |
 | I5 | EXIF | 使用平台 `android.media.ExifInterface`（minSdk 31 已含修复），不加 androidx 依赖；lint 文件级抑制 | Kotlin |
 | U2 | U1 补充（M2-A1） | 图片查看器在图片集中浏览时，不支持页额外保留“上一张/下一张”（否则无法离开该页）。点按切换控件显隐不受播放状态限制：“未播放”只停止自动隐藏，不阻止手动隐藏（视频暂停时也可点按隐藏）。标签类宿主动作在打开编辑框时即完成，角标在编辑框关闭后更新，不延长 10 s 超时 | Flutter UI / App（Coder A） |
+| V1 | 可见性取值（M3-A1） | `SessionVisibility` 增加 `PARTIALLY_VISIBLE`（07 §3：可降低帧率或分辨率），两侧 + spec 同批修改。07 的 LOCKED 不进入可见性枚举，锁定继续用已有的内容锁定命令（06 §4.2），锁定优先于可见性 | Kotlin + spec + 通道（Coder B）；Dart + Fake + 上报（Coder A） |
+| V2 | 路由遮挡 | 只有不透明路由完全遮挡时，下面的格子才报 `OFFSCREEN`；半透明对话框、底部面板不改变可见性 | Flutter（Coder A） |
+| K1 | 轻提示码登记 | 新增 `spec/notices.json` 统一登记所有 `TransientNotice` 码，一律大写下划线（如 `SEEK_CLAMPED`），Kit 与 Dart 两侧测试对照该文件（与 errors.json 同样做法）。Kit 发出 `AUDIO_FOCUS_LOST`（系统音频焦点被抢占）与 `RESOURCE_DEGRADED`（资源不足降级）；Dart 原有小写码改为大写 | 登记与 Kit（Coder B）；Dart（Coder A） |
 | U1 | 错误态下的底部控件 | 不支持（`UNSUPPORTED_*`）或致命错误：按设计稿第 12 页只保留返回和标题，底部控件隐藏；可恢复错误（带“重试”）：控件保留为禁用外观，点击放行给状态视图 | Flutter UI（Coder A） |
 
 ## 5. 工程与构建裁定
