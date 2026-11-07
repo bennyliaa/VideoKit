@@ -915,6 +915,140 @@ data class SessionConfigMsg (
 }
 
 /**
+ * Media parameters (04A P2); every field optional.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class MediaInfoMsg (
+  val container: String? = null,
+  val videoCodec: String? = null,
+  val audioCodec: String? = null,
+  val width: Long? = null,
+  val height: Long? = null,
+  val frameRate: Double? = null,
+  val bitrateBps: Long? = null,
+  val rotationDeg: Long? = null,
+  val durationUs: Long? = null,
+  val fileSizeBytes: Long? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): MediaInfoMsg {
+      val container = pigeonVar_list[0] as String?
+      val videoCodec = pigeonVar_list[1] as String?
+      val audioCodec = pigeonVar_list[2] as String?
+      val width = pigeonVar_list[3] as Long?
+      val height = pigeonVar_list[4] as Long?
+      val frameRate = pigeonVar_list[5] as Double?
+      val bitrateBps = pigeonVar_list[6] as Long?
+      val rotationDeg = pigeonVar_list[7] as Long?
+      val durationUs = pigeonVar_list[8] as Long?
+      val fileSizeBytes = pigeonVar_list[9] as Long?
+      return MediaInfoMsg(container, videoCodec, audioCodec, width, height, frameRate, bitrateBps, rotationDeg, durationUs, fileSizeBytes)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      container,
+      videoCodec,
+      audioCodec,
+      width,
+      height,
+      frameRate,
+      bitrateBps,
+      rotationDeg,
+      durationUs,
+      fileSizeBytes,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as MediaInfoMsg
+    return MessagesPigeonUtils.deepEquals(this.container, other.container) && MessagesPigeonUtils.deepEquals(this.videoCodec, other.videoCodec) && MessagesPigeonUtils.deepEquals(this.audioCodec, other.audioCodec) && MessagesPigeonUtils.deepEquals(this.width, other.width) && MessagesPigeonUtils.deepEquals(this.height, other.height) && MessagesPigeonUtils.deepEquals(this.frameRate, other.frameRate) && MessagesPigeonUtils.deepEquals(this.bitrateBps, other.bitrateBps) && MessagesPigeonUtils.deepEquals(this.rotationDeg, other.rotationDeg) && MessagesPigeonUtils.deepEquals(this.durationUs, other.durationUs) && MessagesPigeonUtils.deepEquals(this.fileSizeBytes, other.fileSizeBytes)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.container)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.videoCodec)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.audioCodec)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.width)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.height)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.frameRate)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.bitrateBps)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.rotationDeg)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.durationUs)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.fileSizeBytes)
+    return result
+  }
+  override fun toString(): String {
+    return "MediaInfoMsg(container=$container, videoCodec=$videoCodec, audioCodec=$audioCodec, width=$width, height=$height, frameRate=$frameRate, bitrateBps=$bitrateBps, rotationDeg=$rotationDeg, durationUs=$durationUs, fileSizeBytes=$fileSizeBytes)"
+  }
+}
+
+/**
+ * Thumbnail (04A P1): [bytes] with size and type, or [error].
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class ThumbnailResultMsg (
+  val bytes: ByteArray? = null,
+  val width: Long? = null,
+  val height: Long? = null,
+  val mimeType: String? = null,
+  val error: StableErrorMsg? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): ThumbnailResultMsg {
+      val bytes = pigeonVar_list[0] as ByteArray?
+      val width = pigeonVar_list[1] as Long?
+      val height = pigeonVar_list[2] as Long?
+      val mimeType = pigeonVar_list[3] as String?
+      val error = pigeonVar_list[4] as StableErrorMsg?
+      return ThumbnailResultMsg(bytes, width, height, mimeType, error)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      bytes,
+      width,
+      height,
+      mimeType,
+      error,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other == null || other.javaClass != javaClass) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    val other = other as ThumbnailResultMsg
+    return MessagesPigeonUtils.deepEquals(this.bytes, other.bytes) && MessagesPigeonUtils.deepEquals(this.width, other.width) && MessagesPigeonUtils.deepEquals(this.height, other.height) && MessagesPigeonUtils.deepEquals(this.mimeType, other.mimeType) && MessagesPigeonUtils.deepEquals(this.error, other.error)
+  }
+
+  override fun hashCode(): Int {
+    var result = javaClass.hashCode()
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.bytes)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.width)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.height)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.mimeType)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.error)
+    return result
+  }
+  override fun toString(): String {
+    return "ThumbnailResultMsg(bytes=${bytes?.contentToString()}, width=$width, height=$height, mimeType=$mimeType, error=$error)"
+  }
+}
+
+/**
  * Image facts (04A L2); every field optional.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -994,7 +1128,9 @@ data class SessionStateMsg (
   /** 04A L1. */
   val looping: Boolean,
   /** 04A L2; null for videos. */
-  val imageDetails: ImageDetailsMsg? = null
+  val imageDetails: ImageDetailsMsg? = null,
+  /** 04A P2. */
+  val mediaInfo: MediaInfoMsg? = null
 )
  {
   companion object {
@@ -1026,7 +1162,8 @@ data class SessionStateMsg (
       val hiddenForLock = pigeonVar_list[24] as Boolean
       val looping = pigeonVar_list[25] as Boolean
       val imageDetails = pigeonVar_list[26] as ImageDetailsMsg?
-      return SessionStateMsg(phase, mediaKind, positionUs, durationUs, bufferedUs, playWhenReady, speed, volume, muted, audioTracks, subtitleTracks, selectedAudioTrackId, selectedSubtitleTrackId, transform, orientation, visibility, activeAudio, controlsVisible, error, resourcesHeld, seekingToUs, hostActions, videoWidth, videoHeight, hiddenForLock, looping, imageDetails)
+      val mediaInfo = pigeonVar_list[27] as MediaInfoMsg?
+      return SessionStateMsg(phase, mediaKind, positionUs, durationUs, bufferedUs, playWhenReady, speed, volume, muted, audioTracks, subtitleTracks, selectedAudioTrackId, selectedSubtitleTrackId, transform, orientation, visibility, activeAudio, controlsVisible, error, resourcesHeld, seekingToUs, hostActions, videoWidth, videoHeight, hiddenForLock, looping, imageDetails, mediaInfo)
     }
   }
   fun toList(): List<Any?> {
@@ -1058,6 +1195,7 @@ data class SessionStateMsg (
       hiddenForLock,
       looping,
       imageDetails,
+      mediaInfo,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -1068,7 +1206,7 @@ data class SessionStateMsg (
       return true
     }
     val other = other as SessionStateMsg
-    return MessagesPigeonUtils.deepEquals(this.phase, other.phase) && MessagesPigeonUtils.deepEquals(this.mediaKind, other.mediaKind) && MessagesPigeonUtils.deepEquals(this.positionUs, other.positionUs) && MessagesPigeonUtils.deepEquals(this.durationUs, other.durationUs) && MessagesPigeonUtils.deepEquals(this.bufferedUs, other.bufferedUs) && MessagesPigeonUtils.deepEquals(this.playWhenReady, other.playWhenReady) && MessagesPigeonUtils.deepEquals(this.speed, other.speed) && MessagesPigeonUtils.deepEquals(this.volume, other.volume) && MessagesPigeonUtils.deepEquals(this.muted, other.muted) && MessagesPigeonUtils.deepEquals(this.audioTracks, other.audioTracks) && MessagesPigeonUtils.deepEquals(this.subtitleTracks, other.subtitleTracks) && MessagesPigeonUtils.deepEquals(this.selectedAudioTrackId, other.selectedAudioTrackId) && MessagesPigeonUtils.deepEquals(this.selectedSubtitleTrackId, other.selectedSubtitleTrackId) && MessagesPigeonUtils.deepEquals(this.transform, other.transform) && MessagesPigeonUtils.deepEquals(this.orientation, other.orientation) && MessagesPigeonUtils.deepEquals(this.visibility, other.visibility) && MessagesPigeonUtils.deepEquals(this.activeAudio, other.activeAudio) && MessagesPigeonUtils.deepEquals(this.controlsVisible, other.controlsVisible) && MessagesPigeonUtils.deepEquals(this.error, other.error) && MessagesPigeonUtils.deepEquals(this.resourcesHeld, other.resourcesHeld) && MessagesPigeonUtils.deepEquals(this.seekingToUs, other.seekingToUs) && MessagesPigeonUtils.deepEquals(this.hostActions, other.hostActions) && MessagesPigeonUtils.deepEquals(this.videoWidth, other.videoWidth) && MessagesPigeonUtils.deepEquals(this.videoHeight, other.videoHeight) && MessagesPigeonUtils.deepEquals(this.hiddenForLock, other.hiddenForLock) && MessagesPigeonUtils.deepEquals(this.looping, other.looping) && MessagesPigeonUtils.deepEquals(this.imageDetails, other.imageDetails)
+    return MessagesPigeonUtils.deepEquals(this.phase, other.phase) && MessagesPigeonUtils.deepEquals(this.mediaKind, other.mediaKind) && MessagesPigeonUtils.deepEquals(this.positionUs, other.positionUs) && MessagesPigeonUtils.deepEquals(this.durationUs, other.durationUs) && MessagesPigeonUtils.deepEquals(this.bufferedUs, other.bufferedUs) && MessagesPigeonUtils.deepEquals(this.playWhenReady, other.playWhenReady) && MessagesPigeonUtils.deepEquals(this.speed, other.speed) && MessagesPigeonUtils.deepEquals(this.volume, other.volume) && MessagesPigeonUtils.deepEquals(this.muted, other.muted) && MessagesPigeonUtils.deepEquals(this.audioTracks, other.audioTracks) && MessagesPigeonUtils.deepEquals(this.subtitleTracks, other.subtitleTracks) && MessagesPigeonUtils.deepEquals(this.selectedAudioTrackId, other.selectedAudioTrackId) && MessagesPigeonUtils.deepEquals(this.selectedSubtitleTrackId, other.selectedSubtitleTrackId) && MessagesPigeonUtils.deepEquals(this.transform, other.transform) && MessagesPigeonUtils.deepEquals(this.orientation, other.orientation) && MessagesPigeonUtils.deepEquals(this.visibility, other.visibility) && MessagesPigeonUtils.deepEquals(this.activeAudio, other.activeAudio) && MessagesPigeonUtils.deepEquals(this.controlsVisible, other.controlsVisible) && MessagesPigeonUtils.deepEquals(this.error, other.error) && MessagesPigeonUtils.deepEquals(this.resourcesHeld, other.resourcesHeld) && MessagesPigeonUtils.deepEquals(this.seekingToUs, other.seekingToUs) && MessagesPigeonUtils.deepEquals(this.hostActions, other.hostActions) && MessagesPigeonUtils.deepEquals(this.videoWidth, other.videoWidth) && MessagesPigeonUtils.deepEquals(this.videoHeight, other.videoHeight) && MessagesPigeonUtils.deepEquals(this.hiddenForLock, other.hiddenForLock) && MessagesPigeonUtils.deepEquals(this.looping, other.looping) && MessagesPigeonUtils.deepEquals(this.imageDetails, other.imageDetails) && MessagesPigeonUtils.deepEquals(this.mediaInfo, other.mediaInfo)
   }
 
   override fun hashCode(): Int {
@@ -1100,10 +1238,11 @@ data class SessionStateMsg (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.hiddenForLock)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.looping)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.imageDetails)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.mediaInfo)
     return result
   }
   override fun toString(): String {
-    return "SessionStateMsg(phase=$phase, mediaKind=$mediaKind, positionUs=$positionUs, durationUs=$durationUs, bufferedUs=$bufferedUs, playWhenReady=$playWhenReady, speed=$speed, volume=$volume, muted=$muted, audioTracks=$audioTracks, subtitleTracks=$subtitleTracks, selectedAudioTrackId=$selectedAudioTrackId, selectedSubtitleTrackId=$selectedSubtitleTrackId, transform=$transform, orientation=$orientation, visibility=$visibility, activeAudio=$activeAudio, controlsVisible=$controlsVisible, error=$error, resourcesHeld=$resourcesHeld, seekingToUs=$seekingToUs, hostActions=$hostActions, videoWidth=$videoWidth, videoHeight=$videoHeight, hiddenForLock=$hiddenForLock, looping=$looping, imageDetails=$imageDetails)"
+    return "SessionStateMsg(phase=$phase, mediaKind=$mediaKind, positionUs=$positionUs, durationUs=$durationUs, bufferedUs=$bufferedUs, playWhenReady=$playWhenReady, speed=$speed, volume=$volume, muted=$muted, audioTracks=$audioTracks, subtitleTracks=$subtitleTracks, selectedAudioTrackId=$selectedAudioTrackId, selectedSubtitleTrackId=$selectedSubtitleTrackId, transform=$transform, orientation=$orientation, visibility=$visibility, activeAudio=$activeAudio, controlsVisible=$controlsVisible, error=$error, resourcesHeld=$resourcesHeld, seekingToUs=$seekingToUs, hostActions=$hostActions, videoWidth=$videoWidth, videoHeight=$videoHeight, hiddenForLock=$hiddenForLock, looping=$looping, imageDetails=$imageDetails, mediaInfo=$mediaInfo)"
   }
 }
 
@@ -1130,7 +1269,9 @@ data class PlaybackStateMsg (
   val subtitleTrackId: String? = null,
   val subtitlesEnabled: Boolean? = null,
   val audioTrackId: String? = null,
-  val lastViewedAtEpochMs: Long? = null
+  val lastViewedAtEpochMs: Long? = null,
+  /** 04A L3; null = default of the media kind. */
+  val looping: Boolean? = null
 )
  {
   companion object {
@@ -1153,7 +1294,8 @@ data class PlaybackStateMsg (
       val subtitlesEnabled = pigeonVar_list[15] as Boolean?
       val audioTrackId = pigeonVar_list[16] as String?
       val lastViewedAtEpochMs = pigeonVar_list[17] as Long?
-      return PlaybackStateMsg(schemaVersion, sessionId, mediaToken, zoom, panX, panY, rotationDeg, fitMode, preferredOrientation, fullscreen, positionUs, speed, volume, muted, subtitleTrackId, subtitlesEnabled, audioTrackId, lastViewedAtEpochMs)
+      val looping = pigeonVar_list[18] as Boolean?
+      return PlaybackStateMsg(schemaVersion, sessionId, mediaToken, zoom, panX, panY, rotationDeg, fitMode, preferredOrientation, fullscreen, positionUs, speed, volume, muted, subtitleTrackId, subtitlesEnabled, audioTrackId, lastViewedAtEpochMs, looping)
     }
   }
   fun toList(): List<Any?> {
@@ -1176,6 +1318,7 @@ data class PlaybackStateMsg (
       subtitlesEnabled,
       audioTrackId,
       lastViewedAtEpochMs,
+      looping,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -1186,7 +1329,7 @@ data class PlaybackStateMsg (
       return true
     }
     val other = other as PlaybackStateMsg
-    return MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion) && MessagesPigeonUtils.deepEquals(this.sessionId, other.sessionId) && MessagesPigeonUtils.deepEquals(this.mediaToken, other.mediaToken) && MessagesPigeonUtils.deepEquals(this.zoom, other.zoom) && MessagesPigeonUtils.deepEquals(this.panX, other.panX) && MessagesPigeonUtils.deepEquals(this.panY, other.panY) && MessagesPigeonUtils.deepEquals(this.rotationDeg, other.rotationDeg) && MessagesPigeonUtils.deepEquals(this.fitMode, other.fitMode) && MessagesPigeonUtils.deepEquals(this.preferredOrientation, other.preferredOrientation) && MessagesPigeonUtils.deepEquals(this.fullscreen, other.fullscreen) && MessagesPigeonUtils.deepEquals(this.positionUs, other.positionUs) && MessagesPigeonUtils.deepEquals(this.speed, other.speed) && MessagesPigeonUtils.deepEquals(this.volume, other.volume) && MessagesPigeonUtils.deepEquals(this.muted, other.muted) && MessagesPigeonUtils.deepEquals(this.subtitleTrackId, other.subtitleTrackId) && MessagesPigeonUtils.deepEquals(this.subtitlesEnabled, other.subtitlesEnabled) && MessagesPigeonUtils.deepEquals(this.audioTrackId, other.audioTrackId) && MessagesPigeonUtils.deepEquals(this.lastViewedAtEpochMs, other.lastViewedAtEpochMs)
+    return MessagesPigeonUtils.deepEquals(this.schemaVersion, other.schemaVersion) && MessagesPigeonUtils.deepEquals(this.sessionId, other.sessionId) && MessagesPigeonUtils.deepEquals(this.mediaToken, other.mediaToken) && MessagesPigeonUtils.deepEquals(this.zoom, other.zoom) && MessagesPigeonUtils.deepEquals(this.panX, other.panX) && MessagesPigeonUtils.deepEquals(this.panY, other.panY) && MessagesPigeonUtils.deepEquals(this.rotationDeg, other.rotationDeg) && MessagesPigeonUtils.deepEquals(this.fitMode, other.fitMode) && MessagesPigeonUtils.deepEquals(this.preferredOrientation, other.preferredOrientation) && MessagesPigeonUtils.deepEquals(this.fullscreen, other.fullscreen) && MessagesPigeonUtils.deepEquals(this.positionUs, other.positionUs) && MessagesPigeonUtils.deepEquals(this.speed, other.speed) && MessagesPigeonUtils.deepEquals(this.volume, other.volume) && MessagesPigeonUtils.deepEquals(this.muted, other.muted) && MessagesPigeonUtils.deepEquals(this.subtitleTrackId, other.subtitleTrackId) && MessagesPigeonUtils.deepEquals(this.subtitlesEnabled, other.subtitlesEnabled) && MessagesPigeonUtils.deepEquals(this.audioTrackId, other.audioTrackId) && MessagesPigeonUtils.deepEquals(this.lastViewedAtEpochMs, other.lastViewedAtEpochMs) && MessagesPigeonUtils.deepEquals(this.looping, other.looping)
   }
 
   override fun hashCode(): Int {
@@ -1209,10 +1352,11 @@ data class PlaybackStateMsg (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.subtitlesEnabled)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.audioTrackId)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.lastViewedAtEpochMs)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.looping)
     return result
   }
   override fun toString(): String {
-    return "PlaybackStateMsg(schemaVersion=$schemaVersion, sessionId=$sessionId, mediaToken=$mediaToken, zoom=$zoom, panX=$panX, panY=$panY, rotationDeg=$rotationDeg, fitMode=$fitMode, preferredOrientation=$preferredOrientation, fullscreen=$fullscreen, positionUs=$positionUs, speed=$speed, volume=$volume, muted=$muted, subtitleTrackId=$subtitleTrackId, subtitlesEnabled=$subtitlesEnabled, audioTrackId=$audioTrackId, lastViewedAtEpochMs=$lastViewedAtEpochMs)"
+    return "PlaybackStateMsg(schemaVersion=$schemaVersion, sessionId=$sessionId, mediaToken=$mediaToken, zoom=$zoom, panX=$panX, panY=$panY, rotationDeg=$rotationDeg, fitMode=$fitMode, preferredOrientation=$preferredOrientation, fullscreen=$fullscreen, positionUs=$positionUs, speed=$speed, volume=$volume, muted=$muted, subtitleTrackId=$subtitleTrackId, subtitlesEnabled=$subtitlesEnabled, audioTrackId=$audioTrackId, lastViewedAtEpochMs=$lastViewedAtEpochMs, looping=$looping)"
   }
 }
 
@@ -3338,185 +3482,195 @@ private open class MessagesPigeonCodec : StandardMessageCodec() {
       }
       147.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          ImageDetailsMsg.fromList(it)
+          MediaInfoMsg.fromList(it)
         }
       }
       148.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          SessionStateMsg.fromList(it)
+          ThumbnailResultMsg.fromList(it)
         }
       }
       149.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          PlaybackStateMsg.fromList(it)
+          ImageDetailsMsg.fromList(it)
         }
       }
       150.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          EventMsg.fromList(it)
+          SessionStateMsg.fromList(it)
         }
       }
       151.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          SessionUpdateMessage.fromList(it)
+          PlaybackStateMsg.fromList(it)
         }
       }
       152.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          MediaSourceMsg.fromList(it)
+          EventMsg.fromList(it)
         }
       }
       153.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          CapabilityRequestMsg.fromList(it)
+          SessionUpdateMessage.fromList(it)
         }
       }
       154.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          MediaProbeMsg.fromList(it)
+          MediaSourceMsg.fromList(it)
         }
       }
       155.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          CapabilitiesMsg.fromList(it)
+          CapabilityRequestMsg.fromList(it)
         }
       }
       156.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          HostActionRequestMsg.fromList(it)
+          MediaProbeMsg.fromList(it)
         }
       }
       157.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          HostActionResultMsg.fromList(it)
+          CapabilitiesMsg.fromList(it)
         }
       }
       158.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          NavigationRequestMsg.fromList(it)
+          HostActionRequestMsg.fromList(it)
         }
       }
       159.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          PlaybackEventMsg.fromList(it)
+          HostActionResultMsg.fromList(it)
         }
       }
       160.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          EditProjectConfigMsg.fromList(it)
+          NavigationRequestMsg.fromList(it)
         }
       }
       161.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          MaskRegionMsg.fromList(it)
+          PlaybackEventMsg.fromList(it)
         }
       }
       162.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          EditCommandMsg.fromList(it)
+          EditProjectConfigMsg.fromList(it)
         }
       }
       163.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          EditResultMsg.fromList(it)
+          MaskRegionMsg.fromList(it)
         }
       }
       164.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          SourceProbeMsg.fromList(it)
+          EditCommandMsg.fromList(it)
         }
       }
       165.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          EditSourceMsg.fromList(it)
+          EditResultMsg.fromList(it)
         }
       }
       166.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          ClipMsg.fromList(it)
+          SourceProbeMsg.fromList(it)
         }
       }
       167.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          MaskKeyframeMsg.fromList(it)
+          EditSourceMsg.fromList(it)
         }
       }
       168.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          TimeRangeMsg.fromList(it)
+          ClipMsg.fromList(it)
         }
       }
       169.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          MaskTrackMsg.fromList(it)
+          MaskKeyframeMsg.fromList(it)
         }
       }
       170.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          CoverageRangeMsg.fromList(it)
+          TimeRangeMsg.fromList(it)
         }
       }
       171.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          TrackingRunMsg.fromList(it)
+          MaskTrackMsg.fromList(it)
         }
       }
       172.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          ExportProgressMsg.fromList(it)
+          CoverageRangeMsg.fromList(it)
         }
       }
       173.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          EditStateMsg.fromList(it)
+          TrackingRunMsg.fromList(it)
         }
       }
       174.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          EditEventMsg.fromList(it)
+          ExportProgressMsg.fromList(it)
         }
       }
       175.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          EditUpdateMessage.fromList(it)
+          EditStateMsg.fromList(it)
         }
       }
       176.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          SerializedProjectMsg.fromList(it)
+          EditEventMsg.fromList(it)
         }
       }
       177.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          ExportRequestMsg.fromList(it)
+          EditUpdateMessage.fromList(it)
         }
       }
       178.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          PrecheckMsg.fromList(it)
+          SerializedProjectMsg.fromList(it)
         }
       }
       179.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          ExportedMediaMsg.fromList(it)
+          ExportRequestMsg.fromList(it)
         }
       }
       180.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          ExportResultMsg.fromList(it)
+          PrecheckMsg.fromList(it)
         }
       }
       181.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          TrackingCandidateMsg.fromList(it)
+          ExportedMediaMsg.fromList(it)
         }
       }
       182.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
-          CandidateResultMsg.fromList(it)
+          ExportResultMsg.fromList(it)
         }
       }
       183.toByte() -> {
+        (readValue(buffer) as? List<Any?>)?.let {
+          TrackingCandidateMsg.fromList(it)
+        }
+      }
+      184.toByte() -> {
+        (readValue(buffer) as? List<Any?>)?.let {
+          CandidateResultMsg.fromList(it)
+        }
+      }
+      185.toByte() -> {
         (readValue(buffer) as? List<Any?>)?.let {
           CreateResultMsg.fromList(it)
         }
@@ -3598,152 +3752,160 @@ private open class MessagesPigeonCodec : StandardMessageCodec() {
         stream.write(146)
         writeValue(stream, value.toList())
       }
-      is ImageDetailsMsg -> {
+      is MediaInfoMsg -> {
         stream.write(147)
         writeValue(stream, value.toList())
       }
-      is SessionStateMsg -> {
+      is ThumbnailResultMsg -> {
         stream.write(148)
         writeValue(stream, value.toList())
       }
-      is PlaybackStateMsg -> {
+      is ImageDetailsMsg -> {
         stream.write(149)
         writeValue(stream, value.toList())
       }
-      is EventMsg -> {
+      is SessionStateMsg -> {
         stream.write(150)
         writeValue(stream, value.toList())
       }
-      is SessionUpdateMessage -> {
+      is PlaybackStateMsg -> {
         stream.write(151)
         writeValue(stream, value.toList())
       }
-      is MediaSourceMsg -> {
+      is EventMsg -> {
         stream.write(152)
         writeValue(stream, value.toList())
       }
-      is CapabilityRequestMsg -> {
+      is SessionUpdateMessage -> {
         stream.write(153)
         writeValue(stream, value.toList())
       }
-      is MediaProbeMsg -> {
+      is MediaSourceMsg -> {
         stream.write(154)
         writeValue(stream, value.toList())
       }
-      is CapabilitiesMsg -> {
+      is CapabilityRequestMsg -> {
         stream.write(155)
         writeValue(stream, value.toList())
       }
-      is HostActionRequestMsg -> {
+      is MediaProbeMsg -> {
         stream.write(156)
         writeValue(stream, value.toList())
       }
-      is HostActionResultMsg -> {
+      is CapabilitiesMsg -> {
         stream.write(157)
         writeValue(stream, value.toList())
       }
-      is NavigationRequestMsg -> {
+      is HostActionRequestMsg -> {
         stream.write(158)
         writeValue(stream, value.toList())
       }
-      is PlaybackEventMsg -> {
+      is HostActionResultMsg -> {
         stream.write(159)
         writeValue(stream, value.toList())
       }
-      is EditProjectConfigMsg -> {
+      is NavigationRequestMsg -> {
         stream.write(160)
         writeValue(stream, value.toList())
       }
-      is MaskRegionMsg -> {
+      is PlaybackEventMsg -> {
         stream.write(161)
         writeValue(stream, value.toList())
       }
-      is EditCommandMsg -> {
+      is EditProjectConfigMsg -> {
         stream.write(162)
         writeValue(stream, value.toList())
       }
-      is EditResultMsg -> {
+      is MaskRegionMsg -> {
         stream.write(163)
         writeValue(stream, value.toList())
       }
-      is SourceProbeMsg -> {
+      is EditCommandMsg -> {
         stream.write(164)
         writeValue(stream, value.toList())
       }
-      is EditSourceMsg -> {
+      is EditResultMsg -> {
         stream.write(165)
         writeValue(stream, value.toList())
       }
-      is ClipMsg -> {
+      is SourceProbeMsg -> {
         stream.write(166)
         writeValue(stream, value.toList())
       }
-      is MaskKeyframeMsg -> {
+      is EditSourceMsg -> {
         stream.write(167)
         writeValue(stream, value.toList())
       }
-      is TimeRangeMsg -> {
+      is ClipMsg -> {
         stream.write(168)
         writeValue(stream, value.toList())
       }
-      is MaskTrackMsg -> {
+      is MaskKeyframeMsg -> {
         stream.write(169)
         writeValue(stream, value.toList())
       }
-      is CoverageRangeMsg -> {
+      is TimeRangeMsg -> {
         stream.write(170)
         writeValue(stream, value.toList())
       }
-      is TrackingRunMsg -> {
+      is MaskTrackMsg -> {
         stream.write(171)
         writeValue(stream, value.toList())
       }
-      is ExportProgressMsg -> {
+      is CoverageRangeMsg -> {
         stream.write(172)
         writeValue(stream, value.toList())
       }
-      is EditStateMsg -> {
+      is TrackingRunMsg -> {
         stream.write(173)
         writeValue(stream, value.toList())
       }
-      is EditEventMsg -> {
+      is ExportProgressMsg -> {
         stream.write(174)
         writeValue(stream, value.toList())
       }
-      is EditUpdateMessage -> {
+      is EditStateMsg -> {
         stream.write(175)
         writeValue(stream, value.toList())
       }
-      is SerializedProjectMsg -> {
+      is EditEventMsg -> {
         stream.write(176)
         writeValue(stream, value.toList())
       }
-      is ExportRequestMsg -> {
+      is EditUpdateMessage -> {
         stream.write(177)
         writeValue(stream, value.toList())
       }
-      is PrecheckMsg -> {
+      is SerializedProjectMsg -> {
         stream.write(178)
         writeValue(stream, value.toList())
       }
-      is ExportedMediaMsg -> {
+      is ExportRequestMsg -> {
         stream.write(179)
         writeValue(stream, value.toList())
       }
-      is ExportResultMsg -> {
+      is PrecheckMsg -> {
         stream.write(180)
         writeValue(stream, value.toList())
       }
-      is TrackingCandidateMsg -> {
+      is ExportedMediaMsg -> {
         stream.write(181)
         writeValue(stream, value.toList())
       }
-      is CandidateResultMsg -> {
+      is ExportResultMsg -> {
         stream.write(182)
         writeValue(stream, value.toList())
       }
-      is CreateResultMsg -> {
+      is TrackingCandidateMsg -> {
         stream.write(183)
+        writeValue(stream, value.toList())
+      }
+      is CandidateResultMsg -> {
+        stream.write(184)
+        writeValue(stream, value.toList())
+      }
+      is CreateResultMsg -> {
+        stream.write(185)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -3785,6 +3947,8 @@ interface VideoKitHostApi {
   suspend fun hideContentForLock(sessionId: String, hidden: Boolean): CommandResultMsg
   /** 04A L1; static images answer `unsupported(MEDIA_KIND)`. */
   suspend fun setLooping(sessionId: String, looping: Boolean): CommandResultMsg
+  /** 04A P1: JPEG of the frame nearest to [atUs] fitting the size; failures in `ThumbnailResultMsg.error`. */
+  suspend fun captureThumbnail(sessionId: String, atUs: Long, maxWidth: Long, maxHeight: Long): ThumbnailResultMsg
   suspend fun requestHostAction(sessionId: String, actionId: String): CommandResultMsg
   /** Returns a `NavigationResult` wire name. */
   suspend fun requestNavigation(sessionId: String, direction: String): String
@@ -4205,6 +4369,28 @@ interface VideoKitHostApi {
             CoroutineScope(Dispatchers.Main).launch {
               val wrapped: List<Any?> = try {
                 listOf(api.setLooping(sessionIdArg, loopingArg))
+              } catch (exception: Throwable) {
+                MessagesPigeonUtils.wrapError(exception)
+              }
+              reply.reply(wrapped)
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.captureThumbnail$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val sessionIdArg = args[0] as String
+            val atUsArg = args[1] as Long
+            val maxWidthArg = args[2] as Long
+            val maxHeightArg = args[3] as Long
+            CoroutineScope(Dispatchers.Main).launch {
+              val wrapped: List<Any?> = try {
+                listOf(api.captureThumbnail(sessionIdArg, atUsArg, maxWidthArg, maxHeightArg))
               } catch (exception: Throwable) {
                 MessagesPigeonUtils.wrapError(exception)
               }

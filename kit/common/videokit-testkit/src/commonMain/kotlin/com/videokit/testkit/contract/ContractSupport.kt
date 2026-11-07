@@ -24,6 +24,9 @@ import kotlinx.coroutines.withTimeoutOrNull
  * implementation (instrumented, from VK-M1) provide one each.
  */
 public interface VideoKitContractSubject {
+    /** Feature areas the subject implements; cases requiring others are skipped (default: all). */
+    public val features: Set<ContractFeature> get() = ContractFeature.entries.toSet()
+
     /** Callback timeouts the created instances use. */
     public val callbackTimeouts: HostCallbackTimeouts
 
@@ -90,6 +93,8 @@ public class ContractCase internal constructor(
     public val group: ContractGroup,
     /** One-line description. */
     public val description: String,
+    /** Capabilities the subject must have; otherwise the case does not apply (see [VideoKitContractSuite.applies]). */
+    public val requires: Set<ContractFeature>,
     internal val body: suspend ContractScope.() -> Unit,
 ) {
     override fun toString(): String = id
@@ -184,4 +189,16 @@ internal fun expect(condition: Boolean, message: () -> String) {
 
 internal fun <T> expectEquals(expected: T, actual: T, what: String) {
     if (expected != actual) throw ContractViolation("$what: expected <$expected> but was <$actual>")
+}
+
+/**
+ * Optional feature areas of a [VideoKitContractSubject]. Implementations that do not have an area yet (the real
+ * runtime before VK-M2 images / VK-M4 editing) skip its cases and report them as skipped, never as passed.
+ */
+public enum class ContractFeature {
+    /** Image sessions (static and animated). */
+    IMAGES,
+
+    /** Edit projects and export. */
+    EDITING,
 }

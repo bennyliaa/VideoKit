@@ -253,6 +253,44 @@ class SessionConfigMsg {
   String? debugTag;
 }
 
+/// Media parameters (04A P2); every field optional.
+class MediaInfoMsg {
+  MediaInfoMsg({
+    this.container,
+    this.videoCodec,
+    this.audioCodec,
+    this.width,
+    this.height,
+    this.frameRate,
+    this.bitrateBps,
+    this.rotationDeg,
+    this.durationUs,
+    this.fileSizeBytes,
+  });
+
+  String? container;
+  String? videoCodec;
+  String? audioCodec;
+  int? width;
+  int? height;
+  double? frameRate;
+  int? bitrateBps;
+  int? rotationDeg;
+  int? durationUs;
+  int? fileSizeBytes;
+}
+
+/// Thumbnail (04A P1): [bytes] with size and type, or [error].
+class ThumbnailResultMsg {
+  ThumbnailResultMsg({this.bytes, this.width, this.height, this.mimeType, this.error});
+
+  Uint8List? bytes;
+  int? width;
+  int? height;
+  String? mimeType;
+  StableErrorMsg? error;
+}
+
 /// Image facts (04A L2); every field optional.
 class ImageDetailsMsg {
   ImageDetailsMsg({this.frameCount, this.decodedBytes, this.sampleSize});
@@ -291,6 +329,7 @@ class SessionStateMsg {
     required this.hiddenForLock,
     required this.looping,
     this.imageDetails,
+    this.mediaInfo,
   });
 
   SessionPhaseMsg phase;
@@ -326,6 +365,9 @@ class SessionStateMsg {
 
   /// 04A L2; null for videos.
   ImageDetailsMsg? imageDetails;
+
+  /// 04A P2.
+  MediaInfoMsg? mediaInfo;
 }
 
 /// `VideoKitPlaybackState` snapshot (05 §3, 04A I7/I9).
@@ -349,6 +391,7 @@ class PlaybackStateMsg {
     this.subtitlesEnabled,
     this.audioTrackId,
     this.lastViewedAtEpochMs,
+    this.looping,
   });
 
   int schemaVersion;
@@ -369,6 +412,9 @@ class PlaybackStateMsg {
   bool? subtitlesEnabled;
   String? audioTrackId;
   int? lastViewedAtEpochMs;
+
+  /// 04A L3; null = default of the media kind.
+  bool? looping;
 }
 
 /// One-off session event (14 §3.2). [type] is the event name, for example `SOURCE_RELEASED`.
@@ -1012,6 +1058,10 @@ abstract class VideoKitHostApi {
   /// 04A L1; static images answer `unsupported(MEDIA_KIND)`.
   @async
   CommandResultMsg setLooping(String sessionId, bool looping);
+
+  /// 04A P1: JPEG of the frame nearest to [atUs] fitting the size; failures in `ThumbnailResultMsg.error`.
+  @async
+  ThumbnailResultMsg captureThumbnail(String sessionId, int atUs, int maxWidth, int maxHeight);
 
   @async
   CommandResultMsg requestHostAction(String sessionId, String actionId);

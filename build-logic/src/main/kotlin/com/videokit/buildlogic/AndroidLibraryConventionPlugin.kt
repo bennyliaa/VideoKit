@@ -41,10 +41,23 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 defaultConfig {
                     minSdk = minSdkLevel
                     consumerProguardFiles("consumer-rules.pro")
+                    // Consumers only need the API level our public API uses (minSdk), not our compileSdk: Flutter module
+                    // hosts compile with Flutter's default compileSdk (36 for Flutter 3.47), M1-B1.
+                    aarMetadata {
+                        minCompileSdk = minSdkLevel
+                    }
                 }
                 compileOptions {
                     sourceCompatibility = JavaVersion.VERSION_11
                     targetCompatibility = JavaVersion.VERSION_11
+                }
+                // Local Maven publication (KitPublishing): the release variant with sources.
+                if (KitPublishing.isPublished(target)) {
+                    publishing {
+                        singleVariant("release") {
+                            withSourcesJar()
+                        }
+                    }
                 }
                 lint {
                     targetSdk = targetSdkLevel
@@ -68,6 +81,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     allWarningsAsErrors.set(true)
                 }
             }
+
+            KitPublishing.apply(target)
+            KitPublishing.registerAndroidRelease(target)
 
             dependencyLocking {
                 lockAllConfigurations()

@@ -71,6 +71,12 @@ public interface VideoKitSession : AutoCloseable {
      */
     public fun setControlsVisible(visible: Boolean)
 
+    /**
+     * A thumbnail of the bound media (04A P1): the frame nearest to [atUs] for videos, the scaled picture for images,
+     * as JPEG fitting [maxWidth] x [maxHeight]. Failures are returned as [ThumbnailResult.Failed], never thrown.
+     */
+    public suspend fun captureThumbnail(atUs: Long, maxWidth: Int, maxHeight: Int): ThumbnailResult
+
     /** Captures the current playback preferences. */
     public suspend fun captureState(): VideoKitPlaybackState
 

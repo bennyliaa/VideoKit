@@ -896,6 +896,163 @@ class SessionConfigMsg {
   }
 }
 
+/// Media parameters (04A P2); every field optional.
+class MediaInfoMsg {
+  MediaInfoMsg({
+    this.container,
+    this.videoCodec,
+    this.audioCodec,
+    this.width,
+    this.height,
+    this.frameRate,
+    this.bitrateBps,
+    this.rotationDeg,
+    this.durationUs,
+    this.fileSizeBytes,
+  });
+
+  String? container;
+
+  String? videoCodec;
+
+  String? audioCodec;
+
+  int? width;
+
+  int? height;
+
+  double? frameRate;
+
+  int? bitrateBps;
+
+  int? rotationDeg;
+
+  int? durationUs;
+
+  int? fileSizeBytes;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      container,
+      videoCodec,
+      audioCodec,
+      width,
+      height,
+      frameRate,
+      bitrateBps,
+      rotationDeg,
+      durationUs,
+      fileSizeBytes,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static MediaInfoMsg decode(Object result) {
+    result as List<Object?>;
+    return MediaInfoMsg(
+      container: result[0] as String?,
+      videoCodec: result[1] as String?,
+      audioCodec: result[2] as String?,
+      width: result[3] as int?,
+      height: result[4] as int?,
+      frameRate: result[5] as double?,
+      bitrateBps: result[6] as int?,
+      rotationDeg: result[7] as int?,
+      durationUs: result[8] as int?,
+      fileSizeBytes: result[9] as int?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! MediaInfoMsg || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(container, other.container) && _deepEquals(videoCodec, other.videoCodec) && _deepEquals(audioCodec, other.audioCodec) && _deepEquals(width, other.width) && _deepEquals(height, other.height) && _deepEquals(frameRate, other.frameRate) && _deepEquals(bitrateBps, other.bitrateBps) && _deepEquals(rotationDeg, other.rotationDeg) && _deepEquals(durationUs, other.durationUs) && _deepEquals(fileSizeBytes, other.fileSizeBytes);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+
+  @override
+  String toString() {
+    return 'MediaInfoMsg(container: $container, videoCodec: $videoCodec, audioCodec: $audioCodec, width: $width, height: $height, frameRate: $frameRate, bitrateBps: $bitrateBps, rotationDeg: $rotationDeg, durationUs: $durationUs, fileSizeBytes: $fileSizeBytes)';
+  }
+}
+
+/// Thumbnail (04A P1): [bytes] with size and type, or [error].
+class ThumbnailResultMsg {
+  ThumbnailResultMsg({
+    this.bytes,
+    this.width,
+    this.height,
+    this.mimeType,
+    this.error,
+  });
+
+  Uint8List? bytes;
+
+  int? width;
+
+  int? height;
+
+  String? mimeType;
+
+  StableErrorMsg? error;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      bytes,
+      width,
+      height,
+      mimeType,
+      error,
+    ];
+  }
+
+  Object encode() {
+    return _toList();  }
+
+  static ThumbnailResultMsg decode(Object result) {
+    result as List<Object?>;
+    return ThumbnailResultMsg(
+      bytes: result[0] as Uint8List?,
+      width: result[1] as int?,
+      height: result[2] as int?,
+      mimeType: result[3] as String?,
+      error: result[4] as StableErrorMsg?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ThumbnailResultMsg || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(bytes, other.bytes) && _deepEquals(width, other.width) && _deepEquals(height, other.height) && _deepEquals(mimeType, other.mimeType) && _deepEquals(error, other.error);
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => _deepHash(<Object?>[runtimeType, ..._toList()]);
+
+  @override
+  String toString() {
+    return 'ThumbnailResultMsg(bytes: $bytes, width: $width, height: $height, mimeType: $mimeType, error: $error)';
+  }
+}
+
 /// Image facts (04A L2); every field optional.
 class ImageDetailsMsg {
   ImageDetailsMsg({
@@ -981,6 +1138,7 @@ class SessionStateMsg {
     required this.hiddenForLock,
     required this.looping,
     this.imageDetails,
+    this.mediaInfo,
   });
 
   SessionPhaseMsg phase;
@@ -1040,6 +1198,9 @@ class SessionStateMsg {
   /// 04A L2; null for videos.
   ImageDetailsMsg? imageDetails;
 
+  /// 04A P2.
+  MediaInfoMsg? mediaInfo;
+
   List<Object?> _toList() {
     return <Object?>[
       phase,
@@ -1069,6 +1230,7 @@ class SessionStateMsg {
       hiddenForLock,
       looping,
       imageDetails,
+      mediaInfo,
     ];
   }
 
@@ -1105,6 +1267,7 @@ class SessionStateMsg {
       hiddenForLock: result[24]! as bool,
       looping: result[25]! as bool,
       imageDetails: result[26] as ImageDetailsMsg?,
+      mediaInfo: result[27] as MediaInfoMsg?,
     );
   }
 
@@ -1117,7 +1280,7 @@ class SessionStateMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(phase, other.phase) && _deepEquals(mediaKind, other.mediaKind) && _deepEquals(positionUs, other.positionUs) && _deepEquals(durationUs, other.durationUs) && _deepEquals(bufferedUs, other.bufferedUs) && _deepEquals(playWhenReady, other.playWhenReady) && _deepEquals(speed, other.speed) && _deepEquals(volume, other.volume) && _deepEquals(muted, other.muted) && _deepEquals(audioTracks, other.audioTracks) && _deepEquals(subtitleTracks, other.subtitleTracks) && _deepEquals(selectedAudioTrackId, other.selectedAudioTrackId) && _deepEquals(selectedSubtitleTrackId, other.selectedSubtitleTrackId) && _deepEquals(transform, other.transform) && _deepEquals(orientation, other.orientation) && _deepEquals(visibility, other.visibility) && _deepEquals(activeAudio, other.activeAudio) && _deepEquals(controlsVisible, other.controlsVisible) && _deepEquals(error, other.error) && _deepEquals(resourcesHeld, other.resourcesHeld) && _deepEquals(seekingToUs, other.seekingToUs) && _deepEquals(hostActions, other.hostActions) && _deepEquals(videoWidth, other.videoWidth) && _deepEquals(videoHeight, other.videoHeight) && _deepEquals(hiddenForLock, other.hiddenForLock) && _deepEquals(looping, other.looping) && _deepEquals(imageDetails, other.imageDetails);
+    return _deepEquals(phase, other.phase) && _deepEquals(mediaKind, other.mediaKind) && _deepEquals(positionUs, other.positionUs) && _deepEquals(durationUs, other.durationUs) && _deepEquals(bufferedUs, other.bufferedUs) && _deepEquals(playWhenReady, other.playWhenReady) && _deepEquals(speed, other.speed) && _deepEquals(volume, other.volume) && _deepEquals(muted, other.muted) && _deepEquals(audioTracks, other.audioTracks) && _deepEquals(subtitleTracks, other.subtitleTracks) && _deepEquals(selectedAudioTrackId, other.selectedAudioTrackId) && _deepEquals(selectedSubtitleTrackId, other.selectedSubtitleTrackId) && _deepEquals(transform, other.transform) && _deepEquals(orientation, other.orientation) && _deepEquals(visibility, other.visibility) && _deepEquals(activeAudio, other.activeAudio) && _deepEquals(controlsVisible, other.controlsVisible) && _deepEquals(error, other.error) && _deepEquals(resourcesHeld, other.resourcesHeld) && _deepEquals(seekingToUs, other.seekingToUs) && _deepEquals(hostActions, other.hostActions) && _deepEquals(videoWidth, other.videoWidth) && _deepEquals(videoHeight, other.videoHeight) && _deepEquals(hiddenForLock, other.hiddenForLock) && _deepEquals(looping, other.looping) && _deepEquals(imageDetails, other.imageDetails) && _deepEquals(mediaInfo, other.mediaInfo);
   }
 
   @override
@@ -1126,7 +1289,7 @@ class SessionStateMsg {
 
   @override
   String toString() {
-    return 'SessionStateMsg(phase: $phase, mediaKind: $mediaKind, positionUs: $positionUs, durationUs: $durationUs, bufferedUs: $bufferedUs, playWhenReady: $playWhenReady, speed: $speed, volume: $volume, muted: $muted, audioTracks: $audioTracks, subtitleTracks: $subtitleTracks, selectedAudioTrackId: $selectedAudioTrackId, selectedSubtitleTrackId: $selectedSubtitleTrackId, transform: $transform, orientation: $orientation, visibility: $visibility, activeAudio: $activeAudio, controlsVisible: $controlsVisible, error: $error, resourcesHeld: $resourcesHeld, seekingToUs: $seekingToUs, hostActions: $hostActions, videoWidth: $videoWidth, videoHeight: $videoHeight, hiddenForLock: $hiddenForLock, looping: $looping, imageDetails: $imageDetails)';
+    return 'SessionStateMsg(phase: $phase, mediaKind: $mediaKind, positionUs: $positionUs, durationUs: $durationUs, bufferedUs: $bufferedUs, playWhenReady: $playWhenReady, speed: $speed, volume: $volume, muted: $muted, audioTracks: $audioTracks, subtitleTracks: $subtitleTracks, selectedAudioTrackId: $selectedAudioTrackId, selectedSubtitleTrackId: $selectedSubtitleTrackId, transform: $transform, orientation: $orientation, visibility: $visibility, activeAudio: $activeAudio, controlsVisible: $controlsVisible, error: $error, resourcesHeld: $resourcesHeld, seekingToUs: $seekingToUs, hostActions: $hostActions, videoWidth: $videoWidth, videoHeight: $videoHeight, hiddenForLock: $hiddenForLock, looping: $looping, imageDetails: $imageDetails, mediaInfo: $mediaInfo)';
   }
 }
 
@@ -1151,6 +1314,7 @@ class PlaybackStateMsg {
     this.subtitlesEnabled,
     this.audioTrackId,
     this.lastViewedAtEpochMs,
+    this.looping,
   });
 
   int schemaVersion;
@@ -1189,6 +1353,9 @@ class PlaybackStateMsg {
 
   int? lastViewedAtEpochMs;
 
+  /// 04A L3; null = default of the media kind.
+  bool? looping;
+
   List<Object?> _toList() {
     return <Object?>[
       schemaVersion,
@@ -1209,6 +1376,7 @@ class PlaybackStateMsg {
       subtitlesEnabled,
       audioTrackId,
       lastViewedAtEpochMs,
+      looping,
     ];
   }
 
@@ -1236,6 +1404,7 @@ class PlaybackStateMsg {
       subtitlesEnabled: result[15] as bool?,
       audioTrackId: result[16] as String?,
       lastViewedAtEpochMs: result[17] as int?,
+      looping: result[18] as bool?,
     );
   }
 
@@ -1248,7 +1417,7 @@ class PlaybackStateMsg {
     if (identical(this, other)) {
       return true;
     }
-    return _deepEquals(schemaVersion, other.schemaVersion) && _deepEquals(sessionId, other.sessionId) && _deepEquals(mediaToken, other.mediaToken) && _deepEquals(zoom, other.zoom) && _deepEquals(panX, other.panX) && _deepEquals(panY, other.panY) && _deepEquals(rotationDeg, other.rotationDeg) && _deepEquals(fitMode, other.fitMode) && _deepEquals(preferredOrientation, other.preferredOrientation) && _deepEquals(fullscreen, other.fullscreen) && _deepEquals(positionUs, other.positionUs) && _deepEquals(speed, other.speed) && _deepEquals(volume, other.volume) && _deepEquals(muted, other.muted) && _deepEquals(subtitleTrackId, other.subtitleTrackId) && _deepEquals(subtitlesEnabled, other.subtitlesEnabled) && _deepEquals(audioTrackId, other.audioTrackId) && _deepEquals(lastViewedAtEpochMs, other.lastViewedAtEpochMs);
+    return _deepEquals(schemaVersion, other.schemaVersion) && _deepEquals(sessionId, other.sessionId) && _deepEquals(mediaToken, other.mediaToken) && _deepEquals(zoom, other.zoom) && _deepEquals(panX, other.panX) && _deepEquals(panY, other.panY) && _deepEquals(rotationDeg, other.rotationDeg) && _deepEquals(fitMode, other.fitMode) && _deepEquals(preferredOrientation, other.preferredOrientation) && _deepEquals(fullscreen, other.fullscreen) && _deepEquals(positionUs, other.positionUs) && _deepEquals(speed, other.speed) && _deepEquals(volume, other.volume) && _deepEquals(muted, other.muted) && _deepEquals(subtitleTrackId, other.subtitleTrackId) && _deepEquals(subtitlesEnabled, other.subtitlesEnabled) && _deepEquals(audioTrackId, other.audioTrackId) && _deepEquals(lastViewedAtEpochMs, other.lastViewedAtEpochMs) && _deepEquals(looping, other.looping);
   }
 
   @override
@@ -1257,7 +1426,7 @@ class PlaybackStateMsg {
 
   @override
   String toString() {
-    return 'PlaybackStateMsg(schemaVersion: $schemaVersion, sessionId: $sessionId, mediaToken: $mediaToken, zoom: $zoom, panX: $panX, panY: $panY, rotationDeg: $rotationDeg, fitMode: $fitMode, preferredOrientation: $preferredOrientation, fullscreen: $fullscreen, positionUs: $positionUs, speed: $speed, volume: $volume, muted: $muted, subtitleTrackId: $subtitleTrackId, subtitlesEnabled: $subtitlesEnabled, audioTrackId: $audioTrackId, lastViewedAtEpochMs: $lastViewedAtEpochMs)';
+    return 'PlaybackStateMsg(schemaVersion: $schemaVersion, sessionId: $sessionId, mediaToken: $mediaToken, zoom: $zoom, panX: $panX, panY: $panY, rotationDeg: $rotationDeg, fitMode: $fitMode, preferredOrientation: $preferredOrientation, fullscreen: $fullscreen, positionUs: $positionUs, speed: $speed, volume: $volume, muted: $muted, subtitleTrackId: $subtitleTrackId, subtitlesEnabled: $subtitlesEnabled, audioTrackId: $audioTrackId, lastViewedAtEpochMs: $lastViewedAtEpochMs, looping: $looping)';
   }
 }
 
@@ -3776,116 +3945,122 @@ class _PigeonCodec extends StandardMessageCodec {
     }    else if (value is SessionConfigMsg) {
       buffer.putUint8(146);
       writeValue(buffer, value.encode());
-    }    else if (value is ImageDetailsMsg) {
+    }    else if (value is MediaInfoMsg) {
       buffer.putUint8(147);
       writeValue(buffer, value.encode());
-    }    else if (value is SessionStateMsg) {
+    }    else if (value is ThumbnailResultMsg) {
       buffer.putUint8(148);
       writeValue(buffer, value.encode());
-    }    else if (value is PlaybackStateMsg) {
+    }    else if (value is ImageDetailsMsg) {
       buffer.putUint8(149);
       writeValue(buffer, value.encode());
-    }    else if (value is EventMsg) {
+    }    else if (value is SessionStateMsg) {
       buffer.putUint8(150);
       writeValue(buffer, value.encode());
-    }    else if (value is SessionUpdateMessage) {
+    }    else if (value is PlaybackStateMsg) {
       buffer.putUint8(151);
       writeValue(buffer, value.encode());
-    }    else if (value is MediaSourceMsg) {
+    }    else if (value is EventMsg) {
       buffer.putUint8(152);
       writeValue(buffer, value.encode());
-    }    else if (value is CapabilityRequestMsg) {
+    }    else if (value is SessionUpdateMessage) {
       buffer.putUint8(153);
       writeValue(buffer, value.encode());
-    }    else if (value is MediaProbeMsg) {
+    }    else if (value is MediaSourceMsg) {
       buffer.putUint8(154);
       writeValue(buffer, value.encode());
-    }    else if (value is CapabilitiesMsg) {
+    }    else if (value is CapabilityRequestMsg) {
       buffer.putUint8(155);
       writeValue(buffer, value.encode());
-    }    else if (value is HostActionRequestMsg) {
+    }    else if (value is MediaProbeMsg) {
       buffer.putUint8(156);
       writeValue(buffer, value.encode());
-    }    else if (value is HostActionResultMsg) {
+    }    else if (value is CapabilitiesMsg) {
       buffer.putUint8(157);
       writeValue(buffer, value.encode());
-    }    else if (value is NavigationRequestMsg) {
+    }    else if (value is HostActionRequestMsg) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    }    else if (value is PlaybackEventMsg) {
+    }    else if (value is HostActionResultMsg) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    }    else if (value is EditProjectConfigMsg) {
+    }    else if (value is NavigationRequestMsg) {
       buffer.putUint8(160);
       writeValue(buffer, value.encode());
-    }    else if (value is MaskRegionMsg) {
+    }    else if (value is PlaybackEventMsg) {
       buffer.putUint8(161);
       writeValue(buffer, value.encode());
-    }    else if (value is EditCommandMsg) {
+    }    else if (value is EditProjectConfigMsg) {
       buffer.putUint8(162);
       writeValue(buffer, value.encode());
-    }    else if (value is EditResultMsg) {
+    }    else if (value is MaskRegionMsg) {
       buffer.putUint8(163);
       writeValue(buffer, value.encode());
-    }    else if (value is SourceProbeMsg) {
+    }    else if (value is EditCommandMsg) {
       buffer.putUint8(164);
       writeValue(buffer, value.encode());
-    }    else if (value is EditSourceMsg) {
+    }    else if (value is EditResultMsg) {
       buffer.putUint8(165);
       writeValue(buffer, value.encode());
-    }    else if (value is ClipMsg) {
+    }    else if (value is SourceProbeMsg) {
       buffer.putUint8(166);
       writeValue(buffer, value.encode());
-    }    else if (value is MaskKeyframeMsg) {
+    }    else if (value is EditSourceMsg) {
       buffer.putUint8(167);
       writeValue(buffer, value.encode());
-    }    else if (value is TimeRangeMsg) {
+    }    else if (value is ClipMsg) {
       buffer.putUint8(168);
       writeValue(buffer, value.encode());
-    }    else if (value is MaskTrackMsg) {
+    }    else if (value is MaskKeyframeMsg) {
       buffer.putUint8(169);
       writeValue(buffer, value.encode());
-    }    else if (value is CoverageRangeMsg) {
+    }    else if (value is TimeRangeMsg) {
       buffer.putUint8(170);
       writeValue(buffer, value.encode());
-    }    else if (value is TrackingRunMsg) {
+    }    else if (value is MaskTrackMsg) {
       buffer.putUint8(171);
       writeValue(buffer, value.encode());
-    }    else if (value is ExportProgressMsg) {
+    }    else if (value is CoverageRangeMsg) {
       buffer.putUint8(172);
       writeValue(buffer, value.encode());
-    }    else if (value is EditStateMsg) {
+    }    else if (value is TrackingRunMsg) {
       buffer.putUint8(173);
       writeValue(buffer, value.encode());
-    }    else if (value is EditEventMsg) {
+    }    else if (value is ExportProgressMsg) {
       buffer.putUint8(174);
       writeValue(buffer, value.encode());
-    }    else if (value is EditUpdateMessage) {
+    }    else if (value is EditStateMsg) {
       buffer.putUint8(175);
       writeValue(buffer, value.encode());
-    }    else if (value is SerializedProjectMsg) {
+    }    else if (value is EditEventMsg) {
       buffer.putUint8(176);
       writeValue(buffer, value.encode());
-    }    else if (value is ExportRequestMsg) {
+    }    else if (value is EditUpdateMessage) {
       buffer.putUint8(177);
       writeValue(buffer, value.encode());
-    }    else if (value is PrecheckMsg) {
+    }    else if (value is SerializedProjectMsg) {
       buffer.putUint8(178);
       writeValue(buffer, value.encode());
-    }    else if (value is ExportedMediaMsg) {
+    }    else if (value is ExportRequestMsg) {
       buffer.putUint8(179);
       writeValue(buffer, value.encode());
-    }    else if (value is ExportResultMsg) {
+    }    else if (value is PrecheckMsg) {
       buffer.putUint8(180);
       writeValue(buffer, value.encode());
-    }    else if (value is TrackingCandidateMsg) {
+    }    else if (value is ExportedMediaMsg) {
       buffer.putUint8(181);
       writeValue(buffer, value.encode());
-    }    else if (value is CandidateResultMsg) {
+    }    else if (value is ExportResultMsg) {
       buffer.putUint8(182);
       writeValue(buffer, value.encode());
-    }    else if (value is CreateResultMsg) {
+    }    else if (value is TrackingCandidateMsg) {
       buffer.putUint8(183);
+      writeValue(buffer, value.encode());
+    }    else if (value is CandidateResultMsg) {
+      buffer.putUint8(184);
+      writeValue(buffer, value.encode());
+    }    else if (value is CreateResultMsg) {
+      buffer.putUint8(185);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -3939,78 +4114,82 @@ class _PigeonCodec extends StandardMessageCodec {
       case 146:
         return SessionConfigMsg.decode(readValue(buffer)!);
       case 147:
-        return ImageDetailsMsg.decode(readValue(buffer)!);
+        return MediaInfoMsg.decode(readValue(buffer)!);
       case 148:
-        return SessionStateMsg.decode(readValue(buffer)!);
+        return ThumbnailResultMsg.decode(readValue(buffer)!);
       case 149:
-        return PlaybackStateMsg.decode(readValue(buffer)!);
+        return ImageDetailsMsg.decode(readValue(buffer)!);
       case 150:
-        return EventMsg.decode(readValue(buffer)!);
+        return SessionStateMsg.decode(readValue(buffer)!);
       case 151:
-        return SessionUpdateMessage.decode(readValue(buffer)!);
+        return PlaybackStateMsg.decode(readValue(buffer)!);
       case 152:
-        return MediaSourceMsg.decode(readValue(buffer)!);
+        return EventMsg.decode(readValue(buffer)!);
       case 153:
-        return CapabilityRequestMsg.decode(readValue(buffer)!);
+        return SessionUpdateMessage.decode(readValue(buffer)!);
       case 154:
-        return MediaProbeMsg.decode(readValue(buffer)!);
+        return MediaSourceMsg.decode(readValue(buffer)!);
       case 155:
-        return CapabilitiesMsg.decode(readValue(buffer)!);
+        return CapabilityRequestMsg.decode(readValue(buffer)!);
       case 156:
-        return HostActionRequestMsg.decode(readValue(buffer)!);
+        return MediaProbeMsg.decode(readValue(buffer)!);
       case 157:
-        return HostActionResultMsg.decode(readValue(buffer)!);
+        return CapabilitiesMsg.decode(readValue(buffer)!);
       case 158:
-        return NavigationRequestMsg.decode(readValue(buffer)!);
+        return HostActionRequestMsg.decode(readValue(buffer)!);
       case 159:
-        return PlaybackEventMsg.decode(readValue(buffer)!);
+        return HostActionResultMsg.decode(readValue(buffer)!);
       case 160:
-        return EditProjectConfigMsg.decode(readValue(buffer)!);
+        return NavigationRequestMsg.decode(readValue(buffer)!);
       case 161:
-        return MaskRegionMsg.decode(readValue(buffer)!);
+        return PlaybackEventMsg.decode(readValue(buffer)!);
       case 162:
-        return EditCommandMsg.decode(readValue(buffer)!);
+        return EditProjectConfigMsg.decode(readValue(buffer)!);
       case 163:
-        return EditResultMsg.decode(readValue(buffer)!);
+        return MaskRegionMsg.decode(readValue(buffer)!);
       case 164:
-        return SourceProbeMsg.decode(readValue(buffer)!);
+        return EditCommandMsg.decode(readValue(buffer)!);
       case 165:
-        return EditSourceMsg.decode(readValue(buffer)!);
+        return EditResultMsg.decode(readValue(buffer)!);
       case 166:
-        return ClipMsg.decode(readValue(buffer)!);
+        return SourceProbeMsg.decode(readValue(buffer)!);
       case 167:
-        return MaskKeyframeMsg.decode(readValue(buffer)!);
+        return EditSourceMsg.decode(readValue(buffer)!);
       case 168:
-        return TimeRangeMsg.decode(readValue(buffer)!);
+        return ClipMsg.decode(readValue(buffer)!);
       case 169:
-        return MaskTrackMsg.decode(readValue(buffer)!);
+        return MaskKeyframeMsg.decode(readValue(buffer)!);
       case 170:
-        return CoverageRangeMsg.decode(readValue(buffer)!);
+        return TimeRangeMsg.decode(readValue(buffer)!);
       case 171:
-        return TrackingRunMsg.decode(readValue(buffer)!);
+        return MaskTrackMsg.decode(readValue(buffer)!);
       case 172:
-        return ExportProgressMsg.decode(readValue(buffer)!);
+        return CoverageRangeMsg.decode(readValue(buffer)!);
       case 173:
-        return EditStateMsg.decode(readValue(buffer)!);
+        return TrackingRunMsg.decode(readValue(buffer)!);
       case 174:
-        return EditEventMsg.decode(readValue(buffer)!);
+        return ExportProgressMsg.decode(readValue(buffer)!);
       case 175:
-        return EditUpdateMessage.decode(readValue(buffer)!);
+        return EditStateMsg.decode(readValue(buffer)!);
       case 176:
-        return SerializedProjectMsg.decode(readValue(buffer)!);
+        return EditEventMsg.decode(readValue(buffer)!);
       case 177:
-        return ExportRequestMsg.decode(readValue(buffer)!);
+        return EditUpdateMessage.decode(readValue(buffer)!);
       case 178:
-        return PrecheckMsg.decode(readValue(buffer)!);
+        return SerializedProjectMsg.decode(readValue(buffer)!);
       case 179:
-        return ExportedMediaMsg.decode(readValue(buffer)!);
+        return ExportRequestMsg.decode(readValue(buffer)!);
       case 180:
-        return ExportResultMsg.decode(readValue(buffer)!);
+        return PrecheckMsg.decode(readValue(buffer)!);
       case 181:
-        return TrackingCandidateMsg.decode(readValue(buffer)!);
+        return ExportedMediaMsg.decode(readValue(buffer)!);
       case 182:
-        return CandidateResultMsg.decode(readValue(buffer)!);
+        return ExportResultMsg.decode(readValue(buffer)!);
       case 183:
+        return TrackingCandidateMsg.decode(readValue(buffer)!);
+      case 184:
+        return CandidateResultMsg.decode(readValue(buffer)!);
+      case 185:
         return CreateResultMsg.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -4419,6 +4598,26 @@ class VideoKitHostApi {
     )
     ;
     return pigeonVar_replyValue! as CommandResultMsg;
+  }
+
+  /// 04A P1: JPEG of the frame nearest to [atUs] fitting the size; failures in `ThumbnailResultMsg.error`.
+  Future<ThumbnailResultMsg> captureThumbnail(String sessionId, int atUs, int maxWidth, int maxHeight) async {
+    final pigeonVar_channelName = 'dev.flutter.pigeon.videokit_flutter_platform_interface.VideoKitHostApi.captureThumbnail$pigeonVar_messageChannelSuffix';
+    final pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[sessionId, atUs, maxWidth, maxHeight]);
+    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
+
+    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
+        pigeonVar_replyList,
+        pigeonVar_channelName,
+        isNullValid: false,
+    )
+    ;
+    return pigeonVar_replyValue! as ThumbnailResultMsg;
   }
 
   Future<CommandResultMsg> requestHostAction(String sessionId, String actionId) async {

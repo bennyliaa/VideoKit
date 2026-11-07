@@ -33,6 +33,7 @@ import com.videokit.api.MaskRegion
 import com.videokit.api.MaskStyle
 import com.videokit.api.MaskTrack
 import com.videokit.api.MaskType
+import com.videokit.api.MediaInfo
 import com.videokit.api.MediaKind
 import com.videokit.api.MediaOrientation
 import com.videokit.api.MediaProbeResult
@@ -55,6 +56,7 @@ import com.videokit.api.Size
 import com.videokit.api.SourceProbe
 import com.videokit.api.SuggestedAction
 import com.videokit.api.SupportLevel
+import com.videokit.api.ThumbnailResult
 import com.videokit.api.TimeRangeUs
 import com.videokit.api.Timeline
 import com.videokit.api.TrackInfo
@@ -198,6 +200,16 @@ class MappersTest {
         )
         assertEquals(image, image.toMsg().toState())
         val partial = VideoKitSessionState(mediaKind = MediaKind.IMAGE_STATIC, imageDetails = ImageDetails(frameCount = 1))
+        val withInfo = VideoKitSessionState(
+            mediaKind = MediaKind.VIDEO,
+            mediaInfo = MediaInfo("mkv", "video/hevc", "audio/ac3", 3840, 2160, 23.976f, 40_000_000L, 90, 7_200_000_000L, 9_000_000_000L),
+        )
+        assertEquals(withInfo, withInfo.toMsg().toState())
+        // 04A P1.
+        val captured = ThumbnailResult.Captured(byteArrayOf(1, 2, 3), 160, 90)
+        assertEquals(captured, captured.toMsg().toResult())
+        val failed = ThumbnailResult.Failed(error)
+        assertEquals(failed, failed.toMsg().toResult())
         assertEquals(partial, partial.toMsg().toState())
         val empty = VideoKitSessionState()
         assertEquals(empty, empty.toMsg().toState())
@@ -228,6 +240,9 @@ class MappersTest {
         assertEquals(snapshot, snapshot.toMsg().toPlaybackState())
         val image = VideoKitPlaybackState()
         assertEquals(image, image.toMsg().toPlaybackState())
+        // 04A L3.
+        val looping = VideoKitPlaybackState(looping = true)
+        assertEquals(looping, looping.toMsg().toPlaybackState())
     }
 
     @Test

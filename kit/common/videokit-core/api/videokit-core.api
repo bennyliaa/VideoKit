@@ -1,3 +1,158 @@
+public final class com/videokit/core/CapabilityNegotiation {
+	public static final field INSTANCE Lcom/videokit/core/CapabilityNegotiation;
+	public final fun effective (Lcom/videokit/api/VideoKitCapabilities;Lcom/videokit/core/spi/PlatformEngines;Z)Lcom/videokit/api/VideoKitCapabilities;
+}
+
+public final class com/videokit/core/CoreOptions {
+	public fun <init> ()V
+	public fun <init> (IJLcom/videokit/api/VideoKitApiVersion;Z)V
+	public synthetic fun <init> (IJLcom/videokit/api/VideoKitApiVersion;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()J
+	public final fun component3 ()Lcom/videokit/api/VideoKitApiVersion;
+	public final fun component4 ()Z
+	public final fun copy (IJLcom/videokit/api/VideoKitApiVersion;Z)Lcom/videokit/core/CoreOptions;
+	public static synthetic fun copy$default (Lcom/videokit/core/CoreOptions;IJLcom/videokit/api/VideoKitApiVersion;ZILjava/lang/Object;)Lcom/videokit/core/CoreOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getApiVersion ()Lcom/videokit/api/VideoKitApiVersion;
+	public final fun getMaxSessions ()I
+	public final fun getSourceTimeoutMs ()J
+	public fun hashCode ()I
+	public final fun isDemo ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/CoreRuntime {
+	public final fun getBudget ()Lcom/videokit/api/ResourceBudget;
+	public final fun getCallbacks ()Lcom/videokit/core/runtime/HostCallbackRunner;
+	public final fun getEngines ()Lcom/videokit/core/spi/PlatformEngines;
+	public final fun getOptions ()Lcom/videokit/core/CoreOptions;
+	public final fun getScope ()Lkotlinx/coroutines/CoroutineScope;
+	public final fun sessionReleased (Ljava/lang/String;)V
+}
+
+public final class com/videokit/core/CoreVideoKit : com/videokit/api/VideoKit {
+	public fun <init> (Lcom/videokit/api/VideoKitConfig;Lcom/videokit/core/spi/PlatformEngines;Lcom/videokit/core/SessionFactory;Lcom/videokit/core/CoreOptions;Lkotlinx/coroutines/CoroutineScope;)V
+	public synthetic fun <init> (Lcom/videokit/api/VideoKitConfig;Lcom/videokit/core/spi/PlatformEngines;Lcom/videokit/core/SessionFactory;Lcom/videokit/core/CoreOptions;Lkotlinx/coroutines/CoroutineScope;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun capabilities (Lcom/videokit/api/CapabilityRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close ()V
+	public fun createEditProject (Lcom/videokit/api/EditProjectConfig;)Lcom/videokit/api/VideoKitEditProject;
+	public fun createSession (Lcom/videokit/api/VideoKitSessionConfig;)Lcom/videokit/api/VideoKitSession;
+	public final fun getActiveSessions ()Ljava/util/List;
+	public fun getApiVersion ()Lcom/videokit/api/VideoKitApiVersion;
+	public final fun getCallbackFailures ()I
+	public fun isDemo ()Z
+	public fun restoreEditProject (Lcom/videokit/api/SerializedEditProject;Lcom/videokit/api/EditProjectConfig;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/core/SessionContext {
+	public final fun getConfig ()Lcom/videokit/api/VideoKitSessionConfig;
+	public final fun getRuntime ()Lcom/videokit/core/CoreRuntime;
+	public final fun getSessionId ()Ljava/lang/String;
+}
+
+public abstract interface class com/videokit/core/SessionFactory {
+	public abstract fun create (Lcom/videokit/core/SessionContext;)Lcom/videokit/api/VideoKitSession;
+}
+
+public final class com/videokit/core/runtime/AtomicCounter {
+	public fun <init> ()V
+	public fun <init> (J)V
+	public synthetic fun <init> (JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getValue ()J
+	public final fun incrementAndGet ()J
+}
+
+public final class com/videokit/core/runtime/AtomicFlag {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getValue ()Z
+	public final fun setOnce ()Z
+}
+
+public final class com/videokit/core/runtime/AtomicMap {
+	public fun <init> ()V
+	public final fun get (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun getSnapshot ()Ljava/util/Map;
+	public final fun put (Ljava/lang/Object;Ljava/lang/Object;)V
+	public final fun remove (Ljava/lang/Object;)V
+}
+
+public final class com/videokit/core/runtime/AtomicValue {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun compareAndSet (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public final fun getAndSet (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun getValue ()Ljava/lang/Object;
+}
+
+public abstract interface class com/videokit/core/runtime/CallbackOutcome {
+}
+
+public final class com/videokit/core/runtime/CallbackOutcome$Failure : com/videokit/core/runtime/CallbackOutcome {
+	public fun <init> (Lcom/videokit/api/VideoKitStableError;)V
+	public final fun component1 ()Lcom/videokit/api/VideoKitStableError;
+	public final fun copy (Lcom/videokit/api/VideoKitStableError;)Lcom/videokit/core/runtime/CallbackOutcome$Failure;
+	public static synthetic fun copy$default (Lcom/videokit/core/runtime/CallbackOutcome$Failure;Lcom/videokit/api/VideoKitStableError;ILjava/lang/Object;)Lcom/videokit/core/runtime/CallbackOutcome$Failure;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/videokit/api/VideoKitStableError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/runtime/CallbackOutcome$Success : com/videokit/core/runtime/CallbackOutcome {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lcom/videokit/core/runtime/CallbackOutcome$Success;
+	public static synthetic fun copy$default (Lcom/videokit/core/runtime/CallbackOutcome$Success;Ljava/lang/Object;ILjava/lang/Object;)Lcom/videokit/core/runtime/CallbackOutcome$Success;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/runtime/ConcurrentKt {
+	public static final fun typeName (Ljava/lang/Object;)Ljava/lang/String;
+}
+
+public final class com/videokit/core/runtime/DefaultResourceBudget : com/videokit/api/ResourceBudget {
+	public static final field Companion Lcom/videokit/core/runtime/DefaultResourceBudget$Companion;
+	public static final field HARD_VIDEO_LIMIT I
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun reserve (Lcom/videokit/api/ResourceRequest;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun snapshot ()Lcom/videokit/api/ResourceReport;
+}
+
+public final class com/videokit/core/runtime/DefaultResourceBudget$Companion {
+	public final fun forDevice (I)Lcom/videokit/core/runtime/DefaultResourceBudget;
+}
+
+public final class com/videokit/core/runtime/HostCallbackRunner {
+	public static final field QUEUE_CAPACITY I
+	public fun <init> (Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/api/VideoKitHostCallbacks;Lcom/videokit/api/HostCallbackTimeouts;)V
+	public final fun close ()V
+	public final fun getFailures ()I
+	public final fun getTimeouts ()Lcom/videokit/api/HostCallbackTimeouts;
+	public final fun notify (Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
+	public final fun request (Ljava/lang/String;JLkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/core/runtime/StableErrors {
+	public static final field INSTANCE Lcom/videokit/core/runtime/StableErrors;
+	public final fun callbackFailed (Ljava/lang/String;Ljava/lang/Throwable;Z)Lcom/videokit/api/VideoKitStableError;
+	public static synthetic fun callbackFailed$default (Lcom/videokit/core/runtime/StableErrors;Ljava/lang/String;Ljava/lang/Throwable;ZILjava/lang/Object;)Lcom/videokit/api/VideoKitStableError;
+	public final fun fromSinkFailure (Ljava/lang/Throwable;)Lcom/videokit/api/VideoKitStableError;
+	public final fun fromSourceFailure (Ljava/lang/Throwable;Lcom/videokit/api/ErrorStage;)Lcom/videokit/api/VideoKitStableError;
+	public final fun illegalState (Lcom/videokit/api/ErrorStage;Ljava/lang/String;)Lcom/videokit/api/VideoKitStableError;
+	public final fun invalidArgument (Lcom/videokit/api/ErrorStage;Ljava/lang/String;)Lcom/videokit/api/VideoKitStableError;
+	public final fun of (Lcom/videokit/api/ErrorCode;Lcom/videokit/api/ErrorStage;Ljava/lang/String;)Lcom/videokit/api/VideoKitStableError;
+	public static synthetic fun of$default (Lcom/videokit/core/runtime/StableErrors;Lcom/videokit/api/ErrorCode;Lcom/videokit/api/ErrorStage;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitStableError;
+	public final fun retryable (Lcom/videokit/api/ErrorCode;)Z
+	public final fun suggestion (Lcom/videokit/api/ErrorCode;)Lcom/videokit/api/SuggestedAction;
+}
+
 public abstract interface class com/videokit/core/spi/CapabilityProbe {
 	public abstract fun device (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun media (Lcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -33,9 +188,12 @@ public abstract interface class com/videokit/core/spi/EffectRenderer {
 }
 
 public final class com/videokit/core/spi/EngineState {
-	public fun <init> (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;)V
-	public synthetic fun <init> (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/core/spi/EngineStatus;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Lcom/videokit/api/MediaInfo;
+	public final fun component12 ()Ljava/lang/String;
 	public final fun component2 ()Z
 	public final fun component3 ()J
 	public final fun component4 ()Ljava/lang/Long;
@@ -44,15 +202,18 @@ public final class com/videokit/core/spi/EngineState {
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Lcom/videokit/api/VideoKitStableError;
-	public final fun copy (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;)Lcom/videokit/core/spi/EngineState;
-	public static synthetic fun copy$default (Lcom/videokit/core/spi/EngineState;Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;ILjava/lang/Object;)Lcom/videokit/core/spi/EngineState;
+	public final fun copy (Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;)Lcom/videokit/core/spi/EngineState;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/EngineState;Lcom/videokit/core/spi/EngineStatus;ZJLjava/lang/Long;Ljava/lang/Long;Lcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;Lcom/videokit/api/VideoKitStableError;Ljava/lang/String;Lcom/videokit/api/MediaInfo;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/core/spi/EngineState;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudioTracks ()Ljava/util/List;
 	public final fun getBufferedUs ()Ljava/lang/Long;
 	public final fun getDurationUs ()Ljava/lang/Long;
 	public final fun getError ()Lcom/videokit/api/VideoKitStableError;
+	public final fun getMediaInfo ()Lcom/videokit/api/MediaInfo;
 	public final fun getPlaying ()Z
 	public final fun getPositionUs ()J
+	public final fun getSelectedAudioTrackId ()Ljava/lang/String;
+	public final fun getSelectedSubtitleTrackId ()Ljava/lang/String;
 	public final fun getStatus ()Lcom/videokit/core/spi/EngineStatus;
 	public final fun getSubtitleTracks ()Ljava/util/List;
 	public final fun getVideoSize ()Lcom/videokit/api/Size;
@@ -124,6 +285,7 @@ public final class com/videokit/core/spi/FrameData {
 
 public abstract interface class com/videokit/core/spi/FrameReader : java/lang/AutoCloseable {
 	public abstract fun frameAt (JLcom/videokit/api/Size;Lcom/videokit/core/spi/PixelFormat;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun thumbnailAt (JLcom/videokit/api/Size;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public abstract interface class com/videokit/core/spi/FrameSource {
@@ -231,20 +393,20 @@ public final class com/videokit/core/spi/PlanInput {
 }
 
 public final class com/videokit/core/spi/PlatformEngines {
-	public fun <init> (Lcom/videokit/core/spi/PlaybackEngine;Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/core/spi/CapabilityProbe;Lcom/videokit/core/spi/Clock;Lcom/videokit/core/spi/Scheduler;Lcom/videokit/core/spi/FrameSource;Lcom/videokit/core/spi/CompositionExporter;Lcom/videokit/core/spi/EffectRenderer;Lcom/videokit/core/spi/TrackerBackend;Lcom/videokit/core/spi/IsolationHost;)V
-	public synthetic fun <init> (Lcom/videokit/core/spi/PlaybackEngine;Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/core/spi/CapabilityProbe;Lcom/videokit/core/spi/Clock;Lcom/videokit/core/spi/Scheduler;Lcom/videokit/core/spi/FrameSource;Lcom/videokit/core/spi/CompositionExporter;Lcom/videokit/core/spi/EffectRenderer;Lcom/videokit/core/spi/TrackerBackend;Lcom/videokit/core/spi/IsolationHost;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/core/spi/PlaybackEngine;Lcom/videokit/core/spi/CapabilityProbe;Lcom/videokit/core/spi/Clock;Lcom/videokit/core/spi/Scheduler;Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/core/spi/FrameSource;Lcom/videokit/core/spi/CompositionExporter;Lcom/videokit/core/spi/EffectRenderer;Lcom/videokit/core/spi/TrackerBackend;Lcom/videokit/core/spi/IsolationHost;)V
+	public synthetic fun <init> (Lcom/videokit/core/spi/PlaybackEngine;Lcom/videokit/core/spi/CapabilityProbe;Lcom/videokit/core/spi/Clock;Lcom/videokit/core/spi/Scheduler;Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/core/spi/FrameSource;Lcom/videokit/core/spi/CompositionExporter;Lcom/videokit/core/spi/EffectRenderer;Lcom/videokit/core/spi/TrackerBackend;Lcom/videokit/core/spi/IsolationHost;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/videokit/core/spi/PlaybackEngine;
 	public final fun component10 ()Lcom/videokit/core/spi/IsolationHost;
-	public final fun component2 ()Lcom/videokit/core/spi/ImageEngine;
-	public final fun component3 ()Lcom/videokit/core/spi/CapabilityProbe;
-	public final fun component4 ()Lcom/videokit/core/spi/Clock;
-	public final fun component5 ()Lcom/videokit/core/spi/Scheduler;
+	public final fun component2 ()Lcom/videokit/core/spi/CapabilityProbe;
+	public final fun component3 ()Lcom/videokit/core/spi/Clock;
+	public final fun component4 ()Lcom/videokit/core/spi/Scheduler;
+	public final fun component5 ()Lcom/videokit/core/spi/ImageEngine;
 	public final fun component6 ()Lcom/videokit/core/spi/FrameSource;
 	public final fun component7 ()Lcom/videokit/core/spi/CompositionExporter;
 	public final fun component8 ()Lcom/videokit/core/spi/EffectRenderer;
 	public final fun component9 ()Lcom/videokit/core/spi/TrackerBackend;
-	public final fun copy (Lcom/videokit/core/spi/PlaybackEngine;Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/core/spi/CapabilityProbe;Lcom/videokit/core/spi/Clock;Lcom/videokit/core/spi/Scheduler;Lcom/videokit/core/spi/FrameSource;Lcom/videokit/core/spi/CompositionExporter;Lcom/videokit/core/spi/EffectRenderer;Lcom/videokit/core/spi/TrackerBackend;Lcom/videokit/core/spi/IsolationHost;)Lcom/videokit/core/spi/PlatformEngines;
-	public static synthetic fun copy$default (Lcom/videokit/core/spi/PlatformEngines;Lcom/videokit/core/spi/PlaybackEngine;Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/core/spi/CapabilityProbe;Lcom/videokit/core/spi/Clock;Lcom/videokit/core/spi/Scheduler;Lcom/videokit/core/spi/FrameSource;Lcom/videokit/core/spi/CompositionExporter;Lcom/videokit/core/spi/EffectRenderer;Lcom/videokit/core/spi/TrackerBackend;Lcom/videokit/core/spi/IsolationHost;ILjava/lang/Object;)Lcom/videokit/core/spi/PlatformEngines;
+	public final fun copy (Lcom/videokit/core/spi/PlaybackEngine;Lcom/videokit/core/spi/CapabilityProbe;Lcom/videokit/core/spi/Clock;Lcom/videokit/core/spi/Scheduler;Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/core/spi/FrameSource;Lcom/videokit/core/spi/CompositionExporter;Lcom/videokit/core/spi/EffectRenderer;Lcom/videokit/core/spi/TrackerBackend;Lcom/videokit/core/spi/IsolationHost;)Lcom/videokit/core/spi/PlatformEngines;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/PlatformEngines;Lcom/videokit/core/spi/PlaybackEngine;Lcom/videokit/core/spi/CapabilityProbe;Lcom/videokit/core/spi/Clock;Lcom/videokit/core/spi/Scheduler;Lcom/videokit/core/spi/ImageEngine;Lcom/videokit/core/spi/FrameSource;Lcom/videokit/core/spi/CompositionExporter;Lcom/videokit/core/spi/EffectRenderer;Lcom/videokit/core/spi/TrackerBackend;Lcom/videokit/core/spi/IsolationHost;ILjava/lang/Object;)Lcom/videokit/core/spi/PlatformEngines;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCapabilities ()Lcom/videokit/core/spi/CapabilityProbe;
 	public final fun getClock ()Lcom/videokit/core/spi/Clock;
@@ -262,6 +424,7 @@ public final class com/videokit/core/spi/PlatformEngines {
 
 public abstract interface class com/videokit/core/spi/PlaybackEngine {
 	public abstract fun open (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/core/spi/PlaybackOpenOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun supports (Lcom/videokit/api/VideoKitSurfaceTarget;)Z
 }
 
 public abstract interface class com/videokit/core/spi/PlaybackHandle : java/lang/AutoCloseable {
@@ -274,22 +437,25 @@ public abstract interface class com/videokit/core/spi/PlaybackHandle : java/lang
 	public abstract fun selectAudioTrack (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun selectSubtitleTrack (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setAudioEnabled (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun setLooping (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setSpeed (FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun setVolume (FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/videokit/core/spi/PlaybackOpenOptions {
 	public fun <init> ()V
-	public fun <init> (ZZJ)V
-	public synthetic fun <init> (ZZJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (ZZJZ)V
+	public synthetic fun <init> (ZZJZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
 	public final fun component2 ()Z
 	public final fun component3 ()J
-	public final fun copy (ZZJ)Lcom/videokit/core/spi/PlaybackOpenOptions;
-	public static synthetic fun copy$default (Lcom/videokit/core/spi/PlaybackOpenOptions;ZZJILjava/lang/Object;)Lcom/videokit/core/spi/PlaybackOpenOptions;
+	public final fun component4 ()Z
+	public final fun copy (ZZJZ)Lcom/videokit/core/spi/PlaybackOpenOptions;
+	public static synthetic fun copy$default (Lcom/videokit/core/spi/PlaybackOpenOptions;ZZJZILjava/lang/Object;)Lcom/videokit/core/spi/PlaybackOpenOptions;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudioEnabled ()Z
 	public final fun getHandleAudioFocus ()Z
+	public final fun getLooping ()Z
 	public final fun getStartPositionUs ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;

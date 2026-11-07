@@ -8,8 +8,8 @@ import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.android.VideoKitFactory
 
 /**
- * Release builds never contain the Fake (14 §11.4): they use the real implementation, available from VK-M1. In M0
- * the factory throws, and the sample host shows that clearly instead of falling back to demo data.
+ * Release builds never contain the Fake (14 §11.4): they use the real implementation (VK-M1, Media3). Release
+ * builds have no demo media: a real source (document picker) is part of the next sample host batch.
  */
 internal object HostKits {
     val isDemo: Boolean = false

@@ -52,8 +52,15 @@ buildscript {
 rootProject.name = "VideoKit"
 
 // 13 §1: platform independent modules (KMP commonMain) in kit/common, Android implementations in kit/android.
-val commonModules = listOf("videokit-api", "videokit-core", "videokit-testkit")
-val androidModules = listOf("videokit-api-android", "videokit-testkit-android", "videokit-flutter-plugin-check", "videokit-ui-android")
+val commonModules = listOf("videokit-api", "videokit-core", "videokit-playback", "videokit-testkit")
+val androidModules = listOf(
+    "videokit-api-android",
+    "videokit-media3",
+    "videokit-platform-android",
+    "videokit-testkit-android",
+    "videokit-flutter-plugin-check",
+    "videokit-ui-android",
+)
 
 // Native sample host app (13 §1: sample-host/ at the repository root).
 include(":sample-host")

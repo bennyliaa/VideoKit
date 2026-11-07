@@ -228,6 +228,8 @@ public data class VideoKitSessionState(
     val looping: Boolean = false,
     /** Image facts the engine knows (04A L2); always `null` for videos. */
     val imageDetails: ImageDetails? = null,
+    /** Media parameters (04A P2), filled once bind completed; `null` before and when unknown. */
+    val mediaInfo: MediaInfo? = null,
 )
 
 /**
@@ -288,6 +290,8 @@ public data class VideoKitPlaybackState(
     val audioTrackId: String? = null,
     /** Wall clock time of the last view in epoch milliseconds, if known. */
     val lastViewedAtEpochMs: Long? = null,
+    /** Looping preference (04A L3); `null` = the default of the media kind. Restored by bind when not `null`. */
+    val looping: Boolean? = null,
 ) {
     public companion object {
         /** Schema version written by this API version. Older versions are read; newer majors are rejected. */
@@ -320,3 +324,61 @@ public data class VideoKitSessionConfig(
     /** Opaque, host-chosen tag for diagnostics; never shown to the user. */
     val debugTag: String? = null,
 )
+
+/**
+ * Media parameters for the details panel (04A P2). Every field is optional: the engine fills what the container and
+ * the tracks declare, `null` when unknown.
+ */
+public data class MediaInfo(
+    /** Container name, for example `mp4`, `mkv`, `ts`. */
+    val container: String? = null,
+    /** Video codec MIME type, for example `video/avc`. */
+    val videoCodec: String? = null,
+    /** Audio codec MIME type of the selected (or first) audio track. */
+    val audioCodec: String? = null,
+    /** Coded width in pixels (before rotation). */
+    val width: Int? = null,
+    /** Coded height in pixels (before rotation). */
+    val height: Int? = null,
+    /** Frame rate, frames per second. */
+    val frameRate: Float? = null,
+    /** Overall or video bitrate in bits per second. */
+    val bitrateBps: Long? = null,
+    /** Rotation metadata in degrees (0, 90, 180, 270). */
+    val rotationDeg: Int? = null,
+    /** Duration. */
+    val durationUs: Long? = null,
+    /** Source size in bytes, when the host knows it. */
+    val fileSizeBytes: Long? = null,
+)
+
+/** Result of [VideoKitSession.captureThumbnail] (04A P1). */
+public sealed interface ThumbnailResult {
+    /** The thumbnail. */
+    public class Captured(
+        /** Encoded image (JPEG unless [mimeType] says otherwise). */
+        public val bytes: ByteArray,
+        /** Width in pixels. */
+        public val width: Int,
+        /** Height in pixels. */
+        public val height: Int,
+        /** MIME type of [bytes]. */
+        public val mimeType: String = "image/jpeg",
+    ) : ThumbnailResult {
+        override fun equals(other: Any?): Boolean = other is Captured &&
+            other.width == width &&
+            other.height == height &&
+            other.mimeType == mimeType &&
+            other.bytes.contentEquals(bytes)
+
+        override fun hashCode(): Int = (bytes.contentHashCode() * 31 + width) * 31 + height
+
+        override fun toString(): String = "Captured(${width}x$height, $mimeType, ${bytes.size} bytes)"
+    }
+
+    /** No thumbnail; [error] says why. */
+    public data class Failed(
+        /** Stable error. */
+        val error: VideoKitStableError,
+    ) : ThumbnailResult
+}

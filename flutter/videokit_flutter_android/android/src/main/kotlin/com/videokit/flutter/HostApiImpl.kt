@@ -52,6 +52,7 @@ import com.videokit.flutter.gen.PrecheckMsg
 import com.videokit.flutter.gen.SeekModeMsg
 import com.videokit.flutter.gen.SerializedProjectMsg
 import com.videokit.flutter.gen.SessionConfigMsg
+import com.videokit.flutter.gen.ThumbnailResultMsg
 import com.videokit.flutter.gen.TransformMsg
 import com.videokit.flutter.gen.VideoKitHostApi
 import kotlinx.coroutines.CancellationException
@@ -261,6 +262,14 @@ internal class HostApiImpl(private val engine: EngineRuntime) : VideoKitHostApi 
 
     override suspend fun setLooping(sessionId: String, looping: Boolean): CommandResultMsg =
         command(sessionId) { it.execute(VideoKitCommand.SetLooping(looping)) }
+
+    override suspend fun captureThumbnail(sessionId: String, atUs: Long, maxWidth: Long, maxHeight: Long): ThumbnailResultMsg {
+        val unknown = VideoKitStableError(ErrorCode.SESSION_RELEASED, ErrorStage.PLAYBACK, false, diagnostic = "SESSION_RELEASED")
+        val holder = engine.sessions[sessionId] ?: return ThumbnailResultMsg(error = unknown.toMsg())
+        return work({ ThumbnailResultMsg(error = Mappers.redacted(it).toMsg()) }) {
+            holder.session.captureThumbnail(atUs, maxWidth.toInt(), maxHeight.toInt()).toMsg()
+        }
+    }
 
     override suspend fun requestHostAction(sessionId: String, actionId: String): CommandResultMsg =
         command(sessionId) { it.requestHostAction(actionId) }

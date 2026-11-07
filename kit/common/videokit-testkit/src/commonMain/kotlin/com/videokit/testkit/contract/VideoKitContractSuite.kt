@@ -77,8 +77,33 @@ public object VideoKitContractSuite {
         }
     }
 
+    /** Whether [case] applies to [subject] (it implements every feature area the case requires). */
+    public fun applies(case: ContractCase, subject: VideoKitContractSubject): Boolean = subject.features.containsAll(case.requires)
+
     private fun case(id: String, group: ContractGroup, description: String, body: suspend ContractScope.() -> Unit) =
-        ContractCase(id, group, description, body)
+        ContractCase(id, group, description, requirementsOf(id), body)
+
+    private fun requirementsOf(id: String): Set<ContractFeature> = buildSet {
+        if (id in imageCases()) add(ContractFeature.IMAGES)
+        if (id in editingCases()) add(ContractFeature.EDITING)
+    }
+
+    // Functions, not properties: they are used while [cases] is initialized, before later properties exist.
+    private fun imageCases() = setOf("state.image_rejects_video_commands")
+
+    private fun editingCases() = setOf(
+        "cancel.export",
+        "cancel.export_caller",
+        "release.edit_project",
+        "faults.sink_open",
+        "faults.sink_write",
+        "faults.sink_capabilities",
+        "faults.sink_space",
+        "faults.export_success",
+        "faults.edit_commands",
+        "snapshot.edit_round_trip",
+        "snapshot.future_major_rejected",
+    )
 
     // ------------------------------------------------------------------ version & capabilities
 

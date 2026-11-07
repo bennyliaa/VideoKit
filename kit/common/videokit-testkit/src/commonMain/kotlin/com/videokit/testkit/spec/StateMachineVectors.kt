@@ -27,6 +27,7 @@ import com.videokit.api.VideoKitExportRequest
 import com.videokit.api.VideoKitExportResult
 import com.videokit.api.VideoKitHostAction
 import com.videokit.api.VideoKitMediaSource
+import com.videokit.api.VideoKitPlaybackState
 import com.videokit.api.VideoKitSession
 import com.videokit.api.VideoKitSessionConfig
 import com.videokit.api.VideoKitStableError
@@ -34,6 +35,7 @@ import com.videokit.testkit.CountingSourceFactory
 import com.videokit.testkit.RecordingHostCallbacks
 import com.videokit.testkit.RecordingOutputSink
 import com.videokit.testkit.SourceBehavior
+import com.videokit.testkit.contract.ContractFeature
 import com.videokit.testkit.contract.ContractViolation
 import com.videokit.testkit.contract.VideoKitContractSubject
 import com.videokit.testkit.internal.AtomicCounter
@@ -53,9 +55,14 @@ public class StateMachineVector internal constructor(
     internal val media: String,
     internal val hostActions: List<String>,
     internal val hostActionAnswer: String,
+    /** Optional `initialLooping` of the case: bound with a snapshot carrying it (04A L3). */
+    internal val initialLooping: Boolean?,
     internal val steps: List<Map<*, *>>,
 ) {
     override fun toString(): String = id
+
+    /** Snapshot bound with the media: `null` unless the case sets `initialLooping`. */
+    internal fun initialState(): VideoKitPlaybackState? = initialLooping?.let { VideoKitPlaybackState(looping = it) }
 }
 
 /** Outcome of running one vector. */
@@ -97,6 +104,7 @@ public object StateMachineVectors {
                 media = case["media"] as? String ?: "VIDEO",
                 hostActions = (case["hostActions"] as? List<*>).orEmpty().map { it as String },
                 hostActionAnswer = case["hostActionAnswer"] as? String ?: "COMPLETED",
+                initialLooping = case["initialLooping"] as? Boolean,
                 steps = (case["steps"] as List<*>).map { it as Map<*, *> },
             )
         }
@@ -104,6 +112,7 @@ public object StateMachineVectors {
 
     /** Runs one session vector against a fresh instance from [subject]. */
     public suspend fun runSession(vector: StateMachineVector, subject: VideoKitContractSubject): VectorOutcome = coroutineScope {
+        if (vector.media != "VIDEO" && ContractFeature.IMAGES !in subject.features) return@coroutineScope VectorOutcome.SKIPPED
         val callbacks = RecordingHostCallbacks()
         val answer = HostActionStatus.valueOf(vector.hostActionAnswer)
         callbacks.hostActionAnswer = { HostActionResult(answer) }
@@ -147,6 +156,10 @@ public object StateMachineVectors {
 
     /** `expect.looping`, `expect.atEnd` and `expect.playbackEnded` (04A L1). */
     private suspend fun checkLooping(where: String, session: VideoKitSession, expect: Map<*, *>, ended: AtomicCounter) {
+        (expect["snapshotLooping"] as? Boolean)?.let { looping ->
+            val actual = session.captureState().looping
+            if (actual != looping) throw ContractViolation("$where: snapshot looping expected $looping but was $actual")
+        }
         (expect["looping"] as? Boolean)?.let { looping ->
             val actual = session.state.value.looping
             if (actual != looping) throw ContractViolation("$where: looping expected $looping but was $actual")
@@ -167,6 +180,7 @@ public object StateMachineVectors {
 
     /** Runs one edit project vector against a fresh instance from [subject]. */
     public suspend fun runEdit(vector: StateMachineVector, subject: VideoKitContractSubject): VectorOutcome {
+        if (ContractFeature.EDITING !in subject.features) return VectorOutcome.SKIPPED
         val kit = subject.create(RecordingHostCallbacks())
         try {
             val project = kit.createEditProject(EditProjectConfig())
@@ -244,7 +258,7 @@ public object StateMachineVectors {
     }
 
     private suspend fun bindReady(session: VideoKitSession, media: VideoKitMediaSource, vector: StateMachineVector) {
-        val result = session.bind(media, null, vector.hostActions.map { hostAction(it) })
+        val result = session.bind(media, vector.initialState(), vector.hostActions.map { hostAction(it) })
         if (result != VideoKitCommandResult.Executed) throw ContractViolation("${vector.id} setup: bind returned $result")
         awaitSessionPhase(session, SessionPhase.READY, "${vector.id} setup")
     }
@@ -266,7 +280,7 @@ public object StateMachineVectors {
     ): VideoKitCommandResult = when (val command = step["command"] as String) {
         "BIND" -> session.bind(
             mediaFor(vector, subject, "vector-rebind") ?: throw ContractViolation("${vector.id}: no ${vector.media} media"),
-            null,
+            vector.initialState(),
             vector.hostActions.map { hostAction(it) },
         )
 

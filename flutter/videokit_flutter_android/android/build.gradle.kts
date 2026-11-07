@@ -13,6 +13,22 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+// Builds that cannot use includeBuild (the generated Flutter module host of `flutter build aar`) resolve the Kit
+// from the repository's local Maven publication: run `./gradlew publishKitMaven` at the repository root first.
+// Every project of the consuming build resolves the plugin's dependencies (the Flutter module's `:flutter` project
+// too), so the repository is added to all of them, like Flutter's own Gradle plugin adds its engine repository.
+val kitMaven = file("../../../build/kit-maven")
+if (kitMaven.isDirectory) {
+    rootProject.allprojects {
+        repositories {
+            maven {
+                name = "KitMaven"
+                url = uri(kitMaven)
+            }
+        }
+    }
+}
+
 group = "com.videokit.flutter"
 version = "1.0.0-dev.1"
 
@@ -28,6 +44,10 @@ android {
 
     defaultConfig {
         minSdk = 31
+        // Consumers (Flutter apps and modules) may compile with Flutter's default compileSdk; the plugin API needs 31 only.
+        aarMetadata {
+            minCompileSdk = 31
+        }
     }
 
     compileOptions {
@@ -44,6 +64,8 @@ kotlin {
 
 dependencies {
     implementation("com.videokit:videokit-api-android:1.0.0-dev.1")
+    // The real VideoKit (core runtime + Media3 engine), reached through VideoKitFactory (VK-M1).
+    implementation("com.videokit:videokit-platform-android:1.0.0-dev.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
     // Pigeon generated setUp() runs @async methods on Dispatchers.Main, which needs the Android main dispatcher.
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")

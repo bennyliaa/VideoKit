@@ -12,6 +12,8 @@ androidTargetSdk = "37"
 androidMinSdk = "31"
 # Runtime libraries
 kotlinxCoroutines = "1.11.0"
+# AndroidX Media3 (15 §1.6: latest stable at M1 initialisation, Apache-2.0)
+media3 = "1.11.1"
 # Test-only libraries
 junit = "4.13.2"
 # Flutter engine embedding (compile-time only, for the plugin check module); must match bin/internal/engine.version of the pinned Flutter SDK (3.47.7).
@@ -22,6 +24,10 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 junit = { module = "junit:junit", version.ref = "junit" }
+media3-common = { module = "androidx.media3:media3-common", version.ref = "media3" }
+media3-datasource = { module = "androidx.media3:media3-datasource", version.ref = "media3" }
+media3-extractor = { module = "androidx.media3:media3-extractor", version.ref = "media3" }
+media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
 flutter-embedding-debug = { module = "io.flutter:flutter_embedding_debug", version.ref = "flutterEngine" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 ktlint-cli = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }

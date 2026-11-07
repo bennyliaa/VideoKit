@@ -37,7 +37,11 @@ interface VideoKitBackend {
     fun demoSink(): VideoKitOutputSink? = null
 }
 
-/** The real implementation through [VideoKitFactory] (available from VK-M1). */
+/**
+ * The real implementation through [VideoKitFactory] (VK-M1: core runtime + Media3 playback engine). Release builds
+ * must select it (or another backend) explicitly; debug builds default to the Kotlin Fake and opt in with
+ * [VideoKitFlutter.useRealBackend].
+ */
 object RealVideoKitBackend : VideoKitBackend {
     override val isDemo: Boolean = false
 
@@ -60,6 +64,11 @@ object VideoKitFlutter {
     private val sources = ConcurrentHashMap<String, VideoKitSourceFactory>()
     private val sinks = ConcurrentHashMap<String, VideoKitOutputSink>()
     private val sharedSessions = ConcurrentHashMap<String, VideoKitSession>()
+
+    /** Uses the real implementation ([RealVideoKitBackend]), also in debug builds. */
+    fun useRealBackend() {
+        explicitBackend = RealVideoKitBackend
+    }
 
     /** Selects the backend; `null` restores the default. */
     fun setBackend(backend: VideoKitBackend?) {

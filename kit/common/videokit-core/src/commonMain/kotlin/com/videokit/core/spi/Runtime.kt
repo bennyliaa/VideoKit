@@ -47,14 +47,14 @@ public interface Scheduler {
 public data class PlatformEngines(
     /** Playback. */
     val playback: PlaybackEngine,
-    /** Images. */
-    val images: ImageEngine,
     /** Capability probing. */
     val capabilities: CapabilityProbe,
     /** Time. */
     val clock: Clock,
     /** Dispatchers. */
     val scheduler: Scheduler,
+    /** Images (VK-M2); `null` until then: image sources are reported as not implemented. */
+    val images: ImageEngine? = null,
     /** Frame extraction (thumbnails, tracking frames). */
     val frames: FrameSource? = null,
     /** Export pipeline. */

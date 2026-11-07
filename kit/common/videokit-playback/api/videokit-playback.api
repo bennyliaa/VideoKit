@@ -1,0 +1,77 @@
+public final class com/videokit/playback/PlaybackRules {
+	public static final field INSTANCE Lcom/videokit/playback/PlaybackRules;
+	public static final field MAX_SCALE F
+	public final fun applyInitial (Lcom/videokit/api/VideoKitSessionState;Lcom/videokit/api/VideoKitPlaybackState;)Lcom/videokit/api/VideoKitSessionState;
+	public final fun audioEnabled (Lcom/videokit/api/VideoKitSessionState;)Z
+	public final fun defaultLooping (Lcom/videokit/api/MediaKind;)Z
+	public final fun getFATAL_CODES ()Ljava/util/Set;
+	public final fun getSPEED_RANGE ()Lkotlin/ranges/ClosedFloatingPointRange;
+	public final fun isValidSpeed (F)Z
+	public final fun isValidTransform (Lcom/videokit/api/MediaTransform;)Z
+	public final fun isValidVolume (F)Z
+	public final fun loops (Lcom/videokit/api/MediaKind;)Z
+	public final fun orientationOf (Lcom/videokit/api/Size;)Lcom/videokit/api/MediaOrientation;
+	public final fun outputVolume (Lcom/videokit/api/VideoKitSessionState;)F
+	public final fun resolveAudioTrack (Ljava/util/List;Ljava/lang/String;)Lcom/videokit/api/TrackInfo;
+	public final fun snapshotOf (Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/VideoKitSessionState;Ljava/lang/Long;)Lcom/videokit/api/VideoKitPlaybackState;
+}
+
+public final class com/videokit/playback/PlaybackSession : com/videokit/api/VideoKitSession {
+	public static final field MAX_RETRIES I
+	public static final field NOTICE_AUDIO_UNSUPPORTED Ljava/lang/String;
+	public fun attachSurface (Lcom/videokit/api/VideoKitSurfaceTarget;)Lcom/videokit/api/VideoKitCommandResult;
+	public fun bind (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/api/VideoKitPlaybackState;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun captureState (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun captureThumbnail (JIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close ()V
+	public fun detachSurface ()V
+	public fun execute (Lcom/videokit/api/VideoKitCommand;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getEvents ()Lkotlinx/coroutines/flow/Flow;
+	public fun getSessionId ()Ljava/lang/String;
+	public fun getState ()Lkotlinx/coroutines/flow/StateFlow;
+	public fun isDemo ()Z
+	public fun release (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun requestHostAction (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun requestNavigation (Lcom/videokit/api/NavigationDirection;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setControlsVisible (Z)V
+	public fun updateHostActions (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/playback/PlaybackSessionFactory : com/videokit/core/SessionFactory {
+	public static final field INSTANCE Lcom/videokit/playback/PlaybackSessionFactory;
+	public fun create (Lcom/videokit/core/SessionContext;)Lcom/videokit/api/VideoKitSession;
+}
+
+public final class com/videokit/playback/PlaybackStatistics {
+	public static final field Companion Lcom/videokit/playback/PlaybackStatistics$Companion;
+	public static final field DEFAULT_REPORT_US J
+	public static final field DEFAULT_TICK_US J
+	public fun <init> ()V
+	public fun <init> (JJ)V
+	public synthetic fun <init> (JJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun onPlayed (JJZ)Lcom/videokit/playback/PlaybackStatistics$Step;
+	public final fun reset ()V
+}
+
+public final class com/videokit/playback/PlaybackStatistics$Companion {
+}
+
+public final class com/videokit/playback/PlaybackStatistics$Step {
+	public fun <init> (Ljava/lang/Long;Ljava/lang/Long;)V
+	public final fun component1 ()Ljava/lang/Long;
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun copy (Ljava/lang/Long;Ljava/lang/Long;)Lcom/videokit/playback/PlaybackStatistics$Step;
+	public static synthetic fun copy$default (Lcom/videokit/playback/PlaybackStatistics$Step;Ljava/lang/Long;Ljava/lang/Long;ILjava/lang/Object;)Lcom/videokit/playback/PlaybackStatistics$Step;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTickAtUs ()Ljava/lang/Long;
+	public final fun getWatchTimeUs ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/playback/PlaybackVideoKit {
+	public static final field INSTANCE Lcom/videokit/playback/PlaybackVideoKit;
+	public final fun create (Lcom/videokit/api/VideoKitConfig;Lcom/videokit/core/spi/PlatformEngines;Lcom/videokit/core/CoreOptions;Lkotlinx/coroutines/CoroutineScope;)Lcom/videokit/api/VideoKit;
+	public static synthetic fun create$default (Lcom/videokit/playback/PlaybackVideoKit;Lcom/videokit/api/VideoKitConfig;Lcom/videokit/core/spi/PlatformEngines;Lcom/videokit/core/CoreOptions;Lkotlinx/coroutines/CoroutineScope;ILjava/lang/Object;)Lcom/videokit/api/VideoKit;
+}
+

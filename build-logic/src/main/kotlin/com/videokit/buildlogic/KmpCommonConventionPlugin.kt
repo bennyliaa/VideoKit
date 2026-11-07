@@ -48,6 +48,9 @@ class KmpCommonConventionPlugin : Plugin<Project> {
             }
             tasks.named("check").configure { dependsOn(portability) }
 
+            // Kotlin Multiplatform creates the Maven publications itself once maven-publish is applied.
+            KitPublishing.apply(target)
+
             dependencyLocking {
                 lockAllConfigurations()
             }

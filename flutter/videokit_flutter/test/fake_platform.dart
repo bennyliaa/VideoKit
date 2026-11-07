@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:videokit_flutter_platform_interface/videokit_flutter_platform_interface.dart';
 
@@ -62,6 +63,17 @@ class FakeHostApi implements VideoKitHostApi {
 
   @override
   Future<CommandResultMsg> setLooping(String sessionId, bool looping) => _record('setLooping:$looping');
+
+  @override
+  Future<ThumbnailResultMsg> captureThumbnail(String sessionId, int atUs, int maxWidth, int maxHeight) async {
+    calls.add('captureThumbnail:$atUs:$maxWidth x $maxHeight');
+    if (atUs < 0) {
+      return ThumbnailResultMsg(
+        error: StableErrorMsg(code: 'INVALID_ARGUMENT', stage: 'PLAYBACK', retryable: false, suggestedAction: 'NONE', params: {}),
+      );
+    }
+    return ThumbnailResultMsg(bytes: Uint8List.fromList([0xFF, 0xD8, 0xFF, 0xD9]), width: 160, height: 90, mimeType: 'image/jpeg');
+  }
 
   @override
   Future<CommandResultMsg> requestHostAction(String sessionId, String actionId) => _record('requestHostAction:$actionId');
@@ -180,6 +192,7 @@ SessionStateMsg stateMsg({
   int positionUs = 0,
   bool looping = false,
   ImageDetailsMsg? imageDetails,
+  MediaInfoMsg? mediaInfo,
 }) => SessionStateMsg(
   phase: phase,
   mediaKind: MediaKindMsg.video,
@@ -203,4 +216,5 @@ SessionStateMsg stateMsg({
   hiddenForLock: false,
   looping: looping,
   imageDetails: imageDetails,
+  mediaInfo: mediaInfo,
 );

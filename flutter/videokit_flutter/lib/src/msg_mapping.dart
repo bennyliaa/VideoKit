@@ -167,6 +167,7 @@ VideoKitSessionState sessionStateFromMsg(SessionStateMsg msg) => VideoKitSession
           decodedBytes: msg.imageDetails!.decodedBytes,
           sampleSize: msg.imageDetails!.sampleSize,
         ),
+  mediaInfo: msg.mediaInfo == null ? null : mediaInfoFromMsg(msg.mediaInfo!),
   error: msg.error == null ? null : errorFromMsg(msg.error!),
   resourcesHeld: msg.resourcesHeld,
   hostActions: msg.hostActions
@@ -203,6 +204,7 @@ PlaybackStateMsg playbackStateToMsg(VideoKitPlaybackState s) => PlaybackStateMsg
   subtitlesEnabled: s.subtitlesEnabled,
   audioTrackId: s.audioTrackId,
   lastViewedAtEpochMs: s.lastViewedAtEpochMs,
+  looping: s.looping,
 );
 
 VideoKitPlaybackState playbackStateFromMsg(PlaybackStateMsg msg) => VideoKitPlaybackState(
@@ -223,6 +225,7 @@ VideoKitPlaybackState playbackStateFromMsg(PlaybackStateMsg msg) => VideoKitPlay
   subtitlesEnabled: msg.subtitlesEnabled,
   audioTrackId: msg.audioTrackId,
   lastViewedAtEpochMs: msg.lastViewedAtEpochMs,
+  looping: msg.looping,
 );
 
 /// Unknown event types return `null` and are dropped: events are notices, never state (14 §3.2).
@@ -599,3 +602,28 @@ CandidateDetectionResult candidatesFromMsg(CandidateResultMsg msg) => CandidateD
       .toList(),
   error: msg.error == null ? null : errorFromMsg(msg.error!),
 );
+
+/// 04A P2.
+MediaInfo mediaInfoFromMsg(MediaInfoMsg m) => MediaInfo(
+  container: m.container,
+  videoCodec: m.videoCodec,
+  audioCodec: m.audioCodec,
+  width: m.width,
+  height: m.height,
+  frameRate: m.frameRate,
+  bitrateBps: m.bitrateBps,
+  rotationDeg: m.rotationDeg,
+  durationUs: m.durationUs,
+  fileSizeBytes: m.fileSizeBytes,
+);
+
+/// 04A P1: a captured JPEG, or the stable error.
+ThumbnailResult thumbnailFromMsg(ThumbnailResultMsg m) {
+  final bytes = m.bytes;
+  final width = m.width;
+  final height = m.height;
+  if (bytes != null && width != null && height != null) {
+    return ThumbnailCaptured(bytes: bytes, width: width, height: height, mimeType: m.mimeType ?? 'image/jpeg');
+  }
+  return ThumbnailFailed(m.error == null ? channelError('ThumbnailWithoutData') : errorFromMsg(m.error!));
+}

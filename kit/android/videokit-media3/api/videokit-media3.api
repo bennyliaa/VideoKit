@@ -1,0 +1,48 @@
+public final class com/videokit/media3/Media3EngineConfig {
+	public fun <init> ()V
+	public fun <init> (JJIIIIIJJ)V
+	public synthetic fun <init> (JJIIIIIJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()J
+	public final fun component9 ()J
+	public final fun copy (JJIIIIIJJ)Lcom/videokit/media3/Media3EngineConfig;
+	public static synthetic fun copy$default (Lcom/videokit/media3/Media3EngineConfig;JJIIIIIJJILjava/lang/Object;)Lcom/videokit/media3/Media3EngineConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBufferForPlaybackAfterRebufferMs ()I
+	public final fun getBufferForPlaybackMs ()I
+	public final fun getMaxBufferMs ()I
+	public final fun getMinBufferMs ()I
+	public final fun getOpenTimeoutMs ()J
+	public final fun getPositionUpdateMs ()J
+	public final fun getPrefetchBytes ()I
+	public final fun getReadTimeoutMs ()J
+	public final fun getSeekTimeoutMs ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/media3/Media3PlaybackEngine : com/videokit/core/spi/PlaybackEngine {
+	public fun <init> (Landroid/content/Context;Lcom/videokit/media3/Media3EngineConfig;)V
+	public synthetic fun <init> (Landroid/content/Context;Lcom/videokit/media3/Media3EngineConfig;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun open (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/core/spi/PlaybackOpenOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun supports (Lcom/videokit/api/VideoKitSurfaceTarget;)Z
+}
+
+public final class com/videokit/media3/RetrieverFrameSource : com/videokit/core/spi/FrameSource {
+	public static final field Companion Lcom/videokit/media3/RetrieverFrameSource$Companion;
+	public static final field DEFAULT_JPEG_QUALITY I
+	public fun <init> ()V
+	public fun <init> (JI)V
+	public synthetic fun <init> (JIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun open (Lcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/media3/RetrieverFrameSource$Companion {
+}
+

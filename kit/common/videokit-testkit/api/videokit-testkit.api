@@ -40,6 +40,14 @@ public final class com/videokit/testkit/DemoSourceFactory : com/videokit/api/Vid
 	public fun open (Lcom/videokit/api/OpenPurpose;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class com/videokit/testkit/DemoThumbnail {
+	public static final field HEIGHT I
+	public static final field INSTANCE Lcom/videokit/testkit/DemoThumbnail;
+	public static final field WIDTH I
+	public final fun captured ()Lcom/videokit/api/ThumbnailResult$Captured;
+	public final fun getBytes ()[B
+}
+
 public final class com/videokit/testkit/ExportFailureSpec {
 	public fun <init> (Lcom/videokit/api/ExportStage;Lcom/videokit/api/ErrorCode;)V
 	public final fun component1 ()Lcom/videokit/api/ExportStage;
@@ -199,6 +207,8 @@ public final class com/videokit/testkit/FakeSession : com/videokit/api/VideoKitS
 	public static final field ANIMATION_FRAME_US J
 	public static final field BUFFER_AHEAD_US J
 	public static final field BYTES_PER_PIXEL J
+	public static final field DEMO_BITRATE_BPS J
+	public static final field DEMO_FRAME_RATE F
 	public static final field MAX_RETRIES I
 	public static final field NOTICE_AUDIO_UNSUPPORTED Ljava/lang/String;
 	public static final field POSITION_TICK_US J
@@ -207,6 +217,7 @@ public final class com/videokit/testkit/FakeSession : com/videokit/api/VideoKitS
 	public fun attachSurface (Lcom/videokit/api/VideoKitSurfaceTarget;)Lcom/videokit/api/VideoKitCommandResult;
 	public fun bind (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/api/VideoKitPlaybackState;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun captureState (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun captureThumbnail (JIILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun close ()V
 	public fun detachSurface ()V
 	public fun execute (Lcom/videokit/api/VideoKitCommand;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -248,12 +259,13 @@ public final class com/videokit/testkit/FakeVideoKit$Companion {
 
 public final class com/videokit/testkit/FakeVideoKitOptions {
 	public fun <init> ()V
-	public fun <init> (Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lcom/videokit/api/ResourceBudget;Lcom/videokit/api/HostCallbackTimeouts;JILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;JZLcom/videokit/api/VideoKitApiVersion;)V
-	public synthetic fun <init> (Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lcom/videokit/api/ResourceBudget;Lcom/videokit/api/HostCallbackTimeouts;JILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;JZLcom/videokit/api/VideoKitApiVersion;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lcom/videokit/api/ResourceBudget;Lcom/videokit/api/HostCallbackTimeouts;JILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function0;JZLcom/videokit/api/VideoKitApiVersion;)V
+	public synthetic fun <init> (Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lcom/videokit/api/ResourceBudget;Lcom/videokit/api/HostCallbackTimeouts;JILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function0;JZLcom/videokit/api/VideoKitApiVersion;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lkotlinx/coroutines/CoroutineScope;
-	public final fun component10 ()J
-	public final fun component11 ()Z
-	public final fun component12 ()Lcom/videokit/api/VideoKitApiVersion;
+	public final fun component10 ()Lkotlin/jvm/functions/Function0;
+	public final fun component11 ()J
+	public final fun component12 ()Z
+	public final fun component13 ()Lcom/videokit/api/VideoKitApiVersion;
 	public final fun component2 ()Lcom/videokit/testkit/FakeClock;
 	public final fun component3 ()Lkotlin/jvm/functions/Function1;
 	public final fun component4 ()Lcom/videokit/api/ResourceBudget;
@@ -261,9 +273,9 @@ public final class com/videokit/testkit/FakeVideoKitOptions {
 	public final fun component6 ()J
 	public final fun component7 ()I
 	public final fun component8 ()Lkotlin/jvm/functions/Function1;
-	public final fun component9 ()Lkotlin/jvm/functions/Function0;
-	public final fun copy (Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lcom/videokit/api/ResourceBudget;Lcom/videokit/api/HostCallbackTimeouts;JILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;JZLcom/videokit/api/VideoKitApiVersion;)Lcom/videokit/testkit/FakeVideoKitOptions;
-	public static synthetic fun copy$default (Lcom/videokit/testkit/FakeVideoKitOptions;Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lcom/videokit/api/ResourceBudget;Lcom/videokit/api/HostCallbackTimeouts;JILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;JZLcom/videokit/api/VideoKitApiVersion;ILjava/lang/Object;)Lcom/videokit/testkit/FakeVideoKitOptions;
+	public final fun component9 ()Lkotlin/jvm/functions/Function4;
+	public final fun copy (Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lcom/videokit/api/ResourceBudget;Lcom/videokit/api/HostCallbackTimeouts;JILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function0;JZLcom/videokit/api/VideoKitApiVersion;)Lcom/videokit/testkit/FakeVideoKitOptions;
+	public static synthetic fun copy$default (Lcom/videokit/testkit/FakeVideoKitOptions;Lkotlinx/coroutines/CoroutineScope;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lcom/videokit/api/ResourceBudget;Lcom/videokit/api/HostCallbackTimeouts;JILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;Lkotlin/jvm/functions/Function0;JZLcom/videokit/api/VideoKitApiVersion;ILjava/lang/Object;)Lcom/videokit/testkit/FakeVideoKitOptions;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getApiVersion ()Lcom/videokit/api/VideoKitApiVersion;
 	public final fun getCallbackTimeouts ()Lcom/videokit/api/HostCallbackTimeouts;
@@ -275,6 +287,7 @@ public final class com/videokit/testkit/FakeVideoKitOptions {
 	public final fun getScenarioResolver ()Lkotlin/jvm/functions/Function1;
 	public final fun getScope ()Lkotlinx/coroutines/CoroutineScope;
 	public final fun getSourceTimeoutMs ()J
+	public final fun getThumbnailFactory ()Lkotlin/jvm/functions/Function4;
 	public final fun getTrackingAvailable ()Z
 	public final fun getWallClockMs ()Lkotlin/jvm/functions/Function0;
 	public fun hashCode ()I
@@ -520,7 +533,16 @@ public final class com/videokit/testkit/contract/ContractCase {
 	public final fun getDescription ()Ljava/lang/String;
 	public final fun getGroup ()Lcom/videokit/testkit/contract/ContractGroup;
 	public final fun getId ()Ljava/lang/String;
+	public final fun getRequires ()Ljava/util/Set;
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/testkit/contract/ContractFeature : java/lang/Enum {
+	public static final field EDITING Lcom/videokit/testkit/contract/ContractFeature;
+	public static final field IMAGES Lcom/videokit/testkit/contract/ContractFeature;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/testkit/contract/ContractFeature;
+	public static fun values ()[Lcom/videokit/testkit/contract/ContractFeature;
 }
 
 public final class com/videokit/testkit/contract/ContractGroup : java/lang/Enum {
@@ -573,6 +595,7 @@ public final class com/videokit/testkit/contract/FakeContractSubject : com/video
 	public fun driveToFatalError (Lcom/videokit/api/VideoKitSession;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getCallbackTimeouts ()Lcom/videokit/api/HostCallbackTimeouts;
 	public final fun getClock ()Lcom/videokit/testkit/FakeClock;
+	public fun getFeatures ()Ljava/util/Set;
 	public fun getSourceTimeoutMs ()J
 	public fun playableAnimatedImage (Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;
 	public fun playableImage (Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;
@@ -584,6 +607,7 @@ public abstract interface class com/videokit/testkit/contract/VideoKitContractSu
 	public abstract fun create (Lcom/videokit/api/VideoKitHostCallbacks;)Lcom/videokit/api/VideoKit;
 	public fun driveToFatalError (Lcom/videokit/api/VideoKitSession;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getCallbackTimeouts ()Lcom/videokit/api/HostCallbackTimeouts;
+	public fun getFeatures ()Ljava/util/Set;
 	public abstract fun getSourceTimeoutMs ()J
 	public fun playableAnimatedImage (Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;
 	public abstract fun playableImage (Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;
@@ -592,11 +616,13 @@ public abstract interface class com/videokit/testkit/contract/VideoKitContractSu
 
 public final class com/videokit/testkit/contract/VideoKitContractSubject$DefaultImpls {
 	public static fun driveToFatalError (Lcom/videokit/testkit/contract/VideoKitContractSubject;Lcom/videokit/api/VideoKitSession;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getFeatures (Lcom/videokit/testkit/contract/VideoKitContractSubject;)Ljava/util/Set;
 	public static fun playableAnimatedImage (Lcom/videokit/testkit/contract/VideoKitContractSubject;Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;
 }
 
 public final class com/videokit/testkit/contract/VideoKitContractSuite {
 	public static final field INSTANCE Lcom/videokit/testkit/contract/VideoKitContractSuite;
+	public final fun applies (Lcom/videokit/testkit/contract/ContractCase;Lcom/videokit/testkit/contract/VideoKitContractSubject;)Z
 	public final fun getCases ()Ljava/util/List;
 	public final fun run (Lcom/videokit/testkit/contract/ContractCase;Lcom/videokit/testkit/contract/VideoKitContractSubject;Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
@@ -621,5 +647,96 @@ public final class com/videokit/testkit/spec/VectorOutcome : java/lang/Enum {
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/testkit/spec/VectorOutcome;
 	public static fun values ()[Lcom/videokit/testkit/spec/VectorOutcome;
+}
+
+public final class com/videokit/testkit/spi/FakeCapabilityProbe : com/videokit/core/spi/CapabilityProbe {
+	public static final field PROBE_BYTES I
+	public fun <init> ()V
+	public fun <init> (Lcom/videokit/testkit/spi/FakeEngineOptions;)V
+	public synthetic fun <init> (Lcom/videokit/testkit/spi/FakeEngineOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun device (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun media (Lcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/testkit/spi/FakeEngineOptions {
+	public fun <init> ()V
+	public fun <init> (Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;I)V
+	public synthetic fun <init> (Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/videokit/testkit/FakeClock;
+	public final fun component2 ()Lkotlin/jvm/functions/Function1;
+	public final fun component3 ()Lkotlin/jvm/functions/Function1;
+	public final fun component4 ()I
+	public final fun copy (Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;I)Lcom/videokit/testkit/spi/FakeEngineOptions;
+	public static synthetic fun copy$default (Lcom/videokit/testkit/spi/FakeEngineOptions;Lcom/videokit/testkit/FakeClock;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;IILjava/lang/Object;)Lcom/videokit/testkit/spi/FakeEngineOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClock ()Lcom/videokit/testkit/FakeClock;
+	public final fun getScenarioResolver ()Lkotlin/jvm/functions/Function1;
+	public final fun getSuggestedHardwareVideoSessions ()I
+	public final fun getSupportsTarget ()Lkotlin/jvm/functions/Function1;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/testkit/spi/FakeEngines {
+	public static final field INSTANCE Lcom/videokit/testkit/spi/FakeEngines;
+	public final fun platform (Lkotlinx/coroutines/CoroutineDispatcher;Lcom/videokit/testkit/spi/FakeEngineOptions;)Lcom/videokit/core/spi/PlatformEngines;
+	public static synthetic fun platform$default (Lcom/videokit/testkit/spi/FakeEngines;Lkotlinx/coroutines/CoroutineDispatcher;Lcom/videokit/testkit/spi/FakeEngineOptions;ILjava/lang/Object;)Lcom/videokit/core/spi/PlatformEngines;
+}
+
+public final class com/videokit/testkit/spi/FakeFrameSource : com/videokit/core/spi/FrameSource {
+	public fun <init> ()V
+	public fun open (Lcom/videokit/api/VideoKitMediaSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/testkit/spi/FakePlaybackEngine : com/videokit/core/spi/PlaybackEngine {
+	public static final field PROBE_BYTES I
+	public fun <init> ()V
+	public fun <init> (Lcom/videokit/testkit/spi/FakeEngineOptions;)V
+	public synthetic fun <init> (Lcom/videokit/testkit/spi/FakeEngineOptions;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getOpenHandles ()I
+	public fun open (Lcom/videokit/api/VideoKitMediaSource;Lcom/videokit/core/spi/PlaybackOpenOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun supports (Lcom/videokit/api/VideoKitSurfaceTarget;)Z
+}
+
+public final class com/videokit/testkit/spi/FakePlaybackHandle : com/videokit/core/spi/PlaybackHandle {
+	public static final field BUFFER_AHEAD_US J
+	public fun attach (Lcom/videokit/api/VideoKitSurfaceTarget;)V
+	public fun close ()V
+	public fun detach ()V
+	public final fun getAudioEnabled ()Z
+	public fun getState ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun getTarget ()Lcom/videokit/api/VideoKitSurfaceTarget;
+	public final fun getVolume ()F
+	public fun pause (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun play (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun seekTo (JLcom/videokit/api/SeekMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun selectAudioTrack (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun selectSubtitleTrack (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setAudioEnabled (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setLooping (ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setSpeed (FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setVolume (FLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/videokit/testkit/spi/FakeRenderTarget : com/videokit/api/VideoKitSurfaceTarget {
+	public fun <init> ()V
+	public fun <init> (II)V
+	public synthetic fun <init> (IIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getHeight ()I
+	public fun getWidth ()I
+}
+
+public final class com/videokit/testkit/spi/FakeScheduler : com/videokit/core/spi/Scheduler {
+	public fun <init> (Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public fun getCompute ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public fun getIo ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public fun serial (Ljava/lang/String;)Lkotlinx/coroutines/CoroutineDispatcher;
+}
+
+public final class com/videokit/testkit/spi/FakeSpiClock : com/videokit/core/spi/Clock {
+	public fun <init> (Lcom/videokit/testkit/FakeClock;J)V
+	public synthetic fun <init> (Lcom/videokit/testkit/FakeClock;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun epochMs ()J
+	public fun monotonicUs ()J
 }
 

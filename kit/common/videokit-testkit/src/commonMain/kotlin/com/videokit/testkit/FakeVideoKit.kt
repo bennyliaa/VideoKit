@@ -72,6 +72,16 @@ public data class FakeVideoKitOptions(
      * Android: `AndroidTestPattern.targetFactory`.
      */
     val patternTargetFactory: (VideoKitSurfaceTarget) -> TestPatternTarget? = { null },
+    /**
+     * Thumbnail per request (04A P1): `(sessionId, atUs, maxWidth, maxHeight)`. Default: the [DemoThumbnail] JPEG;
+     * Android: the encoded test pattern (`AndroidTestPattern.install`).
+     */
+    val thumbnailFactory: (
+        String,
+        Long,
+        Int,
+        Int,
+    ) -> com.videokit.api.ThumbnailResult.Captured = { _, _, _, _ -> DemoThumbnail.captured() },
     /** Wall clock in epoch milliseconds (timestamps of snapshots and export results). */
     val wallClockMs: () -> Long = { Clock.System.now().toEpochMilliseconds() },
     /** Interval between test pattern frames (30 fps). */

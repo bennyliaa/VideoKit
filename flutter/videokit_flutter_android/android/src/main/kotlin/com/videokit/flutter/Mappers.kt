@@ -32,6 +32,7 @@ import com.videokit.api.MaskRegion
 import com.videokit.api.MaskStyle
 import com.videokit.api.MaskTrack
 import com.videokit.api.MaskType
+import com.videokit.api.MediaInfo
 import com.videokit.api.MediaKind
 import com.videokit.api.MediaOrientation
 import com.videokit.api.MediaProbeResult
@@ -54,6 +55,7 @@ import com.videokit.api.Size
 import com.videokit.api.SourceProbe
 import com.videokit.api.SuggestedAction
 import com.videokit.api.SupportLevel
+import com.videokit.api.ThumbnailResult
 import com.videokit.api.TimeRangeUs
 import com.videokit.api.Timeline
 import com.videokit.api.TrackInfo
@@ -111,6 +113,7 @@ import com.videokit.flutter.gen.ImageDetailsMsg
 import com.videokit.flutter.gen.MaskKeyframeMsg
 import com.videokit.flutter.gen.MaskRegionMsg
 import com.videokit.flutter.gen.MaskTrackMsg
+import com.videokit.flutter.gen.MediaInfoMsg
 import com.videokit.flutter.gen.MediaKindMsg
 import com.videokit.flutter.gen.MediaProbeMsg
 import com.videokit.flutter.gen.MediaSourceMsg
@@ -126,6 +129,7 @@ import com.videokit.flutter.gen.SessionPhaseMsg
 import com.videokit.flutter.gen.SessionStateMsg
 import com.videokit.flutter.gen.SourceProbeMsg
 import com.videokit.flutter.gen.StableErrorMsg
+import com.videokit.flutter.gen.ThumbnailResultMsg
 import com.videokit.flutter.gen.TimeRangeMsg
 import com.videokit.flutter.gen.TrackInfoMsg
 import com.videokit.flutter.gen.TrackingCandidateMsg
@@ -299,6 +303,7 @@ internal object Mappers {
         hiddenForLock = hiddenForLock,
         looping = looping,
         imageDetails = imageDetails?.let { ImageDetailsMsg(it.frameCount?.toLong(), it.decodedBytes, it.sampleSize?.toLong()) },
+        mediaInfo = mediaInfo?.toMsg(),
     )
 
     fun SessionStateMsg.toState(): VideoKitSessionState = VideoKitSessionState(
@@ -328,7 +333,48 @@ internal object Mappers {
         hiddenForLock = hiddenForLock,
         looping = looping,
         imageDetails = imageDetails?.let { ImageDetails(it.frameCount?.toInt(), it.decodedBytes, it.sampleSize?.toInt()) },
+        mediaInfo = mediaInfo?.toInfo(),
     )
+
+    fun MediaInfo.toMsg(): MediaInfoMsg = MediaInfoMsg(
+        container = container,
+        videoCodec = videoCodec,
+        audioCodec = audioCodec,
+        width = width?.toLong(),
+        height = height?.toLong(),
+        frameRate = frameRate?.toDouble(),
+        bitrateBps = bitrateBps,
+        rotationDeg = rotationDeg?.toLong(),
+        durationUs = durationUs,
+        fileSizeBytes = fileSizeBytes,
+    )
+
+    fun MediaInfoMsg.toInfo(): MediaInfo = MediaInfo(
+        container = container,
+        videoCodec = videoCodec,
+        audioCodec = audioCodec,
+        width = width?.toInt(),
+        height = height?.toInt(),
+        frameRate = frameRate?.toFloat(),
+        bitrateBps = bitrateBps,
+        rotationDeg = rotationDeg?.toInt(),
+        durationUs = durationUs,
+        fileSizeBytes = fileSizeBytes,
+    )
+
+    fun ThumbnailResult.toMsg(): ThumbnailResultMsg = when (this) {
+        is ThumbnailResult.Captured -> ThumbnailResultMsg(bytes, width.toLong(), height.toLong(), mimeType)
+        is ThumbnailResult.Failed -> ThumbnailResultMsg(error = error.toMsg())
+    }
+
+    fun ThumbnailResultMsg.toResult(): ThumbnailResult {
+        val data = bytes
+        return if (data != null && width != null && height != null) {
+            ThumbnailResult.Captured(data, width.toInt(), height.toInt(), mimeType ?: "image/jpeg")
+        } else {
+            ThumbnailResult.Failed(error?.toError() ?: redacted(IllegalStateException("THUMBNAIL_WITHOUT_DATA")))
+        }
+    }
 
     fun VideoKitPlaybackState.toMsg(): PlaybackStateMsg = PlaybackStateMsg(
         schemaVersion = schemaVersion.toLong(),
@@ -349,6 +395,7 @@ internal object Mappers {
         subtitlesEnabled = subtitlesEnabled,
         audioTrackId = audioTrackId,
         lastViewedAtEpochMs = lastViewedAtEpochMs,
+        looping = looping,
     )
 
     fun PlaybackStateMsg.toPlaybackState(): VideoKitPlaybackState = VideoKitPlaybackState(
@@ -370,6 +417,7 @@ internal object Mappers {
         subtitlesEnabled = subtitlesEnabled,
         audioTrackId = audioTrackId,
         lastViewedAtEpochMs = lastViewedAtEpochMs,
+        looping = looping,
     )
 
     fun VideoKitEvent.toMsg(): EventMsg = when (this) {

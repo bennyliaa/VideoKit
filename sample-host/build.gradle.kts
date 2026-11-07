@@ -47,6 +47,8 @@ android {
 
 dependencies {
     implementation(project(":videokit-api-android"))
+    // The real VideoKit behind VideoKitFactory (release builds; debug builds use the Kotlin Fake, 14 §11.4).
+    implementation(project(":videokit-platform-android"))
     implementation(libs.kotlinx.coroutines.android)
     debugImplementation(project(":videokit-testkit-android"))
 

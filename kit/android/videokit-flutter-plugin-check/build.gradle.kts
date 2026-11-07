@@ -35,12 +35,12 @@ extensions.configure<ApiValidationExtension> {
     validationDisabled = true
 }
 
-// A Flutter plugin legitimately depends on the Flutter embedding and its AndroidX UI dependencies;
-// Media3 and AI runtimes remain forbidden here (02 §4.0.1).
+// A Flutter plugin legitimately depends on the Flutter embedding and its AndroidX UI dependencies. Media3 reaches
+// the plugin only transitively with the real engine (videokit-platform-android → videokit-media3, VK-M1); the plugin
+// code itself never uses it. AI runtimes remain forbidden (02 §4.0.1).
 videokitDependencyRules {
     forbiddenModules.set(
         mapOf(
-            "androidx\\.media3:.*" to "Media3 is not allowed in the plugin (the Kit owns playback)",
             "org\\.tensorflow:.*" to "AI runtime (TensorFlow) is not allowed",
             "com\\.google\\.mlkit:.*" to "AI runtime (ML Kit) is not allowed",
             "com\\.microsoft\\.onnxruntime:.*" to "AI runtime (ONNX Runtime) is not allowed",
@@ -51,6 +51,7 @@ videokitDependencyRules {
 
 dependencies {
     implementation(project(":videokit-api-android"))
+    implementation(project(":videokit-platform-android"))
     implementation(libs.kotlinx.coroutines.core)
     // Pigeon generated setUp() runs @async methods on Dispatchers.Main (Android main dispatcher).
     implementation(libs.kotlinx.coroutines.android)

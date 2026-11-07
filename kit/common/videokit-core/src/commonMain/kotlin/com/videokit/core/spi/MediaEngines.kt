@@ -50,6 +50,12 @@ public interface FrameSource {
 public interface FrameReader : AutoCloseable {
     /** The frame nearest to [timeUs], scaled to fit [maxSize]. */
     public suspend fun frameAt(timeUs: Long, maxSize: Size, format: PixelFormat): FrameData
+
+    /**
+     * A JPEG thumbnail of the frame nearest to [timeUs], fitting [maxSize] (04A P1); the platform encodes it.
+     * Throws [SpiException] with a stable error when the frame cannot be extracted.
+     */
+    public suspend fun thumbnailAt(timeUs: Long, maxSize: Size): com.videokit.api.ThumbnailResult.Captured
 }
 
 /** One input of an export plan. */

@@ -216,6 +216,20 @@ final class ChannelSession implements VideoKitSession {
     unawaited(_api.setControlsVisible(sessionId, visible).catchError((Object _) {}));
   }
 
+  /// 04A P1: JPEG of the frame nearest to [atUs] fitting [maxWidth] x [maxHeight], from the native session.
+  /// Channel failures are returned as [ThumbnailFailed], never thrown.
+  @override
+  Future<ThumbnailResult> captureThumbnail(int atUs, int maxWidth, int maxHeight) async {
+    if (_closed || _finalSnapshot != null) {
+      return const ThumbnailFailed(VideoKitStableError(code: ErrorCode.sessionReleased, stage: ErrorStage.playback));
+    }
+    try {
+      return thumbnailFromMsg(await _api.captureThumbnail(sessionId, atUs, maxWidth, maxHeight));
+    } on Object catch (failure) {
+      return ThumbnailFailed(channelError(failure));
+    }
+  }
+
   @override
   Future<VideoKitPlaybackState> captureState() async {
     final finalSnapshot = _finalSnapshot;

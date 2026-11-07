@@ -6,6 +6,7 @@ import com.videokit.api.HostActionRequest
 import com.videokit.api.HostActionState
 import com.videokit.api.HostActionStatus
 import com.videokit.api.ImageDetails
+import com.videokit.api.MediaInfo
 import com.videokit.api.MediaKind
 import com.videokit.api.MediaOrientation
 import com.videokit.api.MediaTransform
@@ -24,6 +25,7 @@ import com.videokit.api.Seekability
 import com.videokit.api.SessionPhase
 import com.videokit.api.SessionVisibility
 import com.videokit.api.Size
+import com.videokit.api.ThumbnailResult
 import com.videokit.api.UnsupportedReason
 import com.videokit.api.VideoKitCommand
 import com.videokit.api.VideoKitCommandResult
@@ -284,6 +286,7 @@ public class FakeSession internal constructor(
                 videoSize = scenario.videoSize,
                 orientation = current.orientation.copy(contentOrientation = orientationOf(scenario.videoSize)),
                 looping = src.mediaKind == MediaKind.IMAGE_ANIMATED,
+                mediaInfo = mediaInfoFor(src, scenario),
                 imageDetails = imageDetailsFor(src.mediaKind, scenario),
                 resourcesHeld = true,
                 error = null,
@@ -301,6 +304,10 @@ public class FakeSession internal constructor(
             transform = if (isValidTransform(transform)) transform else state.transform,
             orientation = state.orientation.copy(request = initial.preferredOrientation, fullscreen = initial.fullscreen),
         )
+        // 04A L3: a saved looping preference overrides the default (static images never loop).
+        initial.looping?.let { looping ->
+            if (state.mediaKind == MediaKind.VIDEO || state.mediaKind == MediaKind.IMAGE_ANIMATED) result = result.copy(looping = looping)
+        }
         if (!isVideo) return result
         val duration = state.durationUs ?: 0L
         initial.positionUs?.let { result = result.copy(positionUs = it.coerceIn(0L, duration)) }
@@ -819,6 +826,42 @@ public class FakeSession internal constructor(
         if (changed) kit.callbacks.notify("onControlsVisibilityChanged") { onControlsVisibilityChanged(sessionId, visible) }
     }
 
+    // ---------------------------------------------------------------- media info & thumbnails
+
+    /** Demo media parameters of [src] (04A P2): what a real engine reads from the container and the tracks. */
+    private fun mediaInfoFor(src: VideoKitMediaSource, scenario: FakeScenario): MediaInfo {
+        val size = scenario.videoSize
+        return if (src.mediaKind == MediaKind.VIDEO) {
+            MediaInfo(
+                container = src.extension ?: "mp4",
+                videoCodec = "video/avc",
+                audioCodec = scenario.audioTracks.firstOrNull()?.codec,
+                width = size.width,
+                height = size.height,
+                frameRate = DEMO_FRAME_RATE,
+                bitrateBps = DEMO_BITRATE_BPS,
+                rotationDeg = 0,
+                durationUs = scenario.durationUs,
+                fileSizeBytes = src.knownLength,
+            )
+        } else {
+            MediaInfo(container = src.extension, width = size.width, height = size.height, fileSizeBytes = src.knownLength)
+        }
+    }
+
+    /** 04A P1: the [FakeVideoKitOptions.thumbnailFactory] picture (the demo JPEG unless the platform installs one). */
+    override suspend fun captureThumbnail(atUs: Long, maxWidth: Int, maxHeight: Int): ThumbnailResult {
+        if (released) return ThumbnailResult.Failed(Errors.of(ErrorCode.SESSION_RELEASED, ErrorStage.PLAYBACK, "THUMBNAIL_RELEASED"))
+        if (atUs < 0 || maxWidth <= 0 ||
+            maxHeight <= 0
+        ) {
+            return ThumbnailResult.Failed(Errors.invalidArgument(ErrorStage.PLAYBACK, "THUMBNAIL"))
+        }
+        val bound = mutex.withLock { source != null }
+        if (!bound) return ThumbnailResult.Failed(Errors.illegalState(ErrorStage.PLAYBACK, "THUMBNAIL_WITHOUT_MEDIA"))
+        return options.thumbnailFactory(sessionId, atUs, maxWidth, maxHeight)
+    }
+
     // ---------------------------------------------------------------- snapshot & release
 
     override suspend fun captureState(): VideoKitPlaybackState {
@@ -846,6 +889,7 @@ public class FakeSession internal constructor(
             subtitlesEnabled = if (isVideo) current.selectedSubtitleTrackId != null else null,
             audioTrackId = if (isVideo) current.selectedAudioTrackId else null,
             lastViewedAtEpochMs = boundAtEpochMs,
+            looping = if (current.mediaKind == MediaKind.VIDEO || current.mediaKind == MediaKind.IMAGE_ANIMATED) current.looping else null,
         )
     }
 
@@ -957,6 +1001,8 @@ public class FakeSession internal constructor(
         const val MAX_RETRIES = 1
         const val BUFFER_AHEAD_US = 10_000_000L
         const val ANIMATION_FRAME_US = 100_000L
+        const val DEMO_FRAME_RATE = 30f
+        const val DEMO_BITRATE_BPS = 8_000_000L
         const val BYTES_PER_PIXEL = 4L
         const val POSITION_TICK_US = 250_000L
         const val WATCH_TIME_REPORT_US = 1_000_000L

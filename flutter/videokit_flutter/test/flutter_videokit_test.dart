@@ -225,6 +225,39 @@ void main() {
     });
   });
 
+  group('thumbnails and media info (04A P1, P2)', () {
+    test('captureThumbnail returns the native JPEG or the stable error', () async {
+      final kit = await connect();
+      final session = await kit.createSession(const VideoKitSessionConfig()) as ChannelSession;
+      final captured = await session.captureThumbnail(1500000, 320, 180) as ThumbnailCaptured;
+      expect(captured.width, 160);
+      expect(captured.bytes.first, 0xFF);
+      expect(api.calls.last, 'captureThumbnail:1500000:320 x 180');
+      final failed = await session.captureThumbnail(-1, 320, 180) as ThumbnailFailed;
+      expect(failed.error.code, ErrorCode.invalidArgument);
+      await session.release();
+      expect((await session.captureThumbnail(0, 1, 1) as ThumbnailFailed).error.code, ErrorCode.sessionReleased);
+    });
+
+    test('media info is mapped from the session state', () async {
+      final kit = await connect();
+      final session = await kit.createSession(const VideoKitSessionConfig()) as ChannelSession;
+      platform.sessions.add(
+        SessionUpdateMessage(
+          sessionId: session.sessionId,
+          seq: 1,
+          state: stateMsg(mediaInfo: MediaInfoMsg(container: 'mkv', videoCodec: 'video/hevc', width: 3840, frameRate: 23.976)),
+        ),
+      );
+      await Future<void>.delayed(Duration.zero);
+      final info = session.state.value.mediaInfo!;
+      expect(info.container, 'mkv');
+      expect(info.width, 3840);
+      expect(info.frameRate, closeTo(23.976, 1e-6));
+      expect(info.audioCodec, isNull);
+    });
+  });
+
   group('add-to-app (14 §9.1)', () {
     test('adopts a host-shared session; unknown ids fail with SESSION_RELEASED', () async {
       final kit = await connect();
