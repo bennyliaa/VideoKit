@@ -420,7 +420,7 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 | `color.status.error` / `.content` / `.container` | `#F87171` / `#2E0A0A` / `#3D1818` | `#C53030` / `#FFFFFF` / `#FBE3E3` | 同上 |
 | `color.status.info` / `.content` / `.container` | `#4CC9F0` / `#05222C` / `#123340` | `#0E7FA8` / `#FFFFFF` / `#DDF1F8` | 派生（沿用 selection 色相） |
 | `apps.videokit.color.selection` | `#4CC9F0` | `#4CC9F0` | 设计稿（选区、跟踪目标） |
-| `apps.videokit.color.track.tracked` | `#34D399` | `#0F9F6E` | 深色设计稿；浅色派生 |
+| `apps.videokit.color.track.tracked` | `#34D399` | `#047857` | 深色设计稿；浅色派生，2026-11-07 改为与浅色 status.success 一致（原 `#0F9F6E` 对 surfacevariant 仅 2.996:1） |
 | `apps.videokit.color.track.lowconfidence` | `#FBBF24` | `#B7791F` | 同上 |
 | `apps.videokit.color.track.ambiguous` | `#A78BFA` | `#7C5CD6` | 同上 |
 | `apps.videokit.color.track.lost` | `#F87171` | `#D64545` | 同上 |
