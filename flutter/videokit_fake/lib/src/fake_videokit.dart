@@ -23,6 +23,7 @@ class FakeVideoKit implements VideoKit {
     Map<String, Scenario> scenarioOverrides = const {},
     this.maxSessions = 12,
     this.videoDecoderBudget,
+    this.editingAvailable = true,
   }) : clock = clock ?? FakeClock(),
        _overrides = Map.of(scenarioOverrides) {
     _host = FakeHostBridge(
@@ -34,6 +35,25 @@ class FakeVideoKit implements VideoKit {
 
   /// Clock driving all Fakes of this instance.
   final FakeClock clock;
+
+  /// TEST-R3 R3-02: false behaves like a native Kit without the edit
+  /// engine (before S3): `createEditProject` / `restoreEditProject` throw
+  /// `INVALID_STATE` with diagnostic `EDITING_NOT_AVAILABLE` and the
+  /// capability report lists no edit features.
+  final bool editingAvailable;
+
+  /// Diagnostic of the error thrown when editing is not available.
+  static const String editingNotAvailable = 'EDITING_NOT_AVAILABLE';
+
+  void _checkEditing() {
+    if (editingAvailable) return;
+    throw const VideoKitException(
+      VideoKitStableError.invalidState(
+        stage: ErrorStage.edit,
+        diagnostic: editingNotAvailable,
+      ),
+    );
+  }
 
   /// Config.
   final VideoKitConfig config;
@@ -125,12 +145,13 @@ class FakeVideoKit implements VideoKit {
         reason: err == null ? null : UnsupportedReason.deviceCapability,
       );
     }
-    return demoCapabilities(mediaProbe: probe);
+    return demoCapabilities(mediaProbe: probe, editing: editingAvailable);
   }
 
   /// Synthetic capability report (values are not measured; isDemo = true).
   static VideoKitCapabilities demoCapabilities({
     MediaProbeResult? mediaProbe,
+    bool editing = true,
   }) => VideoKitCapabilities(
     decoders: DecoderSummary(
       video: const [
@@ -176,11 +197,11 @@ class FakeVideoKit implements VideoKit {
       largeImageTiling: true,
       formats: const ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
     ),
-    editFeatures: const EditFeatures(
-      singleVideoClips: true,
-      multiInputConcat: true,
-      fastConcat: true,
-      masks: true,
+    editFeatures: EditFeatures(
+      singleVideoClips: editing,
+      multiInputConcat: editing,
+      fastConcat: editing,
+      masks: editing,
     ),
     encoders: const [
       CodecInfo(mimeType: 'video/avc', hardwareAccelerated: true),
@@ -276,7 +297,10 @@ class FakeVideoKit implements VideoKit {
   @override
   Future<VideoKitEditProject> createEditProject(
     EditProjectConfig config,
-  ) async => _newProject(config);
+  ) async {
+    _checkEditing();
+    return _newProject(config);
+  }
 
   @override
   Future<VideoKitEditProject> restoreEditProject(
@@ -284,6 +308,7 @@ class FakeVideoKit implements VideoKit {
     EditProjectConfig config,
   ) async {
     _checkOpen();
+    _checkEditing();
     final (projectId, state, maxId) = FakeEditProjectCodec.decode(serialized);
     final project = _newProject(
       config,

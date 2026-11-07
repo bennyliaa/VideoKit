@@ -314,6 +314,35 @@ class FakeSession implements VideoKitSession {
       next = next.copyWith(phase: SessionPhase.playing);
     }
     _videoSize.value = profile.size;
+    // 04A B1: opening succeeds once the tracks are known; the first frame
+    // may still be buffering.
+    final openBuffering = isVideo ? _scenario.openBuffering : null;
+    if (openBuffering != null) {
+      final target = next.phase;
+      _set(next.copyWith(phase: SessionPhase.buffering, bufferedUs: 0));
+      _host.notify(
+        (c) => c.onPlaybackEvent(BufferingStarted(sessionId, next.positionUs)),
+      );
+      _bufferingTask?.cancel();
+      _bufferingTask = clock.schedule(openBuffering, () {
+        if (_released || generation != _bindGeneration) return;
+        if (_s.phase != SessionPhase.buffering) return;
+        _host.notify(
+          (c) => c.onPlaybackEvent(
+            BufferingEnded(sessionId, openBuffering.inMicroseconds),
+          ),
+        );
+        _set(
+          _s.copyWith(
+            phase: _s.playWhenReady ? SessionPhase.playing : target,
+            bufferedUs: duration == null
+                ? null
+                : math.min(duration, _s.positionUs + 10000000),
+          ),
+        );
+      });
+      return const Executed();
+    }
     _set(next);
     return const Executed();
   }

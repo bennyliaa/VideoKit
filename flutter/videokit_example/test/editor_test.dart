@@ -57,7 +57,7 @@ void main() {
       final c = e.controller;
       expect(c.state.timeline.clips, hasLength(3));
       expect(find.textContaining('预计 01:00'), findsOneWidget);
-      expect(find.text('快速拼接可用'), findsWidgets);
+      expect(find.textContaining('快速拼接可用'), findsWidgets);
       await tester.tapAt(clipCenter(tester, c, 1));
       await settle(tester);
       expect(c.selectedClipId, c.state.timeline.clips[1].clipId);
@@ -259,7 +259,7 @@ void main() {
       final run = c.state.tracking.values.single;
       expect(run.status, TrackingRunStatus.completed);
       expect(run.coverage.blockingSegments, isNotEmpty);
-      expect(find.text('丢失，00:04 – 00:06'), findsOneWidget);
+      expect(find.text('丢失，00:04.0 – 00:06.0'), findsOneWidget);
       await tester.tap(find.text('纠正').first);
       await settle(tester, 2);
       expect(e.maskEditor!.correcting, isNotNull);
@@ -357,6 +357,8 @@ void main() {
       expect(find.text('原视频未受影响'), findsOneWidget);
       expect(find.text('未完成的输出已丢弃'), findsOneWidget);
       expect(find.text('错误代码 OUTPUT_SPACE_INSUFFICIENT'), findsOneWidget);
+      // J8: the Fake reports no byte count, so the hint has no number.
+      expect(find.text('建议：释放存储空间'), findsOneWidget);
       await tapText(tester, '改用 1080p 重新导出');
       await settle(tester);
       expect(e.exportPanel!.presetId, ExportPresets.p1080);
@@ -412,7 +414,7 @@ void main() {
       await tapText(tester, '查看未覆盖区间');
       await settle(tester, 2);
       expect(find.text('发现 1 个未覆盖区间'), findsOneWidget);
-      expect(find.text('目标 A · 00:04 – 00:06'), findsOneWidget);
+      expect(find.text('目标 A · 00:04.0 – 00:06.0'), findsOneWidget);
       await tapText(tester, '仍要导出（结果将标记为“打码不完整”）');
       await waitPhase(tester, c, (p) => p == EditPhase.completed);
       await settle(tester, 2);

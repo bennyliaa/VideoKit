@@ -102,6 +102,13 @@ void main() {
           4.5,
         ),
         ('slider track on surface', k.sliderSurface.track, c.surface, 3),
+        // J1: outline and danger buttons on page and panel surfaces.
+        for (final bg in [c.background, c.surface]) ...[
+          ('outline text', k.buttonOutline.normal.content, bg, 4.5),
+          ('outline edge', k.buttonOutline.normal.border, bg, 3),
+          ('danger text', k.buttonDanger.normal.content, bg, 4.5),
+          ('danger edge', k.buttonDanger.normal.border, bg, 3),
+        ],
       ];
       final failures = [
         for (final (name, fg, bg, min) in pairs)

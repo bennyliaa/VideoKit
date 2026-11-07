@@ -12,6 +12,8 @@ import '../common/vk_buttons.dart';
 import '../common/vk_pressable.dart';
 import '../common/vk_sheet_host.dart';
 import '../common/vk_slider.dart';
+import '../export/export_panel.dart' show vkCodecName;
+import '../foundation/audio_grant.dart';
 import '../foundation/auto_hide.dart';
 import '../foundation/controls_policy.dart';
 import '../foundation/format.dart';
@@ -47,7 +49,13 @@ final class VideoKitPlayerOptions {
     this.zoomGesture = true,
     this.speeds = vkDefaultSpeeds,
     this.maxZoom = 8,
+    this.grantAudio = true,
   });
+
+  /// TEST-R3 R3-01 (04A A1): after a successful bind the player grants
+  /// itself the audio (`SetActiveAudio(true, epoch)`). Hosts that coordinate
+  /// audio across several sessions turn this off.
+  final bool grantAudio;
 
   /// Controls auto-hide delay (3 s).
   final Duration autoHideDelay;
@@ -156,6 +164,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
   bool get hasOpenPanel => _c.sheets.hasPanel;
 
   late PlayerController _c;
+  VkSingleAudioGrant? _audio;
   final FocusNode _focus = FocusNode(debugLabel: 'VideoKitPlayer');
   MediaTransform? _gestureStart;
   Offset? _gestureFocal;
@@ -190,6 +199,9 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
   void initState() {
     super.initState();
     _c = _create();
+    _audio = widget.options.grantAudio
+        ? VkSingleAudioGrant(widget.session)
+        : null;
     final actions = widget.hostActions;
     if (actions != null) unawaited(widget.session.updateHostActions(actions));
   }
@@ -200,6 +212,10 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     if (!identical(oldWidget.session, widget.session)) {
       _c.dispose();
       _c = _create();
+      _audio?.dispose();
+      _audio = widget.options.grantAudio
+          ? VkSingleAudioGrant(widget.session)
+          : null;
     } else {
       _c
         ..hostLabel = _host
@@ -222,6 +238,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
 
   @override
   void dispose() {
+    _audio?.dispose();
     _c.dispose();
     _focus.dispose();
     super.dispose();
@@ -544,6 +561,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
           error: st.error,
           mediaKind: st.mediaKind,
           hiddenForLock: st.hiddenForLock,
+          capabilityHelp: widget.onStateAction != null,
         );
         return Stack(
           children: [
@@ -811,6 +829,19 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
   VkStateStyleBox _onPictureStyle(BuildContext context) =>
       vkOnPictureIconStyle(context);
 
+  /// "1920 × 1080 · H.264" from the media info (design page 10), or null.
+  static String? _mediaSummary(VkStrings s, VideoKitSessionState st) {
+    final info = st.mediaInfo;
+    final w = info?.width;
+    final h = info?.height;
+    final codec = info?.videoCodec;
+    if (w == null || h == null || w <= 0 || codec == null) return null;
+    return s.playerMediaSummary(
+      s.infoDimensionsValue(w, h),
+      vkCodecName(codec),
+    );
+  }
+
   Widget _controls(
     BuildContext context,
     Size size,
@@ -834,11 +865,38 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     final isVideo = st.mediaKind == MediaKind.video;
     final duration = st.durationUs ?? 0;
     final position = _c.dragUs ?? st.seekingToUs ?? st.positionUs;
-    final white = t.typography.timecode.copyWith(
+    // Design page 9: the position is bold white, the duration regular and
+    // dimmed.
+    final positionStyle = t.typography.timecode.copyWith(
+      fontWeight: FontWeight.w700,
       color: t.colors.playerControlsContent,
     );
-    final secondary = _secondary(context, st);
+    final durationStyle = t.typography.timecode.copyWith(
+      fontWeight: FontWeight.w400,
+      color: t.colors.playerControlsContent.withValues(alpha: 0.72),
+    );
+    final all = _secondary(context, st);
     final pictureStyle = _onPictureStyle(context);
+    final volumeSlider =
+        isVideo && layout != VkLayoutClass.compact && landscape;
+    // Design page 10: in landscape the orientation lock floats at the start
+    // edge and mute sits next to the volume slider.
+    final lockItem = landscape
+        ? all.where((i) => i.id == 'lock').firstOrNull
+        : null;
+    final muteItem = volumeSlider
+        ? all.where((i) => i.id == 'volume').firstOrNull
+        : null;
+    // J9 (design page 23): at large text the portrait row becomes two list
+    // rows, "字幕：…" and "更多控制"; everything else is in "more".
+    final listRows = collapse && !landscape && isVideo;
+    final secondary = [
+      for (final i in all)
+        if (i != lockItem &&
+            i != muteItem &&
+            !(listRows && i.id == 'subtitles'))
+          i,
+    ];
 
     // Fit secondary controls into the row (fullscreen always stays; "more"
     // lives in the top bar, so it takes no slot); the rest goes to "more".
@@ -846,11 +904,12 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     var slots = (rowWidth / (d.targetMin + d.spacing4)).floor();
     if (landscape) slots = (slots / 2).floor();
     if (collapse) slots = math.min(slots, 3);
+    if (listRows) slots = 0;
     final fits = secondary.length <= slots;
     final shown = fits
         ? secondary
         : [
-            ...secondary.where((i) => i.id == 'fullscreen'),
+            if (!listRows) ...secondary.where((i) => i.id == 'fullscreen'),
             ...secondary
                 .where((i) => i.id != 'fullscreen')
                 .take(math.max(0, slots - 1)),
@@ -900,26 +959,39 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (widget.title != null)
-                      Text(
-                        widget.title!,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: t.typography.title.copyWith(
-                          color: t.colors.playerControlsContent,
-                        ),
-                      ),
-                    if (widget.subtitle != null && landscape)
-                      Text(
-                        widget.subtitle!,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: t.typography.caption.copyWith(
-                          color: t.colors.playerControlsContent.withValues(
-                            alpha: 0.72,
+                    // Design page 10: in landscape the media summary follows
+                    // the title on the same line.
+                    Row(
+                      children: [
+                        if (widget.title != null)
+                          Flexible(
+                            child: Text(
+                              widget.title!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: t.typography.title.copyWith(
+                                color: t.colors.playerControlsContent,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        if (landscape)
+                          if (widget.subtitle ?? _mediaSummary(s, st)
+                              case final summary?) ...[
+                            SizedBox(width: d.spacing12),
+                            Flexible(
+                              child: Text(
+                                summary,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: t.typography.caption.copyWith(
+                                  color: t.colors.playerControlsContent
+                                      .withValues(alpha: 0.72),
+                                ),
+                              ),
+                            ),
+                          ],
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -990,18 +1062,56 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             previewFrame: VkSeekPreviewFrame(frames: _c.seekPreview),
           )
         : const SizedBox.shrink();
-    final volume = isVideo && layout != VkLayoutClass.compact && landscape
-        ? SizedBox(
-            width: d.targetMin * 2.5,
-            child: VkSlider(
-              onPicture: true,
-              value: st.muted ? 0 : st.volume,
-              semanticLabel: s.text('playerVolume'),
-              semanticValue: (v) => VkFormat.percent(s, v),
-              onChangeEnd: !blocked && st.phase.isBound
-                  ? (v) => unawaited(_c.send(SetVolume(v)))
-                  : null,
-            ),
+    final volume = volumeSlider
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (muteItem != null)
+                _controlButton(context, muteItem, enabled: !blocked),
+              SizedBox(
+                width: d.targetMin * 2.5,
+                child: VkSlider(
+                  onPicture: true,
+                  value: st.muted ? 0 : st.volume,
+                  semanticLabel: s.text('playerVolume'),
+                  semanticValue: (v) => VkFormat.percent(s, v),
+                  onChangeEnd: !blocked && st.phase.isBound
+                      ? (v) => unawaited(_c.send(SetVolume(v)))
+                      : null,
+                ),
+              ),
+            ],
+          )
+        : null;
+    // J9 list rows (portrait, large text).
+    final subtitleIndex = st.subtitleTracks.indexWhere(
+      (x) => x.id == st.selectedSubtitleTrackId,
+    );
+    final subtitleName = subtitleIndex < 0
+        ? s.text('tracksSubtitlesOff')
+        : TrackSettingsSheet.trackName(
+            s,
+            st.subtitleTracks[subtitleIndex],
+            subtitleIndex,
+          );
+    final listRowsWidget = listRows
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _ListRow(
+                icon: t.icons.resolve('subtitles'),
+                label: s.playerSubtitlesRow(subtitleName),
+                onPressed: !blocked && st.phase.isBound
+                    ? () => _openTracks(TrackSettingsTab.subtitles)
+                    : null,
+              ),
+              SizedBox(height: d.spacing8),
+              _ListRow(
+                icon: t.icons.resolve('more'),
+                label: s.text('playerMoreControls'),
+                onPressed: blocked ? null : _openMore,
+              ),
+            ],
           )
         : null;
     final bottom = vkGlassBehind(
@@ -1022,20 +1132,24 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                 hid(
                   Row(
                     children: [
-                      Text(VkFormat.timecode(position), style: white),
+                      Text(VkFormat.timecode(position), style: positionStyle),
                       const Spacer(),
-                      Text(VkFormat.timecode(duration), style: white),
+                      Text(VkFormat.timecode(duration), style: durationStyle),
                     ],
                   ),
                 ),
               if (landscape && isVideo)
                 Row(
                   children: [
-                    hid(Text(VkFormat.timecode(position), style: white)),
+                    hid(
+                      Text(VkFormat.timecode(position), style: positionStyle),
+                    ),
                     SizedBox(width: d.spacing12),
                     Expanded(child: seekBar),
                     SizedBox(width: d.spacing12),
-                    hid(Text(VkFormat.timecode(duration), style: white)),
+                    hid(
+                      Text(VkFormat.timecode(duration), style: durationStyle),
+                    ),
                   ],
                 )
               else
@@ -1053,6 +1167,10 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                     ],
                   ),
                 ),
+              if (listRowsWidget != null) ...[
+                SizedBox(height: d.spacing12),
+                hid(listRowsWidget),
+              ],
               hid(
                 Row(
                   children: [
@@ -1097,6 +1215,27 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         children: [
           PositionedDirectional(top: 0, start: 0, end: 0, child: hid(topBar)),
           PositionedDirectional(start: 0, end: 0, bottom: 0, child: bottomBar),
+          // Design page 10: floating orientation lock at the start edge.
+          if (lockItem != null)
+            PositionedDirectional(
+              start: d.spacing16,
+              top: 0,
+              bottom: 0,
+              child: Center(
+                child: hid(
+                  IgnorePointer(
+                    ignoring: blocked,
+                    child: VkIconButton(
+                      icon: lockItem.icon,
+                      semanticLabel: lockItem.label,
+                      selected: lockItem.selected,
+                      onPressed: lockItem.onPressed,
+                      style: t.components.hostActionBar.item,
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       );
     }
@@ -1217,6 +1356,54 @@ class _MenuGroupHeader extends StatelessWidget {
           text,
           style: t.typography.label.copyWith(color: t.colors.textSecondary),
         ),
+      ),
+    );
+  }
+}
+
+/// Full-width control row used at large text (J9, design page 23): icon and
+/// label on a raised surface, one touch target high at least.
+class _ListRow extends StatelessWidget {
+  const _ListRow({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = VkTheme.of(context);
+    final d = t.dimensions;
+    final style = t.components.menu.copyWithAll(
+      (b) => b.copyWith(
+        background: t.colors.surface,
+        content: t.colors.textPrimary,
+        radius: d.cornerLarge,
+      ),
+    );
+    return VkPressable(
+      style: style,
+      semanticLabel: label,
+      onPressed: onPressed,
+      builder: (context, box) => Row(
+        children: [
+          Icon(
+            icon,
+            size: d.icon24 * VkLayoutClass.iconScale(context),
+            color: box.content,
+          ),
+          SizedBox(width: d.spacing16),
+          Expanded(
+            child: Text(
+              label,
+              style: t.typography.body.copyWith(color: box.content),
+            ),
+          ),
+        ],
       ),
     );
   }

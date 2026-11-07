@@ -189,7 +189,24 @@ class ImageDemoPageState extends State<ImageDemoPage>
                   DemoSessionPicture(session: session),
               resolveHostString: (k) => DemoHostActions.resolve(context, k),
               onBack: () => Navigator.of(context).maybePop(),
-              onStateAction: (_) => unawaited(_bindPage(_host.index)),
+              onStateAction: (a) {
+                if (a == StateAction.showCapabilities) {
+                  // J4: read-only capability page.
+                  unawaited(
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => VideoKitCapabilitiesPage(
+                          capabilities: kit.capabilities(
+                            const CapabilityRequest(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  unawaited(_bindPage(_host.index));
+                }
+              },
             ),
     );
   }

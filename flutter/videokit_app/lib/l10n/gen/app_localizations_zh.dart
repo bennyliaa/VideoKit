@@ -442,4 +442,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get openFailedDetail => '等待时间过长，或播放组件已中断。请重试；如果仍然失败，请返回后重新打开。';
+
+  @override
+  String get editingUnavailableTitle => '暂不支持';
+
+  @override
+  String get editingUnavailableDetail => '剪辑与拼接功能即将提供';
+
+  @override
+  String get featureComingSoon => '功能即将提供';
 }

@@ -99,6 +99,16 @@ void main() {
             if (page == 'settings') {
               await tester.tap(find.bySemanticsLabel('设置'));
               await settle(tester, 6);
+            } else if (page != 'empty') {
+              // The contrast guideline samples pixels in each text's rect,
+              // clipped or not: a line half under the list's edge would be
+              // measured against the demo badge below. Check the list end,
+              // where the footer is fully visible (R2-07).
+              await tester.drag(
+                find.byType(Scrollable).first,
+                const Offset(0, -20000),
+              );
+              await settle(tester, 4);
             }
             await expectLater(
               tester,

@@ -164,6 +164,11 @@ public object StateMachineVectors {
             val actual = session.state.value.looping
             if (actual != looping) throw ContractViolation("$where: looping expected $looping but was $actual")
         }
+        // 04A A1: sessions are silent until the host grants audio.
+        (expect["activeAudio"] as? Boolean)?.let { active ->
+            val actual = session.state.value.activeAudio
+            if (actual != active) throw ContractViolation("$where: activeAudio expected $active but was $actual")
+        }
         (expect["atEnd"] as? Boolean)?.let { atEnd ->
             val state = session.state.value
             val actual = state.durationUs != null && state.positionUs == state.durationUs

@@ -129,7 +129,9 @@ void main() {
       find.byType(VideoKitEditor),
     );
     expect(editor.controller.state.timeline.clips, hasLength(2));
-    expect(find.text('拼接 2 个视频'), findsOneWidget);
+    // Design page 16: phones title the editor "剪辑" (the project name is
+    // on tablets: "拼接 2 个视频 · 剪辑").
+    expect(find.text('剪辑'), findsWidgets);
     await tester.binding.handlePopRoute();
     await settle(tester, 4);
     expect(rig.savedEntries(), hasLength(3));
@@ -209,14 +211,14 @@ void main() {
     expect(find.text('最多保存 200 条 · 只保存在本机'), findsOneWidget);
     await tester.drag(find.byType(ListView).first, const Offset(0, 2000));
     await tester.pump();
-    await tester.tap(find.widgetWithText(VkButton, '图片'));
+    await tester.tap(find.widgetWithText(VkPressable, '图片'));
     await tester.pump();
     expect(find.text('沙丘.heic'), findsOneWidget);
     expect(find.text('山谷黄昏.mkv'), findsNothing);
-    await tester.tap(find.widgetWithText(VkButton, '视频'));
+    await tester.tap(find.widgetWithText(VkPressable, '视频'));
     await tester.pump();
     expect(find.text('沙丘.heic'), findsNothing);
-    await tester.tap(find.widgetWithText(VkButton, '全部'));
+    await tester.tap(find.widgetWithText(VkPressable, '全部'));
     await tester.pump();
     await tester.tap(find.bySemanticsLabel('网格视图'));
     await settle(tester, 1);

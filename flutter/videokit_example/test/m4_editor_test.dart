@@ -42,7 +42,11 @@ void main() {
     tester,
   ) async {
     final e = await pumpEditor(tester);
-    expect(find.text('快速拼接可用'), findsWidgets, reason: 'estimate line');
+    expect(
+      find.textContaining('快速拼接可用'),
+      findsWidgets,
+      reason: 'estimate line',
+    );
     e.openExport();
     await settle(tester);
     expect(

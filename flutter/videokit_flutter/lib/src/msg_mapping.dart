@@ -362,7 +362,8 @@ SessionConfigMsg sessionConfigToMsg(VideoKitSessionConfig c) =>
       purpose: 'SINGLE',
       priority: wireOf(c.priority),
       initialVisibility: wireOf(c.initialVisibility),
-      initialActiveAudio: true,
+      // 04A A1: sessions start silent; the host grants audio with SetActiveAudio(true, epoch).
+      initialActiveAudio: false,
       debugTag: c.debugLabel,
     );
 

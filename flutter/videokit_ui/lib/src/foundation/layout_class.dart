@@ -30,6 +30,14 @@ enum VkLayoutClass {
   /// Whether text scaling demands moving secondary buttons to overflow.
   static bool collapseSecondary(TextScaler scaler) =>
       scaler.scale(1) > collapseTextScale;
+
+  /// Largest icon scale (J9: icons follow the text scale up to 1.5×).
+  static const double maxIconScale = 1.5;
+
+  /// Icon and button scale for [context]'s text scale, 1–[maxIconScale]
+  /// (design page 23: at 200 % buttons grow with the text).
+  static double iconScale(BuildContext context) =>
+      MediaQuery.textScalerOf(context).scale(1).clamp(1.0, maxIconScale);
 }
 
 /// [LayoutBuilder] that passes the [VkLayoutClass] of its own constraints.

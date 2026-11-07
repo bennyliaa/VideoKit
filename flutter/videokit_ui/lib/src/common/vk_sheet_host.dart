@@ -225,12 +225,31 @@ class _VkSheetHostState extends State<VkSheetHost> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Design pages 11 and 13: bottom sheets carry a drag handle.
+              if (!side)
+                ExcludeSemantics(
+                  child: Center(
+                    child: Container(
+                      width: t.dimensions.targetMin * 0.75,
+                      height: t.dimensions.spacing4,
+                      margin: EdgeInsetsDirectional.only(
+                        bottom: t.dimensions.spacing8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: t.colors.borderStrong,
+                        borderRadius: BorderRadius.circular(
+                          t.dimensions.cornerFull,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               Row(
                 children: [
                   Expanded(
                     child: Semantics(
                       header: true,
-                      child: Text(entry.title, style: t.typography.titleLarge),
+                      child: Text(entry.title, style: t.typography.title),
                     ),
                   ),
                   VkIconButton(

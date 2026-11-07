@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
 
+import '../foundation/layout_class.dart';
 import '../l10n/vk_strings.dart';
+import '../player/picture_style.dart' show VkBoxStateStyleCopy;
 import '../theme/theme_scope.dart';
 import '../theme/tokens/vk_component_styles.dart';
 import 'vk_badge.dart';
 import 'vk_pressable.dart';
 
 /// Button variants (`component.button.*`, design page 6).
-enum VkButtonVariant { primary, secondary, text }
+enum VkButtonVariant {
+  /// `component.button.primary`.
+  primary,
+
+  /// `component.button.secondary` (filled).
+  secondary,
+
+  /// `component.button.text`.
+  text,
+
+  /// `component.button.outline`.
+  outline,
+
+  /// `component.button.danger` (destructive: delete, cancel export).
+  danger,
+}
 
 /// Text button using the `component.button.*` styles. Width follows the
 /// label (no fixed widths; labels may be 30–50 % longer in other locales).
@@ -20,7 +37,11 @@ class VkButton extends StatelessWidget {
     this.variant = VkButtonVariant.primary,
     this.icon,
     this.selected = false,
+    this.pill = false,
   });
+
+  /// Fully rounded ends (design page 7: the floating "open file" button).
+  final bool pill;
 
   /// Label (from ARB).
   final String label;
@@ -44,14 +65,21 @@ class VkButton extends StatelessWidget {
       VkButtonVariant.primary => t.components.buttonPrimary,
       VkButtonVariant.secondary => t.components.buttonSecondary,
       VkButtonVariant.text => t.components.buttonText,
+      VkButtonVariant.outline => t.components.buttonOutline,
+      VkButtonVariant.danger => t.components.buttonDanger,
     };
+    final shaped = pill
+        ? style.copyWithAll((b) => b.copyWith(radius: t.dimensions.cornerFull))
+        : style;
     return VkPressable(
-      style: style,
+      style: shaped,
       semanticLabel: label,
       selected: selected,
       onPressed: onPressed,
       builder: (context, s) => Row(
         mainAxisSize: MainAxisSize.min,
+        // Centred when a parent makes the button wider than its label.
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (icon != null) ...[
             Icon(icon, size: t.dimensions.icon20, color: s.content),
@@ -116,12 +144,19 @@ class VkIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = VkTheme.of(context);
-    final size = iconSize ?? t.dimensions.icon24;
+    // J9 (design page 23): icons and their targets grow with the text,
+    // up to 1.5 times.
+    final scale = VkLayoutClass.iconScale(context);
+    final size = (iconSize ?? t.dimensions.icon24) * scale;
+    final base = style ?? t.components.buttonIcon;
+    final boxStyle = scale == 1
+        ? base
+        : base.copyWithAll((b) => b.copyWith(minSize: b.minSize * scale));
     final pendingHint = pending
         ? VkStrings.of(context).text('statePending')
         : null;
     return VkPressable(
-      style: style ?? t.components.buttonIcon,
+      style: boxStyle,
       semanticLabel: semanticLabel,
       semanticValue: semanticValue,
       semanticHint: pendingHint,
@@ -134,7 +169,7 @@ class VkIconButton extends StatelessWidget {
         // the touch target; the badge sits in the target's top-end corner,
         // inset by dimension.badge.inset, without covering the icon.
         final ringOffset = (size - d.pendingRingSize) / 2;
-        final cornerOffset = -(d.targetMin - size) / 2 + d.badgeInset;
+        final cornerOffset = -(d.targetMin * scale - size) / 2 + d.badgeInset;
         return Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.center,
@@ -156,7 +191,12 @@ class VkIconButton extends StatelessWidget {
               PositionedDirectional(
                 top: cornerOffset,
                 end: cornerOffset,
-                child: VkBadge(text: badgeText!),
+                // TEST-R3 R3-05: the badge grows no more than the icon, so
+                // at 200 % it does not cover it.
+                child: MediaQuery.withClampedTextScaling(
+                  maxScaleFactor: VkLayoutClass.maxIconScale,
+                  child: VkBadge(text: badgeText!),
+                ),
               ),
           ],
         );

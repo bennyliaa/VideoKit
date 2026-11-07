@@ -427,4 +427,28 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
   String hostHandled(String action) {
     return '宿主处理：$action';
   }
+
+  @override
+  String get componentButtonOutline => '描边按钮';
+
+  @override
+  String get componentButtonDanger => '危险按钮';
+
+  @override
+  String get sectionHostStates => '宿主动作状态';
+
+  @override
+  String get hostStateNormal => '默认';
+
+  @override
+  String get hostStatePending => '等待中';
+
+  @override
+  String get hostStateBadge => '带角标';
+
+  @override
+  String get sectionToggles => '开关与选择';
+
+  @override
+  String get sectionTrackingLegend => '跟踪状态';
 }

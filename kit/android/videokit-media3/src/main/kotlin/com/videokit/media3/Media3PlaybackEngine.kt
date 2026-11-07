@@ -185,7 +185,9 @@ internal class Media3PlaybackHandle(
     /** Builds and prepares the player; returns when it is ready or throws [SpiException]. */
     suspend fun prepare() {
         withContext(dispatcher) { createPlayer() }
-        val ready = mutableState.first { it.status == EngineStatus.READY || it.status == EngineStatus.FAILED }
+        // R2-03: done once the media is parsed (BUFFERING after the tracks are known), not only when enough is buffered to
+        // play: on slow host sources buffering may take longer than the open timeout.
+        val ready = mutableState.first { it.status != EngineStatus.PREPARING }
         if (ready.status == EngineStatus.FAILED) {
             throw SpiException(
                 ready.error ?: StableErrors.of(com.videokit.api.ErrorCode.INTERNAL_ERROR_REDACTED, ErrorStage.BIND, "MEDIA3:PREPARE"),
@@ -244,6 +246,8 @@ internal class Media3PlaybackHandle(
         }
 
         override fun onTracksChanged(tracks: Tracks) {
+            // R2-03: the media is parsed (tracks and duration known): the open is done; buffering continues as BUFFERING.
+            if (!tracks.isEmpty) prepared = true
             readTracks(tracks)
             publish()
         }

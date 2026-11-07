@@ -70,6 +70,9 @@ class VkSeekBar extends StatefulWidget {
 class _VkSeekBarState extends State<VkSeekBar> {
   int? _dragUs;
 
+  /// [VkSeekBar.onTapInstead] as it was when the current tap went down.
+  VoidCallback? _tapInstead;
+
   bool get _enabled => widget.durationUs > 0 && widget.onDragEnd != null;
 
   int _clamp(int us) =>
@@ -145,10 +148,25 @@ class _VkSeekBarState extends State<VkSeekBar> {
                     : null,
                 onHorizontalDragEnd: _enabled ? (_) => _end() : null,
                 onHorizontalDragCancel: _enabled ? _end : null,
-                onTapUp: widget.onTapInstead != null
-                    ? (_) => widget.onTapInstead!()
-                    : _enabled
-                    ? (d) => widget.onDragEnd!(_atX(d.localPosition.dx, width))
+                // TEST-R3 R3-04: whether this tap only shows the controls is
+                // decided when the finger goes down. The controls appear
+                // during the tap and the bar is rebuilt without
+                // [onTapInstead]; the tap must still not seek. Only a drag
+                // (past the touch slop) seeks while hidden.
+                onTapDown: widget.onTapInstead != null || _enabled
+                    ? (_) => _tapInstead = widget.onTapInstead
+                    : null,
+                onTapCancel: () => _tapInstead = null,
+                onTapUp: widget.onTapInstead != null || _enabled
+                    ? (d) {
+                        final instead = _tapInstead ?? widget.onTapInstead;
+                        _tapInstead = null;
+                        if (instead != null) {
+                          instead();
+                        } else if (_enabled) {
+                          widget.onDragEnd!(_atX(d.localPosition.dx, width));
+                        }
+                      }
                     : null,
                 child: SizedBox(
                   height: t.dimensions.targetMin,

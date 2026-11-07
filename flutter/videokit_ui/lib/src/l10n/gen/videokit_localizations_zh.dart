@@ -1230,4 +1230,138 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String trackCodecChannels(String codec, String channels) {
     return '$codec $channels';
   }
+
+  @override
+  String get editorAutosaved => '已自动保存';
+
+  @override
+  String editorTitleWithProject(String name) {
+    return '$name · 剪辑';
+  }
+
+  @override
+  String get trackApply => '应用到打码';
+
+  @override
+  String get stateUnsupportedTitle => '格式不支持';
+
+  @override
+  String get stateUnsupportedContainer => '本设备不支持此文件格式';
+
+  @override
+  String get stateUnsupportedVideoCodec => '本设备不支持此视频编码';
+
+  @override
+  String get stateUnsupportedAudioCodec => '本设备不支持此音频编码';
+
+  @override
+  String get actionShowCapabilities => '查看能力说明';
+
+  @override
+  String get capabilitiesTitle => '能力说明';
+
+  @override
+  String get capabilitiesVideoDecoders => '视频解码';
+
+  @override
+  String get capabilitiesAudioDecoders => '音频解码';
+
+  @override
+  String get capabilitiesFormats => '容器与编码';
+
+  @override
+  String get capabilitiesLimits => '设备建议';
+
+  @override
+  String get capabilitiesHardware => '硬件';
+
+  @override
+  String get capabilitiesSoftware => '软件';
+
+  @override
+  String capabilitiesCodecValue(String kind, String size) {
+    return '$kind · 最高 $size';
+  }
+
+  @override
+  String get capabilitiesSupported => '支持';
+
+  @override
+  String get capabilitiesPartial => '部分支持';
+
+  @override
+  String get capabilitiesUnsupported => '不支持';
+
+  @override
+  String get capabilitiesSessions => '同时播放';
+
+  @override
+  String capabilitiesSessionsValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 路',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get capabilitiesMaxResolution => '最高分辨率';
+
+  @override
+  String get capabilitiesMaxFrameRate => '最高帧率';
+
+  @override
+  String get capabilitiesNone => '未报告';
+
+  @override
+  String get orientationNoRotation => '无旋转元数据';
+
+  @override
+  String orientationRotated(int degrees) {
+    return '旋转 $degrees°';
+  }
+
+  @override
+  String get imageEdit => '编辑';
+
+  @override
+  String get imageEditUnsupported => '编辑，暂不支持';
+
+  @override
+  String get exportSuggestFreeSpace => '建议：释放存储空间';
+
+  @override
+  String exportSuggestFreeSpaceSize(String size) {
+    return '建议：释放约 $size 空间';
+  }
+
+  @override
+  String playerSubtitlesRow(String name) {
+    return '字幕：$name';
+  }
+
+  @override
+  String get playerMoreControls => '更多控制';
+
+  @override
+  String playerMediaSummary(String size, String codec) {
+    return '$size · $codec';
+  }
+
+  @override
+  String get concatNext => '下一步：预览';
+
+  @override
+  String get sourceTrimAll => '裁剪：全部';
+
+  @override
+  String sourceTrimRange(String start, String end) {
+    return '裁剪：$start – $end';
+  }
+
+  @override
+  String estimateWithPath(String estimate, String path) {
+    return '$estimate · $path';
+  }
 }

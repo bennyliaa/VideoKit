@@ -795,6 +795,24 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'等待时间过长，或播放组件已中断。请重试；如果仍然失败，请返回后重新打开。'**
   String get openFailedDetail;
+
+  /// 拼接页、导出、最近工程：当前版本没有剪辑引擎时的短句标题（TEST-R3 R3-02）。
+  ///
+  /// In zh, this message translates to:
+  /// **'暂不支持'**
+  String get editingUnavailableTitle;
+
+  /// 拼接页没有剪辑引擎时的说明（R3-02）。
+  ///
+  /// In zh, this message translates to:
+  /// **'剪辑与拼接功能即将提供'**
+  String get editingUnavailableDetail;
+
+  /// 多选菜单中“拼接”置灰时的说明（R3-02）。
+  ///
+  /// In zh, this message translates to:
+  /// **'功能即将提供'**
+  String get featureComingSoon;
 }
 
 class _AppLocalizationsDelegate

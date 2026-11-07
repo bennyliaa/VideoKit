@@ -60,12 +60,22 @@ class VideoKitStateView extends StatelessWidget {
         StateViewKind.ended => s.text('stateEndedTitle'),
         StateViewKind.released => s.text('stateReleasedTitle'),
         StateViewKind.locked => s.text('stateLockedTitle'),
-        StateViewKind.error => s.error(model.error!.code),
+        // J4: unsupported media gets a short title; the detail says what.
+        StateViewKind.error =>
+          isUnsupportedMedia(model.error!.code)
+              ? s.text('stateUnsupportedTitle')
+              : s.error(model.error!.code),
       };
 
   /// Detail text for [model], if any.
   static String? detail(VkStrings s, StateViewModel model) =>
       model.detailText ??
+      switch (model.error?.code) {
+        ErrorCode.unsupportedContainer => s.text('stateUnsupportedContainer'),
+        ErrorCode.unsupportedVideoCodec => s.text('stateUnsupportedVideoCodec'),
+        ErrorCode.unsupportedAudioCodec => s.text('stateUnsupportedAudioCodec'),
+        _ => null,
+      } ??
       switch (model.detail) {
         null => null,
         StateDetail.loading => s.text('stateLoadingDetail'),
@@ -81,9 +91,11 @@ class VideoKitStateView extends StatelessWidget {
 
   /// Label of [action].
   static String actionLabel(VkStrings s, StateAction action) =>
-      action == StateAction.replay
-      ? s.text('actionReplay')
-      : s.action(action.suggested!)!;
+      switch (action) {
+        StateAction.replay => s.text('actionReplay'),
+        StateAction.showCapabilities => s.text('actionShowCapabilities'),
+        _ => s.action(action.suggested!)!,
+      };
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
@@ -199,9 +211,11 @@ class VideoKitStateView extends StatelessWidget {
                         constraints: BoxConstraints(minWidth: d.targetMin * 3),
                         child: VkButton(
                           label: actionLabel(s, a),
-                          variant: i == 0
-                              ? VkButtonVariant.primary
-                              : VkButtonVariant.secondary,
+                          variant: a == StateAction.showCapabilities
+                              ? VkButtonVariant.outline
+                              : (i == 0
+                                    ? VkButtonVariant.primary
+                                    : VkButtonVariant.secondary),
                           onPressed: onStateAction == null
                               ? null
                               : () => onStateAction!(a),

@@ -194,6 +194,21 @@ abstract final class VkDefaultTokens {
       content: c.primary,
       text: buttonLabel,
     );
+    // Design page 6 (J1): outlined and danger (outlined, error colour).
+    final outline = box(
+      background: transparent,
+      content: c.textPrimary,
+      border: c.borderStrong,
+      borderWidth: d.borderWidth,
+      text: buttonLabel,
+    );
+    final danger = box(
+      background: transparent,
+      content: c.error,
+      border: c.error,
+      borderWidth: d.borderWidth,
+      text: buttonLabel,
+    );
     final icon = box(
       background: transparent,
       content: c.textPrimary,
@@ -281,6 +296,17 @@ abstract final class VkDefaultTokens {
       buttonText: states(
         text,
         selected: text.copyWith(background: c.primaryContainer),
+      ),
+      buttonOutline: states(
+        outline,
+        selected: selectedBox.copyWith(
+          border: c.primary,
+          borderWidth: d.borderWidth,
+        ),
+      ),
+      buttonDanger: states(
+        danger,
+        selected: danger.copyWith(background: c.errorContainer),
       ),
       buttonIcon: states(
         icon,

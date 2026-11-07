@@ -124,6 +124,9 @@ void main() {
     final a = tester.getTopLeft(find.byType(VideoKitSlot).at(0));
     final c = tester.getTopLeft(find.byType(VideoKitSlot).at(2));
     expect(c.dx, a.dx, reason: 'auto, 4 slots → 2 columns');
+    // Design page 14: the layout is picked from the top-end menu.
+    await tester.tap(find.bySemanticsLabel('布局'));
+    await settle(tester);
     await tester.tap(find.text('4×3'));
     await settle(tester);
     final c2 = tester.getTopLeft(find.byType(VideoKitSlot).at(2));
@@ -135,6 +138,8 @@ void main() {
     tester,
   ) async {
     await pumpPage(tester, size: const Size(392, 780), count: 12);
+    await tester.tap(find.bySemanticsLabel('布局'));
+    await settle(tester);
     await tester.tap(find.text('3×3'));
     await settle(tester);
     expect(key.currentState!.pausedCount, greaterThan(0));

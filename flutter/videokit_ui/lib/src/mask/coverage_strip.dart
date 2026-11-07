@@ -182,8 +182,8 @@ class CoverageStrip extends StatelessWidget {
       for (final seg in segments)
         s.coverageSegment(
           coverageStateLabel(s, seg.state),
-          VkFormat.timecode(seg.startUs),
-          VkFormat.timecode(seg.endUs),
+          VkFormat.timecodeTenths(seg.startUs),
+          VkFormat.timecodeTenths(seg.endUs),
         ),
     ].join('；');
     return Semantics(

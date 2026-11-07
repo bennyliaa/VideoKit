@@ -206,16 +206,26 @@ class HomePageState extends State<HomePage> {
                       spacing: d.spacing8,
                       runSpacing: d.spacing8,
                       children: [
+                        // Design page 7: pill chips, the chosen one in the
+                        // primary colour.
                         for (final f in HomeFilter.values)
-                          VkButton(
-                            label: a(switch (f) {
+                          VkPressable(
+                            style: _pill(t),
+                            semanticLabel: a(switch (f) {
                               HomeFilter.all => a.l.filterAll,
                               HomeFilter.video => a.l.filterVideo,
                               HomeFilter.image => a.l.filterImage,
                             }),
-                            variant: VkButtonVariant.secondary,
                             selected: f == _filter,
                             onPressed: () => setState(() => _filter = f),
+                            builder: (context, box) => Text(
+                              a(switch (f) {
+                                HomeFilter.all => a.l.filterAll,
+                                HomeFilter.video => a.l.filterVideo,
+                                HomeFilter.image => a.l.filterImage,
+                              }),
+                              style: box.textStyle,
+                            ),
                           ),
                       ],
                     ),
@@ -234,6 +244,7 @@ class HomePageState extends State<HomePage> {
                   child: VkButton(
                     label: a(a.l.openFile),
                     icon: t.icons.resolve('folder'),
+                    pill: true,
                     onPressed: () =>
                         unawaited(MediaLauncher.pickAndOpen(context)),
                   ),
@@ -256,7 +267,13 @@ class HomePageState extends State<HomePage> {
   static double fabClearance(BuildContext context) {
     final d = VkTheme.of(context).dimensions;
     final button = MediaQuery.textScalerOf(context).scale(d.targetMin);
-    return button + d.spacing32 * 2 + MediaQuery.viewPaddingOf(context).bottom;
+    // Body-size button labels (UI-AUDIT-A2) are a line 4 dp taller; that
+    // grows with the text scale too.
+    final label = MediaQuery.textScalerOf(context).scale(d.spacing4);
+    return button +
+        d.spacing32 * 2 +
+        (label - d.spacing4) +
+        MediaQuery.viewPaddingOf(context).bottom;
   }
 
   Widget _list(
@@ -483,4 +500,25 @@ class _EmptyState extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Filter chip as a pill (design page 7): wider than tall, body text.
+VkStateStyle<VkBoxStyle> _pill(VideoKitThemeData t) {
+  final d = t.dimensions;
+  VkBoxStyle f(VkBoxStyle b) => b.copyWith(
+    padding: EdgeInsetsDirectional.symmetric(
+      horizontal: d.spacing16,
+      vertical: d.spacing8,
+    ),
+    textStyle: t.typography.body,
+  );
+  final c = t.components.chip;
+  return VkStateStyle<VkBoxStyle>(
+    normal: f(c.normal),
+    pressed: f(c.pressed),
+    focused: f(c.focused),
+    disabled: f(c.disabled),
+    selected: f(c.selected),
+    hovered: f(c.hovered),
+  );
 }

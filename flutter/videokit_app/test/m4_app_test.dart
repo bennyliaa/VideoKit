@@ -156,7 +156,7 @@ void main() {
     await settle(tester, 6);
     await unawaitedAdd;
     expect(page.project!.state.value.timeline.clips, hasLength(3));
-    expect(find.text('拼接 3 个视频'), findsOneWidget);
+    expect(find.text('拼接 3 个视频 · 剪辑'), findsOneWidget);
     await tester.binding.handlePopRoute();
     await settle(tester, 6);
     await unmount(tester);

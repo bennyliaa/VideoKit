@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 
 import '../common/vk_buttons.dart';
+import '../foundation/layout_class.dart';
 import '../foundation/selector.dart';
 import '../l10n/vk_strings.dart';
 import '../player/media_surface.dart';
@@ -288,7 +289,7 @@ class VideoKitSlot extends StatelessWidget {
                 if (kindText != null)
                   _Pill(
                     text: kindText,
-                    background: t.drawables.glassPlayer.color,
+                    background: disc.normal.background,
                     content: t.colors.playerControlsContent,
                   ),
                 if (degradation == SlotDegradation.lowResolution)
@@ -438,10 +439,18 @@ class _PausedCover extends StatelessWidget {
                     children: [
                       Icon(
                         placeholder ? t.icons.resolve('movie') : t.icons.pause,
-                        size: small ? d.icon24 : d.targetMin * 0.75,
+                        size:
+                            (small ? d.icon24 : d.targetMin * 0.75) *
+                            VkLayoutClass.iconScale(context),
                         color: white,
                       ),
-                      SizedBox(height: d.spacing4),
+                      // TEST-R3 R3-05: at large text the label keeps clear
+                      // of the icon.
+                      SizedBox(
+                        height: VkLayoutClass.iconScale(context) > 1
+                            ? d.spacing8
+                            : d.spacing4,
+                      ),
                       Text(
                         s.text(
                           placeholder

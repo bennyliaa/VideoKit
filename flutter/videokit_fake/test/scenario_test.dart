@@ -40,6 +40,34 @@ Future<void> _playTo(FakeVideoKit kit, FakeSession s, Duration at) async {
 }
 
 void main() {
+  test('04A B1: openBuffering — bind succeeds with the tracks, then the '
+      'session buffers before the first frame', () async {
+    const scenario = Scenario.openBuffering(Duration(seconds: 3));
+    final (kit, s) = await _bound(scenario);
+    expect(s.state.value.phase, SessionPhase.buffering);
+    expect(s.state.value.durationUs, isNotNull, reason: 'tracks known');
+    expect(s.state.value.audioTracks, isNotEmpty);
+    await kit.clock.advance(const Duration(seconds: 2));
+    expect(s.state.value.phase, SessionPhase.buffering);
+    await kit.clock.advance(const Duration(seconds: 2));
+    expect(s.state.value.phase, SessionPhase.ready);
+    expect(Scenarios.catalog['openBuffering'], isNotNull);
+    await s.close();
+    await kit.close();
+  });
+
+  test('TEST-R3 R3-01 (04A A1): a bound session has no audio until the '
+      'host grants it', () async {
+    final (kit, s) = await _bound(const Scenario.normal());
+    expect(s.state.value.activeAudio, isFalse);
+    expect(await s.execute(const SetActiveAudio(true, 1)), const Executed());
+    expect(s.state.value.activeAudio, isTrue);
+    expect(await s.execute(const SetActiveAudio(false, 2)), const Executed());
+    expect(s.state.value.activeAudio, isFalse);
+    await s.close();
+    await kit.close();
+  });
+
   test('catalog covers every 14 §11.1 scenario and combines', () {
     expect(
       Scenarios.catalog.keys,

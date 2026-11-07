@@ -217,6 +217,8 @@ class EditDemoPageState extends State<EditDemoPage>
                     project: p,
                     sink: sink,
                     title: g(g.l.editProjectTitle),
+                    // Design page 15 shows the autosave hint (demo only).
+                    showAutosaved: true,
                     presets: FakeVideoKit.demoCapabilities().outputFormats,
                     pictureBuilder: (context, session) =>
                         DemoSessionPicture(session: session),

@@ -55,12 +55,19 @@ class VideoKitAudioCoordinator extends ChangeNotifier {
     return true;
   }
 
-  /// Mutes the current source; the user picks a new one afterwards.
-  Future<void> muteAll() async {
+  /// Mutes the current source and every session in [all] (TEST-R3 R3-01:
+  /// "mute all" reaches each slot, whatever its default); the user picks a
+  /// new source afterwards.
+  Future<void> muteAll([Iterable<VideoKitSession> all = const []]) async {
     final e = ++_epoch;
     final previous = _active;
     _setActive(null);
     if (previous != null) await _mute(previous, e);
+    for (final s in all) {
+      if (identical(s, previous)) continue;
+      await _mute(s, e);
+      if (e != _epoch) return;
+    }
   }
 
   /// [sessionId] was released or removed: if it was the source, all stay

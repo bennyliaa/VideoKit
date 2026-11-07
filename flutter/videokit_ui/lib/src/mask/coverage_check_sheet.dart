@@ -118,10 +118,11 @@ class CoverageCheckSheet extends StatelessWidget {
                               child: Text(
                                 s.checkRange(
                                   targetName(r.maskId),
-                                  VkFormat.timecode(r.startUs),
-                                  VkFormat.timecode(r.endUs),
+                                  VkFormat.timecodeTenths(r.startUs),
+                                  VkFormat.timecodeTenths(r.endUs),
                                 ),
-                                style: t.typography.label.copyWith(
+                                style: t.typography.body.copyWith(
+                                  fontWeight: FontWeight.w600,
                                   color: t.colors.textPrimary,
                                 ),
                               ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 
 import '../common/vk_buttons.dart';
+import '../common/vk_segmented.dart';
 import '../common/vk_sheet_host.dart';
 import '../common/vk_slider.dart';
 import '../common/vk_switch.dart';
@@ -186,9 +187,14 @@ class MaskEditorState extends State<MaskEditor> {
           final d = t.dimensions;
           final wide =
               VkLayoutClass.fromWidth(c.maxWidth) != VkLayoutClass.compact;
-          final panel = _panel(context);
+          final panel = _panel(context, wide: wide);
           final preview = _preview(context);
           if (wide) {
+            // Design pages 17–18: keyframes (manual) or one status row per
+            // target (tracking) in a card under the picture.
+            final bottom = widget.tab == MaskEditorTab.tracking
+                ? _trackRows(context)
+                : _keyframeCard(context);
             return Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -197,7 +203,18 @@ class MaskEditorState extends State<MaskEditor> {
                   child: _card(context, SingleChildScrollView(child: panel)),
                 ),
                 SizedBox(width: d.spacing16),
-                Expanded(child: preview),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(child: preview),
+                      if (bottom != null) ...[
+                        SizedBox(height: d.spacing12),
+                        _card(context, bottom),
+                      ],
+                    ],
+                  ),
+                ),
               ],
             );
           }
@@ -363,7 +380,7 @@ class MaskEditorState extends State<MaskEditor> {
     );
   }
 
-  Widget _panel(BuildContext context) {
+  Widget _panel(BuildContext context, {required bool wide}) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
@@ -372,27 +389,133 @@ class MaskEditorState extends State<MaskEditor> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
+        VkSegmented<MaskEditorTab>(
+          segments: [
+            VkSegment(value: MaskEditorTab.manual, label: s.text('maskTitle')),
+            VkSegment(
+              value: MaskEditorTab.tracking,
+              label: s.text('editorTrack'),
+            ),
+          ],
+          selected: widget.tab,
+          onChanged: widget.onTabChanged,
+        ),
+        SizedBox(height: d.spacing16),
+        if (tracking)
+          ..._trackingPanel(context, wide: wide)
+        else
+          ..._manualPanel(context, wide: wide),
+      ],
+    );
+  }
+
+  /// Keyframe controls of the selected manual mask (design page 17), or
+  /// null when none is selected.
+  Widget? _keyframeCard(BuildContext context) {
+    final t = VkTheme.of(context);
+    final s = VkStrings.of(context);
+    final d = t.dimensions;
+    final st = _c.state;
+    final sel = _c.selectedMaskId == null
+        ? null
+        : st.maskById(_c.selectedMaskId!);
+    if (sel == null || sel.type.isAutomatic) return null;
+    final selIndex = st.masks.indexOf(sel);
+    final at = _c.playheadUs;
+    final hasKeyframeHere = sel.keyframes.any(
+      (k) => (k.atUs - at).abs() < 40000,
+    );
+    return Wrap(
+      spacing: d.spacing8,
+      runSpacing: d.spacing8,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      alignment: WrapAlignment.spaceBetween,
+      children: [
+        Semantics(
+          header: true,
+          child: Text(
+            s.maskKeyframeTitle(selIndex + 1),
+            style: t.typography.body.copyWith(
+              fontWeight: FontWeight.w600,
+              color: t.colors.textPrimary,
+            ),
+          ),
+        ),
         Wrap(
           spacing: d.spacing8,
-          runSpacing: d.spacing8,
           children: [
+            if (hasKeyframeHere && sel.keyframes.length > 1)
+              VkButton(
+                label: s.text('maskRemoveKeyframe'),
+                variant: VkButtonVariant.text,
+                onPressed: () {
+                  final k = sel.keyframes.firstWhere(
+                    (k) => (k.atUs - at).abs() < 40000,
+                  );
+                  unawaited(_c.apply(RemoveMaskKeyframe(sel.maskId, k.atUs)));
+                },
+              ),
             VkButton(
-              label: s.text('maskTitle'),
-              variant: VkButtonVariant.secondary,
-              selected: !tracking,
-              onPressed: () => widget.onTabChanged?.call(MaskEditorTab.manual),
-            ),
-            VkButton(
-              label: s.text('editorTrack'),
-              variant: VkButtonVariant.secondary,
-              selected: tracking,
-              onPressed: () =>
-                  widget.onTabChanged?.call(MaskEditorTab.tracking),
+              label: s.text('maskAddKeyframe'),
+              variant: VkButtonVariant.text,
+              onPressed: at >= sel.startUs && at < sel.endUs
+                  ? () => unawaited(
+                      _c.apply(
+                        UpdateMaskKeyframe(
+                          sel.maskId,
+                          at,
+                          sel.regionAt(at) ?? sel.keyframes.first.region,
+                        ),
+                      ),
+                    )
+                  : null,
             ),
           ],
         ),
-        SizedBox(height: d.spacing16),
-        if (tracking) ..._trackingPanel(context) else ..._manualPanel(context),
+      ],
+    );
+  }
+
+  /// One status row per target plus the legend (design page 18), or null
+  /// without targets.
+  Widget? _trackRows(BuildContext context) {
+    final t = VkTheme.of(context);
+    final s = VkStrings.of(context);
+    final d = t.dimensions;
+    final auto = _auto;
+    if (auto.isEmpty) return null;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (final (i, m) in auto.indexed)
+          Padding(
+            padding: EdgeInsetsDirectional.only(bottom: d.spacing8),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: d.targetMin * 1.5,
+                  child: Text(
+                    s.trackTarget(vkTargetLetter(i)),
+                    style: t.typography.body.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: t.colors.textPrimary,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: CoverageStrip(
+                    report:
+                        _c.state.tracking[m.maskId]?.coverage ??
+                        CoverageReport.empty(),
+                    totalUs: _duration,
+                    name: s.trackTarget(vkTargetLetter(i)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        const CoverageLegend(),
       ],
     );
   }
@@ -408,7 +531,7 @@ class MaskEditorState extends State<MaskEditor> {
     MaskType.object => 'maskTypeObject',
   });
 
-  List<Widget> _manualPanel(BuildContext context) {
+  List<Widget> _manualPanel(BuildContext context, {required bool wide}) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
@@ -470,19 +593,17 @@ class MaskEditorState extends State<MaskEditor> {
           style: t.typography.label.copyWith(color: t.colors.textSecondary),
         ),
         SizedBox(height: d.spacing8),
-        Wrap(
-          spacing: d.spacing8,
-          children: [
+        // Design page 17: neutral segmented control.
+        VkSegmented<MaskStyle>(
+          segments: [
             for (final style in MaskStyle.values)
-              VkButton(
-                label: _styleLabel(s, style),
-                variant: VkButtonVariant.secondary,
-                selected: sel.style == style,
-                onPressed: () => unawaited(
-                  _c.apply(SetMaskStyle(sel.maskId, style, sel.strength)),
-                ),
-              ),
+              VkSegment(value: style, label: _styleLabel(s, style)),
           ],
+          selected: sel.style,
+          semanticLabel: s.text('maskStyle'),
+          onChanged: (style) => unawaited(
+            _c.apply(SetMaskStyle(sel.maskId, style, sel.strength)),
+          ),
         ),
         SizedBox(height: d.spacing12),
         Row(
@@ -503,7 +624,8 @@ class MaskEditorState extends State<MaskEditor> {
             ),
           ],
         ),
-        if (!sel.type.isAutomatic) ...[
+        // Tablets show the keyframes in the card under the picture.
+        if (!sel.type.isAutomatic && !wide) ...[
           SizedBox(height: d.spacing12),
           Text(
             s.maskKeyframeTitle(selIndex + 1),
@@ -556,32 +678,16 @@ class MaskEditorState extends State<MaskEditor> {
 
   // ----------------------------------------------------------- tracking --
 
-  List<Widget> _trackingPanel(BuildContext context) {
+  List<Widget> _trackingPanel(BuildContext context, {required bool wide}) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
     final st = _c.state;
     final auto = _auto;
     final cands = _candidates;
+    // Design page 18: the "本机处理 · 不上传" badge sits in the editor's top
+    // bar (VideoKitEditor).
     return [
-      Align(
-        alignment: AlignmentDirectional.centerStart,
-        child: Container(
-          padding: EdgeInsetsDirectional.symmetric(
-            horizontal: d.spacing12,
-            vertical: d.spacing4,
-          ),
-          decoration: BoxDecoration(
-            color: t.colors.successContainer,
-            borderRadius: BorderRadius.circular(d.cornerFull),
-          ),
-          child: Text(
-            s.text('trackLocalOnly'),
-            style: t.typography.label.copyWith(color: t.colors.textPrimary),
-          ),
-        ),
-      ),
-      SizedBox(height: d.spacing12),
       Wrap(
         spacing: d.spacing8,
         runSpacing: d.spacing8,
@@ -622,9 +728,9 @@ class MaskEditorState extends State<MaskEditor> {
       ],
       for (final (i, m) in auto.indexed) ...[
         SizedBox(height: d.spacing16),
-        _runSection(context, i, m, st.tracking[m.maskId]),
+        _runSection(context, i, m, st.tracking[m.maskId], strip: !wide),
       ],
-      if (auto.isNotEmpty) ...[
+      if (auto.isNotEmpty && !wide) ...[
         SizedBox(height: d.spacing16),
         const CoverageLegend(),
       ],
@@ -685,8 +791,9 @@ class MaskEditorState extends State<MaskEditor> {
     BuildContext context,
     int index,
     MaskTrack m,
-    TrackingRun? run,
-  ) {
+    TrackingRun? run, {
+    required bool strip,
+  }) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
@@ -762,16 +869,14 @@ class MaskEditorState extends State<MaskEditor> {
             ),
           ),
           SizedBox(height: d.spacing8),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: VkButton(
-              label: s.text('trackCancel'),
-              variant: VkButtonVariant.secondary,
-              onPressed: () => unawaited(_c.apply(CancelTracking(m.maskId))),
-            ),
+          // Design page 18: full-width outlined cancel.
+          VkButton(
+            label: s.text('trackCancel'),
+            variant: VkButtonVariant.outline,
+            onPressed: () => unawaited(_c.apply(CancelTracking(m.maskId))),
           ),
         ],
-        if (run != null) ...[
+        if (run != null && strip) ...[
           SizedBox(height: d.spacing8),
           CoverageStrip(report: run.coverage, totalUs: _duration, name: name),
         ],
@@ -784,8 +889,8 @@ class MaskEditorState extends State<MaskEditor> {
                   child: Text(
                     s.coverageSegment(
                       coverageStateLabel(s, seg.state),
-                      VkFormat.timecode(seg.startUs),
-                      VkFormat.timecode(seg.endUs),
+                      VkFormat.timecodeTenths(seg.startUs),
+                      VkFormat.timecodeTenths(seg.endUs),
                     ),
                     style: t.typography.caption.copyWith(
                       color: t.colors.textPrimary,

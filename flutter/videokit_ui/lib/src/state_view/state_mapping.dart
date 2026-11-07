@@ -16,7 +16,10 @@ enum StateAction {
   reconnectSource,
   closeOtherSessions,
   correctTracking,
-  chooseOtherSource;
+  chooseOtherSource,
+
+  /// J4: opens the read-only capability page (UI only; the host routes it).
+  showCapabilities;
 
   /// The API suggested action this corresponds to, if any.
   SuggestedAction? get suggested => switch (this) {
@@ -30,6 +33,7 @@ enum StateAction {
     closeOtherSessions => SuggestedAction.closeOtherSessions,
     correctTracking => SuggestedAction.correctTracking,
     chooseOtherSource => SuggestedAction.chooseOtherSource,
+    showCapabilities => null,
   };
 
   /// Action for a suggested action (none → null).
@@ -134,6 +138,7 @@ StateViewModel? mapSessionState({
   VideoKitStableError? error,
   MediaKind? mediaKind,
   bool hiddenForLock = false,
+  bool capabilityHelp = false,
 }) {
   if (phase == SessionPhase.releasing || phase == SessionPhase.released) {
     return StateViewModel(kind: StateViewKind.released, iconName: 'close');
@@ -164,6 +169,7 @@ StateViewModel? mapSessionState({
               diagnostic: 'missing_error_${phase.wireName}',
             ),
         fatal: phase == SessionPhase.errorFatal,
+        capabilityHelp: capabilityHelp,
       );
     case SessionPhase.ready || SessionPhase.playing || SessionPhase.paused:
       return null;
@@ -175,7 +181,11 @@ StateViewModel? mapSessionState({
 /// Error part of the mapping: title from the code, detail by category,
 /// actions from the suggested action plus retry when retryable (and not
 /// fatal).
-StateViewModel mapError(VideoKitStableError error, {bool fatal = false}) {
+StateViewModel mapError(
+  VideoKitStableError error, {
+  bool fatal = false,
+  bool capabilityHelp = false,
+}) {
   final (StateDetail detail, String icon) = switch (error.code) {
     ErrorCode.sourceDisconnected ||
     ErrorCode.sourceTimeout => (StateDetail.connection, 'warning'),
@@ -207,6 +217,11 @@ StateViewModel mapError(VideoKitStableError error, {bool fatal = false}) {
       !actions.contains(StateAction.reduceQuality)) {
     actions.add(StateAction.reduceQuality);
   }
+  // J4 (design page 12): unsupported media points to the capability page
+  // when the host can show it.
+  if (capabilityHelp && isUnsupportedMedia(error.code)) {
+    actions.add(StateAction.showCapabilities);
+  }
   return StateViewModel(
     kind: StateViewKind.error,
     iconName: icon,
@@ -215,3 +230,10 @@ StateViewModel mapError(VideoKitStableError error, {bool fatal = false}) {
     actions: actions,
   );
 }
+
+/// Whether [code] means the device cannot play this media's format
+/// (short title "格式不支持", J4).
+bool isUnsupportedMedia(ErrorCode code) =>
+    code == ErrorCode.unsupportedContainer ||
+    code == ErrorCode.unsupportedVideoCodec ||
+    code == ErrorCode.unsupportedAudioCodec;

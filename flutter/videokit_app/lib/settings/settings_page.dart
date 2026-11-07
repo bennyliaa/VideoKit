@@ -57,6 +57,73 @@ class SettingsPage extends StatelessWidget {
       ..showSnackBar(SnackBar(content: Text(a(a.l.cleared))));
   }
 
+  /// J3: language choice; Simplified Chinese is the only language for now.
+  Future<void> _chooseLanguage(BuildContext context) async {
+    final a = AppText.of(context);
+    await showModalBottomSheet<void>(
+      context: context,
+      builder: (context) {
+        final t = VkTheme.of(context);
+        final d = t.dimensions;
+        return ColoredBox(
+          color: t.colors.surface,
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsetsDirectional.all(d.spacing16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Semantics(
+                    header: true,
+                    child: Text(
+                      a(a.l.uiLanguage),
+                      style: t.typography.title.copyWith(
+                        color: t.colors.textPrimary,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: d.spacing12),
+                  MergeSemantics(
+                    child: Semantics(
+                      selected: true,
+                      button: true,
+                      child: InkWell(
+                        onTap: () => Navigator.of(context).pop(),
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(minHeight: d.targetMin),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  a(a.l.languageChinese),
+                                  style: t.typography.body.copyWith(
+                                    color: t.colors.textPrimary,
+                                  ),
+                                ),
+                              ),
+                              Icon(t.icons.check, color: t.colors.primary),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    a(a.l.languageNote),
+                    style: t.typography.bodySmall.copyWith(
+                      color: t.colors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final scope = AppScope.of(context);
@@ -70,6 +137,22 @@ class SettingsPage extends StatelessWidget {
         final st = scope.settings.value;
         void update(AppSettings next) => unawaited(scope.settings.update(next));
         final systemReduced = MediaQuery.disableAnimationsOf(context);
+        final inlineTheme = !VkLayoutClass.collapseSecondary(
+          MediaQuery.textScalerOf(context),
+        );
+        final themeControl = VkSegmented<VideoKitThemeMode>(
+          segments: [
+            VkSegment(value: VideoKitThemeMode.dark, label: a(a.l.themeDark)),
+            VkSegment(value: VideoKitThemeMode.light, label: a(a.l.themeLight)),
+            VkSegment(
+              value: VideoKitThemeMode.system,
+              label: a(a.l.themeSystem),
+            ),
+          ],
+          selected: st.themeMode,
+          semanticLabel: a(a.l.theme),
+          onChanged: (mode) => update(st.copyWith(themeMode: mode)),
+        );
         return Scaffold(
           backgroundColor: t.colors.background,
           appBar: AppBar(
@@ -126,26 +209,13 @@ class SettingsPage extends StatelessWidget {
               _Section(title: a(a.l.secAppearance)),
               _Card(
                 children: [
+                  // Design page 8: a neutral segmented control in the row (below
+                  // the title at large text).
                   _Row(
                     title: a(a.l.theme),
-                    below: Wrap(
-                      spacing: d.spacing8,
-                      runSpacing: d.spacing8,
-                      children: [
-                        for (final (mode, label) in [
-                          (VideoKitThemeMode.dark, a(a.l.themeDark)),
-                          (VideoKitThemeMode.light, a(a.l.themeLight)),
-                          (VideoKitThemeMode.system, a(a.l.themeSystem)),
-                        ])
-                          VkButton(
-                            label: label,
-                            variant: VkButtonVariant.secondary,
-                            selected: st.themeMode == mode,
-                            onPressed: () =>
-                                update(st.copyWith(themeMode: mode)),
-                          ),
-                      ],
-                    ),
+                    wideTrailing: true,
+                    trailing: inlineTheme ? themeControl : null,
+                    below: inlineTheme ? null : themeControl,
                   ),
                   _Row(
                     title: a(a.l.reduceMotion),
@@ -162,13 +232,34 @@ class SettingsPage extends StatelessWidget {
               _Section(title: a(a.l.secLanguage)),
               _Card(
                 children: [
-                  _Row(
-                    title: a(a.l.uiLanguage),
-                    subtitle: a(a.l.languageNote),
-                    trailing: Text(
-                      a(a.l.languageChinese),
-                      style: t.typography.body.copyWith(
-                        color: t.colors.textSecondary,
+                  // J3 (design page 8): the row opens the language choice; only
+                  // Simplified Chinese for now.
+                  MergeSemantics(
+                    child: Semantics(
+                      button: true,
+                      child: InkWell(
+                        onTap: () => unawaited(_chooseLanguage(context)),
+                        child: _Row(
+                          title: a(a.l.uiLanguage),
+                          subtitle: a(a.l.languageNote),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  a(a.l.languageChinese),
+                                  style: t.typography.body.copyWith(
+                                    color: t.colors.textSecondary,
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                t.icons.resolve('next'),
+                                color: t.colors.textSecondary,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -280,7 +371,16 @@ class _Card extends StatelessWidget {
 }
 
 class _Row extends StatelessWidget {
-  const _Row({required this.title, this.subtitle, this.trailing, this.below});
+  const _Row({
+    required this.title,
+    this.subtitle,
+    this.trailing,
+    this.below,
+    this.wideTrailing = false,
+  });
+
+  /// Gives the trailing widget most of the row (segmented controls).
+  final bool wideTrailing;
 
   final String title;
   final String? subtitle;
@@ -302,7 +402,7 @@ class _Row extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: wideTrailing ? 1 : 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -325,7 +425,7 @@ class _Row extends StatelessWidget {
                 if (trailing != null) ...[
                   SizedBox(width: d.spacing12),
                   Flexible(
-                    flex: 2,
+                    flex: wideTrailing ? 3 : 2,
                     child: Align(
                       alignment: AlignmentDirectional.centerEnd,
                       child: trailing,

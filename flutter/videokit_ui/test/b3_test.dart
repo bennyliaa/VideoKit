@@ -97,7 +97,8 @@ void main() {
         const VideoSize(1280, 1152),
         src,
       );
-      expect(rows.map((r) => r.$2), ['GIF（动态）', '1280 × 1152', '4.6 MB', '未知']);
+      // J5: no rotation metadata reported → no "方向" row (not the shape).
+      expect(rows.map((r) => r.$2), ['GIF（动态）', '1280 × 1152', '4.6 MB']);
       final none = ImageInfoSheet.rows(
         s,
         VideoKitSessionState(phase: SessionPhase.ready),
@@ -121,7 +122,7 @@ void main() {
         const VideoSize(1280, 1152),
         src,
       );
-      expect(detailed.skip(4).map((r) => r.$2), ['48 帧', '18 MB', '按 1/2 采样']);
+      expect(detailed.skip(3).map((r) => r.$2), ['48 帧', '18 MB', '按 1/2 采样']);
       final partial = ImageInfoSheet.rows(
         s,
         VideoKitSessionState(
@@ -131,7 +132,7 @@ void main() {
         null,
         null,
       );
-      expect(partial.skip(4).map((r) => r.$2), ['原始分辨率']);
+      expect(partial.skip(3).map((r) => r.$2), ['原始分辨率']);
     });
   });
 

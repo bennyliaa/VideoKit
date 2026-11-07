@@ -10,6 +10,7 @@ import '../history/history_entry.dart';
 import '../l10n/app_text.dart';
 import '../projects/project_store.dart';
 import 'launcher.dart';
+import 'player_page.dart';
 
 /// UI-06 editor for several videos ("拼接为一个视频"): one source and one
 /// full-length clip per record. M4: the project is saved as a snapshot when
@@ -53,35 +54,67 @@ class ConcatPageState extends State<ConcatPage> {
     unawaited(_open());
   }
 
+  /// TEST-R3 R3-02: the Kit has no edit engine yet (`EDITING_NOT_AVAILABLE`,
+  /// native editing comes after S3): shown as "暂不支持" with a way back.
+  bool notAvailable = false;
+
+  /// Opening failed for another reason (or never finished): error + back.
+  bool openFailed = false;
+
+  /// Whether [e] means the Kit cannot edit at all (R3-02).
+  static bool isEditingNotAvailable(Object e) =>
+      e is VideoKitException &&
+      e.error.diagnostic == editingNotAvailableDiagnostic;
+
+  /// Diagnostic the Kits use while the edit engine is missing.
+  static const String editingNotAvailableDiagnostic = 'EDITING_NOT_AVAILABLE';
+
   Future<void> _open() async {
-    final presets = await _scope.backend.presets();
-    final config = EditProjectConfig(debugLabel: 'app-concat');
-    final VideoKitEditProject p;
-    final restore = widget.restore;
-    if (restore != null) {
-      try {
-        p = await _scope.backend.videoKit.restoreEditProject(
-          restore.snapshot,
-          config,
-        );
-      } on VideoKitException {
-        if (mounted) setState(() => restoreFailed = true);
-        return;
-      }
-    } else {
-      p = await _scope.backend.videoKit.createEditProject(config);
-      for (final e in widget.entries) {
-        await _add(p, e);
-      }
-    }
-    if (!mounted) {
-      await p.close();
+    // R3-02: every failure, including one that never answers, ends in a
+    // final state with a back button; the page never stays on a spinner.
+    VideoKitEditProject? p;
+    try {
+      await Future(() async {
+        final presets = await _scope.backend.presets();
+        final config = EditProjectConfig(debugLabel: 'app-concat');
+        final restore = widget.restore;
+        if (restore != null) {
+          p = await _scope.backend.videoKit.restoreEditProject(
+            restore.snapshot,
+            config,
+          );
+        } else {
+          final created = await _scope.backend.videoKit.createEditProject(
+            config,
+          );
+          p = created;
+          for (final e in widget.entries) {
+            await _add(created, e);
+          }
+        }
+        _presets = presets;
+      }).timeout(PlayerPage.defaultOpenTimeout);
+    } on Object catch (e) {
+      final opened = p;
+      if (opened != null) unawaited(opened.close());
+      if (!mounted) return;
+      setState(() {
+        if (isEditingNotAvailable(e)) {
+          notAvailable = true;
+        } else if (widget.restore != null) {
+          restoreFailed = true;
+        } else {
+          openFailed = true;
+        }
+      });
       return;
     }
-    setState(() {
-      project = p;
-      _presets = presets;
-    });
+    final opened = p!;
+    if (!mounted) {
+      await opened.close();
+      return;
+    }
+    setState(() => project = opened);
   }
 
   /// "另存为" right before the export starts (REQ-APP-03 export part).
@@ -145,14 +178,43 @@ class ConcatPageState extends State<ConcatPage> {
     final a = AppText.of(context);
     final p = project;
     final Widget body;
-    if (restoreFailed) {
+    final failed = restoreFailed || notAvailable || openFailed;
+    if (failed) {
+      // R3-02: UI-09 state (short title + detail) under a bar with "back".
+      final model = notAvailable
+          ? StateViewModel(
+              kind: StateViewKind.error,
+              iconName: 'info',
+              titleText: a(a.l.editingUnavailableTitle),
+              detailText: a(a.l.editingUnavailableDetail),
+            )
+          : StateViewModel(
+              kind: StateViewKind.error,
+              iconName: 'warning',
+              titleText: a(
+                restoreFailed
+                    ? a.l.recentProjectRestoreFailed
+                    : a.l.openFailedTitle,
+              ),
+              detailText: restoreFailed ? null : a(a.l.openFailedDetail),
+            );
       body = SafeArea(
-        child: VideoKitStateView(
-          model: StateViewModel(
-            kind: StateViewKind.error,
-            iconName: 'warning',
-            titleText: a(a.l.recentProjectRestoreFailed),
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.all(t.dimensions.spacing8),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: VkIconButton(
+                  icon: t.icons.resolve('back'),
+                  semanticLabel: VkStrings.of(context).text('playerBack'),
+                  onPressed: () => Navigator.of(context).maybePop(),
+                ),
+              ),
+            ),
+            Expanded(child: VideoKitStateView(model: model)),
+          ],
         ),
       );
     } else if (p == null) {
@@ -177,7 +239,7 @@ class ConcatPageState extends State<ConcatPage> {
       );
     }
     return PopScope(
-      canPop: restoreFailed,
+      canPop: restoreFailed || notAvailable || openFailed,
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) unawaited(leave());
       },

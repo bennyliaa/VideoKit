@@ -2190,6 +2190,228 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'{codec} {channels}'**
   String trackCodecChannels(String codec, String channels);
+
+  /// 编辑器标题后的保存状态（平板，设计稿第 15 页；宿主自行保存工程时显示）。
+  ///
+  /// In zh, this message translates to:
+  /// **'已自动保存'**
+  String get editorAutosaved;
+
+  /// 平板编辑器标题：工程名 · 剪辑（设计稿第 15 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'{name} · 剪辑'**
+  String editorTitleWithProject(String name);
+
+  /// 自动跟踪工作区右上主按钮（J7，设计稿第 18 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'应用到打码'**
+  String get trackApply;
+
+  /// 状态视图：不支持的媒体格式短标题（J4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'格式不支持'**
+  String get stateUnsupportedTitle;
+
+  /// 状态视图：不支持容器格式的说明（J4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'本设备不支持此文件格式'**
+  String get stateUnsupportedContainer;
+
+  /// 状态视图：不支持视频编码的说明（J4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'本设备不支持此视频编码'**
+  String get stateUnsupportedVideoCodec;
+
+  /// 状态视图：不支持音频编码的说明（J4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'本设备不支持此音频编码'**
+  String get stateUnsupportedAudioCodec;
+
+  /// 状态视图：打开只读能力说明页（J4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'查看能力说明'**
+  String get actionShowCapabilities;
+
+  /// 能力说明页标题（J4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'能力说明'**
+  String get capabilitiesTitle;
+
+  /// 能力说明页分组：视频解码器。
+  ///
+  /// In zh, this message translates to:
+  /// **'视频解码'**
+  String get capabilitiesVideoDecoders;
+
+  /// 能力说明页分组：音频解码器。
+  ///
+  /// In zh, this message translates to:
+  /// **'音频解码'**
+  String get capabilitiesAudioDecoders;
+
+  /// 能力说明页分组：容器与编码组合的支持情况。
+  ///
+  /// In zh, this message translates to:
+  /// **'容器与编码'**
+  String get capabilitiesFormats;
+
+  /// 能力说明页分组：按设备能力给出的建议上限。
+  ///
+  /// In zh, this message translates to:
+  /// **'设备建议'**
+  String get capabilitiesLimits;
+
+  /// 能力说明页：硬件解码。
+  ///
+  /// In zh, this message translates to:
+  /// **'硬件'**
+  String get capabilitiesHardware;
+
+  /// 能力说明页：软件解码。
+  ///
+  /// In zh, this message translates to:
+  /// **'软件'**
+  String get capabilitiesSoftware;
+
+  /// 能力说明页：解码器的方式与最高分辨率，例如“硬件 · 最高 3840 × 2160”。
+  ///
+  /// In zh, this message translates to:
+  /// **'{kind} · 最高 {size}'**
+  String capabilitiesCodecValue(String kind, String size);
+
+  /// 能力说明页：支持。
+  ///
+  /// In zh, this message translates to:
+  /// **'支持'**
+  String get capabilitiesSupported;
+
+  /// 能力说明页：部分支持。
+  ///
+  /// In zh, this message translates to:
+  /// **'部分支持'**
+  String get capabilitiesPartial;
+
+  /// 能力说明页：不支持。
+  ///
+  /// In zh, this message translates to:
+  /// **'不支持'**
+  String get capabilitiesUnsupported;
+
+  /// 能力说明页：建议同时播放的路数。
+  ///
+  /// In zh, this message translates to:
+  /// **'同时播放'**
+  String get capabilitiesSessions;
+
+  /// 能力说明页：路数。
+  ///
+  /// In zh, this message translates to:
+  /// **'{count, plural, other{{count} 路}}'**
+  String capabilitiesSessionsValue(int count);
+
+  /// 能力说明页：建议最高分辨率。
+  ///
+  /// In zh, this message translates to:
+  /// **'最高分辨率'**
+  String get capabilitiesMaxResolution;
+
+  /// 能力说明页：建议最高帧率。
+  ///
+  /// In zh, this message translates to:
+  /// **'最高帧率'**
+  String get capabilitiesMaxFrameRate;
+
+  /// 能力说明页：引擎没有报告这一项。
+  ///
+  /// In zh, this message translates to:
+  /// **'未报告'**
+  String get capabilitiesNone;
+
+  /// 图片信息“方向”：没有旋转（J5）。
+  ///
+  /// In zh, this message translates to:
+  /// **'无旋转元数据'**
+  String get orientationNoRotation;
+
+  /// 图片信息“方向”：旋转元数据（J5）。
+  ///
+  /// In zh, this message translates to:
+  /// **'旋转 {degrees}°'**
+  String orientationRotated(int degrees);
+
+  /// 图片工具栏：编辑（本期不支持，置灰，J5）。
+  ///
+  /// In zh, this message translates to:
+  /// **'编辑'**
+  String get imageEdit;
+
+  /// 图片工具栏“编辑”的读屏说明（J5）。
+  ///
+  /// In zh, this message translates to:
+  /// **'编辑，暂不支持'**
+  String get imageEditUnsupported;
+
+  /// 导出失败：空间不足的建议（不知道缺多少时，J8）。
+  ///
+  /// In zh, this message translates to:
+  /// **'建议：释放存储空间'**
+  String get exportSuggestFreeSpace;
+
+  /// 导出失败：空间不足的建议，带所需空间（向上取整到 10 MB，J8）。
+  ///
+  /// In zh, this message translates to:
+  /// **'建议：释放约 {size} 空间'**
+  String exportSuggestFreeSpaceSize(String size);
+
+  /// 大字体时的字幕整行入口（J9，设计稿第 23 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'字幕：{name}'**
+  String playerSubtitlesRow(String name);
+
+  /// 大字体时的“更多”整行入口（J9，设计稿第 23 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'更多控制'**
+  String get playerMoreControls;
+
+  /// 横屏标题后的媒体摘要，例如“1920 × 1080 · H.264”（设计稿第 10 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'{size} · {codec}'**
+  String playerMediaSummary(String size, String codec);
+
+  /// 多视频拼接面板的主按钮（设计稿第 16 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'下一步：预览'**
+  String get concatNext;
+
+  /// 拼接列表：片段使用整段视频（设计稿第 16 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'裁剪：全部'**
+  String get sourceTrimAll;
+
+  /// 拼接列表：片段的起止时间。
+  ///
+  /// In zh, this message translates to:
+  /// **'裁剪：{start} – {end}'**
+  String sourceTrimRange(String start, String end);
+
+  /// 编辑器预计结果一行：预计时长与大小 · 拼接方式（设计稿第 15 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'{estimate} · {path}'**
+  String estimateWithPath(String estimate, String path);
 }
 
 class _VideoKitLocalizationsDelegate

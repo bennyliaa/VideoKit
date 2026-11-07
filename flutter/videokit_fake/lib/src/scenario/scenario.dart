@@ -104,6 +104,7 @@ final class Scenario {
     this.exportFailure,
     this.exportCancelSlow = false,
     this.fastConcatRejected = false,
+    this.openBuffering,
   });
 
   /// Everything works.
@@ -121,6 +122,11 @@ final class Scenario {
          name: 'buffering',
          bufferingWindows: [BufferingWindow(at, duration)],
        );
+
+  /// 04A B1: bind succeeds once the tracks are known, then the session
+  /// keeps buffering for [duration] before the first frame is ready.
+  const Scenario.openBuffering([Duration duration = const Duration(seconds: 3)])
+    : this._(name: 'openBuffering', openBuffering: duration);
 
   /// Bind fails with an `UNSUPPORTED_*` code (fatal).
   const Scenario.unsupported([
@@ -206,6 +212,9 @@ final class Scenario {
   /// Fast concatenation refused by the engine.
   final bool fastConcatRejected;
 
+  /// Buffering right after a successful bind (04A B1), if any.
+  final Duration? openBuffering;
+
   /// Bind-time error, if any.
   VideoKitStableError? get bindError {
     if (unsupportedPart != null) {
@@ -247,6 +256,7 @@ final class Scenario {
     exportFailure: other.exportFailure ?? exportFailure,
     exportCancelSlow: exportCancelSlow || other.exportCancelSlow,
     fastConcatRejected: fastConcatRejected || other.fastConcatRejected,
+    openBuffering: other.openBuffering ?? openBuffering,
   );
 
   /// Same as [and].
@@ -266,7 +276,9 @@ final class Scenario {
       setEquals(other.hostActionTimeouts, hostActionTimeouts) &&
       listEquals(other.trackingLostRanges, trackingLostRanges) &&
       other.exportFailure == exportFailure &&
-      other.exportCancelSlow == exportCancelSlow;
+      other.exportCancelSlow == exportCancelSlow &&
+      other.fastConcatRejected == fastConcatRejected &&
+      other.openBuffering == openBuffering;
 
   @override
   int get hashCode => Object.hash(
@@ -282,6 +294,8 @@ final class Scenario {
     Object.hashAll(trackingLostRanges),
     exportFailure,
     exportCancelSlow,
+    fastConcatRejected,
+    openBuffering,
   );
 
   @override
@@ -295,6 +309,7 @@ abstract final class Scenarios {
   static final Map<String, Scenario> catalog = Map.unmodifiable({
     'normal': const Scenario.normal(),
     'slowLoad': const Scenario.slowLoad(),
+    'openBuffering': const Scenario.openBuffering(),
     'buffering': Scenario.buffering(),
     'unsupported': const Scenario.unsupported(),
     'unsupportedContainer': const Scenario.unsupported(

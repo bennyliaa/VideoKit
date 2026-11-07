@@ -206,6 +206,21 @@ class ImagePageState extends State<ImagePage> {
                 pictureBuilder: _scope.backend.pictureBuilder,
                 resolveHostString: (k) => resolveAppHostString(context, k),
                 onBack: () => unawaited(close()),
+                onStateAction: (a) {
+                  if (a != StateAction.showCapabilities) return;
+                  // J4: read-only capability page.
+                  unawaited(
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => VideoKitCapabilitiesPage(
+                          capabilities: _scope.backend.videoKit.capabilities(
+                            const CapabilityRequest(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
                 options: VideoKitImageViewerOptions(
                   showPageButtons: pages.length > 1,
                 ),

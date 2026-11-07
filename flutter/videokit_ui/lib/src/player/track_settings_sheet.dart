@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 
 import '../common/vk_pressable.dart';
+import '../common/vk_segmented.dart';
 import '../foundation/format.dart';
 import '../foundation/selector.dart';
 import '../l10n/vk_strings.dart';
 import '../theme/theme_scope.dart';
+import '../theme/tokens/vk_component_styles.dart';
 import 'picture_style.dart';
 
 /// Readable codec name of a track (R1-03): "AAC", "DTS", "WebVTT"…; an
@@ -147,31 +149,14 @@ class _TrackSettingsSheetState extends State<TrackSettingsSheet> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          padding: EdgeInsetsDirectional.all(d.spacing4),
-          decoration: BoxDecoration(
-            color: t.colors.surfaceVariant,
-            borderRadius: BorderRadius.circular(d.cornerMedium),
-          ),
-          child: Row(
-            children: [
-              for (final tab in TrackSettingsTab.values)
-                Expanded(
-                  child: VkPressable(
-                    style: t.components.chip,
-                    semanticLabel: tabLabel(tab),
-                    selected: tab == _tab,
-                    onPressed: () => setState(() => _tab = tab),
-                    builder: (context, box) => Text(
-                      tabLabel(tab),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: box.textStyle,
-                    ),
-                  ),
-                ),
-            ],
-          ),
+        // Design page 11: neutral segmented tabs.
+        VkSegmented<TrackSettingsTab>(
+          segments: [
+            for (final tab in TrackSettingsTab.values)
+              VkSegment(value: tab, label: tabLabel(tab)),
+          ],
+          selected: _tab,
+          onChanged: (tab) => setState(() => _tab = tab),
         ),
         SizedBox(height: d.spacing12),
         VkSelector<VideoKitSessionState, VideoKitSessionState>(
@@ -321,10 +306,23 @@ class _TrackRow extends StatelessWidget {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
+    // Design page 11: rows sit on the sheet; only the chosen one is filled.
+    final menu = t.components.menu;
+    final plain = menu.normal.copyWith(
+      background: t.colors.surface.withValues(alpha: 0),
+    );
+    final style = VkStateStyle<VkBoxStyle>(
+      normal: plain,
+      pressed: menu.pressed,
+      focused: menu.focused,
+      disabled: menu.disabled.copyWith(background: plain.background),
+      selected: menu.selected,
+      hovered: menu.hovered,
+    );
     return Padding(
       padding: EdgeInsetsDirectional.only(bottom: d.spacing4),
       child: VkPressable(
-        style: t.components.menu,
+        style: style,
         semanticLabel: title,
         semanticHint: unsupported ? s.text('tracksUnsupported') : null,
         selected: selected,

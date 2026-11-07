@@ -146,6 +146,17 @@ class PlayerDemoPageState extends State<PlayerDemoPage>
     switch (action) {
       case StateAction.retry || StateAction.reconnectSource:
         unawaited(retry());
+      case StateAction.showCapabilities:
+        // J4: read-only capability page.
+        unawaited(
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => VideoKitCapabilitiesPage(
+                capabilities: kit.capabilities(const CapabilityRequest()),
+              ),
+            ),
+          ),
+        );
       default:
         break;
     }

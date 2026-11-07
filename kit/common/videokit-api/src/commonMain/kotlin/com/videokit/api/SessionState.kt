@@ -213,8 +213,11 @@ public data class VideoKitSessionState(
     val orientation: OrientationState = OrientationState(),
     /** SessionVisibility reported by the host. */
     val visibility: SessionVisibility = SessionVisibility.VISIBLE,
-    /** Whether this session is the one allowed to play audio (07 §4). */
-    val activeAudio: Boolean = true,
+    /**
+     * Whether this session is the one allowed to play audio (07 §4). `false` by default (04A A1): a bound session is
+     * silent until the host grants audio with `SetActiveAudio(true, epoch)`; single-player hosts grant it after bind.
+     */
+    val activeAudio: Boolean = false,
     /** Whether the playback controls are visible (original requirement §15.2). */
     val controlsVisible: Boolean = true,
     /** Current error, if the phase is an error phase. */
@@ -324,8 +327,8 @@ public data class VideoKitSessionConfig(
     val priority: ResourcePriority = ResourcePriority.VISIBLE,
     /** Initial visibility. */
     val initialVisibility: SessionVisibility = SessionVisibility.VISIBLE,
-    /** Initial audio activation; multi-view hosts start slots inactive and activate one (07 §4). */
-    val initialActiveAudio: Boolean = true,
+    /** Initial audio activation (04A A1: `false`; the host grants audio with `SetActiveAudio(true, epoch)`, 07 §4). */
+    val initialActiveAudio: Boolean = false,
     /** Opaque, host-chosen tag for diagnostics; never shown to the user. */
     val debugTag: String? = null,
 )

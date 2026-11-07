@@ -93,11 +93,12 @@ void main() {
       await show(
         const EditEstimate(durationUs: 102000000, sizeBytes: 96000000),
       );
-      expect(find.text('预计 01:42 · 约 96 MB'), findsOneWidget);
+      // Design page 15: estimate and concat path on one line.
+      expect(find.textContaining('预计 01:42 · 约 96 MB · '), findsOneWidget);
       await show(const EditEstimate(durationUs: 102000000));
-      expect(find.text('预计 01:42 · 大小无法预估'), findsOneWidget);
+      expect(find.textContaining('预计 01:42 · 大小无法预估 · '), findsOneWidget);
       await show(EditEstimate.unknown);
-      expect(find.text('无法预估'), findsOneWidget);
+      expect(find.textContaining('无法预估 · '), findsOneWidget);
       expect(
         find.textContaining('MB'),
         findsNothing,
@@ -163,7 +164,7 @@ void main() {
       );
       final node = tester.getSemantics(find.byType(CoverageStrip));
       expect(node.label, '目标 A 跟踪状态');
-      expect(node.value, contains('丢失，00:04 – 00:06'));
+      expect(node.value, contains('丢失，00:04.0 – 00:06.0'));
       expect(node.value, contains('置信度低'));
       for (final l in ['已跟踪', '置信度低', '可能混淆', '丢失', '未分析']) {
         expect(find.text(l), findsOneWidget, reason: l);

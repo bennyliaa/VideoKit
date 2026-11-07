@@ -9,6 +9,10 @@ import '../l10n/vk_strings.dart';
 import '../theme/theme_scope.dart';
 import '../editor/editor_panels.dart';
 
+/// `VideoKitStableError.params` key of the bytes an export still needs
+/// (J8; reported by the Kit when known).
+const String requiredBytesParam = 'requiredBytes';
+
 /// Display name of a codec / container MIME type (technical names, not
 /// translated).
 String vkCodecName(String? mime) => switch (mime) {
@@ -74,6 +78,8 @@ class ExportPanel extends StatefulWidget {
     this.fastConcatCapable = true,
     this.onReviewCoverage,
     this.successActions,
+    this.pinActions = false,
+    this.progressPreview,
   });
 
   /// Project.
@@ -103,6 +109,13 @@ class ExportPanel extends StatefulWidget {
   /// Host actions for a finished export ("打开", "分享").
   final Widget Function(BuildContext context, VideoKitExportedMedia media)?
   successActions;
+
+  /// Design pages 20–21: with a bounded height the content scrolls and the
+  /// main buttons stay at the bottom; otherwise everything is one column.
+  final bool pinActions;
+
+  /// Picture shown above the stages while exporting (design page 20).
+  final Widget? progressPreview;
 
   @override
   State<ExportPanel> createState() => ExportPanelState();
@@ -222,7 +235,39 @@ class ExportPanelState extends State<ExportPanel> {
     } else {
       body = _idle(context, st);
     }
-    return Semantics(container: true, child: body);
+    return Semantics(container: true, child: _lay(context, body));
+  }
+
+  /// Moves the [_Actions] of [body] below a scrolling content area.
+  Widget _lay(BuildContext context, Widget body) {
+    if (!widget.pinActions || body is! Column) return body;
+    final actions = body.children.whereType<_Actions>().toList();
+    if (actions.isEmpty) return body;
+    final content = [
+      for (final c in body.children)
+        if (c is! _Actions) c,
+    ];
+    return LayoutBuilder(
+      builder: (context, c) {
+        if (!c.hasBoundedHeight) return body;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: content,
+                ),
+              ),
+            ),
+            SizedBox(height: VkTheme.of(context).dimensions.spacing12),
+            ...actions,
+          ],
+        );
+      },
+    );
   }
 
   // --------------------------------------------------------------- idle --
@@ -373,20 +418,22 @@ class ExportPanelState extends State<ExportPanel> {
           style: t.typography.bodySmall.copyWith(color: t.colors.textSecondary),
         ),
         SizedBox(height: d.spacing16),
-        if (coverageBlocks && !blocking)
-          VkButton(
-            label: s.text('exportReviewCoverage'),
-            onPressed: widget.onReviewCoverage == null
-                ? null
-                : () => widget.onReviewCoverage!(uncovered),
-          )
-        else
-          VkButton(
-            label: s.text('exportStart'),
-            onPressed: blocking || coverageBlocks
-                ? null
-                : () => unawaited(start()),
-          ),
+        _Actions([
+          if (coverageBlocks && !blocking)
+            VkButton(
+              label: s.text('exportReviewCoverage'),
+              onPressed: widget.onReviewCoverage == null
+                  ? null
+                  : () => widget.onReviewCoverage!(uncovered),
+            )
+          else
+            VkButton(
+              label: s.text('exportStart'),
+              onPressed: blocking || coverageBlocks
+                  ? null
+                  : () => unawaited(start()),
+            ),
+        ]),
       ],
     );
   }
@@ -425,6 +472,13 @@ class ExportPanelState extends State<ExportPanel> {
           ),
         ),
         SizedBox(height: d.spacing16),
+        if (widget.progressPreview case final preview?) ...[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(d.cornerLarge),
+            child: AspectRatio(aspectRatio: 16 / 9, child: preview),
+          ),
+          SizedBox(height: d.spacing16),
+        ],
         for (final (i, stage) in stages.indexed)
           _StageRow(
             title: s.text(switch (stage) {
@@ -463,13 +517,15 @@ class ExportPanelState extends State<ExportPanel> {
         SizedBox(height: d.spacing16),
         _InfoCard(text: s.text('exportNoPause')),
         SizedBox(height: d.spacing16),
-        VkButton(
-          label: s.text('exportCancel'),
-          variant: VkButtonVariant.secondary,
-          onPressed: p.cancellable
-              ? () => unawaited(widget.project.cancelExport(p.exportId))
-              : null,
-        ),
+        _Actions([
+          VkButton(
+            label: s.text('exportCancel'),
+            variant: VkButtonVariant.danger,
+            onPressed: p.cancellable
+                ? () => unawaited(widget.project.cancelExport(p.exportId))
+                : null,
+          ),
+        ]),
       ],
     );
   }
@@ -490,11 +546,13 @@ class ExportPanelState extends State<ExportPanel> {
           ),
         ),
         SizedBox(height: t.dimensions.spacing16),
-        VkButton(
-          label: s.text('exportCancel'),
-          variant: VkButtonVariant.secondary,
-          onPressed: null,
-        ),
+        _Actions([
+          VkButton(
+            label: s.text('exportCancel'),
+            variant: VkButtonVariant.danger,
+            onPressed: null,
+          ),
+        ]),
       ],
     );
   }
@@ -557,15 +615,17 @@ class ExportPanelState extends State<ExportPanel> {
           title: s.text(removed ? 'exportCancelled' : 'exportCancelledPartial'),
         ),
         SizedBox(height: d.spacing16),
-        VkButton(label: s.text('exportRetry'), onPressed: reset),
-        if (widget.onBackToEdit != null) ...[
-          SizedBox(height: d.spacing8),
-          VkButton(
-            label: s.text('exportBackToEdit'),
-            variant: VkButtonVariant.secondary,
-            onPressed: widget.onBackToEdit,
-          ),
-        ],
+        _Actions([
+          VkButton(label: s.text('exportRetry'), onPressed: reset),
+          if (widget.onBackToEdit != null) ...[
+            SizedBox(height: d.spacing8),
+            VkButton(
+              label: s.text('exportBackToEdit'),
+              variant: VkButtonVariant.outline,
+              onPressed: widget.onBackToEdit,
+            ),
+          ],
+        ]),
       ],
     );
   }
@@ -595,7 +655,20 @@ class ExportPanelState extends State<ExportPanel> {
         (e.suggestedAction == SuggestedAction.reduceQuality ||
             e.code == ErrorCode.outputSpaceInsufficient ||
             e.code == ErrorCode.encoderUnavailable);
-    final suggestion = s.action(e.suggestedAction);
+    // J8: with the missing space reported (`requiredBytes`, rounded up to
+    // 10 MB) the hint names it; otherwise a generic hint without numbers.
+    final String? suggestion;
+    if (e.code == ErrorCode.outputSpaceInsufficient) {
+      final need = int.tryParse(e.params[requiredBytesParam] ?? '');
+      const step = 10 * 1000 * 1000;
+      suggestion = need == null || need <= 0
+          ? s.text('exportSuggestFreeSpace')
+          : s.exportSuggestFreeSpaceSize(
+              VkFormat.fileSize(s, (need + step - 1) ~/ step * step),
+            );
+    } else {
+      suggestion = s.action(e.suggestedAction);
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -632,24 +705,26 @@ class ExportPanelState extends State<ExportPanel> {
           style: t.typography.caption.copyWith(color: t.colors.textSecondary),
         ),
         SizedBox(height: d.spacing16),
-        if (reduce)
-          VkButton(
-            label: s.exportUseSmaller(vkPresetLabel(s, smaller)),
-            onPressed: () {
-              selectPreset(smaller);
-              setState(() => _result = null);
-            },
-          )
-        else
-          VkButton(label: s.text('exportRetry'), onPressed: reset),
-        if (widget.onBackToEdit != null) ...[
-          SizedBox(height: d.spacing8),
-          VkButton(
-            label: s.text('exportBackToEdit'),
-            variant: VkButtonVariant.secondary,
-            onPressed: widget.onBackToEdit,
-          ),
-        ],
+        _Actions([
+          if (reduce)
+            VkButton(
+              label: s.exportUseSmaller(vkPresetLabel(s, smaller)),
+              onPressed: () {
+                selectPreset(smaller);
+                setState(() => _result = null);
+              },
+            )
+          else
+            VkButton(label: s.text('exportRetry'), onPressed: reset),
+          if (widget.onBackToEdit != null) ...[
+            SizedBox(height: d.spacing8),
+            VkButton(
+              label: s.text('exportBackToEdit'),
+              variant: VkButtonVariant.outline,
+              onPressed: widget.onBackToEdit,
+            ),
+          ],
+        ]),
       ],
     );
   }
@@ -678,23 +753,31 @@ class ExportPanelState extends State<ExportPanel> {
     Widget row(String k, String v) => MergeSemantics(
       child: Padding(
         padding: EdgeInsetsDirectional.symmetric(vertical: d.spacing8),
-        child: Wrap(
-          spacing: d.spacing16,
-          children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(minWidth: d.targetMin * 1.5),
-              child: Text(
-                k,
-                style: t.typography.body.copyWith(
-                  color: t.colors.textSecondary,
+        // Design page 21: label at the start, value at the end.
+        child: SizedBox(
+          width: double.infinity,
+          child: Wrap(
+            spacing: d.spacing16,
+            alignment: WrapAlignment.spaceBetween,
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: d.targetMin * 1.5),
+                child: Text(
+                  k,
+                  style: t.typography.body.copyWith(
+                    color: t.colors.textSecondary,
+                  ),
                 ),
               ),
-            ),
-            Text(
-              v,
-              style: t.typography.body.copyWith(color: t.colors.textPrimary),
-            ),
-          ],
+              Text(
+                v,
+                style: t.typography.body.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: t.colors.textPrimary,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -752,11 +835,13 @@ class ExportPanelState extends State<ExportPanel> {
         ],
         if (widget.onBackToEdit != null) ...[
           SizedBox(height: d.spacing16),
-          VkButton(
-            label: s.text('exportBackToEdit'),
-            variant: VkButtonVariant.secondary,
-            onPressed: widget.onBackToEdit,
-          ),
+          _Actions([
+            VkButton(
+              label: s.text('exportBackToEdit'),
+              variant: VkButtonVariant.outline,
+              onPressed: widget.onBackToEdit,
+            ),
+          ]),
         ],
       ],
     );
@@ -1021,32 +1106,37 @@ class _StageRow extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Wrap(
-                        spacing: d.spacing8,
-                        alignment: WrapAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            title,
-                            // Design page 20: body size; the running stage
-                            // is bold, waiting stages are grey.
-                            style: t.typography.body.copyWith(
-                              fontWeight: active
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
-                              color: state == _StageState.waiting
-                                  ? t.colors.textSecondary
-                                  : t.colors.textPrimary,
-                            ),
-                          ),
-                          if (trailing != null)
+                      // Full width so the percentage sits at the end (design
+                      // page 20); wraps below the title at large text.
+                      SizedBox(
+                        width: double.infinity,
+                        child: Wrap(
+                          spacing: d.spacing8,
+                          alignment: WrapAlignment.spaceBetween,
+                          children: [
                             Text(
-                              trailing!,
+                              title,
+                              // Design page 20: body size; the running stage
+                              // is bold, waiting stages are grey.
                               style: t.typography.body.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: t.colors.primary,
+                                fontWeight: active
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: state == _StageState.waiting
+                                    ? t.colors.textSecondary
+                                    : t.colors.textPrimary,
                               ),
                             ),
-                        ],
+                            if (trailing != null)
+                              Text(
+                                trailing!,
+                                style: t.typography.body.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: t.colors.primary,
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                       Text(
                         detail?.isNotEmpty ?? false ? detail! : status,
@@ -1120,4 +1210,19 @@ class _InfoCard extends StatelessWidget {
             ),
     );
   }
+}
+
+/// Main buttons of a panel view; kept at the bottom when
+/// [ExportPanel.pinActions] is set.
+class _Actions extends StatelessWidget {
+  const _Actions(this.children);
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    mainAxisSize: MainAxisSize.min,
+    children: children,
+  );
 }

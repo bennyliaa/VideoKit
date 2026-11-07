@@ -66,6 +66,15 @@ internal fun multiInstanceCases(): List<ContractCase> = listOf(
         animated?.let { awaitState(it.state, what = "animation PLAYING") { state -> state.phase == SessionPhase.PLAYING } }
         listOfNotNull(video, image, animated).forEach { it.release() }
     },
+    multi("multi.audio_inactive_until_granted", "a bound session is silent until the host grants audio (04A A1)") {
+        val session = boundCounted("audio-default").first
+        expect(!session.state.value.activeAudio) { "audible before any grant" }
+        session.execute(VideoKitCommand.Play)
+        expect(!session.state.value.activeAudio) { "Play made the session audible" }
+        expectEquals(VideoKitCommandResult.Executed, session.execute(VideoKitCommand.SetActiveAudio(true, 1L)), "grant")
+        expect(session.state.value.activeAudio) { "grant not applied" }
+        session.release()
+    },
     multi("multi.unique_audio_epochs", "one audible session per epoch; switching mutes first; stale epochs are refused") {
         val a = boundCounted("audio-a").first
         val b = boundCounted("audio-b").first

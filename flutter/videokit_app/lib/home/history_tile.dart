@@ -62,6 +62,9 @@ class HistoryTile extends StatelessWidget {
     final now = AppScope.of(context).history.now();
     final e = entry;
     final meta = _meta(a);
+    final stackReselect = VkLayoutClass.collapseSecondary(
+      MediaQuery.textScalerOf(context),
+    );
     final pos = e.lastPositionUs;
     final second = e.unavailable
         ? null
@@ -75,7 +78,9 @@ class HistoryTile extends StatelessWidget {
         e.displayName,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: t.typography.title.copyWith(
+        // Design page 7: body-size semibold titles.
+        style: t.typography.body.copyWith(
+          fontWeight: FontWeight.w600,
           color: e.unavailable ? t.colors.textSecondary : t.colors.textPrimary,
         ),
       ),
@@ -88,7 +93,8 @@ class HistoryTile extends StatelessWidget {
           a(a.l.unavailableReason),
           style: t.typography.bodySmall.copyWith(color: t.colors.textSecondary),
         ),
-        if (!grid)
+        // At large text "重新选择" does not fit beside the texts.
+        if (!grid && stackReselect)
           VkButton(
             label: a(a.l.reselect),
             variant: VkButtonVariant.text,
@@ -220,7 +226,8 @@ class HistoryTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: body),
-          if (!e.unavailable)
+          // Design page 7: "reselect" (unavailable) or "more" at the top end.
+          if (!(e.unavailable && stackReselect))
             Padding(
               padding: EdgeInsetsDirectional.only(top: d.spacing4),
               child: action,

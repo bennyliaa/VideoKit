@@ -46,7 +46,12 @@ class VideoKitEditor extends StatefulWidget {
     this.presets = const [],
     this.fastConcatCapable = true,
     this.exportSuccessActions,
+    this.showAutosaved = false,
   });
+
+  /// Shows "已自动保存" after the title on tablets (design page 15); set by
+  /// hosts that save the project themselves.
+  final bool showAutosaved;
 
   /// Project (owned by the host).
   final VideoKitEditProject project;
@@ -138,6 +143,7 @@ class VideoKitEditorState extends State<VideoKitEditor> {
           controller: _c,
           onAddSources: widget.onPickSourcesRequested,
           fastConcatCapable: widget.fastConcatCapable,
+          onNext: () => _c.sheets.close('order'),
         ),
       ),
     );
@@ -268,7 +274,11 @@ class VideoKitEditorState extends State<VideoKitEditor> {
     final d = t.dimensions;
     final st = _c.state;
     final modeTitle = switch (_c.mode) {
-      EditorMode.clips => widget.title ?? s.text('editorTitle'),
+      // Design pages 15–16: "海边旅行 · 剪辑" on tablets, "剪辑" on phones.
+      EditorMode.clips =>
+        compact || widget.title == null
+            ? s.text('editorTitle')
+            : s.editorTitleWithProject(widget.title!),
       EditorMode.mask => s.text(
         _maskTab == MaskEditorTab.manual ? 'maskTitle' : 'editorTrack',
       ),
@@ -296,16 +306,58 @@ class VideoKitEditorState extends State<VideoKitEditor> {
             ),
           SizedBox(width: d.spacing8),
           Expanded(
-            child: Semantics(
-              header: true,
-              child: Text(
-                modeTitle,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: t.typography.titleLarge.copyWith(
-                  color: t.colors.textPrimary,
+            child: Row(
+              children: [
+                Flexible(
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      modeTitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: t.typography.titleLarge.copyWith(
+                        color: t.colors.textPrimary,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                // Design page 18: tracking runs on the device only.
+                if (_c.mode == EditorMode.mask &&
+                    _maskTab == MaskEditorTab.tracking) ...[
+                  SizedBox(width: d.spacing12),
+                  Flexible(
+                    child: Container(
+                      padding: EdgeInsetsDirectional.symmetric(
+                        horizontal: d.spacing12,
+                        vertical: d.spacing4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: t.colors.successContainer,
+                        borderRadius: BorderRadius.circular(d.cornerFull),
+                      ),
+                      child: Text(
+                        s.text('trackLocalOnly'),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: t.typography.label.copyWith(
+                          color: t.colors.textPrimary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                // Design page 15: "已自动保存" after the title (tablet).
+                if (widget.showAutosaved && !compact && !inMode) ...[
+                  SizedBox(width: d.spacing16),
+                  Text(
+                    s.text('editorAutosaved'),
+                    maxLines: 1,
+                    style: t.typography.bodySmall.copyWith(
+                      color: t.colors.textSecondary,
+                    ),
+                  ),
+                ],
+              ],
             ),
           ),
           if (_c.mode != EditorMode.export) ...[
@@ -321,20 +373,41 @@ class VideoKitEditorState extends State<VideoKitEditor> {
             ),
             SizedBox(width: d.spacing8),
             if (_c.mode == EditorMode.mask)
-              ConstrainedBox(
-                constraints: BoxConstraints(minWidth: d.targetMin * 2),
-                child: VkButton(
-                  label: s.text('maskDone'),
-                  onPressed: () => _c.mode = EditorMode.clips,
+              // Shrinks (label wraps) before the bar overflows (J9).
+              Flexible(
+                // flex 0 (fixed) at normal text; shrinks once scaled.
+                flex: VkLayoutClass.iconScale(context) > 1 ? 1 : 0,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: d.targetMin * 2),
+                  child: VkButton(
+                    // J7: the tracking workspace applies its targets as masks.
+                    label: s.text(
+                      _maskTab == MaskEditorTab.manual
+                          ? 'maskDone'
+                          : 'trackApply',
+                    ),
+                    onPressed: () => _c.mode = EditorMode.clips,
+                  ),
                 ),
+              )
+            else if (compact && VkLayoutClass.iconScale(context) > 1)
+              // J9: phones at large text keep "导出" as an icon button.
+              VkIconButton(
+                icon: t.icons.resolve('export'),
+                semanticLabel: s.text('editorExport'),
+                style: t.components.buttonPrimary,
+                onPressed: st.timeline.clips.isEmpty ? null : openExport,
               )
             else
               // Regular button height, pill width (design page 15).
-              ConstrainedBox(
-                constraints: BoxConstraints(minWidth: d.targetMin * 2),
-                child: VkButton(
-                  label: s.text('editorExport'),
-                  onPressed: st.timeline.clips.isEmpty ? null : openExport,
+              Flexible(
+                flex: VkLayoutClass.iconScale(context) > 1 ? 1 : 0,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: d.targetMin * 2),
+                  child: VkButton(
+                    label: s.text('editorExport'),
+                    onPressed: st.timeline.clips.isEmpty ? null : openExport,
+                  ),
                 ),
               ),
           ],
@@ -345,7 +418,11 @@ class VideoKitEditorState extends State<VideoKitEditor> {
 
   // ------------------------------------------------------------ preview --
 
-  Widget _preview(BuildContext context, {bool showTime = true}) {
+  Widget _preview(
+    BuildContext context, {
+    bool showTime = true,
+    bool showTransport = true,
+  }) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
@@ -384,8 +461,8 @@ class VideoKitEditorState extends State<VideoKitEditor> {
                   ),
                   child: Text(
                     s.editorTime(
-                      VkFormat.timecode(_c.playheadUs),
-                      VkFormat.timecode(duration),
+                      VkFormat.timecodeTenths(_c.playheadUs),
+                      VkFormat.timecodeTenths(duration),
                     ),
                     style: t.typography.timecode.copyWith(
                       color: t.colors.playerControlsContent,
@@ -393,55 +470,58 @@ class VideoKitEditorState extends State<VideoKitEditor> {
                   ),
                 ),
               ),
-            PositionedDirectional(
-              start: 0,
-              end: 0,
-              bottom: d.spacing12,
-              child: Center(
-                child: Container(
-                  padding: EdgeInsetsDirectional.symmetric(
-                    horizontal: d.spacing8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: t.drawables.glassPlayer.color,
-                    borderRadius: BorderRadius.circular(d.cornerFull),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      VkIconButton(
-                        icon: t.icons.resolve('seekback'),
-                        semanticLabel: s.rewind(10),
-                        style: style,
-                        onPressed: p == null
-                            ? null
-                            : () =>
-                                  unawaited(_c.seek(_c.playheadUs - 10000000)),
-                      ),
-                      VkIconButton(
-                        icon: playing ? t.icons.pause : t.icons.play,
-                        semanticLabel: s.text(
-                          playing ? 'playerPause' : 'playerPlay',
+            if (showTransport)
+              PositionedDirectional(
+                start: 0,
+                end: 0,
+                bottom: d.spacing12,
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsetsDirectional.symmetric(
+                      horizontal: d.spacing8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: t.drawables.glassPlayer.color,
+                      borderRadius: BorderRadius.circular(d.cornerFull),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        VkIconButton(
+                          icon: t.icons.resolve('seekback'),
+                          semanticLabel: s.rewind(10),
+                          style: style,
+                          onPressed: p == null
+                              ? null
+                              : () => unawaited(
+                                  _c.seek(_c.playheadUs - 10000000),
+                                ),
                         ),
-                        style: style,
-                        onPressed: p == null || duration <= 0
-                            ? null
-                            : () => unawaited(_c.togglePlay()),
-                      ),
-                      VkIconButton(
-                        icon: t.icons.resolve('seekforward'),
-                        semanticLabel: s.forward(10),
-                        style: style,
-                        onPressed: p == null
-                            ? null
-                            : () =>
-                                  unawaited(_c.seek(_c.playheadUs + 10000000)),
-                      ),
-                    ],
+                        VkIconButton(
+                          icon: playing ? t.icons.pause : t.icons.play,
+                          semanticLabel: s.text(
+                            playing ? 'playerPause' : 'playerPlay',
+                          ),
+                          style: style,
+                          onPressed: p == null || duration <= 0
+                              ? null
+                              : () => unawaited(_c.togglePlay()),
+                        ),
+                        VkIconButton(
+                          icon: t.icons.resolve('seekforward'),
+                          semanticLabel: s.forward(10),
+                          style: style,
+                          onPressed: p == null
+                              ? null
+                              : () => unawaited(
+                                  _c.seek(_c.playheadUs + 10000000),
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
@@ -471,6 +551,12 @@ class VideoKitEditorState extends State<VideoKitEditor> {
     onBackToEdit: () => _c.mode = EditorMode.clips,
     onReviewCoverage: _reviewCoverage,
     successActions: widget.exportSuccessActions,
+    pinActions: true,
+    progressPreview: ExcludeSemantics(
+      child: IgnorePointer(
+        child: _preview(context, showTime: false, showTransport: false),
+      ),
+    ),
   );
 
   Widget _maskEditor(BuildContext context) => MaskEditor(
@@ -567,7 +653,9 @@ class VideoKitEditorState extends State<VideoKitEditor> {
           constraints: BoxConstraints(maxWidth: d.targetMin * 12),
           child: _card(
             context,
-            SingleChildScrollView(child: _exportPanel(context)),
+            // Design page 20: the panel scrolls, its main buttons stay at
+            // the bottom.
+            _exportPanel(context),
           ),
         ),
       ),
@@ -639,8 +727,8 @@ class VideoKitEditorState extends State<VideoKitEditor> {
           Center(
             child: Text(
               s.editorTime(
-                VkFormat.timecode(_c.playheadUs),
-                VkFormat.timecode(st.timeline.durationUs),
+                VkFormat.timecodeTenths(_c.playheadUs),
+                VkFormat.timecodeTenths(st.timeline.durationUs),
               ),
               style: t.typography.timecode.copyWith(
                 color: t.colors.textSecondary,
@@ -738,9 +826,9 @@ class VideoKitEditorState extends State<VideoKitEditor> {
           ),
         ],
       ),
-      EditorMode.export => ListView(
+      EditorMode.export => Padding(
         padding: EdgeInsetsDirectional.all(d.spacing16),
-        children: [_exportPanel(context)],
+        child: _exportPanel(context),
       ),
     };
     return Column(

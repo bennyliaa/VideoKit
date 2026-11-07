@@ -82,9 +82,11 @@ class PlaybackRulesTest {
 
     @Test
     fun audioPolicyFollowsActiveAudioMuteAndLock() {
-        assertTrue(PlaybackRules.audioEnabled(prepared))
-        assertFalse(PlaybackRules.audioEnabled(prepared.copy(activeAudio = false)))
-        assertFalse(PlaybackRules.audioEnabled(prepared.copy(hiddenForLock = true)))
+        // 04A A1: silent until the host grants audio.
+        assertFalse(PlaybackRules.audioEnabled(prepared))
+        val granted = prepared.copy(activeAudio = true)
+        assertTrue(PlaybackRules.audioEnabled(granted))
+        assertFalse(PlaybackRules.audioEnabled(granted.copy(hiddenForLock = true)))
         assertEquals(0f, PlaybackRules.outputVolume(prepared.copy(muted = true)))
         assertEquals(0.3f, PlaybackRules.outputVolume(prepared.copy(volume = 0.3f)))
     }

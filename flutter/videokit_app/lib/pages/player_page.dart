@@ -252,6 +252,19 @@ class PlayerPageState extends State<PlayerPage> {
                         hostActions: EntryHost.actionsFor(_scope, widget.entry),
                       ),
                     );
+                  } else if (a == StateAction.showCapabilities) {
+                    // J4: read-only capability page.
+                    unawaited(
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => VideoKitCapabilitiesPage(
+                            capabilities: _scope.backend.videoKit.capabilities(
+                              const CapabilityRequest(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
                   }
                 },
               ),

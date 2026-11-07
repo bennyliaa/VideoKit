@@ -236,7 +236,7 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
   }
 
   /// Mutes everything; the user picks a new audio source afterwards.
-  Future<void> muteAll() => audio.muteAll();
+  Future<void> muteAll() => audio.muteAll([for (final s in slots) s.session]);
 
   void _onEvent(DemoSlot slot, VideoKitEvent e) {
     if (e is! TransientNotice || !mounted) return;
@@ -332,6 +332,11 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
             semanticLabel: s.text('gridMuteAll'),
             onPressed: activeAudio == null ? null : muteAll,
           ),
+          // Design page 14: the layout is chosen from a menu at the top end.
+          _LayoutMenu(
+            selected: layout,
+            onSelected: (l) => setState(() => layout = l),
+          ),
         ],
       ),
       body: SafeArea(
@@ -351,10 +356,6 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
                     )
                   : Expanded(child: grid);
               final children = <Widget>[
-                _LayoutPicker(
-                  selected: layout,
-                  onSelected: (l) => setState(() => layout = l),
-                ),
                 if (paused > 0)
                   Padding(
                     padding: EdgeInsetsDirectional.only(bottom: d.spacing12),
@@ -454,8 +455,8 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
   }
 }
 
-class _LayoutPicker extends StatelessWidget {
-  const _LayoutPicker({required this.selected, required this.onSelected});
+class _LayoutMenu extends StatelessWidget {
+  const _LayoutMenu({required this.selected, required this.onSelected});
 
   final SlotGridLayout selected;
   final ValueChanged<SlotGridLayout> onSelected;
@@ -471,25 +472,28 @@ class _LayoutPicker extends StatelessWidget {
       SlotGridLayout.grid3x3 => g.l.layout3x3,
       SlotGridLayout.grid3x4 => g.l.layout3x4,
     });
-    return Padding(
-      padding: EdgeInsetsDirectional.only(bottom: d.spacing12),
-      child: Wrap(
-        spacing: d.spacing8,
-        runSpacing: d.spacing8,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          Semantics(
-            header: true,
-            child: Text(g(g.l.multiViewLayout), style: t.typography.label),
-          ),
-          for (final l in SlotGridLayout.values)
-            VkButton(
-              label: label(l),
-              variant: VkButtonVariant.secondary,
-              selected: l == selected,
-              onPressed: () => onSelected(l),
+    return MenuAnchor(
+      style: MenuStyle(
+        backgroundColor: WidgetStatePropertyAll(t.colors.surfaceHigh),
+      ),
+      menuChildren: [
+        for (final l in SlotGridLayout.values)
+          MenuItemButton(
+            onPressed: () => onSelected(l),
+            trailingIcon: l == selected
+                ? Icon(t.icons.check, size: d.icon20, color: t.colors.primary)
+                : null,
+            child: Text(
+              label(l),
+              style: t.typography.body.copyWith(color: t.colors.textPrimary),
             ),
-        ],
+          ),
+      ],
+      builder: (context, menu, _) => VkIconButton(
+        icon: t.icons.resolve('grid'),
+        semanticLabel: g(g.l.multiViewLayout),
+        semanticValue: label(selected),
+        onPressed: () => menu.isOpen ? menu.close() : menu.open(),
       ),
     );
   }

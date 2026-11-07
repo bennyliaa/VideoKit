@@ -92,6 +92,34 @@ final class VkStrings {
   /// Every placeholder-free ARB key with its value (before pseudo).
   Map<String, String> get defaults => {
     'demoModeBadge': l10n.demoModeBadge,
+    'editorAutosaved': l10n.editorAutosaved,
+    'trackApply': l10n.trackApply,
+    'stateUnsupportedTitle': l10n.stateUnsupportedTitle,
+    'stateUnsupportedContainer': l10n.stateUnsupportedContainer,
+    'stateUnsupportedVideoCodec': l10n.stateUnsupportedVideoCodec,
+    'stateUnsupportedAudioCodec': l10n.stateUnsupportedAudioCodec,
+    'actionShowCapabilities': l10n.actionShowCapabilities,
+    'capabilitiesTitle': l10n.capabilitiesTitle,
+    'capabilitiesVideoDecoders': l10n.capabilitiesVideoDecoders,
+    'capabilitiesAudioDecoders': l10n.capabilitiesAudioDecoders,
+    'capabilitiesFormats': l10n.capabilitiesFormats,
+    'capabilitiesLimits': l10n.capabilitiesLimits,
+    'capabilitiesHardware': l10n.capabilitiesHardware,
+    'capabilitiesSoftware': l10n.capabilitiesSoftware,
+    'capabilitiesSupported': l10n.capabilitiesSupported,
+    'capabilitiesPartial': l10n.capabilitiesPartial,
+    'capabilitiesUnsupported': l10n.capabilitiesUnsupported,
+    'capabilitiesSessions': l10n.capabilitiesSessions,
+    'capabilitiesMaxResolution': l10n.capabilitiesMaxResolution,
+    'capabilitiesMaxFrameRate': l10n.capabilitiesMaxFrameRate,
+    'capabilitiesNone': l10n.capabilitiesNone,
+    'orientationNoRotation': l10n.orientationNoRotation,
+    'imageEdit': l10n.imageEdit,
+    'imageEditUnsupported': l10n.imageEditUnsupported,
+    'exportSuggestFreeSpace': l10n.exportSuggestFreeSpace,
+    'playerMoreControls': l10n.playerMoreControls,
+    'concatNext': l10n.concatNext,
+    'sourceTrimAll': l10n.sourceTrimAll,
     'demoExportNoFile': l10n.demoExportNoFile,
     'commonOk': l10n.commonOk,
     'commonCancel': l10n.commonCancel,
@@ -352,6 +380,15 @@ final class VkStrings {
 
   /// ARB keys that take placeholders.
   static const Set<String> placeholderKeys = {
+    'editorTitleWithProject',
+    'capabilitiesCodecValue',
+    'capabilitiesSessionsValue',
+    'orientationRotated',
+    'exportSuggestFreeSpaceSize',
+    'playerSubtitlesRow',
+    'playerMediaSummary',
+    'sourceTrimRange',
+    'estimateWithPath',
     'playerSeekValue',
     'durationSpoken',
     'fileSizeBytes',
@@ -545,6 +582,41 @@ final class VkStrings {
 
   /// 视频带旋转元数据。
   String sourceRotated(int degrees) => _out(l10n.sourceRotated(degrees));
+
+  /// "{name} · 剪辑" title.
+  String editorTitleWithProject(String name) =>
+      _out(l10n.editorTitleWithProject(name));
+
+  /// Codec row value in the capability page.
+  String capabilitiesCodecValue(String kind, String size) =>
+      _out(l10n.capabilitiesCodecValue(kind, size));
+
+  /// Suggested concurrent sessions.
+  String capabilitiesSessionsValue(int count) =>
+      _out(l10n.capabilitiesSessionsValue(count));
+
+  /// Image rotation metadata.
+  String orientationRotated(int degrees) =>
+      _out(l10n.orientationRotated(degrees));
+
+  /// Export failure hint with the missing space.
+  String exportSuggestFreeSpaceSize(String size) =>
+      _out(l10n.exportSuggestFreeSpaceSize(size));
+
+  /// Large-text subtitle row.
+  String playerSubtitlesRow(String name) => _out(l10n.playerSubtitlesRow(name));
+
+  /// Landscape media summary.
+  String playerMediaSummary(String size, String codec) =>
+      _out(l10n.playerMediaSummary(size, codec));
+
+  /// Clip trim range in the concat list.
+  String sourceTrimRange(String start, String end) =>
+      _out(l10n.sourceTrimRange(start, end));
+
+  /// Estimate line with the concat path.
+  String estimateWithPath(String estimate, String path) =>
+      _out(l10n.estimateWithPath(estimate, path));
 
   /// 遮罩名称。
   String maskName(int index) => _out(l10n.maskName(index));

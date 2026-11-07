@@ -129,6 +129,16 @@ class _ComponentsPageState extends State<ComponentsPage> {
                       onPressed: () {},
                     ),
                     VkButton(
+                      label: g(g.l.componentButtonOutline),
+                      variant: VkButtonVariant.outline,
+                      onPressed: () {},
+                    ),
+                    VkButton(
+                      label: g(g.l.componentButtonDanger),
+                      variant: VkButtonVariant.danger,
+                      onPressed: () {},
+                    ),
+                    VkButton(
                       label: g(g.l.componentChip),
                       variant: VkButtonVariant.secondary,
                       selected: true,
@@ -136,6 +146,83 @@ class _ComponentsPageState extends State<ComponentsPage> {
                     ),
                     VkButton(label: g(g.l.stateDisabled), onPressed: null),
                   ]),
+                ),
+                // Design page 6: host action item in its five states.
+                GallerySection(
+                  title: g(g.l.sectionHostStates),
+                  child: wrap([
+                    for (final (label, selected, pending, enabled, badge) in [
+                      (g(g.l.hostStateNormal), false, false, true, null),
+                      (g(g.l.stateSelected), true, false, true, null),
+                      (g(g.l.hostStatePending), false, true, true, null),
+                      (g(g.l.stateDisabled), false, false, false, null),
+                      (
+                        g(g.l.hostStateBadge),
+                        false,
+                        false,
+                        true,
+                        g(g.l.badgeSample),
+                      ),
+                    ])
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          VkIconButton(
+                            icon: t.icons.resolve(
+                              selected ? 'favorite' : 'tag',
+                            ),
+                            semanticLabel: label,
+                            selected: selected,
+                            pending: pending,
+                            badgeText: badge,
+                            style: t.components.hostActionBarSurface.item,
+                            onPressed: enabled ? () {} : null,
+                          ),
+                          SizedBox(height: d.spacing4),
+                          ExcludeSemantics(
+                            child: Text(
+                              label,
+                              style: t.typography.caption.copyWith(
+                                color: t.colors.textSecondary,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                  ]),
+                ),
+                // Design page 6: switches and checkboxes.
+                GallerySection(
+                  title: g(g.l.sectionToggles),
+                  child: wrap([
+                    VkSwitch(
+                      value: _favorited,
+                      semanticLabel: g(g.l.sectionToggles),
+                      onChanged: (v) => setState(() => _favorited = v),
+                    ),
+                    VkSwitch(
+                      value: false,
+                      semanticLabel: g(g.l.stateDisabled),
+                      onChanged: null,
+                    ),
+                    ExcludeSemantics(
+                      child: Icon(
+                        t.icons.resolve('checkboxon'),
+                        color: t.colors.primary,
+                      ),
+                    ),
+                    ExcludeSemantics(
+                      child: Icon(
+                        t.icons.resolve('checkboxoff'),
+                        color: t.colors.borderStrong,
+                      ),
+                    ),
+                  ]),
+                ),
+                // Design page 6: tracking status legend, "未分析" included.
+                GallerySection(
+                  title: g(g.l.sectionTrackingLegend),
+                  child: const CoverageLegend(),
                 ),
                 GallerySection(
                   title: g(g.l.sectionIconButtons),
@@ -281,6 +368,7 @@ class _ComponentsPageState extends State<ComponentsPage> {
                           suggestedAction: SuggestedAction.chooseOtherSource,
                         ),
                         fatal: true,
+                        capabilityHelp: true,
                       ),
                     ),
                     stateBox(

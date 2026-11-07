@@ -7,6 +7,7 @@ import 'package:videokit_api/videokit_api.dart';
 import '../common/vk_buttons.dart';
 import '../export/export_panel.dart' show vkCodecName;
 import '../foundation/format.dart';
+import '../foundation/layout_class.dart';
 import '../l10n/vk_strings.dart';
 import '../theme/theme_scope.dart';
 import 'editor_controller.dart';
@@ -201,25 +202,20 @@ class EstimateLine extends StatelessWidget {
         ? s.estimateDurationOnly(VkFormat.timecode(d))
         : s.estimateLine(VkFormat.timecode(d), VkFormat.fileSize(s, size));
     final fast = compatibility.fastConcat;
+    // Design page 15: one line in the status colour ("预计 01:42 · 约 96 MB ·
+    // 快速拼接可用" green; otherwise secondary text).
+    final color = d != null && fast
+        ? t.colors.trackTracked
+        : t.colors.textSecondary;
     return Semantics(
       container: true,
       liveRegion: true,
-      child: Wrap(
-        spacing: t.dimensions.spacing8,
-        runSpacing: t.dimensions.spacing4,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          Text(
-            text,
-            style: t.typography.label.copyWith(color: t.colors.textPrimary),
-          ),
-          Text(
-            s.text(fast ? 'fastConcatAvailable' : 'fastConcatUnavailable'),
-            style: t.typography.label.copyWith(
-              color: fast ? t.colors.trackTracked : t.colors.textSecondary,
-            ),
-          ),
-        ],
+      child: Text(
+        s.estimateWithPath(
+          text,
+          s.text(fast ? 'fastConcatAvailable' : 'fastConcatUnavailable'),
+        ),
+        style: t.typography.bodySmall.copyWith(color: color),
       ),
     );
   }
@@ -395,41 +391,53 @@ class ClipPropertiesPanel extends StatelessWidget {
       st.timeline,
       fastConcatCapable: fastConcatCapable,
     );
-    Widget row(String label, String value) => Padding(
-      padding: EdgeInsetsDirectional.only(bottom: d.spacing8),
-      child: MergeSemantics(
-        child: Wrap(
-          spacing: d.spacing12,
-          runSpacing: d.spacing4,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(minWidth: d.targetMin * 1.25),
-              child: Text(
-                label,
-                style: t.typography.label.copyWith(
-                  color: t.colors.textSecondary,
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsetsDirectional.symmetric(
-                horizontal: d.spacing12,
-                vertical: d.spacing8,
-              ),
-              decoration: BoxDecoration(
-                color: t.colors.surfaceVariant,
-                borderRadius: BorderRadius.circular(d.cornerSmall),
-              ),
-              child: Text(
-                value,
-                style: t.typography.body.copyWith(color: t.colors.textPrimary),
-              ),
-            ),
-          ],
-        ),
-      ),
+    // Design page 15: label column, value box filling the rest; stacked
+    // at large text scales.
+    final stacked = VkLayoutClass.collapseSecondary(
+      MediaQuery.textScalerOf(context),
     );
+    Widget row(String label, String value) {
+      final labelText = Text(
+        label,
+        style: t.typography.bodySmall.copyWith(color: t.colors.textSecondary),
+      );
+      final box = Container(
+        padding: EdgeInsetsDirectional.symmetric(
+          horizontal: d.spacing12,
+          vertical: d.spacing8,
+        ),
+        decoration: BoxDecoration(
+          color: t.colors.surfaceVariant,
+          borderRadius: BorderRadius.circular(d.cornerSmall),
+        ),
+        child: Text(
+          value,
+          style: t.typography.body.copyWith(color: t.colors.textPrimary),
+        ),
+      );
+      return Padding(
+        padding: EdgeInsetsDirectional.only(bottom: d.spacing8),
+        child: MergeSemantics(
+          child: stacked
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    labelText,
+                    SizedBox(height: d.spacing4),
+                    box,
+                  ],
+                )
+              : Row(
+                  children: [
+                    SizedBox(width: d.targetMin * 1.25, child: labelText),
+                    SizedBox(width: d.spacing12),
+                    Expanded(child: box),
+                  ],
+                ),
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -469,21 +477,23 @@ class ClipPropertiesPanel extends StatelessWidget {
           ),
         ],
         SizedBox(height: d.spacing16),
-        Wrap(
-          spacing: d.spacing12,
-          runSpacing: d.spacing8,
+        // Design page 15: split (outline) and delete (danger) share the row.
+        Row(
           children: [
-            VkButton(
-              label: s.text('editorSplit'),
-              variant: VkButtonVariant.secondary,
-              icon: t.icons.resolve('split'),
-              onPressed: () => unawaited(controller.splitAtPlayhead()),
+            Expanded(
+              child: VkButton(
+                label: s.text('editorSplit'),
+                variant: VkButtonVariant.outline,
+                onPressed: () => unawaited(controller.splitAtPlayhead()),
+              ),
             ),
-            VkButton(
-              label: s.text('editorDelete'),
-              variant: VkButtonVariant.secondary,
-              icon: t.icons.resolve('delete'),
-              onPressed: () => unawaited(controller.removeSelected()),
+            SizedBox(width: d.spacing12),
+            Expanded(
+              child: VkButton(
+                label: s.text('editorDelete'),
+                variant: VkButtonVariant.danger,
+                onPressed: () => unawaited(controller.removeSelected()),
+              ),
             ),
           ],
         ),
@@ -502,7 +512,11 @@ class ClipOrderSheet extends StatelessWidget {
     required this.controller,
     this.onAddSources,
     this.fastConcatCapable = true,
+    this.onNext,
   });
+
+  /// Design page 16: the primary "next: preview" button (closes the sheet).
+  final VoidCallback? onNext;
 
   /// Editor controller.
   final EditorController controller;
@@ -571,6 +585,12 @@ class ClipOrderSheet extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: d.spacing12),
+                        // Design page 16: picture with the clip length. No
+                        // thumbnails yet (real capability), so a plain frame.
+                        _ClipThumb(
+                          duration: VkFormat.timecode(clip.durationUs),
+                        ),
+                        SizedBox(width: d.spacing12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -604,7 +624,14 @@ class ClipOrderSheet extends StatelessWidget {
                                   ),
                                 ),
                               Text(
-                                VkFormat.timecode(clip.durationUs),
+                                p != null &&
+                                        clip.inUs <= 0 &&
+                                        clip.outUs >= p.durationUs
+                                    ? s.text('sourceTrimAll')
+                                    : s.sourceTrimRange(
+                                        VkFormat.timecodeTenths(clip.inUs),
+                                        VkFormat.timecodeTenths(clip.outUs),
+                                      ),
                                 style: t.typography.caption.copyWith(
                                   color: t.colors.textSecondary,
                                 ),
@@ -634,7 +661,7 @@ class ClipOrderSheet extends StatelessWidget {
             if (onAddSources != null)
               VkButton(
                 label: s.text('editorAddVideo'),
-                variant: VkButtonVariant.secondary,
+                variant: VkButtonVariant.outline,
                 icon: t.icons.resolve('add'),
                 onPressed: onAddSources,
               ),
@@ -642,9 +669,54 @@ class ClipOrderSheet extends StatelessWidget {
             CompatibilityNotice(compatibility: compat),
             SizedBox(height: d.spacing12),
             EstimateLine(estimate: st.estimate, compatibility: compat),
+            if (onNext != null) ...[
+              SizedBox(height: d.spacing16),
+              VkButton(label: s.text('concatNext'), onPressed: onNext),
+            ],
           ],
         );
       },
+    );
+  }
+}
+
+/// Clip picture placeholder with its length (design page 16).
+class _ClipThumb extends StatelessWidget {
+  const _ClipThumb({required this.duration});
+
+  final String duration;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = VkTheme.of(context);
+    final d = t.dimensions;
+    return ExcludeSemantics(
+      child: Container(
+        width: d.targetMin * 2,
+        height: d.targetMin * 1.25,
+        alignment: AlignmentDirectional.bottomStart,
+        padding: EdgeInsetsDirectional.all(d.spacing4),
+        decoration: BoxDecoration(
+          color: t.colors.playerCanvas,
+          borderRadius: BorderRadius.circular(d.cornerSmall),
+        ),
+        child: Container(
+          padding: EdgeInsetsDirectional.symmetric(
+            horizontal: d.spacing8,
+            vertical: d.spacing4 / 2,
+          ),
+          decoration: BoxDecoration(
+            color: t.drawables.glassPlayer.color,
+            borderRadius: BorderRadius.circular(d.cornerFull),
+          ),
+          child: Text(
+            duration,
+            style: t.typography.timecode.copyWith(
+              color: t.colors.playerControlsContent,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

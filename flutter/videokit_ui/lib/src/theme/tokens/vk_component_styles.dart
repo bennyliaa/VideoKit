@@ -331,6 +331,8 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
     required this.buttonSecondary,
     required this.buttonText,
     required this.buttonIcon,
+    required this.buttonOutline,
+    required this.buttonDanger,
     required this.chip,
     required this.badge,
     required this.sheet,
@@ -354,6 +356,13 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
 
   /// `component.button.icon`.
   final VkStateStyle<VkBoxStyle> buttonIcon;
+
+  /// `component.button.outline`: outlined, transparent (design page 6).
+  final VkStateStyle<VkBoxStyle> buttonOutline;
+
+  /// `component.button.danger`: outlined in the error colour (design
+  /// pages 6, 15 and 20: delete, cancel export).
+  final VkStateStyle<VkBoxStyle> buttonDanger;
 
   /// `component.chip.default`.
   final VkStateStyle<VkBoxStyle> chip;
@@ -396,6 +405,8 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
     VkTokenKeys.buttonSecondary.key: buttonSecondary,
     VkTokenKeys.buttonText.key: buttonText,
     VkTokenKeys.buttonIcon.key: buttonIcon,
+    VkTokenKeys.buttonOutline.key: buttonOutline,
+    VkTokenKeys.buttonDanger.key: buttonDanger,
     VkTokenKeys.chipDefault.key: chip,
     VkTokenKeys.badgeDefault.key: badge,
     VkTokenKeys.sheetDefault.key: sheet,

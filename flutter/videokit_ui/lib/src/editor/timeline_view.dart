@@ -445,8 +445,8 @@ class _TimelineViewState extends State<TimelineView> {
             selected: selected,
             label: s.clipSemantic(
               i + 1,
-              VkFormat.timecode(clipStart),
-              VkFormat.timecode(clipStart + clip.durationUs),
+              VkFormat.timecodeTenths(clipStart),
+              VkFormat.timecodeTenths(clipStart + clip.durationUs),
               VkFormat.durationSpoken(s, clip.durationUs),
             ),
             onTap: () => _c.selectClip(clip.clipId),

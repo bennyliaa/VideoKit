@@ -71,15 +71,15 @@ class ImageInfoSheet extends StatelessWidget {
         s.text('infoFileSize'),
         length == null ? unknown : VkFormat.fileSize(s, length),
       ),
-      (
-        s.text('infoOrientation'),
-        switch (st.orientation.contentOrientation) {
-          MediaOrientation.portrait => s.text('orientationPortrait'),
-          MediaOrientation.landscape => s.text('orientationLandscape'),
-          MediaOrientation.square => s.text('orientationSquare'),
-          MediaOrientation.unknown => unknown,
-        },
-      ),
+      // J5: the rotation metadata (EXIF orientation), not the shape; left
+      // out when the engine does not report it.
+      if (info?.rotationDeg case final deg?)
+        (
+          s.text('infoOrientation'),
+          deg % 360 == 0
+              ? s.text('orientationNoRotation')
+              : s.orientationRotated(deg % 360),
+        ),
       // 04A L2: shown only when the engine reports them.
       if (details?.frameCount case final frames?)
         (s.text('infoFrameCount'), s.infoFrameCountValue(frames)),

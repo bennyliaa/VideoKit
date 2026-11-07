@@ -1,5 +1,6 @@
 // TEST-R2 regressions on the player component: R2-05 (drag right after the
 // controls appear), R2-04 (und track title).
+import 'package:flutter/gestures.dart' show kTouchSlop;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_api/videokit_api.dart';
@@ -51,6 +52,49 @@ void main() {
     expect(rig.session.committedSeeks, hasLength(seeks), reason: 'no seek');
     // Other hidden controls stay untouchable: the play key is not hit.
     expect(rig.session.commands.whereType<Pause>(), isEmpty);
+  });
+
+  testWidgets('R3-04: a slow tap with a little jitter on the hidden bar '
+      'still only shows the controls', (tester) async {
+    final rig = await hiddenWhilePlaying(tester);
+    final seeks = rig.session.committedSeeks.length;
+    final bar = tester.getRect(find.byType(VkSeekBar));
+    for (final f in [0.2, 0.5, 0.8]) {
+      // Hidden again before each tap.
+      tester
+          .state<VideoKitPlayerState>(find.byType(VideoKitPlayer))
+          .hideControls();
+      await tester.pump();
+      final at = Offset(bar.left + bar.width * f, bar.center.dy);
+      final g = await tester.startGesture(at);
+      await tester.pump(const Duration(milliseconds: 80));
+      await g.moveBy(const Offset(3, 1)); // below the touch slop
+      await tester.pump(const Duration(milliseconds: 80));
+      await g.up();
+      await rig.advance(tester, const Duration(milliseconds: 100));
+      expect(rig.session.controlsVisible.last, isTrue);
+    }
+    expect(rig.session.committedSeeks, hasLength(seeks), reason: 'no seek');
+  });
+
+  testWidgets('R3-04: a drag past the touch slop on the hidden bar seeks to '
+      'the finger', (tester) async {
+    final rig = await hiddenWhilePlaying(tester);
+    final bar = tester.getRect(find.byType(VkSeekBar));
+    final g = await tester.startGesture(
+      Offset(bar.left + bar.width * 0.3, bar.center.dy),
+    );
+    await tester.pump(const Duration(milliseconds: 16));
+    await g.moveBy(Offset(kTouchSlop * 3, 0));
+    await tester.pump(const Duration(milliseconds: 16));
+    await g.up();
+    await rig.advance(tester, const Duration(milliseconds: 300));
+    final d = rig.session.state.value.durationUs!;
+    final expected = (bar.width * 0.3 + kTouchSlop * 3) / bar.width;
+    expect(
+      rig.session.committedSeeks.last.positionUs / d,
+      closeTo(expected, 0.02),
+    );
   });
 
   test('R2-04: und / empty / mul titles become "音轨 N"', () {

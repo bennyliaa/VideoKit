@@ -8,6 +8,7 @@ import 'package:videokit_api/videokit_api.dart';
 import '../common/vk_badge.dart';
 import '../common/vk_buttons.dart';
 import '../common/vk_sheet_host.dart';
+import '../foundation/audio_grant.dart';
 import '../foundation/auto_hide.dart';
 import '../foundation/controls_policy.dart';
 import '../foundation/format.dart';
@@ -35,7 +36,12 @@ final class VideoKitImageViewerOptions {
     this.zoomStep = 1.25,
     this.showPageButtons = true,
     this.swipeFraction = 0.18,
+    this.grantAudio = true,
   });
+
+  /// TEST-R3 R3-01: an animated image grants itself the audio session after
+  /// bind, like a single player (static images are left alone).
+  final bool grantAudio;
 
   /// Auto-hide delay (only while an animated image plays).
   final Duration autoHideDelay;
@@ -130,6 +136,7 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
   bool get hasOpenPanel => _c.sheets.hasPanel;
 
   late PlayerController _c;
+  VkSingleAudioGrant? _audio;
   final FocusNode _focus = FocusNode(debugLabel: 'VideoKitImageViewer');
   MediaTransform? _gestureStart;
   Offset? _gestureFocal;
@@ -169,6 +176,9 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
   void initState() {
     super.initState();
     _c = _create();
+    _audio = widget.options.grantAudio
+        ? VkSingleAudioGrant(widget.session)
+        : null;
     final actions = widget.hostActions;
     if (actions != null) unawaited(widget.session.updateHostActions(actions));
   }
@@ -179,6 +189,10 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
     if (!identical(oldWidget.session, widget.session)) {
       _c.dispose();
       _c = _create();
+      _audio?.dispose();
+      _audio = widget.options.grantAudio
+          ? VkSingleAudioGrant(widget.session)
+          : null;
     } else {
       _c
         ..hostLabel = _host
@@ -206,6 +220,7 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
 
   @override
   void dispose() {
+    _audio?.dispose();
     _c.dispose();
     _focus.dispose();
     super.dispose();
@@ -428,6 +443,7 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
           error: st.error,
           mediaKind: st.mediaKind,
           hiddenForLock: st.hiddenForLock,
+          capabilityHelp: widget.onStateAction != null,
         );
         return Stack(
           children: [
@@ -586,7 +602,8 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
       if (_transform.isZoomed)
         PositionedDirectional(
           end: d.spacing16,
-          bottom: d.controlBarHeight * 2,
+          // Design page 13: top end, under the zoom capsule.
+          top: d.controlBarHeight * 1.5,
           child: SafeArea(
             child: VkMiniMap(
               transform: _transform,
@@ -670,6 +687,15 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
         onPressed: st.phase.isBound ? _rotate : null,
       ),
     ];
+    // J5 (design page 13): image editing is not in this release; the tool
+    // is shown disabled and says so to screen readers.
+    final editTool = _ToolItem(
+      id: 'edit',
+      icon: t.icons.resolve('edit'),
+      label: s.text('imageEdit'),
+      semanticLabel: s.text('imageEditUnsupported'),
+      onPressed: null,
+    );
     final toolbarWidth = size.width - d.spacing8 * 2;
     final itemExtent = d.targetMin * 1.25;
     final hostLayout = layoutHostActions(
@@ -678,6 +704,9 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
       itemExtent: itemExtent,
       collapseSecondary: false,
     );
+    final showEdit =
+        toolbarWidth >=
+        (tools.length + hostLayout.visible.length + 1) * itemExtent;
 
     final topBar = vkGlassBehind(
       glass.gradient(fromTop: true),
@@ -773,6 +802,12 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
                 for (final i in tools) Expanded(child: toolButton(i)),
                 for (final a in hostLayout.visible)
                   Expanded(child: hostButton(a)),
+                // The disabled "edit" only takes space left after the host
+                // actions; it never pushes one into "more".
+                if (showEdit)
+                  Expanded(
+                    child: _ToolButton(item: editTool, style: pictureStyle),
+                  ),
               ],
             ),
           ),
@@ -1021,7 +1056,11 @@ class _AnimatedBadge extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: t.typography.label.copyWith(color: t.colors.onPrimary),
+        // Design page 13: bold dark text on the primary pill.
+        style: t.typography.label.copyWith(
+          fontWeight: FontWeight.w700,
+          color: t.colors.onPrimary,
+        ),
       ),
     );
   }

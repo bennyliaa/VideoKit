@@ -14,7 +14,8 @@ import kotlinx.coroutines.flow.StateFlow
  * event sampling are not part of the engine; they live in `videokit-core` / `videokit-playback`.
  *
  * Contract (checked by the playback contract tests):
- * - [open] returns once the media is prepared (duration, tracks and size known) or throws [SpiException] with a
+ * - [open] returns once the media is parsed (duration and tracks known; buffering for playback and the video size may
+ *   still follow as BUFFERING / state updates) or throws [SpiException] with a
  *   stable error; cancelling the caller cancels the open and closes every read handle it opened.
  * - All read handles of a playback are closed when [PlaybackHandle.close] returns (06 §7: SourceReleased is only
  *   reported after that).

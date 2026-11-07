@@ -17,6 +17,7 @@ import 'package:videokit_example/gallery/components_page.dart';
 import 'package:videokit_example/image/image_demo_page.dart';
 import 'package:videokit_example/multiview/multi_view_demo_page.dart';
 import 'package:videokit_example/player/player_demo_page.dart';
+import 'package:videokit_fake/videokit_fake.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import 'support.dart';
@@ -67,7 +68,8 @@ void main() {
     String scenario,
     Size size, {
     GlobalKey<VideoKitPlayerState>? key,
-    VideoKitThemeMode mode = VideoKitThemeMode.dark,
+    VideoKitThemeMode? mode,
+    double textScale = 1.0,
   }) async {
     setViewSize(tester, size);
     final rig = await PlayerRig.create(scenario);
@@ -75,9 +77,11 @@ void main() {
     await tester.pumpWidget(
       _wrap(
         testApp(
-          demoPlayer(rig.session, key: key),
+          // A handler, so unsupported media offers the capability page (J4).
+          demoPlayer(rig.session, key: key, onStateAction: (_) {}),
           fontFamily: _family,
           mode: mode,
+          textScale: textScale,
         ),
       ),
     );
@@ -219,7 +223,7 @@ void main() {
     setViewSize(tester, expandedSize);
     await tester.pumpWidget(
       _wrap(
-        testApp(const MultiViewDemoPage(initialCount: 10), fontFamily: _family),
+        testApp(const MultiViewDemoPage(initialCount: 9), fontFamily: _family),
       ),
     );
     await frames(tester, 14);
@@ -538,6 +542,8 @@ void main() {
       ),
     );
     await frames(tester, 10);
+    await tester.tap(find.bySemanticsLabel('布局'));
+    await frames(tester, 4);
     await tester.tap(find.text('3×3'));
     await frames(tester, 4);
     await _shot(tester, 'r1_12b_multiview_3x3_phone');
@@ -669,6 +675,46 @@ void main() {
     tester.state<VideoKitEditorState>(find.byType(VideoKitEditor)).openExport();
     await frames(tester, 4);
     await _shot(tester, 'm4_export_fast_concat_rejected');
+    await tester.pumpWidget(const SizedBox());
+    await frames(tester, 5);
+  }, skip: _dir == null);
+
+  testWidgets('UI-AUDIT-A2 screens', (tester) async {
+    // 04A B1: opened, still buffering the first frame.
+    var rig = await player(tester, 'openBuffering', compactSize);
+    await _shot(tester, 'a2_open_buffering');
+    await tester.pumpWidget(const SizedBox());
+    rig.dispose();
+    await tester.pump(Duration.zero);
+
+    // J9: system text at 200 %, portrait list rows.
+    rig = await player(tester, 'normal', compactSize, textScale: 2.0);
+    await _shot(tester, 'a2_player_text_200');
+    await tester.pumpWidget(const SizedBox());
+    rig.dispose();
+    await tester.pump(Duration.zero);
+
+    // Design page 10: landscape, floating lock, mute by the slider.
+    rig = await player(tester, 'normal', expandedSize);
+    await _shot(tester, 'a2_player_landscape');
+    await tester.pumpWidget(const SizedBox());
+    rig.dispose();
+    await tester.pump(Duration.zero);
+
+    // J4: read-only capability page.
+    setViewSize(tester, compactSize);
+    await tester.pumpWidget(
+      _wrap(
+        testApp(
+          VideoKitCapabilitiesPage(
+            capabilities: Future.value(FakeVideoKit.demoCapabilities()),
+          ),
+          fontFamily: _family,
+        ),
+      ),
+    );
+    await frames(tester, 4);
+    await _shot(tester, 'a2_capabilities_page');
     await tester.pumpWidget(const SizedBox());
     await frames(tester, 5);
   }, skip: _dir == null);

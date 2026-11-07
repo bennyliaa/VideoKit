@@ -864,6 +864,54 @@ abstract class ExampleLocalizations {
   /// In zh, this message translates to:
   /// **'宿主处理：{action}'**
   String hostHandled(String action);
+
+  /// 组件库：描边按钮样例（J1）。
+  ///
+  /// In zh, this message translates to:
+  /// **'描边按钮'**
+  String get componentButtonOutline;
+
+  /// 组件库：危险按钮样例（J1）。
+  ///
+  /// In zh, this message translates to:
+  /// **'危险按钮'**
+  String get componentButtonDanger;
+
+  /// 组件库分组：宿主动作五种状态（设计稿第 6 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'宿主动作状态'**
+  String get sectionHostStates;
+
+  /// 宿主动作状态：默认。
+  ///
+  /// In zh, this message translates to:
+  /// **'默认'**
+  String get hostStateNormal;
+
+  /// 宿主动作状态：等待宿主处理。
+  ///
+  /// In zh, this message translates to:
+  /// **'等待中'**
+  String get hostStatePending;
+
+  /// 宿主动作状态：带角标。
+  ///
+  /// In zh, this message translates to:
+  /// **'带角标'**
+  String get hostStateBadge;
+
+  /// 组件库分组：开关与复选框（设计稿第 6 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'开关与选择'**
+  String get sectionToggles;
+
+  /// 组件库分组：跟踪状态图例（设计稿第 6 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'跟踪状态'**
+  String get sectionTrackingLegend;
 }
 
 class _ExampleLocalizationsDelegate

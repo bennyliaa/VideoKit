@@ -62,12 +62,29 @@ abstract final class MediaLauncher {
     await _chooseMulti(context, entries);
   }
 
+  /// Whether the Kit can concatenate (`EditFeatures.multiInputConcat`);
+  /// false when the report fails (R3-02: never offer what cannot open).
+  static Future<bool> concatAvailable(AppScope scope) async {
+    try {
+      final c = await scope.backend.videoKit
+          .capabilities(CapabilityRequest.device)
+          .timeout(const Duration(seconds: 5));
+      return c.editFeatures.multiInputConcat;
+    } on Object {
+      return false;
+    }
+  }
+
   static Future<void> _chooseMulti(
     BuildContext context,
     List<HistoryEntry> entries,
   ) async {
     final t = AppText.of(context);
     final allVideo = entries.every((e) => e.kind == MediaKind.video);
+    // TEST-R3 R3-02: "拼接" follows the capability report; without an edit
+    // engine it is disabled and says it is coming.
+    final editing = allVideo && await concatAvailable(AppScope.of(context));
+    if (!context.mounted) return;
     final choice = await showModalBottomSheet<String>(
       context: context,
       backgroundColor: VkTheme.of(context).colors.surface,
@@ -102,8 +119,20 @@ abstract final class MediaLauncher {
                     label: t(t.l.openConcat),
                     variant: VkButtonVariant.secondary,
                     icon: th.icons.resolve('clips'),
-                    onPressed: () => Navigator.of(context).pop('concat'),
+                    onPressed: editing
+                        ? () => Navigator.of(context).pop('concat')
+                        : null,
                   ),
+                  if (!editing) ...[
+                    SizedBox(height: d.spacing4),
+                    Text(
+                      t(t.l.featureComingSoon),
+                      textAlign: TextAlign.center,
+                      style: th.typography.bodySmall.copyWith(
+                        color: th.colors.textSecondary,
+                      ),
+                    ),
+                  ],
                 ],
               ],
             ),

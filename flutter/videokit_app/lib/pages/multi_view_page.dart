@@ -71,35 +71,35 @@ class MultiViewPageState extends State<MultiViewPage> {
     await s.execute(const Play());
     if (activeAudio == null && e.kind == MediaKind.video) {
       await activateAudio(s.sessionId);
+    } else {
+      // R3-01: a slot that joins later is told it has no audio.
+      await s.execute(SetActiveAudio(false, _epoch));
     }
   }
 
   /// Makes [sessionId] the only audio source.
   Future<void> activateAudio(String sessionId) async {
     final epoch = ++_epoch;
-    final previous = activeAudio;
     setState(() => activeAudio = sessionId);
+    // TEST-R3 R3-01: every other slot is told it has no audio, not only the
+    // previous one (a session's default may differ per Kit).
     for (final s in sessions.values) {
-      if (s.sessionId == previous && previous != sessionId) {
-        await s.execute(SetActiveAudio(false, epoch));
-        await s.execute(const SetMuted(true));
-      }
       if (s.sessionId == sessionId) {
         await s.execute(SetActiveAudio(true, epoch));
         await s.execute(const SetMuted(false));
+      } else {
+        await s.execute(SetActiveAudio(false, epoch));
+        await s.execute(const SetMuted(true));
       }
     }
   }
 
-  /// Mutes all.
+  /// Mutes all: `SetActiveAudio(false)` to every slot (R3-01).
   Future<void> muteAll() async {
     final epoch = ++_epoch;
-    final previous = activeAudio;
     setState(() => activeAudio = null);
     for (final s in sessions.values) {
-      if (s.sessionId == previous) {
-        await s.execute(SetActiveAudio(false, epoch));
-      }
+      await s.execute(SetActiveAudio(false, epoch));
       await s.execute(const SetMuted(true));
     }
   }

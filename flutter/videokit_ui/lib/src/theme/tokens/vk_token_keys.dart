@@ -299,6 +299,8 @@ abstract final class VkTokenKeys {
   static const buttonSecondary = VkTokenKey._('component.button.secondary', _p);
   static const buttonText = VkTokenKey._('component.button.text', _p);
   static const buttonIcon = VkTokenKey._('component.button.icon', _p);
+  static const buttonOutline = VkTokenKey._('component.button.outline', _p);
+  static const buttonDanger = VkTokenKey._('component.button.danger', _p);
   static const chipDefault = VkTokenKey._('component.chip.default', _p);
   static const badgeDefault = VkTokenKey._('component.badge.default', _p);
   static const sheetDefault = VkTokenKey._('component.sheet.default', _p);
@@ -412,6 +414,8 @@ abstract final class VkTokenKeys {
     buttonSecondary,
     buttonText,
     buttonIcon,
+    buttonOutline,
+    buttonDanger,
     chipDefault,
     badgeDefault,
     sheetDefault,

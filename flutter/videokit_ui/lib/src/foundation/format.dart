@@ -24,6 +24,14 @@ abstract final class VkFormat {
     return h > 0 ? '$h:$m:$sec' : '$m:$sec';
   }
 
+  /// Editing timecode with tenths `mm:ss.d` / `h:mm:ss.d` (J6: editor,
+  /// masks, tracking and coverage check; design page 15 "00:31.0").
+  static String timecodeTenths(int us) {
+    final v = us < 0 ? 0 : us;
+    final tenths = (v % 1000000) ~/ 100000;
+    return '${timecode(v)}.$tenths';
+  }
+
   /// Spoken duration for screen readers, e.g. "1 分 5 秒".
   static String durationSpoken(VkStrings s, int us) {
     final total = us < 0 ? 0 : us ~/ 1000000;
