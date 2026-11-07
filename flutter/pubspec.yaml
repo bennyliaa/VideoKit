@@ -1,0 +1,13 @@
+name: videokit_workspace
+description: VideoKit Flutter pub workspace root (not published).
+publish_to: none
+
+environment:
+  sdk: ">=3.13.5 <3.14.0"
+  flutter: ">=3.47.7 <3.48.0"
+
+workspace:
+  - videokit_api
+  - videokit_ui
+  - videokit_fake
+  - videokit_example

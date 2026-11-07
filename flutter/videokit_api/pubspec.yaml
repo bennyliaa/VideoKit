@@ -1,0 +1,18 @@
+name: videokit_api
+description: VideoKit public Dart API (types and interfaces). Mirrors the native videokit-api one to one.
+version: 1.0.0-dev.1
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.13.5 <3.14.0"
+  flutter: ">=3.47.7 <3.48.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter

@@ -1,0 +1,127 @@
+{
+  "@@locale": "zh",
+
+  "appTitle": "VideoKit 示例",
+  "@appTitle": { "description": "示例 App 的任务标题。" },
+  "galleryTitle": "VideoKit 主题画廊",
+  "@galleryTitle": { "description": "主题画廊页标题。" },
+  "sectionSettings": "设置",
+  "@sectionSettings": { "description": "设置分组标题。" },
+  "settingTheme": "主题",
+  "@settingTheme": { "description": "主题模式设置项。" },
+  "themeDark": "深色",
+  "@themeDark": { "description": "深色主题。" },
+  "themeLight": "浅色",
+  "@themeLight": { "description": "浅色主题。" },
+  "themeSystem": "跟随系统",
+  "@themeSystem": { "description": "跟随系统主题。" },
+  "settingHostPrimary": "宿主主色",
+  "@settingHostPrimary": { "description": "宿主主色覆盖设置项。" },
+  "hostPrimaryDefault": "默认",
+  "@hostPrimaryDefault": { "description": "不覆盖主色。" },
+  "settingLanguage": "语言",
+  "@settingLanguage": { "description": "语言设置项。" },
+  "languageChinese": "中文",
+  "@languageChinese": { "description": "简体中文。" },
+  "languagePseudo": "伪本地化",
+  "@languagePseudo": { "description": "把中文拉长约 40% 的伪语言，用于检查截断与换行。" },
+  "settingTextScale": "字体缩放",
+  "@settingTextScale": { "description": "字体缩放设置项。" },
+  "settingReduceMotion": "减少动画",
+  "@settingReduceMotion": { "description": "减少动画开关。" },
+  "schemaVersion": "Token 架构版本：{version}",
+  "@schemaVersion": { "description": "主题 Token 架构版本。", "placeholders": { "version": { "type": "int" } } },
+
+  "sectionColors": "颜色 Token",
+  "@sectionColors": { "description": "颜色分组标题。" },
+  "sectionStatus": "状态色",
+  "@sectionStatus": { "description": "状态色分组标题。" },
+  "sectionTypography": "文字样式",
+  "@sectionTypography": { "description": "文字样式分组标题。" },
+  "sectionDimensions": "间距与圆角",
+  "@sectionDimensions": { "description": "尺寸分组标题。" },
+  "sectionAnimations": "动效",
+  "@sectionAnimations": { "description": "动效分组标题。" },
+  "sectionComponents": "组件样式",
+  "@sectionComponents": { "description": "组件样式分组标题。" },
+  "sectionErrors": "错误文案",
+  "@sectionErrors": { "description": "错误文案分组标题。" },
+
+  "colorSwatch": "{token}，{hex}",
+  "@colorSwatch": {
+    "description": "色块的读屏标签。",
+    "placeholders": { "token": { "type": "String" }, "hex": { "type": "String" } }
+  },
+  "contrastRatio": "对比度 {ratio}:1",
+  "@contrastRatio": { "description": "色块上的对比度。", "placeholders": { "ratio": { "type": "String" } } },
+  "typographySample": "{style} · {size} · 敏捷的狐狸跳过懒狗 0123456789",
+  "@typographySample": {
+    "description": "文字样式示例行。",
+    "placeholders": { "style": { "type": "String" }, "size": { "type": "String" } }
+  },
+  "dimensionValue": "{name} {value}",
+  "@dimensionValue": {
+    "description": "尺寸示例标签。",
+    "placeholders": { "name": { "type": "String" }, "value": { "type": "String" } }
+  },
+  "animationDurations": "按下 {press} · 小 {small} · 常规 {normal} · 页面 {page} 毫秒",
+  "@animationDurations": {
+    "description": "动效时长。",
+    "placeholders": {
+      "press": { "type": "int" }, "small": { "type": "int" },
+      "normal": { "type": "int" }, "page": { "type": "int" }
+    }
+  },
+  "animationToggle": "演示动效",
+  "@animationToggle": { "description": "动效演示开关。" },
+
+  "statusTracked": "已跟踪 / 成功",
+  "@statusTracked": { "description": "跟踪状态 TRACKED。" },
+  "statusLowConfidence": "置信度低",
+  "@statusLowConfidence": { "description": "跟踪状态 LOW_CONFIDENCE。" },
+  "statusAmbiguous": "可能混淆",
+  "@statusAmbiguous": { "description": "跟踪状态 AMBIGUOUS。" },
+  "statusLost": "丢失 / 错误",
+  "@statusLost": { "description": "跟踪状态 LOST。" },
+  "statusInfo": "信息",
+  "@statusInfo": { "description": "信息状态。" },
+
+  "componentButtonPrimary": "主按钮",
+  "@componentButtonPrimary": { "description": "component.button.primary 示例。" },
+  "componentButtonSecondary": "次按钮",
+  "@componentButtonSecondary": { "description": "component.button.secondary 示例。" },
+  "componentButtonText": "文字按钮",
+  "@componentButtonText": { "description": "component.button.text 示例。" },
+  "componentButtonIcon": "图标按钮",
+  "@componentButtonIcon": { "description": "component.button.icon 示例。" },
+  "componentChip": "选项片 1.5×",
+  "@componentChip": { "description": "component.chip.default 示例（倍速）。" },
+  "componentBadge": "{count, plural, other{{count} 条}}",
+  "@componentBadge": { "description": "component.badge.default 示例。", "placeholders": { "count": { "type": "int" } } },
+  "componentSeekBar": "进度条",
+  "@componentSeekBar": { "description": "apps.videokit.component.seekbar 示例。" },
+
+  "stateNormal": "常态",
+  "@stateNormal": { "description": "组件状态 normal。" },
+  "statePressed": "按下",
+  "@statePressed": { "description": "组件状态 pressed。" },
+  "stateFocused": "焦点",
+  "@stateFocused": { "description": "组件状态 focused。" },
+  "stateDisabled": "禁用",
+  "@stateDisabled": { "description": "组件状态 disabled。" },
+  "stateSelected": "选中",
+  "@stateSelected": { "description": "组件状态 selected。" },
+  "stateHovered": "悬停",
+  "@stateHovered": { "description": "组件状态 hovered。" },
+
+  "errorLine": "{code}：{message}",
+  "@errorLine": {
+    "description": "错误码与文案对照行。",
+    "placeholders": { "code": { "type": "String" }, "message": { "type": "String" } }
+  },
+  "timecodeRange": "{position} / {duration}",
+  "@timecodeRange": {
+    "description": "时间码示例（当前位置 / 总时长）。",
+    "placeholders": { "position": { "type": "String" }, "duration": { "type": "String" } }
+  }
+}

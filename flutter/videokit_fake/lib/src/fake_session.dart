@@ -1,0 +1,775 @@
+import 'dart:async';
+import 'dart:math' as math;
+
+import 'package:flutter/foundation.dart';
+import 'package:videokit_api/videokit_api.dart';
+
+import 'clock/fake_clock.dart';
+import 'demo/demo_data.dart';
+import 'host_bridge.dart';
+import 'scenario/scenario.dart';
+
+/// Resolves the scenario used for a bound source.
+typedef ScenarioResolver = Scenario Function(VideoKitMediaSource source);
+
+/// Dart Fake session implementing the full state machine of 04 §3.1.
+///
+/// Driven by a [FakeClock]; never decodes media ([textureId] is null, the UI
+/// shows `DemoPicture`). [isDemo] is always true.
+class FakeSession implements VideoKitSession {
+  /// Creates a session in `CREATED`.
+  FakeSession({
+    required this.sessionId,
+    required this.clock,
+    required this._host,
+    required this._scenarioFor,
+    this.config = const VideoKitSessionConfig(),
+    this._onReleased,
+  }) {
+    _state.value = VideoKitSessionState(
+      phase: SessionPhase.created,
+      visibility: config.initialVisibility,
+    );
+    clock.addTickListener(_onTick);
+  }
+
+  @override
+  final String sessionId;
+
+  /// Clock.
+  final FakeClock clock;
+
+  /// Creation config.
+  final VideoKitSessionConfig config;
+
+  final FakeHostBridge _host;
+  final ScenarioResolver _scenarioFor;
+  final void Function(FakeSession session)? _onReleased;
+
+  final ValueNotifier<VideoKitSessionState> _state = ValueNotifier(
+    VideoKitSessionState.initial(),
+  );
+  final ValueNotifier<int?> _textureId = ValueNotifier(null);
+  final ValueNotifier<VideoSize?> _videoSize = ValueNotifier(null);
+  final StreamController<VideoKitEvent> _events =
+      StreamController<VideoKitEvent>.broadcast();
+
+  VideoKitMediaSource? _source;
+  DemoMediaItem? _profile;
+  Scenario _scenario = const Scenario.normal();
+  int _bindGeneration = 0;
+  int _acceptedAudioEpoch = -1;
+  final Set<String> _consumedOnceErrors = {};
+  final Set<BufferingWindow> _firedBuffering = {};
+  FakeClockTask? _seekTask;
+  Completer<VideoKitCommandResult>? _pendingSeek;
+  FakeClockTask? _bufferingTask;
+  Future<VideoKitPlaybackState>? _releaseFuture;
+  VideoKitPlaybackState? _finalSnapshot;
+
+  /// Scenario of the current binding (tests/diagnostics).
+  Scenario get scenario => _scenario;
+
+  /// Demo profile of the bound media, if any.
+  DemoMediaItem? get profile => _profile;
+
+  VideoKitSessionState get _s => _state.value;
+
+  @override
+  ValueListenable<VideoKitSessionState> get state => _state;
+
+  @override
+  Stream<VideoKitEvent> get events => _events.stream;
+
+  @override
+  ValueListenable<int?> get textureId => _textureId;
+
+  @override
+  ValueListenable<VideoSize?> get videoSize => _videoSize;
+
+  @override
+  bool get isDemo => true;
+
+  bool get _released => _s.phase.isReleasingOrReleased;
+
+  void _set(VideoKitSessionState next) {
+    final previous = _s;
+    if (next == previous) return;
+    _state.value = next;
+    if (next.phase != previous.phase) {
+      _host.notify(
+        (c) => c.onPlaybackEvent(PlayStateChanged(sessionId, next.phase)),
+      );
+    }
+  }
+
+  void _emit(VideoKitEvent event) {
+    if (!_events.isClosed) _events.add(event);
+  }
+
+  static VideoKitStableError _illegal(SessionPhase phase, String kind) =>
+      VideoKitStableError(
+        code: ErrorCode.internalErrorRedacted,
+        stage: ErrorStage.playback,
+        diagnostic: 'illegal_transition:${phase.wireName}:$kind',
+      );
+
+  // ---------------------------------------------------------------- bind --
+
+  @override
+  Future<VideoKitCommandResult> bind(
+    VideoKitMediaSource source, {
+    VideoKitPlaybackState? initialState,
+    List<VideoKitHostAction> hostActions = const [],
+  }) async {
+    if (_released) return const SessionReleased();
+    _releaseCurrentSource();
+    final generation = ++_bindGeneration;
+    _source = source;
+    final profile = DemoDataGenerator.profileFor(source);
+    _profile = profile;
+    _scenario = _scenarioFor(source);
+    _firedBuffering.clear();
+    _videoSize.value = null;
+    _set(
+      _s.copyWith(
+        phase: SessionPhase.binding,
+        mediaKind: profile.kind,
+        positionUs: 0,
+        durationUs: null,
+        bufferedUs: null,
+        seekingToUs: null,
+        playWhenReady: _s.phase == SessionPhase.binding && _s.playWhenReady,
+        audioTracks: const [],
+        subtitleTracks: const [],
+        selectedAudioTrackId: null,
+        selectedSubtitleTrackId: null,
+        error: null,
+        resourcesHeld: true,
+        hostActions: [for (final a in hostActions) HostActionState(action: a)],
+      ),
+    );
+
+    await clock.delay(_scenario.loadDelay);
+    if (_released) return const SessionReleased();
+    if (generation != _bindGeneration) return const Superseded();
+
+    final bindError = _onceError('bind', _scenario.bindError);
+    if (bindError != null) {
+      _enterError(bindError);
+      return Rejected(bindError);
+    }
+
+    final isVideo = profile.kind == MediaKind.video;
+    final duration = profile.durationUs;
+    final supportedAudio = profile.audioTracks.where((t) => t.supported);
+    var next = _s.copyWith(
+      phase: SessionPhase.ready,
+      durationUs: duration,
+      bufferedUs: duration == null ? null : math.min(duration, 10000000),
+      audioTracks: profile.audioTracks,
+      subtitleTracks: profile.subtitleTracks,
+      selectedAudioTrackId: supportedAudio.isEmpty
+          ? null
+          : supportedAudio.first.id,
+      orientation: _s.orientation.copyWith(
+        natural: profile.size.width == profile.size.height
+            ? MediaOrientation.square
+            : (profile.size.isPortrait
+                  ? MediaOrientation.portrait
+                  : MediaOrientation.landscape),
+      ),
+    );
+    if (initialState != null) {
+      next = next.copyWith(
+        transform: initialState.transform,
+        orientation: next.orientation.copyWith(
+          requested: initialState.preferredOrientation,
+          fullscreen: initialState.fullscreen,
+        ),
+      );
+      if (isVideo) {
+        final pos = initialState.positionUs ?? 0;
+        next = next.copyWith(
+          positionUs: duration == null ? pos : pos.clamp(0, duration),
+          speed: initialState.speed ?? next.speed,
+          volume: initialState.volume ?? next.volume,
+          muted: initialState.muted ?? next.muted,
+          selectedAudioTrackId:
+              _trackExists(profile.audioTracks, initialState.audioTrackId)
+              ? initialState.audioTrackId
+              : next.selectedAudioTrackId,
+          selectedSubtitleTrackId:
+              _trackExists(profile.subtitleTracks, initialState.subtitleTrackId)
+              ? initialState.subtitleTrackId
+              : null,
+        );
+      }
+    }
+    if (next.playWhenReady &&
+        (isVideo || profile.kind == MediaKind.imageAnimated)) {
+      next = next.copyWith(phase: SessionPhase.playing);
+    }
+    _videoSize.value = profile.size;
+    _set(next);
+    return const Executed();
+  }
+
+  static bool _trackExists(List<TrackInfo> tracks, String? id) =>
+      id != null && tracks.any((t) => t.id == id && t.supported);
+
+  /// Returns [error] unless an error of this [kind] already fired once for the
+  /// current media and is retryable (recoverable errors happen once).
+  VideoKitStableError? _onceError(String kind, VideoKitStableError? error) {
+    if (error == null) return null;
+    final key = '${_source?.mediaToken}:$kind';
+    if (error.retryable) {
+      if (_consumedOnceErrors.contains(key)) return null;
+      _consumedOnceErrors.add(key);
+    }
+    return error;
+  }
+
+  void _enterError(VideoKitStableError error) {
+    _cancelSeek();
+    _bufferingTask?.cancel();
+    final phase = error.retryable
+        ? SessionPhase.errorRecoverable
+        : SessionPhase.errorFatal;
+    _set(_s.copyWith(phase: phase, error: error, playWhenReady: false));
+    _emit(ErrorRaised(error));
+    if (error.retryable) {
+      final source = _source;
+      unawaited(
+        _host
+            .guarded(
+              () => _host.callbacks.onRecoverableError(sessionId, error),
+              _host.timeouts.notification,
+            )
+            .then((decision) async {
+              if (_released || source == null || _source != source) return;
+              switch (decision ?? RecoveryDecision.keepErrorState) {
+                case RecoveryDecision.retry:
+                  await bind(source, initialState: await captureState());
+                case RecoveryDecision.release:
+                  await release();
+                case RecoveryDecision.keepErrorState:
+                  break;
+              }
+            }),
+      );
+    } else {
+      _host.notify((c) => c.onFatalSessionError(sessionId, error));
+    }
+  }
+
+  void _releaseCurrentSource() {
+    _cancelSeek();
+    _bufferingTask?.cancel();
+    final old = _source;
+    if (old != null) {
+      _source = null;
+      _emit(SourceReleased(old.mediaToken));
+      _host.notify((c) => c.onSourceReleased(sessionId, old.mediaToken));
+    }
+  }
+
+  void _cancelSeek() {
+    _seekTask?.cancel();
+    _seekTask = null;
+    final pending = _pendingSeek;
+    _pendingSeek = null;
+    if (pending != null && !pending.isCompleted) {
+      pending.complete(
+        _released ? const SessionReleased() : const Superseded(),
+      );
+    }
+  }
+
+  // --------------------------------------------------------------- ticks --
+
+  void _onTick(Duration delta) {
+    final s = _s;
+    if (s.phase != SessionPhase.playing || s.seekingToUs != null) return;
+    final duration = s.durationUs;
+    if (duration == null || duration <= 0) return;
+    final deltaUs = (delta.inMicroseconds * s.speed).round();
+    final from = s.positionUs;
+    var to = from + deltaUs;
+
+    if (s.mediaKind == MediaKind.imageAnimated) {
+      _set(s.copyWith(positionUs: to % duration));
+      return;
+    }
+
+    // Scripted interruptions crossing [from, to].
+    bool crosses(Duration at) =>
+        from < at.inMicroseconds && to >= at.inMicroseconds;
+    final corruptAt = _scenario.corruptAt;
+    if (corruptAt != null && crosses(corruptAt)) {
+      _set(s.copyWith(positionUs: corruptAt.inMicroseconds));
+      _enterError(
+        const VideoKitStableError(
+          code: ErrorCode.corruptMedia,
+          stage: ErrorStage.decode,
+        ),
+      );
+      return;
+    }
+    final disconnectAt = _scenario.disconnectAt;
+    if (disconnectAt != null && crosses(disconnectAt)) {
+      final err = _onceError(
+        'disconnect',
+        const VideoKitStableError(
+          code: ErrorCode.sourceDisconnected,
+          stage: ErrorStage.playback,
+          retryable: true,
+          suggestedAction: SuggestedAction.retry,
+        ),
+      );
+      if (err != null) {
+        _set(s.copyWith(positionUs: disconnectAt.inMicroseconds));
+        _enterError(err);
+        return;
+      }
+    }
+    for (final w in _scenario.bufferingWindows) {
+      if (!_firedBuffering.contains(w) && crosses(w.at)) {
+        _firedBuffering.add(w);
+        _set(
+          s.copyWith(
+            positionUs: w.at.inMicroseconds,
+            bufferedUs: w.at.inMicroseconds,
+            phase: SessionPhase.buffering,
+          ),
+        );
+        _host.notify((c) => c.onPlaybackEvent(BufferingStarted(sessionId)));
+        _bufferingTask = clock.schedule(w.duration, () {
+          if (_s.phase != SessionPhase.buffering) return;
+          _host.notify((c) => c.onPlaybackEvent(BufferingEnded(sessionId)));
+          _set(
+            _s.copyWith(
+              phase: _s.playWhenReady
+                  ? SessionPhase.playing
+                  : SessionPhase.paused,
+              bufferedUs: math.min(duration, _s.positionUs + 10000000),
+            ),
+          );
+        });
+        return;
+      }
+    }
+
+    if (to >= duration) {
+      to = duration;
+      _set(
+        s.copyWith(
+          positionUs: to,
+          bufferedUs: duration,
+          phase: SessionPhase.ended,
+          playWhenReady: false,
+        ),
+      );
+      _emit(const PlaybackEnded());
+      return;
+    }
+    _set(
+      s.copyWith(
+        positionUs: to,
+        bufferedUs: math.min(
+          duration,
+          math.max(s.bufferedUs ?? 0, to + 10000000),
+        ),
+      ),
+    );
+    if (s.visibility == SessionVisibility.visible) {
+      _host.notify(
+        (c) => c.onPlaybackEvent(WatchTimeAccumulated(sessionId, to - from)),
+      );
+    }
+  }
+
+  // ------------------------------------------------------------ commands --
+
+  @override
+  Future<VideoKitCommandResult> execute(VideoKitCommand command) async {
+    if (_released) return const SessionReleased();
+    switch (command) {
+      case Play():
+        return _playPause(play: true, kind: command.kind);
+      case Pause():
+        return _playPause(play: false, kind: command.kind);
+      case SeekTo():
+        return _seek(command);
+      case SetSpeed(:final speed):
+        return _videoOnly(command.kind, () {
+          if (speed < 0.25 || speed > 4.0 || speed.isNaN) {
+            return const Unsupported(UnsupportedReason.valueOutOfRange);
+          }
+          _set(_s.copyWith(speed: speed));
+          return const Executed();
+        });
+      case SetMuted(:final muted):
+        return _videoOnly(command.kind, () {
+          _set(_s.copyWith(muted: muted));
+          return const Executed();
+        });
+      case SetVolume(:final volume):
+        return _videoOnly(command.kind, () {
+          if (volume < 0 || volume > 1 || volume.isNaN) {
+            return const Unsupported(UnsupportedReason.valueOutOfRange);
+          }
+          _set(_s.copyWith(volume: volume));
+          return const Executed();
+        });
+      case SelectAudioTrack(:final trackId):
+        return _videoOnly(command.kind, () {
+          if (trackId == null) {
+            final first = _s.audioTracks.where((t) => t.supported);
+            _set(
+              _s.copyWith(
+                selectedAudioTrackId: first.isEmpty ? null : first.first.id,
+              ),
+            );
+            return const Executed();
+          }
+          final track = _s.audioTracks.where((t) => t.id == trackId);
+          if (track.isEmpty) {
+            return const Unsupported(UnsupportedReason.trackNotFound);
+          }
+          if (!track.first.supported) {
+            return const Unsupported(UnsupportedReason.notSupportedByDevice);
+          }
+          _set(_s.copyWith(selectedAudioTrackId: trackId));
+          return const Executed();
+        });
+      case SelectSubtitleTrack(:final trackId):
+        return _videoOnly(command.kind, () {
+          if (trackId != null &&
+              !_s.subtitleTracks.any((t) => t.id == trackId)) {
+            return const Unsupported(UnsupportedReason.trackNotFound);
+          }
+          _set(_s.copyWith(selectedSubtitleTrackId: trackId));
+          return const Executed();
+        });
+      case SetTransform(:final transform):
+        final clamped = transform.copyWith(
+          scale: transform.scale.clamp(0.25, 16.0),
+          panX: transform.panX.clamp(-1.0, 1.0),
+          panY: transform.panY.clamp(-1.0, 1.0),
+        );
+        _set(_s.copyWith(transform: clamped));
+        return const Executed();
+      case SetOrientation(:final request):
+        _set(
+          _s.copyWith(orientation: _s.orientation.copyWith(requested: request)),
+        );
+        return const Executed();
+      case SetFullscreen(:final fullscreen):
+        _set(
+          _s.copyWith(
+            orientation: _s.orientation.copyWith(fullscreen: fullscreen),
+          ),
+        );
+        return const Executed();
+      case SetVisibility(:final visibility):
+        if (visibility != _s.visibility) {
+          _set(_s.copyWith(visibility: visibility));
+          _host.notify(
+            (c) => c.onPlaybackEvent(VisibilityChanged(sessionId, visibility)),
+          );
+        }
+        return const Executed();
+      case SetActiveAudio(:final active, :final audioEpoch):
+        if (audioEpoch < _acceptedAudioEpoch) return const Superseded();
+        _acceptedAudioEpoch = audioEpoch;
+        _set(_s.copyWith(activeAudio: active));
+        return const Executed();
+      case HideContentForLock(:final hidden):
+        var next = _s.copyWith(contentHiddenForLock: hidden);
+        if (hidden && next.phase == SessionPhase.playing) {
+          next = next.copyWith(
+            phase: SessionPhase.paused,
+            playWhenReady: false,
+          );
+        }
+        _set(next);
+        return const Executed();
+      case InvokeHostAction(:final actionId):
+        return _invokeHostAction(actionId);
+      case Release():
+        await release();
+        return const Executed();
+    }
+  }
+
+  VideoKitCommandResult _videoOnly(
+    String kind,
+    VideoKitCommandResult Function() run,
+  ) {
+    final phase = _s.phase;
+    if (!(phase.isBound || phase == SessionPhase.binding)) {
+      return Rejected(_illegal(phase, kind));
+    }
+    if (_s.mediaKind != MediaKind.video) {
+      return const Unsupported(UnsupportedReason.notApplicableToMediaKind);
+    }
+    return run();
+  }
+
+  VideoKitCommandResult _playPause({required bool play, required String kind}) {
+    final s = _s;
+    if (s.phase == SessionPhase.binding) {
+      _set(s.copyWith(playWhenReady: play));
+      return const Executed();
+    }
+    if (!s.phase.isBound) return Rejected(_illegal(s.phase, kind));
+    if (s.mediaKind != MediaKind.video &&
+        s.mediaKind != MediaKind.imageAnimated) {
+      return const Unsupported(UnsupportedReason.notApplicableToMediaKind);
+    }
+    if (play && s.contentHiddenForLock) {
+      return const Unsupported(UnsupportedReason.contentLocked);
+    }
+    if (play) {
+      final restart = s.phase == SessionPhase.ended;
+      _set(
+        s.copyWith(
+          phase: s.phase == SessionPhase.buffering
+              ? SessionPhase.buffering
+              : SessionPhase.playing,
+          playWhenReady: true,
+          positionUs: restart ? 0 : s.positionUs,
+        ),
+      );
+    } else {
+      final next = switch (s.phase) {
+        SessionPhase.playing || SessionPhase.buffering => SessionPhase.paused,
+        _ => s.phase,
+      };
+      _set(s.copyWith(phase: next, playWhenReady: false));
+    }
+    return const Executed();
+  }
+
+  Future<VideoKitCommandResult> _seek(SeekTo command) {
+    final s = _s;
+    if (!s.phase.isBound) {
+      return Future.value(Rejected(_illegal(s.phase, command.kind)));
+    }
+    if (s.mediaKind != MediaKind.video) {
+      return Future.value(
+        const Unsupported(UnsupportedReason.notApplicableToMediaKind),
+      );
+    }
+    if (_source?.seekability == Seekability.sequentialOnly) {
+      return Future.value(
+        const Unsupported(UnsupportedReason.sourceNotSeekable),
+      );
+    }
+    _cancelSeek();
+    final duration = s.durationUs ?? 0;
+    final target = command.positionUs.clamp(0, duration);
+    if (target != command.positionUs) {
+      _emit(const TransientNotice(NoticeCodes.seekClamped));
+    }
+    final from = s.positionUs;
+    final completer = Completer<VideoKitCommandResult>();
+    _pendingSeek = completer;
+    _set(s.copyWith(seekingToUs: target));
+    final latency = command.mode == SeekMode.preview
+        ? _scenario.seekLatency ~/ 2
+        : _scenario.seekLatency;
+    _seekTask = clock.schedule(latency, () {
+      if (!identical(_pendingSeek, completer)) return;
+      _pendingSeek = null;
+      _seekTask = null;
+      final cur = _s;
+      _set(
+        cur.copyWith(
+          positionUs: target,
+          seekingToUs: null,
+          phase: cur.phase == SessionPhase.ended ? SessionPhase.paused : null,
+          bufferedUs: math.min(duration, target + 10000000),
+        ),
+      );
+      if (command.mode != SeekMode.preview) {
+        _host.notify(
+          (c) => c.onPlaybackEvent(UserSeek(sessionId, from, target)),
+        );
+      }
+      completer.complete(const Executed());
+    });
+    return completer.future;
+  }
+
+  // -------------------------------------------------------- host actions --
+
+  VideoKitCommandResult _invokeHostAction(String actionId) {
+    final index = _s.hostActions.indexWhere(
+      (a) => a.action.actionId == actionId,
+    );
+    if (index < 0 || !_s.hostActions[index].action.enabled) {
+      return const Unsupported(UnsupportedReason.hostActionUnavailable);
+    }
+    if (_s.hostActions[index].inFlight) return const Executed(); // merged
+    _updateAction(actionId, (a) => a.copyWith(inFlight: true));
+    unawaited(_runHostAction(actionId));
+    return const Executed();
+  }
+
+  Future<void> _runHostAction(String actionId) async {
+    final request = HostActionRequest(
+      actionId: actionId,
+      sessionId: sessionId,
+      mediaToken: _source?.mediaToken ?? '',
+    );
+    final HostActionResult? result;
+    if (_scenario.hostActionTimeouts.contains(actionId)) {
+      // Simulated host that never answers.
+      result = await _host.guarded(
+        () => Completer<HostActionResult>().future,
+        _host.timeouts.hostAction,
+      );
+    } else {
+      result = await _host.guarded(
+        () => _host.callbacks.onHostActionRequested(request),
+        _host.timeouts.hostAction,
+      );
+    }
+    if (_released) return;
+    if (result == null || result.status == HostActionStatus.failed) {
+      final error = result?.error ?? FakeHostBridge.callbackFailed;
+      _updateAction(
+        actionId,
+        (a) => a.copyWith(inFlight: false, lastError: error),
+      );
+      _emit(HostActionFailed(actionId, error));
+      return;
+    }
+    _updateAction(
+      actionId,
+      (a) => a.copyWith(
+        action: result!.updatedAction ?? a.action,
+        inFlight: false,
+        lastError: null,
+      ),
+    );
+  }
+
+  void _updateAction(
+    String actionId,
+    HostActionState Function(HostActionState) f,
+  ) {
+    _set(
+      _s.copyWith(
+        hostActions: [
+          for (final a in _s.hostActions)
+            a.action.actionId == actionId ? f(a) : a,
+        ],
+      ),
+    );
+  }
+
+  @override
+  Future<void> updateHostActions(List<VideoKitHostAction> actions) async {
+    if (_released) return;
+    final previous = {for (final a in _s.hostActions) a.action.actionId: a};
+    _set(
+      _s.copyWith(
+        hostActions: [
+          for (final a in actions)
+            (previous[a.actionId] ?? HostActionState(action: a)).copyWith(
+              action: a,
+            ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Future<void> reportControlsVisible(bool visible) async {
+    if (_released || _s.controlsVisible == visible) return;
+    _set(_s.copyWith(controlsVisible: visible));
+    _host.notify((c) => c.onControlsVisibilityChanged(sessionId, visible));
+  }
+
+  // ------------------------------------------------------------ snapshot --
+
+  @override
+  Future<VideoKitPlaybackState> captureState() async =>
+      _finalSnapshot ?? _snapshot();
+
+  VideoKitPlaybackState _snapshot() {
+    final s = _s;
+    final isVideo = s.mediaKind == MediaKind.video;
+    return VideoKitPlaybackState(
+      mediaToken: _source?.mediaToken,
+      zoom: s.transform.scale,
+      panX: s.transform.panX,
+      panY: s.transform.panY,
+      rotationDeg: s.transform.rotationDeg,
+      fitMode: s.transform.fitMode,
+      preferredOrientation: s.orientation.requested,
+      fullscreen: s.orientation.fullscreen,
+      positionUs: isVideo ? (s.seekingToUs ?? s.positionUs) : null,
+      speed: isVideo ? s.speed : null,
+      volume: isVideo ? s.volume : null,
+      muted: isVideo ? s.muted : null,
+      subtitleTrackId: isVideo ? s.selectedSubtitleTrackId : null,
+      audioTrackId: isVideo ? s.selectedAudioTrackId : null,
+    );
+  }
+
+  // ------------------------------------------------------------- release --
+
+  @override
+  Future<VideoKitPlaybackState> release() => _releaseFuture ??= _doRelease();
+
+  Future<VideoKitPlaybackState> _doRelease() async {
+    final snapshot = _snapshot();
+    _bindGeneration++;
+    _set(_s.copyWith(phase: SessionPhase.releasing));
+    _releaseCurrentSource();
+    _host.notify((c) => c.onPlaybackSnapshot(sessionId, snapshot));
+    await Future<void>.delayed(Duration.zero);
+    _finalSnapshot = snapshot;
+    clock.removeTickListener(_onTick);
+    _set(
+      _s.copyWith(
+        phase: SessionPhase.released,
+        playWhenReady: false,
+        seekingToUs: null,
+        resourcesHeld: false,
+        activeAudio: false,
+        hostActions: [
+          for (final a in _s.hostActions) a.copyWith(inFlight: false),
+        ],
+      ),
+    );
+    _host.notify((c) => c.onPlaybackEvent(SessionEnded(sessionId)));
+    await _events.close();
+    _onReleased?.call(this);
+    return snapshot;
+  }
+
+  @override
+  Future<void> close() async {
+    unawaited(release());
+  }
+
+  // ----------------------------------------------------- preview support --
+
+  /// Updates duration of a bound preview session (used by `FakeEditProject`
+  /// when the timeline changes).
+  void debugSetDuration(int durationUs) {
+    if (!_s.phase.isBound) return;
+    _set(
+      _s.copyWith(
+        durationUs: durationUs,
+        positionUs: math.min(_s.positionUs, durationUs),
+        bufferedUs: math.min(_s.bufferedUs ?? 0, durationUs),
+      ),
+    );
+  }
+}

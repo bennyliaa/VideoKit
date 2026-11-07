@@ -1,0 +1,21 @@
+name: videokit_fake
+description: Dart Fake implementation of videokit_api, scenarios, demo data and the Dart contract test suite. Debug/test only; never in host release builds.
+version: 1.0.0-dev.1
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.13.5 <3.14.0"
+  flutter: ">=3.47.7 <3.48.0"
+
+dependencies:
+  crypto: 3.0.7
+  flutter:
+    sdk: flutter
+  # Contract suite (lib/src/contract) is consumed by other packages' tests.
+  flutter_test:
+    sdk: flutter
+  videokit_api: 1.0.0-dev.1
+
+dev_dependencies:
+  flutter_lints: 6.0.0
