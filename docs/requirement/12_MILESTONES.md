@@ -33,7 +33,7 @@ VK-M0  Flutter UI 框架 + API/Fake/TestKit + 示例宿主   ← 先把完整 UI
 
 | 项 | 内容 |
 | --- | --- |
-| 范围 | 工程骨架（Gradle 多模块 + Flutter 包工作区、Version Catalog 与 `pubspec.lock`、锁定与校验、CI）；许可证审查初版；Kotlin `videokit-api` 与 Dart `videokit_api` 全部接口草案（[04](04_PUBLIC_API_CONTRACT.md)）；`videokit_fake`（Dart Fake、场景、演示数据、Dart 契约测试）与 `videokit-testkit`（Kotlin Fake、契约测试初版）；**`videokit_ui` 全部 Flutter 界面 UI-01–UI-09**（[03](03_UI_FRAMEWORK_DESIGN.md)），VideoKit 自有 Theme（Token、浅深色、宿主覆盖）；中英 ARB 资源、RTL、无障碍语义；`videokit_flutter` 插件骨架（通道协议、纹理注册，连接原生 Fake）；`videokit_example` Flutter 示例 App 与原生 `sample-host`（add-to-app 嵌入最小示例），均含模拟 Browser 宿主（假源、标签/收藏动作、邻近列表、多画面网格、临时 Sink） |
+| 范围 | 工程骨架（Gradle 多模块 + Flutter 包工作区、Version Catalog 与 `pubspec.lock`、锁定与校验、CI）；许可证审查初版；多平台分层骨架（`kit/common` 平台无关层为 KMP `commonMain`、`kit/android` 平台实现层、`spec/` 规格与测试向量目录、SPI 接口草案，见 [02](02_SYSTEM_ARCHITECTURE.md) §4）；Kotlin `videokit-api`（无 Android 类型）+ `videokit-api-android` 与 Dart `videokit_api` 全部接口草案（[04](04_PUBLIC_API_CONTRACT.md)）；`videokit_fake`（Dart Fake、场景、演示数据、Dart 契约测试）与 `videokit-testkit`（Kotlin Fake、契约测试初版）；**`videokit_ui` 全部 Flutter 界面 UI-01–UI-09**（[03](03_UI_FRAMEWORK_DESIGN.md)），VideoKit 自有 Theme（Token、浅深色、宿主覆盖）；中文 ARB 资源与国际化机制、RTL、无障碍语义；`videokit_flutter` 联邦插件骨架（platform_interface + Android 平台包：通道协议、纹理注册，连接原生 Fake）；`videokit_example` Flutter 示例 App 与原生 `sample-host`（add-to-app 嵌入最小示例），均含模拟 Browser 宿主（假源、标签/收藏动作、邻近列表、多画面网格、临时 Sink） |
 | 详细设计 | [14 VK-M0 详细设计](14_M0_DETAILED_DESIGN.md) |
 | 视觉基准 | UI 开发与验收以 [VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 为准（[03](03_UI_FRAMEWORK_DESIGN.md) §5.4） |
 | 不含 | 任何真实解码、编码、跟踪 |

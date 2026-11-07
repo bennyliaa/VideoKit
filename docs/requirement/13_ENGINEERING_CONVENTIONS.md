@@ -1,33 +1,48 @@
 # 13 工程规范
 
-版本：V1.1；日期：2026-11-06；对应原需求 §22、§23、§24、§25。
+版本：V1.2；日期：2026-11-07；对应原需求 §22、§23、§24、§25。V1.2：多平台复用的模块分层与可移植性规则（§1、§3.2）。
 
 ## 1. 仓库结构
 
 ```text
 VideoKit/
-├── build-logic/                 # 约定插件（Android library 配置、依赖规则检查、许可检查）
+├── build-logic/                 # 约定插件（KMP 平台无关模块、Android library、依赖规则检查、许可检查）
 ├── gradle/
 │   ├── libs.versions.toml       # 全部依赖精确版本
 │   ├── verification-metadata.xml
 │   └── wrapper/
+├── spec/                        # 语言无关规格（全平台复用，见 02 §4.0.2）
+│   ├── schema/                  # JSON Schema：编辑工程、播放快照、能力报告
+│   ├── vectors/                 # 测试向量：插值、遮罩区域、快速拼接判定、覆盖报告、迁移、状态机、错误码
+│   ├── errors.json              # 错误码登记表
+│   └── channel/                 # 通道协议规范副本
 ├── kit/
-│   ├── videokit-api/
-│   ├── videokit-core/
-│   ├── videokit-playback/
-│   ├── videokit-media3/
-│   ├── videokit-image/
-│   ├── videokit-ui-android/     # 原生宿主嵌入 Flutter UI 的桥接（add-to-app）
-│   ├── videokit-timeline/
-│   ├── videokit-effects/
-│   ├── videokit-tracking/
-│   ├── videokit-export/
-│   └── videokit-testkit/
+│   ├── common/                  # 平台无关层：纯 Kotlin，KMP commonMain
+│   │   ├── videokit-api/
+│   │   ├── videokit-core/       # 含 SPI（com.videokit.core.spi）
+│   │   ├── videokit-playback/
+│   │   ├── videokit-image/
+│   │   ├── videokit-timeline/
+│   │   ├── videokit-effects/
+│   │   ├── videokit-tracking/
+│   │   ├── videokit-export/
+│   │   └── videokit-testkit/
+│   └── android/                 # Android 平台实现层
+│       ├── videokit-api-android/
+│       ├── videokit-platform-android/
+│       ├── videokit-media3/
+│       ├── videokit-image-android/
+│       ├── videokit-tracking-android/
+│       └── videokit-ui-android/ # 原生宿主嵌入 Flutter UI 的桥接（add-to-app）
+├── native/
+│   └── tracking-core/           # C++ 跟踪核心（OpenCV），CMake；各平台复用
 ├── flutter/                     # Flutter 包工作区（Dart pub workspace）
 │   ├── pubspec.yaml             # workspace 根，锁定 Flutter/Dart 版本
 │   ├── videokit_api/
 │   ├── videokit_ui/
-│   ├── videokit_flutter/        # 插件；android/ 目录依赖 kit/ 原生模块
+│   ├── videokit_flutter/                     # 联邦插件对外包
+│   ├── videokit_flutter_platform_interface/  # 平台接口 + Pigeon Dart 侧
+│   ├── videokit_flutter_android/             # Android 平台包；依赖 kit/ 原生模块（将来新增 _ios/_macos/_windows）
 │   ├── videokit_fake/
 │   └── videokit_example/        # Flutter 示例 App（含模拟 Browser 宿主）
 ├── sample-host/                 # 原生示例宿主 App（纯引擎 + add-to-app 嵌入示例）
@@ -48,7 +63,7 @@ VideoKit/
 - Gradle Kotlin DSL；公共配置放在 `build-logic` 约定插件中，各模块 `build.gradle.kts` 只写差异。
 - Android：`minSdk 31`；`compileSdk`/`targetSdk` 使用工程初始化时的最新稳定 SDK，并写入 Version Catalog；Java/Kotlin 目标 11。
 - 依赖：只通过 Version Catalog 引用；`dependencyLocking` 锁定所有配置；`verification-metadata.xml` 校验；禁止动态版本与 Snapshot。
-- 依赖规则检查：`videokit-api` 不得依赖 Android UI、Media3、AI 库；`videokit_ui` 只依赖 `videokit_api`（Dart 侧用 `dependency_validator` 或自定义检查）；违反时构建失败。
+- 依赖规则检查：`kit/common/` 下模块不得依赖任何 Android、Media3、AI、OpenCV 库，也不得依赖 `kit/android/` 模块；`videokit_ui` 只依赖 `videokit_api`（Dart 侧用 `dependency_validator` 或自定义检查）；违反时构建失败。
 - 每个 library 模块提供 `consumer-rules.pro`（Consumer R8 规则）。
 - 构建变体：`debug`（可开诊断日志、示例 App 演示场景）、`release`（无 Fake、无演示资源、无调试日志）。
 - 不要并发运行多个 Gradle 构建共享同一缓存。
@@ -58,7 +73,7 @@ VideoKit/
 - Flutter SDK：stable 3.47.7（Dart 3.13.5），本机路径 `D:\CodexProjects\flutter`；版本写入 `flutter/pubspec.yaml` 的 `environment`（`sdk` 与 `flutter` 约束）和 CI 配置，团队使用同一版本（可用 FVM 的 `.fvmrc` 固定）。
 - Dart pub workspace 管理全部包；`pubspec.lock` 入库；依赖写精确版本。
 - 静态检查：`flutter analyze`，规则集基于 `flutter_lints` 并开启严格模式（`strict-casts`、`strict-raw-types`）；`dart format` 统一格式。
-- Pigeon 定义放在 `videokit_flutter/pigeons/`，生成的 Dart 与 Kotlin 代码入库，CI 检查生成结果与定义一致。
+- Pigeon 定义放在 `videokit_flutter_platform_interface/pigeons/`，生成的 Dart 代码在 platform_interface、Kotlin 代码在 `videokit_flutter_android`，均入库，CI 检查生成结果与定义一致；`spec/channel/` 保存协议规范副本。
 - 原生宿主嵌入：`videokit-ui-android` 使用 Flutter add-to-app 的 AAR 产物（`flutter build aar`），产物版本与 Kit AAR 同步。
 
 ## 3. 编码规范
@@ -85,6 +100,19 @@ VideoKit/
 | 默认与回退 | 英文加入前，任何系统语言都显示中文（回退语言为中文）；英文加入后改为跟随系统语言、不支持时回退英文；宿主可指定语言并覆盖部分文案 |
 | 验收 | 第一版：golden 与走查覆盖中文，并用伪本地化（自动把中文拉长约 40%）检查截断与换行，代替英文的布局检查 |
 | 新增语言 | 英文在 VK-M6 后、VK-M7 前作为独立批次加入（见 [12](12_MILESTONES.md) §1.1）；之后按需增加。只新增 ARB 文件与对应 golden，不改组件代码 |
+
+### 3.2 可移植性（多平台复用，2026-11-07 确认）
+
+| 规则 | 要求 |
+| --- | --- |
+| 平台无关层只用通用 API | `kit/common/` 模块用 Kotlin Multiplatform 插件，代码全部在 `commonMain`；V1.0 只启用 `jvm()` 目标。禁止 `java.*`、`android.*`、`javax.*`；时间用 `kotlin.time`，并发用 kotlinx-coroutines，序列化用 kotlinx-serialization，I/O 抽象为接口 |
+| 规则只写一份 | 插值、遮罩区域、快速拼接判定、覆盖报告、状态机转换、错误码只在平台无关层实现；平台实现层与 Dart 侧不得复制实现（Dart 侧只消费结果，或由测试向量验证） |
+| 测试向量 | 新增或修改上述规则时，同时增删 `spec/vectors` 中的向量；Kotlin 与 Dart 测试都运行全部向量 |
+| 平台差异进 SPI | 需要平台能力时，先在 `videokit-core` 的 SPI 中定义薄接口，再在 `kit/android/` 实现；SPI 不出现平台类型 |
+| SPI 契约测试 | 每个 SPI 在 testkit 中有平台无关的契约测试，平台实现必须通过 |
+| 原生 C++ | 跨平台原生代码（跟踪核心）放 `native/`，只用标准 C++ 与 OpenCV，不调用平台 API；平台胶水（JNI 等）放对应平台模块 |
+| Flutter 插件 | 采用联邦插件；`videokit_ui` 与 platform_interface 不得出现 `dart:io` 的平台判断或平台专属代码 |
+| 资源与文案 | 原生层不含文案与平台资源 ID；图标、文案只在 Flutter 层 |
 
 ## 4. 日志与隐私（§22）
 

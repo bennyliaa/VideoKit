@@ -1,38 +1,60 @@
 # 02 系统架构
 
-版本：V1.1；日期：2026-11-06；对应原需求 §2、§13、§21、§24、§25、§29、§30。
+版本：V1.2；日期：2026-11-07；对应原需求 §2、§13、§21、§24、§25、§29、§30。
 
 开发环境：Flutter stable 3.47.7（framework `abaf9c5`，Dart 3.13.5），本机 SDK 路径 `D:\CodexProjects\flutter`；工程初始化时把该版本写入 `.fvmrc` 或 `pubspec.yaml` 的 `environment` 约束与 CI 配置。
 
 > V1.1 变更：为方便全平台开发，**UI 优先使用 Flutter 开发**；原生 Kit（Kotlin + Media3）作为能力层保持不变。
+>
+> V1.2 变更（2026-11-07 用户确认）：**模块化分层以提高多平台复用性与可移植性**——原生 Kit 分为“平台无关层”（纯 Kotlin，Kotlin Multiplatform `commonMain`）、“平台引擎接口层”（SPI）和“平台实现层”（V1.0 只有 Android）；增加语言无关的规格与测试向量目录 `spec/`；跟踪核心用 C++；Flutter 插件采用联邦插件结构。见第 1、4、9 节。
 
 ## 1. 总体结构
 
 ```mermaid
 flowchart TB
-  subgraph Flutter[Flutter 层]
+  subgraph Flutter[Flutter 层（全平台复用）]
     FHOST[Flutter 宿主 / videokit_example] --> FUI[videokit_ui<br/>组件 / Theme / 国际化]
     FUI --> DAPI[videokit_api<br/>Dart 公共 API]
-    DFAKE[videokit_fake<br/>Dart Fake / 演示数据] -.实现.-> DAPI
-    PLUG[videokit_flutter<br/>Pigeon 通道 + Texture] -.实现.-> DAPI
+    DFAKE[videokit_fake] -.实现.-> DAPI
+    PLUG[videokit_flutter<br/>联邦插件：platform_interface + 各平台实现] -.实现.-> DAPI
   end
-  NHOST[原生宿主<br/>LocalVideoBrowser / sample-host] --> ADP[宿主适配器]
-  ADP --> API[videokit-api Kotlin]
-  NHOST -. add-to-app 嵌入 UI .-> BRIDGE[videokit-ui-android<br/>FlutterFragment / FlutterView]
-  BRIDGE --> FUI
+  subgraph Common[平台无关层（纯 Kotlin / KMP commonMain，全平台复用）]
+    API[videokit-api]
+    CORE[videokit-core<br/>会话运行时 / 命令执行 / 资源预算 / SPI]
+    PB[videokit-playback] 
+    IMG[videokit-image]
+    TL[videokit-timeline<br/>工程 Schema / 命令 / 插值]
+    FX[videokit-effects<br/>效果参数 / 区域计算 / CPU 参考实现]
+    TRK[videokit-tracking<br/>编排 / 关联 / 覆盖报告]
+    EXP[videokit-export<br/>导出计划 / 阶段 / Sink 协商 / 校验规则]
+    TK[videokit-testkit<br/>Fake / 契约测试]
+  end
+  subgraph Android[Android 平台实现层（V1.0 唯一实现）]
+    AAND[videokit-api-android<br/>Context / Surface / Uri 适配]
+    PAND[videokit-platform-android<br/>工厂装配 / 能力探测 / 隔离进程宿主]
+    M3[videokit-media3<br/>播放 / 帧提取 / 合成导出 / GL 效果]
+    IAND[videokit-image-android]
+    TAND[videokit-tracking-android<br/>JNI 封装]
+    UIA[videokit-ui-android<br/>add-to-app 桥接]
+  end
+  SPEC[(spec/<br/>JSON Schema / 测试向量 / 错误码 / 通道协议)]
+  NATIVE[(native/tracking-core<br/>C++ + OpenCV，全平台复用)]
+  NHOST[原生宿主<br/>LocalVideoBrowser / sample-host] --> API
+  NHOST -. add-to-app .-> UIA --> FUI
   PLUG --> API
-  API --> CORE[videokit-core<br/>会话状态机 / 命令执行器 / 能力 / 资源预算]
-  CORE --> PB[videokit-playback] --> M3[videokit-media3]
-  CORE --> IMG[videokit-image]
-  CORE --> TL[videokit-timeline] --> FX[videokit-effects]
-  TL --> TRK[videokit-tracking]
-  TL --> EXP[videokit-export]
-  M3 --> IN[宿主只读媒体源<br/>VideoKitReadHandle.readAt]
-  EXP --> SINK[宿主 VideoKitOutputSink]
-  TK[videokit-testkit<br/>Kotlin Fake / 契约测试 / 故障注入] -.实现.-> API
+  API --> CORE --> PB & IMG & TL
+  TL --> FX & TRK & EXP
+  PAND -.实现 SPI.-> CORE
+  M3 -.实现 SPI.-> CORE
+  IAND -.实现 SPI.-> CORE
+  TAND -.实现 SPI.-> CORE
+  TAND --> NATIVE
+  SPEC -. 两侧共同验证 .- TL
+  SPEC -. 两侧共同验证 .- DAPI
 ```
 
 - 能力层是原生 Kit（Android AAR，原需求的正式交付形态）；UI 层是 Flutter 包。两层通过 `videokit_flutter` 插件连接。
+- 原生 Kit 内部再分三层：平台无关层只写业务规则与运行时，不依赖任何平台 API；平台引擎接口（SPI）定义平台必须提供的能力；平台实现层实现 SPI。新增平台时只新增平台实现层与插件的平台包（第 9 节）。
 - 原生宿主只依赖原生 `videokit-api`；如果要用 VideoKit 的界面，通过 `videokit-ui-android` 以 add-to-app 方式嵌入 Flutter UI，回调仍走原生 API，宿主不用写 Dart。
 - 原生会话是播放与编辑状态的唯一权威；Flutter UI 只订阅状态、发送命令。
 - 视频帧经 `TextureRegistry` 提供的 Surface 直接渲染到 Flutter `Texture`，媒体字节和帧不经过 Dart 消息复制。
@@ -71,24 +93,45 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 
 ## 4. 模块
 
-按原需求 §24，原生模块名称沿用，职责不合并；§24 中的 `:videokit-ui`（Android 播放器/编辑器 UI）由 Flutter 包 `videokit_ui` 加原生桥接 `videokit-ui-android` 实现。
+按原需求 §24，原生模块名称沿用，职责不合并；§24 中的 `:videokit-ui`（Android 播放器/编辑器 UI）由 Flutter 包 `videokit_ui` 加原生桥接 `videokit-ui-android` 实现。为多平台复用，§24 的每个模块只保留**平台无关**部分，Android 专属实现拆到带 `-android` 后缀或 `videokit-media3` 的平台模块中。
 
-### 4.0 原生模块（Kotlin / Android）
+### 4.0 平台无关层（纯 Kotlin，KMP `commonMain`，全平台复用）
 
 | 模块 | 职责 | 允许依赖 |
 | --- | --- | --- |
-| `videokit-api` | 公共接口、DTO、版本、稳定错误、能力模型 | Kotlin 标准库、Coroutines |
-| `videokit-core` | 会话状态机、命令串行执行、能力协商、通用变换、资源预算、事件采样 | api |
-| `videokit-playback` | 播放控制、轨道模型、播放事件 | core |
-| `videokit-media3` | Media3 薄适配：DataSource、Player、轨道/错误映射 | playback、Media3 |
-| `videokit-image` | 静态/动态图片会话、大图分块 | core |
-| `videokit-ui-android` | 原生宿主嵌入 Flutter UI 的桥接：引擎预热与缓存、`VideoKitFlutterFragment` / `VideoKitFlutterView`、原生回调转发 | api、Flutter embedding |
-| `videokit-timeline` | 片段、排序、关键帧、编辑工程 Schema 与迁移 | api |
-| `videokit-effects` | 马赛克、模糊、遮罩渲染 | timeline |
-| `videokit-tracking` | 人脸/物体跟踪适配层、覆盖报告 | timeline、OpenCV/ORT |
-| `videokit-export` | 编码、拼接、Sink 协调、输出校验 | timeline、effects、Media3 Transformer |
-| `videokit-testkit` | Fake 实现、契约测试、故障注入、演示数据 | api |
-| `sample-host` | 原生示例宿主 App：纯引擎接入与 add-to-app 嵌入 UI 示例、Kotlin 契约测试宿主 | api、ui-android、testkit、各实现 |
+| `videokit-api` | 公共接口、DTO、状态机枚举、命令/结果、版本、稳定错误、能力模型；**不含任何 Android 类型** | Kotlin 标准库、kotlinx-coroutines-core |
+| `videokit-core` | 会话运行时（串行命令执行器、状态机驱动、事件采样）、能力协商、通用变换、资源预算策略与运行时；**平台引擎接口 SPI**（`com.videokit.core.spi`，见 4.2） | api |
+| `videokit-playback` | 播放控制规则、轨道模型、播放事件、观看统计 | core |
+| `videokit-image` | 图片会话规则：缩放/翻页/动图状态、分块调度策略、内存额度 | core |
+| `videokit-timeline` | 编辑工程 Schema 与迁移、编辑命令与撤销重做、片段与拼接规则（快速拼接判定）、关键帧插值 | api、kotlinx-serialization |
+| `videokit-effects` | 马赛克/模糊参数、按帧遮罩区域计算、**CPU 参考实现**（用于黄金图像与各平台 GPU 实现对照） | timeline |
+| `videokit-tracking` | 跟踪编排：检测→跟踪→关联→置信状态、纠正与重算、覆盖报告；通过 SPI `TrackerBackend` 调平台推理 | timeline、core |
+| `videokit-export` | 导出计划与阶段状态机、取消、Sink 能力协商、输出校验规则；通过 SPI `CompositionExporter` 调平台编码 | timeline、effects、core |
+| `videokit-testkit` | Fake 实现、场景、契约测试、故障注入、演示数据；测试向量运行器（读取 `spec/vectors`） | api、core |
+
+### 4.0.1 Android 平台实现层（V1.0）
+
+| 模块 | 职责 | 允许依赖 |
+| --- | --- | --- |
+| `videokit-api-android` | Android 专属公共类型：`Context` 入参的工厂、`VideoKitSurfaceTarget.AndroidSurface`、`MediaSources.fromUri/fromFileDescriptor/fromFile` | api、Android SDK |
+| `videokit-platform-android` | `VideoKitFactory` 装配（把 SPI 实现注入 core）、能力探测（`MediaCodecInfo`、热状态、内存）、隔离进程宿主（`isolatedProcess` Service 与 FD 代理） | core、api-android |
+| `videokit-media3` | Media3 实现：`PlaybackEngine`（ExoPlayer + HostDataSource）、`FrameSource`（帧提取）、`CompositionExporter`（Transformer/Composition + Mp4Muxer）、`EffectRenderer`（GLES `GlEffect`） | core、playback、export、effects、Media3 |
+| `videokit-image-android` | `ImageEngine`：ImageDecoder、BitmapRegionDecoder、AnimatedImageDrawable → Surface | core、image、Android SDK |
+| `videokit-tracking-android` | `TrackerBackend`：JNI 封装 `native/tracking-core`（C++/OpenCV），运行在隔离进程 | tracking、platform-android |
+| `videokit-ui-android` | 原生宿主嵌入 Flutter UI 的桥接：引擎预热与缓存、`VideoKitFlutterFragment` / `VideoKitFlutterView`、原生回调转发 | api-android、Flutter embedding |
+| `sample-host` | 原生示例宿主 App：纯引擎接入与 add-to-app 嵌入 UI 示例、Kotlin 契约测试宿主 | 以上各模块、testkit |
+
+### 4.0.2 语言无关资产（全平台复用）
+
+| 目录 | 内容 |
+| --- | --- |
+| `spec/schema/` | 编辑工程、播放状态快照、能力报告的 JSON Schema（带 `schemaVersion`） |
+| `spec/vectors/` | 测试向量（JSON 输入 + 期望输出）：关键帧插值、遮罩区域、快速拼接判定、覆盖报告、工程迁移、状态机合法/非法转换、错误码映射 |
+| `spec/errors.json` | 错误码登记表（code、stage、retryable、建议操作），Kotlin/Dart 枚举由此校验或生成 |
+| `spec/channel/` | 通道协议版本与 Pigeon 定义的规范副本 |
+| `native/tracking-core/` | 跟踪推理 C++ 核心（OpenCV、模型加载、预处理），CMake 构建；Android 经 JNI，其他平台经各自 FFI |
+
+任何平台、任何语言的实现都必须通过 `spec/vectors` 的全部向量；Kotlin（testkit 运行器）与 Dart（`videokit_fake` 测试）在 CI 中同时运行。
 
 ### 4.0.1 Flutter 包（Dart）
 
@@ -96,13 +139,17 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 | --- | --- | --- |
 | `videokit_api` | Dart 版公共 API，与原生 `videokit-api` 语义一一对应 | 纯 Dart |
 | `videokit_ui` | 全部 UI 组件、VideoKit Theme、国际化 | `videokit_api`、Flutter SDK |
-| `videokit_flutter` | 插件：Pigeon 通道、Texture、Android 实现（包装原生 AAR） | `videokit_api`、原生 Kit |
+| `videokit_flutter` | 联邦插件的对外包：把 `videokit_api` 接到平台实现 | `videokit_api`、`videokit_flutter_platform_interface` |
+| `videokit_flutter_platform_interface` | 平台接口与 Pigeon 生成的 Dart 侧协议 | `videokit_api` |
+| `videokit_flutter_android` | Android 平台包：Pigeon Kotlin 侧、SurfaceProducer 纹理，包装原生 AAR（将来新增 `_ios`、`_macos`、`_windows`） | platform_interface、原生 Kit |
 | `videokit_fake` | Dart Fake、场景、演示数据、Dart 契约测试 | `videokit_api` |
 | `videokit_example` | Flutter 示例 App（含模拟 LocalVideoBrowser 宿主） | 以上全部 |
 
 依赖规则：
 
 - `UI/平台适配器 → core/api ← tracking/export/playback 实现`。
+- **平台无关层不得依赖平台实现层**；平台实现层只通过 SPI 被注入，平台无关层不知道 Media3、Android、OpenCV 的存在。
+- 平台无关层模块使用 Kotlin Multiplatform 插件，V1.0 只启用 `jvm()` 目标、代码全部写在 `commonMain`，从而在编译期禁止使用 `java.*`/`android.*` API；新增 Apple 平台时增加 `iosArm64` 等目标即可（可移植性规则见 [13](13_ENGINEERING_CONVENTIONS.md) §3.2）。
 - `videokit-api` 不依赖具体播放器、AI 模型和宿主业务；`videokit_ui` 只依赖 Dart 版 `videokit_api`，修改普通 UI 不会重编译原生编码/AI 模块。
 - 跟踪、导出、图片模块可以单独替换或禁用；纯播放组合不包含跟踪和编码依赖。
 - 依赖规则用 Gradle 模块依赖检查（如自定义依赖约束任务）在 CI 中强制。
@@ -111,13 +158,31 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 
 | Artifact 组合 | 包含模块 | 适用宿主 |
 | --- | --- | --- |
-| `videokit-api` | api | 所有宿主（编译期依赖） |
-| 播放 | core、playback、media3、image | 只需播放/查看 |
+| `videokit-api` | api、api-android | 所有宿主（编译期依赖） |
+| 播放 | core、playback、image、platform-android、media3、image-android | 只需播放/查看 |
 | 播放 UI（原生宿主） | 播放 + ui-android（内含 Flutter UI 产物） | 原生宿主嵌入 VideoKit 界面 |
-| Flutter 包 | `videokit_api`、`videokit_ui`、`videokit_flutter` | Flutter 宿主 |
-| 编辑 | core、timeline、effects、export | 编辑与导出 |
-| 跟踪 | tracking（含模型） | 自动打码 |
+| Flutter 包 | `videokit_api`、`videokit_ui`、`videokit_flutter`（含平台包） | Flutter 宿主 |
+| 编辑 | 播放 + timeline、effects、export | 编辑与导出 |
+| 跟踪 | tracking、tracking-android（含 `tracking-core` 与模型） | 自动打码 |
 | 测试 | testkit | 宿主 CI 与契约测试 |
+
+### 4.2 平台引擎接口（SPI）
+
+SPI 定义在 `videokit-core`（`com.videokit.core.spi`），接口尽量薄，只描述“平台必须提供什么”，不含业务规则：
+
+| 接口 | 职责 | Android 实现 | 将来平台参考 |
+| --- | --- | --- | --- |
+| `PlaybackEngine` | 打开源、播放控制、轨道、画面输出到渲染目标、错误映射 | `videokit-media3`（ExoPlayer） | Apple：AVPlayer；Windows：Media Foundation |
+| `FrameSource` | 按时间取帧（缩略图、跟踪分析帧） | `videokit-media3`（帧提取） | AVAssetImageGenerator；MF Source Reader |
+| `CompositionExporter` | 按导出计划执行裁剪/拼接/效果/编码/封装，报告阶段进度，可取消 | `videokit-media3`（Transformer） | AVAssetExportSession / AVAssetWriter；MF Sink Writer |
+| `EffectRenderer` | 在 GPU 上按区域执行马赛克/模糊（结果须与 `videokit-effects` CPU 参考实现一致） | GLES `GlEffect` | Metal；Direct3D |
+| `ImageEngine` | 静态/动态图片解码、分块、输出到渲染目标 | `videokit-image-android` | ImageIO；WIC |
+| `TrackerBackend` | 人脸检测与目标跟踪推理 | `videokit-tracking-android`（JNI → `tracking-core`） | 同一 `tracking-core` 经 FFI |
+| `CapabilityProbe` | 解码器/编码器/容器能力、并发上限、热状态、内存 | `videokit-platform-android` | 各平台查询 API |
+| `IsolationHost` | 在隔离环境运行高风险任务（导出、跟踪），崩溃不影响宿主 | `isolatedProcess` Service | macOS：XPC；iOS：无进程隔离时降级为进程内受限运行并在能力报告中说明 |
+| `Clock` / `Scheduler` | 时间与调度（便于测试注入） | 系统时钟 / 协程调度器 | 同 |
+
+每个 SPI 配有平台无关的契约测试（在 testkit 中），任何平台实现都必须通过。
 
 ## 5. 线程与并发
 
@@ -168,12 +233,24 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 
 ## 9. 全平台扩展预留
 
-UI 采用 Flutter 的目的就是方便全平台开发。V1.0 只实现 Android 原生 Kit，但以下约束保证将来增加 iOS、macOS、Windows 时只需新增该平台的原生 Kit 与插件实现，`videokit_ui` 与 `videokit_api` 复用：
+UI 采用 Flutter、原生 Kit 分层的目的就是方便全平台开发。V1.0 只实现 Android，但以下约束保证将来增加 iOS、macOS、Windows 时**只需新增该平台的实现层（SPI 实现）与 Flutter 插件平台包**，其余全部复用：
+
+| 层 | 新平台是否复用 |
+| --- | --- |
+| `videokit_ui`、`videokit_api`、`videokit_fake`、插件对外包与 platform_interface | 全部复用 |
+| 平台无关层（api、core、playback、image、timeline、effects、tracking、export、testkit） | 复用（KMP 增加目标平台；若不使用 KMP，则按 `spec/vectors` 重写并通过全部向量） |
+| `spec/`、`native/tracking-core` | 全部复用 |
+| 平台实现层（SPI 实现）、插件平台包、宿主嵌入桥接 | 按平台新写 |
+
+具体约束：
 
 1. **API 语义平台无关**：状态、命令、错误码、能力、事件使用平台无关的命名与类型（字符串 ID、整型微秒、归一化坐标）；Dart 与 Kotlin 两侧一一对应，将来 Swift/C++ 侧同样遵守。
 2. **画面经纹理输出**：各平台插件都通过 Flutter 纹理机制提供画面，UI 不关心平台实现。
 3. **UI 只依赖 Dart API**：`videokit_ui` 不含任何 Android 专属代码；平台差异（如方向锁定、全屏）通过 API 命令由平台实现执行。
 4. **控制与数据分离**：控制命令与低频事件走通道；帧与媒体字节不经过跨语言消息复制。
-5. **工程 Schema 可移植**：编辑工程为版本化 JSON，不含平台类型。
+5. **工程 Schema 可移植**：编辑工程为版本化 JSON，不含平台类型；Schema 放在 `spec/schema/`，任何平台读写同一格式。
+6. **规则只写一份**：插值、快速拼接判定、覆盖报告、状态机转换、错误码等规则只在平台无关层实现，并以 `spec/vectors` 固化；平台实现层不得复制或改写这些规则。
+7. **平台差异进 SPI**：凡是依赖平台 API 的能力都通过第 4.2 节的 SPI 进入；平台无关层出现平台类型视为构建失败。
+8. **效果结果一致**：各平台 GPU 效果以 CPU 参考实现为准做黄金图像比对，容差在 VK-M5 冻结。
 
 各平台原生 Kit 的媒体后端（如 Apple AVFoundation、Windows Media Foundation）在对应版本另行设计与许可评审；V1.0 不实现、不承诺时间。

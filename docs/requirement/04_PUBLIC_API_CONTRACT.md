@@ -1,10 +1,11 @@
 # 04 公共 API 契约
 
-版本：V1.1（API 1.0.0 草案，增加 Dart API）；日期：2026-11-06；对应原需求 §13、§14、§15.5、§17.2、§18、§19。命名可在评审时微调；冻结后按第 10 节版本规则变更。
+版本：V1.2（API 1.0.0 草案；V1.2 把 Android 类型拆到 videokit-api-android）；日期：2026-11-07；对应原需求 §13、§14、§15.5、§17.2、§18、§19。命名可在评审时微调；冻结后按第 10 节版本规则变更。
 
 ## 1. 原则
 
-- 所有公共类型在 `videokit-api`，包名 `com.videokit.api`；不依赖 Android UI、Media3、AI、数据库类型。Android 专属输入适配（Uri、FileDescriptor、Surface）放在 `com.videokit.api.android`。
+- 所有平台无关的公共类型在 `videokit-api`，包名 `com.videokit.api`：**纯 Kotlin（KMP `commonMain`），不含任何 Android 或 JVM 专属类型**，不依赖 Media3、AI、数据库类型（V1.2，2026-11-07，见 [02](02_SYSTEM_ARCHITECTURE.md) §4）。
+- Android 专属类型（`Context`、`Surface`、Uri、FileDescriptor）放在独立模块 `videokit-api-android`（包名 `com.videokit.api.android`）：Android 工厂入口、`AndroidSurface` 渲染目标、`MediaSources` 适配。
 - 长任务是 `suspend` 函数或 `Flow`，均可取消；状态是 `StateFlow`；事件是有界 `Flow`。
 - 每个句柄实现 `AutoCloseable`，`close()`/`release()` 重复调用安全。
 - 所有外部可见 ID 为不透明字符串；时间用微秒 `Long`；画面坐标为归一化 `Float`（0–1，相对于显示方向校正后的画面）。
@@ -14,10 +15,7 @@
 ## 2. 顶层接口
 
 ```kotlin
-object VideoKitFactory {
-    fun create(config: VideoKitConfig): VideoKit
-}
-
+// videokit-api（平台无关）
 interface VideoKit : AutoCloseable {
     val apiVersion: VideoKitApiVersion                // major.minor.patch
     suspend fun capabilities(request: CapabilityRequest): VideoKitCapabilities
@@ -27,12 +25,19 @@ interface VideoKit : AutoCloseable {
 }
 
 data class VideoKitConfig(
-    val context: android.content.Context,             // 仅用于取 applicationContext，不持有 Activity
     val hostCallbacks: VideoKitHostCallbacks,
     val resourceBudget: ResourceBudget,               // 宿主范围，见 07
     val logging: LoggingPolicy = LoggingPolicy.ReleaseDefault,
 )
+
+// videokit-api-android（Android 入口）
+object VideoKitFactory {
+    fun create(context: android.content.Context,      // 仅用于取 applicationContext，不持有 Activity
+               config: VideoKitConfig): VideoKit
+}
 ```
+
+其他平台各自提供工厂入口（如 Apple 平台的 `VideoKitFactory.create(config:)`），返回同一个平台无关的 `VideoKit` 接口。
 
 ## 3. 会话
 
@@ -133,11 +138,18 @@ sealed interface VideoKitCommandResult {
 ### 4.4 渲染目标
 
 ```kotlin
-sealed interface VideoKitSurfaceTarget {
-    class AndroidSurface(val surface: android.view.Surface, val width: Int, val height: Int)
-    // Flutter 插件用 TextureRegistry.SurfaceProducer 提供的 Surface；原生纯引擎宿主用自己的 SurfaceView/TextureView
+// videokit-api（平台无关）：开放接口，由各平台模块提供具体实现
+interface VideoKitSurfaceTarget {
+    val width: Int
+    val height: Int
 }
+
+// videokit-api-android
+class AndroidSurface(val surface: android.view.Surface, override val width: Int, override val height: Int) : VideoKitSurfaceTarget
+// Flutter 插件用 TextureRegistry.SurfaceProducer 提供的 Surface；原生纯引擎宿主用自己的 SurfaceView/TextureView
 ```
+
+平台实现只接受本平台的目标类型，收到其他类型返回 `Unsupported`。
 
 Flutter 侧不直接接触 Surface：`videokit_flutter` 为每个会话创建纹理并返回 `textureId`，UI 用 `Texture(textureId)` 显示（见第 12 节）。
 
@@ -167,7 +179,7 @@ interface VideoKitReadHandle : AutoCloseable {
 
 - `readAt` 由宿主实现；VideoKit 在 IO 调度器调用，按超时取消；返回值小于请求长度属于正常短读。
 - 宿主可抛出 `VideoKitSourceException(code)` 表达 NOT_FOUND、PERMISSION_DENIED、DISCONNECTED、TIMEOUT，VideoKit 映射为对应稳定错误。
-- Android 适配（`com.videokit.api.android`）：`MediaSources.fromUri(context, uri, token)`、`fromFileDescriptor(pfdProvider, token)`、`fromFile(file, token)`，宿主可选用。
+- Android 适配（模块 `videokit-api-android`，包 `com.videokit.api.android`）：`MediaSources.fromUri(context, uri, token)`、`fromFileDescriptor(pfdProvider, token)`、`fromFile(file, token)`，宿主可选用。
 
 ## 6. 编辑工程（§10、§17）
 

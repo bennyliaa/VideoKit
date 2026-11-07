@@ -63,21 +63,26 @@ flutter/
 │       ├── export/              # UI-08
 │       └── shortcuts/           # Intent 与快捷键表
 ├── videokit_fake/lib/src/       # fake_videokit.dart, fake_session.dart, fake_edit_project.dart, clock/, scenario/, demo/, contract/
-├── videokit_flutter/
-│   ├── pigeons/videokit_messages.dart
-│   ├── lib/src/                 # 生成的 messages.g.dart + 手写适配：flutter_videokit.dart, channel_session.dart, ...
-│   └── android/src/main/kotlin/com/videokit/flutter/   # 见 §8
+├── videokit_flutter/                      # 联邦插件对外包：FlutterVideoKit、ChannelSession 等 Dart 适配（§8.5）
+├── videokit_flutter_platform_interface/   # pigeons/videokit_messages.dart + 生成的 Dart 协议；平台接口抽象类
+├── videokit_flutter_android/              # Android 平台包：android/src/main/kotlin/com/videokit/flutter/（生成的 Kotlin 协议 + §8.4 类）
 └── videokit_example/lib/        # 见 §10
 ```
 
 ### 2.2 原生侧 M0 模块
 
+分层见 [02](02_SYSTEM_ARCHITECTURE.md) §4（V1.2：平台无关层 `kit/common/` 为纯 Kotlin KMP `commonMain`；Android 实现在 `kit/android/`）。
+
 | 模块 | M0 内容 |
 | --- | --- |
-| `kit/videokit-api` | 04 的全部 Kotlin 接口与数据类型 |
-| `kit/videokit-testkit` | Kotlin Fake（`FakeVideoKit`、`FakeSession`、`FakeEditProject`、场景脚本、测试图案渲染器）、`VideoKitContractSuite` 初版 |
-| `kit/videokit-ui-android` | add-to-app 桥接，见 §9 |
-| `flutter/videokit_flutter/android` | 插件，依赖 `videokit-api`；M0 运行时注入 testkit 的 Fake，见 §8.4 |
+| `kit/common/videokit-api` | 04 的全部平台无关接口与数据类型（无 Android 类型） |
+| `kit/android/videokit-api-android` | Android 工厂入口、`AndroidSurface`、`MediaSources` 适配 |
+| `kit/common/videokit-core` | M0 只放 SPI 接口草案（02 §4.2），实现属于 M1 起 |
+| `kit/common/videokit-testkit` | Kotlin Fake（`FakeVideoKit`、`FakeSession`、`FakeEditProject`、场景脚本）、`VideoKitContractSuite` 初版、`spec/vectors` 运行器 |
+| `kit/android/videokit-testkit-android` | 测试图案渲染器（`Surface.lockHardwareCanvas`）等依赖 Android 的测试工具 |
+| `spec/` | 错误码登记表 `errors.json`、状态机转换向量（M0 初版）；其余向量随对应里程碑增加 |
+| `kit/android/videokit-ui-android` | add-to-app 桥接，见 §9 |
+| `flutter/videokit_flutter_android` | 插件 Android 平台包，依赖 `videokit-api-android`；M0 运行时注入 testkit 的 Fake，见 §8.4 |
 | `sample-host` | 原生示例宿主：纯引擎页（直接用 Kotlin Fake 画到 SurfaceView）+ add-to-app 嵌入页 |
 
 ## 3. `videokit_api`（Dart）细化

@@ -122,6 +122,26 @@
 | 物体跟踪 | OpenCV + ViTTrack；对照 CSRT/KCF + 周期重检测 | 待验证 S6 |
 | 推理运行时 | OpenCV DNN；对照 ONNX Runtime | 待验证 S6 |
 | 帧来源 | Media3 帧提取 / 解码到 `ImageReader`，按分析分辨率降采样 | 已定 |
+| 推理核心位置 | C++ `native/tracking-core`（OpenCV + 模型加载 + 预处理），Android 经 JNI 调用；跟踪编排、关联、覆盖报告在平台无关的 `videokit-tracking`（Kotlin） | 已定（2026-11-07，多平台复用） |
+
+### 2.10 平台引擎接口与多平台复用（2026-11-07 确认）
+
+本文第 2.1–2.9 节的 Android 方案全部作为**平台引擎接口（SPI）的 Android 实现**落地，业务规则不写进 Android 实现（分层见 [02](02_SYSTEM_ARCHITECTURE.md) §4，SPI 列表见 02 §4.2，规则见 [13](13_ENGINEERING_CONVENTIONS.md) §3.2）：
+
+| 本文决定 | 放在哪一层 |
+| --- | --- |
+| ExoPlayer、HostDataSource、字幕/音轨、音频焦点 | Android 实现层 `videokit-media3`（`PlaybackEngine`） |
+| 多画面不发声槽禁用音频轨、降级策略 | 平台无关层（`videokit-core` 资源策略），由 `PlaybackEngine` 执行 |
+| 容器/编码能力探测 | `CapabilityProbe`（Android：`videokit-platform-android`）；能力模型与判定规则在平台无关层 |
+| m2ts 适配 | Android 实现层（Media3 解析器包装） |
+| ImageDecoder / BitmapRegionDecoder / AnimatedImageDrawable | `videokit-image-android`（`ImageEngine`）；分块调度、内存额度规则在 `videokit-image` |
+| Transformer 拼接、remux、Mp4Muxer、暂存 + 顺序复制 | `videokit-media3`（`CompositionExporter`）；导出计划、快速拼接判定、阶段、取消、输出校验规则在 `videokit-export` / `videokit-timeline` |
+| 打码 GlEffect | `EffectRenderer` Android 实现；区域计算与 CPU 参考实现在 `videokit-effects`，GPU 结果与 CPU 参考做黄金图像比对 |
+| 遮罩关键帧插值 | 平台无关层 `videokit-timeline`（`spec/vectors` 固化） |
+| isolatedProcess + FD 代理 | `IsolationHost` Android 实现（`videokit-platform-android`） |
+| 跟踪推理 | `TrackerBackend` → `native/tracking-core`；编排在 `videokit-tracking` |
+
+将来新增平台（另立需求，V1.0 不实现）时的参考映射：Apple 平台播放/导出用 AVFoundation、图片用 ImageIO、效果用 Metal、隔离在 macOS 用 XPC；Windows 用 Media Foundation、WIC、Direct3D。各平台只实现 SPI 与插件平台包，并通过同一套 SPI 契约测试与 `spec/vectors`。
 
 ## 3. 不采用 / 有条件采用
 

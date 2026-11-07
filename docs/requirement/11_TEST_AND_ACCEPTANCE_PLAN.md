@@ -15,6 +15,9 @@
 | --- | --- | --- | --- |
 | 单元测试 | 状态机、命令、时间线、Schema 迁移、预算算法、错误映射 | JUnit、kotlinx-coroutines-test、Turbine | JVM |
 | 契约测试 | `VideoKitContractSuite`（[04](04_PUBLIC_API_CONTRACT.md) §11）、`BrowserIntegrationContract`（[05](05_LOCALVIDEOBROWSER_INTEGRATION.md) §10） | testkit | JVM（Fake）+ 设备（真实实现） |
+| 测试向量 | `spec/vectors` 全部向量（插值、遮罩区域、快速拼接判定、覆盖报告、迁移、状态机、错误码），Kotlin 与 Dart 两侧同时运行（[02](02_SYSTEM_ARCHITECTURE.md) §4.0.2） | testkit 向量运行器、`flutter_test` | JVM + 主机 |
+| SPI 契约测试 | 每个平台引擎接口（02 §4.2）的平台无关契约，平台实现必须通过；效果 GPU 实现与 CPU 参考实现的黄金图像比对 | testkit | JVM（Fake 引擎）+ 设备（Android 实现） |
+| 可移植性检查 | `kit/common` 只编译 `commonMain`（无 `java.*`/`android.*`）、依赖规则、Flutter 层无平台专属代码 | Gradle 构建 + 依赖检查 + lint | CI |
 | UI 测试 | 组件交互、无障碍语义（Semantics）、golden 截图对比（中文、伪本地化（英文加入后补英文）、RTL、大字体、深浅色、手机/平板尺寸） | `flutter_test` widget 测试与 golden 测试 | 主机（无需设备，接 `videokit_fake`）|
 | Flutter 集成测试 | Flutter UI 经 `videokit_flutter` 连接真实原生 Kit；Dart 契约测试 | `integration_test` | 真机 |
 | add-to-app 嵌入 | 原生宿主嵌入 Flutter UI、回调转发、引擎预热、包体积与首帧耗时 | AndroidX Test | 真机 |
