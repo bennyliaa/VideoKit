@@ -51,6 +51,10 @@ class VkDimensions extends ThemeExtension<VkDimensions> {
     VkTokenKeys.maskBoxStroke.key: 2,
     VkTokenKeys.maskBoxHandle.key: 10,
     VkTokenKeys.maskBoxHandleTarget.key: 24,
+    VkTokenKeys.badgeSize.key: 16,
+    VkTokenKeys.badgeInset.key: 4,
+    VkTokenKeys.pendingRingSize.key: 40,
+    VkTokenKeys.pendingRingStroke.key: 2,
   });
 
   final Map<String, double> _values;
@@ -88,6 +92,10 @@ class VkDimensions extends ThemeExtension<VkDimensions> {
   double get maskBoxStroke => this[VkTokenKeys.maskBoxStroke];
   double get maskBoxHandle => this[VkTokenKeys.maskBoxHandle];
   double get maskBoxHandleTarget => this[VkTokenKeys.maskBoxHandleTarget];
+  double get badgeSize => this[VkTokenKeys.badgeSize];
+  double get badgeInset => this[VkTokenKeys.badgeInset];
+  double get pendingRingSize => this[VkTokenKeys.pendingRingSize];
+  double get pendingRingStroke => this[VkTokenKeys.pendingRingStroke];
 
   /// Elevation "floating" shadow in [color] (design category, 03 §5.2).
   BoxShadow floatingShadow(Color color) => BoxShadow(

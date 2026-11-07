@@ -355,4 +355,138 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
 
   @override
   String get playerRotate => '旋转画面';
+
+  @override
+  String get moreGroupPlayer => '播放控制';
+
+  @override
+  String get viewerPicture => '图片画面';
+
+  @override
+  String get viewerInfo => '图片信息';
+
+  @override
+  String get viewerZoomLabel => '缩放比例';
+
+  @override
+  String get viewerMiniMap => '可见区域';
+
+  @override
+  String get viewerPrevious => '上一张';
+
+  @override
+  String get viewerNext => '下一张';
+
+  @override
+  String get viewerLoop => '循环播放';
+
+  @override
+  String viewerAnimatedBadge(String format) {
+    return '$format · 动态';
+  }
+
+  @override
+  String get infoFormat => '格式';
+
+  @override
+  String get infoDimensions => '尺寸';
+
+  @override
+  String get infoFileSize => '文件大小';
+
+  @override
+  String get infoOrientation => '方向';
+
+  @override
+  String get infoUnknown => '未知';
+
+  @override
+  String infoFormatValue(String format, String kind) {
+    return '$format（$kind）';
+  }
+
+  @override
+  String infoDimensionsValue(int width, int height) {
+    return '$width × $height';
+  }
+
+  @override
+  String get imageKindStatic => '静态';
+
+  @override
+  String get imageKindAnimated => '动态';
+
+  @override
+  String get orientationPortrait => '竖向';
+
+  @override
+  String get orientationLandscape => '横向';
+
+  @override
+  String get orientationSquare => '方形';
+
+  @override
+  String get slotActiveAudio => '发声';
+
+  @override
+  String get slotActivateAudio => '设为发声画面';
+
+  @override
+  String get slotImage => '图片';
+
+  @override
+  String get slotAnimated => '动图';
+
+  @override
+  String get slotLoading => '加载中';
+
+  @override
+  String get slotPausedTitle => '已暂停 · 资源不足';
+
+  @override
+  String get slotPausedDetail => '点按恢复（将暂停其他画面）';
+
+  @override
+  String get slotLowResolution => '已降为低分辨率';
+
+  @override
+  String get slotErrorOnly => '仅此格受影响';
+
+  @override
+  String get slotRemove => '移除';
+
+  @override
+  String slotLabel(int index, String title) {
+    return '第 $index 格，$title';
+  }
+
+  @override
+  String get gridMuteAll => '全部静音';
+
+  @override
+  String get infoFrameCount => '帧数';
+
+  @override
+  String infoFrameCountValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 帧',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get infoDecodedMemory => '解码内存';
+
+  @override
+  String get infoSampleSize => '解码采样';
+
+  @override
+  String get infoSampleFull => '原始分辨率';
+
+  @override
+  String infoSampleSizeValue(int size) {
+    return '按 1/$size 采样';
+  }
 }

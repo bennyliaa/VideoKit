@@ -206,11 +206,8 @@ abstract final class VkDefaultTokens {
       background: c.primary,
       content: c.onPrimary,
       radius: d.cornerFull,
-      padding: EdgeInsetsDirectional.symmetric(
-        horizontal: d.spacing8,
-        vertical: d.spacing4 / 2,
-      ),
-      minSize: d.icon16,
+      padding: EdgeInsetsDirectional.symmetric(horizontal: d.spacing4),
+      minSize: d.badgeSize,
       text: t.caption,
     );
     final selectedBox = primary.copyWith(
@@ -313,6 +310,36 @@ abstract final class VkDefaultTokens {
         label: t.caption.copyWith(color: c.playerControlsContent),
         badge: badge.copyWith(background: c.error, content: c.errorContent),
         spacing: d.spacing8,
+      ),
+      // 14 §7.2 (M0-B2 review): on ordinary surfaces the track must reach
+      // 3:1 against the surface in both modes.
+      sliderSurface: VkSeekBarStyle(
+        track: c.borderStrong,
+        buffered: c.textTertiary,
+        played: c.primary,
+        preview: c.primary.withValues(alpha: 0.6),
+        thumb: VkStateStyle(
+          normal: c.primary,
+          pressed: c.primary,
+          focused: c.focusRing,
+          disabled: c.disabledContent,
+          selected: c.primary,
+          hovered: c.primary,
+        ),
+        trackHeight: d.seekBarTrack,
+        trackHeightActive: d.seekBarTrackActive,
+        thumbSize: d.seekBarThumb,
+        bubble: box(
+          background: c.surfaceHigh,
+          content: c.textPrimary,
+          radius: d.cornerSmall,
+          padding: EdgeInsetsDirectional.symmetric(
+            horizontal: d.spacing8,
+            vertical: d.spacing4,
+          ),
+          minSize: 0,
+          text: t.timecode,
+        ),
       ),
       seekBar: VkSeekBarStyle(
         track: controls.withValues(alpha: 0.24),

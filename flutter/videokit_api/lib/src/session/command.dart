@@ -149,6 +149,34 @@ final class SetMuted extends VideoKitCommand {
   String toString() => 'SetMuted($muted)';
 }
 
+/// Loop or stop at the end (04A L1). Default per media kind: animated
+/// images loop, videos do not. Without looping playback stops on the last
+/// frame, enters ENDED and emits `PlaybackEnded`; with looping it never
+/// ends. Static images answer `Unsupported(mediaKind)`.
+final class SetLooping extends VideoKitCommand {
+  /// Creates the command.
+  const SetLooping(this.looping);
+
+  /// Whether to loop.
+  final bool looping;
+
+  @override
+  String get kind => 'setLooping';
+
+  /// Returns a copy with the given fields replaced.
+  SetLooping copyWith({bool? looping}) => SetLooping(looping ?? this.looping);
+
+  @override
+  bool operator ==(Object other) =>
+      other is SetLooping && other.looping == looping;
+
+  @override
+  int get hashCode => Object.hash(SetLooping, looping);
+
+  @override
+  String toString() => 'SetLooping($looping)';
+}
+
 /// Set session volume (0–1).
 final class SetVolume extends VideoKitCommand {
   /// Creates the command.

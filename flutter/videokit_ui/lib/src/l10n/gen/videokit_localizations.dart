@@ -714,6 +714,240 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'旋转画面'**
   String get playerRotate;
+
+  /// “更多”面板第二组（播放器自身的次要控件）的标题；第一组是宿主动作。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放控制'**
+  String get moreGroupPlayer;
+
+  /// 图片查看器画面层的读屏标签；轻触显示或隐藏控件。
+  ///
+  /// In zh, this message translates to:
+  /// **'图片画面'**
+  String get viewerPicture;
+
+  /// 打开图片信息面板的按钮与面板标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'图片信息'**
+  String get viewerInfo;
+
+  /// 缩放比例指示的读屏标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'缩放比例'**
+  String get viewerZoomLabel;
+
+  /// 放大时右下角小地图的读屏标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'可见区域'**
+  String get viewerMiniMap;
+
+  /// 翻到上一张图片（向宿主请求）。
+  ///
+  /// In zh, this message translates to:
+  /// **'上一张'**
+  String get viewerPrevious;
+
+  /// 翻到下一张图片（向宿主请求）。
+  ///
+  /// In zh, this message translates to:
+  /// **'下一张'**
+  String get viewerNext;
+
+  /// 动图循环播放开关。
+  ///
+  /// In zh, this message translates to:
+  /// **'循环播放'**
+  String get viewerLoop;
+
+  /// 动图角标，例如“GIF · 动态”。
+  ///
+  /// In zh, this message translates to:
+  /// **'{format} · 动态'**
+  String viewerAnimatedBadge(String format);
+
+  /// 图片信息：格式。
+  ///
+  /// In zh, this message translates to:
+  /// **'格式'**
+  String get infoFormat;
+
+  /// 图片信息：像素尺寸。
+  ///
+  /// In zh, this message translates to:
+  /// **'尺寸'**
+  String get infoDimensions;
+
+  /// 图片信息：文件大小。
+  ///
+  /// In zh, this message translates to:
+  /// **'文件大小'**
+  String get infoFileSize;
+
+  /// 图片信息：画面方向。
+  ///
+  /// In zh, this message translates to:
+  /// **'方向'**
+  String get infoOrientation;
+
+  /// 信息项尚未得到或无法得到。
+  ///
+  /// In zh, this message translates to:
+  /// **'未知'**
+  String get infoUnknown;
+
+  /// 格式与静态/动态，例如“GIF（动态）”。
+  ///
+  /// In zh, this message translates to:
+  /// **'{format}（{kind}）'**
+  String infoFormatValue(String format, String kind);
+
+  /// 像素尺寸，例如“1280 × 1152”。
+  ///
+  /// In zh, this message translates to:
+  /// **'{width} × {height}'**
+  String infoDimensionsValue(int width, int height);
+
+  /// 静态图片。
+  ///
+  /// In zh, this message translates to:
+  /// **'静态'**
+  String get imageKindStatic;
+
+  /// 动态图片（GIF、动态 WebP）。
+  ///
+  /// In zh, this message translates to:
+  /// **'动态'**
+  String get imageKindAnimated;
+
+  /// 画面方向：竖向。
+  ///
+  /// In zh, this message translates to:
+  /// **'竖向'**
+  String get orientationPortrait;
+
+  /// 画面方向：横向。
+  ///
+  /// In zh, this message translates to:
+  /// **'横向'**
+  String get orientationLandscape;
+
+  /// 画面方向：方形。
+  ///
+  /// In zh, this message translates to:
+  /// **'方形'**
+  String get orientationSquare;
+
+  /// 多画面中当前唯一发声画面的角标。
+  ///
+  /// In zh, this message translates to:
+  /// **'发声'**
+  String get slotActiveAudio;
+
+  /// 静音角标的读屏标签：点按请求让这一格发声。
+  ///
+  /// In zh, this message translates to:
+  /// **'设为发声画面'**
+  String get slotActivateAudio;
+
+  /// 静态图片格的角标。
+  ///
+  /// In zh, this message translates to:
+  /// **'图片'**
+  String get slotImage;
+
+  /// 动态图片格的角标。
+  ///
+  /// In zh, this message translates to:
+  /// **'动图'**
+  String get slotAnimated;
+
+  /// 格内加载中的读屏文字。
+  ///
+  /// In zh, this message translates to:
+  /// **'加载中'**
+  String get slotLoading;
+
+  /// 宿主为释放解码器暂停了这一格。
+  ///
+  /// In zh, this message translates to:
+  /// **'已暂停 · 资源不足'**
+  String get slotPausedTitle;
+
+  /// 暂停格的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'点按恢复（将暂停其他画面）'**
+  String get slotPausedDetail;
+
+  /// 降级角标：这一格以低分辨率播放。
+  ///
+  /// In zh, this message translates to:
+  /// **'已降为低分辨率'**
+  String get slotLowResolution;
+
+  /// 单格错误占位的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'仅此格受影响'**
+  String get slotErrorOnly;
+
+  /// 从多画面中移除出错的这一格。
+  ///
+  /// In zh, this message translates to:
+  /// **'移除'**
+  String get slotRemove;
+
+  /// 格的读屏标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'第 {index} 格，{title}'**
+  String slotLabel(int index, String title);
+
+  /// 多画面全部静音。
+  ///
+  /// In zh, this message translates to:
+  /// **'全部静音'**
+  String get gridMuteAll;
+
+  /// 图片信息：帧数（04A L2，有值才显示）。
+  ///
+  /// In zh, this message translates to:
+  /// **'帧数'**
+  String get infoFrameCount;
+
+  /// 帧数的值。
+  ///
+  /// In zh, this message translates to:
+  /// **'{count, plural, other{{count} 帧}}'**
+  String infoFrameCountValue(int count);
+
+  /// 图片信息：当前解码位图占用的内存（有值才显示）。
+  ///
+  /// In zh, this message translates to:
+  /// **'解码内存'**
+  String get infoDecodedMemory;
+
+  /// 图片信息：解码时的下采样倍数（有值才显示）。
+  ///
+  /// In zh, this message translates to:
+  /// **'解码采样'**
+  String get infoSampleSize;
+
+  /// 解码采样为 1：按原始分辨率解码。
+  ///
+  /// In zh, this message translates to:
+  /// **'原始分辨率'**
+  String get infoSampleFull;
+
+  /// 解码采样大于 1，例如“按 1/2 采样”。
+  ///
+  /// In zh, this message translates to:
+  /// **'按 1/{size} 采样'**
+  String infoSampleSizeValue(int size);
 }
 
 class _VideoKitLocalizationsDelegate

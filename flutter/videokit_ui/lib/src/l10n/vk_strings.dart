@@ -147,6 +147,39 @@ final class VkStrings {
     'hostActionMore': l10n.hostActionMore,
     'navigationUnavailable': l10n.navigationUnavailable,
     'commandUnavailable': l10n.commandUnavailable,
+    'moreGroupPlayer': l10n.moreGroupPlayer,
+    'viewerPicture': l10n.viewerPicture,
+    'viewerInfo': l10n.viewerInfo,
+    'viewerZoomLabel': l10n.viewerZoomLabel,
+    'viewerMiniMap': l10n.viewerMiniMap,
+    'viewerPrevious': l10n.viewerPrevious,
+    'viewerNext': l10n.viewerNext,
+    'viewerLoop': l10n.viewerLoop,
+    'infoFormat': l10n.infoFormat,
+    'infoDimensions': l10n.infoDimensions,
+    'infoFileSize': l10n.infoFileSize,
+    'infoOrientation': l10n.infoOrientation,
+    'infoUnknown': l10n.infoUnknown,
+    'infoFrameCount': l10n.infoFrameCount,
+    'infoDecodedMemory': l10n.infoDecodedMemory,
+    'infoSampleSize': l10n.infoSampleSize,
+    'infoSampleFull': l10n.infoSampleFull,
+    'imageKindStatic': l10n.imageKindStatic,
+    'imageKindAnimated': l10n.imageKindAnimated,
+    'orientationPortrait': l10n.orientationPortrait,
+    'orientationLandscape': l10n.orientationLandscape,
+    'orientationSquare': l10n.orientationSquare,
+    'slotActiveAudio': l10n.slotActiveAudio,
+    'slotActivateAudio': l10n.slotActivateAudio,
+    'slotImage': l10n.slotImage,
+    'slotAnimated': l10n.slotAnimated,
+    'slotLoading': l10n.slotLoading,
+    'slotPausedTitle': l10n.slotPausedTitle,
+    'slotPausedDetail': l10n.slotPausedDetail,
+    'slotLowResolution': l10n.slotLowResolution,
+    'slotErrorOnly': l10n.slotErrorOnly,
+    'slotRemove': l10n.slotRemove,
+    'gridMuteAll': l10n.gridMuteAll,
     for (final a in SuggestedAction.values)
       if (a != SuggestedAction.none) actionKey(a): _action(a),
     for (final c in ErrorCode.values) errorKey(c): _error(c),
@@ -167,6 +200,12 @@ final class VkStrings {
     'trackUnnamed',
     'hostActionFailed',
     'badgeClipped',
+    'viewerAnimatedBadge',
+    'infoFormatValue',
+    'infoDimensionsValue',
+    'slotLabel',
+    'infoFrameCountValue',
+    'infoSampleSizeValue',
   };
 
   /// Text for [key]: override, else localized default, else [key].
@@ -215,6 +254,29 @@ final class VkStrings {
 
   /// Badge text cut to the first characters.
   String badgeClipped(String text) => l10n.badgeClipped(text);
+
+  /// Animated image badge ("GIF · 动态").
+  String viewerAnimatedBadge(String format) =>
+      _out(l10n.viewerAnimatedBadge(format));
+
+  /// Format row value.
+  String infoFormatValue(String format, String kind) =>
+      _out(l10n.infoFormatValue(format, kind));
+
+  /// Pixel dimensions row value.
+  String infoDimensionsValue(int width, int height) =>
+      _out(l10n.infoDimensionsValue(width, height));
+
+  /// Frame count value (ICU plural).
+  String infoFrameCountValue(int count) =>
+      _out(l10n.infoFrameCountValue(count));
+
+  /// Decode sample size value (> 1).
+  String infoSampleSizeValue(int size) => _out(l10n.infoSampleSizeValue(size));
+
+  /// Slot screen-reader label.
+  String slotLabel(int index, String title) =>
+      _out(l10n.slotLabel(index, title));
 
   /// Host action failure notice.
   String hostActionFailed(String action) => _out(l10n.hostActionFailed(action));

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../theme/theme_scope.dart';
 
-/// Horizontal value slider (volume, mask strength) drawn from the seek bar
+/// Horizontal value slider (volume, mask strength) drawn from the slider
 /// tokens. Continuous drags only change the local value; [onChangeEnd]
 /// fires once at the end (14 §6.3). Screen readers get increase/decrease
 /// actions with [step].
@@ -17,6 +17,7 @@ class VkSlider extends StatefulWidget {
     this.onChanged,
     this.onChangeEnd,
     this.step = 0.1,
+    this.onPicture = false,
   });
 
   /// Value 0–1.
@@ -36,6 +37,10 @@ class VkSlider extends StatefulWidget {
 
   /// Accessibility/keyboard step.
   final double step;
+
+  /// Uses the seek bar style on the player picture; otherwise the
+  /// `component.slider.surface` variant (14, M0-B2 review rule).
+  final bool onPicture;
 
   @override
   State<VkSlider> createState() => _VkSliderState();
@@ -68,7 +73,9 @@ class _VkSliderState extends State<VkSlider> {
   @override
   Widget build(BuildContext context) {
     final t = VkTheme.of(context);
-    final s = t.components.seekBar;
+    final s = widget.onPicture
+        ? t.components.seekBar
+        : t.components.sliderSurface;
     final v = _value;
     return Semantics(
       slider: true,

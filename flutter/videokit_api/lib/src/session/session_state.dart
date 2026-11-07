@@ -182,6 +182,8 @@ final class VideoKitSessionState {
     this.error,
     this.resourcesHeld = false,
     List<HostActionState> hostActions = const [],
+    this.looping = false,
+    this.imageDetails,
   }) : audioTracks = frozenList(audioTracks),
        subtitleTracks = frozenList(subtitleTracks),
        hostActions = frozenList(hostActions);
@@ -256,6 +258,13 @@ final class VideoKitSessionState {
   /// Whether decoder/handles/leases are still held (04 §3.1).
   final bool resourcesHeld;
 
+  /// Whether playback loops (04A L1); set from the media kind at bind
+  /// (animated images true, videos false).
+  final bool looping;
+
+  /// Image facts the engine knows (04A L2); always null for videos.
+  final ImageDetails? imageDetails;
+
   /// Host actions with pending/result state (14 §3.2).
   final List<HostActionState> hostActions;
 
@@ -287,6 +296,8 @@ final class VideoKitSessionState {
     Object? error = undefined,
     bool? resourcesHeld,
     List<HostActionState>? hostActions,
+    bool? looping,
+    Object? imageDetails = undefined,
   }) => VideoKitSessionState(
     phase: phase ?? this.phase,
     mediaKind: pick<MediaKind?>(mediaKind, this.mediaKind),
@@ -317,6 +328,8 @@ final class VideoKitSessionState {
     error: pick<VideoKitStableError?>(error, this.error),
     resourcesHeld: resourcesHeld ?? this.resourcesHeld,
     hostActions: hostActions ?? this.hostActions,
+    looping: looping ?? this.looping,
+    imageDetails: pick<ImageDetails?>(imageDetails, this.imageDetails),
   );
 
   @override
@@ -344,7 +357,9 @@ final class VideoKitSessionState {
       other.hiddenForLock == hiddenForLock &&
       other.error == error &&
       other.resourcesHeld == resourcesHeld &&
-      listEquals(other.hostActions, hostActions);
+      listEquals(other.hostActions, hostActions) &&
+      other.looping == looping &&
+      other.imageDetails == imageDetails;
 
   @override
   int get hashCode => Object.hashAll([
@@ -371,6 +386,8 @@ final class VideoKitSessionState {
     error,
     resourcesHeld,
     hashList(hostActions),
+    looping,
+    imageDetails,
   ]);
 
   @override
@@ -381,5 +398,49 @@ final class VideoKitSessionState {
       'audio: ${audioTracks.length}, subs: ${subtitleTracks.length}, '
       'activeAudio: $activeAudio, controls: $controlsVisible, '
       'locked: $hiddenForLock, error: ${error?.code.name}, '
-      'held: $resourcesHeld, actions: ${hostActions.length})';
+      'held: $resourcesHeld, actions: ${hostActions.length}, '
+      'looping: $looping, image: $imageDetails)';
+}
+
+/// Image facts for the details panel (04A L2). Every field is optional:
+/// the engine fills what it knows and the UI shows only present values.
+@immutable
+final class ImageDetails {
+  /// Creates details.
+  const ImageDetails({this.frameCount, this.decodedBytes, this.sampleSize});
+
+  /// Number of frames (1 for a static image), if known.
+  final int? frameCount;
+
+  /// Bytes of the decoded bitmap(s) currently held, if known.
+  final int? decodedBytes;
+
+  /// Decode subsampling factor (1 = full, 2 = half …), if known.
+  final int? sampleSize;
+
+  /// Returns a copy with the given fields replaced.
+  ImageDetails copyWith({
+    Object? frameCount = undefined,
+    Object? decodedBytes = undefined,
+    Object? sampleSize = undefined,
+  }) => ImageDetails(
+    frameCount: pick<int?>(frameCount, this.frameCount),
+    decodedBytes: pick<int?>(decodedBytes, this.decodedBytes),
+    sampleSize: pick<int?>(sampleSize, this.sampleSize),
+  );
+
+  @override
+  bool operator ==(Object other) =>
+      other is ImageDetails &&
+      other.frameCount == frameCount &&
+      other.decodedBytes == decodedBytes &&
+      other.sampleSize == sampleSize;
+
+  @override
+  int get hashCode => Object.hash(frameCount, decodedBytes, sampleSize);
+
+  @override
+  String toString() =>
+      'ImageDetails(frames: $frameCount, bytes: $decodedBytes, '
+      'sample: $sampleSize)';
 }

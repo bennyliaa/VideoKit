@@ -11,6 +11,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_example/gallery/components_page.dart';
+import 'package:videokit_example/image/image_demo_page.dart';
+import 'package:videokit_example/multiview/multi_view_demo_page.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import 'support.dart';
@@ -144,5 +146,105 @@ void main() {
       await tester.pumpWidget(const SizedBox());
       await tester.pump(Duration.zero);
     }
+  }, skip: _dir == null);
+
+  Future<void> frames(WidgetTester tester, int n) async {
+    for (var i = 0; i < n; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
+  }
+
+  Future<void> unmount(WidgetTester tester) async {
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(Duration.zero);
+  }
+
+  testWidgets('M0-B3 image viewer screens', (tester) async {
+    final key = GlobalKey<ImageDemoPageState>();
+    setViewSize(tester, compactSize);
+    await tester.pumpWidget(
+      _wrap(testApp(ImageDemoPage(key: key), fontFamily: _family)),
+    );
+    await frames(tester, 6);
+    await _shot(tester, 'ui03_image_static');
+    final c = tester.getCenter(find.byType(VideoKitImageViewer));
+    await tester.tapAt(c);
+    await tester.pump(const Duration(milliseconds: 50));
+    await tester.tapAt(c);
+    await frames(tester, 3);
+    key.currentState!.session!.setControlsVisible(true);
+    await _shot(tester, 'ui03_image_zoomed_minimap');
+    await unmount(tester);
+
+    await tester.pumpWidget(
+      _wrap(
+        testApp(ImageDemoPage(key: key, initialIndex: 1), fontFamily: _family),
+      ),
+    );
+    await frames(tester, 6);
+    await _shot(tester, 'ui03_image_animated');
+    await tester.tap(find.bySemanticsLabel('图片信息'));
+    await frames(tester, 3);
+    await _shot(tester, 'ui03_image_info_sheet');
+    await unmount(tester);
+
+    setViewSize(tester, expandedSize);
+    await tester.pumpWidget(
+      _wrap(testApp(ImageDemoPage(key: key), fontFamily: _family)),
+    );
+    await frames(tester, 6);
+    await tester.fling(
+      find.byType(VideoKitImageViewer),
+      const Offset(300, 0),
+      1500,
+    );
+    await frames(tester, 2);
+    await _shot(tester, 'ui03_image_landscape_page_bounce_toast');
+    await unmount(tester);
+  }, skip: _dir == null);
+
+  testWidgets('M0-B3 multi-view screens', (tester) async {
+    setViewSize(tester, compactSize);
+    await tester.pumpWidget(
+      _wrap(testApp(const MultiViewDemoPage(), fontFamily: _family)),
+    );
+    await frames(tester, 12);
+    await _shot(tester, 'ui05_multiview_phone_2x2');
+    await unmount(tester);
+
+    setViewSize(tester, expandedSize);
+    await tester.pumpWidget(
+      _wrap(
+        testApp(const MultiViewDemoPage(initialCount: 10), fontFamily: _family),
+      ),
+    );
+    await frames(tester, 14);
+    await _shot(tester, 'ui05_multiview_tablet_degraded');
+    await unmount(tester);
+
+    await tester.pumpWidget(
+      _wrap(
+        testApp(const MultiViewDemoPage(initialCount: 12), fontFamily: _family),
+      ),
+    );
+    await frames(tester, 16);
+    await _shot(tester, 'ui05_multiview_tablet_12');
+    await unmount(tester);
+  }, skip: _dir == null);
+
+  testWidgets('M0-B3 review fixes: single more panel', (tester) async {
+    final key = GlobalKey<VideoKitPlayerState>();
+    setViewSize(tester, compactSize);
+    final rig = await PlayerRig.create('normal');
+    addTearDown(rig.dispose);
+    await tester.pumpWidget(
+      _wrap(testApp(demoPlayer(rig.session, key: key), fontFamily: _family)),
+    );
+    await rig.advance(tester, const Duration(seconds: 1));
+    await tester.pump();
+    await _shot(tester, 'fix1_player_portrait_single_more');
+    key.currentState!.openPanel(PlayerPanel.more);
+    await _shot(tester, 'fix1_more_panel_two_groups');
+    await unmount(tester);
   }, skip: _dir == null);
 }

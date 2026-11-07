@@ -55,6 +55,10 @@ class VkIcons extends ThemeExtension<VkIcons> {
     'tag': Icons.sell_outlined,
     'share': Icons.share_rounded,
     'fit': Icons.fit_screen_rounded,
+    'originalsize': Icons.photo_size_select_actual_outlined,
+    'previous': Icons.chevron_left_rounded,
+    'next': Icons.chevron_right_rounded,
+    'loop': Icons.repeat_rounded,
     'unknown': Icons.help_outline_rounded,
   };
 

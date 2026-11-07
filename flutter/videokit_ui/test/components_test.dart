@@ -263,6 +263,8 @@ void main() {
       'player',
       'host_action',
       'foundation',
+      'image_viewer',
+      'slot',
     ];
     final pattern = RegExp(
       r"Color\(0x|Colors\.|fontSize:|Text\(\s*'|label:\s*'",

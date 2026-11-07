@@ -337,6 +337,7 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
     required this.menu,
     required this.toast,
     required this.progress,
+    required this.sliderSurface,
     required this.seekBar,
     required this.hostActionBar,
   });
@@ -371,7 +372,11 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
   /// `component.progress.default`.
   final VkProgressStyle progress;
 
-  /// `apps.videokit.component.seekbar`.
+  /// `component.slider.surface`: sliders and progress on ordinary surfaces
+  /// (track `border.strong`, buffered `text.tertiary`, value `primary`).
+  final VkSeekBarStyle sliderSurface;
+
+  /// `apps.videokit.component.seekbar` (on the picture).
   final VkSeekBarStyle seekBar;
 
   /// `apps.videokit.component.hostactionbar`.
@@ -392,6 +397,7 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
     VkTokenKeys.menuDefault.key: menu,
     VkTokenKeys.toastDefault.key: toast,
     VkTokenKeys.progressDefault.key: progress,
+    VkTokenKeys.sliderSurface.key: sliderSurface,
     VkTokenKeys.seekBar.key: seekBar,
     VkTokenKeys.hostActionBar.key: hostActionBar,
   };

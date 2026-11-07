@@ -177,6 +177,9 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
   }
 
   @override
+  String get sectionDemos => '演示页面';
+
+  @override
   String get navComponents => '组件';
 
   @override
@@ -295,4 +298,64 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
 
   @override
   String get hostDone => '已完成';
+
+  @override
+  String get navImageViewer => '图片';
+
+  @override
+  String get navMultiView => '多画面';
+
+  @override
+  String get imageDemoTitle => '图片查看演示';
+
+  @override
+  String get demoImageDune => '沙丘.heic';
+
+  @override
+  String get demoImageFireworks => '烟花.gif';
+
+  @override
+  String get demoImageForest => '森林.webp';
+
+  @override
+  String get demoImageBroken => '新格式.jxl';
+
+  @override
+  String get multiViewTitle => '多画面';
+
+  @override
+  String multiViewCount(int count, int max) {
+    return '$count / $max';
+  }
+
+  @override
+  String get multiViewHint => '点按画面切换声音来源，同一时间只有一路发声';
+
+  @override
+  String get multiViewAdd => '添加媒体';
+
+  @override
+  String get multiViewLayout => '布局';
+
+  @override
+  String get layoutAuto => '自动';
+
+  @override
+  String get layout2x2 => '2×2';
+
+  @override
+  String get layout3x3 => '3×3';
+
+  @override
+  String get layout3x4 => '4×3';
+
+  @override
+  String multiViewNotice(int suggested, int paused) {
+    return '当前设备建议同时播放 $suggested 路视频：已暂停 $paused 路离屏或较早加入的画面，显示封面';
+  }
+
+  @override
+  String demoSlotTitle(int index) {
+    return '演示画面 $index';
+  }
 }

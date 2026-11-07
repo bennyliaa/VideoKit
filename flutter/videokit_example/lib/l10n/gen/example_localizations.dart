@@ -385,6 +385,12 @@ abstract class ExampleLocalizations {
   /// **'{position} / {duration}'**
   String timecodeRange(String position, String duration);
 
+  /// 画廊中通往组件页与演示页的分组标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'演示页面'**
+  String get sectionDemos;
+
   /// 画廊顶栏：打开组件页。
   ///
   /// In zh, this message translates to:
@@ -624,6 +630,114 @@ abstract class ExampleLocalizations {
   /// In zh, this message translates to:
   /// **'已完成'**
   String get hostDone;
+
+  /// 画廊顶栏：打开图片查看演示页。
+  ///
+  /// In zh, this message translates to:
+  /// **'图片'**
+  String get navImageViewer;
+
+  /// 画廊顶栏：打开多画面演示页。
+  ///
+  /// In zh, this message translates to:
+  /// **'多画面'**
+  String get navMultiView;
+
+  /// 图片查看演示页标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'图片查看演示'**
+  String get imageDemoTitle;
+
+  /// 演示图片名（静态）。
+  ///
+  /// In zh, this message translates to:
+  /// **'沙丘.heic'**
+  String get demoImageDune;
+
+  /// 演示图片名（动态）。
+  ///
+  /// In zh, this message translates to:
+  /// **'烟花.gif'**
+  String get demoImageFireworks;
+
+  /// 演示图片名（静态）。
+  ///
+  /// In zh, this message translates to:
+  /// **'森林.webp'**
+  String get demoImageForest;
+
+  /// 演示图片名（不支持的格式，用于展示错误状态）。
+  ///
+  /// In zh, this message translates to:
+  /// **'新格式.jxl'**
+  String get demoImageBroken;
+
+  /// 多画面演示页标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'多画面'**
+  String get multiViewTitle;
+
+  /// 当前格数 / 最大格数。
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} / {max}'**
+  String multiViewCount(int count, int max);
+
+  /// 多画面底部说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'点按画面切换声音来源，同一时间只有一路发声'**
+  String get multiViewHint;
+
+  /// 添加一格演示媒体（最多 12 格）。
+  ///
+  /// In zh, this message translates to:
+  /// **'添加媒体'**
+  String get multiViewAdd;
+
+  /// 网格布局选择的标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'布局'**
+  String get multiViewLayout;
+
+  /// 网格布局：自动。
+  ///
+  /// In zh, this message translates to:
+  /// **'自动'**
+  String get layoutAuto;
+
+  /// 网格布局：2 列 2 行。
+  ///
+  /// In zh, this message translates to:
+  /// **'2×2'**
+  String get layout2x2;
+
+  /// 网格布局：3 列 3 行。
+  ///
+  /// In zh, this message translates to:
+  /// **'3×3'**
+  String get layout3x3;
+
+  /// 网格布局：4 列 3 行（最多 12 格）。
+  ///
+  /// In zh, this message translates to:
+  /// **'4×3'**
+  String get layout3x4;
+
+  /// 能力提示（并发数超过建议值时）。
+  ///
+  /// In zh, this message translates to:
+  /// **'当前设备建议同时播放 {suggested} 路视频：已暂停 {paused} 路离屏或较早加入的画面，显示封面'**
+  String multiViewNotice(int suggested, int paused);
+
+  /// 多画面中演示格的名称（读屏）。
+  ///
+  /// In zh, this message translates to:
+  /// **'演示画面 {index}'**
+  String demoSlotTitle(int index);
 }
 
 class _ExampleLocalizationsDelegate

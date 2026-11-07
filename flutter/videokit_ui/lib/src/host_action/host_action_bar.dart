@@ -98,6 +98,8 @@ class HostActionBar extends StatelessWidget {
       ActionPlacement.primaryBar,
       ActionPlacement.secondaryBar,
     },
+    this.showOverflowButton = true,
+    this.onOverflowChanged,
   });
 
   /// Action states (from `VideoKitSessionState.hostActions`).
@@ -121,6 +123,23 @@ class HostActionBar extends StatelessWidget {
 
   /// Placements shown in the bar.
   final Set<ActionPlacement> placements;
+
+  /// Whether the bar shows its own overflow button. Owners of a single
+  /// "more" panel (UI-01, 14 §7.2 M0-B2 rule) pass false and take the items
+  /// from [onOverflowChanged].
+  final bool showOverflowButton;
+
+  /// Reports the current overflow items after every layout (the receiver
+  /// compares before rebuilding).
+  final ValueChanged<List<HostActionState>>? onOverflowChanged;
+
+  void _report(BuildContext context, List<HostActionState> overflow) {
+    final cb = onOverflowChanged;
+    if (cb == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (context.mounted) cb(overflow);
+    });
+  }
 
   String _label(String key) => resolveString?.call(key) ?? key;
 
@@ -157,9 +176,10 @@ class HostActionBar extends StatelessWidget {
         );
         final children = <Widget>[
           for (final a in layout.visible) _item(context, a),
-          if (layout.overflow.isNotEmpty)
+          if (showOverflowButton && layout.overflow.isNotEmpty)
             _overflowButton(context, layout.overflow),
         ];
+        _report(context, layout.overflow);
         return Semantics(
           container: true,
           explicitChildNodes: true,
@@ -278,24 +298,64 @@ class HostActionBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 for (final a in overflow)
-                  VkMenuItem(
-                    icon: _icon(context, a.action.icon),
-                    label: _label(a.action.labelKey),
-                    semanticLabel: _label(a.action.contentDescriptionKey),
-                    selected: a.action.selected,
-                    pending: a.isPending,
-                    onPressed: a.action.enabled
-                        ? () {
-                            sheets.close('hostActionsOverflow');
-                            onActionPressed(a.action.actionId);
-                          }
-                        : null,
+                  HostActionMenuItem(
+                    state: a,
+                    resolveString: resolveString,
+                    resolveIcon: resolveIcon,
+                    onPressed: (id) {
+                      sheets.close('hostActionsOverflow');
+                      onActionPressed(id);
+                    },
                   ),
               ],
             ),
           ),
         );
       },
+    );
+  }
+}
+
+/// One host action as a menu row (overflow menus and the player's single
+/// "more" panel).
+class HostActionMenuItem extends StatelessWidget {
+  /// Creates a row.
+  const HostActionMenuItem({
+    super.key,
+    required this.state,
+    required this.onPressed,
+    this.resolveString,
+    this.resolveIcon,
+  });
+
+  /// Action state.
+  final HostActionState state;
+
+  /// Called with the action ID (never while disabled).
+  final ValueChanged<String> onPressed;
+
+  /// Host string resolver.
+  final HostStringResolver? resolveString;
+
+  /// Host icon resolver.
+  final HostIconResolver? resolveIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    final icons = VkTheme.of(context).icons;
+    String label(String k) => resolveString?.call(k) ?? k;
+    final a = state.action;
+    return VkMenuItem(
+      icon: switch (a.icon) {
+        HostIconBuiltIn(:final iconKey) => icons.resolve(iconKey),
+        final HostIconResource r =>
+          resolveIcon?.call(r) ?? icons.resolve('unknown'),
+      },
+      label: label(a.labelKey),
+      semanticLabel: label(a.contentDescriptionKey),
+      selected: a.selected,
+      pending: state.isPending,
+      onPressed: a.enabled ? () => onPressed(a.actionId) : null,
     );
   }
 }

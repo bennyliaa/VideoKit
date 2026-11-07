@@ -1,0 +1,494 @@
+import 'dart:async';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:videokit_api/videokit_api.dart';
+import 'package:videokit_fake/videokit_fake.dart';
+import 'package:videokit_ui/videokit_ui.dart';
+
+import '../gallery/gallery_text.dart';
+
+/// Kind of a demo slot.
+enum DemoSlotKind {
+  /// Playing video.
+  video,
+
+  /// Static image.
+  image,
+
+  /// Animated image.
+  animated,
+
+  /// Unsupported source (single-slot error).
+  unsupported,
+
+  /// Video that buffers.
+  buffering,
+}
+
+/// One slot of the demo (host side state).
+final class DemoSlot {
+  DemoSlot(this.number, this.kind, this.session);
+
+  /// Stable 1-based number (title, media token).
+  final int number;
+
+  /// Kind.
+  final DemoSlotKind kind;
+
+  /// Session.
+  final VideoKitSession session;
+
+  /// Paused by the host to free a decoder.
+  bool pausedForResources = false;
+
+  /// Low resolution (host degradation).
+  bool lowResolution = false;
+}
+
+/// Order in which "添加媒体" adds kinds (design page 14 mix).
+const List<DemoSlotKind> demoSlotPattern = [
+  DemoSlotKind.video,
+  DemoSlotKind.video,
+  DemoSlotKind.image,
+  DemoSlotKind.unsupported,
+  DemoSlotKind.video,
+  DemoSlotKind.buffering,
+  DemoSlotKind.video,
+  DemoSlotKind.animated,
+  DemoSlotKind.video,
+  DemoSlotKind.video,
+  DemoSlotKind.video,
+  DemoSlotKind.video,
+];
+
+/// UI-05 `VideoKitSlotGrid` driven by the Dart Fake (M0-B3 item 4). The
+/// page plays the host: it owns the audio epoch (07 §4), mutes all, and
+/// applies degradation above [suggestedConcurrent] videos.
+class MultiViewDemoPage extends StatefulWidget {
+  /// Creates the page.
+  const MultiViewDemoPage({super.key, this.initialCount});
+
+  /// Initial slot count (default 4 on compact, 9 on wider screens).
+  final int? initialCount;
+
+  /// Concurrent videos the demo "device" suggests.
+  static const int suggestedConcurrent = 6;
+
+  @override
+  State<MultiViewDemoPage> createState() => MultiViewDemoPageState();
+}
+
+/// State (public for tests).
+class MultiViewDemoPageState extends State<MultiViewDemoPage>
+    with SingleTickerProviderStateMixin {
+  late final FakeVideoKit kit = FakeVideoKit();
+
+  /// Slots in grid order.
+  final List<DemoSlot> slots = [];
+
+  /// Slot grid layout.
+  SlotGridLayout layout = SlotGridLayout.auto;
+
+  /// Session ID with audio, if any.
+  String? activeAudio;
+
+  int _audioEpoch = 0;
+  int _next = 1;
+  bool _started = false;
+
+  @override
+  void initState() {
+    super.initState();
+    kit.clock.attachTicker(this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+    final compact =
+        VkLayoutClass.fromWidth(MediaQuery.sizeOf(context).width) ==
+        VkLayoutClass.compact;
+    final count = widget.initialCount ?? (compact ? 4 : 9);
+    unawaited(_addMany(count));
+  }
+
+  Future<void> _addMany(int count) async {
+    for (var i = 0; i < count; i++) {
+      await add();
+    }
+    if (slots.isNotEmpty && mounted) {
+      await activateAudio(slots.first.session.sessionId);
+    }
+  }
+
+  /// Adds one slot (up to 12).
+  Future<void> add() async {
+    if (slots.length >= VideoKitSlotGrid.maxSlots) return;
+    final number = _next++;
+    final kind = demoSlotPattern[(number - 1) % demoSlotPattern.length];
+    final s = await kit.createSession(
+      VideoKitSessionConfig(debugLabel: 'slot$number'),
+    );
+    if (!mounted) {
+      await s.close();
+      return;
+    }
+    final slot = DemoSlot(number, kind, s);
+    setState(() => slots.add(slot));
+    unawaited(_bind(slot));
+    _applyBudget();
+  }
+
+  Future<void> _bind(DemoSlot slot) async {
+    final (mediaKind, scenario) = switch (slot.kind) {
+      DemoSlotKind.video => (MediaKind.video, 'normal'),
+      DemoSlotKind.image => (MediaKind.imageStatic, 'normal'),
+      DemoSlotKind.animated => (MediaKind.imageAnimated, 'normal'),
+      DemoSlotKind.unsupported => (MediaKind.video, 'unsupported'),
+      DemoSlotKind.buffering => (MediaKind.video, 'buffering'),
+    };
+    await slot.session.bind(
+      VideoKitMediaSource(
+        mediaToken: 'slot-${slot.number}',
+        mediaKind: mediaKind,
+        sourceRef: DemoSourceRef(scenario),
+      ),
+    );
+    if (!mounted || slot.pausedForResources) return;
+    if (mediaKind != MediaKind.imageStatic) {
+      await slot.session.execute(const SetMuted(true));
+      await slot.session.execute(const Play());
+    }
+  }
+
+  bool _isVideo(DemoSlot s) =>
+      s.kind == DemoSlotKind.video || s.kind == DemoSlotKind.buffering;
+
+  /// Host degradation: beyond the suggested count the oldest videos pause
+  /// (07 §3); the audio slot is never the one paused.
+  void _applyBudget() {
+    final videos = slots.where(_isVideo).toList();
+    final over = videos.length - MultiViewDemoPage.suggestedConcurrent;
+    var paused = 0;
+    for (final s in videos) {
+      final pause = paused < over && s.session.sessionId != activeAudio;
+      if (pause) paused++;
+      if (pause != s.pausedForResources) {
+        s.pausedForResources = pause;
+        unawaited(s.session.execute(pause ? const Pause() : const Play()));
+      }
+      // One slot plays at low resolution once the grid is crowded.
+      s.lowResolution = videos.length > 4 && identical(s, videos.last);
+    }
+    if (mounted) setState(() {});
+  }
+
+  /// Pausing count for the notice.
+  int get pausedCount => slots.where((s) => s.pausedForResources).length;
+
+  /// Makes [sessionId] the only audio source (host-maintained epoch).
+  Future<void> activateAudio(String sessionId) async {
+    final epoch = ++_audioEpoch;
+    final previous = activeAudio;
+    setState(() => activeAudio = sessionId);
+    for (final s in slots) {
+      final id = s.session.sessionId;
+      if (id == previous && id != sessionId) {
+        await s.session.execute(SetActiveAudio(false, epoch));
+        await s.session.execute(const SetMuted(true));
+      }
+      if (id == sessionId) {
+        await s.session.execute(SetActiveAudio(true, epoch));
+        await s.session.execute(const SetMuted(false));
+      }
+    }
+    // The audio slot is never the paused one: re-run the budget.
+    _applyBudget();
+  }
+
+  /// Mutes everything; the user picks a new audio source afterwards.
+  Future<void> muteAll() async {
+    final epoch = ++_audioEpoch;
+    final previous = activeAudio;
+    setState(() => activeAudio = null);
+    for (final s in slots) {
+      if (s.session.sessionId == previous) {
+        await s.session.execute(SetActiveAudio(false, epoch));
+      }
+      await s.session.execute(const SetMuted(true));
+    }
+  }
+
+  void _onTap(DemoSlot slot) {
+    if (slot.pausedForResources) {
+      // Resume this one; the budget pauses another instead.
+      final other = slots.where(
+        (s) =>
+            _isVideo(s) &&
+            !s.pausedForResources &&
+            s.session.sessionId != activeAudio &&
+            !identical(s, slot),
+      );
+      if (other.isNotEmpty) {
+        other.first.pausedForResources = true;
+        unawaited(other.first.session.execute(const Pause()));
+      }
+      slot.pausedForResources = false;
+      unawaited(slot.session.execute(const Play()));
+      setState(() {});
+      return;
+    }
+    if (slot.kind == DemoSlotKind.video ||
+        slot.kind == DemoSlotKind.buffering) {
+      unawaited(activateAudio(slot.session.sessionId));
+    }
+  }
+
+  void _remove(DemoSlot slot) {
+    setState(() => slots.remove(slot));
+    unawaited(slot.session.close());
+    _applyBudget();
+  }
+
+  @override
+  void dispose() {
+    for (final s in slots) {
+      unawaited(s.session.close());
+    }
+    kit.clock.detachTicker();
+    unawaited(kit.close());
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = VkTheme.of(context);
+    final g = GalleryText.of(context);
+    final s = VkStrings.of(context);
+    final d = t.dimensions;
+    final paused = pausedCount;
+    return Scaffold(
+      backgroundColor: t.colors.background,
+      appBar: AppBar(
+        backgroundColor: t.colors.background,
+        title: Wrap(
+          spacing: d.spacing12,
+          crossAxisAlignment: WrapCrossAlignment.end,
+          children: [
+            Text(g(g.l.multiViewTitle), style: t.typography.titleLarge),
+            Text(
+              g(g.l.multiViewCount(slots.length, VideoKitSlotGrid.maxSlots)),
+              style: t.typography.body.copyWith(color: t.colors.textSecondary),
+            ),
+          ],
+        ),
+        actions: [
+          VkIconButton(
+            icon: t.icons.resolve('mute'),
+            semanticLabel: s.text('gridMuteAll'),
+            onPressed: activeAudio == null ? null : muteAll,
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsetsDirectional.symmetric(horizontal: d.spacing16),
+          // Large text or short screens scroll the page; the grid then gets
+          // a fixed share of the height instead of the remaining space.
+          child: LayoutBuilder(
+            builder: (context, c) {
+              final scroll =
+                  MediaQuery.textScalerOf(context).scale(10) > 13 ||
+                  c.maxHeight < d.targetMin * 12;
+              Widget gridBox(Widget grid) => scroll
+                  ? SizedBox(
+                      height: math.max(c.maxHeight * 0.75, d.targetMin * 6),
+                      child: grid,
+                    )
+                  : Expanded(child: grid);
+              final children = <Widget>[
+                _LayoutPicker(
+                  selected: layout,
+                  onSelected: (l) => setState(() => layout = l),
+                ),
+                if (paused > 0)
+                  Padding(
+                    padding: EdgeInsetsDirectional.only(bottom: d.spacing12),
+                    child: _Notice(
+                      text: g(
+                        g.l.multiViewNotice(
+                          MultiViewDemoPage.suggestedConcurrent,
+                          paused,
+                        ),
+                      ),
+                    ),
+                  ),
+                gridBox(
+                  VideoKitSlotGrid(
+                    layout: layout,
+                    slots: [
+                      for (final (i, slot) in slots.indexed)
+                        VideoKitSlot(
+                          key: ValueKey(slot.session.sessionId),
+                          session: slot.session,
+                          index: i + 1,
+                          title: g(g.l.demoSlotTitle(slot.number)),
+                          degradation: slot.pausedForResources
+                              ? SlotDegradation.pausedForResources
+                              : (slot.lowResolution
+                                    ? SlotDegradation.lowResolution
+                                    : null),
+                          pictureBuilder: (context, session) =>
+                              DemoSessionPicture(session: session),
+                          onActivateAudio: (id) => unawaited(activateAudio(id)),
+                          onTap: () => _onTap(slot),
+                          onRetry: () => unawaited(_bind(slot)),
+                          onRemove: () => _remove(slot),
+                        ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.symmetric(
+                    vertical: d.spacing12,
+                  ),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: t.colors.surface,
+                      borderRadius: BorderRadius.circular(d.cornerLarge),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.all(d.spacing16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            g(g.l.multiViewHint),
+                            style: t.typography.body.copyWith(
+                              color: t.colors.textSecondary,
+                            ),
+                          ),
+                          SizedBox(height: d.spacing12),
+                          Wrap(
+                            spacing: d.spacing12,
+                            runSpacing: d.spacing8,
+                            alignment: WrapAlignment.spaceBetween,
+                            children: [
+                              VkButton(
+                                label: s.text('gridMuteAll'),
+                                variant: VkButtonVariant.secondary,
+                                onPressed: activeAudio == null ? null : muteAll,
+                              ),
+                              VkButton(
+                                label: g(g.l.multiViewAdd),
+                                onPressed:
+                                    slots.length >= VideoKitSlotGrid.maxSlots
+                                    ? null
+                                    : () => unawaited(add()),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ];
+              return scroll
+                  ? ListView(children: children)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: children,
+                    );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LayoutPicker extends StatelessWidget {
+  const _LayoutPicker({required this.selected, required this.onSelected});
+
+  final SlotGridLayout selected;
+  final ValueChanged<SlotGridLayout> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = VkTheme.of(context);
+    final g = GalleryText.of(context);
+    final d = t.dimensions;
+    String label(SlotGridLayout l) => g(switch (l) {
+      SlotGridLayout.auto => g.l.layoutAuto,
+      SlotGridLayout.grid2x2 => g.l.layout2x2,
+      SlotGridLayout.grid3x3 => g.l.layout3x3,
+      SlotGridLayout.grid3x4 => g.l.layout3x4,
+    });
+    return Padding(
+      padding: EdgeInsetsDirectional.only(bottom: d.spacing12),
+      child: Wrap(
+        spacing: d.spacing8,
+        runSpacing: d.spacing8,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Semantics(
+            header: true,
+            child: Text(g(g.l.multiViewLayout), style: t.typography.label),
+          ),
+          for (final l in SlotGridLayout.values)
+            VkButton(
+              label: label(l),
+              variant: VkButtonVariant.secondary,
+              selected: l == selected,
+              onPressed: () => onSelected(l),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Capability notice (design page 14, tablet): warning container colours.
+class _Notice extends StatelessWidget {
+  const _Notice({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = VkTheme.of(context);
+    final d = t.dimensions;
+    return Semantics(
+      liveRegion: true,
+      container: true,
+      child: Container(
+        padding: EdgeInsetsDirectional.all(d.spacing12),
+        decoration: BoxDecoration(
+          color: t.colors.warningContainer,
+          borderRadius: BorderRadius.circular(d.cornerMedium),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              t.icons.resolve('info'),
+              size: d.icon20,
+              color: t.colors.warning,
+            ),
+            SizedBox(width: d.spacing8),
+            Expanded(
+              child: Text(
+                text,
+                style: t.typography.body.copyWith(color: t.colors.textPrimary),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

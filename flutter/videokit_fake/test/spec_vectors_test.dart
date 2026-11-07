@@ -75,10 +75,14 @@ void main() {
     for (final c in cases(json)) {
       test(c['id']! as String, () async {
         final from = c['from']! as String;
-        final image = c['media'] == 'IMAGE_STATIC';
+        final media = switch (c['media']) {
+          'IMAGE_STATIC' => MediaKind.imageStatic,
+          'IMAGE_ANIMATED' => MediaKind.imageAnimated,
+          _ => MediaKind.video,
+        };
         final source = VideoKitMediaSource(
           mediaToken: 'vector-${c['id']}',
-          mediaKind: image ? MediaKind.imageStatic : MediaKind.video,
+          mediaKind: media,
           sourceRef: DemoSourceRef(switch (from) {
             'ERROR_RECOVERABLE' => 'resourceExhausted',
             'ERROR_FATAL' => 'unsupported',
@@ -122,6 +126,10 @@ void main() {
             await drive(clock, s.release());
         }
         expect(s.state.value.phase.wireName, from, reason: 'setup');
+        var ended = 0;
+        final sub = s.events.listen((e) {
+          if (e is PlaybackEnded) ended++;
+        });
 
         for (final step in steps(c)) {
           final cmd = step['command']! as String;
@@ -171,6 +179,15 @@ void main() {
                   ])
                   .then((_) => const Executed()),
             'RELEASE' => s.execute(const Release()),
+            // 04A L1 looping steps.
+            'SET_LOOPING' => s.execute(SetLooping(step['looping']! as bool)),
+            'SEEK_NEAR_END' => s.execute(
+              SeekTo(s.state.value.durationUs! - 500000),
+            ),
+            'ADVANCE' =>
+              clock
+                  .advance(Duration(microseconds: step['us']! as int))
+                  .then((_) => const Executed()),
             _ => throw StateError('unknown vector command $cmd'),
           };
           final r = await drive(clock, f);
@@ -196,7 +213,19 @@ void main() {
             await clock.flush();
             expect(host.calls, e['hostCalls'], reason: cmd);
           }
+          final st = s.state.value;
+          if (e['looping'] != null) {
+            expect(st.looping, e['looping'], reason: cmd);
+          }
+          if (e['atEnd'] != null) {
+            expect(st.positionUs == st.durationUs, e['atEnd'], reason: cmd);
+          }
+          if (e['playbackEnded'] != null) {
+            await clock.flush();
+            expect(ended, e['playbackEnded'], reason: cmd);
+          }
         }
+        await sub.cancel();
         await kit.close();
       });
     }

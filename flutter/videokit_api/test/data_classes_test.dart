@@ -139,6 +139,23 @@ void main() {
   });
 
   group('session', () {
+    test('04A L1/L2: SetLooping, looping, ImageDetails', () {
+      expect(const SetLooping(true), const SetLooping(true));
+      expect(const SetLooping(true), isNot(const SetLooping(false)));
+      expect(const SetLooping(false).kind, 'setLooping');
+      const d = ImageDetails(frameCount: 48, decodedBytes: 10, sampleSize: 2);
+      expectValueSemantics(d, d.copyWith(), d.copyWith(sampleSize: 4));
+      expect(d.copyWith(frameCount: null).frameCount, isNull);
+      final s = VideoKitSessionState(phase: SessionPhase.ready);
+      expect(s.looping, isFalse);
+      expect(s.imageDetails, isNull);
+      final l = s.copyWith(looping: true, imageDetails: d);
+      expect(l.looping, isTrue);
+      expect(l.imageDetails, d);
+      expect(l, isNot(s));
+      expect(l.copyWith(imageDetails: null).imageDetails, isNull);
+    });
+
     test('VideoKitSessionState value semantics and immutable lists', () {
       final s = VideoKitSessionState(
         phase: SessionPhase.ready,

@@ -165,6 +165,9 @@ class FakeSession implements VideoKitSession {
         error: null,
         resourcesHeld: true,
         hostActions: [for (final a in hostActions) HostActionState(action: a)],
+        // 04A L1 default per media kind; L2 details arrive with the probe.
+        looping: profile.kind == MediaKind.imageAnimated,
+        imageDetails: null,
       ),
     );
 
@@ -190,6 +193,13 @@ class FakeSession implements VideoKitSession {
       selectedAudioTrackId: supportedAudio.isEmpty
           ? null
           : supportedAudio.first.id,
+      imageDetails: isVideo
+          ? null
+          : ImageDetails(
+              frameCount: profile.kind == MediaKind.imageAnimated ? 48 : 1,
+              decodedBytes: profile.size.width * profile.size.height * 4,
+              sampleSize: 1,
+            ),
       orientation: _s.orientation.copyWith(
         contentOrientation: profile.size.width == profile.size.height
             ? MediaOrientation.square
@@ -315,8 +325,21 @@ class FakeSession implements VideoKitSession {
     final from = s.positionUs;
     var to = from + deltaUs;
 
+    // 04A L1: looping wraps without PlaybackEnded; otherwise the media
+    // stops on its last frame (below for videos, here for animations).
     if (s.mediaKind == MediaKind.imageAnimated) {
-      _set(s.copyWith(positionUs: to % duration));
+      if (s.looping || to < duration) {
+        _set(s.copyWith(positionUs: to % duration));
+      } else {
+        _set(
+          s.copyWith(
+            positionUs: duration,
+            phase: SessionPhase.ended,
+            playWhenReady: false,
+          ),
+        );
+        _emit(const PlaybackEnded());
+      }
       return;
     }
 
@@ -386,6 +409,10 @@ class FakeSession implements VideoKitSession {
       }
     }
 
+    if (to >= duration && s.looping) {
+      _set(s.copyWith(positionUs: to % duration));
+      return;
+    }
     if (to >= duration) {
       to = duration;
       _set(
@@ -435,6 +462,18 @@ class FakeSession implements VideoKitSession {
           _set(_s.copyWith(speed: speed));
           return const Executed();
         });
+      case SetLooping(:final looping):
+        // 04A L1: videos and animated images; static images unsupported.
+        final phase = _s.phase;
+        if (!(phase.isBound || phase == SessionPhase.binding)) {
+          return Rejected(_illegal(phase, command.kind));
+        }
+        if (_s.mediaKind != MediaKind.video &&
+            _s.mediaKind != MediaKind.imageAnimated) {
+          return const Unsupported(UnsupportedReason.mediaKind);
+        }
+        _set(_s.copyWith(looping: looping));
+        return const Executed();
       case SetMuted(:final muted):
         return _videoOnly(command.kind, () {
           _set(_s.copyWith(muted: muted));

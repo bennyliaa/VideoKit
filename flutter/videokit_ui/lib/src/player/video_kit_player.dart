@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter/gestures.dart' show kTouchSlop;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,8 @@ import '../state_view/state_mapping.dart';
 import '../state_view/state_view.dart';
 import '../theme/theme_scope.dart';
 import '../theme/tokens/vk_component_styles.dart';
+import 'media_surface.dart';
+import 'picture_style.dart';
 import 'player_controller.dart';
 import 'track_settings_sheet.dart';
 import 'vk_seek_bar.dart';
@@ -67,13 +70,6 @@ final class VideoKitPlayerOptions {
   /// Maximum zoom factor.
   final double maxZoom;
 }
-
-/// Builds the picture when the session has no texture (the Dart Fake):
-/// the example app passes the demo picture of `videokit_fake`.
-typedef VideoKitPictureBuilder = Widget Function(
-  BuildContext context,
-  VideoKitSession session,
-);
 
 /// UI-01 video player (14 §5.1, design pages 9–10).
 ///
@@ -168,7 +164,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     PlayerPanel.subtitles => _openTracks(TrackSettingsTab.subtitles),
     PlayerPanel.audio => _openTracks(TrackSettingsTab.audio),
     PlayerPanel.speed => _openTracks(TrackSettingsTab.speed),
-    PlayerPanel.more => _openMore(const []),
+    PlayerPanel.more => _openMore(),
   };
 
   String _host(String key) => widget.resolveHostString?.call(key) ?? key;
@@ -240,10 +236,24 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     );
   }
 
-  void _openMore(List<_ControlItem> overflow) {
+  /// Host actions the host action bar could not show (reported after
+  /// layout); they form the first group of the single "more" panel.
+  List<String> _hostOverflowIds = const [];
+
+  /// Player controls that did not fit in the bottom row.
+  List<_ControlItem> _playerOverflow = const [];
+
+  void _onHostOverflow(List<HostActionState> overflow) {
+    final ids = [for (final a in overflow) a.action.actionId];
+    if (listEquals(ids, _hostOverflowIds) || !mounted) return;
+    setState(() => _hostOverflowIds = ids);
+  }
+
+  void _openMore() {
     final s = VkStrings.of(context);
     final t = VkTheme.of(context);
     final st = widget.session.state.value;
+    final overflow = _playerOverflow;
     _c.sheets.show(
       VkSheetEntry(
         id: 'more',
@@ -251,6 +261,34 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         builder: (context) => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Group 1: host actions (14 §7.2 M0-B2 rule: one "more" only).
+            VkSelector<VideoKitSessionState, List<HostActionState>>(
+              listenable: widget.session.state,
+              select: (x) => [
+                for (final a in x.hostActions)
+                  if (_hostOverflowIds.contains(a.action.actionId)) a,
+              ],
+              builder: (context, host) => host.isEmpty
+                  ? const SizedBox.shrink()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _MenuGroupHeader(s.text('hostActionMore')),
+                        for (final a in host)
+                          HostActionMenuItem(
+                            state: a,
+                            resolveString: widget.resolveHostString,
+                            resolveIcon: widget.resolveHostIcon,
+                            onPressed: (id) {
+                              _c.sheets.close('more');
+                              _c.requestHostAction(id);
+                            },
+                          ),
+                        _MenuGroupHeader(s.text('moreGroupPlayer')),
+                      ],
+                    ),
+            ),
+            // Group 2: player secondary controls.
             for (final i in overflow)
               VkMenuItem(
                 icon: i.icon,
@@ -481,8 +519,9 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         return Stack(
           children: [
             Positioned.fill(
-              child: _VkMediaSurface(
-                controller: _c,
+              child: VkMediaSurface(
+                session: widget.session,
+                transformOverride: _c.gestureTransform,
                 builder: widget.pictureBuilder,
               ),
             ),
@@ -695,29 +734,8 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     );
   }
 
-  /// Icon button style for controls over the picture: white content.
-  VkStateStyleBox _onPictureStyle(BuildContext context) {
-    final t = VkTheme.of(context);
-    final base = t.components.buttonIcon;
-    final white = t.colors.playerControlsContent;
-    return VkStateStyleBox(
-      normal: base.normal.copyWith(content: white),
-      pressed: base.pressed.copyWith(
-        content: white,
-        background: white.withValues(alpha: 0.16),
-      ),
-      focused: base.focused.copyWith(content: white),
-      disabled: base.disabled.copyWith(content: white.withValues(alpha: 0.38)),
-      selected: base.selected.copyWith(
-        content: t.colors.primary,
-        background: white.withValues(alpha: 0.12),
-      ),
-      hovered: base.hovered.copyWith(
-        content: white,
-        background: white.withValues(alpha: 0.08),
-      ),
-    );
-  }
+  VkStateStyleBox _onPictureStyle(BuildContext context) =>
+      vkOnPictureIconStyle(context);
 
   Widget _controls(BuildContext context, Size size, VideoKitSessionState st) {
     final t = VkTheme.of(context);
@@ -753,6 +771,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                 .take(math.max(0, slots - 2)),
           ];
     final overflow = secondary.where((i) => !shown.contains(i)).toList();
+    _playerOverflow = overflow;
     final shownOrdered = secondary.where(shown.contains).toList();
 
     final hostBar = VkSelector<VideoKitSessionState, List<HostActionState>>(
@@ -767,6 +786,8 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
               resolveString: widget.resolveHostString,
               resolveIcon: widget.resolveHostIcon,
               onActionPressed: _c.requestHostAction,
+              showOverflowButton: false,
+              onOverflowChanged: _onHostOverflow,
             ),
     );
 
@@ -825,7 +846,12 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
               VkIconButton(
                 icon: t.icons.resolve('more'),
                 semanticLabel: s.text('commonMore'),
-                onPressed: () => _openMore(overflow),
+                pending: st.hostActions.any(
+                  (a) =>
+                      a.isPending &&
+                      _hostOverflowIds.contains(a.action.actionId),
+                ),
+                onPressed: _openMore,
                 style: pictureStyle,
               ),
             ],
@@ -889,6 +915,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         ? SizedBox(
             width: d.targetMin * 2.5,
             child: VkSlider(
+              onPicture: true,
               value: st.muted ? 0 : st.volume,
               semanticLabel: s.text('playerVolume'),
               semanticValue: (v) => VkFormat.percent(s, v),
@@ -898,15 +925,6 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             ),
           )
         : null;
-    final moreForOverflow = overflow.isEmpty
-        ? null
-        : VkIconButton(
-            icon: t.icons.resolve('more'),
-            semanticLabel: s.text('commonMore'),
-            onPressed: () => _openMore(overflow),
-            style: pictureStyle,
-          );
-
     final bottom = DecoratedBox(
       decoration: BoxDecoration(gradient: glass.gradient(fromTop: false)),
       child: SafeArea(
@@ -967,10 +985,6 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                         : Expanded(
                             child: Center(child: _controlButton(context, i)),
                           ),
-                  if (moreForOverflow != null)
-                    landscape
-                        ? moreForOverflow
-                        : Expanded(child: Center(child: moreForOverflow)),
                 ],
               ),
             ],
@@ -1028,94 +1042,29 @@ final class _ControlItem {
   final VoidCallback? onPressed;
 }
 
-/// Picture layer (14 §5.1 `VkMediaSurface`): texture when available, otherwise [builder]; transformed
-/// by the session transform (or the gesture transform while pinching).
-/// Holds a texture lease (04A S7) while mounted and releases it on dispose.
-class _VkMediaSurface extends StatefulWidget {
-  const _VkMediaSurface({required this.controller, this.builder});
+/// Group title inside the "more" panel.
+class _MenuGroupHeader extends StatelessWidget {
+  const _MenuGroupHeader(this.text);
 
-  final PlayerController controller;
-  final VideoKitPictureBuilder? builder;
-
-  @override
-  State<_VkMediaSurface> createState() => _VkMediaSurfaceState();
-}
-
-class _VkMediaSurfaceState extends State<_VkMediaSurface> {
-  VideoKitTextureLease? _lease;
-  VideoKitSession? _leaseOwner;
-
-  VideoKitTextureLease _acquire() {
-    final session = widget.controller.session;
-    final current = _lease;
-    if (current != null && identical(session, _leaseOwner)) return current;
-    current?.release();
-    _leaseOwner = session;
-    return _lease = session.acquireTexture();
-  }
-
-  @override
-  void dispose() {
-    _lease?.release();
-    _lease = null;
-    super.dispose();
-  }
+  final String text;
 
   @override
   Widget build(BuildContext context) {
-    final controller = widget.controller;
-    final builder = widget.builder;
-    final session = controller.session;
-    return ValueListenableBuilder<int?>(
-      valueListenable: _acquire().textureId,
-      builder: (context, textureId, _) => ValueListenableBuilder<VideoSize?>(
-        valueListenable: session.videoSize,
-        builder: (context, videoSize, _) {
-          final st = session.state.value;
-          if (st.hiddenForLock) return const SizedBox.expand();
-          final transform = controller.gestureTransform ?? st.transform;
-          final media = videoSize ?? const VideoSize(16, 9);
-          final ratio = media.aspectRatio == 0 ? 16 / 9 : media.aspectRatio;
-          final Widget content = textureId != null
-              ? Texture(textureId: textureId)
-              : (builder?.call(context, session) ?? const SizedBox.expand());
-          return LayoutBuilder(
-            builder: (context, c) {
-              final fit = switch (transform.fitMode) {
-                FitMode.fit => BoxFit.contain,
-                FitMode.fill => BoxFit.cover,
-                FitMode.original => BoxFit.none,
-              };
-              final dpr = MediaQuery.devicePixelRatioOf(context);
-              final box = transform.fitMode == FitMode.original
-                  ? Size(media.width / dpr, media.height / dpr)
-                  : Size(c.maxWidth, c.maxWidth / ratio);
-              return ClipRect(
-                child: Transform.translate(
-                  offset: Offset(
-                    transform.panX * c.maxWidth,
-                    transform.panY * c.maxHeight,
-                  ),
-                  child: Transform.scale(
-                    scale: transform.scale,
-                    child: RotatedBox(
-                      quarterTurns: transform.rotationDeg ~/ 90,
-                      child: FittedBox(
-                        fit: fit,
-                        clipBehavior: Clip.hardEdge,
-                        child: SizedBox(
-                          width: box.width,
-                          height: box.height,
-                          child: content,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        },
+    final t = VkTheme.of(context);
+    final d = t.dimensions;
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(
+        d.spacing16,
+        d.spacing12,
+        d.spacing16,
+        d.spacing4,
+      ),
+      child: Semantics(
+        header: true,
+        child: Text(
+          text,
+          style: t.typography.label.copyWith(color: t.colors.textSecondary),
+        ),
       ),
     );
   }

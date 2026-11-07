@@ -208,6 +208,16 @@ abstract final class VkTokenKeys {
     'apps.videokit.dimension.maskbox.handletarget',
     _d,
   );
+  static const badgeSize = VkTokenKey._('dimension.badge.size', _d);
+  static const badgeInset = VkTokenKey._('dimension.badge.inset', _d);
+  static const pendingRingSize = VkTokenKey._(
+    'apps.videokit.dimension.pendingring.size',
+    _d,
+  );
+  static const pendingRingStroke = VkTokenKey._(
+    'apps.videokit.dimension.pendingring.stroke',
+    _d,
+  );
 
   // ------------------------------------------------------------ animation
   static const animPress = VkTokenKey._('animation.press', _a);
@@ -256,6 +266,10 @@ abstract final class VkTokenKeys {
     'tag',
     'share',
     'fit',
+    'originalsize',
+    'previous',
+    'next',
+    'loop',
     'unknown',
   ];
 
@@ -276,6 +290,7 @@ abstract final class VkTokenKeys {
   static const menuDefault = VkTokenKey._('component.menu.default', _p);
   static const toastDefault = VkTokenKey._('component.toast.default', _p);
   static const progressDefault = VkTokenKey._('component.progress.default', _p);
+  static const sliderSurface = VkTokenKey._('component.slider.surface', _p);
   static const seekBar = VkTokenKey._('apps.videokit.component.seekbar', _p);
   static const hostActionBar = VkTokenKey._(
     'apps.videokit.component.hostactionbar',
@@ -364,6 +379,10 @@ abstract final class VkTokenKeys {
     maskBoxStroke,
     maskBoxHandle,
     maskBoxHandleTarget,
+    badgeSize,
+    badgeInset,
+    pendingRingSize,
+    pendingRingStroke,
     animPress,
     animSmall,
     animNormal,
@@ -380,6 +399,7 @@ abstract final class VkTokenKeys {
     menuDefault,
     toastDefault,
     progressDefault,
+    sliderSurface,
     seekBar,
     hostActionBar,
   ]);

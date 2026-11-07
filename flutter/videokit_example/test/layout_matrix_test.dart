@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_example/gallery/components_page.dart';
+import 'package:videokit_example/image/image_demo_page.dart';
+import 'package:videokit_example/multiview/multi_view_demo_page.dart';
 import 'package:videokit_example/player/player_demo_page.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
@@ -98,12 +100,105 @@ void main() {
           await tester.pumpWidget(const SizedBox());
           await tester.pump(Duration.zero);
         });
+
+        testWidgets('image viewer pages without overflow: $tag', (
+          tester,
+        ) async {
+          setViewSize(tester, size);
+          for (final index in [0, 1, 3]) {
+            final key = GlobalKey<ImageDemoPageState>();
+            await tester.pumpWidget(
+              testApp(
+                ImageDemoPage(key: key, initialIndex: index),
+                locale: locale,
+                textScale: scale,
+              ),
+            );
+            for (var i = 0; i < 8; i++) {
+              await tester.pump(const Duration(milliseconds: 200));
+            }
+            expect(tester.takeException(), isNull, reason: 'page $index');
+            key.currentState!.session!.setControlsVisible(true);
+            await tester.tap(
+              find
+                  .bySemanticsLabel(
+                    VkPseudo.isPseudo(locale)
+                        ? VkPseudo.transform('图片信息')
+                        : '图片信息',
+                  )
+                  .first,
+            );
+            for (var i = 0; i < 3; i++) {
+              await tester.pump(const Duration(milliseconds: 200));
+            }
+            expect(tester.takeException(), isNull, reason: 'info $index');
+            await tester.pumpWidget(const SizedBox());
+            await tester.pump(Duration.zero);
+          }
+        });
+
+        testWidgets('multi-view page without overflow: $tag', (tester) async {
+          setViewSize(tester, size);
+          for (final count in [4, 12]) {
+            await tester.pumpWidget(
+              testApp(
+                MultiViewDemoPage(initialCount: count),
+                locale: locale,
+                textScale: scale,
+              ),
+            );
+            for (var i = 0; i < 12; i++) {
+              await tester.pump(const Duration(milliseconds: 200));
+            }
+            expect(tester.takeException(), isNull, reason: '$count slots');
+            await tester.pumpWidget(const SizedBox());
+            await tester.pump(Duration.zero);
+          }
+        });
       }
     }
   }
 
   group('accessibility guidelines', () {
     for (final MapEntry(key: sizeName, value: size) in _sizes.entries) {
+      testWidgets('image viewer: tap targets, labels, contrast ($sizeName)', (
+        tester,
+      ) async {
+        final handle = tester.ensureSemantics();
+        setViewSize(tester, size);
+        await tester.pumpWidget(testApp(const ImageDemoPage(initialIndex: 1)));
+        for (var i = 0; i < 6; i++) {
+          await tester.pump(const Duration(milliseconds: 200));
+        }
+        await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+        await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+        await expectLater(tester, meetsGuideline(textContrastGuideline));
+        await tester.pumpWidget(const SizedBox());
+        await tester.pump(Duration.zero);
+        handle.dispose();
+      });
+
+      testWidgets('multi-view: tap targets, labels, contrast ($sizeName)', (
+        tester,
+      ) async {
+        final handle = tester.ensureSemantics();
+        setViewSize(tester, size);
+        await tester.pumpWidget(
+          testApp(
+            MultiViewDemoPage(initialCount: size == compactSize ? 4 : 10),
+          ),
+        );
+        for (var i = 0; i < 10; i++) {
+          await tester.pump(const Duration(milliseconds: 200));
+        }
+        await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+        await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+        await expectLater(tester, meetsGuideline(textContrastGuideline));
+        await tester.pumpWidget(const SizedBox());
+        await tester.pump(Duration.zero);
+        handle.dispose();
+      });
+
       testWidgets('player: tap targets, labels, contrast ($sizeName)', (
         tester,
       ) async {

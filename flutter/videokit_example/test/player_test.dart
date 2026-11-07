@@ -6,6 +6,7 @@ import 'package:videokit_ui/videokit_ui.dart';
 import 'support.dart';
 
 void main() {
+  singleMoreTests();
   late PlayerRig rig;
 
   Future<void> pumpPlayer(
@@ -195,5 +196,33 @@ void main() {
     await rig.advance(tester, const Duration(seconds: 1));
     expect(find.byType(VideoKitStateView), findsOneWidget);
     expect(find.text('重试'), findsNothing);
+  });
+}
+
+void singleMoreTests() {
+  late PlayerRig rig;
+  testWidgets('one "more" only: host overflow is the first panel group', (
+    tester,
+  ) async {
+    setViewSize(tester, compactSize);
+    rig = await PlayerRig.create('normal');
+    addTearDown(rig.dispose);
+    await tester.pumpWidget(testApp(demoPlayer(rig.session)));
+    await rig.advance(tester, const Duration(seconds: 1));
+    await tester.pump();
+    expect(find.bySemanticsLabel('更多操作'), findsNothing);
+    expect(find.bySemanticsLabel('更多'), findsOneWidget);
+    await tester.tap(find.bySemanticsLabel('更多'));
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.text('更多操作'), findsOneWidget, reason: 'group 1 title');
+    expect(find.text('播放控制'), findsOneWidget, reason: 'group 2 title');
+    expect(find.text('分享'), findsOneWidget);
+    expect(
+      tester.getTopLeft(find.text('分享')).dy,
+      lessThan(tester.getTopLeft(find.text('播放控制')).dy),
+    );
+    await tester.tap(find.text('分享'));
+    await rig.advance(tester, const Duration(milliseconds: 100));
+    expect(rig.session.hostActionRequests, ['share']);
   });
 }

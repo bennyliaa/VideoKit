@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
+import '../image/image_demo_page.dart';
+import '../multiview/multi_view_demo_page.dart';
 import '../player/player_demo_page.dart';
 import 'components_page.dart';
 import 'gallery_settings.dart';
@@ -36,20 +38,6 @@ class GalleryPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(g(g.l.galleryTitle), style: t.typography.title),
         backgroundColor: t.colors.surface,
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (_) => const ComponentsPage()),
-            ),
-            child: Text(g(g.l.navComponents)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (_) => const PlayerDemoPage()),
-            ),
-            child: Text(g(g.l.navPlayer)),
-          ),
-        ],
       ),
       body: Stack(
         children: [
@@ -62,6 +50,10 @@ class GalleryPage extends StatelessWidget {
             ),
             children: [
               _SettingsSection(settings: settings, onChanged: onChanged),
+              GallerySection(
+                title: g(g.l.sectionDemos),
+                child: const _DemoLinks(),
+              ),
               GallerySection(
                 title: g(g.l.sectionColors),
                 child: const _ColorGrid(),
@@ -806,6 +798,35 @@ class _ErrorTexts extends StatelessWidget {
               style: t.typography.bodySmall,
             ),
           ),
+      ],
+    );
+  }
+}
+
+/// Links to the component and Fake-driven demo pages.
+class _DemoLinks extends StatelessWidget {
+  const _DemoLinks();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = VkTheme.of(context);
+    final g = GalleryText.of(context);
+    final d = t.dimensions;
+    Widget link(String label, Widget Function() page) => VkButton(
+      label: label,
+      variant: VkButtonVariant.secondary,
+      onPressed: () =>
+          Navigator.of(context)
+              .push(MaterialPageRoute<void>(builder: (_) => page())),
+    );
+    return Wrap(
+      spacing: d.spacing8,
+      runSpacing: d.spacing8,
+      children: [
+        link(g(g.l.navComponents), () => const ComponentsPage()),
+        link(g(g.l.navPlayer), () => const PlayerDemoPage()),
+        link(g(g.l.navImageViewer), () => const ImageDemoPage()),
+        link(g(g.l.navMultiView), () => const MultiViewDemoPage()),
       ],
     );
   }

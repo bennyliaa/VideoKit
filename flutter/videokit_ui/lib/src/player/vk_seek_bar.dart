@@ -22,6 +22,7 @@ class VkSeekBar extends StatefulWidget {
     this.onDragUpdate,
     this.onDragEnd,
     this.stepUs = 10000000,
+    this.onPicture = true,
   });
 
   /// Position (µs) to show when not dragging.
@@ -44,6 +45,10 @@ class VkSeekBar extends StatefulWidget {
 
   /// Accessibility step (µs, default 10 s).
   final int stepUs;
+
+  /// On the player picture (`apps.videokit.component.seekbar`) or on an
+  /// ordinary surface (`component.slider.surface`, 14 §7.2).
+  final bool onPicture;
 
   @override
   State<VkSeekBar> createState() => _VkSeekBarState();
@@ -81,7 +86,9 @@ class _VkSeekBarState extends State<VkSeekBar> {
   Widget build(BuildContext context) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
-    final style = t.components.seekBar;
+    final style = widget.onPicture
+        ? t.components.seekBar
+        : t.components.sliderSurface;
     final shown = _dragUs ?? _clamp(widget.positionUs);
     final duration = widget.durationUs;
     return Semantics(

@@ -128,31 +128,39 @@ class VkIconButton extends StatelessWidget {
       selected: selected,
       onPressed: onPressed,
       focusNode: focusNode,
-      builder: (context, s) => Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: [
-          Icon(icon, size: size, color: s.content),
-          if (pending)
-            PositionedDirectional(
-              top: -t.dimensions.spacing4,
-              end: -t.dimensions.spacing4,
-              child: SizedBox.square(
-                dimension: t.dimensions.icon16,
-                child: CircularProgressIndicator(
-                  strokeWidth: t.dimensions.focusRingWidth,
-                  color: t.components.hostActionBar.pendingIndicator,
+      builder: (context, s) {
+        final d = t.dimensions;
+        // 14 §7.2 (M0-B2 review): the pending ring circles the icon inside
+        // the touch target; the badge sits in the target's top-end corner,
+        // inset by dimension.badge.inset, without covering the icon.
+        final ringOffset = (size - d.pendingRingSize) / 2;
+        final cornerOffset = -(d.targetMin - size) / 2 + d.badgeInset;
+        return Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.center,
+          children: [
+            Icon(icon, size: size, color: s.content),
+            if (pending)
+              PositionedDirectional(
+                top: ringOffset,
+                start: ringOffset,
+                child: SizedBox.square(
+                  dimension: d.pendingRingSize,
+                  child: CircularProgressIndicator(
+                    strokeWidth: d.pendingRingStroke,
+                    color: t.components.hostActionBar.pendingIndicator,
+                  ),
                 ),
               ),
-            ),
-          if (badgeText != null && badgeText!.isNotEmpty)
-            PositionedDirectional(
-              top: -t.dimensions.spacing8,
-              end: -t.dimensions.spacing8,
-              child: VkBadge(text: badgeText!),
-            ),
-        ],
-      ),
+            if (badgeText != null && badgeText!.isNotEmpty)
+              PositionedDirectional(
+                top: cornerOffset,
+                end: cornerOffset,
+                child: VkBadge(text: badgeText!),
+              ),
+          ],
+        );
+      },
     );
   }
 }
