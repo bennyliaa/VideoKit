@@ -659,6 +659,7 @@ class VideoKitPlayerFragment : Fragment() {
 ### 9.2 引擎管理
 
 - 使用 `FlutterEngineGroup` 创建引擎，多个嵌入实例共享 Dart VM 与资源，单个附加引擎的额外内存小于独立引擎。
+- Dart 侧代码位置（2026-11-07 裁定）：新建 Flutter module 包 `flutter/videokit_embed`（加入 workspace），放 `videokitEmbedMain`、`VideoKitEmbedApp` 与 `EmbedHostApi` 的 Dart 端，只使用 `videokit_ui`、`videokit_flutter` 的公共 API；`flutter build aar` 从该包产出。`EmbedHostApi` 的 Pigeon 定义放在 `videokit_flutter_platform_interface/pigeons/` 的第二个文件，生成的 Kotlin 输出到 `kit/android/videokit-ui-android`。
 - 预热：`initialize` 时创建一个引擎运行 `videokitEmbedMain` 入口并放进 `FlutterEngineCache`；第一个 Fragment 直接使用，后续实例从引擎组派生。
 - Dart 入口：
 

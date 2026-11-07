@@ -44,6 +44,7 @@ VideoKit/
 │   ├── videokit_flutter_platform_interface/  # 平台接口 + Pigeon Dart 侧
 │   ├── videokit_flutter_android/             # Android 平台包；依赖 kit/ 原生模块（将来新增 _ios/_macos/_windows）
 │   ├── videokit_fake/
+│   ├── videokit_embed/          # Flutter module：原生宿主 add-to-app 的 Dart 入口（videokitEmbedMain、VideoKitEmbedApp、EmbedHostApi Dart 端），`flutter build aar` 产物来源
 │   ├── videokit_example/        # 模块开发示例（演示场景、扩展点示例、模拟 Browser 宿主；仅 debug）
 │   └── videokit_app/            # VideoKit App：独立视频播放 App（以模块为内核，界面按 UI 设计稿）
 ├── sample-host/                 # 原生示例宿主 App（纯引擎 + add-to-app 嵌入示例）
