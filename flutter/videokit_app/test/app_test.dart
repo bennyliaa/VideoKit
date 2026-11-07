@@ -59,6 +59,16 @@ void main() {
     expect(pos, greaterThan(1000000));
     expect(find.textContaining('看到 0:0'), findsOneWidget);
     expect(find.textContaining('刚刚'), findsOneWidget);
+    // 04A P1/P2: thumbnail captured and media facts recorded.
+    final thumb = saved['thumbnailPath']! as String;
+    expect(rig.storage.thumbnails.containsKey(thumb), isTrue);
+    expect(saved['videoCodec'], 'video/avc');
+    expect(
+      (saved['playbackState']! as Map<String, Object?>)['looping'],
+      isFalse,
+      reason: '04A L3: loop setting saved with the snapshot',
+    );
+    expect(find.text('1080p · H.264'), findsOneWidget);
     // Reopen: bound with the snapshot as initialState.
     await tapText(tester, '山谷黄昏.mkv');
     await settle(tester, 3);
@@ -66,6 +76,12 @@ void main() {
     expect(s2.state.value.positionUs, greaterThanOrEqualTo(pos));
     await tester.binding.handlePopRoute();
     await settle(tester, 4);
+    expect(
+      rig.storage.deleted,
+      contains(thumb),
+      reason: 'old thumbnail replaced',
+    );
+    expect(rig.storage.thumbnails, hasLength(1));
     await unmount(tester);
   });
 

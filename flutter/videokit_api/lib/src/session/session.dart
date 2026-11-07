@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../host/host_action.dart';
 import '../host/navigation.dart';
+import '../media/media_info.dart';
 import '../media/media_source.dart';
 import '../media/video_size.dart';
 import '../resource/resource_budget.dart';
@@ -131,6 +132,15 @@ abstract interface class VideoKitSession {
 
   /// Captures the current persistable snapshot.
   Future<VideoKitPlaybackState> captureState();
+
+  /// Small encoded picture at [atUs] fitting [maxWidth]×[maxHeight]
+  /// (04A P1): nearest frame for videos, a scaled image for pictures; a
+  /// stable error when not bound or not possible.
+  Future<ThumbnailResult> captureThumbnail(
+    int atUs,
+    int maxWidth,
+    int maxHeight,
+  );
 
   /// Releases the session. Idempotent; returns the last snapshot.
   Future<VideoKitPlaybackState> release();

@@ -115,15 +115,11 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: VkButton(
-                      label: a(a.l.clearHistory),
-                      variant: VkButtonVariant.text,
-                      onPressed: scope.history.entries.isEmpty
-                          ? null
-                          : () => unawaited(_confirmClear(context)),
-                    ),
+                  _DangerRow(
+                    label: a(a.l.clearHistory),
+                    onPressed: scope.history.entries.isEmpty
+                        ? null
+                        : () => unawaited(_confirmClear(context)),
                   ),
                 ],
               ),
@@ -340,6 +336,43 @@ class _Row extends StatelessWidget {
             ),
             if (below != null) ...[SizedBox(height: d.spacing8), below!],
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Destructive settings row in the error colour (design page 8 red text);
+/// always confirmed by a dialog before acting.
+class _DangerRow extends StatelessWidget {
+  const _DangerRow({required this.label, required this.onPressed});
+
+  final String label;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = VkTheme.of(context);
+    final d = t.dimensions;
+    final enabled = onPressed != null;
+    return MergeSemantics(
+      child: Semantics(
+        button: true,
+        enabled: enabled,
+        child: InkWell(
+          onTap: onPressed,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: d.targetMin * 1.25),
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                label,
+                style: t.typography.body.copyWith(
+                  color: enabled ? t.colors.error : t.colors.disabledContent,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

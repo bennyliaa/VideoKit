@@ -137,9 +137,20 @@ class HistoryStore extends ChangeNotifier {
     int? width,
     int? height,
     MediaKind? kind,
+    String? videoCodec,
+    String? mimeType,
+    String? thumbnailPath,
   }) async {
     final e = byId(id);
-    if (e == null) return;
+    if (e == null) {
+      // Not recorded (history off): drop the orphan thumbnail.
+      if (thumbnailPath != null) await storage.deleteFile(thumbnailPath);
+      return;
+    }
+    final old = e.thumbnailPath;
+    if (thumbnailPath != null && old != null && old != thumbnailPath) {
+      await storage.deleteFile(old);
+    }
     _replace(
       e.copyWith(
         playbackState: snapshot,
@@ -148,6 +159,9 @@ class HistoryStore extends ChangeNotifier {
         width: width,
         height: height,
         kind: kind,
+        videoCodec: videoCodec,
+        mimeType: mimeType,
+        thumbnailPath: thumbnailPath,
       ),
     );
     await _save();

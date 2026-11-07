@@ -109,7 +109,18 @@ void main() {
         final s = await kit.createSession(const VideoKitSessionConfig());
         // Reach `from`.
         if (from != 'CREATED') {
-          await drive(clock, s.bind(source, hostActions: actions));
+          final initialLooping = c['initialLooping'] as bool?;
+          await drive(
+            clock,
+            s.bind(
+              source,
+              hostActions: actions,
+              // 04A L3: a saved snapshot carrying the loop setting.
+              initialState: initialLooping == null
+                  ? null
+                  : VideoKitPlaybackState(looping: initialLooping),
+            ),
+          );
         }
         switch (from) {
           case 'PLAYING':
@@ -219,6 +230,10 @@ void main() {
           }
           if (e['atEnd'] != null) {
             expect(st.positionUs == st.durationUs, e['atEnd'], reason: cmd);
+          }
+          if (e['snapshotLooping'] != null) {
+            final snap = await drive(clock, s.captureState());
+            expect(snap.looping, e['snapshotLooping'], reason: cmd);
           }
           if (e['playbackEnded'] != null) {
             await clock.flush();

@@ -100,6 +100,7 @@ class VideoKitAppState extends State<VideoKitApp>
   Widget build(BuildContext context) {
     return AppScope(
       backend: widget.backend,
+      storage: widget.storage,
       history: history,
       settings: settings,
       child: ValueListenableBuilder<AppSettings>(

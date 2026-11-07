@@ -25,14 +25,30 @@ Future<void> saveAndClose(
   if (st.phase.isBound || st.phase == SessionPhase.ended) {
     final snap = await session.captureState();
     final size = session.videoSize.value;
+    final info = st.mediaInfo;
+    // Small thumbnail only for recorded entries (REQ-APP-08).
+    String? thumb;
+    if (scope.history.byId(entry.id) != null) {
+      final t = await session.captureThumbnail(st.positionUs, 320, 180);
+      if (t is ThumbnailCaptured) {
+        final ext = t.mimeType == 'image/png' ? 'png' : 'jpg';
+        thumb = await scope.storage.writeThumbnail(
+          '${entry.id}-${DateTime.now().millisecondsSinceEpoch}.$ext',
+          t.bytes,
+        );
+      }
+    }
     await scope.history.updatePlayback(
       entry.id,
       snapshot: entry.isImage ? null : snap,
       positionUs: entry.isImage ? null : st.positionUs,
-      durationUs: st.durationUs,
-      width: size?.width,
-      height: size?.height,
+      durationUs: info?.durationUs ?? st.durationUs,
+      width: info?.width ?? size?.width,
+      height: info?.height ?? size?.height,
       kind: st.mediaKind,
+      videoCodec: info?.videoCodec,
+      mimeType: info?.container,
+      thumbnailPath: thumb,
     );
   } else if (st.error case final e? when isAccessError(e.code)) {
     await scope.history.markUnavailable(entry.id);

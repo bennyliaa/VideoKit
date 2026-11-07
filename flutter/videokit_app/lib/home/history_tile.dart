@@ -240,7 +240,16 @@ class _Thumbnail extends StatelessWidget {
             : Stack(
                 fit: StackFit.expand,
                 children: [
-                  AppScope.of(context).backend.thumbnail(context, e),
+                  if (e.thumbnailPath case final path?)
+                    Image(
+                      image: AppScope.of(context).storage.thumbnailImage(path),
+                      fit: BoxFit.cover,
+                      excludeFromSemantics: true,
+                      errorBuilder: (context, _, _) =>
+                          AppScope.of(context).backend.thumbnail(context, e),
+                    )
+                  else
+                    AppScope.of(context).backend.thumbnail(context, e),
                   if (e.isImage)
                     PositionedDirectional(
                       top: d.spacing8,

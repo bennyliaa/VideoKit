@@ -33,6 +33,7 @@ final class VideoKitPlaybackState {
     this.subtitlesEnabled,
     this.audioTrackId,
     this.lastViewedAtEpochMs,
+    this.looping,
   });
 
   /// Current snapshot schema major version.
@@ -93,6 +94,10 @@ final class VideoKitPlaybackState {
   /// When the media was last viewed (Unix epoch, ms).
   final int? lastViewedAtEpochMs;
 
+  /// Loop setting (04A L3); null = the media-kind default (animated images
+  /// loop, videos do not). Older snapshots without it read as null.
+  final bool? looping;
+
   /// The transform part as a [MediaTransform].
   MediaTransform get transform => MediaTransform(
     scale: zoom,
@@ -121,6 +126,7 @@ final class VideoKitPlaybackState {
     Object? subtitlesEnabled = undefined,
     Object? audioTrackId = undefined,
     Object? lastViewedAtEpochMs = undefined,
+    Object? looping = undefined,
   }) => VideoKitPlaybackState(
     sessionId: pick<String?>(sessionId, this.sessionId),
     mediaToken: pick<String?>(mediaToken, this.mediaToken),
@@ -142,6 +148,7 @@ final class VideoKitPlaybackState {
       lastViewedAtEpochMs,
       this.lastViewedAtEpochMs,
     ),
+    looping: pick<bool?>(looping, this.looping),
   );
 
   /// JSON form (stable keys, includes `schemaVersion`).
@@ -164,6 +171,7 @@ final class VideoKitPlaybackState {
     'subtitlesEnabled': subtitlesEnabled,
     'audioTrackId': audioTrackId,
     'lastViewedAtEpochMs': lastViewedAtEpochMs,
+    'looping': looping,
   };
 
   /// Parses [json]. Older schema versions and missing optional fields use
@@ -200,6 +208,7 @@ final class VideoKitPlaybackState {
       subtitlesEnabled: json['subtitlesEnabled'] as bool?,
       audioTrackId: json['audioTrackId'] as String?,
       lastViewedAtEpochMs: json['lastViewedAtEpochMs'] as int?,
+      looping: json['looping'] as bool?,
     );
   }
 
@@ -222,7 +231,8 @@ final class VideoKitPlaybackState {
       other.subtitleTrackId == subtitleTrackId &&
       other.subtitlesEnabled == subtitlesEnabled &&
       other.audioTrackId == audioTrackId &&
-      other.lastViewedAtEpochMs == lastViewedAtEpochMs;
+      other.lastViewedAtEpochMs == lastViewedAtEpochMs &&
+      other.looping == looping;
 
   @override
   int get hashCode => Object.hash(
@@ -243,6 +253,7 @@ final class VideoKitPlaybackState {
     subtitlesEnabled,
     audioTrackId,
     lastViewedAtEpochMs,
+    looping,
   );
 
   @override

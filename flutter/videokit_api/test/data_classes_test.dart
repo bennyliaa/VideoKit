@@ -139,6 +139,49 @@ void main() {
   });
 
   group('session', () {
+    test('04A L3: snapshot looping round-trips; old snapshots read null', () {
+      const s = VideoKitPlaybackState(mediaToken: 't', looping: false);
+      expect(VideoKitPlaybackState.fromJson(s.toJson()).looping, isFalse);
+      final old = s.toJson()..remove('looping');
+      expect(VideoKitPlaybackState.fromJson(old).looping, isNull);
+      expect(s.copyWith(looping: null).looping, isNull);
+      expect(s, isNot(s.copyWith(looping: true)));
+    });
+
+    test('04A P1/P2: MediaInfo, ThumbnailResult', () {
+      const m = MediaInfo(
+        container: 'video/mp4',
+        videoCodec: 'video/avc',
+        width: 1920,
+        height: 1080,
+        frameRate: 30,
+      );
+      expectValueSemantics(m, m.copyWith(), m.copyWith(width: 1280));
+      expect(m.copyWith(videoCodec: null).videoCodec, isNull);
+      final s = VideoKitSessionState(phase: SessionPhase.ready);
+      expect(s.mediaInfo, isNull);
+      expect(s.copyWith(mediaInfo: m).mediaInfo, m);
+      expect(s.copyWith(mediaInfo: m), isNot(s));
+      final a = ThumbnailCaptured(
+        bytes: Uint8List.fromList(const [1, 2]),
+        width: 2,
+        height: 1,
+      );
+      expect(
+        a,
+        ThumbnailCaptured(
+          bytes: Uint8List.fromList(const [1, 2]),
+          width: 2,
+          height: 1,
+        ),
+      );
+      expect(a.mimeType, 'image/jpeg');
+      const f = ThumbnailFailed(
+        VideoKitStableError.invalidState(stage: ErrorStage.playback),
+      );
+      expect(f.error.code, ErrorCode.invalidState);
+    });
+
     test('04A L1/L2: SetLooping, looping, ImageDetails', () {
       expect(const SetLooping(true), const SetLooping(true));
       expect(const SetLooping(true), isNot(const SetLooping(false)));

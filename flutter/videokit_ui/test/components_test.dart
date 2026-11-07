@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui' show Tristate;
 
 import 'package:flutter/material.dart';
@@ -6,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_ui/videokit_ui.dart';
+
+import '../../tools/vk_lints/vk_literal_lint.dart';
 
 Widget _app(Widget child, {Locale locale = const Locale('zh')}) => MaterialApp(
   locale: locale,
@@ -16,6 +17,7 @@ Widget _app(Widget child, {Locale locale = const Locale('zh')}) => MaterialApp(
 );
 
 void main() {
+  lintTests();
   testWidgets(
     'VkButton / VkIconButton: semantics, disabled, selected, pending',
     (tester) async {
@@ -254,33 +256,25 @@ void main() {
     expect(c.hasPanel, isFalse);
     c.dispose();
   });
+}
 
-  test('no hard-coded colours, font sizes or text literals in components', () {
-    // 13 §3 / 14 §11.3 manual lint (custom_lint not yet in the toolchain).
-    const dirs = [
-      'common',
-      'state_view',
-      'player',
-      'host_action',
-      'foundation',
-      'image_viewer',
-      'slot',
-      'editor',
-      'mask',
-      'export',
-    ];
-    final pattern = RegExp(
-      r"Color\(0x|Colors\.|fontSize:|Text\(\s*'|label:\s*'",
-    );
-    final offenders = <String>[];
-    for (final d in dirs) {
-      for (final f in Directory('lib/src/$d').listSync().whereType<File>()) {
-        final lines = f.readAsLinesSync();
-        for (final (i, l) in lines.indexed) {
-          if (pattern.hasMatch(l)) offenders.add('${f.path}:${i + 1}: $l');
-        }
-      }
-    }
-    expect(offenders, isEmpty);
+void lintTests() {
+  test('vk_literal_lint: no colour/size/text literals outside theme, l10n', () {
+    // 14 §11.3 via tools/vk_lints (custom_lint not viable, M0-B6 report).
+    final findings = lintDirectories(['lib/src']);
+    expect(findings.map((f) => '$f'), isEmpty);
+  });
+
+  test('vk_literal_lint rules fire and can be suppressed', () {
+    const src = '''
+final a = Color(0xFF112233);
+final b = TextStyle(fontSize: 14);
+final c = EdgeInsets.all(8);
+final d = EdgeInsetsDirectional.only(top: t.spacing8 * 2, start: 0);
+final e = Text('文案');
+final f = Colors.red; // vk-lint: ignore VK001 sample
+''';
+    final rules = [for (final f in lintSource('x.dart', src)) f.rule];
+    expect(rules, unorderedEquals(['VK001', 'VK002', 'VK003', 'VK004']));
   });
 }

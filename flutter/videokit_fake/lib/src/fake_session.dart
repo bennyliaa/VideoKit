@@ -6,6 +6,7 @@ import 'package:videokit_api/videokit_api.dart';
 
 import 'clock/fake_clock.dart';
 import 'demo/demo_data.dart';
+import 'demo/demo_media_info.dart';
 import 'host_bridge.dart';
 import 'scenario/scenario.dart';
 
@@ -193,6 +194,7 @@ class FakeSession implements VideoKitSession {
       selectedAudioTrackId: supportedAudio.isEmpty
           ? null
           : supportedAudio.first.id,
+      mediaInfo: demoMediaInfo(profile, source.mimeType),
       imageDetails: isVideo
           ? null
           : ImageDetails(
@@ -209,8 +211,11 @@ class FakeSession implements VideoKitSession {
       ),
     );
     if (initialState != null) {
+      final loops = isVideo || profile.kind == MediaKind.imageAnimated;
       next = next.copyWith(
         transform: initialState.transform,
+        // 04A L3: a saved loop setting overrides the media-kind default.
+        looping: loops ? (initialState.looping ?? next.looping) : null,
         orientation: next.orientation.copyWith(
           request: initialState.preferredOrientation,
           fullscreen: initialState.fullscreen,
@@ -817,6 +822,49 @@ class FakeSession implements VideoKitSession {
 
   // ------------------------------------------------------------ snapshot --
 
+  /// Demo thumbnail (04A P1): a PNG fitting [maxWidth]×[maxHeight] drawn
+  /// from the media seed with a marker at [atUs].
+  @override
+  Future<ThumbnailResult> captureThumbnail(
+    int atUs,
+    int maxWidth,
+    int maxHeight,
+  ) async {
+    if (_released) {
+      return const ThumbnailFailed(
+        VideoKitStableError(
+          code: ErrorCode.sessionReleased,
+          stage: ErrorStage.playback,
+        ),
+      );
+    }
+    final phase = _s.phase;
+    if (!(phase.isBound || phase == SessionPhase.ended)) {
+      return const ThumbnailFailed(
+        VideoKitStableError.invalidState(stage: ErrorStage.playback),
+      );
+    }
+    if (maxWidth <= 0 || maxHeight <= 0 || atUs < 0) {
+      return const ThumbnailFailed(
+        VideoKitStableError.invalidArgument(stage: ErrorStage.playback),
+      );
+    }
+    final size = _videoSize.value ?? const VideoSize(16, 9);
+    final (w, h) = fitThumbnail(size.width, size.height, maxWidth, maxHeight);
+    final d = _s.durationUs ?? 0;
+    return ThumbnailCaptured(
+      bytes: demoThumbnailPng(
+        w,
+        h,
+        stableHash(_source?.mediaToken ?? sessionId),
+        d <= 0 ? 0 : atUs / d,
+      ),
+      width: w,
+      height: h,
+      mimeType: 'image/png',
+    );
+  }
+
   @override
   Future<VideoKitPlaybackState> captureState() async =>
       _finalSnapshot ?? _snapshot();
@@ -843,6 +891,10 @@ class FakeSession implements VideoKitSession {
           ? s.selectedSubtitleTrackId != null
           : null,
       audioTrackId: isVideo ? s.selectedAudioTrackId : null,
+      // 04A L3: only media that can loop carry the setting.
+      looping: isVideo || s.mediaKind == MediaKind.imageAnimated
+          ? s.looping
+          : null,
     );
   }
 

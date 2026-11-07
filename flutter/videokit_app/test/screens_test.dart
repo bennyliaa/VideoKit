@@ -112,5 +112,22 @@ void main() {
     await settle(tester, 10);
     await _shot(tester, 'fix_editor_topbar_export');
     await unmount(tester);
+    // 04A P1/P2: a played record gets a captured thumbnail and codec.
+    await app(tester, history: false);
+    await tapText(tester, '打开文件');
+    await settle(tester, 4);
+    await tapText(tester, '山谷黄昏.mkv');
+    await tester.pump();
+    await tester.tap(find.textContaining('打开 1 个'));
+    await settle(tester, 20);
+    await tester.binding.handlePopRoute();
+    await settle(tester, 6);
+    // Let the PNG decode (real async; fake time does not decode images).
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 300)),
+    );
+    await tester.pump();
+    await _shot(tester, 'app_home_captured_thumbnail');
+    await unmount(tester);
   }, skip: _dir == null);
 }

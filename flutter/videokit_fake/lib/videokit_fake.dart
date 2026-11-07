@@ -7,6 +7,7 @@ library;
 export 'src/clock/fake_clock.dart';
 export 'src/contract/videokit_contract.dart';
 export 'src/demo/demo_data.dart';
+export 'src/demo/demo_media_info.dart';
 export 'src/demo/demo_picture.dart';
 export 'src/fake_edit_project.dart' show FakeEditProject, FakeEditProjectCodec;
 export 'src/fake_session.dart';

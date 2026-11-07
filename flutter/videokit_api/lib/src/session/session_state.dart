@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../error/stable_error.dart';
 import '../host/host_action.dart';
+import '../media/media_info.dart';
 import '../media/media_kind.dart';
 import '../media/track_info.dart';
 import '../media/transform.dart';
@@ -184,6 +185,7 @@ final class VideoKitSessionState {
     List<HostActionState> hostActions = const [],
     this.looping = false,
     this.imageDetails,
+    this.mediaInfo,
   }) : audioTracks = frozenList(audioTracks),
        subtitleTracks = frozenList(subtitleTracks),
        hostActions = frozenList(hostActions);
@@ -265,6 +267,9 @@ final class VideoKitSessionState {
   /// Image facts the engine knows (04A L2); always null for videos.
   final ImageDetails? imageDetails;
 
+  /// Media facts filled after bind (04A P2); null before bind.
+  final MediaInfo? mediaInfo;
+
   /// Host actions with pending/result state (14 §3.2).
   final List<HostActionState> hostActions;
 
@@ -298,6 +303,7 @@ final class VideoKitSessionState {
     List<HostActionState>? hostActions,
     bool? looping,
     Object? imageDetails = undefined,
+    Object? mediaInfo = undefined,
   }) => VideoKitSessionState(
     phase: phase ?? this.phase,
     mediaKind: pick<MediaKind?>(mediaKind, this.mediaKind),
@@ -330,6 +336,7 @@ final class VideoKitSessionState {
     hostActions: hostActions ?? this.hostActions,
     looping: looping ?? this.looping,
     imageDetails: pick<ImageDetails?>(imageDetails, this.imageDetails),
+    mediaInfo: pick<MediaInfo?>(mediaInfo, this.mediaInfo),
   );
 
   @override
@@ -359,7 +366,8 @@ final class VideoKitSessionState {
       other.resourcesHeld == resourcesHeld &&
       listEquals(other.hostActions, hostActions) &&
       other.looping == looping &&
-      other.imageDetails == imageDetails;
+      other.imageDetails == imageDetails &&
+      other.mediaInfo == mediaInfo;
 
   @override
   int get hashCode => Object.hashAll([
@@ -388,6 +396,7 @@ final class VideoKitSessionState {
     hashList(hostActions),
     looping,
     imageDetails,
+    mediaInfo,
   ]);
 
   @override
@@ -399,7 +408,7 @@ final class VideoKitSessionState {
       'activeAudio: $activeAudio, controls: $controlsVisible, '
       'locked: $hiddenForLock, error: ${error?.code.name}, '
       'held: $resourcesHeld, actions: ${hostActions.length}, '
-      'looping: $looping, image: $imageDetails)';
+      'looping: $looping, image: $imageDetails, media: $mediaInfo)';
 }
 
 /// Image facts for the details panel (04A L2). Every field is optional:

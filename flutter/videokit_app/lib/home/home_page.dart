@@ -255,7 +255,8 @@ class HomePageState extends State<HomePage> {
         d.spacing16,
         d.spacing16,
         d.spacing16,
-        d.targetMin * 2,
+        // Room for the floating "打开文件" button (FAB + margins).
+        d.targetMin * 2 + d.spacing32 + d.spacing16,
       ),
       child: Column(
         children: [

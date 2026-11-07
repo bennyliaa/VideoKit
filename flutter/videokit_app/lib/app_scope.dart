@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import 'backend/app_backend.dart';
+import 'history/app_storage.dart';
 import 'history/history_store.dart';
 import 'settings/app_settings.dart';
 
@@ -10,6 +11,7 @@ class AppScope extends InheritedWidget {
   const AppScope({
     super.key,
     required this.backend,
+    required this.storage,
     required this.history,
     required this.settings,
     required super.child,
@@ -17,6 +19,9 @@ class AppScope extends InheritedWidget {
 
   /// VideoKit backend (M0: Dart Fake).
   final AppBackend backend;
+
+  /// App-private storage (thumbnail images).
+  final AppStorage storage;
 
   /// Play history.
   final HistoryStore history;

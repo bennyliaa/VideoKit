@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io' show File;
 
 import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
@@ -303,14 +302,6 @@ class DemoBackend implements AppBackend {
 
   @override
   Widget thumbnail(BuildContext context, HistoryEntry entry) {
-    final path = entry.thumbnailPath;
-    if (path != null) {
-      return Image.file(
-        File(path),
-        fit: BoxFit.cover,
-        excludeFromSemantics: true,
-      );
-    }
     return DemoPicture(
       seed: stableHash(entry.uri),
       positionUs: entry.lastPositionUs ?? 0,

@@ -84,6 +84,9 @@ class RecordingSession implements VideoKitSession {
   @override
   Future<VideoKitPlaybackState> captureState() => inner.captureState();
   @override
+  Future<ThumbnailResult> captureThumbnail(int atUs, int w, int h) =>
+      inner.captureThumbnail(atUs, w, h);
+  @override
   Future<VideoKitPlaybackState> release() => inner.release();
   @override
   Future<void> close() => inner.close();

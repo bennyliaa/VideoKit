@@ -21,6 +21,7 @@ export 'src/export/precheck.dart';
 export 'src/host/host_action.dart';
 export 'src/host/host_callbacks.dart';
 export 'src/host/navigation.dart';
+export 'src/media/media_info.dart';
 export 'src/media/media_kind.dart';
 export 'src/media/media_source.dart';
 export 'src/media/track_info.dart';
