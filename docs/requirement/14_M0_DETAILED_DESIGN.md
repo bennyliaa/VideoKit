@@ -392,7 +392,7 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 
 ### 7.2 Token 取值（UI 设计稿 V1.0，2026-11-07 确认为开发与验收基准）
 
-来源：[VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 第 4 页；视觉基准规则见 03 §5.4。**VideoKit 先按设计稿实现自有 Theme，SkinKit 以后再接入**；下表结构与键名按 SkinKit 规则（03 §5.2），取值以设计稿为准。标“派生”的是设计稿未直接给出、按设计稿色板推导的值，实现后在主题画廊页与设计稿第 4、19 页对照确认。各组件的布局与状态按设计稿对应页面实现（UI-01 第 6–9 页，UI-03 第 10 页，UI-05 第 11 页，UI-06 第 12–13 页，UI-07 第 14–16 页，UI-08 第 17–18 页，主题第 19 页，无障碍第 20 页，演示模式第 21 页）。
+来源：[VideoKit_UI_Design_V1.0.pptx](VideoKit_UI_Design_V1.0.pptx) 第 5 页（2026-11-07 修订版共 25 页）；视觉基准规则见 03 §5.4。**VideoKit 先按设计稿实现自有 Theme，SkinKit 以后再接入**；下表结构与键名按 SkinKit 规则（03 §5.2），取值以设计稿为准。标“派生”的是设计稿未直接给出、按设计稿色板推导的值，实现后在主题画廊页与设计稿第 5、22 页对照确认。各组件的布局与状态按设计稿对应页面实现（产品结构第 3 页，VideoKit App 首页与设置第 7–8 页，UI-01 第 9–12 页，UI-03 第 13 页，UI-05 第 14 页，UI-06 第 15–16 页，UI-07 第 17–19 页，UI-08 第 20–21 页，主题第 22 页，无障碍第 23 页，演示模式第 24 页）。
 
 **color**
 
@@ -466,7 +466,7 @@ class VideoKitThemeScope extends StatelessWidget { ... }   // 宿主可放在任
 
 **component**（每个组件样式含 normal / pressed / focused / disabled / selected / hovered 的背景、内容色、边框、圆角、内边距；具体字段在实现时登记）
 
-| 键 | 用途（设计稿第 5 页组件库） |
+| 键 | 用途（设计稿第 6 页组件库） |
 | --- | --- |
 | `component.button.primary` / `.secondary` / `.text` / `.icon` | 主按钮、次按钮、文字按钮、图标按钮 |
 | `component.chip.default` | 倍速、预设等选项片 |
