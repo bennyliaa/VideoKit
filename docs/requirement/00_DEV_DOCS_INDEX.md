@@ -28,6 +28,7 @@ V1.1 变更：为方便全平台开发，**UI 优先使用 Flutter 开发**（Fl
 | 02 | [系统架构](02_SYSTEM_ARCHITECTURE.md) | 分层（V1.2：平台无关层 / 平台引擎接口 SPI / 平台实现层，多平台复用）、模块、技术选型、§29 待定项决定、§30 必答问题 | §2、§13、§21、§24、§25、§29、§30 |
 | 03 | [UI 框架设计](03_UI_FRAMEWORK_DESIGN.md) | Flutter 包结构、宿主接入方式、界面清单、主题、自适应、国际化与无障碍、演示模式 | §6–§10、§20 |
 | 04 | [公共 API 契约](04_PUBLIC_API_CONTRACT.md) | 接口、DTO、状态机、命令、错误、能力、版本规则 | §13、§14、§18、§19 |
+| 04A | [API 对齐裁定（M0-B1）](04A_API_ALIGNMENT_M0B1.md) | Kotlin 与 Dart 两侧命名、取值、接口与构建事项的裁定；与 04 冲突时以 04A 为准 | §13、§19 |
 | 05 | [LocalVideoBrowser 集成](05_LOCALVIDEOBROWSER_INTEGRATION.md) | 适配器、映射、HostAction、租约、编辑提交、回退 | §9、§12、§15–§18 |
 | 06 | [播放与图片设计](06_PLAYBACK_AND_IMAGE_DESIGN.md) | 视频会话、Media3、随机读取、事件、图片会话 | §5–§7、§14、§15 |
 | 07 | [多实例与资源设计](07_MULTI_INSTANCE_AND_RESOURCE_DESIGN.md) | 多会话、资源预算、唯一音频、可见性、故障隔离 | §8、§16、§21 |

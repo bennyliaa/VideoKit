@@ -26,7 +26,7 @@
 | YuNet（OpenCV Zoo） | 人脸检测 | 目录标 MIT | Spike | 模型 hash、训练数据来源、商用/再分发权利 |
 | ViTTrack（OpenCV Zoo） | 物体跟踪 | 目录标 Apache-2.0 | Spike | 同上 |
 | ONNX Runtime | 推理运行时（对照） | MIT | Spike | provider 依赖、遥测关闭、包体积 |
-| JUnit、Turbine、kotlinx-coroutines-test | 原生测试 | EPL/Apache | 仅测试 | 不进入产品 artifact |
+| JUnit、Turbine、kotlinx-coroutines-test | 原生测试 | EPL/Apache | 仅测试 | 不进入产品 artifact；JUnit 4（EPL-1.0）2026-11-07 确认允许用于测试（04A B3） |
 | `flutter_test`、`integration_test` | Flutter 测试（含 golden 截图） | BSD-3-Clause | 仅测试 | 不进入产品 |
 | 其他 pub 包 | — | 逐个审查 | 默认不引入 | 新增需许可审查、固定版本 |
 | FFmpeg | — | LGPL/GPL | 不集成 | 需用户明确批准 |

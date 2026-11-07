@@ -106,7 +106,7 @@ VideoKit/
 
 | 规则 | 要求 |
 | --- | --- |
-| 平台无关层只用通用 API | `kit/common/` 模块用 Kotlin Multiplatform 插件，代码全部在 `commonMain`；V1.0 只启用 `jvm()` 目标。禁止 `java.*`、`android.*`、`javax.*`；时间用 `kotlin.time`，并发用 kotlinx-coroutines，序列化用 kotlinx-serialization，I/O 抽象为接口 |
+| 平台无关层只用通用 API | `kit/common/` 模块用 Kotlin Multiplatform 插件，代码全部在 `commonMain`；V1.0 只启用 `jvm()` 目标。禁止 `java.*`、`android.*`、`javax.*`，由源码检查 `checkCommonPortability` 拦截（只有 JVM 目标时编译器不拦截；Apple 平台工作开始时启用非 JVM 目标）；时间用 `kotlin.time`，并发用 kotlinx-coroutines，I/O 抽象为接口；序列化在 VK-M4 起用 kotlinx-serialization，M0 测试用 testkit 内部 JSON（04A B1、B2） |
 | 规则只写一份 | 插值、遮罩区域、快速拼接判定、覆盖报告、状态机转换、错误码只在平台无关层实现；平台实现层与 Dart 侧不得复制实现（Dart 侧只消费结果，或由测试向量验证） |
 | 测试向量 | 新增或修改上述规则时，同时增删 `spec/vectors` 中的向量；Kotlin 与 Dart 测试都运行全部向量 |
 | 平台差异进 SPI | 需要平台能力时，先在 `videokit-core` 的 SPI 中定义薄接口，再在 `kit/android/` 实现；SPI 不出现平台类型 |

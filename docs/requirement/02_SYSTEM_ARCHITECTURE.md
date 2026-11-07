@@ -158,7 +158,7 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 
 - `UI/平台适配器 → core/api ← tracking/export/playback 实现`。
 - **平台无关层不得依赖平台实现层**；平台实现层只通过 SPI 被注入，平台无关层不知道 Media3、Android、OpenCV 的存在。
-- 平台无关层模块使用 Kotlin Multiplatform 插件，V1.0 只启用 `jvm()` 目标、代码全部写在 `commonMain`，从而在编译期禁止使用 `java.*`/`android.*` API；新增 Apple 平台时增加 `iosArm64` 等目标即可（可移植性规则见 [13](13_ENGINEERING_CONVENTIONS.md) §3.2）。
+- 平台无关层模块使用 Kotlin Multiplatform 插件，V1.0 只启用 `jvm()` 目标、代码全部写在 `commonMain`。实测只有一个 JVM 目标时编译器不会拦截 `java.*`，因此 V1.0 以源码检查 `checkCommonPortability`（挂在 `check` 上）禁止 `java.*`/`android.*` 等平台 API；新增 Apple 平台时启用 `iosArm64` 等非 JVM 目标，由编译器检查（04A B1）（可移植性规则见 [13](13_ENGINEERING_CONVENTIONS.md) §3.2）。
 - `videokit-api` 不依赖具体播放器、AI 模型和宿主业务；`videokit_ui` 只依赖 Dart 版 `videokit_api`，修改普通 UI 不会重编译原生编码/AI 模块。
 - 跟踪、导出、图片模块可以单独替换或禁用；纯播放组合不包含跟踪和编码依赖。
 - 依赖规则用 Gradle 模块依赖检查（如自定义依赖约束任务）在 CI 中强制。
