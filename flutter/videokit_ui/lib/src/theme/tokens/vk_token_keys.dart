@@ -280,6 +280,11 @@ abstract final class VkTokenKeys {
     'radiooff',
     'checkboxon',
     'checkboxoff',
+    'folder',
+    'settings',
+    'grid',
+    'list',
+    'movie',
     'unknown',
   ];
 

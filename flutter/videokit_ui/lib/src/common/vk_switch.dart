@@ -37,6 +37,7 @@ class VkSwitch extends StatelessWidget {
     final w = d.targetMin * 1.1;
     final h = d.spacing24 + d.spacing4;
     return Semantics(
+      container: true,
       toggled: value,
       enabled: enabled,
       label: semanticLabel,

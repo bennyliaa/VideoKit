@@ -274,7 +274,7 @@ class VideoKitEditorState extends State<VideoKitEditor> {
     return Padding(
       padding: EdgeInsetsDirectional.symmetric(
         horizontal: d.spacing8,
-        vertical: d.spacing4,
+        vertical: d.spacing8,
       ),
       child: Row(
         children: [
@@ -317,14 +317,21 @@ class VideoKitEditorState extends State<VideoKitEditor> {
             ),
             SizedBox(width: d.spacing8),
             if (_c.mode == EditorMode.mask)
-              VkButton(
-                label: s.text('maskDone'),
-                onPressed: () => _c.mode = EditorMode.clips,
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: d.targetMin * 2),
+                child: VkButton(
+                  label: s.text('maskDone'),
+                  onPressed: () => _c.mode = EditorMode.clips,
+                ),
               )
             else
-              VkButton(
-                label: s.text('editorExport'),
-                onPressed: st.timeline.clips.isEmpty ? null : openExport,
+              // Regular button height, pill width (design page 15).
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: d.targetMin * 2),
+                child: VkButton(
+                  label: s.text('editorExport'),
+                  onPressed: st.timeline.clips.isEmpty ? null : openExport,
+                ),
               ),
           ],
         ],

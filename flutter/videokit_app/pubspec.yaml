@@ -1,0 +1,33 @@
+name: videokit_app
+description: >-
+  VideoKit App: the stand-alone player app built on the VideoKit module
+  (01 §1, §4.13). Uses the module only through its public API.
+version: 1.0.0+1
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.13.5 <3.14.0"
+  flutter: ">=3.47.7 <3.48.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: 0.20.3
+  # App-private directory for the play history (BSD-3-Clause, flutter.dev).
+  path_provider: 2.1.6
+  videokit_api: 1.0.0-dev.1
+  videokit_ui: 1.0.0-dev.1
+  # M0 backend only (demo); kept out of release builds from M1 (report §3).
+  videokit_fake: 1.0.0-dev.1
+
+dev_dependencies:
+  flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  generate: true

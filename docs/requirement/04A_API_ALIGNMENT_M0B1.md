@@ -1,6 +1,6 @@
 # 04A 公共 API 对齐裁定（M0-B1）
 
-版本：V1.3（新增 §4A、§4B、§4C 补充裁定）；日期：2026-11-07；裁定人：负责人。依据：Coder A 报告 `test-workspace/reports/M0-B1-A/REPORT.md` §6，Coder B 报告 `test-workspace/reports/M0-B1-B/REPORT.md` §6 与附录 A–C。
+版本：V1.4（新增 §4A–§4D 补充裁定）；日期：2026-11-07；裁定人：负责人。依据：Coder A 报告 `test-workspace/reports/M0-B1-A/REPORT.md` §6，Coder B 报告 `test-workspace/reports/M0-B1-B/REPORT.md` §6 与附录 A–C。
 
 > 本文件是 [04 公共 API 契约](04_PUBLIC_API_CONTRACT.md) 的补充裁定，与 04 冲突时以本文件为准；API 1.0.0 冻结时并入 04。
 > 适用范围：Kotlin `videokit-api` / `videokit-api-android` 与 Dart `videokit_api`。两侧必须按本表一一对应，M0-B2 内完成对齐。
@@ -93,6 +93,15 @@
 | --- | --- | --- | --- |
 | L1 | 循环播放 | 新增命令 `SetLooping(looping: Boolean)`，`VideoKitSessionState` 增加 `looping`。默认值按媒体类型：动态图 `true`，视频 `false`。`looping=false` 时播放到末尾停在末帧（视频为最后一帧、动图为最后一帧），进入 ENDED 并发出 `PlaybackEnded`；`looping=true` 时不发 `PlaybackEnded`。静态图收到该命令返回 `Unsupported(MEDIA_KIND)` | 两侧 + spec 向量（Coder B） |
 | L2 | 图片详情 | `VideoKitSessionState` 增加可空字段 `imageDetails: ImageDetails?`，`ImageDetails(frameCount: Int?, decodedBytes: Long?, sampleSize: Int?)`；原生侧能提供就填，拿不到为 null，UI 只显示有值的项。视频会话恒为 null | 两侧 |
+
+## 4D. 补充裁定（V1.4，2026-11-07，M0-B5 App 外壳提出）
+
+| # | 项 | 裁定 | 改动方 |
+| --- | --- | --- | --- |
+| P1 | 缩略图 | 会话新增 `captureThumbnail(atUs: Long, maxWidth: Int, maxHeight: Int): ThumbnailResult`（成功时为 JPEG 字节 + 实际尺寸；视频取最近帧，图片取缩放图；失败返回稳定错误）。经 SPI `FrameSource` / `ImageEngine` 实现；Fake 返回演示图 | 两侧（Kotlin 实现在 M1） |
+| P2 | 媒体参数 | `VideoKitSessionState.mediaInfo: MediaInfo?`：`container`、`videoCodec`、`audioCodec`、`width`、`height`、`frameRate`、`bitrateBps`、`rotationDeg`、`durationUs`、`fileSizeBytes`（均可空，拿不到为 null）；bind 完成后填充 | 两侧 |
+| P3 | 演示入口 | App 用独立入口文件 `lib/main_demo.dart`（只在 debug/开发使用，`flutter run -t lib/main_demo.dart`），`lib/main.dart` 不得 import `videokit_fake`；不使用 flavor。Release 隔离检查（14 §11.4）验证 `main.dart` 产物不含 Fake | App |
+| P4 | applicationId | VideoKit App 暂定 `com.videokit.app`；对外发布前核对域名与商标权利（02 §7 #1） | App |
 
 ## 5. 工程与构建裁定
 

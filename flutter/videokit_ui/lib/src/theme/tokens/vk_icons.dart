@@ -69,6 +69,11 @@ class VkIcons extends ThemeExtension<VkIcons> {
     'radiooff': Icons.radio_button_unchecked_rounded,
     'checkboxon': Icons.check_box_rounded,
     'checkboxoff': Icons.check_box_outline_blank_rounded,
+    'folder': Icons.folder_open_rounded,
+    'settings': Icons.settings_outlined,
+    'grid': Icons.grid_view_rounded,
+    'list': Icons.view_list_rounded,
+    'movie': Icons.movie_outlined,
     'unknown': Icons.help_outline_rounded,
   };
 
