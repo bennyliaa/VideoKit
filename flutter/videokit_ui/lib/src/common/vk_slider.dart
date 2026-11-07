@@ -29,7 +29,7 @@ class VkSlider extends StatefulWidget {
   /// Formats a value for screen readers.
   final String Function(double value) semanticValue;
 
-  /// Drag updates (local visual state).
+  /// Every value change, including the final one (local visual state).
   final ValueChanged<double>? onChanged;
 
   /// Final value (commits a command).
@@ -51,12 +51,17 @@ class _VkSliderState extends State<VkSlider> {
 
   double get _value => (_drag ?? widget.value).clamp(0.0, 1.0);
 
-  bool get _enabled => widget.onChangeEnd != null;
+  /// Usable as soon as either callback is given (R1-01: a slider with only
+  /// [VkSlider.onChanged] is not disabled).
+  bool get _enabled => widget.onChanged != null || widget.onChangeEnd != null;
 
   void _set(double v, {required bool end}) {
     final c = v.clamp(0.0, 1.0);
     if (end) {
       setState(() => _drag = null);
+      // The final value reaches both callbacks (taps, keys and screen
+      // reader steps have no drag updates before it).
+      widget.onChanged?.call(c);
       widget.onChangeEnd?.call(c);
     } else {
       setState(() => _drag = c);

@@ -19,7 +19,8 @@ android {
         applicationId = "com.videokit.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        // VideoKit platform floor: Android 12 / API 31 (13 §2), same as the videokit_flutter_android plugin.
+        minSdk = 31
         targetSdk = flutter.targetSdkVersion
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
@@ -46,4 +47,12 @@ kotlin {
 
 flutter {
     source = "../.."
+}
+
+// App native part (REQ-APP-01~03, M1-A1): the export "另存为" sink implements the Kit sink API. The plugin keeps
+// its Kit dependencies `implementation`, so the App declares the API it compiles against. Resolved from the Kit
+// projects by the composite build in settings.gradle.kts; versions match gradle/libs.versions.toml.
+dependencies {
+    implementation("com.videokit:videokit-api-android:1.0.0-dev.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
 }

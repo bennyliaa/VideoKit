@@ -169,10 +169,10 @@ abstract class ExampleLocalizations {
   /// **'伪本地化'**
   String get languagePseudo;
 
-  /// 字体缩放设置项。
+  /// 调试用字体倍数，乘在系统字体缩放之上（R1-11）。
   ///
   /// In zh, this message translates to:
-  /// **'字体缩放'**
+  /// **'额外字体倍数（叠加系统字体）'**
   String get settingTextScale;
 
   /// 减少动画开关。
@@ -559,11 +559,17 @@ abstract class ExampleLocalizations {
   /// **'剪辑页面将在后续批次提供'**
   String get editNotAvailable;
 
-  /// 宿主面板插槽示例内容，随控制层显示和隐藏。
+  /// 宿主面板插槽示例（设计稿第 10 页）：同一文件夹中的其他视频，随控制层显示和隐藏（R1-05）。
   ///
   /// In zh, this message translates to:
-  /// **'宿主面板插槽'**
+  /// **'邻近媒体'**
   String get hostPanelHint;
+
+  /// 邻近媒体条目的读屏描述：名称与时长。
+  ///
+  /// In zh, this message translates to:
+  /// **'{name}，{duration}'**
+  String hostPanelItem(String name, String duration);
 
   /// 宿主动作：收藏（未收藏时）。
   ///
@@ -624,6 +630,36 @@ abstract class ExampleLocalizations {
   /// In zh, this message translates to:
   /// **'分享这个视频'**
   String get hostShareCd;
+
+  /// 图片页：收藏的读屏描述（R1-15）。
+  ///
+  /// In zh, this message translates to:
+  /// **'收藏这张图片'**
+  String get hostFavoriteImageCd;
+
+  /// 图片页：取消收藏的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'取消收藏这张图片'**
+  String get hostUnfavoriteImageCd;
+
+  /// 图片页：标签的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'为这张图片添加标签'**
+  String get hostTagImageCd;
+
+  /// 图片页：删除的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'删除这张图片'**
+  String get hostDeleteImageCd;
+
+  /// 图片页：分享的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'分享这张图片'**
+  String get hostShareImageCd;
 
   /// 宿主动作完成后的提示。
   ///

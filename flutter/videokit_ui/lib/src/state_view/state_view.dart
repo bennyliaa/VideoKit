@@ -53,6 +53,7 @@ class VideoKitStateView extends StatelessWidget {
 
   /// Title text for [model].
   static String title(VkStrings s, StateViewModel model) =>
+      model.titleText ??
       switch (model.kind) {
         StateViewKind.loading => s.text('stateLoadingTitle'),
         StateViewKind.buffering => s.text('stateBuffering'),
@@ -64,6 +65,7 @@ class VideoKitStateView extends StatelessWidget {
 
   /// Detail text for [model], if any.
   static String? detail(VkStrings s, StateViewModel model) =>
+      model.detailText ??
       switch (model.detail) {
         null => null,
         StateDetail.loading => s.text('stateLoadingDetail'),

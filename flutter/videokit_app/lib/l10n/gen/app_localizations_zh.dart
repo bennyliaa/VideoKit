@@ -317,4 +317,36 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get demoUnsupported => '旧格式录像.mkv';
+
+  @override
+  String get startupConnecting => '正在启动 VideoKit';
+
+  @override
+  String get startupProtocolTitle => 'VideoKit 版本不匹配';
+
+  @override
+  String get startupProtocolDetail => 'App 与播放组件的版本不一致，请安装最新版本的 App。';
+
+  @override
+  String get startupNoBackendTitle => '播放组件不可用';
+
+  @override
+  String get startupNoBackendDetail => '这个版本的 App 没有包含播放组件，请重新安装 App。';
+
+  @override
+  String get startupChannelTitle => '无法连接播放组件';
+
+  @override
+  String get startupChannelDetail => '播放组件没有响应。请重试；如果仍然失败，请重新启动 App。';
+
+  @override
+  String get startupUnknownTitle => 'VideoKit 启动失败';
+
+  @override
+  String get startupUnknownDetail => '启动时出现意外错误。请重试；如果仍然失败，请重新启动 App。';
+
+  @override
+  String exportFileName(String stamp) {
+    return 'VideoKit_$stamp';
+  }
 }

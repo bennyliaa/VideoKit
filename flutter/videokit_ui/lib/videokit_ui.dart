@@ -30,6 +30,7 @@ export 'src/mask/coverage_strip.dart';
 export 'src/mask/mask_editor.dart';
 export 'src/mask/mask_overlay.dart';
 export 'src/l10n/vk_strings.dart';
+export 'src/player/media_info_sheet.dart';
 export 'src/player/media_surface.dart' show VideoKitPictureBuilder;
 export 'src/player/track_settings_sheet.dart';
 export 'src/player/video_kit_player.dart';

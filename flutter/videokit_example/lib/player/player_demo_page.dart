@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_fake/videokit_fake.dart';
@@ -72,6 +74,7 @@ class PlayerDemoPageState extends State<PlayerDemoPage>
   VideoKitSession? session;
   int _generation = 0;
   bool _fullscreen = false;
+  VideoKitMediaSource? _source;
 
   @override
   void initState() {
@@ -96,22 +99,53 @@ class PlayerDemoPageState extends State<PlayerDemoPage>
       await s.close();
       return;
     }
-    setState(() => session = s);
-    await s.bind(
-      VideoKitMediaSource(
-        mediaToken: 'example-${scenario.id}-$generation',
-        mediaKind: MediaKind.video,
-        sourceRef: DemoSourceRef(scenario.id),
-        mimeType: 'video/mp4',
-      ),
+    final source = VideoKitMediaSource(
+      mediaToken: 'example-${scenario.id}-$generation',
+      mediaKind: MediaKind.video,
+      sourceRef: DemoSourceRef(scenario.id),
+      mimeType: 'video/mp4',
+    );
+    setState(() {
+      session = s;
+      _source = source;
+    });
+    await s.bind(source, hostActions: DemoHostActions.initial());
+  }
+
+  /// "重试" / "重新连接" (R1-09): re-binds the same session to the same
+  /// source from where it stopped; a session that cannot be re-bound (fatal,
+  /// released) is replaced by a new one.
+  Future<void> retry() async {
+    final s = session;
+    final source = _source;
+    if (s == null ||
+        source == null ||
+        s.state.value.phase != SessionPhase.errorRecoverable) {
+      return _open(_scenario);
+    }
+    VideoKitPlaybackState? resume;
+    try {
+      resume = await s.captureState();
+    } on Object {
+      resume = null;
+    }
+    if (!mounted || !identical(s, session)) return;
+    final r = await s.bind(
+      source,
+      initialState: resume,
       hostActions: DemoHostActions.initial(),
     );
+    if ((r is Rejected || r is SessionReleased) &&
+        mounted &&
+        identical(s, session)) {
+      await _open(_scenario);
+    }
   }
 
   void _onStateAction(StateAction action) {
     switch (action) {
       case StateAction.retry || StateAction.reconnectSource:
-        _open(_scenario);
+        unawaited(retry());
       default:
         break;
     }
@@ -233,35 +267,155 @@ class _ScenarioPicker extends StatelessWidget {
 }
 
 /// Host panel slot sample (03 §6): shown and hidden with the controls.
+/// Host panel slot example (design page 10, R1-05): "邻近媒体", other
+/// videos of the same folder as thumbnail cards in a column at the side
+/// (landscape; portrait leaves the space to the host actions). Shows and
+/// hides with the controls (the player passes [visible]).
 class _HostPanel extends StatelessWidget {
   const _HostPanel({required this.visible});
 
   final bool visible;
 
+  static const List<(int, int)> _items = [
+    (11, 186000000),
+    (23, 512000000),
+    (37, 95000000),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final t = VkTheme.of(context);
     final g = GalleryText.of(context);
+    final s = VkStrings.of(context);
     final d = t.dimensions;
     if (!visible) return const SizedBox.shrink();
-    return Align(
-      alignment: AlignmentDirectional.bottomStart,
-      child: Padding(
-        padding: EdgeInsetsDirectional.all(d.spacing8),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: t.colors.surface,
-            borderRadius: BorderRadius.circular(d.cornerSmall),
-          ),
-          child: Padding(
-            padding: EdgeInsetsDirectional.symmetric(
-              horizontal: d.spacing8,
-              vertical: d.spacing4,
+    final names = [
+      g(g.l.demoVideoSea),
+      g(g.l.demoVideoValley),
+      g(g.l.demoVideoCity),
+    ];
+    Widget card(int i) {
+      final (seed, duration) = _items[i];
+      final width = d.targetMin * 3;
+      return Semantics(
+        button: true,
+        label: g(
+          g.l.hostPanelItem(names[i], VkFormat.durationSpoken(s, duration)),
+        ),
+        child: GestureDetector(
+          excludeFromSemantics: true,
+          onTap: () => ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text(g(g.l.hostHandled(names[i])))),
             ),
-            child: Text(g(g.l.hostPanelHint), style: t.typography.label),
+          child: ExcludeSemantics(
+            child: SizedBox(
+              width: width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(d.cornerSmall),
+                    child: SizedBox(
+                      width: width,
+                      height: width * 9 / 16,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          DemoPicture(
+                            seed: seed,
+                            positionUs: duration ~/ 3,
+                            durationUs: duration,
+                          ),
+                          PositionedDirectional(
+                            end: d.spacing4,
+                            bottom: d.spacing4,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: t.colors.playerCanvas,
+                                borderRadius: BorderRadius.circular(
+                                  d.cornerSmall,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.symmetric(
+                                  horizontal: d.spacing4,
+                                ),
+                                child: Text(
+                                  VkFormat.timecode(duration),
+                                  style: t.typography.caption.copyWith(
+                                    color: t.colors.playerControlsContent,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: d.spacing4),
+                  Text(
+                    names[i],
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: t.typography.caption.copyWith(
+                      color: t.colors.playerControlsContent,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
+      );
+    }
+
+    final title = Semantics(
+      header: true,
+      child: Text(
+        g(g.l.hostPanelHint),
+        style: t.typography.label.copyWith(
+          color: t.colors.playerControlsContent,
+        ),
       ),
+    );
+    return LayoutBuilder(
+      builder: (context, c) {
+        // Portrait: no room beside the host action column; the design shows
+        // the panel in landscape only.
+        if (!c.maxHeight.isFinite) return const SizedBox.shrink();
+        final list = ListView.separated(
+          shrinkWrap: true,
+          itemCount: _items.length,
+          separatorBuilder: (_, _) => SizedBox(height: d.spacing8),
+          itemBuilder: (_, i) => card(i),
+        );
+        return Container(
+          width: d.targetMin * 3 + d.spacing8 * 2,
+          padding: EdgeInsetsDirectional.all(d.spacing8),
+          decoration: BoxDecoration(
+            color: t.colors.scrim,
+            borderRadius: BorderRadius.circular(d.cornerMedium),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.symmetric(
+                  horizontal: d.spacing8,
+                ),
+                child: title,
+              ),
+              SizedBox(height: d.spacing8),
+              Flexible(child: list),
+            ],
+          ),
+        );
+      },
     );
   }
 }

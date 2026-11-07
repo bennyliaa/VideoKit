@@ -31,6 +31,7 @@ final class AppRig {
   static AppRig create({
     List<HistoryEntry> entries = const [],
     Map<String, Object?>? settings,
+    DemoBackend? backend,
   }) {
     final storage = MemoryAppStorage();
     if (entries.isNotEmpty) {
@@ -43,7 +44,7 @@ final class AppRig {
     if (settings != null) {
       storage.documents['settings.json'] = jsonEncode(settings);
     }
-    return AppRig._(DemoBackend(), storage);
+    return AppRig._(backend ?? DemoBackend(), storage);
   }
 
   /// Pumps the app at [size].

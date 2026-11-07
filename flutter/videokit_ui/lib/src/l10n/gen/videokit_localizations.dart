@@ -883,6 +883,12 @@ abstract class VideoKitLocalizations {
   /// **'点按恢复（将暂停其他画面）'**
   String get slotPausedDetail;
 
+  /// 小格（如手机 3×3）中暂停格的短文案，完整原因见读屏描述（R1-12b）。
+  ///
+  /// In zh, this message translates to:
+  /// **'已暂停'**
+  String get slotPausedShort;
+
   /// 降级角标：这一格以低分辨率播放。
   ///
   /// In zh, this message translates to:
@@ -1968,6 +1974,78 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'遮罩 {index} · {type}'**
   String maskNameTyped(int index, String type);
+
+  /// 播放器“更多”中的参数信息面板（设计稿第 9 页）：菜单项与面板标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'参数'**
+  String get playerMediaInfo;
+
+  /// 参数面板：视频编码（如 H.264）。
+  ///
+  /// In zh, this message translates to:
+  /// **'视频编码'**
+  String get infoVideoCodec;
+
+  /// 参数面板：音频编码（如 AAC，有值才显示）。
+  ///
+  /// In zh, this message translates to:
+  /// **'音频编码'**
+  String get infoAudioCodec;
+
+  /// 参数面板：视频分辨率。
+  ///
+  /// In zh, this message translates to:
+  /// **'分辨率'**
+  String get infoResolution;
+
+  /// 参数面板：帧率（有值才显示）。
+  ///
+  /// In zh, this message translates to:
+  /// **'帧率'**
+  String get infoFrameRate;
+
+  /// 帧率的值；value 已按区域格式化。
+  ///
+  /// In zh, this message translates to:
+  /// **'{value} fps'**
+  String infoFrameRateValue(String value);
+
+  /// 参数面板：总码率（有值才显示）。
+  ///
+  /// In zh, this message translates to:
+  /// **'码率'**
+  String get infoBitrate;
+
+  /// 码率，千比特每秒；value 已按区域格式化。
+  ///
+  /// In zh, this message translates to:
+  /// **'{value} kbps'**
+  String infoBitrateKbps(String value);
+
+  /// 码率，兆比特每秒；value 已按区域格式化。
+  ///
+  /// In zh, this message translates to:
+  /// **'{value} Mbps'**
+  String infoBitrateMbps(String value);
+
+  /// 参数面板：视频的旋转元数据（有值才显示）。
+  ///
+  /// In zh, this message translates to:
+  /// **'旋转'**
+  String get infoRotation;
+
+  /// 旋转角度。
+  ///
+  /// In zh, this message translates to:
+  /// **'{degrees}°'**
+  String infoRotationValue(int degrees);
+
+  /// 参数面板：时长。
+  ///
+  /// In zh, this message translates to:
+  /// **'时长'**
+  String get infoDuration;
 }
 
 class _VideoKitLocalizationsDelegate

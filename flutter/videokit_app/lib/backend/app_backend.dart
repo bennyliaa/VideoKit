@@ -7,7 +7,8 @@ import '../picker/media_picker.dart';
 
 /// What the App needs from a VideoKit backend (REQ-APP-05: public API
 /// only). M0: `DemoBackend` (Dart Fake); M1: the `videokit_flutter`
-/// plugin with `ChannelMediaPicker`. Chosen in `backend_selector.dart`.
+/// plugin with `ChannelMediaPicker`. Chosen by the entry point
+/// (`main.dart` / `main_demo.dart`).
 abstract interface class AppBackend {
   /// Demo data (shows the demo badge, export creates no real file).
   bool get isDemo;
@@ -27,8 +28,15 @@ abstract interface class AppBackend {
   /// Thumbnail of a record (small file, or a demo picture).
   Widget thumbnail(BuildContext context, HistoryEntry entry);
 
-  /// Output sink for exports (M2: `ACTION_CREATE_DOCUMENT` "另存为").
+  /// Output sink for export prechecks (capabilities, free space).
   VideoKitOutputSink get exportSink;
+
+  /// Sink for one export, after the user chose where to save it
+  /// (`ACTION_CREATE_DOCUMENT` "另存为"); null when cancelled.
+  Future<VideoKitOutputSink?> prepareExport({
+    required String suggestedName,
+    required String mimeType,
+  });
 
   /// Export presets (`capabilities().outputFormats`).
   Future<List<OutputFormat>> presets();

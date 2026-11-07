@@ -173,7 +173,15 @@ class _VkSheetHostState extends State<VkSheetHost> {
             child: VkLayoutBuilder(
               builder: (context, layout, _) => Stack(
                 children: [
-                  Positioned.fill(child: widget.child),
+                  // A panel is modal (R1-14): the content behind it leaves the
+                  // semantics tree, so screen readers cannot reach controls
+                  // under the scrim. Always wrapped, so toggling keeps state.
+                  Positioned.fill(
+                    child: ExcludeSemantics(
+                      excluding: c.hasPanel,
+                      child: widget.child,
+                    ),
+                  ),
                   if (c.hasPanel) ..._panel(context, c, layout),
                   if (c.toast != null) _toast(context, c),
                 ],

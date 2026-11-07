@@ -6,25 +6,45 @@ import 'package:videokit_ui/videokit_ui.dart';
 import '../history/history_entry.dart';
 import '../picker/channel_media_picker.dart';
 import '../picker/media_picker.dart';
+import '../startup/app_bootstrap.dart';
 import 'app_backend.dart';
 
 /// Release backend (04A P3): the `videokit_flutter` plugin over the native
-/// Kit, with the system document picker (`ChannelMediaPicker`, native side
-/// M2). Never imports `videokit_fake`.
+/// Kit, with the system document picker (`ChannelMediaPicker`) and export
+/// "另存为" (`ChannelExportTarget`). Never imports `videokit_fake`.
 class PluginBackend implements AppBackend {
-  PluginBackend._(this._kit, this._picker);
+  PluginBackend._(this._kit, this._picker, this._exportTarget);
 
   final FlutterVideoKit _kit;
   final ChannelMediaPicker _picker;
+  final ChannelExportTarget _exportTarget;
+  int _exports = 0;
 
-  /// Connects to the native Kit; throws `VideoKitInitException` when the
-  /// channel or backend is unavailable.
+  /// Id of the precheck sink the native App registers at start-up.
+  static const String precheckSinkId = 'app-export';
+
+  /// Connects to the native Kit; throws [AppStartupException] when the
+  /// channel or backend is unavailable or the protocol does not match.
   static Future<PluginBackend> connect([
     VideoKitConfig config = const VideoKitConfig(),
-  ]) async => PluginBackend._(
-    await FlutterVideoKit.connect(config),
-    const ChannelMediaPicker(),
-  );
+  ]) async {
+    try {
+      return PluginBackend._(
+        await FlutterVideoKit.connect(config),
+        const ChannelMediaPicker(),
+        const ChannelExportTarget(),
+      );
+    } on VideoKitInitException catch (e) {
+      throw AppStartupException(startupFailureOf(e.failure), e.diagnostic);
+    }
+  }
+
+  /// Maps the plugin's init failure to the App's start-up failure.
+  static StartupFailure startupFailureOf(VideoKitInitFailure f) => switch (f) {
+    VideoKitInitFailure.protocolMismatch => StartupFailure.protocolMismatch,
+    VideoKitInitFailure.noBackend => StartupFailure.noBackend,
+    VideoKitInitFailure.channelUnavailable => StartupFailure.channelUnavailable,
+  };
 
   @override
   bool get isDemo => _kit.isDemo;
@@ -62,9 +82,22 @@ class PluginBackend implements AppBackend {
   }
 
   @override
-  VideoKitOutputSink get exportSink =>
-      // M2: ACTION_CREATE_DOCUMENT "另存为" registers the real sink.
-      const VideoKitOutputSink(sinkRef: 'registered:app-export');
+  VideoKitOutputSink get exportSink => const VideoKitOutputSink(
+    sinkRef: 'registered:$precheckSinkId',
+    capabilities: ChannelExportTarget.sinkCapabilities,
+  );
+
+  /// `ACTION_CREATE_DOCUMENT`, then a one-shot native sink for the chosen
+  /// document (it unregisters itself after `markReady` or `abort`).
+  @override
+  Future<VideoKitOutputSink?> prepareExport({
+    required String suggestedName,
+    required String mimeType,
+  }) => _exportTarget.prepare(
+    '$precheckSinkId-${++_exports}',
+    suggestedName: suggestedName,
+    mimeType: mimeType,
+  );
 
   @override
   Future<List<OutputFormat>> presets() async =>

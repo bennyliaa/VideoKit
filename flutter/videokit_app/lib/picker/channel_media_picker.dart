@@ -4,8 +4,9 @@ import 'package:videokit_api/videokit_api.dart';
 
 import 'media_picker.dart';
 
-/// Platform channel contract of the App's document access (M2 implements
-/// the Android side; M0 defines it only, REQ-APP-01/02/03).
+/// Platform channel contract of the App's document access (REQ-APP-01/02/03;
+/// Android side: `android/app/src/main/kotlin/com/videokit/videokit_app/`
+/// `DocumentsChannel.kt`, M1-A1).
 ///
 /// Method channel [documents] (standard codec):
 ///
@@ -16,12 +17,15 @@ import 'media_picker.dart';
 /// | `checkAccess` | `{uri: String}` | `"OK"` / `"MISSING"` / `"REVOKED"` |
 /// | `releaseAccess` | `{uri: String}` | null (`releasePersistableUriPermission`) |
 /// | `createDocument` | `{suggestedName: String, mimeType: String}` | target URI or null (`ACTION_CREATE_DOCUMENT`, export "另存为") |
+/// | `registerExportSink` | `{sinkId: String, uri: String}` | null; registers a Kit sink `registered:<sinkId>` that writes a private temporary file and copies it to `uri` on `markReady` |
+/// | `unregisterExportSink` | `{sinkId: String}` | null |
 ///
 /// Document map: `{uri, displayName, mimeType, sizeBytes?, persistable}`.
 ///
 /// Event channel [incoming]: one `List<Map>` per `ACTION_VIEW` /
 /// `ACTION_SEND` / `ACTION_SEND_MULTIPLE` intent (cold start included);
-/// `persistable` is false when only a temporary grant was given.
+/// `persistable` is false when only a temporary grant was given. The
+/// native side buffers intents until the stream is listened to.
 abstract final class AppDocumentChannels {
   /// Method channel name.
   static const String documents = 'com.videokit.app/documents';
@@ -36,7 +40,7 @@ abstract final class AppDocumentChannels {
   static const String imageMime = 'image/*';
 }
 
-/// [MediaPickerService] over [AppDocumentChannels] (native side: M2).
+/// [MediaPickerService] over [AppDocumentChannels], plus export "另存为".
 final class ChannelMediaPicker implements MediaPickerService {
   /// Creates the picker.
   const ChannelMediaPicker({
@@ -120,4 +124,56 @@ final class ChannelMediaPicker implements MediaPickerService {
         fromMap(m),
     ],
   );
+}
+
+/// Export "另存为" over [AppDocumentChannels.documents] (REQ-APP-03 export
+/// part): `ACTION_CREATE_DOCUMENT`, then a native sink registered for the
+/// chosen document.
+final class ChannelExportTarget {
+  /// Creates the target.
+  const ChannelExportTarget({
+    this.methods = const MethodChannel(AppDocumentChannels.documents),
+  });
+
+  /// Method channel.
+  final MethodChannel methods;
+
+  /// Lets the user choose where to save; null when cancelled.
+  Future<String?> createDocument(String suggestedName, String mimeType) =>
+      methods.invokeMethod<String>('createDocument', {
+        'suggestedName': suggestedName,
+        'mimeType': mimeType,
+      });
+
+  /// Registers the native sink `registered:<sinkId>` for [uri].
+  Future<void> registerSink(String sinkId, String uri) => methods
+      .invokeMethod<void>('registerExportSink', {'sinkId': sinkId, 'uri': uri});
+
+  /// Capabilities of the native save-as sinks (private temporary file with
+  /// a descriptor, copied to the chosen document on `markReady`).
+  static const SinkCapabilities sinkCapabilities = SinkCapabilities(
+    randomWrite: true,
+    fileDescriptor: true,
+  );
+
+  /// "另存为" then a one-shot native sink `registered:<sinkId>` for the
+  /// chosen document (it unregisters itself after `markReady` / `abort`);
+  /// null when the user cancelled.
+  Future<VideoKitOutputSink?> prepare(
+    String sinkId, {
+    required String suggestedName,
+    required String mimeType,
+  }) async {
+    final uri = await createDocument(suggestedName, mimeType);
+    if (uri == null) return null;
+    await registerSink(sinkId, uri);
+    return VideoKitOutputSink(
+      sinkRef: 'registered:$sinkId',
+      capabilities: sinkCapabilities,
+    );
+  }
+
+  /// Removes the native sink.
+  Future<void> unregisterSink(String sinkId) =>
+      methods.invokeMethod<void>('unregisterExportSink', {'sinkId': sinkId});
 }

@@ -319,6 +319,13 @@ class DemoBackend implements AppBackend {
     ),
   );
 
+  /// Demo: no system dialog; the Fake writes no file.
+  @override
+  Future<VideoKitOutputSink?> prepareExport({
+    required String suggestedName,
+    required String mimeType,
+  }) async => exportSink;
+
   @override
   Future<List<OutputFormat>> presets() async =>
       FakeVideoKit.demoCapabilities().outputFormats;

@@ -130,4 +130,38 @@ void main() {
     expect(c2.dy, a.dy, reason: '4 columns: slot 3 on the first row');
     await unmount(tester);
   });
+
+  testWidgets('R1-12b: phone 3×3 paused slots show icon + short text', (
+    tester,
+  ) async {
+    await pumpPage(tester, size: const Size(392, 780), count: 12);
+    await tester.tap(find.text('3×3'));
+    await settle(tester);
+    expect(key.currentState!.pausedCount, greaterThan(0));
+    expect(find.text('已暂停 · 资源不足'), findsNothing);
+    final short = find.text('已暂停');
+    expect(short, findsWidgets);
+    for (final e in short.evaluate()) {
+      final text = e.renderObject! as RenderBox;
+      final textRect = text.localToGlobal(Offset.zero) & text.size;
+      final slot = find.ancestor(
+        of: find.byWidget(e.widget),
+        matching: find.byType(VideoKitSlot),
+      );
+      final icon = find.descendant(
+        of: slot,
+        matching: find.byIcon(Icons.pause_rounded),
+      );
+      final iconRect = tester.getRect(icon.first);
+      expect(textRect.overlaps(iconRect), isFalse);
+      expect((e.widget as Text).maxLines, 1);
+      expect(
+        tester
+            .getRect(slot)
+            .contains(textRect.bottomRight - const Offset(1, 1)),
+        isTrue,
+      );
+    }
+    await unmount(tester);
+  });
 }

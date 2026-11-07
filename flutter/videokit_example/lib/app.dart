@@ -50,7 +50,11 @@ class _VideoKitExampleAppState extends State<VideoKitExampleApp> {
       builder: (context, child) {
         final mq = MediaQuery.of(context);
         return MediaQuery(
-          data: mq.copyWith(textScaler: TextScaler.linear(_settings.textScale)),
+          // R1-11: the gallery factor is a debug multiplier on top of the
+          // system font scale, never a replacement for it.
+          data: mq.copyWith(
+            textScaler: DebugTextScaler.on(mq.textScaler, _settings.textScale),
+          ),
           child: VideoKitThemeScope(
             mode: _settings.mode,
             overrides: _settings.overrides,
@@ -65,4 +69,33 @@ class _VideoKitExampleAppState extends State<VideoKitExampleApp> {
       ),
     );
   }
+}
+
+/// System text scaling times a debug factor (gallery "额外字体倍数").
+final class DebugTextScaler extends TextScaler {
+  const DebugTextScaler._(this.base, this.factor);
+
+  /// [base] unchanged when [factor] is 1.
+  static TextScaler on(TextScaler base, double factor) =>
+      factor == 1 ? base : DebugTextScaler._(base, factor);
+
+  /// System (or host) scaler.
+  final TextScaler base;
+
+  /// Debug factor.
+  final double factor;
+
+  @override
+  double scale(double fontSize) => base.scale(fontSize) * factor;
+
+  @override
+  // ignore: deprecated_member_use
+  double get textScaleFactor => base.textScaleFactor * factor;
+
+  @override
+  bool operator ==(Object other) =>
+      other is DebugTextScaler && other.base == base && other.factor == factor;
+
+  @override
+  int get hashCode => Object.hash(base, factor);
 }

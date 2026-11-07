@@ -7,6 +7,7 @@ import '../common/vk_sheet_host.dart';
 import '../foundation/auto_hide.dart';
 import '../foundation/command_dispatcher.dart';
 import '../l10n/vk_strings.dart';
+import 'seek_preview.dart';
 
 /// Internal controller of `VideoKitPlayer` (14 §4.1): combines the session
 /// state (single source of truth) with UI-local visual state (drag preview,
@@ -59,6 +60,18 @@ class PlayerController extends ChangeNotifier {
 
   /// Local seek-bar drag position, while dragging.
   int? dragUs;
+
+  /// Largest preview frame requested while dragging (px).
+  static const int previewMaxWidth = 320;
+
+  /// See [previewMaxWidth].
+  static const int previewMaxHeight = 180;
+
+  /// Preview frames while dragging (throttled `captureThumbnail`).
+  late final SeekPreviewFrames seekPreview = SeekPreviewFrames(
+    capture: (us) =>
+        session.captureThumbnail(us, previewMaxWidth, previewMaxHeight),
+  );
 
   /// Gesture zoom in progress (applied before `SetTransform` commits).
   MediaTransform? gestureTransform;
@@ -159,12 +172,14 @@ class PlayerController extends ChangeNotifier {
   void dragUpdate(int us) {
     dragUs = us;
     dispatcher.seekDrag(us);
+    seekPreview.request(us);
     notifyListeners();
   }
 
   /// Seek bar released: one final seek.
   void dragEnd(int us) {
     dragUs = null;
+    seekPreview.cancel();
     autoHide.setBlocker(AutoHideBlocker.dragging, false);
     unawaited(dispatcher.seekEnd(us));
     notifyListeners();
@@ -198,6 +213,7 @@ class PlayerController extends ChangeNotifier {
     _disposed = true;
     session.state.removeListener(_onState);
     unawaited(_events?.cancel());
+    seekPreview.dispose();
     autoHide.dispose();
     sheets.dispose();
     dispatcher.dispose();

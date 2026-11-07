@@ -197,12 +197,16 @@ class _ComponentsPageState extends State<ComponentsPage> {
                     positionUs: _positionUs,
                     durationUs: 300000000,
                     bufferedUs: 120000000,
+                    // An ordinary page surface, not the picture (R1-04).
+                    onPicture: false,
                     onDragEnd: (us) => setState(() => _positionUs = us),
                   ),
                 ),
                 GallerySection(
                   title: g(g.l.sectionHostActions),
                   child: HostActionBar(
+                    // On the page surface (R1-13): surface variant.
+                    onPicture: false,
                     actions: [
                       for (final a in DemoHostActions.initial(
                         favorited: _favorited,

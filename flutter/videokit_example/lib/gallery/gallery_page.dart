@@ -207,10 +207,10 @@ class _SettingsSection extends StatelessWidget {
       runSpacing: d.spacing8,
       children: [
         for (final v in values)
-          ChoiceChip(
-            label: Text(label(v)),
+          GalleryChoice(
+            label: label(v),
             selected: v == selected,
-            onSelected: (_) => pick(v),
+            onPressed: () => pick(v),
           ),
       ],
     );
@@ -245,13 +245,11 @@ class _SettingsSection extends StatelessWidget {
               runSpacing: d.spacing8,
               children: [
                 for (final p in galleryPrimaryPresets)
-                  ChoiceChip(
-                    avatar: p == null ? null : CircleAvatar(backgroundColor: p),
-                    label: Text(
-                      p == null ? g(g.l.hostPrimaryDefault) : _hex(p),
-                    ),
+                  GalleryChoice(
+                    swatch: p,
+                    label: p == null ? g(g.l.hostPrimaryDefault) : _hex(p),
                     selected: settings.primary == p,
-                    onSelected: (_) =>
+                    onPressed: () =>
                         onChanged(settings.copyWith(primary: () => p)),
                   ),
               ],
@@ -830,6 +828,60 @@ class _DemoLinks extends StatelessWidget {
         link(g(g.l.navMultiView), () => const MultiViewDemoPage()),
         link(g(g.l.navEditor), () => const EditDemoPage()),
       ],
+    );
+  }
+}
+
+/// Settings choice of the gallery, drawn from `component.chip.default`
+/// (R1-13: the Material chip's selected colours did not reach 4.5:1).
+class GalleryChoice extends StatelessWidget {
+  /// Creates a choice.
+  const GalleryChoice({
+    super.key,
+    required this.label,
+    required this.selected,
+    required this.onPressed,
+    this.swatch,
+  });
+
+  /// Text.
+  final String label;
+
+  /// Selected.
+  final bool selected;
+
+  /// Picks it.
+  final VoidCallback onPressed;
+
+  /// Colour sample (host primary presets).
+  final Color? swatch;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = VkTheme.of(context);
+    final d = t.dimensions;
+    return VkPressable(
+      style: t.components.chip,
+      semanticLabel: label,
+      selected: selected,
+      onPressed: onPressed,
+      builder: (context, box) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (swatch case final c?) ...[
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: c,
+                shape: BoxShape.circle,
+                border: Border.all(color: box.content, width: d.borderWidth),
+              ),
+              child: SizedBox.square(dimension: d.icon16),
+            ),
+            SizedBox(width: d.spacing8),
+          ],
+          Text(label, style: box.textStyle),
+        ],
+      ),
     );
   }
 }

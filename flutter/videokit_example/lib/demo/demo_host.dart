@@ -25,13 +25,25 @@ abstract final class DemoHostActions {
   /// Message key shown after a completed action.
   static const String doneMessage = 'demo.done';
 
+  /// Screen reader description key: `demo.<id>.cd`, or `demo.<id>.image.cd`
+  /// on image pages (R1-15: "这张图片", not "这个视频").
+  static String _cd(String id, bool image) =>
+      image ? 'demo.$id.image.cd' : 'demo.$id.cd';
+
+  /// The action list of an image page.
+  static List<VideoKitHostAction> image({bool favorited = false}) =>
+      initial(favorited: favorited, image: true);
+
   /// The initial action list.
-  static List<VideoKitHostAction> initial({bool favorited = false}) => [
-    favoriteAction(favorited),
+  static List<VideoKitHostAction> initial({
+    bool favorited = false,
+    bool image = false,
+  }) => [
+    favoriteAction(favorited, image: image),
     VideoKitHostAction(
       actionId: tag,
       labelKey: 'demo.tag',
-      contentDescriptionKey: 'demo.tag.cd',
+      contentDescriptionKey: _cd(tag, image),
       icon: HostIcon.builtIn('tag'),
       placement: ActionPlacement.primaryBar,
       displayPriority: 2,
@@ -40,7 +52,7 @@ abstract final class DemoHostActions {
     VideoKitHostAction(
       actionId: delete,
       labelKey: 'demo.delete',
-      contentDescriptionKey: 'demo.delete.cd',
+      contentDescriptionKey: _cd(delete, image),
       icon: HostIcon.builtIn('delete'),
       placement: ActionPlacement.secondaryBar,
       displayPriority: 1,
@@ -48,25 +60,25 @@ abstract final class DemoHostActions {
     VideoKitHostAction(
       actionId: share,
       labelKey: 'demo.share',
-      contentDescriptionKey: 'demo.share.cd',
+      contentDescriptionKey: _cd(share, image),
       icon: HostIcon.builtIn('share'),
       placement: ActionPlacement.overflow,
     ),
   ];
 
   /// The favourite action in the given state.
-  static VideoKitHostAction favoriteAction(bool favorited) =>
-      VideoKitHostAction(
-        actionId: favorite,
-        labelKey: favorited ? 'demo.favorited' : 'demo.favorite',
-        contentDescriptionKey: favorited
-            ? 'demo.unfavorite.cd'
-            : 'demo.favorite.cd',
-        icon: HostIcon.builtIn(favorited ? 'favorite' : 'favoriteborder'),
-        placement: ActionPlacement.primaryBar,
-        selected: favorited,
-        displayPriority: 3,
-      );
+  static VideoKitHostAction favoriteAction(
+    bool favorited, {
+    bool image = false,
+  }) => VideoKitHostAction(
+    actionId: favorite,
+    labelKey: favorited ? 'demo.favorited' : 'demo.favorite',
+    contentDescriptionKey: _cd(favorited ? 'unfavorite' : favorite, image),
+    icon: HostIcon.builtIn(favorited ? 'favorite' : 'favoriteborder'),
+    placement: ActionPlacement.primaryBar,
+    selected: favorited,
+    displayPriority: 3,
+  );
 
   /// Resolves the host string keys above from the example ARB.
   static String resolve(BuildContext context, String key) {
@@ -83,6 +95,11 @@ abstract final class DemoHostActions {
       'demo.delete.cd' => l.hostDeleteCd,
       'demo.share' => l.hostShare,
       'demo.share.cd' => l.hostShareCd,
+      'demo.favorite.image.cd' => l.hostFavoriteImageCd,
+      'demo.unfavorite.image.cd' => l.hostUnfavoriteImageCd,
+      'demo.tag.image.cd' => l.hostTagImageCd,
+      'demo.delete.image.cd' => l.hostDeleteImageCd,
+      'demo.share.image.cd' => l.hostShareImageCd,
       doneMessage => l.hostDone,
       _ => key,
     });
@@ -100,6 +117,9 @@ class DemoHostCallbacks extends NoopHostCallbacks {
 
   bool _favorited = false;
 
+  /// The host shows images (descriptions say "这张图片").
+  bool image = false;
+
   /// Answer delay for the slow actions.
   static const Duration answerDelay = Duration(milliseconds: 800);
 
@@ -111,7 +131,7 @@ class DemoHostCallbacks extends NoopHostCallbacks {
       case DemoHostActions.favorite:
         _favorited = !_favorited;
         return HostActionResult.completed(
-          DemoHostActions.favoriteAction(_favorited),
+          DemoHostActions.favoriteAction(_favorited, image: image),
         );
       case DemoHostActions.tag ||
           DemoHostActions.delete ||

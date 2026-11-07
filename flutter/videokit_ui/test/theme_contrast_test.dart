@@ -68,4 +68,47 @@ void main() {
       }
     }
   });
+
+  // R1-13 / R1-06: component colours used on ordinary surfaces (light and
+  // dark), resolved from the default theme and checked as pairs.
+  for (final b in Brightness.values) {
+    test('surface component pairs reach their minimum (${b.name})', () {
+      final theme = const DefaultThemeSource().resolve(b, null);
+      final c = theme.colors;
+      final k = theme.components;
+      final host = k.hostActionBarSurface;
+      final pairs = <(String, Color, Color, double)>[
+        (
+          'host item',
+          host.item.normal.content,
+          host.item.normal.background,
+          4.5,
+        ),
+        (
+          'host selected',
+          host.item.selected.content,
+          host.item.selected.background,
+          4.5,
+        ),
+        ('host label on surface', host.label.color!, c.surface, 4.5),
+        ('host label on background', host.label.color!, c.background, 4.5),
+        ('host item edge on surface', host.item.normal.border, c.surface, 3),
+        ('host badge', host.badge.content, host.badge.background, 4.5),
+        ('chip', k.chip.normal.content, k.chip.normal.background, 4.5),
+        (
+          'chip selected',
+          k.chip.selected.content,
+          k.chip.selected.background,
+          4.5,
+        ),
+        ('slider track on surface', k.sliderSurface.track, c.surface, 3),
+      ];
+      final failures = [
+        for (final (name, fg, bg, min) in pairs)
+          if (VkContrast.ratio(fg, bg) < min)
+            '$name: ${VkContrast.ratio(fg, bg).toStringAsFixed(2)} < $min',
+      ];
+      expect(failures, isEmpty);
+    });
+  }
 }

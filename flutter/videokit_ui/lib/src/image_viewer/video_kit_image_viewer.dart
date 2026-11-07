@@ -172,6 +172,11 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
       _c
         ..hostLabel = _host
         ..onControlsVisibilityChanged = widget.onControlsVisibilityChanged;
+      if (oldWidget.source?.mediaToken != widget.source?.mediaToken) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) _showNewImageFitted();
+        });
+      }
     }
     final actions = widget.hostActions;
     if (actions != null && actions != oldWidget.hostActions) {
@@ -236,6 +241,16 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
     final t = widget.session.state.value.transform;
     final scale = (t.scale * factor).clamp(1.0, widget.options.maxZoom);
     _commit(_clampPan(t.copyWith(scale: scale)));
+  }
+
+  /// A new image on the same session (the host re-bound it after a page
+  /// change) starts at "适应": no zoom, pan or local gesture (R1-10b).
+  void _showNewImageFitted() {
+    _c.setGestureTransform(null);
+    _swipeDx = 0;
+    _swiping = false;
+    final t = widget.session.state.value.transform;
+    if (t != const MediaTransform()) _commit(const MediaTransform());
   }
 
   void _resetZoom() {

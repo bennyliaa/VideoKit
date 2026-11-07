@@ -1,5 +1,6 @@
 // PNG screenshots for comparison with design pages 7, 8 (and the editor
 // top-bar fix). Runs only when VK_SCREENS_DIR is set.
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -8,6 +9,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:videokit_app/history/app_storage.dart';
+import 'package:videokit_app/startup/app_bootstrap.dart';
+
+import 'startup_test.dart' show ScriptedConnector;
 import 'support.dart';
 
 final String? _dir = Platform.environment['VK_SCREENS_DIR'];
@@ -129,5 +134,40 @@ void main() {
     await tester.pump();
     await _shot(tester, 'app_home_captured_thumbnail');
     await unmount(tester);
+  }, skip: _dir == null);
+
+  testWidgets('M1-A1 start-up screens', (tester) async {
+    tester.view.physicalSize = compactSize;
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    Future<void> boot(ScriptedConnector c) async {
+      await tester.pumpWidget(
+        _wrap(
+          AppBootstrap(
+            connect: c.call,
+            storage: MemoryAppStorage(),
+            now: () => testNow,
+            fontFamily: _family,
+          ),
+        ),
+      );
+      await settle(tester);
+    }
+
+    final loading = ScriptedConnector([])..gate = Completer<void>();
+    await boot(loading);
+    await _shot(tester, 'app_startup_loading');
+    loading.gate!.complete();
+    await settle(tester);
+    await unmount(tester);
+    for (final (failure, name) in [
+      (StartupFailure.channelUnavailable, 'app_startup_channel_unavailable'),
+      (StartupFailure.protocolMismatch, 'app_startup_protocol_mismatch'),
+      (StartupFailure.noBackend, 'app_startup_no_backend'),
+    ]) {
+      await boot(ScriptedConnector([AppStartupException(failure)]));
+      await _shot(tester, name);
+      await unmount(tester);
+    }
   }, skip: _dir == null);
 }

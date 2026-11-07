@@ -16,6 +16,7 @@ import 'package:videokit_example/editor/edit_demo_page.dart';
 import 'package:videokit_example/gallery/components_page.dart';
 import 'package:videokit_example/image/image_demo_page.dart';
 import 'package:videokit_example/multiview/multi_view_demo_page.dart';
+import 'package:videokit_example/player/player_demo_page.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import 'support.dart';
@@ -413,5 +414,155 @@ void main() {
     await frames(tester, 3);
     await _shot(tester, 'fix_ui03_zoom_capsule');
     await unmount(tester);
+  }, skip: _dir == null);
+
+  testWidgets('M1-A1 seek preview frame and 参数 panel', (tester) async {
+    final key = GlobalKey<VideoKitPlayerState>();
+    final rig = await player(tester, 'normal', compactSize, key: key);
+    await rig.advance(tester, const Duration(seconds: 20));
+    final bar = find.byType(VkSeekBar);
+    final start = tester.getTopLeft(bar) + const Offset(40, 0);
+    final g = await tester.startGesture(
+      start + Offset(0, tester.getSize(bar).height / 2),
+    );
+    for (var i = 0; i < 12; i++) {
+      await g.moveBy(const Offset(12, 0));
+      await tester.pump(const Duration(milliseconds: 40));
+    }
+    // Let the demo PNG decode (real async).
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 300)),
+    );
+    await tester.pump();
+    await _shot(tester, 'm1_seek_preview_frame');
+    await g.up();
+    await tester.pump(const Duration(milliseconds: 400));
+    key.currentState!.openPanel(PlayerPanel.more);
+    await _shot(tester, 'm1_more_panel_media_info_entry');
+    await tester.binding.handlePopRoute();
+    await tester.pump(const Duration(milliseconds: 400));
+    key.currentState!.openPanel(PlayerPanel.mediaInfo);
+    await _shot(tester, 'm1_media_info_sheet');
+    await unmount(tester);
+    await player(tester, 'normal', expandedSize, key: key);
+    key.currentState!.openPanel(PlayerPanel.mediaInfo);
+    await _shot(tester, 'm1_media_info_sheet_landscape');
+    await unmount(tester);
+  }, skip: _dir == null);
+
+  testWidgets('TEST-R1 fix screens', (tester) async {
+    setViewSize(tester, const Size(392, 520));
+    final rig = await PlayerRig.create('normal');
+    addTearDown(rig.dispose);
+    await tester.pumpWidget(
+      _wrap(
+        testApp(
+          demoPlayer(rig.session),
+          fontFamily: _family,
+          locale: VkPseudo.locale,
+          textScale: 2,
+        ),
+      ),
+    );
+    await rig.advance(tester, const Duration(seconds: 1));
+    await _shot(tester, 'r1_12_player_pseudo_200');
+    await unmount(tester);
+
+    // R1-02 / R1-09: error state, controls disabled, 重试 reachable.
+    setViewSize(tester, compactSize);
+    final dis = await PlayerRig.create('disconnect');
+    addTearDown(dis.dispose);
+    await tester.pumpWidget(
+      _wrap(testApp(demoPlayer(dis.session), fontFamily: _family)),
+    );
+    await dis.advance(tester, const Duration(seconds: 1));
+    await tester.tap(find.bySemanticsLabel('播放'));
+    for (var i = 0; i < 35; i++) {
+      await dis.advance(tester, const Duration(seconds: 1));
+    }
+    await _shot(tester, 'r1_02_disconnect_disabled_controls');
+    await unmount(tester);
+
+    // R1-03 / R1-06: audio names, filled speed chips at 360 dp.
+    final key = GlobalKey<VideoKitPlayerState>();
+    setViewSize(tester, const Size(360, 780));
+    final tr = await PlayerRig.create('normal');
+    addTearDown(tr.dispose);
+    await tester.pumpWidget(
+      _wrap(testApp(demoPlayer(tr.session, key: key), fontFamily: _family)),
+    );
+    await tr.advance(tester, const Duration(seconds: 1));
+    key.currentState!.openPanel(PlayerPanel.audio);
+    await _shot(tester, 'r1_03_audio_tracks');
+    await tester.binding.handlePopRoute();
+    await tester.pump(const Duration(milliseconds: 400));
+    key.currentState!.openPanel(PlayerPanel.speed);
+    await _shot(tester, 'r1_06_speed_chips_360');
+    await unmount(tester);
+
+    // R1-05: nearby media in the landscape host panel slot.
+    setViewSize(tester, expandedSize);
+    await tester.pumpWidget(
+      _wrap(testApp(const PlayerDemoPage(), fontFamily: _family)),
+    );
+    await frames(tester, 10);
+    await _shot(tester, 'r1_05_host_panel_nearby_media');
+    await tester.pumpWidget(const SizedBox());
+    await frames(tester, 5);
+
+    // R1-12b: phone 3×3 with paused slots.
+    setViewSize(tester, const Size(392, 780));
+    final mv = GlobalKey<MultiViewDemoPageState>();
+    await tester.pumpWidget(
+      _wrap(
+        testApp(
+          MultiViewDemoPage(key: mv, initialCount: 12),
+          fontFamily: _family,
+        ),
+      ),
+    );
+    await frames(tester, 10);
+    await tester.tap(find.text('3×3'));
+    await frames(tester, 4);
+    await _shot(tester, 'r1_12b_multiview_3x3_phone');
+    await tester.pumpWidget(const SizedBox());
+    await frames(tester, 5);
+
+    // R1-01 / R1-04 / R1-13: light component page.
+    setViewSize(tester, const Size(392, 1600));
+    await tester.pumpWidget(
+      _wrap(
+        testApp(
+          const ComponentsPage(),
+          fontFamily: _family,
+          mode: VideoKitThemeMode.light,
+        ),
+      ),
+    );
+    await frames(tester, 4);
+    await _shot(tester, 'r1_13_components_light');
+    await tester.pumpWidget(const SizedBox());
+    await frames(tester, 5);
+
+    // R1-10 / R1-10b: back from the unsupported page, fitted.
+    setViewSize(tester, compactSize);
+    final img = GlobalKey<ImageDemoPageState>();
+    await tester.pumpWidget(
+      _wrap(
+        testApp(ImageDemoPage(key: img, initialIndex: 3), fontFamily: _family),
+      ),
+    );
+    await frames(tester, 6);
+    await _shot(tester, 'r1_10_unsupported_page');
+    img.currentState!.session!.setControlsVisible(true);
+    await tester.pump();
+    await tester.tap(find.bySemanticsLabel('上一张'));
+    await frames(tester, 6);
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 200)),
+    );
+    await _shot(tester, 'r1_10_previous_page_after_unsupported');
+    await tester.pumpWidget(const SizedBox());
+    await frames(tester, 5);
   }, skip: _dir == null);
 }

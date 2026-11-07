@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 
+import '../common/vk_info_rows.dart';
 import '../foundation/format.dart';
 import '../l10n/vk_strings.dart';
-import '../theme/theme_scope.dart';
 
 /// Image info panel (design page 13): format, pixel size, file size and
 /// orientation, plus frame count, decoded memory and decode sampling when
@@ -91,63 +91,14 @@ class ImageInfoSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = VkTheme.of(context);
     final s = VkStrings.of(context);
-    final d = t.dimensions;
     return ValueListenableBuilder<VideoSize?>(
       valueListenable: session.videoSize,
       builder: (context, size, _) =>
           ValueListenableBuilder<VideoKitSessionState>(
             valueListenable: session.state,
-            builder: (context, st, _) {
-              final all = rows(s, st, size, source);
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  for (final (i, (label, value)) in all.indexed)
-                    Container(
-                      padding: EdgeInsetsDirectional.symmetric(
-                        vertical: d.spacing12,
-                      ),
-                      decoration: BoxDecoration(
-                        border: i == all.length - 1
-                            ? null
-                            : Border(
-                                bottom: BorderSide(
-                                  color: t.colors.divider,
-                                  width: d.borderWidth,
-                                ),
-                              ),
-                      ),
-                      child: MergeSemantics(
-                        child: Wrap(
-                          spacing: d.spacing16,
-                          runSpacing: d.spacing4,
-                          children: [
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                minWidth: d.targetMin * 2,
-                              ),
-                              child: Text(
-                                label,
-                                style: t.typography.body.copyWith(
-                                  color: t.colors.textSecondary,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              value,
-                              style: t.typography.body.copyWith(
-                                color: t.colors.textPrimary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              );
-            },
+            builder: (context, st, _) =>
+                VkInfoRows(rows: rows(s, st, size, source)),
           ),
     );
   }

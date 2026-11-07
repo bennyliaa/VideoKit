@@ -39,6 +39,7 @@ class VideoKitEditor extends StatefulWidget {
     required this.project,
     required this.sink,
     this.title,
+    this.sinkProvider,
     this.onBack,
     this.onPickSourcesRequested,
     this.pictureBuilder,
@@ -52,6 +53,9 @@ class VideoKitEditor extends StatefulWidget {
 
   /// Output sink for export (host provided).
   final VideoKitOutputSink sink;
+
+  /// Sink for the export, resolved when it starts ("另存为").
+  final VideoKitSinkProvider? sinkProvider;
 
   /// Project title.
   final String? title;
@@ -461,6 +465,7 @@ class VideoKitEditorState extends State<VideoKitEditor> {
     key: _exportKey,
     project: widget.project,
     sink: widget.sink,
+    sinkProvider: widget.sinkProvider,
     presets: widget.presets,
     onBackToEdit: () => _c.mode = EditorMode.clips,
     onReviewCoverage: _reviewCoverage,

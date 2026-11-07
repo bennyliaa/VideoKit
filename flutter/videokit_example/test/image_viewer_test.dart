@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_example/image/image_demo_page.dart';
+import 'package:videokit_fake/videokit_fake.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import 'support.dart';
@@ -47,7 +50,7 @@ void main() {
     }
     expect(find.bySemanticsLabel('原尺寸'), findsOneWidget);
     expect(find.bySemanticsLabel('旋转画面'), findsOneWidget);
-    expect(find.bySemanticsLabel('收藏这个视频'), findsOneWidget);
+    expect(find.bySemanticsLabel('收藏这张图片'), findsOneWidget);
     expect(find.bySemanticsLabel('图片信息'), findsOneWidget);
     await unmount(tester);
   });
@@ -164,5 +167,121 @@ void main() {
     }
     expect(find.byType(VideoKitStateView), findsOneWidget);
     await unmount(tester);
+  });
+
+  testWidgets('R1-10: pages after the unsupported one show their own image', (
+    tester,
+  ) async {
+    await pumpPage(tester, index: 2);
+    final first = key.currentState!.session;
+    key.currentState!.session!.setControlsVisible(true);
+    await tester.tap(find.bySemanticsLabel('下一张'));
+    await settle(tester);
+    expect(key.currentState!.index, 3);
+    expect(state().phase, SessionPhase.errorFatal);
+    expect(find.byType(VideoKitStateView), findsOneWidget);
+    expect(identical(key.currentState!.session, first), isFalse);
+    key.currentState!.session!.setControlsVisible(true);
+    await tester.pump();
+    await tester.tap(find.bySemanticsLabel('上一张'));
+    await settle(tester);
+    expect(key.currentState!.index, 2);
+    expect(state().phase, SessionPhase.ready);
+    expect(state().error, isNull);
+    expect(find.byType(VideoKitStateView), findsNothing);
+    await tester.tap(find.bySemanticsLabel('上一张'));
+    await settle(tester);
+    expect(state().mediaKind, MediaKind.imageAnimated);
+    expect(state().error, isNull);
+    await unmount(tester);
+  });
+
+  testWidgets('R1-10b: the next page starts at 适应', (tester) async {
+    await pumpPage(tester);
+    final viewer = find.byType(VideoKitImageViewer);
+    final center = tester.getCenter(viewer);
+    await tester.tapAt(center);
+    await tester.pump(const Duration(milliseconds: 50));
+    await tester.tapAt(center);
+    await settle(tester);
+    expect(state().transform.scale, 2);
+    key.currentState!.session!.setControlsVisible(true);
+    await tester.pump();
+    await tester.tap(find.bySemanticsLabel('下一张'));
+    await settle(tester);
+    expect(key.currentState!.index, 1);
+    expect(state().transform, const MediaTransform());
+    expect(find.bySemanticsLabel('可见区域'), findsNothing);
+    await unmount(tester);
+  });
+
+  testWidgets('R1-15: image page host actions describe the image', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    await pumpPage(tester);
+    key.currentState!.session!.setControlsVisible(true);
+    await tester.pump();
+    expect(find.bySemanticsLabel(RegExp('收藏这张图片')), findsOneWidget);
+    expect(find.bySemanticsLabel(RegExp('这个视频')), findsNothing);
+    await unmount(tester);
+    handle.dispose();
+  });
+
+  testWidgets('R1-10b: same session re-bound to a new image resets to 适应', (
+    tester,
+  ) async {
+    setViewSize(tester, compactSize);
+    final kit = FakeVideoKit();
+    final s = await kit.createSession(const VideoKitSessionConfig());
+    Future<void> advance([int ms = 500]) async {
+      var done = false;
+      unawaited(
+        kit.clock
+            .advance(Duration(milliseconds: ms))
+            .whenComplete(() => done = true),
+      );
+      while (!done) {
+        await tester.pump(Duration.zero);
+      }
+      await tester.pump();
+    }
+
+    Future<void> run(Future<Object?> f) async {
+      unawaited(f);
+      await advance();
+    }
+
+    VideoKitMediaSource src(String id) => VideoKitMediaSource(
+      mediaToken: id,
+      mediaKind: MediaKind.imageStatic,
+      sourceRef: const DemoSourceRef('normal'),
+    );
+    Widget viewer(VideoKitMediaSource source) => testApp(
+      VideoKitImageViewer(
+        session: s,
+        source: source,
+        pictureBuilder: (context, session) =>
+            DemoSessionPicture(session: session),
+      ),
+    );
+    await run(s.bind(src('a')));
+    await tester.pumpWidget(viewer(src('a')));
+    await run(
+      s.execute(const SetTransform(MediaTransform(scale: 2, panX: 0.4))),
+    );
+    await tester.pump();
+    expect(s.state.value.transform.scale, 2);
+    await run(s.bind(src('b')));
+    await tester.pumpWidget(viewer(src('b')));
+    await tester.pump();
+    await advance();
+    expect(s.state.value.transform, const MediaTransform());
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(Duration.zero);
+    unawaited(s.close());
+    await advance();
+    unawaited(kit.close());
+    await advance();
   });
 }

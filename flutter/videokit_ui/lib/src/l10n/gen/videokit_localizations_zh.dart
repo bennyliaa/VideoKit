@@ -447,6 +447,9 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get slotPausedDetail => '点按恢复（将暂停其他画面）';
 
   @override
+  String get slotPausedShort => '已暂停';
+
+  @override
   String get slotLowResolution => '已降为低分辨率';
 
   @override
@@ -1100,4 +1103,48 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String maskNameTyped(int index, String type) {
     return '遮罩 $index · $type';
   }
+
+  @override
+  String get playerMediaInfo => '参数';
+
+  @override
+  String get infoVideoCodec => '视频编码';
+
+  @override
+  String get infoAudioCodec => '音频编码';
+
+  @override
+  String get infoResolution => '分辨率';
+
+  @override
+  String get infoFrameRate => '帧率';
+
+  @override
+  String infoFrameRateValue(String value) {
+    return '$value fps';
+  }
+
+  @override
+  String get infoBitrate => '码率';
+
+  @override
+  String infoBitrateKbps(String value) {
+    return '$value kbps';
+  }
+
+  @override
+  String infoBitrateMbps(String value) {
+    return '$value Mbps';
+  }
+
+  @override
+  String get infoRotation => '旋转';
+
+  @override
+  String infoRotationValue(int degrees) {
+    return '$degrees°';
+  }
+
+  @override
+  String get infoDuration => '时长';
 }

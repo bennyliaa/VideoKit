@@ -24,3 +24,7 @@ plugins {
 }
 
 include(":app")
+
+// VideoKit native Kit from this repository (04A S8): substitutes the com.videokit:* dependencies of the
+// videokit_flutter_android plugin and of the App's native part with the Kit projects of the root build.
+includeBuild("../../..")

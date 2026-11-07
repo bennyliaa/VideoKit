@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_api/videokit_api.dart';
+import 'package:videokit_app/backend/demo_backend.dart';
 import 'package:videokit_app/home/home_page.dart';
 import 'package:videokit_app/pages/concat_page.dart';
 import 'package:videokit_app/pages/image_page.dart';
@@ -132,6 +133,37 @@ void main() {
     await tester.binding.handlePopRoute();
     await settle(tester, 4);
     expect(rig.savedEntries(), hasLength(3));
+    await unmount(tester);
+  });
+
+  testWidgets('export 另存为: cancelled dialog starts nothing, then exports', (
+    tester,
+  ) async {
+    final backend = _SaveAsBackend();
+    final rig = AppRig.create(backend: backend);
+    await rig.pump(tester, size: expandedSize);
+    await tapText(tester, '打开文件');
+    await settle(tester, 2);
+    await pickDemo(tester, ['山谷黄昏.mkv', '家庭录像.avi']);
+    await tapText(tester, '拼接为一个视频');
+    await settle(tester, 8);
+    final editor = tester.state<VideoKitEditorState>(
+      find.byType(VideoKitEditor),
+    );
+    editor.openExport();
+    await settle(tester);
+    await tapText(tester, '开始导出');
+    await settle(tester);
+    expect(backend.requests.single, (
+      'VideoKit_20261107_200000.mp4',
+      'video/mp4',
+    ));
+    expect(editor.controller.state.phase, isNot(EditPhase.exporting));
+    expect(find.text('开始导出'), findsOneWidget);
+    await tapText(tester, '开始导出');
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(backend.requests, hasLength(2));
+    expect(editor.controller.state.phase, EditPhase.exporting);
     await unmount(tester);
   });
 
@@ -287,4 +319,18 @@ void main() {
     expect(rig.savedEntries().single['persistable'], isFalse);
     await unmount(tester);
   });
+}
+
+/// Demo backend whose first "另存为" is cancelled.
+final class _SaveAsBackend extends DemoBackend {
+  final List<(String, String)> requests = [];
+
+  @override
+  Future<VideoKitOutputSink?> prepareExport({
+    required String suggestedName,
+    required String mimeType,
+  }) async {
+    requests.add((suggestedName, mimeType));
+    return requests.length == 1 ? null : exportSink;
+  }
 }

@@ -311,6 +311,10 @@ abstract final class VkTokenKeys {
     'apps.videokit.component.hostactionbar',
     _p,
   );
+  static const hostActionBarSurface = VkTokenKey._(
+    'component.hostactionbar.surface',
+    _p,
+  );
 
   /// Every registered key.
   static final List<VkTokenKey> all = List.unmodifiable([
@@ -417,6 +421,7 @@ abstract final class VkTokenKeys {
     sliderSurface,
     seekBar,
     hostActionBar,
+    hostActionBarSurface,
   ]);
 
   static final Map<String, VkTokenKey> _byKey = {for (final k in all) k.key: k};

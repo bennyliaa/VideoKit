@@ -174,7 +174,9 @@ void main() {
         reason: 'transparent is a valid value',
       );
       expect(c.buttonIcon.normal.radius, 999);
-      expect(c.chip.selected.border, dark.colors.primary);
+      // R1-06: filled chips; selected in the primary colour.
+      expect(c.chip.selected.background, dark.colors.primary);
+      expect(c.chip.selected.content, dark.colors.onPrimary);
       expect(c.badge.normal, c.badge.pressed);
       expect(c.seekBar.played, dark.colors.primary);
       expect(

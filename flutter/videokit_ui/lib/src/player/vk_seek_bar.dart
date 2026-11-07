@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 
 import '../foundation/format.dart';
@@ -6,7 +7,8 @@ import '../theme/theme_scope.dart';
 import '../theme/tokens/vk_component_styles.dart';
 
 /// Seek bar (14 §5.1, design pages 9–10): played, buffered and drag
-/// preview layers, thumb, time bubble while dragging. Drags only change
+/// preview layers, thumb, time bubble (and an optional preview frame) while
+/// dragging. Drags only change
 /// local state and report [onDragUpdate] (the owner throttles preview
 /// seeks); release reports [onDragEnd] once. Screen readers get ±[stepUs]
 /// increase/decrease and a spoken value ("1 分 5 秒，共 12 分 30 秒").
@@ -23,6 +25,7 @@ class VkSeekBar extends StatefulWidget {
     this.onDragEnd,
     this.stepUs = 10000000,
     this.onPicture = true,
+    this.previewFrame,
   });
 
   /// Position (µs) to show when not dragging.
@@ -49,6 +52,10 @@ class VkSeekBar extends StatefulWidget {
   /// On the player picture (`apps.videokit.component.seekbar`) or on an
   /// ordinary surface (`component.slider.surface`, 14 §7.2).
   final bool onPicture;
+
+  /// Preview frame shown above the time bubble while dragging (the player
+  /// passes throttled `captureThumbnail` frames); decorative.
+  final Widget? previewFrame;
 
   @override
   State<VkSeekBar> createState() => _VkSeekBarState();
@@ -120,6 +127,10 @@ class _VkSeekBarState extends State<VkSeekBar> {
               final width = c.maxWidth;
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
+                // Absolute positioning (R1-16): the drag starts where the
+                // finger went down and the thumb follows the finger; screen
+                // readers keep the ±step actions.
+                dragStartBehavior: DragStartBehavior.down,
                 onHorizontalDragStart: _enabled
                     ? (d) => _start(d.localPosition.dx, width)
                     : null,
@@ -165,9 +176,18 @@ class _VkSeekBarState extends State<VkSeekBar> {
                               (_dragUs! / duration) * 2 - 1,
                               0,
                             ),
-                            child: _Bubble(
-                              style: style.bubble,
-                              text: VkFormat.timecode(_dragUs!),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (widget.previewFrame != null) ...[
+                                  widget.previewFrame!,
+                                  SizedBox(height: t.dimensions.spacing4),
+                                ],
+                                _Bubble(
+                                  style: style.bubble,
+                                  text: VkFormat.timecode(_dragUs!),
+                                ),
+                              ],
                             ),
                           ),
                         ),

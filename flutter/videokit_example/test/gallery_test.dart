@@ -4,9 +4,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_example/app.dart';
+import 'package:videokit_example/gallery/components_page.dart';
 import 'package:videokit_example/gallery/gallery_page.dart';
 import 'package:videokit_example/gallery/gallery_settings.dart';
 import 'package:videokit_ui/videokit_ui.dart';
+
+import 'support.dart';
 
 VideoKitThemeData _theme(WidgetTester tester) =>
     VkTheme.of(tester.element(find.byType(GalleryPage)));
@@ -130,5 +133,75 @@ void main() {
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
     await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
     handle.dispose();
+  });
+
+  testWidgets(
+    'R1-11: system font scale applies; gallery factor multiplies it',
+    (tester) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2.0;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      double scaleOf() =>
+          MediaQuery.textScalerOf(tester.element(find.byType(GalleryPage)))
+              .scale(10);
+      await _pumpApp(tester, const GallerySettings(), const Size(1200, 2400));
+      expect(scaleOf(), closeTo(20, 0.01), reason: 'system 200% kept');
+      await tester.pumpWidget(const SizedBox());
+      await _pumpApp(
+        tester,
+        const GallerySettings(textScale: 1.3),
+        const Size(1200, 2400),
+      );
+      expect(scaleOf(), closeTo(26, 0.01), reason: '200% × 1.3');
+    },
+  );
+
+  testWidgets('R1-04 / R1-13: surface variants on the component page', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1200, 2400);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      testApp(const ComponentsPage(), mode: VideoKitThemeMode.light),
+    );
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(tester.widget<VkSeekBar>(find.byType(VkSeekBar)).onPicture, isFalse);
+    expect(
+      tester.widget<HostActionBar>(find.byType(HostActionBar)).onPicture,
+      isFalse,
+    );
+    // The label colour comes from the surface variant (≥ 4.5:1 in light).
+    final t = VkTheme.of(tester.element(find.byType(HostActionBar)));
+    final label = t.components.hostActionBarSurface.label.color!;
+    expect(
+      VkContrast.ratio(label, t.colors.surface),
+      greaterThanOrEqualTo(4.5),
+    );
+    await tester.pumpWidget(const SizedBox());
+    for (var i = 0; i < 5; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+  });
+
+  testWidgets('R1-13: gallery choices use the token chip, not Material', (
+    tester,
+  ) async {
+    await _pumpApp(
+      tester,
+      const GallerySettings(mode: VideoKitThemeMode.light),
+      const Size(1200, 2400),
+    );
+    expect(find.byType(ChoiceChip), findsNothing);
+    expect(find.byType(GalleryChoice), findsWidgets);
+    final selected = find.byWidgetPredicate(
+      (w) => w is GalleryChoice && w.selected,
+    );
+    expect(selected, findsWidgets);
+    final t = VkTheme.of(tester.element(selected.first));
+    final chip = t.components.chip.selected;
+    expect(
+      VkContrast.ratio(chip.content, chip.background),
+      greaterThanOrEqualTo(4.5),
+    );
   });
 }

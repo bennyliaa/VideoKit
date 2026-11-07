@@ -6,6 +6,37 @@ import '../foundation/format.dart';
 import '../foundation/selector.dart';
 import '../l10n/vk_strings.dart';
 import '../theme/theme_scope.dart';
+import 'picture_style.dart';
+
+/// Readable codec name of a track (R1-03): "AAC", "DTS", "WebVTT"…; an
+/// unknown value is shown as it is. Technical names, not translated.
+String vkTrackCodecName(String codec) =>
+    switch (codec.split(';').first.trim().toLowerCase()) {
+      'audio/mp4a-latm' || 'audio/aac' => 'AAC',
+      'audio/vnd.dts' || 'audio/dts' => 'DTS',
+      'audio/vnd.dts.hd' => 'DTS-HD',
+      'audio/ac3' => 'AC-3',
+      'audio/eac3' => 'E-AC-3',
+      'audio/eac3-joc' => 'E-AC-3 JOC',
+      'audio/ac4' => 'AC-4',
+      'audio/true-hd' => 'TrueHD',
+      'audio/opus' => 'Opus',
+      'audio/vorbis' => 'Vorbis',
+      'audio/mpeg' => 'MP3',
+      'audio/flac' => 'FLAC',
+      'audio/raw' => 'PCM',
+      'audio/alac' => 'ALAC',
+      'text/vtt' => 'WebVTT',
+      'application/x-subrip' => 'SRT',
+      'text/x-ssa' => 'SSA/ASS',
+      'application/ttml+xml' => 'TTML',
+      'application/pgs' => 'PGS',
+      'application/dvbsubs' => 'DVB',
+      'application/vobsub' => 'VobSub',
+      'application/cea-608' => 'CEA-608',
+      'application/cea-708' => 'CEA-708',
+      _ => codec,
+    };
 
 /// Tabs of [TrackSettingsSheet].
 enum TrackSettingsTab { subtitles, audio, speed }
@@ -145,7 +176,7 @@ class _TrackSettingsSheetState extends State<TrackSettingsSheet> {
         for (final (i, tr) in st.subtitleTracks.indexed)
           _TrackRow(
             title: TrackSettingsSheet.trackName(s, tr, i),
-            detail: tr.codec,
+            detail: tr.codec == null ? null : vkTrackCodecName(tr.codec!),
             selected: st.selectedSubtitleTrackId == tr.id,
             unsupported: !tr.supported,
             onPressed: () => widget.onCommand(SelectSubtitleTrack(tr.id)),
@@ -163,7 +194,7 @@ class _TrackSettingsSheetState extends State<TrackSettingsSheet> {
         for (final (i, tr) in st.audioTracks.indexed)
           _TrackRow(
             title: TrackSettingsSheet.trackName(s, tr, i),
-            detail: tr.codec,
+            detail: tr.codec == null ? null : vkTrackCodecName(tr.codec!),
             selected: st.selectedAudioTrackId == tr.id,
             unsupported: !tr.supported,
             onPressed: () => widget.onCommand(SelectAudioTrack(tr.id)),
@@ -172,27 +203,54 @@ class _TrackSettingsSheetState extends State<TrackSettingsSheet> {
     );
   }
 
+  /// Speed options (design page 11): filled chips, the selected one in the
+  /// primary colour, "1.0×" labels; one row of equal chips when they fit,
+  /// otherwise wrapped (large text).
   Widget _speed(BuildContext context, VideoKitSessionState st) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
-    return Wrap(
-      spacing: t.dimensions.spacing8,
-      runSpacing: t.dimensions.spacing8,
-      children: [
-        for (final v in widget.speeds)
-          VkPressable(
-            style: t.components.chip,
-            semanticLabel: s.speedValue(
-              VkFormat.number(s, v, maxFractionDigits: 2),
-            ),
-            selected: st.speed == v,
-            onPressed: () => widget.onCommand(SetSpeed(v)),
-            builder: (context, box) => Text(
-              s.speedValue(VkFormat.number(s, v, maxFractionDigits: 2)),
-              style: box.textStyle,
-            ),
-          ),
-      ],
+    final d = t.dimensions;
+    Widget chip(double v, {bool tight = false}) => VkPressable(
+      // Equal chips in one row use a narrow side padding so "0.75×" fits.
+      style: tight
+          ? t.components.chip.copyWithAll(
+              (b) => b.copyWith(
+                padding: EdgeInsetsDirectional.symmetric(
+                  horizontal: d.spacing4,
+                  vertical: d.spacing8,
+                ),
+              ),
+            )
+          : t.components.chip,
+      semanticLabel: VkFormat.speed(s, v),
+      selected: st.speed == v,
+      onPressed: () => widget.onCommand(SetSpeed(v)),
+      builder: (context, box) => FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(VkFormat.speed(s, v), maxLines: 1, style: box.textStyle),
+      ),
+    );
+    return LayoutBuilder(
+      builder: (context, c) {
+        final n = widget.speeds.length;
+        final each = (c.maxWidth - d.spacing8 * (n - 1)) / n;
+        final scaled = MediaQuery.textScalerOf(context).scale(1) > 1.3;
+        if (n > 0 && each >= d.targetMin && !scaled) {
+          return Row(
+            children: [
+              for (final (i, v) in widget.speeds.indexed) ...[
+                if (i > 0) SizedBox(width: d.spacing8),
+                Expanded(child: chip(v, tight: true)),
+              ],
+            ],
+          );
+        }
+        return Wrap(
+          spacing: d.spacing8,
+          runSpacing: d.spacing8,
+          children: [for (final v in widget.speeds) chip(v)],
+        );
+      },
     );
   }
 }

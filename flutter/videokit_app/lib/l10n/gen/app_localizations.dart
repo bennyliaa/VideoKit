@@ -585,6 +585,66 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'旧格式录像.mkv'**
   String get demoUnsupported;
+
+  /// 首次启动/重试时连接播放后端的等待文字。
+  ///
+  /// In zh, this message translates to:
+  /// **'正在启动 VideoKit'**
+  String get startupConnecting;
+
+  /// 启动错误页标题：原生与 Dart 协议版本不一致。
+  ///
+  /// In zh, this message translates to:
+  /// **'VideoKit 版本不匹配'**
+  String get startupProtocolTitle;
+
+  /// 启动错误页说明：协议不匹配，重试无用。
+  ///
+  /// In zh, this message translates to:
+  /// **'App 与播放组件的版本不一致，请安装最新版本的 App。'**
+  String get startupProtocolDetail;
+
+  /// 启动错误页标题：原生侧没有后端。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放组件不可用'**
+  String get startupNoBackendTitle;
+
+  /// 启动错误页说明：无后端，重试无用。
+  ///
+  /// In zh, this message translates to:
+  /// **'这个版本的 App 没有包含播放组件，请重新安装 App。'**
+  String get startupNoBackendDetail;
+
+  /// 启动错误页标题：插件通道不可用。
+  ///
+  /// In zh, this message translates to:
+  /// **'无法连接播放组件'**
+  String get startupChannelTitle;
+
+  /// 启动错误页说明：通道失败，可重试。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放组件没有响应。请重试；如果仍然失败，请重新启动 App。'**
+  String get startupChannelDetail;
+
+  /// 启动错误页标题：其他原因。
+  ///
+  /// In zh, this message translates to:
+  /// **'VideoKit 启动失败'**
+  String get startupUnknownTitle;
+
+  /// 启动错误页说明：其他原因，可重试。
+  ///
+  /// In zh, this message translates to:
+  /// **'启动时出现意外错误。请重试；如果仍然失败，请重新启动 App。'**
+  String get startupUnknownDetail;
+
+  /// 导出“另存为”的建议文件名（不含扩展名）；stamp 为 yyyyMMdd_HHmmss。
+  ///
+  /// In zh, this message translates to:
+  /// **'VideoKit_{stamp}'**
+  String exportFileName(String stamp);
 }
 
 class _AppLocalizationsDelegate

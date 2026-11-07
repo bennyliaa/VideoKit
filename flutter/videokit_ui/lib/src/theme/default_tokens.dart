@@ -194,11 +194,11 @@ abstract final class VkDefaultTokens {
       horizontal: d.spacing12,
       vertical: d.spacing8,
     );
+    // Design pages 6 and 11 (R1-06): filled chips without an outline; the
+    // selected chip is filled with the primary colour.
     final chip = box(
       background: c.surfaceVariant,
       content: c.textSecondary,
-      border: c.borderStrong,
-      borderWidth: d.borderWidth,
       radius: d.cornerFull,
       padding: chipPadding,
     );
@@ -276,11 +276,7 @@ abstract final class VkDefaultTokens {
       ),
       chip: states(
         chip,
-        selected: chip.copyWith(
-          background: c.primaryContainer,
-          content: c.onPrimaryContainer,
-          border: c.primary,
-        ),
+        selected: chip.copyWith(background: c.primary, content: c.onPrimary),
       ),
       badge: VkStateStyle.all(badge),
       sheet: VkStateStyle.all(sheet),
@@ -308,6 +304,24 @@ abstract final class VkDefaultTokens {
         ),
         pendingIndicator: c.warning,
         label: t.caption.copyWith(color: c.playerControlsContent),
+        badge: badge.copyWith(background: c.error, content: c.errorContent),
+        spacing: d.spacing8,
+      ),
+      hostActionBarSurface: VkHostActionBarStyle(
+        item: states(
+          hostItem.copyWith(
+            background: c.surfaceVariant,
+            content: c.textPrimary,
+            border: c.borderStrong,
+            borderWidth: d.borderWidth,
+          ),
+          selected: hostItem.copyWith(
+            background: c.primary,
+            content: c.onPrimary,
+          ),
+        ),
+        pendingIndicator: c.warning,
+        label: t.caption.copyWith(color: c.textSecondary),
         badge: badge.copyWith(background: c.error, content: c.errorContent),
         spacing: d.spacing8,
       ),

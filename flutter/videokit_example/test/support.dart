@@ -84,8 +84,13 @@ class RecordingSession implements VideoKitSession {
   @override
   Future<VideoKitPlaybackState> captureState() => inner.captureState();
   @override
-  Future<ThumbnailResult> captureThumbnail(int atUs, int w, int h) =>
-      inner.captureThumbnail(atUs, w, h);
+  Future<ThumbnailResult> captureThumbnail(int atUs, int w, int h) {
+    thumbnailRequests.add(atUs);
+    return inner.captureThumbnail(atUs, w, h);
+  }
+
+  /// Positions of `captureThumbnail` calls.
+  final List<int> thumbnailRequests = [];
   @override
   Future<VideoKitPlaybackState> release() => inner.release();
   @override
@@ -176,6 +181,7 @@ Widget demoPlayer(
   VideoKitSession session, {
   GlobalKey<VideoKitPlayerState>? key,
   ValueChanged<bool>? onControlsVisibilityChanged,
+  ValueChanged<StateAction>? onStateAction,
 }) => Builder(
   builder: (context) => Scaffold(
     body: VideoKitPlayer(
@@ -185,6 +191,7 @@ Widget demoPlayer(
       pictureBuilder: (context, s) => DemoSessionPicture(session: s),
       resolveHostString: (k) => DemoHostActions.resolve(context, k),
       onControlsVisibilityChanged: onControlsVisibilityChanged,
+      onStateAction: onStateAction,
       onEditRequested: (_) {},
       onBack: () {},
     ),

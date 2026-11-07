@@ -46,7 +46,7 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
   String get languagePseudo => '伪本地化';
 
   @override
-  String get settingTextScale => '字体缩放';
+  String get settingTextScale => '额外字体倍数（叠加系统字体）';
 
   @override
   String get settingReduceMotion => '减少动画';
@@ -264,7 +264,12 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
   String get editNotAvailable => '剪辑页面将在后续批次提供';
 
   @override
-  String get hostPanelHint => '宿主面板插槽';
+  String get hostPanelHint => '邻近媒体';
+
+  @override
+  String hostPanelItem(String name, String duration) {
+    return '$name，$duration';
+  }
 
   @override
   String get hostFavorite => '收藏';
@@ -295,6 +300,21 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
 
   @override
   String get hostShareCd => '分享这个视频';
+
+  @override
+  String get hostFavoriteImageCd => '收藏这张图片';
+
+  @override
+  String get hostUnfavoriteImageCd => '取消收藏这张图片';
+
+  @override
+  String get hostTagImageCd => '为这张图片添加标签';
+
+  @override
+  String get hostDeleteImageCd => '删除这张图片';
+
+  @override
+  String get hostShareImageCd => '分享这张图片';
 
   @override
   String get hostDone => '已完成';

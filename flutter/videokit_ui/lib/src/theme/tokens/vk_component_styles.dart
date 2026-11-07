@@ -340,6 +340,7 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
     required this.sliderSurface,
     required this.seekBar,
     required this.hostActionBar,
+    required this.hostActionBarSurface,
   });
 
   /// `component.button.primary`.
@@ -382,6 +383,10 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
   /// `apps.videokit.component.hostactionbar`.
   final VkHostActionBarStyle hostActionBar;
 
+  /// `component.hostactionbar.surface`: host actions on ordinary surfaces
+  /// (light or dark pages, not the picture), text ≥ 4.5:1 (R1-13).
+  final VkHostActionBarStyle hostActionBarSurface;
+
   /// Value of [key], or null.
   Object? operator [](VkTokenKey key) => byKey[key.key];
 
@@ -400,6 +405,7 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
     VkTokenKeys.sliderSurface.key: sliderSurface,
     VkTokenKeys.seekBar.key: seekBar,
     VkTokenKeys.hostActionBar.key: hostActionBar,
+    VkTokenKeys.hostActionBarSurface.key: hostActionBarSurface,
   };
 
   @override

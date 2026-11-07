@@ -72,7 +72,9 @@ const List<DemoImage> demoImages = [
 /// [demoImages]; past either end the host answers `unavailable`.
 class ImageDemoHost extends DemoHostCallbacks {
   /// Creates the host.
-  ImageDemoHost();
+  ImageDemoHost() {
+    image = true;
+  }
 
   /// Current page.
   int index = 0;
@@ -116,8 +118,11 @@ class ImageDemoPageState extends State<ImageDemoPage>
     config: VideoKitConfig(hostCallbacks: _host),
   );
 
-  /// Session (one for all pages; the host re-binds it).
+  /// Session of the current page. Each page gets its own session (R1-10):
+  /// a page that failed fatally (unsupported format) must not be re-bound
+  /// (`error_fatal.rebind.rejected`), and errors stay with their page.
   VideoKitSession? session;
+  int _generation = 0;
 
   /// Current page.
   int get index => _host.index;
@@ -128,42 +133,35 @@ class ImageDemoPageState extends State<ImageDemoPage>
     _host
       ..clock = kit.clock
       ..index = widget.initialIndex
-      ..onPage = _bindPage;
+      ..onPage = (i) => unawaited(_bindPage(i));
     kit.clock.attachTicker(this);
-    unawaited(_open());
+    unawaited(_bindPage(_host.index));
   }
 
-  Future<void> _open() async {
+  /// Opens page [i] in a new session and closes the previous one.
+  Future<void> _bindPage(int i) async {
+    final generation = ++_generation;
     final s = await kit.createSession(
       const VideoKitSessionConfig(debugLabel: 'image'),
     );
-    if (!mounted) {
+    if (!mounted || generation != _generation) {
       await s.close();
       return;
     }
-    setState(() => session = s);
-    _bindPage(_host.index);
-  }
-
-  void _bindPage(int i) {
-    final s = session;
-    if (s == null || !mounted) return;
     final g = GalleryText.of(context);
     final img = demoImages[i];
-    setState(() {});
-    unawaited(
-      s
-          .bind(img.source(img.name(g)), hostActions: DemoHostActions.initial())
-          .then((_) {
-            if (img.kind == MediaKind.imageAnimated) {
-              unawaited(s.execute(const Play()));
-            }
-          }),
-    );
+    final old = session;
+    setState(() => session = s);
+    if (old != null) unawaited(old.close());
+    await s.bind(img.source(img.name(g)), hostActions: DemoHostActions.image());
+    if (img.kind == MediaKind.imageAnimated && mounted) {
+      unawaited(s.execute(const Play()));
+    }
   }
 
   @override
   void dispose() {
+    _generation++;
     unawaited(session?.close());
     kit.clock.detachTicker();
     unawaited(kit.close());
@@ -191,7 +189,7 @@ class ImageDemoPageState extends State<ImageDemoPage>
                   DemoSessionPicture(session: session),
               resolveHostString: (k) => DemoHostActions.resolve(context, k),
               onBack: () => Navigator.of(context).maybePop(),
-              onStateAction: (_) => _bindPage(_host.index),
+              onStateAction: (_) => unawaited(_bindPage(_host.index)),
             ),
     );
   }

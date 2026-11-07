@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
@@ -60,6 +61,24 @@ class ConcatPageState extends State<ConcatPage> {
     });
   }
 
+  /// "另存为" right before the export starts (REQ-APP-03 export part).
+  Future<VideoKitOutputSink?> _prepareSink(VideoKitExportRequest request) {
+    final a = AppText.of(context);
+    final container = _presets
+        .where((p) => p.presetId == request.presetId)
+        .map((p) => p.container)
+        .firstOrNull;
+    final (ext, mime) = exportFileType(container);
+    final stamp = intl.DateFormat(
+      'yyyyMMdd_HHmmss',
+      'en',
+    ).format(_scope.history.now());
+    return _scope.backend.prepareExport(
+      suggestedName: '${a.l.exportFileName(stamp)}.$ext',
+      mimeType: mime,
+    );
+  }
+
   @override
   void dispose() {
     unawaited(project?.close());
@@ -82,6 +101,7 @@ class ConcatPageState extends State<ConcatPage> {
           : VideoKitEditor(
               project: p,
               sink: _scope.backend.exportSink,
+              sinkProvider: _prepareSink,
               presets: _presets,
               title: a(a.l.concatTitle(widget.entries.length)),
               pictureBuilder: _scope.backend.pictureBuilder,
@@ -90,3 +110,12 @@ class ConcatPageState extends State<ConcatPage> {
     );
   }
 }
+
+/// File extension and MIME type of an output [container] (`mp4` default).
+(String, String) exportFileType(String? container) =>
+    switch (container?.toLowerCase()) {
+      'webm' => ('webm', 'video/webm'),
+      'mkv' || 'matroska' => ('mkv', 'video/x-matroska'),
+      '3gp' || '3gpp' => ('3gp', 'video/3gpp'),
+      _ => ('mp4', 'video/mp4'),
+    };

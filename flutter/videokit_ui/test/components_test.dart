@@ -1,4 +1,4 @@
-import 'dart:ui' show Tristate;
+import 'dart:ui' show SemanticsAction, Tristate;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +18,7 @@ Widget _app(Widget child, {Locale locale = const Locale('zh')}) => MaterialApp(
 
 void main() {
   lintTests();
+  r1SheetTests();
   testWidgets(
     'VkButton / VkIconButton: semantics, disabled, selected, pending',
     (tester) async {
@@ -160,6 +161,70 @@ void main() {
     expect(node.label, '音量');
   });
 
+  testWidgets('R1-01: VkSlider with only onChanged is usable', (tester) async {
+    final changes = <double>[];
+    await tester.pumpWidget(
+      _app(
+        Center(
+          child: SizedBox(
+            width: 200,
+            child: VkSlider(
+              value: 0.6,
+              semanticLabel: '音量',
+              semanticValue: (v) => '${(v * 100).round()}',
+              onChanged: changes.add,
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.drag(find.byType(VkSlider), const Offset(-60, 0));
+    await tester.pump();
+    expect(changes, isNotEmpty);
+    expect(changes.last, lessThan(0.6));
+    final node = tester.getSemantics(find.byType(VkSlider));
+    expect(node.getSemanticsData().hasAction(SemanticsAction.increase), isTrue);
+    final count = changes.length;
+    await tester.tapAt(
+      tester.getTopLeft(find.byType(VkSlider)) + const Offset(150, 24),
+    );
+    await tester.pump();
+    expect(changes.length, count + 1, reason: 'tap reports its value');
+    expect(changes.last, closeTo(0.75, 0.02));
+    // Enabled look: active track and thumb in color.primary, not disabled.
+    final painter = tester.widget<CustomPaint>(
+      find
+          .descendant(
+            of: find.byType(VkSlider),
+            matching: find.byType(CustomPaint),
+          )
+          .first,
+    );
+    expect(painter.painter, isNotNull);
+    await tester.pumpWidget(
+      _app(
+        const Center(
+          child: SizedBox(
+            width: 200,
+            child: VkSlider(
+              value: 0.6,
+              semanticLabel: '音量',
+              semanticValue: _pct,
+            ),
+          ),
+        ),
+      ),
+    );
+    expect(
+      tester
+          .getSemantics(find.byType(VkSlider))
+          .getSemanticsData()
+          .hasAction(SemanticsAction.increase),
+      isFalse,
+      reason: 'no callbacks = disabled',
+    );
+  });
+
   testWidgets('VideoKitStateView: title, detail, actions call back', (
     tester,
   ) async {
@@ -276,5 +341,43 @@ final f = Colors.red; // vk-lint: ignore VK001 sample
 ''';
     final rules = [for (final f in lintSource('x.dart', src)) f.rule];
     expect(rules, unorderedEquals(['VK001', 'VK002', 'VK003', 'VK004']));
+  });
+}
+
+String _pct(double v) => '${(v * 100).round()}';
+
+/// R1-14: an open panel is modal for screen readers.
+void r1SheetTests() {
+  testWidgets('R1-14: background leaves the semantics tree while a panel is '
+      'open', (tester) async {
+    final handle = tester.ensureSemantics();
+    final c = VkSheetController();
+    addTearDown(c.dispose);
+    await tester.pumpWidget(
+      _app(
+        VkSheetHost(
+          controller: c,
+          child: Center(
+            child: VkButton(label: '背景按钮', onPressed: () {}),
+          ),
+        ),
+      ),
+    );
+    expect(find.semantics.byLabel('背景按钮'), findsOneWidget);
+    c.show(
+      VkSheetEntry(
+        id: 'p',
+        title: '面板',
+        builder: (context) => VkButton(label: '面板按钮', onPressed: () {}),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.semantics.byLabel('背景按钮'), findsNothing);
+    expect(find.semantics.byLabel('面板按钮'), findsOneWidget);
+    expect(find.bySemanticsLabel('关闭'), findsWidgets, reason: 'scrim closes');
+    c.closeTop();
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.semantics.byLabel('背景按钮'), findsOneWidget);
+    handle.dispose();
   });
 }

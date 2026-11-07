@@ -164,6 +164,14 @@ final class VkStrings {
     'infoDecodedMemory': l10n.infoDecodedMemory,
     'infoSampleSize': l10n.infoSampleSize,
     'infoSampleFull': l10n.infoSampleFull,
+    'playerMediaInfo': l10n.playerMediaInfo,
+    'infoVideoCodec': l10n.infoVideoCodec,
+    'infoAudioCodec': l10n.infoAudioCodec,
+    'infoResolution': l10n.infoResolution,
+    'infoFrameRate': l10n.infoFrameRate,
+    'infoBitrate': l10n.infoBitrate,
+    'infoRotation': l10n.infoRotation,
+    'infoDuration': l10n.infoDuration,
     'imageKindStatic': l10n.imageKindStatic,
     'imageKindAnimated': l10n.imageKindAnimated,
     'orientationPortrait': l10n.orientationPortrait,
@@ -176,6 +184,7 @@ final class VkStrings {
     'slotLoading': l10n.slotLoading,
     'slotPausedTitle': l10n.slotPausedTitle,
     'slotPausedDetail': l10n.slotPausedDetail,
+    'slotPausedShort': l10n.slotPausedShort,
     'slotLowResolution': l10n.slotLowResolution,
     'slotErrorOnly': l10n.slotErrorOnly,
     'slotRemove': l10n.slotRemove,
@@ -341,6 +350,10 @@ final class VkStrings {
     'slotLabel',
     'infoFrameCountValue',
     'infoSampleSizeValue',
+    'infoFrameRateValue',
+    'infoBitrateKbps',
+    'infoBitrateMbps',
+    'infoRotationValue',
     'editorClip',
     'editorClipProps',
     'editorClipSummary',
@@ -443,6 +456,18 @@ final class VkStrings {
 
   /// Decode sample size value (> 1).
   String infoSampleSizeValue(int size) => _out(l10n.infoSampleSizeValue(size));
+
+  /// Frame rate value; [value] is locale-formatted.
+  String infoFrameRateValue(String value) =>
+      _out(l10n.infoFrameRateValue(value));
+
+  /// Bit rate value; [value] is locale-formatted, [mega] selects Mbps.
+  String infoBitrateValue(String value, {required bool mega}) =>
+      _out(mega ? l10n.infoBitrateMbps(value) : l10n.infoBitrateKbps(value));
+
+  /// Rotation value in degrees.
+  String infoRotationValue(int degrees) =>
+      _out(l10n.infoRotationValue(degrees));
 
   /// 时间线片段名。
   String editorClip(int index) => _out(l10n.editorClip(index));

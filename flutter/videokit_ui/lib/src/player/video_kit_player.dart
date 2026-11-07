@@ -22,14 +22,16 @@ import '../state_view/state_mapping.dart';
 import '../state_view/state_view.dart';
 import '../theme/theme_scope.dart';
 import '../theme/tokens/vk_component_styles.dart';
+import 'media_info_sheet.dart';
 import 'media_surface.dart';
 import 'picture_style.dart';
 import 'player_controller.dart';
+import 'seek_preview.dart';
 import 'track_settings_sheet.dart';
 import 'vk_seek_bar.dart';
 
 /// Panels the host can open through [VideoKitPlayerState.openPanel].
-enum PlayerPanel { subtitles, audio, speed, more }
+enum PlayerPanel { subtitles, audio, speed, more, mediaInfo }
 
 /// Player options (14 §5.1, §12 defaults).
 @immutable
@@ -165,6 +167,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     PlayerPanel.audio => _openTracks(TrackSettingsTab.audio),
     PlayerPanel.speed => _openTracks(TrackSettingsTab.speed),
     PlayerPanel.more => _openMore(),
+    PlayerPanel.mediaInfo => _openMediaInfo(),
   };
 
   String _host(String key) => widget.resolveHostString?.call(key) ?? key;
@@ -232,6 +235,18 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
           speeds: widget.options.speeds,
           onCommand: (c) => unawaited(_c.send(c)),
         ),
+      ),
+    );
+  }
+
+  /// "参数" (design page 9): the session's `mediaInfo`.
+  void _openMediaInfo() {
+    final s = VkStrings.of(context);
+    _c.sheets.show(
+      VkSheetEntry(
+        id: 'mediaInfo',
+        title: s.text('playerMediaInfo'),
+        builder: (context) => MediaInfoSheet(session: widget.session),
       ),
     );
   }
@@ -307,6 +322,14 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
               onPressed: () {
                 _c.sheets.close('more');
                 _cycleFit();
+              },
+            ),
+            VkMenuItem(
+              icon: t.icons.resolve('info'),
+              label: s.text('playerMediaInfo'),
+              onPressed: () {
+                _c.sheets.close('more');
+                _openMediaInfo();
               },
             ),
           ],
@@ -575,7 +598,12 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                         skipTraversal: true,
                         onFocusChange: (f) =>
                             _c.setBlocker(AutoHideBlocker.focusInControls, f),
-                        child: _controls(context, size, st),
+                        child: _controls(
+                          context,
+                          size,
+                          st,
+                          blocked: _blocksControls(model),
+                        ),
                       ),
                     ),
                   ),
@@ -646,9 +674,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
           id: 'speed',
           icon: t.icons.resolve('speed'),
           label: s.text('playerSpeed'),
-          text: s.speedValue(
-            VkFormat.number(s, st.speed, maxFractionDigits: 2),
-          ),
+          text: VkFormat.speed(s, st.speed),
           onPressed: bound ? () => _openTracks(TrackSettingsTab.speed) : null,
         ),
       if (isVideo)
@@ -708,19 +734,53 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     ];
   }
 
-  Widget _controlButton(BuildContext context, _ControlItem i) {
+  /// Portrait big play key: light disc with dark icon; disabled is a faint
+  /// disc with a faint icon (R1-02: errors must not look playable).
+  static VkStateStyleBox _bigPlayStyle(BuildContext context) {
+    final t = VkTheme.of(context);
+    final d = t.dimensions;
+    final light = t.colors.playerControlsContent;
+    final all = t.components.buttonIcon.copyWithAll(
+      (b) => b.copyWith(
+        background: light.withValues(alpha: 0.92),
+        content: t.colors.playerCanvas,
+        minSize: d.targetMin * 1.5,
+      ),
+    );
+    return VkStateStyleBox(
+      normal: all.normal,
+      pressed: all.pressed,
+      focused: all.focused,
+      disabled: all.disabled.copyWith(
+        background: light.withValues(alpha: 0.16),
+        content: light.withValues(alpha: 0.38),
+      ),
+      selected: all.selected,
+      hovered: all.hovered,
+    );
+  }
+
+  Widget _controlButton(
+    BuildContext context,
+    _ControlItem i, {
+    bool enabled = true,
+  }) {
     final t = VkTheme.of(context);
     final style = t.components.buttonIcon;
+    final onPressed = enabled ? i.onPressed : null;
+    final content = t.colors.playerControlsContent;
     if (i.text != null) {
       return VkPressable(
         style: style,
         semanticLabel: i.label,
         semanticValue: i.text,
-        onPressed: i.onPressed,
+        onPressed: onPressed,
         builder: (context, box) => Text(
           i.text!,
           style: t.typography.label.copyWith(
-            color: t.colors.playerControlsContent,
+            color: onPressed == null
+                ? content.withValues(alpha: 0.38)
+                : content,
           ),
         ),
       );
@@ -729,7 +789,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
       icon: i.icon,
       semanticLabel: i.label,
       selected: i.selected,
-      onPressed: i.onPressed,
+      onPressed: onPressed,
       style: _onPictureStyle(context),
     );
   }
@@ -737,7 +797,37 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
   VkStateStyleBox _onPictureStyle(BuildContext context) =>
       vkOnPictureIconStyle(context);
 
-  Widget _controls(BuildContext context, Size size, VideoKitSessionState st) {
+  /// An error, released or locked state view is on screen (design page 12):
+  /// the playback controls look disabled and let taps through to the state
+  /// view's actions ("重试" sits where the bottom bar is on phones, R1-09).
+  /// The top bar (back, title, more) stays usable.
+  static bool _blocksControls(StateViewModel? model) => switch (model?.kind) {
+    StateViewKind.error ||
+    StateViewKind.released ||
+    StateViewKind.locked => true,
+    _ => false,
+  };
+
+  /// Glass gradient behind [child]; the gradient itself is not hit-testable,
+  /// so empty areas of the bars do not swallow taps meant for the layers
+  /// below (state view actions, picture gestures).
+  static Widget _glassBehind(Gradient gradient, Widget child) => Stack(
+    children: [
+      Positioned.fill(
+        child: IgnorePointer(
+          child: DecoratedBox(decoration: BoxDecoration(gradient: gradient)),
+        ),
+      ),
+      child,
+    ],
+  );
+
+  Widget _controls(
+    BuildContext context,
+    Size size,
+    VideoKitSessionState st, {
+    bool blocked = false,
+  }) {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
@@ -791,9 +881,9 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             ),
     );
 
-    final topBar = DecoratedBox(
-      decoration: BoxDecoration(gradient: glass.gradient(fromTop: true)),
-      child: SafeArea(
+    final topBar = _glassBehind(
+      glass.gradient(fromTop: true),
+      SafeArea(
         bottom: false,
         child: Padding(
           padding: EdgeInsetsDirectional.symmetric(
@@ -864,6 +954,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         st.phase == SessionPhase.playing ||
         (st.playWhenReady && st.phase == SessionPhase.buffering);
     final canPlay =
+        !blocked &&
         st.phase.isBound &&
         (isVideo || st.mediaKind == MediaKind.imageAnimated);
     final step = widget.options.seekStepUs ~/ 1000000;
@@ -872,22 +963,12 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
       semanticLabel: s.text(playing ? 'playerPause' : 'playerPlay'),
       onPressed: canPlay ? _c.togglePlay : null,
       iconSize: landscape ? d.icon24 : d.targetMin * 0.75,
-      style: landscape
-          ? pictureStyle
-          : t.components.buttonIcon.copyWithAll(
-              (b) => b.copyWith(
-                background: t.colors.playerControlsContent.withValues(
-                  alpha: 0.92,
-                ),
-                content: t.colors.playerCanvas,
-                minSize: d.targetMin * 1.5,
-              ),
-            ),
+      style: landscape ? pictureStyle : _bigPlayStyle(context),
     );
     final rewind = VkIconButton(
       icon: t.icons.resolve('seekback'),
       semanticLabel: s.rewind(step),
-      onPressed: isVideo && st.phase.isBound
+      onPressed: !blocked && isVideo && st.phase.isBound
           ? () => _c.seekBy(-widget.options.seekStepUs)
           : null,
       style: pictureStyle,
@@ -895,7 +976,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     final forward = VkIconButton(
       icon: t.icons.resolve('seekforward'),
       semanticLabel: s.forward(step),
-      onPressed: isVideo && st.phase.isBound
+      onPressed: !blocked && isVideo && st.phase.isBound
           ? () => _c.seekBy(widget.options.seekStepUs)
           : null,
       style: pictureStyle,
@@ -908,7 +989,8 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             stepUs: widget.options.seekStepUs,
             onDragStart: _c.dragStart,
             onDragUpdate: _c.dragUpdate,
-            onDragEnd: st.phase.isBound ? _c.dragEnd : null,
+            onDragEnd: !blocked && st.phase.isBound ? _c.dragEnd : null,
+            previewFrame: VkSeekPreviewFrame(frames: _c.seekPreview),
           )
         : const SizedBox.shrink();
     final volume = isVideo && layout != VkLayoutClass.compact && landscape
@@ -919,15 +1001,15 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
               value: st.muted ? 0 : st.volume,
               semanticLabel: s.text('playerVolume'),
               semanticValue: (v) => VkFormat.percent(s, v),
-              onChangeEnd: st.phase.isBound
+              onChangeEnd: !blocked && st.phase.isBound
                   ? (v) => unawaited(_c.send(SetVolume(v)))
                   : null,
             ),
           )
         : null;
-    final bottom = DecoratedBox(
-      decoration: BoxDecoration(gradient: glass.gradient(fromTop: false)),
-      child: SafeArea(
+    final bottom = _glassBehind(
+      glass.gradient(fromTop: false),
+      SafeArea(
         top: false,
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(
@@ -981,9 +1063,15 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                   ],
                   for (final i in shownOrdered)
                     landscape
-                        ? _controlButton(context, i)
+                        ? _controlButton(context, i, enabled: !blocked)
                         : Expanded(
-                            child: Center(child: _controlButton(context, i)),
+                            child: Center(
+                              child: _controlButton(
+                                context,
+                                i,
+                                enabled: !blocked,
+                              ),
+                            ),
                           ),
                 ],
               ),
@@ -993,19 +1081,85 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
       ),
     );
 
-    return Stack(
+    final bottomBar = IgnorePointer(ignoring: blocked, child: bottom);
+    if (landscape) {
+      return Stack(
+        children: [
+          PositionedDirectional(top: 0, start: 0, end: 0, child: topBar),
+          PositionedDirectional(start: 0, end: 0, bottom: 0, child: bottomBar),
+        ],
+      );
+    }
+    // Portrait: the host action column gets exactly the space between the
+    // two bars, so at large text it moves actions to "more" instead of
+    // overlapping the time row (R1-12).
+    return CustomMultiChildLayout(
+      delegate: _PortraitControlsLayout(
+        margin: d.spacing12,
+        gap: d.spacing8,
+        rtl: Directionality.of(context) == TextDirection.rtl,
+      ),
       children: [
-        PositionedDirectional(top: 0, start: 0, end: 0, child: topBar),
-        if (!landscape)
-          PositionedDirectional(
-            end: d.spacing12,
-            bottom: d.controlBarHeight * 3.6,
-            child: hostBar,
-          ),
-        PositionedDirectional(start: 0, end: 0, bottom: 0, child: bottom),
+        LayoutId(id: _PortraitSlot.top, child: topBar),
+        LayoutId(id: _PortraitSlot.bottom, child: bottomBar),
+        LayoutId(
+          id: _PortraitSlot.host,
+          child: IgnorePointer(ignoring: blocked, child: hostBar),
+        ),
       ],
     );
   }
+}
+
+enum _PortraitSlot { top, bottom, host }
+
+/// Top bar at the top, bottom bar at the bottom, host actions at the end
+/// edge just above the bottom bar, limited to the space left between them.
+class _PortraitControlsLayout extends MultiChildLayoutDelegate {
+  _PortraitControlsLayout({
+    required this.margin,
+    required this.gap,
+    required this.rtl,
+  });
+
+  final double margin;
+  final double gap;
+  final bool rtl;
+
+  @override
+  void performLayout(Size size) {
+    final width = BoxConstraints.tightFor(width: size.width);
+    final top = layoutChild(
+      _PortraitSlot.top,
+      width.copyWith(maxHeight: size.height),
+    );
+    positionChild(_PortraitSlot.top, Offset.zero);
+    final bottom = layoutChild(
+      _PortraitSlot.bottom,
+      width.copyWith(maxHeight: size.height),
+    );
+    positionChild(_PortraitSlot.bottom, Offset(0, size.height - bottom.height));
+    final room = math.max(
+      0.0,
+      size.height - top.height - bottom.height - gap * 2,
+    );
+    final host = layoutChild(
+      _PortraitSlot.host,
+      BoxConstraints(
+        maxWidth: math.max(0, size.width - margin * 2),
+        maxHeight: room,
+      ),
+    );
+    final x = rtl ? margin : size.width - margin - host.width;
+    positionChild(
+      _PortraitSlot.host,
+      Offset(x, size.height - bottom.height - gap - host.height),
+    );
+  }
+
+  @override
+  bool shouldRelayout(_PortraitControlsLayout old) =>
+      old.margin != margin || old.gap != gap || old.rtl != rtl;
 }
 
 /// `VkStateStyle<VkBoxStyle>` alias used by the player.

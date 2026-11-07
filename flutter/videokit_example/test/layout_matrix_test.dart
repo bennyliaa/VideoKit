@@ -42,6 +42,7 @@ void main() {
             PlayerPanel.subtitles,
             PlayerPanel.audio,
             PlayerPanel.more,
+            PlayerPanel.mediaInfo,
           ]) {
             key.currentState!.openPanel(panel);
             await tester.pump(const Duration(milliseconds: 400));

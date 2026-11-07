@@ -70,6 +70,8 @@ final class StateViewModel {
     this.error,
     this.detail,
     List<StateAction> actions = const [],
+    this.titleText,
+    this.detailText,
   }) : actions = List.unmodifiable(actions);
 
   /// Kind.
@@ -87,6 +89,13 @@ final class StateViewModel {
   /// Actions; empty = explanation only, never dead buttons.
   final List<StateAction> actions;
 
+  /// Host-provided, already localized title (e.g. the App's startup
+  /// error page); overrides the kind/error title.
+  final String? titleText;
+
+  /// Host-provided, already localized detail; overrides [detail].
+  final String? detailText;
+
   /// Whether the picture stays visible underneath (buffering).
   bool get keepsPicture => kind == StateViewKind.buffering;
 
@@ -97,11 +106,20 @@ final class StateViewModel {
       other.iconName == iconName &&
       other.error == error &&
       other.detail == detail &&
+      other.titleText == titleText &&
+      other.detailText == detailText &&
       listEquals(other.actions, actions);
 
   @override
-  int get hashCode =>
-      Object.hash(kind, iconName, error, detail, Object.hashAll(actions));
+  int get hashCode => Object.hash(
+    kind,
+    iconName,
+    error,
+    detail,
+    titleText,
+    detailText,
+    Object.hashAll(actions),
+  );
 
   @override
   String toString() =>

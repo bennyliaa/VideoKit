@@ -16,8 +16,18 @@ String vkCodecName(String? mime) => switch (mime) {
   'video/hevc' => 'HEVC',
   'video/x-vnd.on2.vp9' => 'VP9',
   'video/av01' => 'AV1',
+  'video/x-vnd.on2.vp8' => 'VP8',
+  'video/mp4v-es' => 'MPEG-4',
+  'video/3gpp' => 'H.263',
+  'video/mpeg2' => 'MPEG-2',
   'audio/mp4a-latm' => 'AAC',
   'audio/opus' => 'Opus',
+  'audio/vorbis' => 'Vorbis',
+  'audio/mpeg' => 'MP3',
+  'audio/flac' => 'FLAC',
+  'audio/ac3' => 'AC-3',
+  'audio/eac3' => 'E-AC-3',
+  'audio/raw' => 'PCM',
   _ => mime.split('/').last.toUpperCase(),
 };
 
@@ -45,6 +55,12 @@ String vkPresetLabel(VkStrings s, String presetId) => switch (presetId) {
 ///   project reports a fraction, otherwise an indeterminate bar; cancel;
 /// * cancelling / cancelled, failed (reason, impact, suggestion, error
 ///   code), completed (summary, host actions, demo notice).
+/// Resolves the sink right before an export starts, for example after the
+/// host's system "另存为" dialog; null = the user cancelled, nothing starts.
+typedef VideoKitSinkProvider = Future<VideoKitOutputSink?> Function(
+  VideoKitExportRequest request,
+);
+
 class ExportPanel extends StatefulWidget {
   /// Creates a panel.
   const ExportPanel({
@@ -53,6 +69,7 @@ class ExportPanel extends StatefulWidget {
     required this.sink,
     this.presets = const [],
     this.onBackToEdit,
+    this.sinkProvider,
     this.onReviewCoverage,
     this.successActions,
   });
@@ -60,8 +77,12 @@ class ExportPanel extends StatefulWidget {
   /// Project.
   final VideoKitEditProject project;
 
-  /// Output sink (host provided).
+  /// Output sink (host provided); used for `checkExport` and, without
+  /// [sinkProvider], for the export.
   final VideoKitOutputSink sink;
+
+  /// Sink for the export itself, resolved when the user starts it.
+  final VideoKitSinkProvider? sinkProvider;
 
   /// Presets from the capability report (`outputFormats`).
   final List<OutputFormat> presets;
@@ -89,6 +110,7 @@ class ExportPanelState extends State<ExportPanel> {
   int _checkGeneration = 0;
   VideoKitExportResult? _result;
   int? _checkedRevision;
+  bool _starting = false;
 
   /// Last finished result in this panel.
   VideoKitExportResult? get result => _result;
@@ -143,14 +165,27 @@ class ExportPanelState extends State<ExportPanel> {
 
   /// Starts the export ([acceptUncovered] after the coverage check).
   Future<void> start({bool acceptUncovered = false}) async {
-    setState(() => _result = null);
-    final r = await widget.project.export(
-      VideoKitExportRequest(
-        presetId: _presetId,
-        acceptUncoveredTracking: acceptUncovered,
-      ),
-      widget.sink,
+    if (_starting) return;
+    final request = VideoKitExportRequest(
+      presetId: _presetId,
+      acceptUncoveredTracking: acceptUncovered,
     );
+    VideoKitOutputSink? sink;
+    _starting = true;
+    try {
+      sink = widget.sinkProvider == null
+          ? widget.sink
+          : await widget.sinkProvider!(request);
+    } on Object {
+      // The host's save dialog failed (e.g. no document UI): nothing starts;
+      // the preset view stays so the user can try again.
+      sink = null;
+    } finally {
+      _starting = false;
+    }
+    if (sink == null || !mounted) return;
+    setState(() => _result = null);
+    final r = await widget.project.export(request, sink);
     if (mounted) setState(() => _result = r);
   }
 

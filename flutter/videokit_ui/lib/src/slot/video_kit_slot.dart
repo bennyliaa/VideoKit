@@ -393,31 +393,46 @@ class _PausedCover extends StatelessWidget {
       onTap: onTap,
       child: ColoredBox(
         color: t.colors.scrim,
-        child: Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsetsDirectional.all(d.spacing8),
-            child: ExcludeSemantics(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(t.icons.pause, size: d.targetMin * 0.75, color: white),
-                  SizedBox(height: d.spacing4),
-                  Text(
-                    s.text('slotPausedTitle'),
-                    textAlign: TextAlign.center,
-                    style: t.typography.label.copyWith(color: white),
+        // Small slots (phone 3×3, R1-12b): icon and a one-line short text;
+        // the full reason stays in the slot's screen reader value.
+        child: LayoutBuilder(
+          builder: (context, c) {
+            final small =
+                c.maxWidth < d.targetMin * 3 || c.maxHeight < d.targetMin * 3;
+            return Center(
+              child: SingleChildScrollView(
+                padding: EdgeInsetsDirectional.all(d.spacing8),
+                child: ExcludeSemantics(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        t.icons.pause,
+                        size: small ? d.icon24 : d.targetMin * 0.75,
+                        color: white,
+                      ),
+                      SizedBox(height: d.spacing4),
+                      Text(
+                        s.text(small ? 'slotPausedShort' : 'slotPausedTitle'),
+                        textAlign: TextAlign.center,
+                        maxLines: small ? 1 : null,
+                        overflow: small ? TextOverflow.ellipsis : null,
+                        style: t.typography.label.copyWith(color: white),
+                      ),
+                      if (!small)
+                        Text(
+                          s.text('slotPausedDetail'),
+                          textAlign: TextAlign.center,
+                          style: t.typography.caption.copyWith(
+                            color: white.withValues(alpha: 0.8),
+                          ),
+                        ),
+                    ],
                   ),
-                  Text(
-                    s.text('slotPausedDetail'),
-                    textAlign: TextAlign.center,
-                    style: t.typography.caption.copyWith(
-                      color: white.withValues(alpha: 0.8),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

@@ -8,6 +8,7 @@ import '../common/vk_sheet_host.dart';
 import '../foundation/layout_class.dart';
 import '../l10n/vk_strings.dart';
 import '../theme/theme_scope.dart';
+import '../theme/tokens/vk_component_styles.dart';
 
 /// Result of [layoutHostActions].
 @immutable
@@ -100,7 +101,17 @@ class HostActionBar extends StatelessWidget {
     },
     this.showOverflowButton = true,
     this.onOverflowChanged,
+    this.onPicture = true,
   });
+
+  /// Over the player picture (`apps.videokit.component.hostactionbar`) or on
+  /// an ordinary page surface (`component.hostactionbar.surface`, R1-13).
+  final bool onPicture;
+
+  VkHostActionBarStyle _style(BuildContext context) {
+    final c = VkTheme.of(context).components;
+    return onPicture ? c.hostActionBar : c.hostActionBarSurface;
+  }
 
   /// Action states (from `VideoKitSessionState.hostActions`).
   final List<HostActionState> actions;
@@ -151,10 +162,24 @@ class HostActionBar extends StatelessWidget {
     };
   }
 
+  /// Vertical labels under the icons (14 §5.4, R1-12): only at normal text
+  /// sizes; with large text the column shows icons only (each keeps its
+  /// content description) so labels never wrap over the next item.
+  bool _verticalLabels(BuildContext context, bool collapse) =>
+      showLabels && axis == Axis.vertical && !collapse;
+
+  /// Height of one label line at the current text scale.
+  static double _labelLineHeight(BuildContext context) {
+    final t = VkTheme.of(context);
+    final label = t.components.hostActionBar.label;
+    final size = MediaQuery.textScalerOf(context).scale(label.fontSize ?? 12);
+    return size * (label.height ?? 1.4);
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = VkTheme.of(context);
-    final style = t.components.hostActionBar;
+    final style = _style(context);
     final collapse = VkLayoutClass.collapseSecondary(
       MediaQuery.textScalerOf(context),
     );
@@ -162,10 +187,12 @@ class HostActionBar extends StatelessWidget {
       builder: (context, c) {
         final horizontal = axis == Axis.horizontal;
         final extent = horizontal ? c.maxWidth : c.maxHeight;
+        final labels = _verticalLabels(context, collapse);
         final itemExtent =
             (horizontal
                 ? t.dimensions.targetMin * 2.5
-                : t.dimensions.targetMin * 1.6) +
+                : t.dimensions.targetMin +
+                      (labels ? _labelLineHeight(context) : 0)) +
             style.spacing;
         final layout = layoutHostActions(
           actions,
@@ -202,7 +229,7 @@ class HostActionBar extends StatelessWidget {
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final a = state.action;
-    final style = t.components.hostActionBar;
+    final style = _style(context);
     final label = _label(a.labelKey);
     final description = _label(a.contentDescriptionKey);
     final enabled = a.enabled;
@@ -263,13 +290,16 @@ class HostActionBar extends StatelessWidget {
           badgeText: a.badgeText,
           onPressed: enabled ? () => onActionPressed(a.actionId) : null,
         ),
-        if (showLabels)
+        if (_verticalLabels(
+          context,
+          VkLayoutClass.collapseSecondary(MediaQuery.textScalerOf(context)),
+        ))
           ExcludeSemantics(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: t.dimensions.targetMin * 2),
               child: Text(
                 label,
-                maxLines: 2,
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: style.label,
@@ -286,7 +316,7 @@ class HostActionBar extends StatelessWidget {
     return VkIconButton(
       icon: t.icons.resolve('more'),
       semanticLabel: s.text('hostActionMore'),
-      style: t.components.hostActionBar.item,
+      style: _style(context).item,
       pending: overflow.any((a) => a.isPending),
       onPressed: () {
         final sheets = VkSheetHost.maybeOf(context);
