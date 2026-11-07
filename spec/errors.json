@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "description": "VideoKit stable error code registry (04 §9.1, 02 §4.0.2). Kotlin ErrorCode and Dart ErrorCode are verified against this file. 'stage' is the typical stage; an error may also be reported from other stages. 'retryable' and 'suggestedAction' are the defaults the runtime uses. Unknown codes must be handled as 'unknownCodeFallback'. New codes are a minor API version change and are appended at the end.",
+  "unknownCodeFallback": "INTERNAL_ERROR_REDACTED",
+  "codes": [
+    { "code": "SOURCE_NOT_FOUND", "stage": "BIND", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "SOURCE_PERMISSION_DENIED", "stage": "BIND", "retryable": false, "suggestedAction": "CHECK_PERMISSION" },
+    { "code": "SOURCE_DISCONNECTED", "stage": "BIND", "retryable": true, "suggestedAction": "RECONNECT_SOURCE" },
+    { "code": "SOURCE_TIMEOUT", "stage": "BIND", "retryable": true, "suggestedAction": "RECONNECT_SOURCE" },
+    { "code": "UNSUPPORTED_CONTAINER", "stage": "PROBE", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "UNSUPPORTED_VIDEO_CODEC", "stage": "PROBE", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "UNSUPPORTED_AUDIO_CODEC", "stage": "PROBE", "retryable": false, "suggestedAction": "CHOOSE_OTHER_TRACK" },
+    { "code": "DECODER_UNAVAILABLE", "stage": "DECODE", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "DECODER_RESOURCE_EXHAUSTED", "stage": "DECODE", "retryable": true, "suggestedAction": "CLOSE_OTHER_SESSIONS" },
+    { "code": "CORRUPT_MEDIA", "stage": "DECODE", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "SEEK_UNSUPPORTED", "stage": "PLAYBACK", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "OUTPUT_PERMISSION_DENIED", "stage": "SINK", "retryable": false, "suggestedAction": "CHECK_PERMISSION" },
+    { "code": "OUTPUT_SPACE_INSUFFICIENT", "stage": "SINK", "retryable": true, "suggestedAction": "FREE_SPACE" },
+    { "code": "OUTPUT_CAPABILITY_UNSUPPORTED", "stage": "SINK", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "ENCODER_UNAVAILABLE", "stage": "EXPORT", "retryable": false, "suggestedAction": "REDUCE_QUALITY" },
+    { "code": "EXPORT_FAILED", "stage": "EXPORT", "retryable": true, "suggestedAction": "RETRY" },
+    { "code": "TRACKING_MODEL_UNAVAILABLE", "stage": "TRACKING", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "TRACKING_LOST", "stage": "TRACKING", "retryable": true, "suggestedAction": "NONE" },
+    { "code": "CANCELLED", "stage": "EXPORT", "retryable": true, "suggestedAction": "RETRY" },
+    { "code": "HOST_CALLBACK_FAILED", "stage": "CALLBACK", "retryable": true, "suggestedAction": "RETRY" },
+    { "code": "SESSION_RELEASED", "stage": "PLAYBACK", "retryable": false, "suggestedAction": "NONE" },
+    { "code": "INTERNAL_ERROR_REDACTED", "stage": "PLAYBACK", "retryable": false, "suggestedAction": "NONE" }
+  ]
+}

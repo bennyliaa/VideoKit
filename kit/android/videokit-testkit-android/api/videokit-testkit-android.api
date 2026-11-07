@@ -1,0 +1,13 @@
+public final class com/videokit/testkit/android/AndroidTestPattern {
+	public static final field INSTANCE Lcom/videokit/testkit/android/AndroidTestPattern;
+	public final fun getTargetFactory ()Lkotlin/jvm/functions/Function1;
+	public final fun install (Lcom/videokit/testkit/FakeVideoKitOptions;)Lcom/videokit/testkit/FakeVideoKitOptions;
+	public static synthetic fun install$default (Lcom/videokit/testkit/android/AndroidTestPattern;Lcom/videokit/testkit/FakeVideoKitOptions;ILjava/lang/Object;)Lcom/videokit/testkit/FakeVideoKitOptions;
+}
+
+public final class com/videokit/testkit/android/SurfaceTestPatternTarget : com/videokit/testkit/TestPatternTarget {
+	public fun <init> (Landroid/view/Surface;)V
+	public fun draw (Lcom/videokit/testkit/TestPatternFrame;)Z
+	public fun release ()V
+}
+

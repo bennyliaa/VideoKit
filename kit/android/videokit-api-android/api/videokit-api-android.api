@@ -1,0 +1,28 @@
+public final class com/videokit/api/android/AndroidSurface : com/videokit/api/VideoKitSurfaceTarget {
+	public fun <init> (Landroid/view/Surface;II)V
+	public fun getHeight ()I
+	public final fun getSurface ()Landroid/view/Surface;
+	public fun getWidth ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/videokit/api/android/FileDescriptorWriteHandle : com/videokit/api/VideoKitWriteHandle {
+	public abstract fun fileDescriptor ()Landroid/os/ParcelFileDescriptor;
+}
+
+public final class com/videokit/api/android/MediaSources {
+	public static final field INSTANCE Lcom/videokit/api/android/MediaSources;
+	public final fun fromFile (Ljava/io/File;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;
+	public static synthetic fun fromFile$default (Lcom/videokit/api/android/MediaSources;Ljava/io/File;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitMediaSource;
+	public final fun fromFileDescriptor (Lkotlin/jvm/functions/Function1;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;
+	public static synthetic fun fromFileDescriptor$default (Lcom/videokit/api/android/MediaSources;Lkotlin/jvm/functions/Function1;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitMediaSource;
+	public final fun fromUri (Landroid/content/Context;Landroid/net/Uri;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/String;)Lcom/videokit/api/VideoKitMediaSource;
+	public static synthetic fun fromUri$default (Lcom/videokit/api/android/MediaSources;Landroid/content/Context;Landroid/net/Uri;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitMediaSource;
+}
+
+public final class com/videokit/api/android/VideoKitFactory {
+	public static final field IMPLEMENTATION_UNAVAILABLE Ljava/lang/String;
+	public static final field INSTANCE Lcom/videokit/api/android/VideoKitFactory;
+	public final fun create (Landroid/content/Context;Lcom/videokit/api/VideoKitConfig;)Lcom/videokit/api/VideoKit;
+}
+
