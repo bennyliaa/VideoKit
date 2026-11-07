@@ -1,6 +1,6 @@
 # 04A 公共 API 对齐裁定（M0-B1）
 
-版本：V1.2（新增 §4A、§4B 补充裁定）；日期：2026-11-07；裁定人：负责人。依据：Coder A 报告 `test-workspace/reports/M0-B1-A/REPORT.md` §6，Coder B 报告 `test-workspace/reports/M0-B1-B/REPORT.md` §6 与附录 A–C。
+版本：V1.3（新增 §4A、§4B、§4C 补充裁定）；日期：2026-11-07；裁定人：负责人。依据：Coder A 报告 `test-workspace/reports/M0-B1-A/REPORT.md` §6，Coder B 报告 `test-workspace/reports/M0-B1-B/REPORT.md` §6 与附录 A–C。
 
 > 本文件是 [04 公共 API 契约](04_PUBLIC_API_CONTRACT.md) 的补充裁定，与 04 冲突时以本文件为准；API 1.0.0 冻结时并入 04。
 > 适用范围：Kotlin `videokit-api` / `videokit-api-android` 与 Dart `videokit_api`。两侧必须按本表一一对应，M0-B2 内完成对齐。
@@ -86,6 +86,13 @@
 | T2 | `ExportPrecheck.uncoveredRanges` | 两侧都有（覆盖检查页 UI-07/08 需要）：`uncoveredRanges: List<CoverageRange>` | Kotlin 补字段 |
 | T3 | `FeatureKey` 未知值 | Dart 的 `unknown` 作为解码兜底保留；Kotlin 解码未知值同样回退到 `UNKNOWN`（新增该值） | Kotlin |
 | T4 | 宿主图标资源 | `HostIcon.Resource(resourceRef: String)`：平台无关的资源名（Android 为 `drawable` 资源名，由 api-android 解析为资源 ID）；不在公共层使用 Int 资源 ID | Kotlin 若仍为 Int 则改为 String |
+
+## 4C. 补充裁定（V1.3，2026-11-07，M0-B3 由 Coder A 提出）
+
+| # | 项 | 裁定 | 改动方 |
+| --- | --- | --- | --- |
+| L1 | 循环播放 | 新增命令 `SetLooping(looping: Boolean)`，`VideoKitSessionState` 增加 `looping`。默认值按媒体类型：动态图 `true`，视频 `false`。`looping=false` 时播放到末尾停在末帧（视频为最后一帧、动图为最后一帧），进入 ENDED 并发出 `PlaybackEnded`；`looping=true` 时不发 `PlaybackEnded`。静态图收到该命令返回 `Unsupported(MEDIA_KIND)` | 两侧 + spec 向量（Coder B） |
+| L2 | 图片详情 | `VideoKitSessionState` 增加可空字段 `imageDetails: ImageDetails?`，`ImageDetails(frameCount: Int?, decodedBytes: Long?, sampleSize: Int?)`；原生侧能提供就填，拿不到为 null，UI 只显示有值的项。视频会话恒为 null | 两侧 |
 
 ## 5. 工程与构建裁定
 
