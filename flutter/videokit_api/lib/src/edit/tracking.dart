@@ -45,9 +45,9 @@ enum TrackingKind {
 
 /// One interval of a [CoverageReport].
 @immutable
-final class CoverageSegment {
+final class CoverageRange {
   /// Creates a segment `[startUs, endUs)`.
-  const CoverageSegment({
+  const CoverageRange({
     required this.startUs,
     required this.endUs,
     required this.state,
@@ -71,12 +71,12 @@ final class CoverageSegment {
   int get durationUs => endUs - startUs;
 
   /// Returns a copy with the given fields replaced.
-  CoverageSegment copyWith({
+  CoverageRange copyWith({
     int? startUs,
     int? endUs,
     TrackingState? state,
     bool? accepted,
-  }) => CoverageSegment(
+  }) => CoverageRange(
     startUs: startUs ?? this.startUs,
     endUs: endUs ?? this.endUs,
     state: state ?? this.state,
@@ -85,7 +85,7 @@ final class CoverageSegment {
 
   @override
   bool operator ==(Object other) =>
-      other is CoverageSegment &&
+      other is CoverageRange &&
       other.startUs == startUs &&
       other.endUs == endUs &&
       other.state == state &&
@@ -96,7 +96,7 @@ final class CoverageSegment {
 
   @override
   String toString() =>
-      'CoverageSegment($startUs–$endUs, ${state.name}'
+      'CoverageRange($startUs–$endUs, ${state.name}'
       '${accepted ? ', accepted' : ''})';
 }
 
@@ -104,7 +104,7 @@ final class CoverageSegment {
 @immutable
 final class CoverageReport {
   /// Creates a report; [segments] are sorted by start.
-  CoverageReport({List<CoverageSegment> segments = const []})
+  CoverageReport({List<CoverageRange> segments = const []})
     : segments = frozenList(
         [...segments]..sort((a, b) => a.startUs.compareTo(b.startUs)),
       );
@@ -113,10 +113,10 @@ final class CoverageReport {
   factory CoverageReport.empty() => CoverageReport();
 
   /// Segments sorted by start.
-  final List<CoverageSegment> segments;
+  final List<CoverageRange> segments;
 
   /// Segments blocking export (lost/ambiguous/not analysed, not accepted).
-  List<CoverageSegment> get blockingSegments => List.unmodifiable(
+  List<CoverageRange> get blockingSegments => List.unmodifiable(
     segments.where((s) => s.state.blocksExport && !s.accepted),
   );
 
@@ -132,7 +132,7 @@ final class CoverageReport {
   }
 
   /// Returns a copy with the given fields replaced.
-  CoverageReport copyWith({List<CoverageSegment>? segments}) =>
+  CoverageReport copyWith({List<CoverageRange>? segments}) =>
       CoverageReport(segments: segments ?? this.segments);
 
   @override
@@ -269,7 +269,7 @@ final class TrackingCandidate {
   final TrackingKind kind;
 
   /// Region at the detection time.
-  final NormalizedRect region;
+  final MaskRegion region;
 
   /// Confidence 0–1.
   final double? confidence;
@@ -278,7 +278,7 @@ final class TrackingCandidate {
   TrackingCandidate copyWith({
     String? candidateId,
     TrackingKind? kind,
-    NormalizedRect? region,
+    MaskRegion? region,
     Object? confidence = undefined,
   }) => TrackingCandidate(
     candidateId: candidateId ?? this.candidateId,

@@ -384,6 +384,246 @@ abstract class ExampleLocalizations {
   /// In zh, this message translates to:
   /// **'{position} / {duration}'**
   String timecodeRange(String position, String duration);
+
+  /// 画廊顶栏：打开组件页。
+  ///
+  /// In zh, this message translates to:
+  /// **'组件'**
+  String get navComponents;
+
+  /// 画廊顶栏：打开播放器演示页。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放器'**
+  String get navPlayer;
+
+  /// 组件页标题（设计稿第 6 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'组件库'**
+  String get componentsTitle;
+
+  /// 按钮分组标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'按钮'**
+  String get sectionButtons;
+
+  /// 图标按钮分组标题（常态/选中/等待中/角标/禁用）。
+  ///
+  /// In zh, this message translates to:
+  /// **'图标按钮'**
+  String get sectionIconButtons;
+
+  /// 角标与演示标识分组标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'角标与演示标识'**
+  String get sectionBadges;
+
+  /// 滑杆分组标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'滑杆'**
+  String get sectionSlider;
+
+  /// UI-09 状态视图分组标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'状态视图'**
+  String get sectionStateViews;
+
+  /// UI-04 宿主动作栏分组标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'宿主动作栏'**
+  String get sectionHostActions;
+
+  /// 面板宿主与轻提示分组标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'面板与轻提示'**
+  String get sectionSheets;
+
+  /// 打开示例面板的按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'打开面板'**
+  String get openSheet;
+
+  /// 显示示例轻提示的按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'显示轻提示'**
+  String get showToast;
+
+  /// 示例面板标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'示例面板'**
+  String get sheetSampleTitle;
+
+  /// 示例面板正文。
+  ///
+  /// In zh, this message translates to:
+  /// **'按返回键或 Esc 关闭面板，不会退出页面。'**
+  String get sheetSampleBody;
+
+  /// 示例轻提示。
+  ///
+  /// In zh, this message translates to:
+  /// **'已添加到收藏'**
+  String get toastSample;
+
+  /// 示例滑杆的读屏标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'音量'**
+  String get volumeLabel;
+
+  /// 示例角标文字。
+  ///
+  /// In zh, this message translates to:
+  /// **'新'**
+  String get badgeSample;
+
+  /// 超长角标示例（超过 3 个字符会被截断）。
+  ///
+  /// In zh, this message translates to:
+  /// **'12345'**
+  String get badgeLongSample;
+
+  /// 播放器演示页标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放器演示'**
+  String get playerDemoTitle;
+
+  /// 演示播放器顶栏的视频名称。
+  ///
+  /// In zh, this message translates to:
+  /// **'演示视频'**
+  String get playerDemoVideoTitle;
+
+  /// 场景选择分组标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'场景'**
+  String get scenarioLabel;
+
+  /// Fake 场景：正常播放。
+  ///
+  /// In zh, this message translates to:
+  /// **'正常'**
+  String get scenarioNormal;
+
+  /// Fake 场景：打开耗时 3 秒。
+  ///
+  /// In zh, this message translates to:
+  /// **'慢加载'**
+  String get scenarioSlowLoad;
+
+  /// Fake 场景：播放中缓冲。
+  ///
+  /// In zh, this message translates to:
+  /// **'缓冲'**
+  String get scenarioBuffering;
+
+  /// Fake 场景：30 秒时来源断开。
+  ///
+  /// In zh, this message translates to:
+  /// **'断线'**
+  String get scenarioDisconnect;
+
+  /// Fake 场景：视频编码不支持。
+  ///
+  /// In zh, this message translates to:
+  /// **'不支持'**
+  String get scenarioUnsupported;
+
+  /// Fake 场景：“删除”宿主动作 10 秒不响应。
+  ///
+  /// In zh, this message translates to:
+  /// **'宿主动作超时'**
+  String get scenarioHostActionTimeout;
+
+  /// 点编辑入口时的提示（本批没有剪辑页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'剪辑页面将在后续批次提供'**
+  String get editNotAvailable;
+
+  /// 宿主面板插槽示例内容，随控制层显示和隐藏。
+  ///
+  /// In zh, this message translates to:
+  /// **'宿主面板插槽'**
+  String get hostPanelHint;
+
+  /// 宿主动作：收藏（未收藏时）。
+  ///
+  /// In zh, this message translates to:
+  /// **'收藏'**
+  String get hostFavorite;
+
+  /// 宿主动作：收藏（已收藏时）。
+  ///
+  /// In zh, this message translates to:
+  /// **'已收藏'**
+  String get hostFavorited;
+
+  /// 收藏的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'收藏这个视频'**
+  String get hostFavoriteCd;
+
+  /// 取消收藏的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'取消收藏这个视频'**
+  String get hostUnfavoriteCd;
+
+  /// 宿主动作：标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'标签'**
+  String get hostTag;
+
+  /// 标签的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'为这个视频添加标签'**
+  String get hostTagCd;
+
+  /// 宿主动作：删除（演示，不会删除任何文件）。
+  ///
+  /// In zh, this message translates to:
+  /// **'删除'**
+  String get hostDelete;
+
+  /// 删除的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'删除这个视频'**
+  String get hostDeleteCd;
+
+  /// 宿主动作：分享（溢出菜单）。
+  ///
+  /// In zh, this message translates to:
+  /// **'分享'**
+  String get hostShare;
+
+  /// 分享的读屏描述。
+  ///
+  /// In zh, this message translates to:
+  /// **'分享这个视频'**
+  String get hostShareCd;
+
+  /// 宿主动作完成后的提示。
+  ///
+  /// In zh, this message translates to:
+  /// **'已完成'**
+  String get hostDone;
 }
 
 class _ExampleLocalizationsDelegate

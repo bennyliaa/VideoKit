@@ -205,17 +205,9 @@ void main() {
     test('other kinds: repeat while in flight is ignored', () async {
       final a = d.dispatch(const SetMuted(true));
       expect(await d.dispatch(const SetMuted(false)), isNull);
-      final c = d.dispatch(const InvokeHostAction('fav'));
-      expect(await d.dispatch(const InvokeHostAction('fav')), isNull);
-      unawaited(d.dispatch(const InvokeHostAction('tag')));
-      expect(exec.sent, [
-        const SetMuted(true),
-        const InvokeHostAction('fav'),
-        const InvokeHostAction('tag'),
-      ]);
+      expect(exec.sent, [const SetMuted(true)]);
       exec.completeAll();
       await a;
-      await c;
       unawaited(d.dispatch(const SetMuted(false)));
       expect(exec.sent.last, const SetMuted(false));
     });
@@ -243,6 +235,33 @@ void main() {
       exec.completeAll(const Superseded());
       await s;
       expect(feedback, hasLength(2), reason: 'Superseded is silent');
+    });
+
+    test('host actions: repeat in flight ignored, Superseded silent', () async {
+      final calls = <String>[];
+      final completers = <Completer<VideoKitCommandResult>>[];
+      final hd = CommandDispatcher(
+        execute: exec.call,
+        onFeedback: feedback.add,
+        requestHostAction: (id) {
+          calls.add(id);
+          final c = Completer<VideoKitCommandResult>();
+          completers.add(c);
+          return c.future;
+        },
+      );
+      final first = hd.requestHostAction('fav');
+      expect(await hd.requestHostAction('fav'), isNull);
+      unawaited(hd.requestHostAction('tag'));
+      expect(calls, ['fav', 'tag']);
+      completers[0].complete(const Superseded());
+      completers[1].complete(const Unsupported(UnsupportedReason.hostDisabled));
+      expect(await first, const Superseded());
+      await Future<void>.delayed(Duration.zero);
+      expect(feedback.single, isA<UnsupportedFeedback>());
+      expect(feedback.single.kind, CommandDispatcher.hostActionKind('tag'));
+      expect(hd.isUnsupported('hostAction:tag'), isTrue);
+      hd.dispose();
     });
 
     test('SessionReleased makes the dispatcher read-only', () async {

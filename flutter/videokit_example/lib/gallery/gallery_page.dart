@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
+import '../player/player_demo_page.dart';
+import 'components_page.dart';
 import 'gallery_settings.dart';
 import 'gallery_text.dart';
 
@@ -34,6 +36,20 @@ class GalleryPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(g(g.l.galleryTitle), style: t.typography.title),
         backgroundColor: t.colors.surface,
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const ComponentsPage()),
+            ),
+            child: Text(g(g.l.navComponents)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const PlayerDemoPage()),
+            ),
+            child: Text(g(g.l.navPlayer)),
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -46,25 +62,34 @@ class GalleryPage extends StatelessWidget {
             ),
             children: [
               _SettingsSection(settings: settings, onChanged: onChanged),
-              _Section(title: g(g.l.sectionColors), child: const _ColorGrid()),
-              _Section(title: g(g.l.sectionStatus), child: const _StatusRow()),
-              _Section(
+              GallerySection(
+                title: g(g.l.sectionColors),
+                child: const _ColorGrid(),
+              ),
+              GallerySection(
+                title: g(g.l.sectionStatus),
+                child: const _StatusRow(),
+              ),
+              GallerySection(
                 title: g(g.l.sectionComponents),
                 child: const _Components(),
               ),
-              _Section(
+              GallerySection(
                 title: g(g.l.sectionTypography),
                 child: const _TypographySamples(),
               ),
-              _Section(
+              GallerySection(
                 title: g(g.l.sectionDimensions),
                 child: const _DimensionSamples(),
               ),
-              _Section(
+              GallerySection(
                 title: g(g.l.sectionAnimations),
                 child: const _AnimationSample(),
               ),
-              _Section(title: g(g.l.sectionErrors), child: const _ErrorTexts()),
+              GallerySection(
+                title: g(g.l.sectionErrors),
+                child: const _ErrorTexts(),
+              ),
             ],
           ),
           const PositionedDirectional(
@@ -127,8 +152,10 @@ class GalleryDemoBadge extends StatelessWidget {
 String _hex(Color c) =>
     '#${(c.toARGB32() & 0xFFFFFF).toRadixString(16).padLeft(6, '0').toUpperCase()}';
 
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.child});
+/// Titled gallery section (shared by the gallery pages).
+class GallerySection extends StatelessWidget {
+  /// Creates a section.
+  const GallerySection({super.key, required this.title, required this.child});
 
   final String title;
   final Widget child;
@@ -195,7 +222,7 @@ class _SettingsSection extends StatelessWidget {
       ],
     );
 
-    return _Section(
+    return GallerySection(
       title: g(g.l.sectionSettings),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

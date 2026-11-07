@@ -96,13 +96,13 @@ class FakeVideoKit implements VideoKit {
   Future<VideoKitCapabilities> capabilities(CapabilityRequest request) async {
     _checkOpen();
     final source = request.source;
-    MediaProbeCapability? probe;
+    MediaProbeResult? probe;
     if (source != null) {
       final err = _resolve(source).bindError;
-      probe = MediaProbeCapability(
+      probe = MediaProbeResult(
         playable: err == null,
         fastConcatEligible: err == null && source.mediaKind == MediaKind.video,
-        reason: err == null ? null : UnsupportedReason.notSupportedByDevice,
+        reason: err == null ? null : UnsupportedReason.deviceCapability,
       );
     }
     return demoCapabilities(mediaProbe: probe);
@@ -110,7 +110,7 @@ class FakeVideoKit implements VideoKit {
 
   /// Synthetic capability report (values are not measured; isDemo = true).
   static VideoKitCapabilities demoCapabilities({
-    MediaProbeCapability? mediaProbe,
+    MediaProbeResult? mediaProbe,
   }) => VideoKitCapabilities(
     decoders: DecoderSummary(
       video: const [
@@ -138,7 +138,7 @@ class FakeVideoKit implements VideoKit {
         container: 'mkv',
         videoCodec: 'video/hevc',
         level: SupportLevel.partial,
-        reason: UnsupportedReason.notSupportedByDevice,
+        reason: UnsupportedReason.deviceCapability,
       ),
     ],
     suggestedHardwareVideoSessions: 4,
@@ -188,9 +188,9 @@ class FakeVideoKit implements VideoKit {
       ),
     ],
     tracking: const TrackingStatus(
-      face: ModuleState.available,
-      object: ModuleState.available,
-      suggestedAnalysisLongEdge: 640,
+      face: TrackingModuleStatus.available,
+      objectTracking: TrackingModuleStatus.available,
+      suggestedResolution: VideoSize(640, 360),
       maxConcurrentTargets: 4,
     ),
     sinkRequirements: const SinkRequirements(sequentialFallback: true),

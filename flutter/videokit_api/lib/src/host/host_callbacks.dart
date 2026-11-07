@@ -13,7 +13,7 @@ enum RecoveryDecision {
   retry,
 
   /// Stay in the error state; the UI offers retry.
-  keepErrorState,
+  keepError,
 
   /// Release the session; the host may fall back to another player.
   release;
@@ -21,9 +21,9 @@ enum RecoveryDecision {
   /// SCREAMING_SNAKE_CASE wire name.
   String get wireName => toWireName(name);
 
-  /// Parses a Dart or wire name; unknown or null → [keepErrorState].
+  /// Parses a Dart or wire name; unknown or null → [keepError].
   static RecoveryDecision fromName(String? name) =>
-      enumFromName(values, name, keepErrorState);
+      enumFromName(values, name, keepError);
 }
 
 /// Host callbacks (04 §8). Every call has a timeout; timeouts or exceptions
@@ -35,11 +35,9 @@ abstract interface class VideoKitHostCallbacks {
   /// Previous/next requested.
   Future<NavigationResult> onNavigationRequested(NavigationRequest request);
 
-  /// Stable playback snapshot (after changes settle and on release).
-  Future<void> onPlaybackSnapshot(
-    String sessionId,
-    VideoKitPlaybackState snapshot,
-  );
+  /// Stable playback snapshot (after changes settle and on release); the
+  /// snapshot carries `sessionId` and `mediaToken` (04A I7).
+  Future<void> onPlaybackSnapshot(VideoKitPlaybackState snapshot);
 
   /// Playback statistics event.
   Future<void> onPlaybackEvent(VideoKitPlaybackEvent event);
@@ -76,10 +74,7 @@ class NoopHostCallbacks implements VideoKitHostCallbacks {
   ) async => NavigationResult.unavailable;
 
   @override
-  Future<void> onPlaybackSnapshot(
-    String sessionId,
-    VideoKitPlaybackState snapshot,
-  ) async {}
+  Future<void> onPlaybackSnapshot(VideoKitPlaybackState snapshot) async {}
 
   @override
   Future<void> onPlaybackEvent(VideoKitPlaybackEvent event) async {}
@@ -97,7 +92,7 @@ class NoopHostCallbacks implements VideoKitHostCallbacks {
   Future<RecoveryDecision> onRecoverableError(
     String sessionId,
     VideoKitStableError error,
-  ) async => RecoveryDecision.keepErrorState;
+  ) async => RecoveryDecision.keepError;
 
   @override
   Future<void> onFatalSessionError(
@@ -106,13 +101,14 @@ class NoopHostCallbacks implements VideoKitHostCallbacks {
   ) async {}
 }
 
-/// Callback timeouts (14 §12 defaults, host-configurable).
+/// Callback timeouts (04A I8, 14 §12; host-configurable).
 @immutable
 final class HostCallbackTimeouts {
   /// Creates timeouts.
   const HostCallbackTimeouts({
     this.hostAction = const Duration(seconds: 10),
     this.navigation = const Duration(seconds: 3),
+    this.recoveryDecision = const Duration(seconds: 3),
     this.notification = const Duration(seconds: 2),
   });
 
@@ -122,6 +118,9 @@ final class HostCallbackTimeouts {
   /// Navigation request.
   final Duration navigation;
 
+  /// `onRecoverableError` decision.
+  final Duration recoveryDecision;
+
   /// Other notification-style callbacks.
   final Duration notification;
 
@@ -129,10 +128,12 @@ final class HostCallbackTimeouts {
   HostCallbackTimeouts copyWith({
     Duration? hostAction,
     Duration? navigation,
+    Duration? recoveryDecision,
     Duration? notification,
   }) => HostCallbackTimeouts(
     hostAction: hostAction ?? this.hostAction,
     navigation: navigation ?? this.navigation,
+    recoveryDecision: recoveryDecision ?? this.recoveryDecision,
     notification: notification ?? this.notification,
   );
 
@@ -141,13 +142,15 @@ final class HostCallbackTimeouts {
       other is HostCallbackTimeouts &&
       other.hostAction == hostAction &&
       other.navigation == navigation &&
+      other.recoveryDecision == recoveryDecision &&
       other.notification == notification;
 
   @override
-  int get hashCode => Object.hash(hostAction, navigation, notification);
+  int get hashCode =>
+      Object.hash(hostAction, navigation, recoveryDecision, notification);
 
   @override
   String toString() =>
       'HostCallbackTimeouts(action: $hostAction, nav: $navigation, '
-      'notify: $notification)';
+      'recovery: $recoveryDecision, notify: $notification)';
 }

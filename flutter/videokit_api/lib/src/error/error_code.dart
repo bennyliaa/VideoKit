@@ -26,7 +26,16 @@ enum ErrorCode {
   cancelled,
   hostCallbackFailed,
   sessionReleased,
-  internalErrorRedacted;
+  internalErrorRedacted,
+
+  /// Illegal state transition (04A V7).
+  invalidState,
+
+  /// Argument out of range or malformed (04A V7).
+  invalidArgument,
+
+  /// Snapshot or project schema version not supported (04A V7).
+  unsupportedSnapshotVersion;
 
   /// SCREAMING_SNAKE_CASE name shared with Kotlin (`SOURCE_NOT_FOUND`).
   String get wireName => toWireName(name);
@@ -61,14 +70,16 @@ enum ErrorStage {
 
 /// Next step the UI may offer for an error (04 §9.1).
 enum SuggestedAction {
+  none,
   retry,
   chooseOtherTrack,
   reduceQuality,
   freeSpace,
-  grantPermission,
+  checkPermission,
+  reconnectSource,
+  closeOtherSessions,
   correctTracking,
-  chooseOtherSource,
-  none;
+  chooseOtherSource;
 
   /// SCREAMING_SNAKE_CASE wire name.
   String get wireName => toWireName(name);

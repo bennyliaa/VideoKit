@@ -110,6 +110,43 @@ final class VkStrings {
     'tracksNoAudio': l10n.tracksNoAudio,
     'tracksNoSubtitles': l10n.tracksNoSubtitles,
     'estimateUnavailable': l10n.estimateUnavailable,
+    'playerBack': l10n.playerBack,
+    'playerSpeed': l10n.playerSpeed,
+    'playerSubtitles': l10n.playerSubtitles,
+    'playerAudioTrack': l10n.playerAudioTrack,
+    'playerVolume': l10n.playerVolume,
+    'playerMute': l10n.playerMute,
+    'playerUnmute': l10n.playerUnmute,
+    'playerLockOrientation': l10n.playerLockOrientation,
+    'playerUnlockOrientation': l10n.playerUnlockOrientation,
+    'playerFullscreen': l10n.playerFullscreen,
+    'playerExitFullscreen': l10n.playerExitFullscreen,
+    'playerEdit': l10n.playerEdit,
+    'playerRotate': l10n.playerRotate,
+    'playerSeekBar': l10n.playerSeekBar,
+    'playerPicture': l10n.playerPicture,
+    'fitModeFit': l10n.fitModeFit,
+    'fitModeFill': l10n.fitModeFill,
+    'fitModeOriginal': l10n.fitModeOriginal,
+    'settingsTitle': l10n.settingsTitle,
+    'tracksUnsupported': l10n.tracksUnsupported,
+    'stateLoadingTitle': l10n.stateLoadingTitle,
+    'stateLoadingDetail': l10n.stateLoadingDetail,
+    'stateEndedTitle': l10n.stateEndedTitle,
+    'actionReplay': l10n.actionReplay,
+    'stateReleasedTitle': l10n.stateReleasedTitle,
+    'stateLockedTitle': l10n.stateLockedTitle,
+    'stateDetailConnection': l10n.stateDetailConnection,
+    'stateDetailPermission': l10n.stateDetailPermission,
+    'stateDetailUnsupported': l10n.stateDetailUnsupported,
+    'stateDetailCorrupt': l10n.stateDetailCorrupt,
+    'stateDetailResources': l10n.stateDetailResources,
+    'stateDetailTrackingLost': l10n.stateDetailTrackingLost,
+    'stateDetailSpace': l10n.stateDetailSpace,
+    'stateDetailGeneric': l10n.stateDetailGeneric,
+    'hostActionMore': l10n.hostActionMore,
+    'navigationUnavailable': l10n.navigationUnavailable,
+    'commandUnavailable': l10n.commandUnavailable,
     for (final a in SuggestedAction.values)
       if (a != SuggestedAction.none) actionKey(a): _action(a),
     for (final c in ErrorCode.values) errorKey(c): _error(c),
@@ -123,6 +160,13 @@ final class VkStrings {
     'fileSizeKilobytes',
     'fileSizeMegabytes',
     'fileSizeGigabytes',
+    'playerRewind',
+    'playerForward',
+    'playerSpeedValue',
+    'playerFitMode',
+    'trackUnnamed',
+    'hostActionFailed',
+    'badgeClipped',
   };
 
   /// Text for [key]: override, else localized default, else [key].
@@ -154,6 +198,27 @@ final class VkStrings {
   String seekValue(String position, String duration) =>
       _out(l10n.playerSeekValue(position, duration));
 
+  /// Rewind button label.
+  String rewind(int seconds) => _out(l10n.playerRewind(seconds));
+
+  /// Forward button label.
+  String forward(int seconds) => _out(l10n.playerForward(seconds));
+
+  /// Speed value, e.g. 1.5×; [speed] is pre-formatted.
+  String speedValue(String speed) => _out(l10n.playerSpeedValue(speed));
+
+  /// Fit mode notice.
+  String fitModeNotice(String mode) => _out(l10n.playerFitMode(mode));
+
+  /// Name of an unlabeled track.
+  String trackUnnamed(int index) => _out(l10n.trackUnnamed(index));
+
+  /// Badge text cut to the first characters.
+  String badgeClipped(String text) => l10n.badgeClipped(text);
+
+  /// Host action failure notice.
+  String hostActionFailed(String action) => _out(l10n.hostActionFailed(action));
+
   /// Spoken duration (ICU plural).
   String durationSpoken(int hours, int minutes, int seconds) =>
       _out(l10n.durationSpoken(hours, minutes, seconds).trim());
@@ -171,7 +236,9 @@ final class VkStrings {
     SuggestedAction.chooseOtherTrack => l10n.actionChooseOtherTrack,
     SuggestedAction.reduceQuality => l10n.actionReduceQuality,
     SuggestedAction.freeSpace => l10n.actionFreeSpace,
-    SuggestedAction.grantPermission => l10n.actionGrantPermission,
+    SuggestedAction.checkPermission => l10n.actionCheckPermission,
+    SuggestedAction.reconnectSource => l10n.actionReconnectSource,
+    SuggestedAction.closeOtherSessions => l10n.actionCloseOtherSessions,
     SuggestedAction.correctTracking => l10n.actionCorrectTracking,
     SuggestedAction.chooseOtherSource => l10n.actionChooseOtherSource,
     SuggestedAction.none => '',
@@ -201,5 +268,9 @@ final class VkStrings {
     ErrorCode.hostCallbackFailed => l10n.errorHostCallbackFailed,
     ErrorCode.sessionReleased => l10n.errorSessionReleased,
     ErrorCode.internalErrorRedacted => l10n.errorInternalErrorRedacted,
+    ErrorCode.invalidState => l10n.errorInvalidState,
+    ErrorCode.invalidArgument => l10n.errorInvalidArgument,
+    ErrorCode.unsupportedSnapshotVersion =>
+      l10n.errorUnsupportedSnapshotVersion,
   };
 }

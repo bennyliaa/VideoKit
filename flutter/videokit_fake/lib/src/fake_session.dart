@@ -59,6 +59,8 @@ class FakeSession implements VideoKitSession {
   Scenario _scenario = const Scenario.normal();
   int _bindGeneration = 0;
   int _acceptedAudioEpoch = -1;
+  bool _subtitlesChosen = false;
+  final Set<String> _inFlight = {};
   final Set<String> _consumedOnceErrors = {};
   final Set<BufferingWindow> _firedBuffering = {};
   FakeClockTask? _seekTask;
@@ -85,6 +87,9 @@ class FakeSession implements VideoKitSession {
   ValueListenable<int?> get textureId => _textureId;
 
   @override
+  VideoKitTextureLease acquireTexture() => _FakeTextureLease(_textureId);
+
+  @override
   ValueListenable<VideoSize?> get videoSize => _videoSize;
 
   @override
@@ -98,7 +103,9 @@ class FakeSession implements VideoKitSession {
     _state.value = next;
     if (next.phase != previous.phase) {
       _host.notify(
-        (c) => c.onPlaybackEvent(PlayStateChanged(sessionId, next.phase)),
+        (c) => c.onPlaybackEvent(
+          PlayStateChanged(sessionId, next.phase, next.playWhenReady),
+        ),
       );
     }
   }
@@ -108,10 +115,17 @@ class FakeSession implements VideoKitSession {
   }
 
   static VideoKitStableError _illegal(SessionPhase phase, String kind) =>
-      VideoKitStableError(
-        code: ErrorCode.internalErrorRedacted,
+      VideoKitStableError.invalidState(
         stage: ErrorStage.playback,
         diagnostic: 'illegal_transition:${phase.wireName}:$kind',
+        params: {'phase': phase.wireName, 'command': kind},
+      );
+
+  static VideoKitStableError _invalidArgument(String what) =>
+      VideoKitStableError.invalidArgument(
+        stage: ErrorStage.playback,
+        diagnostic: 'invalid_argument:$what',
+        params: {'argument': what},
       );
 
   // ---------------------------------------------------------------- bind --
@@ -123,6 +137,9 @@ class FakeSession implements VideoKitSession {
     List<VideoKitHostAction> hostActions = const [],
   }) async {
     if (_released) return const SessionReleased();
+    if (_s.phase == SessionPhase.errorFatal) {
+      return Rejected(_illegal(_s.phase, 'bind'));
+    }
     _releaseCurrentSource();
     final generation = ++_bindGeneration;
     _source = source;
@@ -131,6 +148,7 @@ class FakeSession implements VideoKitSession {
     _scenario = _scenarioFor(source);
     _firedBuffering.clear();
     _videoSize.value = null;
+    _subtitlesChosen = initialState?.subtitlesEnabled != null;
     _set(
       _s.copyWith(
         phase: SessionPhase.binding,
@@ -173,7 +191,7 @@ class FakeSession implements VideoKitSession {
           ? null
           : supportedAudio.first.id,
       orientation: _s.orientation.copyWith(
-        natural: profile.size.width == profile.size.height
+        contentOrientation: profile.size.width == profile.size.height
             ? MediaOrientation.square
             : (profile.size.isPortrait
                   ? MediaOrientation.portrait
@@ -184,7 +202,7 @@ class FakeSession implements VideoKitSession {
       next = next.copyWith(
         transform: initialState.transform,
         orientation: next.orientation.copyWith(
-          requested: initialState.preferredOrientation,
+          request: initialState.preferredOrientation,
           fullscreen: initialState.fullscreen,
         ),
       );
@@ -244,16 +262,16 @@ class FakeSession implements VideoKitSession {
         _host
             .guarded(
               () => _host.callbacks.onRecoverableError(sessionId, error),
-              _host.timeouts.notification,
+              _host.timeouts.recoveryDecision,
             )
             .then((decision) async {
               if (_released || source == null || _source != source) return;
-              switch (decision ?? RecoveryDecision.keepErrorState) {
+              switch (decision ?? RecoveryDecision.keepError) {
                 case RecoveryDecision.retry:
                   await bind(source, initialState: await captureState());
                 case RecoveryDecision.release:
                   await release();
-                case RecoveryDecision.keepErrorState:
+                case RecoveryDecision.keepError:
                   break;
               }
             }),
@@ -343,10 +361,18 @@ class FakeSession implements VideoKitSession {
             phase: SessionPhase.buffering,
           ),
         );
-        _host.notify((c) => c.onPlaybackEvent(BufferingStarted(sessionId)));
+        _host.notify(
+          (c) => c.onPlaybackEvent(
+            BufferingStarted(sessionId, w.at.inMicroseconds),
+          ),
+        );
         _bufferingTask = clock.schedule(w.duration, () {
           if (_s.phase != SessionPhase.buffering) return;
-          _host.notify((c) => c.onPlaybackEvent(BufferingEnded(sessionId)));
+          _host.notify(
+            (c) => c.onPlaybackEvent(
+              BufferingEnded(sessionId, w.duration.inMicroseconds),
+            ),
+          );
           _set(
             _s.copyWith(
               phase: _s.playWhenReady
@@ -404,7 +430,7 @@ class FakeSession implements VideoKitSession {
       case SetSpeed(:final speed):
         return _videoOnly(command.kind, () {
           if (speed < 0.25 || speed > 4.0 || speed.isNaN) {
-            return const Unsupported(UnsupportedReason.valueOutOfRange);
+            return Rejected(_invalidArgument('speed'));
           }
           _set(_s.copyWith(speed: speed));
           return const Executed();
@@ -417,7 +443,7 @@ class FakeSession implements VideoKitSession {
       case SetVolume(:final volume):
         return _videoOnly(command.kind, () {
           if (volume < 0 || volume > 1 || volume.isNaN) {
-            return const Unsupported(UnsupportedReason.valueOutOfRange);
+            return Rejected(_invalidArgument('volume'));
           }
           _set(_s.copyWith(volume: volume));
           return const Executed();
@@ -435,10 +461,10 @@ class FakeSession implements VideoKitSession {
           }
           final track = _s.audioTracks.where((t) => t.id == trackId);
           if (track.isEmpty) {
-            return const Unsupported(UnsupportedReason.trackNotFound);
+            return Rejected(_invalidArgument('trackId'));
           }
           if (!track.first.supported) {
-            return const Unsupported(UnsupportedReason.notSupportedByDevice);
+            return const Unsupported(UnsupportedReason.deviceCapability);
           }
           _set(_s.copyWith(selectedAudioTrackId: trackId));
           return const Executed();
@@ -447,8 +473,9 @@ class FakeSession implements VideoKitSession {
         return _videoOnly(command.kind, () {
           if (trackId != null &&
               !_s.subtitleTracks.any((t) => t.id == trackId)) {
-            return const Unsupported(UnsupportedReason.trackNotFound);
+            return Rejected(_invalidArgument('trackId'));
           }
+          _subtitlesChosen = true;
           _set(_s.copyWith(selectedSubtitleTrackId: trackId));
           return const Executed();
         });
@@ -462,7 +489,7 @@ class FakeSession implements VideoKitSession {
         return const Executed();
       case SetOrientation(:final request):
         _set(
-          _s.copyWith(orientation: _s.orientation.copyWith(requested: request)),
+          _s.copyWith(orientation: _s.orientation.copyWith(request: request)),
         );
         return const Executed();
       case SetFullscreen(:final fullscreen):
@@ -481,12 +508,24 @@ class FakeSession implements VideoKitSession {
         }
         return const Executed();
       case SetActiveAudio(:final active, :final audioEpoch):
-        if (audioEpoch < _acceptedAudioEpoch) return const Superseded();
+        if (audioEpoch < _acceptedAudioEpoch) {
+          return Rejected(
+            VideoKitStableError.invalidState(
+              stage: ErrorStage.playback,
+              diagnostic: 'stale_audio_epoch',
+              params: {'audioEpoch': '$audioEpoch'},
+            ),
+          );
+        }
+        if (active && _s.hiddenForLock) {
+          // Lock wins over audio activation (06 §4.2, vector lock.*).
+          return Rejected(_illegal(_s.phase, command.kind));
+        }
         _acceptedAudioEpoch = audioEpoch;
         _set(_s.copyWith(activeAudio: active));
         return const Executed();
       case HideContentForLock(:final hidden):
-        var next = _s.copyWith(contentHiddenForLock: hidden);
+        var next = _s.copyWith(hiddenForLock: hidden);
         if (hidden && next.phase == SessionPhase.playing) {
           next = next.copyWith(
             phase: SessionPhase.paused,
@@ -495,8 +534,6 @@ class FakeSession implements VideoKitSession {
         }
         _set(next);
         return const Executed();
-      case InvokeHostAction(:final actionId):
-        return _invokeHostAction(actionId);
       case Release():
         await release();
         return const Executed();
@@ -512,7 +549,7 @@ class FakeSession implements VideoKitSession {
       return Rejected(_illegal(phase, kind));
     }
     if (_s.mediaKind != MediaKind.video) {
-      return const Unsupported(UnsupportedReason.notApplicableToMediaKind);
+      return const Unsupported(UnsupportedReason.mediaKind);
     }
     return run();
   }
@@ -526,9 +563,9 @@ class FakeSession implements VideoKitSession {
     if (!s.phase.isBound) return Rejected(_illegal(s.phase, kind));
     if (s.mediaKind != MediaKind.video &&
         s.mediaKind != MediaKind.imageAnimated) {
-      return const Unsupported(UnsupportedReason.notApplicableToMediaKind);
+      return const Unsupported(UnsupportedReason.mediaKind);
     }
-    if (play && s.contentHiddenForLock) {
+    if (play && s.hiddenForLock) {
       return const Unsupported(UnsupportedReason.contentLocked);
     }
     if (play) {
@@ -558,14 +595,15 @@ class FakeSession implements VideoKitSession {
       return Future.value(Rejected(_illegal(s.phase, command.kind)));
     }
     if (s.mediaKind != MediaKind.video) {
-      return Future.value(
-        const Unsupported(UnsupportedReason.notApplicableToMediaKind),
-      );
+      return Future.value(const Unsupported(UnsupportedReason.mediaKind));
     }
     if (_source?.seekability == Seekability.sequentialOnly) {
       return Future.value(
-        const Unsupported(UnsupportedReason.sourceNotSeekable),
+        const Unsupported(UnsupportedReason.sourceSequentialOnly),
       );
+    }
+    if (command.positionUs < 0) {
+      return Future.value(Rejected(_invalidArgument('positionUs')));
     }
     _cancelSeek();
     final duration = s.durationUs ?? 0;
@@ -605,15 +643,25 @@ class FakeSession implements VideoKitSession {
 
   // -------------------------------------------------------- host actions --
 
-  VideoKitCommandResult _invokeHostAction(String actionId) {
+  @override
+  Future<VideoKitCommandResult> requestHostAction(String actionId) async {
+    if (_released) return const SessionReleased();
+    // Host actions need bound media (errors included: e.g. "delete" on a
+    // broken file); vector host_action.before_bind.rejected.
+    if (!_s.phase.isBound && !_s.phase.isError) {
+      return Rejected(_illegal(_s.phase, 'requestHostAction'));
+    }
     final index = _s.hostActions.indexWhere(
       (a) => a.action.actionId == actionId,
     );
-    if (index < 0 || !_s.hostActions[index].action.enabled) {
-      return const Unsupported(UnsupportedReason.hostActionUnavailable);
+    if (index < 0) return Rejected(_invalidArgument('actionId'));
+    if (!_s.hostActions[index].action.enabled) {
+      return const Unsupported(UnsupportedReason.hostDisabled);
     }
-    if (_s.hostActions[index].inFlight) return const Executed(); // merged
-    _updateAction(actionId, (a) => a.copyWith(inFlight: true));
+    // Pending duplicate: merged, host not called again (04A I1).
+    if (_s.hostActions[index].pending) return const Superseded();
+    _inFlight.add(actionId);
+    _updateAction(actionId, (a) => a.copyWith(pending: true));
     unawaited(_runHostAction(actionId));
     return const Executed();
   }
@@ -637,21 +685,36 @@ class FakeSession implements VideoKitSession {
         _host.timeouts.hostAction,
       );
     }
+    _inFlight.remove(actionId);
     if (_released) return;
     if (result == null || result.status == HostActionStatus.failed) {
-      final error = result?.error ?? FakeHostBridge.callbackFailed;
+      final error = result == null
+          ? FakeHostBridge.callbackFailed
+          : FakeHostBridge.callbackFailed.copyWith(
+              params: const {'reason': 'hostReported'},
+            );
       _updateAction(
         actionId,
-        (a) => a.copyWith(inFlight: false, lastError: error),
+        (a) => a.copyWith(
+          pending: a.action.pending,
+          lastStatus: HostActionStatus.failed,
+          lastError: error,
+        ),
       );
-      _emit(HostActionFailed(actionId, error));
+      _emit(HostActionFailed(actionId, error, messageKey: result?.messageKey));
       return;
     }
+    final updated = result.updatedAction;
     _updateAction(
       actionId,
       (a) => a.copyWith(
-        action: result!.updatedAction ?? a.action,
-        inFlight: false,
+        action: updated ?? a.action,
+        // PENDING keeps the action pending until the host updates it
+        // (04A S1; Kotlin vector runner HOST_ACTIONS_SETTLED).
+        pending:
+            result!.status == HostActionStatus.pending ||
+            (updated ?? a.action).pending,
+        lastStatus: result.status,
         lastError: null,
       ),
     );
@@ -681,6 +744,7 @@ class FakeSession implements VideoKitSession {
           for (final a in actions)
             (previous[a.actionId] ?? HostActionState(action: a)).copyWith(
               action: a,
+              pending: _inFlight.contains(a.actionId) || a.pending,
             ),
         ],
       ),
@@ -688,7 +752,25 @@ class FakeSession implements VideoKitSession {
   }
 
   @override
-  Future<void> reportControlsVisible(bool visible) async {
+  Future<NavigationResult> requestNavigation(
+    NavigationDirection direction,
+  ) async {
+    if (_released) return NavigationResult.failed;
+    final result = await _host.guarded(
+      () => _host.callbacks.onNavigationRequested(
+        NavigationRequest(
+          sessionId: sessionId,
+          direction: direction,
+          mediaToken: _source?.mediaToken,
+        ),
+      ),
+      _host.timeouts.navigation,
+    );
+    return result ?? NavigationResult.failed;
+  }
+
+  @override
+  void setControlsVisible(bool visible) {
     if (_released || _s.controlsVisible == visible) return;
     _set(_s.copyWith(controlsVisible: visible));
     _host.notify((c) => c.onControlsVisibilityChanged(sessionId, visible));
@@ -704,19 +786,23 @@ class FakeSession implements VideoKitSession {
     final s = _s;
     final isVideo = s.mediaKind == MediaKind.video;
     return VideoKitPlaybackState(
+      sessionId: sessionId,
       mediaToken: _source?.mediaToken,
       zoom: s.transform.scale,
       panX: s.transform.panX,
       panY: s.transform.panY,
       rotationDeg: s.transform.rotationDeg,
       fitMode: s.transform.fitMode,
-      preferredOrientation: s.orientation.requested,
+      preferredOrientation: s.orientation.request,
       fullscreen: s.orientation.fullscreen,
       positionUs: isVideo ? (s.seekingToUs ?? s.positionUs) : null,
       speed: isVideo ? s.speed : null,
       volume: isVideo ? s.volume : null,
       muted: isVideo ? s.muted : null,
       subtitleTrackId: isVideo ? s.selectedSubtitleTrackId : null,
+      subtitlesEnabled: isVideo && _subtitlesChosen
+          ? s.selectedSubtitleTrackId != null
+          : null,
       audioTrackId: isVideo ? s.selectedAudioTrackId : null,
     );
   }
@@ -731,7 +817,7 @@ class FakeSession implements VideoKitSession {
     _bindGeneration++;
     _set(_s.copyWith(phase: SessionPhase.releasing));
     _releaseCurrentSource();
-    _host.notify((c) => c.onPlaybackSnapshot(sessionId, snapshot));
+    _host.notify((c) => c.onPlaybackSnapshot(snapshot));
     await Future<void>.delayed(Duration.zero);
     _finalSnapshot = snapshot;
     clock.removeTickListener(_onTick);
@@ -743,11 +829,13 @@ class FakeSession implements VideoKitSession {
         resourcesHeld: false,
         activeAudio: false,
         hostActions: [
-          for (final a in _s.hostActions) a.copyWith(inFlight: false),
+          for (final a in _s.hostActions) a.copyWith(pending: false),
         ],
       ),
     );
-    _host.notify((c) => c.onPlaybackEvent(SessionEnded(sessionId)));
+    _host.notify(
+      (c) => c.onPlaybackEvent(SessionEnded(sessionId, snapshot.mediaToken)),
+    );
     await _events.close();
     _onReleased?.call(this);
     return snapshot;
@@ -772,4 +860,15 @@ class FakeSession implements VideoKitSession {
       ),
     );
   }
+}
+
+/// Texture lease of the Fake: the texture ID is always null (04A S7).
+final class _FakeTextureLease implements VideoKitTextureLease {
+  _FakeTextureLease(this.textureId);
+
+  @override
+  final ValueListenable<int?> textureId;
+
+  @override
+  void release() {}
 }

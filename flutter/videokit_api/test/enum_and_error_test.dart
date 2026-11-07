@@ -3,8 +3,10 @@ import 'package:videokit_api/videokit_api.dart';
 
 void main() {
   group('ErrorCode', () {
-    test('has the 22 codes of 04 §9.1 with stable wire names', () {
-      expect(ErrorCode.values, hasLength(22));
+    test('has the 25 codes of 04 §9.1 + 04A V7 with stable wire names', () {
+      expect(ErrorCode.values, hasLength(25));
+      expect(ErrorCode.values.last, ErrorCode.unsupportedSnapshotVersion);
+      expect(ErrorCode.invalidArgument.wireName, 'INVALID_ARGUMENT');
       expect(ErrorCode.sourceNotFound.wireName, 'SOURCE_NOT_FOUND');
       expect(
         ErrorCode.internalErrorRedacted.wireName,
@@ -45,11 +47,14 @@ void main() {
       expect(OrientationRequest.fromName('X'), OrientationRequest.auto);
       expect(ActionPlacement.fromName('X'), ActionPlacement.overflow);
       expect(NavigationResult.fromName('X'), NavigationResult.failed);
-      expect(RecoveryDecision.fromName('X'), RecoveryDecision.keepErrorState);
+      expect(RecoveryDecision.fromName('X'), RecoveryDecision.keepError);
       expect(TrackingState.fromName('X'), TrackingState.notAnalyzed);
       expect(ExportStage.fromName('X'), ExportStage.preparing);
       expect(FeatureKey.fromName('X'), FeatureKey.unknown);
-      expect(PrecheckIssueKind.fromName('X'), PrecheckIssueKind.unknown);
+      expect(
+        TrackingModuleStatus.fromName('X'),
+        TrackingModuleStatus.unsupported,
+      );
       expect(MediaKind.fromName('IMAGE_ANIMATED'), MediaKind.imageAnimated);
       expect(
         ResourcePriority.fromName('VISIBLE_AUDIBLE'),

@@ -175,4 +175,124 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
   String timecodeRange(String position, String duration) {
     return '$position / $duration';
   }
+
+  @override
+  String get navComponents => '组件';
+
+  @override
+  String get navPlayer => '播放器';
+
+  @override
+  String get componentsTitle => '组件库';
+
+  @override
+  String get sectionButtons => '按钮';
+
+  @override
+  String get sectionIconButtons => '图标按钮';
+
+  @override
+  String get sectionBadges => '角标与演示标识';
+
+  @override
+  String get sectionSlider => '滑杆';
+
+  @override
+  String get sectionStateViews => '状态视图';
+
+  @override
+  String get sectionHostActions => '宿主动作栏';
+
+  @override
+  String get sectionSheets => '面板与轻提示';
+
+  @override
+  String get openSheet => '打开面板';
+
+  @override
+  String get showToast => '显示轻提示';
+
+  @override
+  String get sheetSampleTitle => '示例面板';
+
+  @override
+  String get sheetSampleBody => '按返回键或 Esc 关闭面板，不会退出页面。';
+
+  @override
+  String get toastSample => '已添加到收藏';
+
+  @override
+  String get volumeLabel => '音量';
+
+  @override
+  String get badgeSample => '新';
+
+  @override
+  String get badgeLongSample => '12345';
+
+  @override
+  String get playerDemoTitle => '播放器演示';
+
+  @override
+  String get playerDemoVideoTitle => '演示视频';
+
+  @override
+  String get scenarioLabel => '场景';
+
+  @override
+  String get scenarioNormal => '正常';
+
+  @override
+  String get scenarioSlowLoad => '慢加载';
+
+  @override
+  String get scenarioBuffering => '缓冲';
+
+  @override
+  String get scenarioDisconnect => '断线';
+
+  @override
+  String get scenarioUnsupported => '不支持';
+
+  @override
+  String get scenarioHostActionTimeout => '宿主动作超时';
+
+  @override
+  String get editNotAvailable => '剪辑页面将在后续批次提供';
+
+  @override
+  String get hostPanelHint => '宿主面板插槽';
+
+  @override
+  String get hostFavorite => '收藏';
+
+  @override
+  String get hostFavorited => '已收藏';
+
+  @override
+  String get hostFavoriteCd => '收藏这个视频';
+
+  @override
+  String get hostUnfavoriteCd => '取消收藏这个视频';
+
+  @override
+  String get hostTag => '标签';
+
+  @override
+  String get hostTagCd => '为这个视频添加标签';
+
+  @override
+  String get hostDelete => '删除';
+
+  @override
+  String get hostDeleteCd => '删除这个视频';
+
+  @override
+  String get hostShare => '分享';
+
+  @override
+  String get hostShareCd => '分享这个视频';
+
+  @override
+  String get hostDone => '已完成';
 }

@@ -185,7 +185,7 @@ final class AddMask extends VideoKitEditCommand {
   final MaskType type;
 
   /// Initial region.
-  final NormalizedRect region;
+  final MaskRegion region;
 
   /// Start (µs).
   final int startUs;
@@ -202,7 +202,7 @@ final class AddMask extends VideoKitEditCommand {
   /// Returns a copy with the given fields replaced.
   AddMask copyWith({
     MaskType? type,
-    NormalizedRect? region,
+    MaskRegion? region,
     int? startUs,
     int? endUs,
     MaskStyle? style,
@@ -247,13 +247,13 @@ final class UpdateMaskKeyframe extends VideoKitEditCommand {
   final int atUs;
 
   /// Region.
-  final NormalizedRect region;
+  final MaskRegion region;
 
   /// Returns a copy with the given fields replaced.
   UpdateMaskKeyframe copyWith({
     String? maskId,
     int? atUs,
-    NormalizedRect? region,
+    MaskRegion? region,
   }) => UpdateMaskKeyframe(
     maskId ?? this.maskId,
     atUs ?? this.atUs,
@@ -388,11 +388,13 @@ final class RemoveMask extends VideoKitEditCommand {
   String toString() => 'RemoveMask($maskId)';
 }
 
-/// Start automatic tracking of [maskId] from [atUs] seeded with
-/// [seedRegion] (a picked face candidate or a user box). Not undoable.
+/// Start automatic tracking of [maskId] (04A S4): a face target picked from
+/// `detectCandidates` ([targetId]) or an object selected by tap/box
+/// ([seedRegion]); without either the mask's first keyframe seeds it.
+/// Not undoable.
 final class StartTracking extends VideoKitEditCommand {
   /// Creates the command.
-  const StartTracking(this.maskId, this.kind, this.atUs, this.seedRegion);
+  const StartTracking(this.maskId, this.kind, {this.seedRegion, this.targetId});
 
   /// Mask ID (an automatic mask added with [AddMask]).
   final String maskId;
@@ -400,11 +402,11 @@ final class StartTracking extends VideoKitEditCommand {
   /// Kind.
   final TrackingKind kind;
 
-  /// Seed time (µs).
-  final int atUs;
+  /// Seed region (object point/box selection).
+  final MaskRegion? seedRegion;
 
-  /// Seed region.
-  final NormalizedRect seedRegion;
+  /// Picked candidate ID (`TrackingCandidate.candidateId`).
+  final String? targetId;
 
   @override
   bool get undoable => false;
@@ -413,13 +415,13 @@ final class StartTracking extends VideoKitEditCommand {
   StartTracking copyWith({
     String? maskId,
     TrackingKind? kind,
-    int? atUs,
-    NormalizedRect? seedRegion,
+    Object? seedRegion = undefined,
+    Object? targetId = undefined,
   }) => StartTracking(
     maskId ?? this.maskId,
     kind ?? this.kind,
-    atUs ?? this.atUs,
-    seedRegion ?? this.seedRegion,
+    seedRegion: pick<MaskRegion?>(seedRegion, this.seedRegion),
+    targetId: pick<String?>(targetId, this.targetId),
   );
 
   @override
@@ -427,16 +429,17 @@ final class StartTracking extends VideoKitEditCommand {
       other is StartTracking &&
       other.maskId == maskId &&
       other.kind == kind &&
-      other.atUs == atUs &&
-      other.seedRegion == seedRegion;
+      other.seedRegion == seedRegion &&
+      other.targetId == targetId;
 
   @override
   int get hashCode =>
-      Object.hash(StartTracking, maskId, kind, atUs, seedRegion);
+      Object.hash(StartTracking, maskId, kind, seedRegion, targetId);
 
   @override
   String toString() =>
-      'StartTracking($maskId, ${kind.name}, $atUs, $seedRegion)';
+      'StartTracking($maskId, ${kind.name}, seed: $seedRegion, '
+      'target: $targetId)';
 }
 
 /// Re-specify the target at [atUs]; results after it are invalidated and
@@ -452,18 +455,15 @@ final class CorrectTracking extends VideoKitEditCommand {
   final int atUs;
 
   /// Corrected region.
-  final NormalizedRect region;
+  final MaskRegion region;
 
   /// Returns a copy with the given fields replaced.
-  CorrectTracking copyWith({
-    String? maskId,
-    int? atUs,
-    NormalizedRect? region,
-  }) => CorrectTracking(
-    maskId ?? this.maskId,
-    atUs ?? this.atUs,
-    region ?? this.region,
-  );
+  CorrectTracking copyWith({String? maskId, int? atUs, MaskRegion? region}) =>
+      CorrectTracking(
+        maskId ?? this.maskId,
+        atUs ?? this.atUs,
+        region ?? this.region,
+      );
 
   @override
   bool operator ==(Object other) =>

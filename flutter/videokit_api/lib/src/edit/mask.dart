@@ -5,24 +5,25 @@ import '../util/enum_codec.dart';
 import '../util/undefined.dart';
 import 'tracking.dart';
 
-/// Normalised rectangle (0–1, relative to the orientation-corrected source
-/// picture), optionally rotated around its centre (08 §4).
+/// Mask region (04A N6): normalised rectangle (0–1, relative to the
+/// orientation-corrected source picture, origin top-left), optionally
+/// rotated around its centre (08 §4).
 @immutable
-final class NormalizedRect {
-  /// Creates a rectangle.
-  const NormalizedRect({
-    required this.left,
-    required this.top,
+final class MaskRegion {
+  /// Creates a region.
+  const MaskRegion({
+    required this.x,
+    required this.y,
     required this.width,
     required this.height,
     this.rotationDeg = 0.0,
   });
 
   /// Left edge.
-  final double left;
+  final double x;
 
   /// Top edge.
-  final double top;
+  final double y;
 
   /// Width.
   final double width;
@@ -34,17 +35,17 @@ final class NormalizedRect {
   final double rotationDeg;
 
   /// Right edge.
-  double get right => left + width;
+  double get right => x + width;
 
   /// Bottom edge.
-  double get bottom => top + height;
+  double get bottom => y + height;
 
   /// Linear interpolation between [a] and [b] at [t] ∈ [0, 1].
-  static NormalizedRect lerp(NormalizedRect a, NormalizedRect b, double t) {
-    double mix(double x, double y) => x + (y - x) * t;
-    return NormalizedRect(
-      left: mix(a.left, b.left),
-      top: mix(a.top, b.top),
+  static MaskRegion lerp(MaskRegion a, MaskRegion b, double t) {
+    double mix(double p, double q) => p + (q - p) * t;
+    return MaskRegion(
+      x: mix(a.x, b.x),
+      y: mix(a.y, b.y),
       width: mix(a.width, b.width),
       height: mix(a.height, b.height),
       rotationDeg: mix(a.rotationDeg, b.rotationDeg),
@@ -52,15 +53,15 @@ final class NormalizedRect {
   }
 
   /// Returns a copy with the given fields replaced.
-  NormalizedRect copyWith({
-    double? left,
-    double? top,
+  MaskRegion copyWith({
+    double? x,
+    double? y,
     double? width,
     double? height,
     double? rotationDeg,
-  }) => NormalizedRect(
-    left: left ?? this.left,
-    top: top ?? this.top,
+  }) => MaskRegion(
+    x: x ?? this.x,
+    y: y ?? this.y,
     width: width ?? this.width,
     height: height ?? this.height,
     rotationDeg: rotationDeg ?? this.rotationDeg,
@@ -68,19 +69,19 @@ final class NormalizedRect {
 
   @override
   bool operator ==(Object other) =>
-      other is NormalizedRect &&
-      other.left == left &&
-      other.top == top &&
+      other is MaskRegion &&
+      other.x == x &&
+      other.y == y &&
       other.width == width &&
       other.height == height &&
       other.rotationDeg == rotationDeg;
 
   @override
-  int get hashCode => Object.hash(left, top, width, height, rotationDeg);
+  int get hashCode => Object.hash(x, y, width, height, rotationDeg);
 
   @override
   String toString() =>
-      'NormalizedRect($left, $top, ${width}x$height, rot: $rotationDeg)';
+      'MaskRegion($x, $y, ${width}x$height, rot: $rotationDeg)';
 }
 
 /// Who produced a mask (08 §4).
@@ -139,7 +140,7 @@ final class MaskKeyframe {
   final int atUs;
 
   /// Region.
-  final NormalizedRect region;
+  final MaskRegion region;
 
   /// Origin.
   final KeyframeSource source;
@@ -150,7 +151,7 @@ final class MaskKeyframe {
   /// Returns a copy with the given fields replaced.
   MaskKeyframe copyWith({
     int? atUs,
-    NormalizedRect? region,
+    MaskRegion? region,
     KeyframeSource? source,
     Object? state = undefined,
   }) => MaskKeyframe(
@@ -223,7 +224,7 @@ final class MaskTrack {
   ///
   /// This is the single interpolation function shared by preview and export
   /// (UI must not interpolate on its own, 14 §5.7).
-  NormalizedRect? regionAt(int atUs) {
+  MaskRegion? regionAt(int atUs) {
     if (atUs < startUs || atUs >= endUs || keyframes.isEmpty) return null;
     if (atUs <= keyframes.first.atUs) return keyframes.first.region;
     if (atUs >= keyframes.last.atUs) return keyframes.last.region;
@@ -233,7 +234,7 @@ final class MaskTrack {
       if (atUs >= a.atUs && atUs <= b.atUs) {
         final span = b.atUs - a.atUs;
         final t = span == 0 ? 0.0 : (atUs - a.atUs) / span;
-        return NormalizedRect.lerp(a.region, b.region, t);
+        return MaskRegion.lerp(a.region, b.region, t);
       }
     }
     return keyframes.last.region;

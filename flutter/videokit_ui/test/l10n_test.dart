@@ -115,9 +115,10 @@ void main() {
       expect(VkFormat.number(s, 12345.67), '12,345.7');
       expect(VkFormat.percent(s, 0.5), '50%');
       expect(VkFormat.fileSize(s, 512), '512 字节');
-      expect(VkFormat.fileSize(s, 1536), '1.5 KB');
-      expect(VkFormat.fileSize(s, 5 * 1024 * 1024), '5 MB');
-      expect(VkFormat.fileSize(s, 3 * 1024 * 1024 * 1024), '3 GB');
+      expect(VkFormat.fileSize(s, 1500), '1.5 KB');
+      expect(VkFormat.fileSize(s, 999), '999 字节');
+      expect(VkFormat.fileSize(s, 5000000), '5 MB');
+      expect(VkFormat.fileSize(s, 3000000000), '3 GB');
       final p = VkStrings.forLocale(VkPseudo.locale);
       expect(
         VkFormat.percent(p, 0.5),

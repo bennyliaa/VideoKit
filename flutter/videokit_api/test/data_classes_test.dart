@@ -20,7 +20,7 @@ const _action = VideoKitHostAction(
   actionId: 'fav',
   labelKey: 'favorite',
   contentDescriptionKey: 'favorite_cd',
-  icon: HostIcon.builtin('favorite'),
+  icon: HostIcon.builtIn('favorite'),
   placement: ActionPlacement.primaryBar,
 );
 
@@ -87,15 +87,20 @@ void main() {
         _action.copyWith(badgeText: '3').copyWith(badgeText: null).badgeText,
         isNull,
       );
-      const st = HostActionState(action: _action);
+      final st = HostActionState(action: _action);
       expect(st.isPending, isFalse);
-      expect(st.copyWith(inFlight: true).isPending, isTrue);
+      expect(st.copyWith(pending: true).isPending, isTrue);
       expect(
-        st.copyWith(action: _action.copyWith(pending: true)).isPending,
+        HostActionState(action: _action.copyWith(pending: true)).pending,
         isTrue,
+        reason: 'defaults to the host flag (04A S1)',
+      );
+      expect(
+        st.copyWith(lastStatus: HostActionStatus.failed).lastStatus,
+        HostActionStatus.failed,
       );
       expectValueSemantics(st, st.copyWith(), st.copyWith(lastError: _err));
-      expect(const HostIcon.hostResource(7), const HostResourceIcon(7));
+      expect(const HostIcon.resource('7'), const HostIconResource('7'));
     });
 
     test('requests and results', () {
@@ -110,7 +115,7 @@ void main() {
       expectValueSemantics(
         res,
         res.copyWith(),
-        const HostActionResult.failed(_err),
+        const HostActionResult.failed('host.tag.failed'),
       );
       const n = NavigationRequest(
         sessionId: 's',
@@ -140,7 +145,7 @@ void main() {
         mediaKind: MediaKind.video,
         durationUs: 1000,
         audioTracks: const [TrackInfo(id: 'a')],
-        hostActions: const [HostActionState(action: _action)],
+        hostActions: [HostActionState(action: _action)],
       );
       expectValueSemantics(
         s,
@@ -173,7 +178,6 @@ void main() {
         const SetVisibility(SessionVisibility.background),
         const SetActiveAudio(true, 3),
         const HideContentForLock(true),
-        const InvokeHostAction('fav'),
         const Release(),
       ];
       final kinds = cmds.map((c) => c.kind).toSet();
@@ -245,7 +249,9 @@ void main() {
         muted: true,
         subtitleTrackId: 's1',
         audioTrackId: 'a1',
-        lastViewedAt: DateTime.utc(2026, 11, 6, 12),
+        lastViewedAtEpochMs: 1762430400000,
+        sessionId: 's1',
+        subtitlesEnabled: true,
       );
       expect(VideoKitPlaybackState.fromJson(p.toJson()), p);
       expectValueSemantics(p, p.copyWith(), p.copyWith(zoom: 3));
@@ -321,8 +327,8 @@ void main() {
     });
 
     test('MaskTrack.regionAt interpolates linearly and holds at ends', () {
-      const a = NormalizedRect(left: 0, top: 0, width: 0.2, height: 0.2);
-      const b = NormalizedRect(left: 0.4, top: 0.2, width: 0.4, height: 0.2);
+      const a = MaskRegion(x: 0, y: 0, width: 0.2, height: 0.2);
+      const b = MaskRegion(x: 0.4, y: 0.2, width: 0.4, height: 0.2);
       final m = MaskTrack(
         maskId: 'k',
         type: MaskType.manual,
@@ -337,7 +343,7 @@ void main() {
       expect(m.regionAt(100), a);
       expect(m.regionAt(900), b);
       final mid = m.regionAt(500)!;
-      expect(mid.left, closeTo(0.2, 1e-9));
+      expect(mid.x, closeTo(0.2, 1e-9));
       expect(mid.width, closeTo(0.3, 1e-9));
       expect(m.regionAt(1000), isNull, reason: 'end exclusive');
       expect(m.regionAt(-1), isNull);
@@ -348,9 +354,9 @@ void main() {
     test('CoverageReport blocking segments', () {
       final r = CoverageReport(
         segments: const [
-          CoverageSegment(startUs: 10, endUs: 20, state: TrackingState.lost),
-          CoverageSegment(startUs: 0, endUs: 10, state: TrackingState.tracked),
-          CoverageSegment(
+          CoverageRange(startUs: 10, endUs: 20, state: TrackingState.lost),
+          CoverageRange(startUs: 0, endUs: 10, state: TrackingState.tracked),
+          CoverageRange(
             startUs: 20,
             endUs: 30,
             state: TrackingState.ambiguous,
@@ -376,8 +382,7 @@ void main() {
         const StartTracking(
           'm',
           TrackingKind.face,
-          0,
-          NormalizedRect(left: 0, top: 0, width: 1, height: 1),
+          seedRegion: MaskRegion(x: 0, y: 0, width: 1, height: 1),
         ).undoable,
         isFalse,
       );
@@ -409,23 +414,18 @@ void main() {
   });
 
   group('export', () {
-    test('precheck canExport depends on blocking issues', () {
-      final ok = ExportPrecheck(estimatedDurationUs: 5);
+    test('precheck: ok only without problems (04A S2)', () {
+      final ok = ExportPrecheck(
+        estimate: const EditEstimate(durationUs: 5),
+        warnings: const [ExportWarnings.trackingCoverageAccepted],
+        writeMode: SinkWriteMode.randomWrite,
+      );
+      expect(ok.ok, isTrue);
       expect(ok.canExport, isTrue);
-      final warn = ExportPrecheck(
-        issues: const [
-          PrecheckIssue(
-            kind: PrecheckIssueKind.trackingCoverageIncomplete,
-            blocking: false,
-          ),
-        ],
-      );
-      expect(warn.canExport, isTrue);
-      final blocked = warn.copyWith(
-        issues: const [PrecheckIssue(kind: PrecheckIssueKind.emptyTimeline)],
-      );
-      expect(blocked.canExport, isFalse);
+      final blocked = ok.copyWith(problems: const [_err]);
+      expect(blocked.ok, isFalse);
       expectValueSemantics(ok, ok.copyWith(), blocked);
+      expect(SinkWriteMode.fromName('X'), SinkWriteMode.sequential);
     });
 
     test('request, progress, results', () {
@@ -477,7 +477,7 @@ void main() {
           ),
         ],
         unavailableReasons: const {
-          FeatureKey.faceTracking: UnsupportedReason.moduleUnavailable,
+          FeatureKey.faceTracking: UnsupportedReason.moduleNotInstalled,
         },
       );
       expectValueSemantics(c, c.copyWith(), c.copyWith(isDemo: true));

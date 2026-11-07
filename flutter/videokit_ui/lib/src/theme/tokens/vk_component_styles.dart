@@ -243,9 +243,86 @@ final class VkSeekBarStyle {
   );
 }
 
+/// `component.progress.default` style (export stages, tracking progress).
+@immutable
+final class VkProgressStyle {
+  /// Creates a progress style.
+  const VkProgressStyle({
+    required this.track,
+    required this.indicator,
+    required this.height,
+    required this.radius,
+  });
+
+  /// Track colour.
+  final Color track;
+
+  /// Indicator colour.
+  final Color indicator;
+
+  /// Bar height (linear) / stroke width (circular).
+  final double height;
+
+  /// Corner radius.
+  final double radius;
+
+  @override
+  bool operator ==(Object other) =>
+      other is VkProgressStyle &&
+      other.track == track &&
+      other.indicator == indicator &&
+      other.height == height &&
+      other.radius == radius;
+
+  @override
+  int get hashCode => Object.hash(track, indicator, height, radius);
+}
+
+/// `apps.videokit.component.hostactionbar` style (14 §5.4): item states
+/// (selected = primary fill), pending ring, badge and label.
+@immutable
+final class VkHostActionBarStyle {
+  /// Creates a host action bar style.
+  const VkHostActionBarStyle({
+    required this.item,
+    required this.pendingIndicator,
+    required this.label,
+    required this.badge,
+    required this.spacing,
+  });
+
+  /// Item appearance per state.
+  final VkStateStyle<VkBoxStyle> item;
+
+  /// Pending ring colour.
+  final Color pendingIndicator;
+
+  /// Label under/next to the icon.
+  final TextStyle label;
+
+  /// Badge (max 3 characters shown).
+  final VkBoxStyle badge;
+
+  /// Gap between items.
+  final double spacing;
+
+  @override
+  bool operator ==(Object other) =>
+      other is VkHostActionBarStyle &&
+      other.item == item &&
+      other.pendingIndicator == pendingIndicator &&
+      other.label == label &&
+      other.badge == badge &&
+      other.spacing == spacing;
+
+  @override
+  int get hashCode =>
+      Object.hash(item, pendingIndicator, label, badge, spacing);
+}
+
 /// Component style tokens (`component.*`, `apps.videokit.component.*`).
-/// M0-B1 implements button/chip/badge/seekbar data; the remaining component
-/// keys of 14 §7.2 follow with their components.
+/// Not open to host overrides (REQ-UX-06); derived from the colour,
+/// typography and dimension tokens.
 @immutable
 class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
   /// Creates component styles.
@@ -256,7 +333,12 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
     required this.buttonIcon,
     required this.chip,
     required this.badge,
+    required this.sheet,
+    required this.menu,
+    required this.toast,
+    required this.progress,
     required this.seekBar,
+    required this.hostActionBar,
   });
 
   /// `component.button.primary`.
@@ -277,8 +359,23 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
   /// `component.badge.default`.
   final VkStateStyle<VkBoxStyle> badge;
 
+  /// `component.sheet.default` (bottom/side panels).
+  final VkStateStyle<VkBoxStyle> sheet;
+
+  /// `component.menu.default` (menu surface and items).
+  final VkStateStyle<VkBoxStyle> menu;
+
+  /// `component.toast.default`.
+  final VkStateStyle<VkBoxStyle> toast;
+
+  /// `component.progress.default`.
+  final VkProgressStyle progress;
+
   /// `apps.videokit.component.seekbar`.
   final VkSeekBarStyle seekBar;
+
+  /// `apps.videokit.component.hostactionbar`.
+  final VkHostActionBarStyle hostActionBar;
 
   /// Value of [key], or null.
   Object? operator [](VkTokenKey key) => byKey[key.key];
@@ -291,32 +388,16 @@ class VkComponentStyles extends ThemeExtension<VkComponentStyles> {
     VkTokenKeys.buttonIcon.key: buttonIcon,
     VkTokenKeys.chipDefault.key: chip,
     VkTokenKeys.badgeDefault.key: badge,
+    VkTokenKeys.sheetDefault.key: sheet,
+    VkTokenKeys.menuDefault.key: menu,
+    VkTokenKeys.toastDefault.key: toast,
+    VkTokenKeys.progressDefault.key: progress,
     VkTokenKeys.seekBar.key: seekBar,
+    VkTokenKeys.hostActionBar.key: hostActionBar,
   };
 
-  /// Returns a copy with values from [overrides] (key string → value of the
-  /// right type) applied; mismatched values are ignored.
-  VkComponentStyles withValues(Map<String, Object> overrides) {
-    VkStateStyle<VkBoxStyle> box(VkTokenKey k, VkStateStyle<VkBoxStyle> v) {
-      final o = overrides[k.key];
-      return o is VkStateStyle<VkBoxStyle> ? o : v;
-    }
-
-    final s = overrides[VkTokenKeys.seekBar.key];
-    return VkComponentStyles(
-      buttonPrimary: box(VkTokenKeys.buttonPrimary, buttonPrimary),
-      buttonSecondary: box(VkTokenKeys.buttonSecondary, buttonSecondary),
-      buttonText: box(VkTokenKeys.buttonText, buttonText),
-      buttonIcon: box(VkTokenKeys.buttonIcon, buttonIcon),
-      chip: box(VkTokenKeys.chipDefault, chip),
-      badge: box(VkTokenKeys.badgeDefault, badge),
-      seekBar: s is VkSeekBarStyle ? s : seekBar,
-    );
-  }
-
   @override
-  VkComponentStyles copyWith({Map<String, Object>? values}) =>
-      values == null ? this : withValues(values);
+  VkComponentStyles copyWith() => this;
 
   @override
   VkComponentStyles lerp(covariant VkComponentStyles? other, double t) =>

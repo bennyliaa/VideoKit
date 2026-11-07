@@ -47,10 +47,13 @@ final class SourceReleased extends VideoKitEvent {
 /// A host action request failed or timed out.
 final class HostActionFailed extends VideoKitEvent {
   /// Creates the event.
-  const HostActionFailed(this.actionId, this.error);
+  const HostActionFailed(this.actionId, this.error, {this.messageKey});
 
   /// Action ID.
   final String actionId;
+
+  /// Optional host string key for the notice (04A V3).
+  final String? messageKey;
 
   /// Error (`HOST_CALLBACK_FAILED` on timeout/exception).
   final VideoKitStableError error;
@@ -59,10 +62,12 @@ final class HostActionFailed extends VideoKitEvent {
   bool operator ==(Object other) =>
       other is HostActionFailed &&
       other.actionId == actionId &&
-      other.error == error;
+      other.error == error &&
+      other.messageKey == messageKey;
 
   @override
-  int get hashCode => Object.hash(HostActionFailed, actionId, error);
+  int get hashCode =>
+      Object.hash(HostActionFailed, actionId, error, messageKey);
 
   @override
   String toString() => 'HostActionFailed($actionId, $error)';
@@ -149,57 +154,73 @@ final class PositionTick extends VideoKitPlaybackEvent {
   String toString() => 'PositionTick($sessionId, $positionUs)';
 }
 
-/// Phase changed.
+/// Phase changed (04A S5: with `playWhenReady`).
 final class PlayStateChanged extends VideoKitPlaybackEvent {
   /// Creates the event.
-  const PlayStateChanged(super.sessionId, this.phase);
+  const PlayStateChanged(super.sessionId, this.phase, this.playWhenReady);
 
   /// New phase.
   final SessionPhase phase;
+
+  /// Play-when-ready intent.
+  final bool playWhenReady;
 
   @override
   bool operator ==(Object other) =>
       other is PlayStateChanged &&
       other.sessionId == sessionId &&
-      other.phase == phase;
+      other.phase == phase &&
+      other.playWhenReady == playWhenReady;
 
   @override
-  int get hashCode => Object.hash(PlayStateChanged, sessionId, phase);
+  int get hashCode =>
+      Object.hash(PlayStateChanged, sessionId, phase, playWhenReady);
 
   @override
-  String toString() => 'PlayStateChanged($sessionId, ${phase.name})';
+  String toString() =>
+      'PlayStateChanged($sessionId, ${phase.name}, pwr: $playWhenReady)';
 }
 
-/// Buffering started.
+/// Buffering started at [positionUs].
 final class BufferingStarted extends VideoKitPlaybackEvent {
   /// Creates the event.
-  const BufferingStarted(super.sessionId);
+  const BufferingStarted(super.sessionId, this.positionUs);
+
+  /// Position (µs).
+  final int positionUs;
 
   @override
   bool operator ==(Object other) =>
-      other is BufferingStarted && other.sessionId == sessionId;
+      other is BufferingStarted &&
+      other.sessionId == sessionId &&
+      other.positionUs == positionUs;
 
   @override
-  int get hashCode => Object.hash(BufferingStarted, sessionId);
+  int get hashCode => Object.hash(BufferingStarted, sessionId, positionUs);
 
   @override
-  String toString() => 'BufferingStarted($sessionId)';
+  String toString() => 'BufferingStarted($sessionId, $positionUs)';
 }
 
-/// Buffering ended.
+/// Buffering ended after [durationUs] (wall time).
 final class BufferingEnded extends VideoKitPlaybackEvent {
   /// Creates the event.
-  const BufferingEnded(super.sessionId);
+  const BufferingEnded(super.sessionId, this.durationUs);
+
+  /// Buffering duration (µs).
+  final int durationUs;
 
   @override
   bool operator ==(Object other) =>
-      other is BufferingEnded && other.sessionId == sessionId;
+      other is BufferingEnded &&
+      other.sessionId == sessionId &&
+      other.durationUs == durationUs;
 
   @override
-  int get hashCode => Object.hash(BufferingEnded, sessionId);
+  int get hashCode => Object.hash(BufferingEnded, sessionId, durationUs);
 
   @override
-  String toString() => 'BufferingEnded($sessionId)';
+  String toString() => 'BufferingEnded($sessionId, $durationUs)';
 }
 
 /// User-initiated seek (not counted as watch time).
@@ -290,18 +311,23 @@ final class WatchTimeAccumulated extends VideoKitPlaybackEvent {
   String toString() => 'WatchTimeAccumulated($sessionId, $deltaUs)';
 }
 
-/// Session ended (released).
+/// Session ended (released or source replaced; 04A S5).
 final class SessionEnded extends VideoKitPlaybackEvent {
   /// Creates the event.
-  const SessionEnded(super.sessionId);
+  const SessionEnded(super.sessionId, [this.mediaToken]);
+
+  /// Media token that was bound, if any.
+  final String? mediaToken;
 
   @override
   bool operator ==(Object other) =>
-      other is SessionEnded && other.sessionId == sessionId;
+      other is SessionEnded &&
+      other.sessionId == sessionId &&
+      other.mediaToken == mediaToken;
 
   @override
-  int get hashCode => Object.hash(SessionEnded, sessionId);
+  int get hashCode => Object.hash(SessionEnded, sessionId, mediaToken);
 
   @override
-  String toString() => 'SessionEnded($sessionId)';
+  String toString() => 'SessionEnded($sessionId, $mediaToken)';
 }

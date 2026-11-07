@@ -76,20 +76,75 @@ final class VideoKitApiVersion implements Comparable<VideoKitApiVersion> {
   String toString() => '$major.$minor.$patch';
 }
 
-/// Logging policy (04 §2, 13 §4).
-enum LoggingPolicy {
-  /// No diagnostic logs (release default).
-  releaseDefault,
-
-  /// Redacted diagnostic logs (debug builds only).
-  debugDiagnostics;
+/// Log level of [VideoKitLogger].
+enum LogLevel {
+  debug,
+  info,
+  warn,
+  error;
 
   /// SCREAMING_SNAKE_CASE wire name.
   String get wireName => toWireName(name);
 
-  /// Parses a Dart or wire name; unknown or null → [releaseDefault].
-  static LoggingPolicy fromName(String? name) =>
-      enumFromName(values, name, releaseDefault);
+  /// Parses a Dart or wire name; unknown or null → [debug].
+  static LogLevel fromName(String? name) => enumFromName(values, name, debug);
+}
+
+/// Replaceable logger (13 §4). Messages are redacted: no credentials, full
+/// paths, media names, media content or face data.
+abstract interface class VideoKitLogger {
+  /// Logs one redacted message.
+  void log(LogLevel level, String tag, String message);
+}
+
+/// Logging policy (13 §4, 04A N10).
+@immutable
+sealed class LoggingPolicy {
+  const LoggingPolicy();
+
+  /// Release default: no logs.
+  static const LoggingPolicy releaseDefault = LoggingPolicyReleaseDefault();
+}
+
+/// No logs are written (Kotlin `LoggingPolicy.ReleaseDefault`).
+final class LoggingPolicyReleaseDefault extends LoggingPolicy {
+  /// Creates the policy.
+  const LoggingPolicyReleaseDefault();
+
+  @override
+  bool operator ==(Object other) => other is LoggingPolicyReleaseDefault;
+
+  @override
+  int get hashCode => (LoggingPolicyReleaseDefault).hashCode;
+
+  @override
+  String toString() => 'LoggingPolicy.releaseDefault';
+}
+
+/// Redacted debug diagnostics written to [logger] (Kotlin
+/// `LoggingPolicy.Diagnostics`).
+final class LoggingPolicyDiagnostics extends LoggingPolicy {
+  /// Creates the policy.
+  const LoggingPolicyDiagnostics(this.logger, {this.minLevel = LogLevel.debug});
+
+  /// Logger.
+  final VideoKitLogger logger;
+
+  /// Minimum level.
+  final LogLevel minLevel;
+
+  @override
+  bool operator ==(Object other) =>
+      other is LoggingPolicyDiagnostics &&
+      identical(other.logger, logger) &&
+      other.minLevel == minLevel;
+
+  @override
+  int get hashCode =>
+      Object.hash(LoggingPolicyDiagnostics, identityHashCode(logger), minLevel);
+
+  @override
+  String toString() => 'LoggingPolicy.diagnostics(${minLevel.name})';
 }
 
 /// VideoKit configuration (04 §2). The Android `Context` of the Kotlin
@@ -148,7 +203,7 @@ final class VideoKitConfig {
   @override
   String toString() =>
       'VideoKitConfig(${hostCallbacks.runtimeType}, $callbackTimeouts, '
-      'budget: ${resourceBudget?.runtimeType}, ${logging.name})';
+      'budget: ${resourceBudget?.runtimeType}, $logging)';
 }
 
 /// VideoKit entry point (04 §2, §12.2).

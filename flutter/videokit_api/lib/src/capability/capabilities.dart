@@ -12,19 +12,20 @@ enum FeatureKey {
   videoPlayback,
   imageStatic,
   imageAnimated,
-  largeImageTiling,
+  imageLargeTiling,
   subtitles,
-  multipleAudioTracks,
+  audioTrackSelection,
   speedControl,
   exactSeek,
-  singleVideoEdit,
-  multiInputConcat,
-  fastConcat,
-  mosaicMask,
-  blurMask,
+  multiView,
+  editClips,
+  editConcat,
+  manualMask,
   faceTracking,
   objectTracking,
   export,
+
+  /// Dart-side fallback for keys added by a newer native Kit.
   unknown;
 
   /// SCREAMING_SNAKE_CASE wire name.
@@ -49,19 +50,19 @@ enum SupportLevel {
       enumFromName(values, name, unsupported);
 }
 
-/// State of an optional module (tracking).
-enum ModuleState {
+/// State of a tracking module (04A S6, Kotlin `TrackingModuleStatus`).
+enum TrackingModuleStatus {
   available,
-  unavailable,
   notInstalled,
-  degraded;
+  unsupported,
+  disabled;
 
   /// SCREAMING_SNAKE_CASE wire name.
   String get wireName => toWireName(name);
 
-  /// Parses a Dart or wire name; unknown or null → [unavailable].
-  static ModuleState fromName(String? name) =>
-      enumFromName(values, name, unavailable);
+  /// Parses a Dart or wire name; unknown or null → [unsupported].
+  static TrackingModuleStatus fromName(String? name) =>
+      enumFromName(values, name, unsupported);
 }
 
 /// One decoder/encoder.
@@ -477,36 +478,36 @@ final class OutputFormat {
 final class TrackingStatus {
   /// Creates a status.
   const TrackingStatus({
-    this.face = ModuleState.unavailable,
-    this.object = ModuleState.unavailable,
-    this.suggestedAnalysisLongEdge,
+    this.face = TrackingModuleStatus.notInstalled,
+    this.objectTracking = TrackingModuleStatus.notInstalled,
+    this.suggestedResolution,
     this.maxConcurrentTargets = 0,
   });
 
   /// Face module.
-  final ModuleState face;
+  final TrackingModuleStatus face;
 
   /// Object module.
-  final ModuleState object;
+  final TrackingModuleStatus objectTracking;
 
   /// Suggested analysis resolution (long edge).
-  final int? suggestedAnalysisLongEdge;
+  final VideoSize? suggestedResolution;
 
   /// Concurrent targets.
   final int maxConcurrentTargets;
 
   /// Returns a copy with the given fields replaced.
   TrackingStatus copyWith({
-    ModuleState? face,
-    ModuleState? object,
-    Object? suggestedAnalysisLongEdge = undefined,
+    TrackingModuleStatus? face,
+    TrackingModuleStatus? objectTracking,
+    Object? suggestedResolution = undefined,
     int? maxConcurrentTargets,
   }) => TrackingStatus(
     face: face ?? this.face,
-    object: object ?? this.object,
-    suggestedAnalysisLongEdge: pick<int?>(
-      suggestedAnalysisLongEdge,
-      this.suggestedAnalysisLongEdge,
+    objectTracking: objectTracking ?? this.objectTracking,
+    suggestedResolution: pick<VideoSize?>(
+      suggestedResolution,
+      this.suggestedResolution,
     ),
     maxConcurrentTargets: maxConcurrentTargets ?? this.maxConcurrentTargets,
   );
@@ -515,22 +516,22 @@ final class TrackingStatus {
   bool operator ==(Object other) =>
       other is TrackingStatus &&
       other.face == face &&
-      other.object == object &&
-      other.suggestedAnalysisLongEdge == suggestedAnalysisLongEdge &&
+      other.objectTracking == objectTracking &&
+      other.suggestedResolution == suggestedResolution &&
       other.maxConcurrentTargets == maxConcurrentTargets;
 
   @override
   int get hashCode => Object.hash(
     face,
-    object,
-    suggestedAnalysisLongEdge,
+    objectTracking,
+    suggestedResolution,
     maxConcurrentTargets,
   );
 
   @override
   String toString() =>
-      'TrackingStatus(face: ${face.name}, object: ${object.name}, '
-      'analysis: $suggestedAnalysisLongEdge, targets: $maxConcurrentTargets)';
+      'TrackingStatus(face: ${face.name}, objectTracking: ${objectTracking.name}, '
+      'analysis: $suggestedResolution, targets: $maxConcurrentTargets)';
 }
 
 /// What sinks must provide (08 §5).
@@ -576,9 +577,9 @@ final class SinkRequirements {
 /// Per-media probe answer when [CapabilityRequest.source] is set. Playable
 /// does not imply encodable or losslessly concatenable (original §5.2).
 @immutable
-final class MediaProbeCapability {
+final class MediaProbeResult {
   /// Creates a probe answer.
-  const MediaProbeCapability({
+  const MediaProbeResult({
     required this.playable,
     this.fastConcatEligible = false,
     this.reason,
@@ -594,11 +595,11 @@ final class MediaProbeCapability {
   final UnsupportedReason? reason;
 
   /// Returns a copy with the given fields replaced.
-  MediaProbeCapability copyWith({
+  MediaProbeResult copyWith({
     bool? playable,
     bool? fastConcatEligible,
     Object? reason = undefined,
-  }) => MediaProbeCapability(
+  }) => MediaProbeResult(
     playable: playable ?? this.playable,
     fastConcatEligible: fastConcatEligible ?? this.fastConcatEligible,
     reason: pick<UnsupportedReason?>(reason, this.reason),
@@ -606,7 +607,7 @@ final class MediaProbeCapability {
 
   @override
   bool operator ==(Object other) =>
-      other is MediaProbeCapability &&
+      other is MediaProbeResult &&
       other.playable == playable &&
       other.fastConcatEligible == fastConcatEligible &&
       other.reason == reason;
@@ -616,7 +617,7 @@ final class MediaProbeCapability {
 
   @override
   String toString() =>
-      'MediaProbeCapability(playable: $playable, fast: $fastConcatEligible, '
+      'MediaProbeResult(playable: $playable, fast: $fastConcatEligible, '
       'reason: ${reason?.name})';
 }
 
@@ -723,7 +724,7 @@ final class VideoKitCapabilities {
   final Map<FeatureKey, UnsupportedReason> unavailableReasons;
 
   /// Media-specific probe when requested.
-  final MediaProbeCapability? mediaProbe;
+  final MediaProbeResult? mediaProbe;
 
   /// Report produced by a demo backend (values are not measured).
   final bool isDemo;
@@ -763,7 +764,7 @@ final class VideoKitCapabilities {
     tracking: tracking ?? this.tracking,
     sinkRequirements: sinkRequirements ?? this.sinkRequirements,
     unavailableReasons: unavailableReasons ?? this.unavailableReasons,
-    mediaProbe: pick<MediaProbeCapability?>(mediaProbe, this.mediaProbe),
+    mediaProbe: pick<MediaProbeResult?>(mediaProbe, this.mediaProbe),
     isDemo: isDemo ?? this.isDemo,
   );
 

@@ -8,19 +8,27 @@ typedef CommandExecutor = Future<VideoKitCommandResult> Function(
   VideoKitCommand command,
 );
 
+/// Requests a host action (normally `VideoKitSession.requestHostAction`).
+typedef HostActionExecutor = Future<VideoKitCommandResult> Function(
+  String actionId,
+);
+
 /// Feedback the owning controller turns into UI (14 §4.3).
 @immutable
 sealed class DispatchFeedback {
-  const DispatchFeedback(this.command);
+  const DispatchFeedback(this.kind, [this.command]);
 
-  /// Command that produced the feedback.
-  final VideoKitCommand command;
+  /// Stable kind: the command kind, or `hostAction:<actionId>`.
+  final String kind;
+
+  /// Command that produced the feedback (null for host actions).
+  final VideoKitCommand? command;
 }
 
 /// Show a short hint with the error code's text.
 final class RejectedFeedback extends DispatchFeedback {
   /// Creates feedback.
-  const RejectedFeedback(super.command, this.error);
+  const RejectedFeedback(super.kind, super.command, this.error);
 
   /// Error (`INTERNAL_ERROR_REDACTED` for exceptions).
   final VideoKitStableError error;
@@ -29,7 +37,7 @@ final class RejectedFeedback extends DispatchFeedback {
 /// Grey out the control and show [reason]; it stays disabled.
 final class UnsupportedFeedback extends DispatchFeedback {
   /// Creates feedback.
-  const UnsupportedFeedback(super.command, this.reason);
+  const UnsupportedFeedback(super.kind, super.command, this.reason);
 
   /// Reason.
   final UnsupportedReason reason;
@@ -38,15 +46,15 @@ final class UnsupportedFeedback extends DispatchFeedback {
 /// The session is released: become read-only and show the state view.
 final class SessionReleasedFeedback extends DispatchFeedback {
   /// Creates feedback.
-  const SessionReleasedFeedback(super.command);
+  const SessionReleasedFeedback(super.kind, [super.command]);
 }
 
 /// Central command dispatch for a UI controller (14 §4.3):
 ///
 /// | Rule | Behaviour |
 /// | --- | --- |
-/// | debounce | Play/Pause: while one is in flight, only the latest intent is kept and sent afterwards (if it differs). Other kinds: a repeat while the same kind is in flight is ignored. |
-/// | continuous seek | [seekDrag] sends `SeekTo(preview)` at most every [previewSeekInterval] (trailing value kept); [seekEnd] sends `SeekTo(closestSync)`; `Superseded` is silent. |
+/// | debounce | Play/Pause: while one is in flight, only the latest intent is kept and sent afterwards (if it differs). Other kinds and host actions: a repeat while the same kind is in flight is ignored. |
+/// | continuous seek | [seekDrag] sends `SeekTo(preview)` at most every [previewSeekInterval] (latest value kept); [seekEnd] sends `SeekTo(closestSync)`; `Superseded` is silent. |
 /// | results | `Rejected` → [RejectedFeedback]; `Unsupported` → kind marked unsupported + [UnsupportedFeedback]; `SessionReleased` → [readOnly] + [SessionReleasedFeedback]. |
 /// | exceptions | turned into `INTERNAL_ERROR_REDACTED` feedback, never rethrown. |
 /// | lifecycle | after [dispose], results are dropped (no feedback, no notify). |
@@ -57,11 +65,13 @@ class CommandDispatcher extends ChangeNotifier {
   CommandDispatcher({
     required this._execute,
     required this._onFeedback,
+    this._requestHostAction,
     this.previewSeekInterval = const Duration(milliseconds: 100),
   });
 
   final CommandExecutor _execute;
   final ValueChanged<DispatchFeedback> _onFeedback;
+  final HostActionExecutor? _requestHostAction;
 
   /// Minimum spacing of preview seeks while dragging (14 §12: ≥ 100 ms).
   final Duration previewSeekInterval;
@@ -89,10 +99,10 @@ class CommandDispatcher extends ChangeNotifier {
   /// Reason for an unsupported [kind], if any.
   UnsupportedReason? unsupportedReason(String kind) => _unsupported[kind];
 
-  static bool _isToggle(VideoKitCommand c) => c is Play || c is Pause;
+  /// Kind key of a host action.
+  static String hostActionKind(String actionId) => 'hostAction:$actionId';
 
-  static String _key(VideoKitCommand c) =>
-      c is InvokeHostAction ? '${c.kind}:${c.actionId}' : c.kind;
+  static bool _isToggle(VideoKitCommand c) => c is Play || c is Pause;
 
   /// Dispatches [command] under the rules above. Completes with the result,
   /// or null when the command was merged/ignored or the dispatcher was
@@ -102,11 +112,27 @@ class CommandDispatcher extends ChangeNotifier {
     if (_readOnly) return const SessionReleased();
     if (command is SeekTo) return _send(command);
     if (_isToggle(command)) return _dispatchToggle(command);
-    final key = _key(command);
+    return _guarded(command.kind, () => _send(command));
+  }
+
+  /// Requests a host action (04A I1) with the same in-flight and feedback
+  /// rules; `Superseded` (pending duplicate) is silent.
+  Future<VideoKitCommandResult?> requestHostAction(String actionId) async {
+    final run = _requestHostAction;
+    if (_disposed || run == null) return null;
+    if (_readOnly) return const SessionReleased();
+    final kind = hostActionKind(actionId);
+    return _guarded(kind, () => _run(kind, null, () => run(actionId)));
+  }
+
+  Future<VideoKitCommandResult?> _guarded(
+    String key,
+    Future<VideoKitCommandResult?> Function() body,
+  ) async {
     if (_inFlight.contains(key)) return null;
     _inFlight.add(key);
     try {
-      return await _send(command);
+      return await body();
     } finally {
       _inFlight.remove(key);
     }
@@ -171,10 +197,17 @@ class CommandDispatcher extends ChangeNotifier {
     return dispatch(SeekTo(positionUs, mode: mode));
   }
 
-  Future<VideoKitCommandResult?> _send(VideoKitCommand command) async {
+  Future<VideoKitCommandResult?> _send(VideoKitCommand command) =>
+      _run(command.kind, command, () => _execute(command));
+
+  Future<VideoKitCommandResult?> _run(
+    String kind,
+    VideoKitCommand? command,
+    Future<VideoKitCommandResult> Function() call,
+  ) async {
     VideoKitCommandResult result;
     try {
-      result = await _execute(command);
+      result = await call();
     } catch (_) {
       result = const Rejected(
         VideoKitStableError.internal(diagnostic: 'dispatch_exception'),
@@ -185,20 +218,20 @@ class CommandDispatcher extends ChangeNotifier {
       case Executed() || Superseded():
         break;
       case Rejected(:final error):
-        _onFeedback(RejectedFeedback(command, error));
+        _onFeedback(RejectedFeedback(kind, command, error));
       case Unsupported(:final reason):
-        if (_unsupported[command.kind] != reason) {
-          _unsupported[command.kind] = reason;
+        if (_unsupported[kind] != reason) {
+          _unsupported[kind] = reason;
           notifyListeners();
         }
-        _onFeedback(UnsupportedFeedback(command, reason));
+        _onFeedback(UnsupportedFeedback(kind, command, reason));
       case SessionReleased():
         if (!_readOnly) {
           _readOnly = true;
           _cooldown?.cancel();
           notifyListeners();
         }
-        _onFeedback(SessionReleasedFeedback(command));
+        _onFeedback(SessionReleasedFeedback(kind, command));
     }
     return result;
   }

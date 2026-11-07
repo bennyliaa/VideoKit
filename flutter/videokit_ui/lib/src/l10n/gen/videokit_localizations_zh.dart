@@ -121,7 +121,13 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get actionFreeSpace => '释放空间';
 
   @override
-  String get actionGrantPermission => '授予访问权限';
+  String get actionCheckPermission => '检查访问权限';
+
+  @override
+  String get actionReconnectSource => '重新连接';
+
+  @override
+  String get actionCloseOtherSessions => '关闭其他画面';
 
   @override
   String get actionCorrectTracking => '纠正目标';
@@ -194,4 +200,159 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
 
   @override
   String get errorInternalErrorRedacted => '出现问题';
+
+  @override
+  String get errorInvalidState => '当前状态下无法执行此操作';
+
+  @override
+  String get errorInvalidArgument => '参数无效';
+
+  @override
+  String get errorUnsupportedSnapshotVersion => '此版本无法打开该记录';
+
+  @override
+  String get playerBack => '返回';
+
+  @override
+  String playerRewind(int seconds) {
+    return '后退 $seconds 秒';
+  }
+
+  @override
+  String playerForward(int seconds) {
+    return '前进 $seconds 秒';
+  }
+
+  @override
+  String get playerSpeed => '倍速';
+
+  @override
+  String playerSpeedValue(String speed) {
+    return '$speed×';
+  }
+
+  @override
+  String get playerSubtitles => '字幕';
+
+  @override
+  String get playerAudioTrack => '音轨';
+
+  @override
+  String get playerVolume => '音量';
+
+  @override
+  String get playerMute => '静音';
+
+  @override
+  String get playerUnmute => '取消静音';
+
+  @override
+  String get playerLockOrientation => '锁定方向';
+
+  @override
+  String get playerUnlockOrientation => '解除方向锁定';
+
+  @override
+  String get playerFullscreen => '全屏';
+
+  @override
+  String get playerExitFullscreen => '退出全屏';
+
+  @override
+  String get playerEdit => '编辑';
+
+  @override
+  String get playerSeekBar => '播放进度';
+
+  @override
+  String get playerPicture => '视频画面';
+
+  @override
+  String playerFitMode(String mode) {
+    return '画面适配：$mode';
+  }
+
+  @override
+  String get fitModeFit => '适应';
+
+  @override
+  String get fitModeFill => '填充';
+
+  @override
+  String get fitModeOriginal => '原尺寸';
+
+  @override
+  String get settingsTitle => '播放设置';
+
+  @override
+  String get tracksUnsupported => '设备不支持';
+
+  @override
+  String trackUnnamed(int index) {
+    return '轨道 $index';
+  }
+
+  @override
+  String get stateLoadingTitle => '正在打开…';
+
+  @override
+  String get stateLoadingDetail => '读取媒体信息';
+
+  @override
+  String get stateEndedTitle => '播放结束';
+
+  @override
+  String get actionReplay => '重新播放';
+
+  @override
+  String get stateReleasedTitle => '播放已关闭';
+
+  @override
+  String get stateLockedTitle => '内容已隐藏';
+
+  @override
+  String get stateDetailConnection => '请检查网络或存储连接后重试';
+
+  @override
+  String get stateDetailPermission => '请在应用中授予访问权限';
+
+  @override
+  String get stateDetailUnsupported => '此设备无法播放该格式，详见能力说明';
+
+  @override
+  String get stateDetailCorrupt => '文件可能未完整下载或已损坏';
+
+  @override
+  String get stateDetailResources => '关闭其他画面后可以重试';
+
+  @override
+  String get stateDetailTrackingLost => '在丢失的区间重新指定目标';
+
+  @override
+  String get stateDetailSpace => '释放空间或降低导出质量';
+
+  @override
+  String get stateDetailGeneric => '如果问题持续出现，请稍后再试';
+
+  @override
+  String hostActionFailed(String action) {
+    return '“$action”未完成';
+  }
+
+  @override
+  String get hostActionMore => '更多操作';
+
+  @override
+  String get navigationUnavailable => '没有更多内容了';
+
+  @override
+  String get commandUnavailable => '此操作当前不可用';
+
+  @override
+  String badgeClipped(String text) {
+    return '$text…';
+  }
+
+  @override
+  String get playerRotate => '旋转画面';
 }

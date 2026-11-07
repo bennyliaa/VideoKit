@@ -388,34 +388,6 @@ final class HideContentForLock extends VideoKitCommand {
   String toString() => 'HideContentForLock($hidden)';
 }
 
-/// Trigger a host action (Dart addition, see report): VideoKit calls the
-/// host's `onHostActionRequested`; duplicate clicks while one is in flight
-/// are merged (04 §7).
-final class InvokeHostAction extends VideoKitCommand {
-  /// Creates the command.
-  const InvokeHostAction(this.actionId);
-
-  /// Action ID.
-  final String actionId;
-
-  @override
-  String get kind => 'invokeHostAction';
-
-  /// Returns a copy with the given fields replaced.
-  InvokeHostAction copyWith({String? actionId}) =>
-      InvokeHostAction(actionId ?? this.actionId);
-
-  @override
-  bool operator ==(Object other) =>
-      other is InvokeHostAction && other.actionId == actionId;
-
-  @override
-  int get hashCode => Object.hash(InvokeHostAction, actionId);
-
-  @override
-  String toString() => 'InvokeHostAction($actionId)';
-}
-
 /// Release the session (same as `VideoKitSession.release`).
 final class Release extends VideoKitCommand {
   /// Creates the command.

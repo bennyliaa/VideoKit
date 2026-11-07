@@ -90,6 +90,20 @@ class ContractHostCallbacks extends NoopHostCallbacks {
   }
 
   @override
+  Future<NavigationResult> onNavigationRequested(
+    NavigationRequest request,
+  ) async {
+    navigationRequests.add(request);
+    if (throwAll) throw StateError('host failure');
+    return request.direction == NavigationDirection.next
+        ? NavigationResult.accepted
+        : NavigationResult.unavailable;
+  }
+
+  /// Navigation requests seen.
+  final List<NavigationRequest> navigationRequests = [];
+
+  @override
   Future<void> onControlsVisibilityChanged(
     String sessionId,
     bool visible,
@@ -104,10 +118,7 @@ class ContractHostCallbacks extends NoopHostCallbacks {
   }
 
   @override
-  Future<void> onPlaybackSnapshot(
-    String sessionId,
-    VideoKitPlaybackState snapshot,
-  ) async {
+  Future<void> onPlaybackSnapshot(VideoKitPlaybackState snapshot) async {
     if (throwAll) throw StateError('host failure');
   }
 
@@ -280,19 +291,27 @@ void runVideoKitContractTests(
         expect(s.state.value.positionUs, d);
       });
 
-      test('out-of-range values and unknown tracks are Unsupported', () async {
+      test('out-of-range values and unknown tracks are Rejected (INVALID_ARGUMENT)', () async {
         final s = await boundVideo();
         expect(
           await s.execute(const SetSpeed(100)),
-          const Unsupported(UnsupportedReason.valueOutOfRange),
+          isA<Rejected>().having(
+            (r) => r.error.code,
+            'code',
+            ErrorCode.invalidArgument,
+          ),
         );
         expect(
           await s.execute(const SetVolume(-1)),
-          const Unsupported(UnsupportedReason.valueOutOfRange),
+          isA<Rejected>().having(
+            (r) => r.error.code,
+            'code',
+            ErrorCode.invalidArgument,
+          ),
         );
         expect(
           await s.execute(const SelectAudioTrack('no-such-track')),
-          const Unsupported(UnsupportedReason.trackNotFound),
+          isA<Rejected>(),
         );
         expect(
           await s.execute(const SelectSubtitleTrack(null)),
@@ -311,11 +330,11 @@ void runVideoKitContractTests(
         expect(s.state.value.audioTracks, isEmpty);
         expect(
           await s.execute(const Play()),
-          const Unsupported(UnsupportedReason.notApplicableToMediaKind),
+          const Unsupported(UnsupportedReason.mediaKind),
         );
         expect(
           await s.execute(const SeekTo(0)),
-          const Unsupported(UnsupportedReason.notApplicableToMediaKind),
+          const Unsupported(UnsupportedReason.mediaKind),
         );
         expect(
           await s.execute(const SetTransform(MediaTransform(scale: 2))),
@@ -323,7 +342,7 @@ void runVideoKitContractTests(
         );
       });
 
-      test('stale audio epoch is Superseded', () async {
+      test('stale audio epoch is Rejected', () async {
         final s = await boundVideo();
         expect(
           await s.execute(const SetActiveAudio(true, 5)),
@@ -332,7 +351,7 @@ void runVideoKitContractTests(
         expect(s.state.value.activeAudio, isTrue);
         expect(
           await s.execute(const SetActiveAudio(false, 4)),
-          const Superseded(),
+          isA<Rejected>(),
         );
         expect(s.state.value.activeAudio, isTrue);
       });
@@ -344,7 +363,7 @@ void runVideoKitContractTests(
           await s.execute(const HideContentForLock(true)),
           const Executed(),
         );
-        expect(s.state.value.contentHiddenForLock, isTrue);
+        expect(s.state.value.hiddenForLock, isTrue);
         expect(s.state.value.phase, SessionPhase.paused);
         expect(
           await s.execute(const Play()),
@@ -438,22 +457,16 @@ void runVideoKitContractTests(
         actionId: 'fav',
         labelKey: 'favorite',
         contentDescriptionKey: 'favorite',
-        icon: HostIcon.builtin('favorite'),
+        icon: HostIcon.builtIn('favorite'),
         placement: ActionPlacement.primaryBar,
       );
 
-      test('duplicate clicks while pending are merged', () async {
+      test('duplicate requests while pending are Superseded', () async {
         host.holdHostAction = true;
         final s = await kit.createSession(const VideoKitSessionConfig());
         await drive(s.bind(fixtures.video, hostActions: const [fav]));
-        expect(
-          await s.execute(const InvokeHostAction('fav')),
-          const Executed(),
-        );
-        expect(
-          await s.execute(const InvokeHostAction('fav')),
-          const Executed(),
-        );
+        expect(await s.requestHostAction('fav'), const Executed());
+        expect(await s.requestHostAction('fav'), const Superseded());
         await elapse(kit, const Duration(milliseconds: 100));
         expect(host.hostActionRequests, hasLength(1));
         expect(s.state.value.hostActions.single.isPending, isTrue);
@@ -462,11 +475,15 @@ void runVideoKitContractTests(
         );
         await elapse(kit, const Duration(milliseconds: 100));
         final st = s.state.value.hostActions.single;
-        expect(st.inFlight, isFalse);
+        expect(st.pending, isFalse);
         expect(st.action.selected, isTrue);
         expect(
-          await s.execute(const InvokeHostAction('nope')),
-          const Unsupported(UnsupportedReason.hostActionUnavailable),
+          await s.requestHostAction('nope'),
+          isA<Rejected>().having(
+            (r) => r.error.code,
+            'code',
+            ErrorCode.invalidArgument,
+          ),
         );
       });
 
@@ -477,10 +494,10 @@ void runVideoKitContractTests(
           final s = await kit.createSession(const VideoKitSessionConfig());
           await drive(s.bind(fixtures.video, hostActions: const [fav]));
           final failed = s.events.firstWhere((e) => e is HostActionFailed);
-          await s.execute(const InvokeHostAction('fav'));
+          await s.requestHostAction('fav');
           final e = await drive(failed) as HostActionFailed;
           expect(e.error.code, ErrorCode.hostCallbackFailed);
-          expect(s.state.value.hostActions.single.inFlight, isFalse);
+          expect(s.state.value.hostActions.single.pending, isFalse);
           expect(
             s.state.value.hostActions.single.lastError?.code,
             ErrorCode.hostCallbackFailed,
@@ -494,8 +511,8 @@ void runVideoKitContractTests(
         final s = await kit.createSession(const VideoKitSessionConfig());
         await drive(s.bind(fixtures.video, hostActions: const [fav]));
         expect(await s.execute(const Play()), const Executed());
-        await s.execute(const InvokeHostAction('fav'));
-        await s.reportControlsVisible(false);
+        await s.requestHostAction('fav');
+        s.setControlsVisible(false);
         await elapse(kit, const Duration(seconds: 2));
         expect(s.state.value.phase, SessionPhase.playing);
         expect(s.state.value.controlsVisible, isFalse);
@@ -507,9 +524,38 @@ void runVideoKitContractTests(
         expect(s.state.value.phase, SessionPhase.released);
       });
 
+      test(
+        'requestNavigation forwards to the host; failures map to FAILED',
+        () async {
+          final s = await boundVideo();
+          expect(
+            await drive(s.requestNavigation(NavigationDirection.next)),
+            NavigationResult.accepted,
+          );
+          expect(
+            await drive(s.requestNavigation(NavigationDirection.previous)),
+            NavigationResult.unavailable,
+          );
+          expect(host.navigationRequests.first.sessionId, s.sessionId);
+          host.throwAll = true;
+          expect(
+            await drive(s.requestNavigation(NavigationDirection.next)),
+            NavigationResult.failed,
+          );
+        },
+      );
+
+      test('snapshot carries sessionId and subtitlesEnabled', () async {
+        final s = await boundVideo();
+        expect((await s.captureState()).sessionId, s.sessionId);
+        expect((await s.captureState()).subtitlesEnabled, isNull);
+        await s.execute(const SelectSubtitleTrack(null));
+        expect((await s.captureState()).subtitlesEnabled, isFalse);
+      });
+
       test('controls visibility is written to state and forwarded', () async {
         final s = await boundVideo();
-        await s.reportControlsVisible(false);
+        s.setControlsVisible(false);
         await elapse(kit, const Duration(milliseconds: 100));
         expect(s.state.value.controlsVisible, isFalse);
         expect(host.controlsVisibility, [false]);
@@ -561,7 +607,7 @@ void runVideoKitContractTests(
         await p.apply(
           const AddMask(
             MaskType.manual,
-            NormalizedRect(left: 0.1, top: 0.1, width: 0.2, height: 0.2),
+            MaskRegion(x: 0.1, y: 0.1, width: 0.2, height: 0.2),
             0,
             2000000,
           ),
@@ -591,8 +637,8 @@ void runVideoKitContractTests(
         );
         expect(empty.canExport, isFalse);
         expect(
-          empty.issues.map((i) => i.kind),
-          contains(PrecheckIssueKind.emptyTimeline),
+          empty.problems.map((e) => e.code),
+          contains(ErrorCode.exportFailed),
         );
         final noSink = await p.checkExport(
           const VideoKitExportRequest(),
@@ -601,10 +647,10 @@ void runVideoKitContractTests(
             capabilities: SinkCapabilities(sequentialWrite: false),
           ),
         );
-        final issue = noSink.issues.firstWhere(
-          (i) => i.kind == PrecheckIssueKind.sinkCapabilityUnsupported,
+        expect(
+          noSink.problems.map((e) => e.code),
+          contains(ErrorCode.outputCapabilityUnsupported),
         );
-        expect(issue.error?.code, ErrorCode.outputCapabilityUnsupported);
       });
 
       test('export succeeds through stages', () async {

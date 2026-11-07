@@ -1,36 +1,39 @@
 import '../util/enum_codec.dart';
 
-/// Why a command or feature is not supported (04 §4.2, §9.2).
+/// Why a command or feature is not supported (04 §4.2, §9.2; values per
+/// 04A V1).
 ///
 /// `Unsupported` is a capability answer, not a state error: the UI greys the
 /// control out and shows the reason (14 §4.3).
 enum UnsupportedReason {
-  /// The command does not apply to the bound media kind (e.g. speed on an
-  /// image).
-  notApplicableToMediaKind,
-
-  /// The source cannot seek (sequential-only).
-  sourceNotSeekable,
-
-  /// The device lacks the required decoder/encoder/feature.
-  notSupportedByDevice,
-
-  /// The feature is not implemented by this backend/version.
+  /// Not implemented by this backend/version.
   notImplemented,
 
-  /// A required optional module (e.g. tracking model) is not installed.
-  moduleUnavailable,
+  /// The device lacks the decoder/encoder/feature.
+  deviceCapability,
 
-  /// An argument is outside the supported range (speed, volume, …).
+  /// The media format does not allow it.
+  format,
+
+  /// Does not apply to the bound media kind (e.g. speed on an image).
+  mediaKind,
+
+  /// The source can only be read sequentially (no seeking).
+  sourceSequentialOnly,
+
+  /// The host disabled the feature or action.
+  hostDisabled,
+
+  /// An optional module (e.g. tracking model) is not installed.
+  moduleNotInstalled,
+
+  /// A value is outside the supported range.
   valueOutOfRange,
 
-  /// Referenced track does not exist in the bound media.
+  /// The referenced track does not exist.
   trackNotFound,
 
-  /// Referenced host action is unknown or disabled.
-  hostActionUnavailable,
-
-  /// Content is hidden for lock; playback commands are refused.
+  /// Content is hidden for lock.
   contentLocked,
 
   /// Fallback for reasons added by a newer native Kit.

@@ -271,11 +271,23 @@ abstract class VideoKitLocalizations {
   /// **'释放空间'**
   String get actionFreeSpace;
 
-  /// 建议操作 GRANT_PERMISSION。
+  /// 建议操作 CHECK_PERMISSION。
   ///
   /// In zh, this message translates to:
-  /// **'授予访问权限'**
-  String get actionGrantPermission;
+  /// **'检查访问权限'**
+  String get actionCheckPermission;
+
+  /// 建议操作 RECONNECT_SOURCE。
+  ///
+  /// In zh, this message translates to:
+  /// **'重新连接'**
+  String get actionReconnectSource;
+
+  /// 建议操作 CLOSE_OTHER_SESSIONS（释放解码资源）。
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭其他画面'**
+  String get actionCloseOtherSessions;
 
   /// 建议操作 CORRECT_TRACKING。
   ///
@@ -420,6 +432,288 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'出现问题'**
   String get errorInternalErrorRedacted;
+
+  /// ErrorCode INVALID_STATE（04A V7）。
+  ///
+  /// In zh, this message translates to:
+  /// **'当前状态下无法执行此操作'**
+  String get errorInvalidState;
+
+  /// ErrorCode INVALID_ARGUMENT（04A V7）。
+  ///
+  /// In zh, this message translates to:
+  /// **'参数无效'**
+  String get errorInvalidArgument;
+
+  /// ErrorCode UNSUPPORTED_SNAPSHOT_VERSION（快照或工程来自更新的版本，04A V7）。
+  ///
+  /// In zh, this message translates to:
+  /// **'此版本无法打开该记录'**
+  String get errorUnsupportedSnapshotVersion;
+
+  /// 顶部栏返回按钮（由宿主处理）。
+  ///
+  /// In zh, this message translates to:
+  /// **'返回'**
+  String get playerBack;
+
+  /// 快退按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'后退 {seconds} 秒'**
+  String playerRewind(int seconds);
+
+  /// 快进按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'前进 {seconds} 秒'**
+  String playerForward(int seconds);
+
+  /// 倍速按钮与设置页签。
+  ///
+  /// In zh, this message translates to:
+  /// **'倍速'**
+  String get playerSpeed;
+
+  /// 倍速档位，如“1.5×”。
+  ///
+  /// In zh, this message translates to:
+  /// **'{speed}×'**
+  String playerSpeedValue(String speed);
+
+  /// 字幕按钮与设置页签。
+  ///
+  /// In zh, this message translates to:
+  /// **'字幕'**
+  String get playerSubtitles;
+
+  /// 音轨按钮与设置页签。
+  ///
+  /// In zh, this message translates to:
+  /// **'音轨'**
+  String get playerAudioTrack;
+
+  /// 音量滑杆的读屏标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'音量'**
+  String get playerVolume;
+
+  /// 静音按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'静音'**
+  String get playerMute;
+
+  /// 取消静音按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'取消静音'**
+  String get playerUnmute;
+
+  /// 方向锁定按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'锁定方向'**
+  String get playerLockOrientation;
+
+  /// 解除方向锁定按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'解除方向锁定'**
+  String get playerUnlockOrientation;
+
+  /// 进入全屏按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'全屏'**
+  String get playerFullscreen;
+
+  /// 退出全屏按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'退出全屏'**
+  String get playerExitFullscreen;
+
+  /// 编辑入口按钮（带当前播放位置进入编辑器）。
+  ///
+  /// In zh, this message translates to:
+  /// **'编辑'**
+  String get playerEdit;
+
+  /// 进度条的读屏标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放进度'**
+  String get playerSeekBar;
+
+  /// 画面层的读屏标签；轻触可显示或隐藏控件。
+  ///
+  /// In zh, this message translates to:
+  /// **'视频画面'**
+  String get playerPicture;
+
+  /// 双击切换适配后的提示。
+  ///
+  /// In zh, this message translates to:
+  /// **'画面适配：{mode}'**
+  String playerFitMode(String mode);
+
+  /// FitMode.FIT。
+  ///
+  /// In zh, this message translates to:
+  /// **'适应'**
+  String get fitModeFit;
+
+  /// FitMode.FILL。
+  ///
+  /// In zh, this message translates to:
+  /// **'填充'**
+  String get fitModeFill;
+
+  /// FitMode.ORIGINAL。
+  ///
+  /// In zh, this message translates to:
+  /// **'原尺寸'**
+  String get fitModeOriginal;
+
+  /// 轨道与设置面板标题（UI-02）。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放设置'**
+  String get settingsTitle;
+
+  /// 设备无法解码的轨道标记，保留显示但置灰。
+  ///
+  /// In zh, this message translates to:
+  /// **'设备不支持'**
+  String get tracksUnsupported;
+
+  /// 没有语言和标签的轨道名。
+  ///
+  /// In zh, this message translates to:
+  /// **'轨道 {index}'**
+  String trackUnnamed(int index);
+
+  /// 加载中标题（设计稿第 12 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'正在打开…'**
+  String get stateLoadingTitle;
+
+  /// 加载中说明；不显示假进度。
+  ///
+  /// In zh, this message translates to:
+  /// **'读取媒体信息'**
+  String get stateLoadingDetail;
+
+  /// 播放结束。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放结束'**
+  String get stateEndedTitle;
+
+  /// 播放结束后的重播按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'重新播放'**
+  String get actionReplay;
+
+  /// 会话已释放，控件只读。
+  ///
+  /// In zh, this message translates to:
+  /// **'播放已关闭'**
+  String get stateReleasedTitle;
+
+  /// 锁屏隐藏内容时的遮挡层。
+  ///
+  /// In zh, this message translates to:
+  /// **'内容已隐藏'**
+  String get stateLockedTitle;
+
+  /// 断线、超时的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'请检查网络或存储连接后重试'**
+  String get stateDetailConnection;
+
+  /// 无权访问的说明（宿主处理授权）。
+  ///
+  /// In zh, this message translates to:
+  /// **'请在应用中授予访问权限'**
+  String get stateDetailPermission;
+
+  /// 格式或编码不支持的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'此设备无法播放该格式，详见能力说明'**
+  String get stateDetailUnsupported;
+
+  /// 文件损坏的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'文件可能未完整下载或已损坏'**
+  String get stateDetailCorrupt;
+
+  /// 解码资源不足的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭其他画面后可以重试'**
+  String get stateDetailResources;
+
+  /// 跟踪丢失的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'在丢失的区间重新指定目标'**
+  String get stateDetailTrackingLost;
+
+  /// 存储空间不足的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'释放空间或降低导出质量'**
+  String get stateDetailSpace;
+
+  /// 其他错误的说明。
+  ///
+  /// In zh, this message translates to:
+  /// **'如果问题持续出现，请稍后再试'**
+  String get stateDetailGeneric;
+
+  /// 宿主动作失败或超时的轻提示。
+  ///
+  /// In zh, this message translates to:
+  /// **'“{action}”未完成'**
+  String hostActionFailed(String action);
+
+  /// 宿主动作溢出菜单按钮。
+  ///
+  /// In zh, this message translates to:
+  /// **'更多操作'**
+  String get hostActionMore;
+
+  /// 宿主返回 UNAVAILABLE 时的轻提示。
+  ///
+  /// In zh, this message translates to:
+  /// **'没有更多内容了'**
+  String get navigationUnavailable;
+
+  /// 命令返回 Unsupported 时的轻提示。
+  ///
+  /// In zh, this message translates to:
+  /// **'此操作当前不可用'**
+  String get commandUnavailable;
+
+  /// 角标超过 3 个字符时截断显示。
+  ///
+  /// In zh, this message translates to:
+  /// **'{text}…'**
+  String badgeClipped(String text);
+
+  /// 画面顺时针旋转 90°。
+  ///
+  /// In zh, this message translates to:
+  /// **'旋转画面'**
+  String get playerRotate;
 }
 
 class _VideoKitLocalizationsDelegate

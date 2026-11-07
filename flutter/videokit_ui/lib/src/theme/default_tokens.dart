@@ -217,6 +217,45 @@ abstract final class VkDefaultTokens {
       background: c.primaryContainer,
       content: c.onPrimaryContainer,
     );
+    // Panels, menus and toasts: no interaction states of their own.
+    final sheet = box(
+      background: c.surface,
+      content: c.textPrimary,
+      radius: d.cornerXLarge,
+      padding: EdgeInsetsDirectional.all(d.spacing16),
+      minSize: 0,
+      text: t.body,
+    );
+    final menu = box(
+      background: c.surfaceHigh,
+      content: c.textPrimary,
+      radius: d.cornerMedium,
+      padding: EdgeInsetsDirectional.symmetric(
+        horizontal: d.spacing16,
+        vertical: d.spacing12,
+      ),
+      text: t.body,
+    );
+    final toast = box(
+      background: c.surfaceHigh,
+      content: c.textPrimary,
+      radius: d.cornerMedium,
+      padding: EdgeInsetsDirectional.symmetric(
+        horizontal: d.spacing16,
+        vertical: d.spacing12,
+      ),
+      minSize: 0,
+      text: t.bodySmall,
+    );
+    // Host action item over the picture: translucent dark disc, white icon;
+    // selected = primary fill (14 §5.4).
+    final hostItem = box(
+      background: VkContrast.black.withValues(alpha: 0.35),
+      content: c.playerControlsContent,
+      radius: d.cornerFull,
+      padding: EdgeInsetsDirectional.all(d.spacing12),
+      text: t.caption.copyWith(color: c.playerControlsContent),
+    );
     final controls = c.playerControlsContent;
     return VkComponentStyles(
       buttonPrimary: states(primary, selected: selectedBox),
@@ -247,6 +286,34 @@ abstract final class VkDefaultTokens {
         ),
       ),
       badge: VkStateStyle.all(badge),
+      sheet: VkStateStyle.all(sheet),
+      menu: states(
+        menu,
+        selected: menu.copyWith(
+          background: c.primaryContainer,
+          content: c.onPrimaryContainer,
+        ),
+      ),
+      toast: VkStateStyle.all(toast),
+      progress: VkProgressStyle(
+        track: c.surfaceHigh,
+        indicator: c.primary,
+        height: d.seekBarTrack,
+        radius: d.cornerFull,
+      ),
+      hostActionBar: VkHostActionBarStyle(
+        item: states(
+          hostItem,
+          selected: hostItem.copyWith(
+            background: c.primary,
+            content: c.onPrimary,
+          ),
+        ),
+        pendingIndicator: c.warning,
+        label: t.caption.copyWith(color: c.playerControlsContent),
+        badge: badge.copyWith(background: c.error, content: c.errorContent),
+        spacing: d.spacing8,
+      ),
       seekBar: VkSeekBarStyle(
         track: controls.withValues(alpha: 0.24),
         buffered: controls.withValues(alpha: 0.48),

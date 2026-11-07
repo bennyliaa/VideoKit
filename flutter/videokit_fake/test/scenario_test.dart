@@ -169,7 +169,7 @@ void main() {
       actionId: 'delete',
       labelKey: 'delete',
       contentDescriptionKey: 'delete',
-      icon: HostIcon.builtin('delete'),
+      icon: HostIcon.builtIn('delete'),
       placement: ActionPlacement.overflow,
     );
     final kit = FakeVideoKit(
@@ -180,7 +180,7 @@ void main() {
     await kit.clock.advance(const Duration(seconds: 1));
     await b;
     final failed = s.events.firstWhere((e) => e is HostActionFailed);
-    await s.execute(const InvokeHostAction('delete'));
+    await s.requestHostAction('delete');
     await kit.clock.advance(const Duration(seconds: 9));
     expect(s.state.value.hostActions.single.isPending, isTrue);
     await kit.clock.advance(const Duration(seconds: 1, milliseconds: 1));
@@ -219,7 +219,7 @@ void main() {
     expect(img.state.value.positionUs, lessThan(2000000));
     expect(
       await img.execute(const SetSpeed(2)),
-      const Unsupported(UnsupportedReason.notApplicableToMediaKind),
+      const Unsupported(UnsupportedReason.mediaKind),
     );
   });
 
@@ -252,7 +252,7 @@ void main() {
       final r = await p.apply(
         const AddMask(
           MaskType.face,
-          NormalizedRect(left: 0.3, top: 0.3, width: 0.2, height: 0.2),
+          MaskRegion(x: 0.3, y: 0.3, width: 0.2, height: 0.2),
           0,
           10000000,
         ),
@@ -279,8 +279,7 @@ void main() {
         StartTracking(
           maskId,
           TrackingKind.face,
-          0,
-          const NormalizedRect(left: 0.3, top: 0.3, width: 0.2, height: 0.2),
+          seedRegion: const MaskRegion(x: 0.3, y: 0.3, width: 0.2, height: 0.2),
         ),
       );
       expect(start, isA<EditApplied>());
@@ -312,7 +311,7 @@ void main() {
         CorrectTracking(
           maskId,
           4000000,
-          const NormalizedRect(left: 0.4, top: 0.3, width: 0.2, height: 0.2),
+          const MaskRegion(x: 0.4, y: 0.3, width: 0.2, height: 0.2),
         ),
       );
       expect(p.state.value.phase, EditPhase.tracking);
@@ -337,8 +336,7 @@ void main() {
         StartTracking(
           maskId,
           TrackingKind.face,
-          0,
-          const NormalizedRect(left: 0.3, top: 0.3, width: 0.2, height: 0.2),
+          seedRegion: const MaskRegion(x: 0.3, y: 0.3, width: 0.2, height: 0.2),
         ),
       );
       await kit.clock.advance(const Duration(seconds: 4));
@@ -355,8 +353,7 @@ void main() {
         StartTracking(
           m2,
           TrackingKind.face,
-          0,
-          const NormalizedRect(left: 0.3, top: 0.3, width: 0.2, height: 0.2),
+          seedRegion: const MaskRegion(x: 0.3, y: 0.3, width: 0.2, height: 0.2),
         ),
       );
       await kit2.clock.advance(const Duration(milliseconds: 500));
@@ -394,7 +391,7 @@ void main() {
       final again = await p.apply(
         const AddMask(
           MaskType.manual,
-          NormalizedRect(left: 0, top: 0, width: 0.1, height: 0.1),
+          MaskRegion(x: 0, y: 0, width: 0.1, height: 0.1),
           0,
           1000000,
         ),
@@ -430,13 +427,13 @@ void main() {
           capabilities: SinkCapabilities(knownFreeSpaceBytes: 10),
         ),
       );
-      expect(pre.issues.single.kind, PrecheckIssueKind.spaceInsufficient);
-      expect(pre.estimatedSizeBytes, greaterThan(0));
+      expect(pre.problems.single.code, ErrorCode.outputSpaceInsufficient);
+      expect(pre.estimate.sizeBytes, greaterThan(0));
       final bad = await p.checkExport(
         const VideoKitExportRequest(presetId: 'NOPE'),
         const VideoKitOutputSink(sinkRef: 'demo:t'),
       );
-      expect(bad.issues.single.kind, PrecheckIssueKind.presetUnavailable);
+      expect(bad.problems.single.code, ErrorCode.encoderUnavailable);
 
       final small = await kit.createEditProject(
         EditProjectConfig(undoLimit: 2),
@@ -461,8 +458,7 @@ void main() {
         StartTracking(
           maskId,
           TrackingKind.face,
-          0,
-          const NormalizedRect(left: 0.3, top: 0.3, width: 0.2, height: 0.2),
+          seedRegion: const MaskRegion(x: 0.3, y: 0.3, width: 0.2, height: 0.2),
         ),
       );
       await kit.clock.advance(const Duration(seconds: 4));

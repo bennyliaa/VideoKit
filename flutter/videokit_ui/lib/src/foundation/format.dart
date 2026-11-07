@@ -43,12 +43,13 @@ abstract final class VkFormat {
   static String percent(VkStrings s, double fraction) =>
       intl.NumberFormat.percentPattern(_locale(s)).format(fraction);
 
-  /// File size with binary units (1 KB = 1024 B).
+  /// File size with decimal units (1 KB = 1000 B, as Android `Formatter`;
+  /// 04A B8).
   static String fileSize(VkStrings s, int bytes) {
     var value = bytes.toDouble();
     var unit = 0;
-    while (value >= 1024 && unit < 3) {
-      value /= 1024;
+    while (value >= 1000 && unit < 3) {
+      value /= 1000;
       unit++;
     }
     return s.fileSize(

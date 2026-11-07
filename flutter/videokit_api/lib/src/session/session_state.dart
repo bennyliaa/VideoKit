@@ -107,47 +107,47 @@ enum MediaOrientation {
 final class OrientationState {
   /// Creates an orientation state.
   const OrientationState({
-    this.requested = OrientationRequest.auto,
-    this.natural = MediaOrientation.unknown,
+    this.request = OrientationRequest.auto,
+    this.contentOrientation = MediaOrientation.unknown,
     this.fullscreen = false,
   });
 
   /// Default state.
   static const OrientationState initial = OrientationState();
 
-  /// Policy requested via `SetOrientation`.
-  final OrientationRequest requested;
+  /// Last accepted `SetOrientation` request.
+  final OrientationRequest request;
 
-  /// Picture orientation derived from display size.
-  final MediaOrientation natural;
+  /// Orientation of the bound content (unknown without metadata).
+  final MediaOrientation contentOrientation;
 
   /// Whether fullscreen was requested via `SetFullscreen`.
   final bool fullscreen;
 
   /// Returns a copy with the given fields replaced.
   OrientationState copyWith({
-    OrientationRequest? requested,
-    MediaOrientation? natural,
+    OrientationRequest? request,
+    MediaOrientation? contentOrientation,
     bool? fullscreen,
   }) => OrientationState(
-    requested: requested ?? this.requested,
-    natural: natural ?? this.natural,
+    request: request ?? this.request,
+    contentOrientation: contentOrientation ?? this.contentOrientation,
     fullscreen: fullscreen ?? this.fullscreen,
   );
 
   @override
   bool operator ==(Object other) =>
       other is OrientationState &&
-      other.requested == requested &&
-      other.natural == natural &&
+      other.request == request &&
+      other.contentOrientation == contentOrientation &&
       other.fullscreen == fullscreen;
 
   @override
-  int get hashCode => Object.hash(requested, natural, fullscreen);
+  int get hashCode => Object.hash(request, contentOrientation, fullscreen);
 
   @override
   String toString() =>
-      'OrientationState(${requested.name}, natural: ${natural.name}, '
+      'OrientationState(${request.name}, content: ${contentOrientation.name}, '
       'fullscreen: $fullscreen)';
 }
 
@@ -178,7 +178,7 @@ final class VideoKitSessionState {
     this.visibility = SessionVisibility.visible,
     this.activeAudio = false,
     this.controlsVisible = true,
-    this.contentHiddenForLock = false,
+    this.hiddenForLock = false,
     this.error,
     this.resourcesHeld = false,
     List<HostActionState> hostActions = const [],
@@ -247,9 +247,8 @@ final class VideoKitSessionState {
   /// Whether VideoKit controls are visible (written back by the UI layer).
   final bool controlsVisible;
 
-  /// Whether content is hidden by `HideContentForLock` (Dart addition, see
-  /// report).
-  final bool contentHiddenForLock;
+  /// Whether content is hidden by `HideContentForLock` (04A N5).
+  final bool hiddenForLock;
 
   /// Current error, if any.
   final VideoKitStableError? error;
@@ -284,7 +283,7 @@ final class VideoKitSessionState {
     SessionVisibility? visibility,
     bool? activeAudio,
     bool? controlsVisible,
-    bool? contentHiddenForLock,
+    bool? hiddenForLock,
     Object? error = undefined,
     bool? resourcesHeld,
     List<HostActionState>? hostActions,
@@ -314,7 +313,7 @@ final class VideoKitSessionState {
     visibility: visibility ?? this.visibility,
     activeAudio: activeAudio ?? this.activeAudio,
     controlsVisible: controlsVisible ?? this.controlsVisible,
-    contentHiddenForLock: contentHiddenForLock ?? this.contentHiddenForLock,
+    hiddenForLock: hiddenForLock ?? this.hiddenForLock,
     error: pick<VideoKitStableError?>(error, this.error),
     resourcesHeld: resourcesHeld ?? this.resourcesHeld,
     hostActions: hostActions ?? this.hostActions,
@@ -342,7 +341,7 @@ final class VideoKitSessionState {
       other.visibility == visibility &&
       other.activeAudio == activeAudio &&
       other.controlsVisible == controlsVisible &&
-      other.contentHiddenForLock == contentHiddenForLock &&
+      other.hiddenForLock == hiddenForLock &&
       other.error == error &&
       other.resourcesHeld == resourcesHeld &&
       listEquals(other.hostActions, hostActions);
@@ -368,7 +367,7 @@ final class VideoKitSessionState {
     visibility,
     activeAudio,
     controlsVisible,
-    contentHiddenForLock,
+    hiddenForLock,
     error,
     resourcesHeld,
     hashList(hostActions),
@@ -381,6 +380,6 @@ final class VideoKitSessionState {
       'pwr: $playWhenReady, speed: $speed, vol: $volume, muted: $muted, '
       'audio: ${audioTracks.length}, subs: ${subtitleTracks.length}, '
       'activeAudio: $activeAudio, controls: $controlsVisible, '
-      'locked: $contentHiddenForLock, error: ${error?.code.name}, '
+      'locked: $hiddenForLock, error: ${error?.code.name}, '
       'held: $resourcesHeld, actions: ${hostActions.length})';
 }

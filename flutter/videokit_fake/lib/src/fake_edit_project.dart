@@ -98,11 +98,7 @@ class FakeEditProject implements VideoKitEditProject {
   static VideoKitStableError _illegal(
     String what, [
     ErrorStage stage = ErrorStage.edit,
-  ]) => VideoKitStableError(
-    code: ErrorCode.internalErrorRedacted,
-    stage: stage,
-    diagnostic: what,
-  );
+  ]) => VideoKitStableError.invalidState(stage: stage, diagnostic: what);
 
   EditEstimate _estimate(Timeline t) {
     final d = t.durationUs;
@@ -117,9 +113,15 @@ class FakeEditProject implements VideoKitEditProject {
 
   @override
   Future<SourceToken> addSource(VideoKitMediaSource source) async {
-    if (_released ||
-        _s.phase == EditPhase.exporting ||
-        _s.phase == EditPhase.cancelling) {
+    if (_released) {
+      throw const VideoKitException(
+        VideoKitStableError(
+          code: ErrorCode.sessionReleased,
+          stage: ErrorStage.edit,
+        ),
+      );
+    }
+    if (_s.phase == EditPhase.exporting || _s.phase == EditPhase.cancelling) {
       throw VideoKitException(
         _illegal('illegal_transition:${_s.phase.wireName}:addSource'),
       );
@@ -190,15 +192,25 @@ class FakeEditProject implements VideoKitEditProject {
         (command is CancelTracking ||
             command is SetMaskEnabled ||
             command is SetMaskStyle);
-    if (!phase.acceptsEdits && !duringTracking) {
+    // CREATED accepts commands too: they fail argument validation (no
+    // sources / empty timeline), vector empty.add_clip_unknown_source.
+    if (!phase.acceptsEdits && phase != EditPhase.created && !duringTracking) {
       return EditRejected(_illegal('illegal_transition:${phase.wireName}'));
     }
     final before = _model;
     final String? createdId;
     try {
       createdId = _applyToModel(command);
+    } on _IllegalState catch (e) {
+      return EditRejected(_illegal('illegal_transition:${e.what}'));
     } on _Invalid catch (e) {
-      return EditRejected(_illegal('invalid_argument:${e.what}'));
+      return EditRejected(
+        VideoKitStableError.invalidArgument(
+          stage: ErrorStage.edit,
+          diagnostic: 'invalid_argument:${e.what}',
+          params: {'argument': e.what},
+        ),
+      );
     }
     if (command.undoable) {
       _undo.add(before);
@@ -243,11 +255,11 @@ class FakeEditProject implements VideoKitEditProject {
 
     MaskTrack mask(String id) =>
         _s.maskById(id) ?? (throw _Invalid('mask_not_found'));
-    void checkRect(NormalizedRect r) {
+    void checkRect(MaskRegion r) {
       if (r.width <= 0 ||
           r.height <= 0 ||
-          r.left < 0 ||
-          r.top < 0 ||
+          r.x < 0 ||
+          r.y < 0 ||
           r.right > 1.0001 ||
           r.bottom > 1.0001) {
         throw _Invalid('region_out_of_range');
@@ -393,19 +405,13 @@ class FakeEditProject implements VideoKitEditProject {
           ),
         );
         return null;
-      case StartTracking(
-        :final maskId,
-        :final kind,
-        :final atUs,
-        :final seedRegion,
-      ):
+      case StartTracking(:final maskId, :final kind, :final seedRegion):
         final m = mask(maskId);
         if (!m.type.isAutomatic) throw _Invalid('mask_not_automatic');
         if (_s.tracking[maskId]?.status == TrackingRunStatus.running) {
           throw _Invalid('already_tracking');
         }
-        checkRect(seedRegion);
-        if (atUs < m.startUs || atUs >= m.endUs) throw _Invalid('seed_time');
+        if (seedRegion != null) checkRect(seedRegion);
         _startRun(m, kind, fromUs: m.startUs, keepBeforeUs: null);
         return null;
       case CorrectTracking(:final maskId, :final atUs, :final region):
@@ -435,25 +441,50 @@ class FakeEditProject implements VideoKitEditProject {
         return null;
       case CancelTracking(:final maskId):
         if (_s.tracking[maskId]?.status != TrackingRunStatus.running) {
-          throw _Invalid('not_tracking');
+          throw _IllegalState('not_tracking');
         }
         _cancelRun(maskId);
         return null;
       case AcceptTrackingRange(:final maskId, :final startUs, :final endUs):
-        final run = _s.tracking[maskId] ?? (throw _Invalid('no_tracking'));
+        final m = mask(maskId);
+        if (!m.type.isAutomatic) throw _Invalid('mask_not_automatic');
+        if (startUs < m.startUs || endUs > m.endUs || endUs <= startUs) {
+          throw _Invalid('accept_range');
+        }
+        final run =
+            _s.tracking[maskId] ??
+            TrackingRun(
+              maskId: maskId,
+              requestId: _nextId('track'),
+              projectRevision: _s.revision,
+              kind: m.type == MaskType.object
+                  ? TrackingKind.object
+                  : TrackingKind.face,
+              status: TrackingRunStatus.cancelled,
+              coverage: CoverageReport(
+                segments: [
+                  CoverageRange(
+                    startUs: m.startUs,
+                    endUs: m.endUs,
+                    state: TrackingState.notAnalyzed,
+                  ),
+                ],
+              ),
+            );
         var matched = false;
-        final segments = [
-          for (final seg in run.coverage.segments)
-            if (seg.state.blocksExport &&
-                seg.startUs >= startUs &&
-                seg.endUs <= endUs)
-              () {
-                matched = true;
-                return seg.copyWith(accepted: true);
-              }()
-            else
-              seg,
-        ];
+        final segments = <CoverageRange>[];
+        for (final seg in run.coverage.segments) {
+          final lo = math.max(seg.startUs, startUs);
+          final hi = math.min(seg.endUs, endUs);
+          if (!seg.state.blocksExport || seg.accepted || hi <= lo) {
+            segments.add(seg);
+            continue;
+          }
+          matched = true;
+          if (seg.startUs < lo) segments.add(seg.copyWith(endUs: lo));
+          segments.add(seg.copyWith(startUs: lo, endUs: hi, accepted: true));
+          if (hi < seg.endUs) segments.add(seg.copyWith(startUs: hi));
+        }
         if (!matched) throw _Invalid('no_uncovered_segment');
         _set(
           _s.copyWith(
@@ -480,7 +511,7 @@ class FakeEditProject implements VideoKitEditProject {
   }) {
     final requestId = _nextId('track');
     final previous = _s.tracking[m.maskId];
-    final kept = <CoverageSegment>[
+    final kept = <CoverageRange>[
       if (keepBeforeUs != null && previous != null)
         for (final seg in previous.coverage.segments)
           if (seg.startUs < keepBeforeUs)
@@ -496,7 +527,7 @@ class FakeEditProject implements VideoKitEditProject {
       coverage: CoverageReport(
         segments: [
           ...kept,
-          CoverageSegment(
+          CoverageRange(
             startUs: fromUs,
             endUs: m.endUs,
             state: TrackingState.notAnalyzed,
@@ -546,7 +577,7 @@ class FakeEditProject implements VideoKitEditProject {
     String maskId,
     String requestId,
     int fromUs,
-    List<CoverageSegment> kept, {
+    List<CoverageRange> kept, {
     required bool correction,
   }) {
     final m = _s.maskById(maskId);
@@ -556,7 +587,7 @@ class FakeEditProject implements VideoKitEditProject {
     final lost = correction
         ? const <TimeRange>[]
         : _scenario.trackingLostRanges;
-    final segments = <CoverageSegment>[...kept];
+    final segments = <CoverageRange>[...kept];
     var t = fromUs;
     final sortedLost = [...lost]..sort((a, b) => a.start.compareTo(b.start));
     for (final r in sortedLost) {
@@ -565,21 +596,17 @@ class FakeEditProject implements VideoKitEditProject {
       if (le <= ls || ls < t) continue;
       if (ls > t) {
         segments.add(
-          CoverageSegment(startUs: t, endUs: ls, state: TrackingState.tracked),
+          CoverageRange(startUs: t, endUs: ls, state: TrackingState.tracked),
         );
       }
       segments.add(
-        CoverageSegment(startUs: ls, endUs: le, state: TrackingState.lost),
+        CoverageRange(startUs: ls, endUs: le, state: TrackingState.lost),
       );
       t = le;
     }
     if (t < m.endUs) {
       segments.add(
-        CoverageSegment(
-          startUs: t,
-          endUs: m.endUs,
-          state: TrackingState.tracked,
-        ),
+        CoverageRange(startUs: t, endUs: m.endUs, state: TrackingState.tracked),
       );
     }
     // Tracker keyframes every 500 ms (deterministic drift), user keys win.
@@ -594,7 +621,7 @@ class FakeEditProject implements VideoKitEditProject {
           MaskKeyframe(
             atUs: at,
             region: base.copyWith(
-              left: (base.left + 0.02 * math.sin(at / 1e6)).clamp(
+              x: (base.x + 0.02 * math.sin(at / 1e6)).clamp(
                 0.0,
                 1.0 - base.width,
               ),
@@ -658,6 +685,15 @@ class FakeEditProject implements VideoKitEditProject {
         ),
       );
     }
+    if (atUs < 0 || atUs >= _s.timeline.durationUs) {
+      return CandidateDetectionResult(
+        error: VideoKitStableError.invalidArgument(
+          stage: ErrorStage.tracking,
+          diagnostic: 'invalid_argument:atUs',
+          params: const {'argument': 'atUs'},
+        ),
+      );
+    }
     await clock.delay(const Duration(milliseconds: 300));
     final rnd = DemoRandom(stableHash('$projectId:$atUs'));
     return CandidateDetectionResult(
@@ -666,9 +702,9 @@ class FakeEditProject implements VideoKitEditProject {
           TrackingCandidate(
             candidateId: 'face-${i + 1}',
             kind: TrackingKind.face,
-            region: NormalizedRect(
-              left: 0.15 + i * 0.45 + rnd.nextDouble() * 0.05,
-              top: 0.2 + rnd.nextDouble() * 0.1,
+            region: MaskRegion(
+              x: 0.15 + i * 0.45 + rnd.nextDouble() * 0.05,
+              y: 0.2 + rnd.nextDouble() * 0.1,
               width: 0.18,
               height: 0.24,
             ),
@@ -757,41 +793,44 @@ class FakeEditProject implements VideoKitEditProject {
     VideoKitExportRequest request,
     VideoKitOutputSink sink,
   ) async {
-    final issues = <PrecheckIssue>[];
+    // Problems are stable errors (code + params) and block the export;
+    // warnings are recorded in the result (04A S2).
+    final problems = <VideoKitStableError>[];
+    final warnings = <String>[];
     final tl = _s.timeline;
     if (tl.clips.isEmpty) {
-      issues.add(
-        const PrecheckIssue(
-          kind: PrecheckIssueKind.emptyTimeline,
-          error: VideoKitStableError(
-            code: ErrorCode.exportFailed,
-            stage: ErrorStage.export,
-          ),
+      problems.add(
+        const VideoKitStableError(
+          code: ErrorCode.exportFailed,
+          stage: ErrorStage.export,
+          params: {'reason': 'emptyTimeline'},
         ),
       );
     }
     if (!config.allowedPresetIds.contains(request.presetId) ||
         !ExportPresets.all.contains(request.presetId)) {
-      issues.add(
-        const PrecheckIssue(
-          kind: PrecheckIssueKind.presetUnavailable,
-          error: VideoKitStableError(
-            code: ErrorCode.encoderUnavailable,
-            stage: ErrorStage.export,
-            suggestedAction: SuggestedAction.reduceQuality,
-          ),
+      problems.add(
+        VideoKitStableError(
+          code: ErrorCode.encoderUnavailable,
+          stage: ErrorStage.export,
+          suggestedAction: SuggestedAction.reduceQuality,
+          params: {'presetId': request.presetId},
         ),
       );
     }
     final caps = sink.capabilities;
-    if (!caps.fileDescriptor && !caps.randomWrite && !caps.sequentialWrite) {
-      issues.add(
-        const PrecheckIssue(
-          kind: PrecheckIssueKind.sinkCapabilityUnsupported,
-          error: VideoKitStableError(
-            code: ErrorCode.outputCapabilityUnsupported,
-            stage: ErrorStage.sink,
-          ),
+    final SinkWriteMode? mode = caps.fileDescriptor
+        ? SinkWriteMode.fileDescriptor
+        : caps.randomWrite
+        ? SinkWriteMode.randomWrite
+        : caps.sequentialWrite
+        ? SinkWriteMode.sequential
+        : null;
+    if (mode == null) {
+      problems.add(
+        const VideoKitStableError(
+          code: ErrorCode.outputCapabilityUnsupported,
+          stage: ErrorStage.sink,
         ),
       );
     }
@@ -800,19 +839,24 @@ class FakeEditProject implements VideoKitEditProject {
     if (free != null &&
         estimate.sizeBytes != null &&
         free < estimate.sizeBytes!) {
-      issues.add(
-        const PrecheckIssue(
-          kind: PrecheckIssueKind.spaceInsufficient,
-          error: VideoKitStableError(
-            code: ErrorCode.outputSpaceInsufficient,
-            stage: ErrorStage.sink,
-            suggestedAction: SuggestedAction.freeSpace,
-          ),
+      problems.add(
+        VideoKitStableError(
+          code: ErrorCode.outputSpaceInsufficient,
+          stage: ErrorStage.sink,
+          retryable: true,
+          suggestedAction: SuggestedAction.freeSpace,
+          params: {'requiredBytes': '${estimate.sizeBytes}'},
         ),
       );
     }
     if (tl.sources.any((s) => s.mismatch)) {
-      issues.add(const PrecheckIssue(kind: PrecheckIssueKind.sourceMismatch));
+      problems.add(
+        const VideoKitStableError.invalidState(
+          stage: ErrorStage.edit,
+          diagnostic: 'source_mismatch',
+          params: {'reason': 'sourceMismatch'},
+        ),
+      );
     }
     final uncovered = <UncoveredRange>[];
     for (final m in _s.masks) {
@@ -841,23 +885,28 @@ class FakeEditProject implements VideoKitEditProject {
       }
     }
     if (uncovered.isNotEmpty) {
-      issues.add(
-        PrecheckIssue(
-          kind: PrecheckIssueKind.trackingCoverageIncomplete,
-          blocking: !request.acceptUncoveredTracking,
-          error: const VideoKitStableError(
+      if (request.acceptUncoveredTracking) {
+        warnings.add(ExportWarnings.trackingCoverageAccepted);
+      } else {
+        problems.add(
+          VideoKitStableError(
             code: ErrorCode.trackingLost,
             stage: ErrorStage.tracking,
+            retryable: true,
             suggestedAction: SuggestedAction.correctTracking,
+            params: {'uncoveredRanges': '${uncovered.length}'},
           ),
-        ),
-      );
+        );
+      }
+    } else if (_hasAcceptedRanges()) {
+      warnings.add(ExportWarnings.trackingCoverageAccepted);
     }
     return ExportPrecheck(
-      issues: issues,
+      problems: problems,
+      warnings: warnings,
+      writeMode: problems.isEmpty ? mode : null,
+      estimate: estimate,
       uncoveredRanges: uncovered,
-      estimatedDurationUs: estimate.durationUs,
-      estimatedSizeBytes: estimate.sizeBytes,
     );
   }
 
@@ -888,12 +937,14 @@ class FakeEditProject implements VideoKitEditProject {
     final precheck = await checkExport(request, sink);
     if (!precheck.canExport) {
       final error =
-          precheck.issues.firstWhere((i) => i.blocking).error ??
+          precheck.problems.firstOrNull ??
           const VideoKitStableError(
             code: ErrorCode.exportFailed,
             stage: ErrorStage.export,
           );
-      _set(_s.copyWith(phase: EditPhase.failed, error: error, export: null));
+      // Precheck failures do not start an export: phase is unchanged
+      // (vector export.empty_timeline.failed).
+      _set(_s.copyWith(error: error, export: null));
       final result = ExportFailed(exportId, error);
       _emit(ExportFinished(result));
       return result;
@@ -975,7 +1026,7 @@ class FakeEditProject implements VideoKitEditProject {
         elapsed += step;
         if (determinate) {
           bytes =
-              ((precheck.estimatedSizeBytes ?? 0) *
+              ((precheck.estimate.sizeBytes ?? 0) *
                       math.min(
                         1.0,
                         elapsed.inMicroseconds / length.inMicroseconds,
@@ -997,7 +1048,7 @@ class FakeEditProject implements VideoKitEditProject {
               ErrorCode.outputSpaceInsufficient => SuggestedAction.freeSpace,
               ErrorCode.encoderUnavailable => SuggestedAction.reduceQuality,
               ErrorCode.outputPermissionDenied =>
-                SuggestedAction.grantPermission,
+                SuggestedAction.checkPermission,
               _ => SuggestedAction.retry,
             },
           );
@@ -1023,18 +1074,14 @@ class FakeEditProject implements VideoKitEditProject {
           ? MediaOrientation.portrait
           : MediaOrientation.landscape,
       durationUs: totalUs,
-      sizeBytes: precheck.estimatedSizeBytes ?? 0,
+      sizeBytes: precheck.estimate.sizeBytes ?? 0,
       frameRate: 30,
       audioPresent: true,
       createdAt: DateTime.utc(2026, 1, 1).add(clock.now),
       sourceTokens: [for (final s in _s.timeline.sources) s.mediaToken],
       editProjectId: projectId,
       exportPresetId: request.presetId,
-      warnings: [
-        ExportWarnings.demoNoRealFile,
-        if (precheck.uncoveredRanges.isNotEmpty || _hasAcceptedRanges())
-          ExportWarnings.trackingCoverageAccepted,
-      ],
+      warnings: [ExportWarnings.demoNoRealFile, ...precheck.warnings],
       isDemo: true,
     );
     _set(_s.copyWith(phase: EditPhase.completed, export: null));
@@ -1092,6 +1139,11 @@ class FakeEditProject implements VideoKitEditProject {
 
 final class _Invalid implements Exception {
   _Invalid(this.what);
+  final String what;
+}
+
+final class _IllegalState implements Exception {
+  _IllegalState(this.what);
   final String what;
 }
 
@@ -1181,9 +1233,9 @@ abstract final class FakeEditProjectCodec {
     ],
   };
 
-  static Map<String, Object?> _rect(NormalizedRect r) => {
-    'left': r.left,
-    'top': r.top,
+  static Map<String, Object?> _rect(MaskRegion r) => {
+    'x': r.x,
+    'y': r.y,
     'width': r.width,
     'height': r.height,
     'rotation': r.rotationDeg,
@@ -1192,9 +1244,9 @@ abstract final class FakeEditProjectCodec {
   static double _d(Object? v, [double fallback = 0]) =>
       v is num ? v.toDouble() : fallback;
 
-  static NormalizedRect _decodeRect(Map<String, Object?> j) => NormalizedRect(
-    left: _d(j['left']),
-    top: _d(j['top']),
+  static MaskRegion _decodeRect(Map<String, Object?> j) => MaskRegion(
+    x: _d(j['x']),
+    y: _d(j['y']),
     width: _d(j['width']),
     height: _d(j['height']),
     rotationDeg: _d(j['rotation']),
@@ -1213,7 +1265,9 @@ abstract final class FakeEditProjectCodec {
   ) {
     VideoKitException reject(String why) => VideoKitException(
       VideoKitStableError(
-        code: ErrorCode.internalErrorRedacted,
+        code: why == 'edit_schema_unsupported'
+            ? ErrorCode.unsupportedSnapshotVersion
+            : ErrorCode.invalidArgument,
         stage: ErrorStage.edit,
         diagnostic: why,
       ),
@@ -1323,7 +1377,7 @@ abstract final class FakeEditProjectCodec {
           coverage: CoverageReport(
             segments: [
               for (final s in _list(t['coverage']))
-                CoverageSegment(
+                CoverageRange(
                   startUs: (s['startUs'] as int?) ?? 0,
                   endUs: (s['endUs'] as int?) ?? 0,
                   state: TrackingState.fromName(s['state'] as String?),

@@ -6,15 +6,17 @@ import '../media/transform.dart';
 import '../util/undefined.dart';
 import 'session_state.dart';
 
-/// Persistable playback preferences snapshot (05 §3, MediaPlayHobby).
+/// Persistable playback preferences snapshot (05 §3, MediaPlayHobby;
+/// 04A I7, I9).
 ///
 /// VideoKit never stores scope; it receives this at `bind` and returns the
 /// latest value when stable and on `release`. Video-only fields are null in
-/// image snapshots. Serialised form carries [schemaVersion] (04 §10).
+/// image snapshots. The serialised form carries [schemaVersion] (04 §10).
 @immutable
 final class VideoKitPlaybackState {
   /// Creates a snapshot.
   const VideoKitPlaybackState({
+    this.sessionId,
     this.mediaToken,
     this.zoom = 1.0,
     this.panX = 0.0,
@@ -28,12 +30,19 @@ final class VideoKitPlaybackState {
     this.volume,
     this.muted,
     this.subtitleTrackId,
+    this.subtitlesEnabled,
     this.audioTrackId,
-    this.lastViewedAt,
+    this.lastViewedAtEpochMs,
   });
 
   /// Current snapshot schema major version.
   static const int currentSchemaVersion = 1;
+
+  /// Schema version of this snapshot.
+  int get schemaVersion => currentSchemaVersion;
+
+  /// Session that produced the snapshot (null for host-built snapshots).
+  final String? sessionId;
 
   /// Media token the snapshot belongs to.
   final String? mediaToken;
@@ -71,14 +80,18 @@ final class VideoKitPlaybackState {
   /// Muted; null for images.
   final bool? muted;
 
-  /// Subtitle track ID; null = off/unknown.
+  /// Selected subtitle track ID.
   final String? subtitleTrackId;
+
+  /// Subtitles switched on (true), explicitly off (false) or never chosen
+  /// (null); together with [subtitleTrackId] (04A I9).
+  final bool? subtitlesEnabled;
 
   /// Audio track ID.
   final String? audioTrackId;
 
-  /// When the media was last viewed (UTC).
-  final DateTime? lastViewedAt;
+  /// When the media was last viewed (Unix epoch, ms).
+  final int? lastViewedAtEpochMs;
 
   /// The transform part as a [MediaTransform].
   MediaTransform get transform => MediaTransform(
@@ -91,6 +104,7 @@ final class VideoKitPlaybackState {
 
   /// Returns a copy with the given fields replaced.
   VideoKitPlaybackState copyWith({
+    Object? sessionId = undefined,
     Object? mediaToken = undefined,
     double? zoom,
     double? panX,
@@ -104,9 +118,11 @@ final class VideoKitPlaybackState {
     Object? volume = undefined,
     Object? muted = undefined,
     Object? subtitleTrackId = undefined,
+    Object? subtitlesEnabled = undefined,
     Object? audioTrackId = undefined,
-    Object? lastViewedAt = undefined,
+    Object? lastViewedAtEpochMs = undefined,
   }) => VideoKitPlaybackState(
+    sessionId: pick<String?>(sessionId, this.sessionId),
     mediaToken: pick<String?>(mediaToken, this.mediaToken),
     zoom: zoom ?? this.zoom,
     panX: panX ?? this.panX,
@@ -120,18 +136,23 @@ final class VideoKitPlaybackState {
     volume: pick<double?>(volume, this.volume),
     muted: pick<bool?>(muted, this.muted),
     subtitleTrackId: pick<String?>(subtitleTrackId, this.subtitleTrackId),
+    subtitlesEnabled: pick<bool?>(subtitlesEnabled, this.subtitlesEnabled),
     audioTrackId: pick<String?>(audioTrackId, this.audioTrackId),
-    lastViewedAt: pick<DateTime?>(lastViewedAt, this.lastViewedAt),
+    lastViewedAtEpochMs: pick<int?>(
+      lastViewedAtEpochMs,
+      this.lastViewedAtEpochMs,
+    ),
   );
 
   /// JSON form (stable keys, includes `schemaVersion`).
   Map<String, Object?> toJson() => {
     'schemaVersion': currentSchemaVersion,
+    'sessionId': sessionId,
     'mediaToken': mediaToken,
     'zoom': zoom,
     'panX': panX,
     'panY': panY,
-    'rotation': rotationDeg,
+    'rotationDeg': rotationDeg,
     'fitMode': fitMode.wireName,
     'preferredOrientation': preferredOrientation.wireName,
     'fullscreen': fullscreen,
@@ -140,31 +161,32 @@ final class VideoKitPlaybackState {
     'volume': volume,
     'muted': muted,
     'subtitleTrackId': subtitleTrackId,
+    'subtitlesEnabled': subtitlesEnabled,
     'audioTrackId': audioTrackId,
-    'lastViewedAt': lastViewedAt?.toUtc().toIso8601String(),
+    'lastViewedAtEpochMs': lastViewedAtEpochMs,
   };
 
   /// Parses [json]. Older schema versions and missing optional fields use
-  /// defaults; an unknown future major version is rejected with a
-  /// [VideoKitException] (04 §10).
+  /// defaults; an unknown future major version is rejected with
+  /// `UNSUPPORTED_SNAPSHOT_VERSION` (04 §10, 04A V7).
   static VideoKitPlaybackState fromJson(Map<String, Object?> json) {
     final version = json['schemaVersion'];
     if (version is! int || version > currentSchemaVersion || version < 1) {
       throw const VideoKitException(
-        VideoKitStableError.internal(
+        VideoKitStableError(
+          code: ErrorCode.unsupportedSnapshotVersion,
           stage: ErrorStage.bind,
-          diagnostic: 'playback_state_schema_unsupported',
         ),
       );
     }
     double? toDouble(Object? v) => v is num ? v.toDouble() : null;
-    final lastViewed = json['lastViewedAt'];
     return VideoKitPlaybackState(
+      sessionId: json['sessionId'] as String?,
       mediaToken: json['mediaToken'] as String?,
       zoom: toDouble(json['zoom']) ?? 1.0,
       panX: toDouble(json['panX']) ?? 0.0,
       panY: toDouble(json['panY']) ?? 0.0,
-      rotationDeg: (json['rotation'] as int?) ?? 0,
+      rotationDeg: (json['rotationDeg'] as int?) ?? 0,
       fitMode: FitMode.fromName(json['fitMode'] as String?),
       preferredOrientation: OrientationRequest.fromName(
         json['preferredOrientation'] as String?,
@@ -175,16 +197,16 @@ final class VideoKitPlaybackState {
       volume: toDouble(json['volume']),
       muted: json['muted'] as bool?,
       subtitleTrackId: json['subtitleTrackId'] as String?,
+      subtitlesEnabled: json['subtitlesEnabled'] as bool?,
       audioTrackId: json['audioTrackId'] as String?,
-      lastViewedAt: lastViewed is String
-          ? DateTime.tryParse(lastViewed)?.toUtc()
-          : null,
+      lastViewedAtEpochMs: json['lastViewedAtEpochMs'] as int?,
     );
   }
 
   @override
   bool operator ==(Object other) =>
       other is VideoKitPlaybackState &&
+      other.sessionId == sessionId &&
       other.mediaToken == mediaToken &&
       other.zoom == zoom &&
       other.panX == panX &&
@@ -198,11 +220,13 @@ final class VideoKitPlaybackState {
       other.volume == volume &&
       other.muted == muted &&
       other.subtitleTrackId == subtitleTrackId &&
+      other.subtitlesEnabled == subtitlesEnabled &&
       other.audioTrackId == audioTrackId &&
-      other.lastViewedAt == lastViewedAt;
+      other.lastViewedAtEpochMs == lastViewedAtEpochMs;
 
   @override
   int get hashCode => Object.hash(
+    sessionId,
     mediaToken,
     zoom,
     panX,
@@ -216,8 +240,9 @@ final class VideoKitPlaybackState {
     volume,
     muted,
     subtitleTrackId,
+    subtitlesEnabled,
     audioTrackId,
-    lastViewedAt,
+    lastViewedAtEpochMs,
   );
 
   @override

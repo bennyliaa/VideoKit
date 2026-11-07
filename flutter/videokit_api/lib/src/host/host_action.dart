@@ -18,55 +18,55 @@ enum ActionPlacement {
       enumFromName(values, name, overflow);
 }
 
-/// Icon of a host action: a built-in VideoKit icon key or a host resource
-/// (04 §7).
+/// Icon of a host action (04 §7, 04A N9): a built-in VideoKit icon key or a
+/// host resource reference.
 @immutable
 sealed class HostIcon {
   const HostIcon();
 
-  /// A built-in icon resolved by `VideoKitIcons` (e.g. `favorite`, `tag`).
-  const factory HostIcon.builtin(String iconKey) = BuiltinHostIcon;
+  /// A built-in icon resolved by `VkIcons` (e.g. `favorite`, `tag`).
+  const factory HostIcon.builtIn(String iconKey) = HostIconBuiltIn;
 
-  /// A host drawable resource ID (native hosts).
-  const factory HostIcon.hostResource(int resourceId) = HostResourceIcon;
+  /// A host resource (Kotlin `HostIcon.Resource`; native hosts).
+  const factory HostIcon.resource(String resourceRef) = HostIconResource;
 }
 
-/// Built-in icon key.
-final class BuiltinHostIcon extends HostIcon {
+/// Built-in icon key (Kotlin `HostIcon.BuiltIn`).
+final class HostIconBuiltIn extends HostIcon {
   /// Creates a built-in icon reference.
-  const BuiltinHostIcon(this.iconKey);
+  const HostIconBuiltIn(this.iconKey);
 
   /// Icon key.
   final String iconKey;
 
   @override
   bool operator ==(Object other) =>
-      other is BuiltinHostIcon && other.iconKey == iconKey;
+      other is HostIconBuiltIn && other.iconKey == iconKey;
 
   @override
-  int get hashCode => Object.hash(BuiltinHostIcon, iconKey);
+  int get hashCode => Object.hash(HostIconBuiltIn, iconKey);
 
   @override
-  String toString() => 'HostIcon.builtin($iconKey)';
+  String toString() => 'HostIcon.builtIn($iconKey)';
 }
 
-/// Host drawable resource ID.
-final class HostResourceIcon extends HostIcon {
+/// Opaque host resource reference (Kotlin `HostIcon.Resource`).
+final class HostIconResource extends HostIcon {
   /// Creates a resource icon reference.
-  const HostResourceIcon(this.resourceId);
+  const HostIconResource(this.resourceRef);
 
-  /// Resource ID.
-  final int resourceId;
+  /// Resource reference.
+  final String resourceRef;
 
   @override
   bool operator ==(Object other) =>
-      other is HostResourceIcon && other.resourceId == resourceId;
+      other is HostIconResource && other.resourceRef == resourceRef;
 
   @override
-  int get hashCode => Object.hash(HostResourceIcon, resourceId);
+  int get hashCode => Object.hash(HostIconResource, resourceRef);
 
   @override
-  String toString() => 'HostIcon.hostResource($resourceId)';
+  String toString() => 'HostIcon.resource($resourceRef)';
 }
 
 /// A host-defined action shown by VideoKit (04 §7, original §9).
@@ -177,36 +177,44 @@ final class VideoKitHostAction {
 }
 
 /// Session-maintained state of one host action (14 §3.2): the action as last
-/// reported by the host plus VideoKit's own in-flight/failure tracking.
+/// reported by the host plus VideoKit's pending/last-result tracking
+/// (04A S1).
 @immutable
 final class HostActionState {
-  /// Creates a host action state.
-  const HostActionState({
+  /// Creates a host action state; [pending] defaults to the host's flag.
+  HostActionState({
     required this.action,
-    this.inFlight = false,
+    bool? pending,
+    this.lastStatus,
     this.lastError,
-  });
+  }) : pending = pending ?? action.pending;
 
   /// The action.
   final VideoKitHostAction action;
 
-  /// A request is in flight (duplicate clicks are merged meanwhile).
-  final bool inFlight;
+  /// A request is in flight or the host reported PENDING; repeats return
+  /// `Superseded` and the UI shows a pending ring.
+  final bool pending;
+
+  /// Status of the last host answer, if any.
+  final HostActionStatus? lastStatus;
 
   /// Error of the last failed/timed-out request, cleared on next success.
   final VideoKitStableError? lastError;
 
-  /// Whether the UI should show a pending indicator.
-  bool get isPending => inFlight || action.pending;
+  /// Same as [pending] (kept for readability in UI code).
+  bool get isPending => pending;
 
   /// Returns a copy with the given fields replaced.
   HostActionState copyWith({
     VideoKitHostAction? action,
-    bool? inFlight,
+    bool? pending,
+    Object? lastStatus = undefined,
     Object? lastError = undefined,
   }) => HostActionState(
     action: action ?? this.action,
-    inFlight: inFlight ?? this.inFlight,
+    pending: pending ?? this.pending,
+    lastStatus: pick<HostActionStatus?>(lastStatus, this.lastStatus),
     lastError: pick<VideoKitStableError?>(lastError, this.lastError),
   );
 
@@ -214,16 +222,17 @@ final class HostActionState {
   bool operator ==(Object other) =>
       other is HostActionState &&
       other.action == action &&
-      other.inFlight == inFlight &&
+      other.pending == pending &&
+      other.lastStatus == lastStatus &&
       other.lastError == lastError;
 
   @override
-  int get hashCode => Object.hash(action, inFlight, lastError);
+  int get hashCode => Object.hash(action, pending, lastStatus, lastError);
 
   @override
   String toString() =>
-      'HostActionState(${action.actionId}, inFlight: $inFlight, '
-      'lastError: ${lastError?.code.name})';
+      'HostActionState(${action.actionId}, pending: $pending, '
+      'last: ${lastStatus?.name}, error: ${lastError?.code.name})';
 }
 
 /// Request sent to the host when a host action is clicked (04 §7).
@@ -280,7 +289,10 @@ enum HostActionStatus {
   pending,
 
   /// Host failed the action.
-  failed;
+  failed,
+
+  /// Host or user cancelled the action (no error shown).
+  cancelled;
 
   /// SCREAMING_SNAKE_CASE wire name.
   String get wireName => toWireName(name);
@@ -290,30 +302,34 @@ enum HostActionStatus {
       enumFromName(values, name, failed);
 }
 
-/// Host answer to [HostActionRequest] (04 §8, 05 §5).
+/// Host answer to [HostActionRequest] (04 §8, 04A V3).
 @immutable
 final class HostActionResult {
   /// Creates a result.
   const HostActionResult({
     required this.status,
     this.updatedAction,
-    this.error,
+    this.messageKey,
   });
 
   /// Completed, optionally with the action's new state.
-  const HostActionResult.completed([this.updatedAction])
-    : status = HostActionStatus.completed,
-      error = null;
+  const HostActionResult.completed([this.updatedAction, this.messageKey])
+    : status = HostActionStatus.completed;
 
   /// Pending, optionally with the action's new state.
-  const HostActionResult.pending([this.updatedAction])
-    : status = HostActionStatus.pending,
-      error = null;
+  const HostActionResult.pending([this.updatedAction, this.messageKey])
+    : status = HostActionStatus.pending;
 
-  /// Failed with [error].
-  const HostActionResult.failed(VideoKitStableError this.error)
+  /// Failed; [messageKey] is an optional host string key for the notice.
+  const HostActionResult.failed([this.messageKey])
     : status = HostActionStatus.failed,
       updatedAction = null;
+
+  /// Cancelled.
+  const HostActionResult.cancelled()
+    : status = HostActionStatus.cancelled,
+      updatedAction = null,
+      messageKey = null;
 
   /// Status.
   final HostActionStatus status;
@@ -321,18 +337,18 @@ final class HostActionResult {
   /// New state of the action (selected/pending/badge), if changed.
   final VideoKitHostAction? updatedAction;
 
-  /// Error when [status] is failed.
-  final VideoKitStableError? error;
+  /// Optional host string key for a transient notice.
+  final String? messageKey;
 
   /// Returns a copy with the given fields replaced.
   HostActionResult copyWith({
     HostActionStatus? status,
     Object? updatedAction = undefined,
-    Object? error = undefined,
+    Object? messageKey = undefined,
   }) => HostActionResult(
     status: status ?? this.status,
     updatedAction: pick<VideoKitHostAction?>(updatedAction, this.updatedAction),
-    error: pick<VideoKitStableError?>(error, this.error),
+    messageKey: pick<String?>(messageKey, this.messageKey),
   );
 
   @override
@@ -340,13 +356,13 @@ final class HostActionResult {
       other is HostActionResult &&
       other.status == status &&
       other.updatedAction == updatedAction &&
-      other.error == error;
+      other.messageKey == messageKey;
 
   @override
-  int get hashCode => Object.hash(status, updatedAction, error);
+  int get hashCode => Object.hash(status, updatedAction, messageKey);
 
   @override
   String toString() =>
       'HostActionResult(${status.name}, updated: $updatedAction, '
-      'error: $error)';
+      'message: $messageKey)';
 }

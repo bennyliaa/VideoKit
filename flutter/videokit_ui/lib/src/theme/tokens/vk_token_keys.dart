@@ -272,7 +272,15 @@ abstract final class VkTokenKeys {
   static const buttonIcon = VkTokenKey._('component.button.icon', _p);
   static const chipDefault = VkTokenKey._('component.chip.default', _p);
   static const badgeDefault = VkTokenKey._('component.badge.default', _p);
+  static const sheetDefault = VkTokenKey._('component.sheet.default', _p);
+  static const menuDefault = VkTokenKey._('component.menu.default', _p);
+  static const toastDefault = VkTokenKey._('component.toast.default', _p);
+  static const progressDefault = VkTokenKey._('component.progress.default', _p);
   static const seekBar = VkTokenKey._('apps.videokit.component.seekbar', _p);
+  static const hostActionBar = VkTokenKey._(
+    'apps.videokit.component.hostactionbar',
+    _p,
+  );
 
   /// Every registered key.
   static final List<VkTokenKey> all = List.unmodifiable([
@@ -368,7 +376,12 @@ abstract final class VkTokenKeys {
     buttonIcon,
     chipDefault,
     badgeDefault,
+    sheetDefault,
+    menuDefault,
+    toastDefault,
+    progressDefault,
     seekBar,
+    hostActionBar,
   ]);
 
   static final Map<String, VkTokenKey> _byKey = {for (final k in all) k.key: k};
