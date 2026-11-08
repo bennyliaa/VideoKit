@@ -94,6 +94,13 @@ Browser 的 PlaybackCoordinator 负责：按 VideoBoxFile 成员创建/销毁会
 - 提交：Browser 执行“计划 → 权限/空间/版本验证 → 验证输出 → 用户确认 → 暂存/最终改名 → 更新索引和资料 → 清理临时文件”。VideoKit 不参与、不能绕过，也没有永久删除接口。
 - 编辑后业务（新视频继承正式名称、原视频改名 `视频名_dump_日期` 或永久删除、“已编辑视频”配对页）全部在 Browser；VideoKit 只提供 editProjectId、输入 token 列表与输出 token 供配对。
 
+### 8.1 头像替换（REQ-ED-07，04A E6）
+
+- 头像替换是 Kit 能力，Browser 可直接使用：用户在编辑器中选“头像”样式时，由宿主提供头像图片源（与视频相同的 `mediaToken` + `readAt`，可来自 Browser 的图库或系统选择器）。
+- Kit 的 `prepareAvatar` 完成抠图；Browser 保存返回的透明 PNG（例如放在 Browser 私有目录），分配 `avatarToken`，并实现 `openAvatar(avatarToken)` 回调供预览与导出读取。
+- Browser 不需要实现抠图或合成；可直接使用 `videokit_ui` 的头像页面，也可只调 API 自建界面。按 `Capabilities.avatar` 决定是否显示入口。
+- 头像 PNG 属用户数据，保存、清理与权限由 Browser 负责；VideoKit 不保存、不上传。
+
 ## 9. 回退与故障
 
 - Browser 在 VideoKit 初始化失败、加载失败或会话致命错误时切换到临时播放器，并继续启动与浏览（§26.7）。
