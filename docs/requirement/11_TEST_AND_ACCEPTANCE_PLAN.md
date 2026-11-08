@@ -89,6 +89,10 @@ jpg/jpeg、png、webp、heic/heif、avif、bmp、gif；静态 WebP、动态 WebP
 - 追踪表 `docs/requirement/TRACEABILITY.csv` 在 VK-M0 建立，字段：REQ ID、原需求章节、TC ID、测试层次、所属里程碑、结果、证据位置。
 - 每个里程碑退出时，该里程碑范围内的 REQ 全部有结果；NOT_RUN 与 BLOCKED 需写明原因并经负责人确认。
 
+## 5A. 全功能测试（VK-FT）
+
+VK-M0–M6 全部完成后、VK-M7/M8 之前，按 [16](16_FULL_FUNCTION_TEST_PLAN.md) 做一次覆盖全部功能、UI 布局、细节、边界与可预期错误的全功能测试；开始前须经用户确认，通过后才进入打包发布。本文 §3 的测试矩阵与 §7 的阻断检查在全功能测试中全部覆盖。
+
 ## 6. 里程碑交付与测试流程
 
 1. 开发完成整个里程碑范围并自测，提交候选：版本号、源码 commit、构建产物与 SHA-256、自测结果、已知问题。
