@@ -63,14 +63,16 @@ StartTracking / AddCorrectionKeyframe / AcceptTrackingRange（见 09）
 ## 4. 手动打码（§10.4）
 
 ```text
-MaskTrack { maskId, type: MANUAL|FACE|OBJECT, style: MOSAIC|BLUR, strength, enabled,
+MaskTrack { maskId, type: MANUAL|FACE|OBJECT, style: MOSAIC|BLUR|IMAGE, strength, enabled,
+            avatar?: { avatarToken, scale, offsetX, offsetY, followRotation },   // 仅 style=IMAGE（REQ-ED-07，schemaMinor 1）
             rangeUs: [start, end], keyframes: [ { atUs, region(normalized rect/rotated rect), source: USER|TRACKER, state } ] }
 ```
 
 - 关键帧之间线性插值区域；用户可增加关键帧修正位置和大小。
 - 多个遮罩可分别开启、暂停（enabled=false）、删除。
 - 坐标映射：渲染时把归一化区域变换到输出坐标（考虑源旋转、裁剪、缩放、导出分辨率），预览与导出共用同一变换函数，并以黄金图像测试校验。
-- 效果实现：Media3 `GlEffect` 自定义着色器（马赛克=像素块平均、模糊=分离高斯），预览与导出同一着色器。
+- 效果实现：Media3 `GlEffect` 自定义着色器（马赛克=像素块平均、模糊=分离高斯、头像=按区域合成带透明通道的头像纹理），预览与导出同一着色器。
+- 头像替换（REQ-ED-07，VK-M5A）：头像 PNG 由宿主保存，工程只记 `avatarToken`（`builtin:N` 为 Kit 内置头像）；合成区域 = 跟踪框扩展到头部，再乘 `scale` 并加 `offset`；`followRotation=true` 时按关键帧的 `rollDeg`（双眼连线角度）旋转；头像缺失或解码失败时该区间改用马赛克并在导出警告中注明，绝不输出未遮挡的画面。头像准备（裁到头部、去背景与边缘、擦除/恢复）在 Kit 的 `prepareAvatar` / `refineAvatar` 中完成，模型选型见 15 §2.9（S7）。旧版本读取端遇到 `IMAGE` 按 schema R4 回退为马赛克。
 - 安全规则：任何遮罩渲染失败都使导出失败，不能输出被错误宣称已保护的视频（§10.4）。
 
 ## 5. 输出 Sink（§11、§17.2）

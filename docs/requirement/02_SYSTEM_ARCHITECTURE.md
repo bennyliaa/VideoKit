@@ -112,7 +112,7 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 | `videokit-playback` | 播放控制规则、轨道模型、播放事件、观看统计 | core |
 | `videokit-image` | 图片会话规则：缩放/翻页/动图状态、分块调度策略、内存额度 | core |
 | `videokit-timeline` | 编辑工程 Schema 与迁移、编辑命令与撤销重做、片段与拼接规则（快速拼接判定）、关键帧插值 | core（JSON 读写自实现，不引入新依赖；M4-B1） |
-| `videokit-effects` | 马赛克/模糊参数、按帧遮罩区域计算、**CPU 参考实现**（用于黄金图像与各平台 GPU 实现对照） | timeline |
+| `videokit-effects` | 马赛克/模糊/头像合成参数、按帧遮罩区域计算（含头部扩展与 rollDeg 旋转）、**CPU 参考实现**（用于黄金图像与各平台 GPU 实现对照） | timeline |
 | `videokit-tracking` | 跟踪编排：检测→跟踪→关联→置信状态、纠正与重算、覆盖报告；通过 SPI `TrackerBackend` 调平台推理 | timeline、core |
 | `videokit-export` | 导出计划与阶段状态机、取消、Sink 能力协商、输出校验规则；通过 SPI `CompositionExporter` 调平台编码 | timeline、effects、core |
 | `videokit-testkit` | Fake 实现、场景、契约测试、故障注入、演示数据；测试向量运行器（读取 `spec/vectors`） | api、core |
@@ -184,7 +184,7 @@ SPI 定义在 `videokit-core`（`com.videokit.core.spi`），接口尽量薄，�
 | `PlaybackEngine` | 打开源、播放控制、轨道、画面输出到渲染目标、错误映射 | `videokit-media3`（ExoPlayer） | Apple：AVPlayer；Windows：Media Foundation |
 | `FrameSource` | 按时间取帧（缩略图、跟踪分析帧） | `videokit-media3`（帧提取） | AVAssetImageGenerator；MF Source Reader |
 | `CompositionExporter` | 按导出计划执行裁剪/拼接/效果/编码/封装，报告阶段进度，可取消 | `videokit-media3`（Transformer） | AVAssetExportSession / AVAssetWriter；MF Sink Writer |
-| `EffectRenderer` | 在 GPU 上按区域执行马赛克/模糊（结果须与 `videokit-effects` CPU 参考实现一致） | GLES `GlEffect` | Metal；Direct3D |
+| `EffectRenderer` | 在 GPU 上按区域执行马赛克/模糊/头像合成（结果须与 `videokit-effects` CPU 参考实现一致） | GLES `GlEffect` | Metal；Direct3D |
 | `ImageEngine` | 静态/动态图片解码、分块、输出到渲染目标 | `videokit-image-android` | ImageIO；WIC |
 | `TrackerBackend` | 人脸检测与目标跟踪推理 | `videokit-tracking-android`（JNI → `tracking-core`） | 同一 `tracking-core` 经 FFI |
 | `CapabilityProbe` | 解码器/编码器/容器能力、并发上限、热状态、内存 | `videokit-platform-android` | 各平台查询 API |
