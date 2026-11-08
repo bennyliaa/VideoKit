@@ -1303,6 +1303,12 @@ abstract class VideoKitLocalizations {
   /// **'有视频无法直接拼接'**
   String get concatDiffOther;
 
+  /// 转码原因：探测信息不完整（PROBE_INCOMPLETE，04A E3/E4）。
+  ///
+  /// In zh, this message translates to:
+  /// **'有视频的编码、尺寸或帧率未知'**
+  String get concatDiffProbeIncomplete;
+
   /// 预计输出时长与大小。
   ///
   /// In zh, this message translates to:

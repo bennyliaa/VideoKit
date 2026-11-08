@@ -22,6 +22,7 @@ SourceProbe _probe({
   rotationDeg: rot,
   fps: fps,
   videoCodec: 'video/avc',
+  audioCodec: 'audio/mp4a-latm',
   hasAudio: true,
 );
 

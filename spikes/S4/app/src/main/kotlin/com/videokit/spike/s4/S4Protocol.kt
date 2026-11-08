@@ -34,18 +34,21 @@ object S4Protocol {
     const val KEY_SAMPLES = "samples"
     const val KEY_BYTES = "bytes"
     const val KEY_LOADER = "loader"
+    const val KEY_PID = "pid"
     const val KEY_PROBE = "probe"
 
     /** Worker to main: one decode probe step result (attempt 4), in KEY_CODE. */
     const val PROBE = 15
 
     /**
-     * Asset loaders of the worker: pure-Java Media3 extractors (attempt 4, default, option a′); platform MediaExtractor
-     * (attempt 3, blocks on media.extractor) and ExoPlayer (attempt 2, blocks on media.audio_flinger) for comparison.
+     * Asset loaders of the worker. From attempt 5 (option c1, non-isolated) the default is [LOADER_EXO], the Media3
+     * ExoPlayer asset loader the Kit export will use; in the isolated attempts it blocked on media.audio_flinger (2).
+     * [LOADER_JAVA] (pure-Java extractors, attempt 4) and [LOADER_EXTRACTOR] (platform MediaExtractor, attempt 3) stay
+     * for comparison.
      */
+    const val LOADER_EXO = "EXO"
     const val LOADER_JAVA = "JAVA"
     const val LOADER_EXTRACTOR = "EXTRACTOR"
-    const val LOADER_EXO = "EXO"
 
     /** Faults injected in the worker after its first written video sample (15 §4 S4). */
     enum class Fault { NONE, CANCEL, SIGSEGV, OOM, LOOP, KILL }
@@ -58,13 +61,15 @@ object S4Protocol {
 
 /**
  * Main process side of the input proxy: the worker has no file access; it reads the source through this binder,
- * bounded to [S4Protocol.MAX_READ] per call. Only the worker's uid is served (the main uid is refused). Stands in for
- * the host `readAt` (the export input of 15 §2.8 is read in the main process).
+ * bounded to [S4Protocol.MAX_READ] per call. Stands in for the host `readAt` (the export input of 15 §2.8 is read in the
+ * main process). The worker has the app uid (option c1), so callers are told apart by pid: the main process itself is
+ * refused, the first other caller is pinned and every later caller with another pid is refused.
  */
 class InputBroker(private val file: File) : Binder() {
     private val channel = RandomAccessFile(file, "r").channel
     val reads = AtomicLong()
     val calls = AtomicInteger()
+    private val pinnedPid = AtomicInteger()
 
     @Volatile var revoked = false
         private set
@@ -78,7 +83,9 @@ class InputBroker(private val file: File) : Binder() {
         if (code != S4Protocol.BROKER_READ && code != S4Protocol.BROKER_LENGTH) return super.onTransact(code, data, reply, flags)
         data.enforceInterface(S4Protocol.BROKER_DESCRIPTOR)
         val out = reply ?: return true
-        if (getCallingUid() == android.os.Process.myUid() || revoked) {
+        val caller = getCallingPid()
+        val allowed = caller != android.os.Process.myPid() && (pinnedPid.compareAndSet(0, caller) || pinnedPid.get() == caller)
+        if (!allowed || revoked) {
             out.writeException(SecurityException(if (revoked) "REVOKED" else "CALLER_REJECTED"))
             return true
         }

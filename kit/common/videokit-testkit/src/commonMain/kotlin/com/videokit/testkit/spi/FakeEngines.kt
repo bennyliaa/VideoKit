@@ -269,7 +269,9 @@ public class FakePlaybackHandle internal constructor(
         delay(scenario.seekDelayMs)
         mutex.withLock {
             mutableState.update {
-                val target = positionUs.coerceIn(0L, it.durationUs ?: positionUs)
+                val gop = scenario.keyframeIntervalUs
+                val snapped = if (gop != null && gop > 0 && mode != SeekMode.EXACT) (positionUs + gop / 2) / gop * gop else positionUs
+                val target = snapped.coerceIn(0L, it.durationUs ?: snapped)
                 val status = if (it.status == EngineStatus.ENDED && target < (it.durationUs ?: 0L)) EngineStatus.READY else it.status
                 it.copy(positionUs = target, status = status)
             }

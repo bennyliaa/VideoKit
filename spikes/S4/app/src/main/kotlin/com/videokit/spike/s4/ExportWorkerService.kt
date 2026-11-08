@@ -40,8 +40,9 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 
 /**
- * S4 export worker in an `isolatedProcess` (15 §2.8). Input: [BrokerDataSource] over the main process binder; output:
- * the file descriptor the main process opened (the worker can open no file itself). After the first written video
+ * S4 export worker in the separate `:export` process of the app uid (15 §1.5, §2.8, option c1; attempts 1-4 used an
+ * `isolatedProcess`, which cannot reach any codec). Input: [BrokerDataSource] over the main process binder; output:
+ * the file descriptor the main process opened (the protocol gives the worker no path). After the first written video
  * sample it injects the requested [S4Protocol.Fault]. The worker never deletes or validates output: the main process
  * owns the file and aborts it.
  */
@@ -75,11 +76,11 @@ class ExportWorkerService : Service() {
             send(S4Protocol.SAMPLE, samples = samples, bytes = bytes)
             if (samples == 1L) inject(fault)
         }
-        val loader = data.getString(S4Protocol.KEY_LOADER) ?: S4Protocol.LOADER_JAVA
-        // S4 attempt 1: Media3 must not register broadcast receivers in the isolated process.
-        val context = IsolatedContext(this)
+        val loader = data.getString(S4Protocol.KEY_LOADER) ?: S4Protocol.LOADER_EXO
+        // Attempt 5 (option c1): a normal app process; IsolatedContext (attempt 1, no broadcast receivers) is not needed.
+        val context = this
         val assets = when (loader) {
-            // Attempt 2: blocks forever in ExoPlayerImpl's audio session id (media.audio_flinger); kept for comparison.
+            // Default from attempt 5. In the isolated attempts it blocked in ExoPlayerImpl's audio session id (attempt 2).
             S4Protocol.LOADER_EXO -> DefaultAssetLoaderFactory(
                 context,
                 DefaultDecoderFactory.Builder(context).build(),
@@ -124,7 +125,7 @@ class ExportWorkerService : Service() {
             .setClippingConfiguration(MediaItem.ClippingConfiguration.Builder().setEndPositionMs(clipMs).build())
             .build()
         val edited = EditedMediaItem.Builder(item).setEffects(Effects(listOf(), listOf(Presentation.createForHeight(360)))).build()
-        send(S4Protocol.STARTED)
+        send(S4Protocol.STARTED, pid = Process.myPid())
         // Transformer needs a path; the muxer factory ignores it and writes to the descriptor of the main process.
         built.start(edited, "/s4-fd-only-output.mp4")
     }
@@ -169,12 +170,13 @@ class ExportWorkerService : Service() {
         }
     }
 
-    private fun send(what: Int, code: String? = null, samples: Long = 0L, bytes: Long = 0L) {
+    private fun send(what: Int, code: String? = null, samples: Long = 0L, bytes: Long = 0L, pid: Int = 0) {
         val message = Message.obtain(null, what).apply {
             data = Bundle().apply {
                 putString(S4Protocol.KEY_CODE, code)
                 putLong(S4Protocol.KEY_SAMPLES, samples)
                 putLong(S4Protocol.KEY_BYTES, bytes)
+                putInt(S4Protocol.KEY_PID, pid)
             }
         }
         runCatching { reply?.send(message) }

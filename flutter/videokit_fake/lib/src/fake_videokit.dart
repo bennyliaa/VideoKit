@@ -86,7 +86,11 @@ class FakeVideoKit implements VideoKit {
   final Map<String, Scenario> _overrides;
   late final FakeHostBridge _host;
   final Map<String, FakeSession> _sessions = {};
-  final Map<String, FakeEditProject> _projects = {};
+
+  /// Live projects by identity: a restored project keeps its snapshot's
+  /// projectId even while another instance with that ID is open (like
+  /// Kotlin; vector snapshot.roundtrip).
+  final Set<FakeEditProject> _projects = Set.identity();
   int _counter = 0;
   bool _closed = false;
 
@@ -97,7 +101,7 @@ class FakeVideoKit implements VideoKit {
   Iterable<FakeSession> get sessions => _sessions.values;
 
   /// Live projects.
-  Iterable<FakeEditProject> get projects => _projects.values;
+  Iterable<FakeEditProject> get projects => _projects;
 
   /// Sets the scenario for [mediaToken].
   void setScenarioFor(String mediaToken, Scenario scenario) =>
@@ -288,9 +292,9 @@ class FakeVideoKit implements VideoKit {
       scenario: defaultScenario,
       createPreviewSession: () async =>
           _newSession(const VideoKitSessionConfig(debugLabel: 'preview')),
-      onReleased: (p) => _projects.remove(p.projectId),
+      onReleased: _projects.remove,
     );
-    _projects[projectId] = project;
+    _projects.add(project);
     return project;
   }
 
@@ -309,11 +313,11 @@ class FakeVideoKit implements VideoKit {
   ) async {
     _checkOpen();
     _checkEditing();
-    final (projectId, state, maxId) = FakeEditProjectCodec.decode(serialized);
-    final project = _newProject(
-      config,
-      projectId.isEmpty || _projects.containsKey(projectId) ? null : projectId,
-    )..restoreFrom(state, maxId);
+    final (projectId, state, maxId, meta) = FakeEditProjectCodec.decodeWithMeta(
+      serialized,
+    );
+    final project = _newProject(config, projectId.isEmpty ? null : projectId)
+      ..restoreFrom(state, maxId, meta);
     return project;
   }
 
@@ -323,7 +327,7 @@ class FakeVideoKit implements VideoKit {
     _closed = true;
     await Future.wait([
       for (final s in _sessions.values.toList()) s.release(),
-      for (final p in _projects.values.toList()) p.close(),
+      for (final p in _projects.toList()) p.close(),
     ]);
   }
 }

@@ -177,6 +177,43 @@ final class MaskKeyframe {
       'MaskKeyframe($atUs, $region, ${source.name}, ${state?.name})';
 }
 
+/// A half-open time range `[startUs, endUs)` in microseconds (same name and
+/// meaning as Kotlin `TimeRangeUs`, 04A E4).
+@immutable
+final class TimeRangeUs {
+  /// Creates a range.
+  const TimeRangeUs(this.startUs, this.endUs);
+
+  /// Start, inclusive.
+  final int startUs;
+
+  /// End, exclusive.
+  final int endUs;
+
+  /// Duration in microseconds.
+  int get durationUs => endUs - startUs;
+
+  /// Whether `0 <= startUs < endUs`.
+  bool get isValid => startUs >= 0 && startUs < endUs;
+
+  /// Whether [timeUs] is inside the range.
+  bool contains(int timeUs) => timeUs >= startUs && timeUs < endUs;
+
+  /// Whether `[startUs, endUs)` of [other] lies inside this range.
+  bool covers(int otherStartUs, int otherEndUs) =>
+      startUs <= otherStartUs && otherEndUs <= endUs;
+
+  @override
+  bool operator ==(Object other) =>
+      other is TimeRangeUs && other.startUs == startUs && other.endUs == endUs;
+
+  @override
+  int get hashCode => Object.hash(startUs, endUs);
+
+  @override
+  String toString() => 'TimeRangeUs($startUs–$endUs)';
+}
+
 /// A mask track (08 §4). Keyframes are kept sorted by [MaskKeyframe.atUs].
 @immutable
 final class MaskTrack {
@@ -190,9 +227,20 @@ final class MaskTrack {
     this.strength = 0.5,
     this.enabled = true,
     List<MaskKeyframe> keyframes = const [],
+    List<TimeRangeUs> acceptedRanges = const [],
   }) : keyframes = frozenList(
          [...keyframes]..sort((a, b) => a.atUs.compareTo(b.atUs)),
-       );
+       ),
+       acceptedRanges = frozenList(acceptedRanges);
+
+  /// Ranges the user explicitly accepted although tracking did not cover
+  /// them (09 §4; 04A E2, E4). `CoverageRange.accepted` is derived from
+  /// these.
+  final List<TimeRangeUs> acceptedRanges;
+
+  /// Whether `[startUs, endUs)` lies inside an accepted range.
+  bool isAccepted(int startUs, int endUs) =>
+      acceptedRanges.any((r) => r.covers(startUs, endUs));
 
   /// Mask ID.
   final String maskId;
@@ -250,6 +298,7 @@ final class MaskTrack {
     int? startUs,
     int? endUs,
     List<MaskKeyframe>? keyframes,
+    List<TimeRangeUs>? acceptedRanges,
   }) => MaskTrack(
     maskId: maskId ?? this.maskId,
     type: type ?? this.type,
@@ -259,6 +308,7 @@ final class MaskTrack {
     startUs: startUs ?? this.startUs,
     endUs: endUs ?? this.endUs,
     keyframes: keyframes ?? this.keyframes,
+    acceptedRanges: acceptedRanges ?? this.acceptedRanges,
   );
 
   @override
@@ -271,7 +321,8 @@ final class MaskTrack {
       other.enabled == enabled &&
       other.startUs == startUs &&
       other.endUs == endUs &&
-      listEquals(other.keyframes, keyframes);
+      listEquals(other.keyframes, keyframes) &&
+      listEquals(other.acceptedRanges, acceptedRanges);
 
   @override
   int get hashCode => Object.hash(
@@ -283,6 +334,7 @@ final class MaskTrack {
     startUs,
     endUs,
     hashList(keyframes),
+    hashList(acceptedRanges),
   );
 
   @override

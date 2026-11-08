@@ -73,6 +73,11 @@ public data class FakeScenario(
     val exportStageDelayMs: Long = 200L,
     /** Extra delay before a cancellation is confirmed. */
     val exportCancelDelayMs: Long = 0L,
+    /**
+     * Key frame interval of the simulated video; `null` = every frame is a key frame. PREVIEW and CLOSEST_SYNC seeks land
+     * on the closest multiple of it, EXACT seeks on the target (TEST-R5 R5-01a).
+     */
+    val keyframeIntervalUs: Long? = null,
 ) {
     /** Bind takes [ms] milliseconds. */
     public fun slowLoad(ms: Long = 3_000L): FakeScenario = copy(name = "$name+slowLoad", loadDelayMs = ms)

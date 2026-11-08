@@ -10,6 +10,7 @@ import com.videokit.api.HostActionStatus
 import com.videokit.api.HostIcon
 import com.videokit.api.MaskRegion
 import com.videokit.api.MaskType
+import com.videokit.api.SerializedEditProject
 import com.videokit.api.SessionPhase
 import com.videokit.api.SessionVisibility
 import com.videokit.api.SourceErrorCode
@@ -21,6 +22,7 @@ import com.videokit.api.VideoKitCommand
 import com.videokit.api.VideoKitCommandResult
 import com.videokit.api.VideoKitEditCommand
 import com.videokit.api.VideoKitEditProject
+import com.videokit.api.VideoKitEditState
 import com.videokit.api.VideoKitEvent
 import com.videokit.api.VideoKitException
 import com.videokit.api.VideoKitExportRequest
@@ -402,6 +404,44 @@ public object StateMachineVectors {
                 "REJECTED" to failure.error
             }
 
+            // 04A E2: snapshot, restore into a new project, snapshot again.
+            "SNAPSHOT_ROUNDTRIP" -> return try {
+                val first = project.snapshot()
+                val restored = kit.restoreEditProject(first, EditProjectConfig())
+                try {
+                    val second = restored.snapshot()
+                    if (comparable(first.json) != comparable(second.json)) {
+                        throw ContractViolation("SNAPSHOT_ROUNDTRIP: the snapshot changed")
+                    }
+                    val original = project.state.value
+                    val again = restored.state.value
+                    val same = original.timeline.clips == again.timeline.clips && original.masks == again.masks
+                    if (!same || original.revision != again.revision) {
+                        throw ContractViolation("SNAPSHOT_ROUNDTRIP: restored $again differs from $original")
+                    }
+                    checkRestored("SNAPSHOT_ROUNDTRIP", again, step["expect"] as Map<*, *>)
+                } finally {
+                    restored.close()
+                }
+                "APPLIED" to null
+            } catch (failure: VideoKitException) {
+                "REJECTED" to failure.error
+            }
+
+            // 04A E2: restore a given snapshot (spec/schema/edit-project.v1.json) into a new project.
+            "RESTORE_SNAPSHOT" -> return try {
+                val json = step["json"] as? String ?: MiniJson.write(step["payload"])
+                val restored = kit.restoreEditProject(SerializedEditProject(step.long("schemaVersion").toInt(), json), EditProjectConfig())
+                try {
+                    checkRestored("RESTORE_SNAPSHOT", restored.state.value, step["expect"] as Map<*, *>)
+                } finally {
+                    restored.close()
+                }
+                "APPLIED" to null
+            } catch (failure: VideoKitException) {
+                "REJECTED" to failure.error
+            }
+
             "DETECT_CANDIDATES" -> return project.detectCandidates(step.long("atUs")).let { result ->
                 val error = result.error
                 if (error == null && result.candidates.isNotEmpty()) "APPLIED" to null else "REJECTED" to error
@@ -451,6 +491,33 @@ public object StateMachineVectors {
             else -> throw IllegalArgumentException("unknown edit command $name")
         }
         return editResult(project.apply(command))
+    }
+
+    /** A snapshot's JSON tree without `updatedAt` (the time of the snapshot). */
+    private fun comparable(json: String): Map<Any?, Any?> =
+        (MiniJson.parse(json) as Map<*, *>).entries.filter { it.key != "updatedAt" }.associate { it.key to it.value }
+
+    /** Optional checks of a restored project (edit-project.json RESTORE_SNAPSHOT / SNAPSHOT_ROUNDTRIP). */
+    private fun checkRestored(where: String, state: VideoKitEditState, expect: Map<*, *>) {
+        fun check(key: String, actual: Any?) {
+            if (!expect.containsKey(key)) return
+            val expected = expect[key]
+            val same = if (expected is Number && actual is Number) {
+                kotlin.math.abs(expected.toDouble() - actual.toDouble()) < 1e-4
+            } else {
+                expected == actual
+            }
+            if (!same) throw ContractViolation("$where: $key expected $expected but was $actual")
+        }
+        val mask = state.masks.firstOrNull()
+        check("revision", state.revision)
+        check("clips", state.timeline.clips.size)
+        check("masks", state.masks.size)
+        check("canUndo", state.canUndo)
+        check("acceptedRanges", mask?.acceptedRangesUs?.size)
+        check("maskStyle", mask?.style?.name)
+        check("maskStrength", mask?.strength)
+        check("maskEnabled", mask?.enabled)
     }
 
     private fun editResult(result: EditCommandResult): Pair<String, VideoKitStableError?> = when (result) {

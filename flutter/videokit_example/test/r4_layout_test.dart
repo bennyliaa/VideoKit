@@ -75,8 +75,40 @@ void main() {
           // 9 slots: the last video plays at low resolution (at 12 it is
           // over the demo decoder budget and shows a placeholder instead).
           if (count == 9) {
-            expect(find.text('低清'), findsWidgets, reason: 'short badge');
+            // R5-03: the text shows where it fits (tablet); a cell too
+            // narrow for it (360 px phone at 200 %) keeps the icon, and the
+            // slot's spoken value still says "已降为低分辨率".
+            if (size == expandedSize) {
+              expect(find.text('低清'), findsWidgets, reason: 'R5-03 text');
+            } else {
+              expect(
+                find.text('低清').evaluate().isNotEmpty ||
+                    find
+                        .byIcon(Icons.warning_amber_rounded)
+                        .evaluate()
+                        .isNotEmpty,
+                isTrue,
+                reason: 'R5-03 text or icon',
+              );
+            }
             expect(find.text('已降为低分辨率'), findsNothing);
+          }
+          // TEST-R5 R5-02: the unsupported slot's "移除" is a labelled icon
+          // button inside its slot, never cut off.
+          if (count >= 4) {
+            final remove = find.bySemanticsLabel('移除');
+            expect(remove, findsOneWidget);
+            final slotRect = tester.getRect(
+              find
+                  .ancestor(of: remove, matching: find.byType(VideoKitSlot))
+                  .first,
+            );
+            final r = tester.getRect(remove);
+            expect(
+              slotRect.contains(r.topLeft) && slotRect.contains(r.bottomRight),
+              isTrue,
+              reason: 'remove inside its slot',
+            );
           }
           // "添加媒体" is reachable from "更多".
           await tester.tap(more);

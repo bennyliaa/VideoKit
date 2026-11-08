@@ -494,7 +494,13 @@ void main() {
         await p.snapshot(),
         EditProjectConfig(),
       );
-      expect(restored.state.value.tracking, p.state.value.tracking);
+      // 04A E2 3: only status and coverage are persisted; request ID,
+      // revision, kind and progress are runtime state.
+      Map<String, Object> persisted(VideoKitEditState s) => {
+        for (final e in s.tracking.entries)
+          e.key: (e.value.status, e.value.coverage),
+      };
+      expect(persisted(restored.state.value), persisted(p.state.value));
       final r = await restored.apply(AddClip(src, 0, 1000000)) as EditApplied;
       expect(
         p.state.value.timeline.clips.map((c) => c.clipId),

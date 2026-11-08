@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "kind": "timeline-schema-migration",
+  "description": "Edit project snapshot reading by the rules of spec/schema/edit-project.v1.json (04A E2; M4-B1): versions (R1), minor compatibility and unknown properties (R2), defaults and malformed input (R3), unknown enum values (R4), RUNNING (R6), and the synthetic v0 migration (M0). Each case reads SerializedEditProject(envelopeVersion, json): 'json' is the text, or 'payload' an object written as JSON. 'expect.result': RESTORED or REJECTED. RESTORED checks the listed fields of the restored project (sources: sourceId, mediaToken, rotation, fps, videoCodec; clips: clipId, inUs, outUs; masks: maskId, style, strength, enabled, rangeUs, keyframes (atUs list), keyframeStates, acceptedRanges; tracking: maskId, status, qualities); a restored project written again and read back is unchanged. REJECTED checks the stable error 'code'.",
+  "cases": [
+    {
+      "id": "v1.full",
+      "envelopeVersion": 1,
+      "payload": {
+        "schemaVersion": 1, "schemaMinor": 0, "projectId": "p-1", "revision": 7, "createdAt": 1000, "updatedAt": 2000, "exportPresetId": "P720",
+        "sources": [
+          { "sourceId": "src-1", "mediaToken": "media-a", "displayName": "a.mp4",
+            "probe": { "durationUs": 10000000, "width": 1920, "height": 1080, "rotation": 90, "fps": 29.97, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true } },
+          { "sourceId": "src-2", "mediaToken": "media-b", "displayName": null, "probe": null }
+        ],
+        "timeline": { "clips": [
+          { "clipId": "clip-3", "sourceId": "src-1", "inUs": 0, "outUs": 3000000 },
+          { "clipId": "clip-4", "sourceId": "src-1", "inUs": 5000000, "outUs": 6000000 }
+        ] },
+        "masks": [
+          { "maskId": "mask-5", "type": "FACE", "style": "BLUR", "strength": 0.25, "enabled": false,
+            "rangeUs": { "startUs": 0, "endUs": 2000000 },
+            "keyframes": [
+              { "atUs": 0, "region": { "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "rotation": 0 }, "source": "USER", "state": null },
+              { "atUs": 1000000, "region": { "x": 0.2, "y": 0.1, "width": 0.2, "height": 0.2, "rotation": 10 }, "source": "TRACKER", "state": "LOW_CONFIDENCE" }
+            ],
+            "acceptedRanges": [ { "startUs": 1500000, "endUs": 2000000 } ] }
+        ],
+        "tracking": [ { "maskId": "mask-5", "status": "COMPLETED", "coverage": [
+          { "startUs": 0, "endUs": 1500000, "quality": "TRACKED" },
+          { "startUs": 1500000, "endUs": 2000000, "quality": "NOT_ANALYZED" }
+        ] } ]
+      },
+      "expect": {
+        "result": "RESTORED", "projectId": "p-1", "revision": 7, "createdAt": 1000, "updatedAt": 2000, "exportPresetId": "P720",
+        "sources": [ { "sourceId": "src-1", "mediaToken": "media-a", "rotation": 90, "fps": 29.97, "videoCodec": "video/avc" }, { "sourceId": "src-2", "mediaToken": "media-b" } ],
+        "clips": [ { "clipId": "clip-3", "inUs": 0, "outUs": 3000000 }, { "clipId": "clip-4", "inUs": 5000000, "outUs": 6000000 } ],
+        "masks": [ { "maskId": "mask-5", "style": "BLUR", "strength": 0.25, "enabled": false, "rangeUs": { "startUs": 0, "endUs": 2000000 }, "keyframes": [0, 1000000], "keyframeStates": [null, "LOW_CONFIDENCE"], "acceptedRanges": [ { "startUs": 1500000, "endUs": 2000000 } ] } ],
+        "tracking": [ { "maskId": "mask-5", "status": "COMPLETED", "qualities": ["TRACKED", "NOT_ANALYZED"] } ]
+      }
+    },
+    {
+      "id": "v1.only_required",
+      "envelopeVersion": 1,
+      "payload": { "schemaVersion": 1, "projectId": "p-min" },
+      "expect": { "result": "RESTORED", "projectId": "p-min", "revision": 0, "createdAt": 0, "updatedAt": 0, "exportPresetId": null, "sources": [], "clips": [], "masks": [], "tracking": [] }
+    },
+    {
+      "id": "v1.optional_fields_default",
+      "envelopeVersion": 1,
+      "payload": {
+        "schemaVersion": 1, "projectId": "p-def",
+        "sources": [ { "sourceId": "src-1", "mediaToken": "m", "probe": { "durationUs": 4000000 } } ],
+        "masks": [ { "maskId": "mask-2", "type": "MANUAL", "rangeUs": { "startUs": 0, "endUs": 1000000 }, "keyframes": [ { "atUs": 0, "region": { "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2 } } ] } ],
+        "tracking": [ { "maskId": "mask-2", "status": "FAILED" } ]
+      },
+      "expect": {
+        "result": "RESTORED",
+        "sources": [ { "sourceId": "src-1", "mediaToken": "m", "rotation": 0, "fps": null, "videoCodec": null } ],
+        "masks": [ { "maskId": "mask-2", "style": "MOSAIC", "strength": 0.5, "enabled": true, "keyframes": [0], "keyframeStates": [null], "acceptedRanges": [] } ],
+        "tracking": [ { "maskId": "mask-2", "status": "FAILED", "qualities": [] } ]
+      }
+    },
+    {
+      "id": "v1.newer_minor_and_unknown_properties",
+      "envelopeVersion": 1,
+      "payload": {
+        "schemaVersion": 1, "schemaMinor": 9, "projectId": "p-minor", "fromMinor9": [1, 2],
+        "sources": [ { "sourceId": "src-1", "mediaToken": "m", "extra": {}, "probe": { "durationUs": 4000000, "container": "mp4" } } ],
+        "timeline": { "clips": [ { "clipId": "clip-2", "sourceId": "src-1", "inUs": 0, "outUs": 1000000, "label": "x" } ], "tracks": [] }
+      },
+      "expect": { "result": "RESTORED", "projectId": "p-minor", "clips": [ { "clipId": "clip-2", "inUs": 0, "outUs": 1000000 } ] }
+    },
+    {
+      "id": "v1.unknown_enum_values",
+      "envelopeVersion": 1,
+      "payload": {
+        "schemaVersion": 1, "projectId": "p-enum",
+        "masks": [ { "maskId": "mask-1", "type": "PLATE", "style": "PIXELATE", "rangeUs": { "startUs": 0, "endUs": 1000000 },
+          "keyframes": [ { "atUs": 0, "region": { "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2 }, "source": "IMPORTED", "state": "OCCLUDED" } ] } ],
+        "tracking": [ { "maskId": "mask-1", "status": "PAUSED", "coverage": [ { "startUs": 0, "endUs": 1000000, "quality": "OCCLUDED" } ] } ]
+      },
+      "expect": {
+        "result": "RESTORED",
+        "masks": [ { "maskId": "mask-1", "style": "MOSAIC", "keyframeStates": ["NOT_ANALYZED"] } ],
+        "tracking": [ { "maskId": "mask-1", "status": "FAILED", "qualities": ["NOT_ANALYZED"] } ]
+      }
+    },
+    {
+      "id": "v1.running_reads_as_cancelled",
+      "envelopeVersion": 1,
+      "payload": { "schemaVersion": 1, "projectId": "p-run", "tracking": [ { "maskId": "mask-1", "status": "RUNNING", "coverage": [] } ] },
+      "expect": { "result": "RESTORED", "tracking": [ { "maskId": "mask-1", "status": "CANCELLED", "qualities": [] } ] }
+    },
+    {
+      "id": "v1.payload_version_wins",
+      "envelopeVersion": 0,
+      "payload": { "schemaVersion": 1, "projectId": "p-env", "revision": 5 },
+      "expect": { "result": "RESTORED", "projectId": "p-env", "revision": 5 }
+    },
+    {
+      "id": "v0.synthetic_migrated",
+      "envelopeVersion": 0,
+      "payload": {
+        "projectId": "p-v0", "revision": 3,
+        "sources": [ { "sourceId": "src-1", "mediaToken": "m", "probe": { "durationUs": 10000000, "width": 1280, "height": 720 } } ],
+        "timeline": { "clips": [ { "clipId": "clip-2", "sourceId": "src-1", "inUs": 0, "outUs": 3000000 } ] },
+        "masks": [ { "maskId": "mask-3", "type": "FACE", "rangeUs": [0, 2000000], "acceptedRanges": [[0, 100000]],
+          "keyframes": [ { "atUs": 0, "region": { "x": 0.4, "y": 0.4, "width": 0.2, "height": 0.2 } } ] } ],
+        "tracking": [ { "maskId": "mask-3", "status": "COMPLETED", "requestId": "r-1", "projectRevision": 2, "kind": "FACE", "progress": 1.0,
+          "coverage": [ { "startUs": 0, "endUs": 1000000, "state": "TRACKED" }, { "startUs": 1000000, "endUs": 2000000, "state": "LOST", "accepted": true } ] } ]
+      },
+      "expect": {
+        "result": "RESTORED", "projectId": "p-v0", "revision": 3, "createdAt": 0, "updatedAt": 0,
+        "clips": [ { "clipId": "clip-2", "inUs": 0, "outUs": 3000000 } ],
+        "masks": [ { "maskId": "mask-3", "rangeUs": { "startUs": 0, "endUs": 2000000 }, "keyframes": [0], "acceptedRanges": [ { "startUs": 0, "endUs": 100000 }, { "startUs": 1000000, "endUs": 2000000 } ] } ],
+        "tracking": [ { "maskId": "mask-3", "status": "COMPLETED", "qualities": ["TRACKED", "LOST"] } ]
+      }
+    },
+    {
+      "id": "v0.minimal",
+      "envelopeVersion": 0,
+      "payload": { "projectId": "p-v0-min" },
+      "expect": { "result": "RESTORED", "projectId": "p-v0-min", "revision": 0, "clips": [], "masks": [], "tracking": [] }
+    },
+    { "id": "future_major_envelope.rejected", "envelopeVersion": 2, "payload": { "schemaVersion": 2, "projectId": "p" }, "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } },
+    { "id": "future_major_payload.rejected", "envelopeVersion": 1, "payload": { "schemaVersion": 2, "schemaMinor": 0, "projectId": "p" }, "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } },
+    { "id": "no_migration_path.rejected", "envelopeVersion": -1, "payload": { "projectId": "p" }, "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } },
+    { "id": "not_json.rejected", "envelopeVersion": 1, "json": "{not json", "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } },
+    { "id": "root_not_object.rejected", "envelopeVersion": 1, "json": "[1, 2]", "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } },
+    { "id": "missing_project_id.rejected", "envelopeVersion": 1, "payload": { "schemaVersion": 1, "revision": 1 }, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } },
+    {
+      "id": "missing_required_clip_field.rejected", "envelopeVersion": 1,
+      "payload": { "schemaVersion": 1, "projectId": "p", "timeline": { "clips": [ { "clipId": "clip-1", "sourceId": "src-1", "outUs": 1000000 } ] } },
+      "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" }
+    },
+    { "id": "wrong_type.rejected", "envelopeVersion": 1, "payload": { "schemaVersion": 1, "projectId": "p", "revision": "7" }, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } },
+    {
+      "id": "range_as_array_in_v1.rejected", "envelopeVersion": 1,
+      "payload": { "schemaVersion": 1, "projectId": "p", "masks": [ { "maskId": "mask-1", "type": "MANUAL", "rangeUs": [0, 1000000] } ] },
+      "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" }
+    }
+  ]
+}

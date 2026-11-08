@@ -10,11 +10,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 15 §2.8: the export worker. No permissions; one process instance per task. -->
+        <!-- 15 §1.5 / §2.8 (option c1, user decision 2026-11-08): the export worker runs in a separate, non-isolated
+             process of the app uid. Isolated processes cannot reach any codec (S4 attempts 1-4). The main process
+             kills the worker after every task, so each task gets a fresh process. -->
         <service
             android:name=".ExportWorkerService"
             android:exported="false"
-            android:isolatedProcess="true"
-            android:process=":s4_worker" />
+            android:process=":export" />
     </application>
 </manifest>

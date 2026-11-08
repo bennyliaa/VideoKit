@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_fake/videokit_fake.dart';
@@ -21,6 +22,10 @@ class _VectorHost extends NoopHostCallbacks {
     return HostActionResult(status: answer);
   }
 }
+
+/// Accepted ranges of [maskId] (04A E2 2, E4: on the mask).
+List<TimeRangeUs> acceptedRangesOf(VideoKitEditState s, String? maskId) =>
+    s.maskById(maskId ?? '')?.acceptedRanges ?? const [];
 
 void main() {
   final dir = Directory('../../spec/vectors/state-machine');
@@ -278,6 +283,8 @@ void main() {
           return clips.isEmpty ? 'missing' : clips.first.clipId;
         }
 
+        VideoKitEditProject? checked;
+
         MaskTrack? firstMask() {
           final m = p.state.value.masks;
           return m.isEmpty ? null : m.first;
@@ -319,6 +326,41 @@ void main() {
             try {
               await kit.restoreEditProject(
                 snap.copyWith(schemaVersion: snap.schemaVersion + 1),
+                EditProjectConfig(),
+              );
+              kind = 'APPLIED';
+            } on VideoKitException catch (x) {
+              kind = 'REJECTED';
+              rejectedCode = x.error.code.wireName;
+            }
+          } else if (cmd == 'SNAPSHOT_ROUNDTRIP') {
+            // 04A E2: snapshot, restore into a new project, snapshot again.
+            final first = await p.snapshot();
+            final restored = await kit.restoreEditProject(
+              first,
+              EditProjectConfig(),
+            );
+            checked = restored;
+            final second = await restored.snapshot();
+            Map<String, Object?> tree(SerializedEditProject s) =>
+                (jsonDecode(s.json) as Map<String, Object?>)
+                  ..remove('updatedAt');
+            final a = p.state.value;
+            final b = restored.state.value;
+            final same =
+                jsonEncode(tree(first)) == jsonEncode(tree(second)) &&
+                a.timeline == b.timeline &&
+                listEquals(a.masks, b.masks) &&
+                a.revision == b.revision;
+            kind = same ? 'APPLIED' : 'MISMATCH';
+          } else if (cmd == 'RESTORE_SNAPSHOT') {
+            final text = step['json'] as String? ?? jsonEncode(step['payload']);
+            try {
+              checked = await kit.restoreEditProject(
+                SerializedEditProject(
+                  schemaVersion: step['schemaVersion']! as int,
+                  json: text,
+                ),
                 EditProjectConfig(),
               );
               kind = 'APPLIED';
@@ -406,6 +448,39 @@ void main() {
           }
           if (e['code'] != null) {
             expect(rejectedCode, e['code'], reason: cmd);
+          }
+          // Optional checks of the restored / round-tripped project.
+          final q = checked?.state.value;
+          if (q != null) {
+            final m = q.masks.isEmpty ? null : q.masks.first;
+            if (e['revision'] != null) {
+              expect(q.revision, e['revision'], reason: '$cmd revision');
+            }
+            if (e['clips'] != null) {
+              expect(q.timeline.clips.length, e['clips'], reason: cmd);
+            }
+            if (e['masks'] != null) {
+              expect(q.masks.length, e['masks'], reason: cmd);
+            }
+            if (e['canUndo'] != null) {
+              expect(q.canUndo, e['canUndo'], reason: cmd);
+            }
+            if (e['acceptedRanges'] != null) {
+              expect(
+                acceptedRangesOf(q, m?.maskId),
+                hasLength(e['acceptedRanges']! as int),
+                reason: '$cmd acceptedRanges',
+              );
+            }
+            if (e['maskStyle'] != null) {
+              expect(m?.style.wireName, e['maskStyle'], reason: cmd);
+            }
+            if (e['maskStrength'] != null) {
+              expect(m?.strength, e['maskStrength'], reason: cmd);
+            }
+            if (e['maskEnabled'] != null) {
+              expect(m?.enabled, e['maskEnabled'], reason: cmd);
+            }
           }
         }
         await kit.close();

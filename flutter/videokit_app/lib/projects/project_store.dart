@@ -42,23 +42,41 @@ final class RecentProject {
     'snapshot': snapshot.json,
   };
 
-  /// Parses [json]; null when broken (never fatal).
+  /// Parses [json]; null when broken (never fatal). An entry written before
+  /// the App recorded `schemaVersion` beside the snapshot (M4-A2) takes it
+  /// from the snapshot's own JSON; the module migrates it on restore.
   static RecentProject? fromJson(Map<String, Object?> json) {
     try {
+      final snapshot = json['snapshot']! as String;
+      final version =
+          (json['schemaVersion'] as num?)?.toInt() ??
+          _embeddedSchemaVersion(snapshot);
+      if (version == null) return null;
       return RecentProject(
         id: json['id']! as String,
         savedAtEpochMs: (json['savedAtEpochMs']! as num).toInt(),
         clipCount: (json['clipCount']! as num).toInt(),
         durationUs: (json['durationUs'] as num?)?.toInt(),
-        snapshot: SerializedEditProject(
-          schemaVersion: (json['schemaVersion']! as num).toInt(),
-          json: json['snapshot']! as String,
-        ),
+        snapshot: SerializedEditProject(schemaVersion: version, json: snapshot),
       );
     } on Object {
       return null;
     }
   }
+
+  static int? _embeddedSchemaVersion(String snapshot) {
+    try {
+      final j = jsonDecode(snapshot);
+      return j is Map ? (j['schemaVersion'] as num?)?.toInt() : null;
+    } on Object {
+      return null;
+    }
+  }
+
+  /// Whether the snapshot was written by an older module schema (restore
+  /// migrates it; the App saves the migrated form back).
+  bool get needsMigration =>
+      snapshot.schemaVersion < SerializedEditProject.currentSchemaVersion;
 
   @override
   bool operator ==(Object other) =>
@@ -160,10 +178,14 @@ class ProjectStore extends ChangeNotifier {
     await _write();
   }
 
+  /// Version of `projects.json` itself (the App's file, not the module's
+  /// snapshot schema).
+  static const int fileSchema = 1;
+
   Future<void> _write({bool strict = false}) async {
     notifyListeners();
     final json = jsonEncode({
-      'schema': 1,
+      'schema': fileSchema,
       'counter': _counter,
       'projects': [for (final p in _projects) p.toJson()],
     });

@@ -194,6 +194,9 @@ public enum class CoverageQuality {
 
     /** Target lost. */
     LOST,
+
+    /** Frames not analysed yet; never counts as covered (09 §3, 04A E2: the snapshot quality enum). */
+    NOT_ANALYZED,
 }
 
 /** A mask keyframe; regions are linearly interpolated between keyframes (08 §4). */

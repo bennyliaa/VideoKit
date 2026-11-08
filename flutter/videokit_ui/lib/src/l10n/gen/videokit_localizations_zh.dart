@@ -687,6 +687,9 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get concatDiffOther => '有视频无法直接拼接';
 
   @override
+  String get concatDiffProbeIncomplete => '有视频的编码、尺寸或帧率未知';
+
+  @override
   String estimateLine(String duration, String size) {
     return '预计 $duration · 约 $size';
   }

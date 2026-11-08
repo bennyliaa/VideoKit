@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "timeline-concat-path",
+  "description": "Pure rules of the concat path decision (08 §3.1, 04A E1, M4-B1; no engine). 'probes' names source probes (durationUs, width, height, rotation, fps, videoCodec, audioCodec, hasAudio; a missing field is unknown); 'clips' are [sourceId, inUs, outUs] in timeline order (a sourceId without probe is an unknown source); 'keyframesUs' are the known key frame times per source (a source without an entry has unknown key frames); 'preset' ORIGINAL | P1080 | P720 (default ORIGINAL); 'masksEnabled' and 'preciseCuts' default false. 'expect.path' FAST | TRANSCODE; 'expect.reasons' the ConcatReason codes in registry order (empty for FAST); 'expect.effectiveInUs' (optional) the in points as cut; 'expect.warnings' the export warning codes (default none).",
+  "probes": {
+    "avc1080": { "durationUs": 10000000, "width": 1920, "height": 1080, "rotation": 0, "fps": 30.0, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "avc1080_b": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 0, "fps": 30.0, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "avc1080_rot360": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 360, "fps": 30.0, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "avc1080_rot90": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 90, "fps": 30.0, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "avc1080_2997": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 0, "fps": 29.97, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "avc1080_30005": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 0, "fps": 30.005, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "avc1080_silent": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 0, "fps": 30.0, "videoCodec": "video/avc", "hasAudio": false },
+    "avc1080_opus": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 0, "fps": 30.0, "videoCodec": "video/avc", "audioCodec": "audio/opus", "hasAudio": true },
+    "avc720": { "durationUs": 8000000, "width": 1280, "height": 720, "rotation": 0, "fps": 30.0, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "hevc1080": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 0, "fps": 30.0, "videoCodec": "video/hevc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "hevc1080_b": { "durationUs": 6000000, "width": 1920, "height": 1080, "rotation": 0, "fps": 30.0, "videoCodec": "video/hevc", "audioCodec": "audio/mp4a-latm", "hasAudio": true },
+    "no_fps": { "durationUs": 8000000, "width": 1920, "height": 1080, "rotation": 0, "videoCodec": "video/avc", "audioCodec": "audio/mp4a-latm", "hasAudio": true }
+  },
+  "cases": [
+    { "id": "empty_timeline", "clips": [], "expect": { "path": "TRANSCODE", "reasons": ["EMPTY_TIMELINE"] } },
+    { "id": "single_source_whole", "clips": [["avc1080", 0, 10000000]], "expect": { "path": "FAST", "reasons": [] } },
+    { "id": "same_params_two_sources", "clips": [["avc1080", 0, 4000000], ["avc1080_b", 0, 8000000]], "expect": { "path": "FAST", "reasons": [] } },
+    {
+      "id": "cut_on_keyframe", "clips": [["avc1080", 2000000, 4000000]], "keyframesUs": { "avc1080": [0, 2000000, 4000000] },
+      "expect": { "path": "FAST", "reasons": [], "effectiveInUs": [2000000] }
+    },
+    {
+      "id": "cut_snaps_to_previous_keyframe", "clips": [["avc1080", 2500000, 4000000], ["avc1080_b", 0, 1000000]], "keyframesUs": { "avc1080": [0, 2000000, 4000000] },
+      "expect": { "path": "FAST", "reasons": [], "effectiveInUs": [2000000, 0], "warnings": ["BOUNDARY_ALIGNED_TO_KEYFRAME"] }
+    },
+    {
+      "id": "precise_cut_off_keyframe", "clips": [["avc1080", 2500000, 4000000]], "keyframesUs": { "avc1080": [0, 2000000] }, "preciseCuts": true,
+      "expect": { "path": "TRANSCODE", "reasons": ["CUT_NOT_ON_KEYFRAME"], "effectiveInUs": [2500000] }
+    },
+    { "id": "cut_with_unknown_keyframes", "clips": [["avc1080", 2500000, 4000000]], "expect": { "path": "TRANSCODE", "reasons": ["KEYFRAMES_UNKNOWN"] } },
+    { "id": "resolution_differs", "clips": [["avc1080", 0, 1000000], ["avc720", 0, 1000000]], "expect": { "path": "TRANSCODE", "reasons": ["RESOLUTION_DIFFERS"] } },
+    { "id": "rotation_differs", "clips": [["avc1080", 0, 1000000], ["avc1080_rot90", 0, 1000000]], "expect": { "path": "TRANSCODE", "reasons": ["ROTATION_DIFFERS"] } },
+    { "id": "rotation_360_equals_0", "clips": [["avc1080", 0, 1000000], ["avc1080_rot360", 0, 1000000]], "expect": { "path": "FAST", "reasons": [] } },
+    { "id": "frame_rate_differs", "clips": [["avc1080", 0, 1000000], ["avc1080_2997", 0, 1000000]], "expect": { "path": "TRANSCODE", "reasons": ["FRAME_RATE_DIFFERS"] } },
+    { "id": "frame_rate_within_tolerance", "clips": [["avc1080", 0, 1000000], ["avc1080_30005", 0, 1000000]], "expect": { "path": "FAST", "reasons": [] } },
+    { "id": "audio_presence_differs", "clips": [["avc1080", 0, 1000000], ["avc1080_silent", 0, 1000000]], "expect": { "path": "TRANSCODE", "reasons": ["AUDIO_PRESENCE_DIFFERS"] } },
+    { "id": "all_silent", "clips": [["avc1080_silent", 0, 1000000], ["avc1080_silent", 2000000, 3000000]], "keyframesUs": { "avc1080_silent": [0, 2000000] }, "expect": { "path": "FAST", "reasons": [] } },
+    {
+      "id": "audio_codec_differs", "clips": [["avc1080", 0, 1000000], ["avc1080_opus", 0, 1000000]],
+      "expect": { "path": "TRANSCODE", "reasons": ["AUDIO_CODEC_DIFFERS", "OUTPUT_FORMAT_DIFFERS"] }
+    },
+    { "id": "hevc_is_not_the_output_format", "clips": [["hevc1080", 0, 1000000], ["hevc1080_b", 0, 1000000]], "expect": { "path": "TRANSCODE", "reasons": ["OUTPUT_FORMAT_DIFFERS"] } },
+    {
+      "id": "video_codec_differs", "clips": [["avc1080", 0, 1000000], ["hevc1080", 0, 1000000]],
+      "expect": { "path": "TRANSCODE", "reasons": ["VIDEO_CODEC_DIFFERS", "OUTPUT_FORMAT_DIFFERS"] }
+    },
+    { "id": "preset_p720_resizes_1080", "clips": [["avc1080", 0, 1000000]], "preset": "P720", "expect": { "path": "TRANSCODE", "reasons": ["OUTPUT_RESIZE"] } },
+    { "id": "preset_p1080_keeps_1080", "clips": [["avc1080", 0, 1000000]], "preset": "P1080", "expect": { "path": "FAST", "reasons": [] } },
+    { "id": "preset_p1080_does_not_upscale_720", "clips": [["avc720", 0, 1000000]], "preset": "P1080", "expect": { "path": "FAST", "reasons": [] } },
+    { "id": "masks_enabled", "clips": [["avc1080", 0, 1000000]], "masksEnabled": true, "expect": { "path": "TRANSCODE", "reasons": ["MASKS_ENABLED"] } },
+    { "id": "unknown_source", "clips": [["avc1080", 0, 1000000], ["missing", 0, 1000000]], "expect": { "path": "TRANSCODE", "reasons": ["SOURCE_UNKNOWN"] } },
+    { "id": "frame_rate_unknown", "clips": [["avc1080", 0, 1000000], ["no_fps", 0, 1000000]], "expect": { "path": "TRANSCODE", "reasons": ["PROBE_INCOMPLETE"] } },
+    {
+      "id": "several_reasons_in_registry_order", "clips": [["avc720", 1000000, 2000000], ["hevc1080", 0, 1000000]], "masksEnabled": true,
+      "expect": { "path": "TRANSCODE", "reasons": ["VIDEO_CODEC_DIFFERS", "RESOLUTION_DIFFERS", "OUTPUT_FORMAT_DIFFERS", "MASKS_ENABLED", "KEYFRAMES_UNKNOWN"] }
+    }
+  ]
+}

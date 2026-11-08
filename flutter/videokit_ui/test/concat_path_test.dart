@@ -123,4 +123,27 @@ void main() {
     );
     expect(find.text('拼接方式：快速拼接（不重新编码）'), findsOneWidget);
   });
+
+  test('04A E3/E4: a missing probe value → transcode, PROBE_INCOMPLETE', () {
+    const unprobed = EditSource(sourceId: 'n', mediaToken: 'n');
+    final cases = <EditSource>[
+      unprobed,
+      src('b').copyWith(probe: src('b').probe!.copyWith(videoCodec: null)),
+      src('c').copyWith(probe: src('c').probe!.copyWith(fps: null)),
+      src('d').copyWith(
+        probe: src('d').probe!.copyWith(hasAudio: true, audioCodec: null),
+      ),
+      src('e', w: 0),
+    ];
+    for (final odd in cases) {
+      final c = ConcatCompatibility.of(Timeline(sources: [src('a'), odd]));
+      expect(c.fastConcat, isFalse, reason: odd.sourceId);
+      expect(c.reason, ConcatFallbackReason.inputsDiffer);
+      expect(c.differences, contains(ConcatDifference.probeIncomplete));
+      expect(c.mismatched, [odd.sourceId]);
+      expect(ConcatPathInfo.reasons(s, c), contains('有视频的编码、尺寸或帧率未知'));
+    }
+    expect(vkProbeComplete(src('a').probe), isTrue);
+    expect(vkProbeComplete(null), isFalse);
+  });
 }

@@ -166,7 +166,8 @@ void main() {
     await settle(tester, 6);
     final page = tester.state<ConcatPageState>(find.byType(ConcatPage));
     expect(page.restoreFailed, isTrue);
-    expect(find.text('无法打开这个工程：格式版本过新或文件已损坏'), findsOneWidget);
+    expect(page.restoreTooNew, isTrue, reason: 'schemaVersion 99');
+    expect(find.text('这个工程由更新版本的应用保存，请更新后再打开'), findsOneWidget);
     await tester.binding.handlePopRoute();
     await settle(tester, 4);
     expect(find.byType(ConcatPage), findsNothing);

@@ -860,11 +860,18 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
                     return@withLock
                 }
                 val from = mutableState.value.positionUs
-                mutableState.update {
-                    val endedPhase = if (it.phase == SessionPhase.ENDED && target < (it.durationUs ?: 0L)) SessionPhase.PAUSED else it.phase
-                    it.copy(positionUs = target, seekingToUs = null, phase = endedPhase)
+                // TEST-R5 R5-01a: a PREVIEW / CLOSEST_SYNC seek lands on a key frame near the target; report where the
+                // engine landed, not the target, so the bar does not jump when the next engine update arrives.
+                val landed = if (command.mode == SeekMode.EXACT) {
+                    target
+                } else {
+                    opened.state.value.positionUs.coerceIn(0L, mutableState.value.durationUs ?: Long.MAX_VALUE)
                 }
-                callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.UserSeek(sessionId, from, target)) }
+                mutableState.update {
+                    val endedPhase = if (it.phase == SessionPhase.ENDED && landed < (it.durationUs ?: 0L)) SessionPhase.PAUSED else it.phase
+                    it.copy(positionUs = landed, seekingToUs = null, phase = endedPhase)
+                }
+                callbacks.notify("onPlaybackEvent") { onPlaybackEvent(VideoKitPlaybackEvent.UserSeek(sessionId, from, landed)) }
                 outcome.complete(VideoKitCommandResult.Executed)
             }
         }

@@ -296,7 +296,10 @@ class VideoKitSlot extends StatelessWidget {
                   : MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (audio != null) Flexible(flex: 3, child: audio),
+                // The "发声" pill may shrink; the mute button has a fixed
+                // size and leaves the rest to the badges (R5-03).
+                if (audio != null)
+                  v.activeAudio ? Flexible(flex: 3, child: audio) : audio,
                 if (hasBadges)
                   Flexible(
                     flex: 4,
@@ -439,32 +442,50 @@ class _Pill extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = VkTheme.of(context);
     final d = t.dimensions;
-    return Container(
-      padding: EdgeInsetsDirectional.symmetric(
-        horizontal: d.spacing8,
-        vertical: d.spacing4,
-      ),
-      decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(d.cornerFull),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (icon != null) ...[
-            Icon(icon, size: d.icon16, color: content),
-            SizedBox(width: d.spacing4),
-          ],
-          Flexible(
-            child: Text(
-              text,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: t.typography.label.copyWith(color: content),
-            ),
+    final style = t.typography.label.copyWith(color: content);
+    return LayoutBuilder(
+      builder: (context, c) {
+        // TEST-R5 R5-03: the text shows whenever it fits in full; only a
+        // pill too narrow for it falls back to the icon alone.
+        final painter = TextPainter(
+          text: TextSpan(text: text, style: style),
+          textDirection: Directionality.of(context),
+          textScaler: MediaQuery.textScalerOf(context),
+          maxLines: 1,
+        )..layout();
+        final textWidth = painter.width;
+        painter.dispose();
+        final chrome =
+            d.spacing8 * 2 + (icon != null ? d.icon16 + d.spacing4 : 0);
+        final iconOnly = icon != null && c.maxWidth < chrome + textWidth;
+        return Container(
+          padding: EdgeInsetsDirectional.symmetric(
+            horizontal: iconOnly ? d.spacing4 : d.spacing8,
+            vertical: d.spacing4,
           ),
-        ],
-      ),
+          decoration: BoxDecoration(
+            color: background,
+            borderRadius: BorderRadius.circular(d.cornerFull),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) Icon(icon, size: d.icon16, color: content),
+              if (!iconOnly) ...[
+                if (icon != null) SizedBox(width: d.spacing4),
+                Flexible(
+                  child: Text(
+                    text,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: style,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -583,8 +604,58 @@ class _ErrorPlaceholder extends StatelessWidget {
     final s = VkStrings.of(context);
     final d = t.dimensions;
     final canRetry = !fatal && (error?.retryable ?? false) && onRetry != null;
+    // TEST-R5 R5-02: in a small cell or at large text the actions become
+    // icon buttons with spoken labels, so "移除" is never cut off.
+    Widget actions(bool compact) => Wrap(
+      alignment: WrapAlignment.center,
+      spacing: d.spacing8,
+      runSpacing: d.spacing8,
+      children: compact
+          ? [
+              if (canRetry)
+                VkIconButton(
+                  icon: t.icons.resolve('retry'),
+                  semanticLabel: s.text('actionRetry'),
+                  onPressed: onRetry,
+                ),
+              if (onRemove != null)
+                VkIconButton(
+                  icon: t.icons.resolve('close'),
+                  semanticLabel: s.text('slotRemove'),
+                  onPressed: onRemove,
+                ),
+            ]
+          : [
+              if (canRetry)
+                VkButton(label: s.text('actionRetry'), onPressed: onRetry),
+              if (onRemove != null)
+                VkButton(
+                  label: s.text('slotRemove'),
+                  variant: VkButtonVariant.secondary,
+                  onPressed: onRemove,
+                ),
+            ],
+    );
     return ColoredBox(
       color: t.colors.surfaceVariant,
+      child: LayoutBuilder(
+        builder: (context, c) {
+          final compact =
+              VkLayoutClass.iconScale(context) > 1 ||
+              c.maxWidth < d.targetMin * 3 ||
+              c.maxHeight < d.targetMin * 3;
+          return _errorBody(context, compact, actions(compact));
+        },
+      ),
+    );
+  }
+
+  Widget _errorBody(BuildContext context, bool compact, Widget actions) {
+    final t = VkTheme.of(context);
+    final s = VkStrings.of(context);
+    final d = t.dimensions;
+    final canRetry = !fatal && (error?.retryable ?? false) && onRetry != null;
+    return SizedBox.expand(
       child: Center(
         child: SingleChildScrollView(
           padding: EdgeInsetsDirectional.all(d.spacing8),
@@ -593,44 +664,30 @@ class _ErrorPlaceholder extends StatelessWidget {
             children: [
               Icon(
                 t.icons.warning,
-                size: d.targetMin * 0.75,
+                size: compact ? d.icon24 : d.targetMin * 0.75,
                 color: t.colors.error,
               ),
               SizedBox(height: d.spacing4),
               Text(
                 s.error(error?.code ?? ErrorCode.internalErrorRedacted),
                 textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: compact ? 1 : 2,
                 overflow: TextOverflow.ellipsis,
                 style: t.typography.label.copyWith(color: t.colors.textPrimary),
               ),
-              Text(
-                s.text('slotErrorOnly'),
-                textAlign: TextAlign.center,
-                style: t.typography.caption.copyWith(
-                  color: t.colors.textSecondary,
+              // A compact cell keeps room for the actions; the reason is
+              // still spoken with the slot.
+              if (!compact)
+                Text(
+                  s.text('slotErrorOnly'),
+                  textAlign: TextAlign.center,
+                  style: t.typography.caption.copyWith(
+                    color: t.colors.textSecondary,
+                  ),
                 ),
-              ),
               if (canRetry || onRemove != null) ...[
-                SizedBox(height: d.spacing8),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: d.spacing8,
-                  runSpacing: d.spacing8,
-                  children: [
-                    if (canRetry)
-                      VkButton(
-                        label: s.text('actionRetry'),
-                        onPressed: onRetry,
-                      ),
-                    if (onRemove != null)
-                      VkButton(
-                        label: s.text('slotRemove'),
-                        variant: VkButtonVariant.secondary,
-                        onPressed: onRemove,
-                      ),
-                  ],
-                ),
+                SizedBox(height: compact ? d.spacing4 : d.spacing8),
+                actions,
               ],
             ],
           ),

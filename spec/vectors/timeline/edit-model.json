@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "timeline-edit-model",
+  "description": "Edit model commands with undo/redo (08 §2.2, M4-B1), beyond the vocabulary of state-machine/edit-project.json: mask keyframes, style, enable, remove, tracking correction, and the timeline after each step. 'from': EMPTY | SOURCE (one 10 s video source 'src') | CLIP (SOURCE + clip [0, 3 s)) | TWO_CLIPS (SOURCE + clips [0, 3 s) and [5 s, 6 s)). 'clip' and 'mask' are indexes into the current clips / masks. Commands: ADD_CLIP (inUs, outUs, index?, source? = 'src'), SPLIT (clip, atUs), TRIM (clip, inUs, outUs), MOVE (clip, toIndex), REMOVE (clip), ADD_MASK (type, x, y, width, height, startUs, endUs, style?, strength?), UPDATE_KEYFRAME (mask, atUs, x, y, width, height), REMOVE_KEYFRAME (mask, atUs), SET_STYLE (mask, style, strength), SET_ENABLED (mask, enabled), REMOVE_MASK (mask), CORRECT_TRACKING (mask, atUs, x, y, width, height), ACCEPT_RANGE (mask, startUs, endUs), START_TRACKING (mask), UNDO, REDO. 'expect.result': APPLIED | REJECTED | NOT_AN_EDIT; 'expect.diagnostic' the full diagnostic of a rejection; optional state checks after the step: 'clips' ([inUs, outUs] in order), 'durationUs', 'keyframes' (atUs of mask 0), 'style'/'strength'/'enabled' (mask 0), 'masks' (count), 'revision' (relative to the start state), 'canUndo', 'canRedo'.",
+  "cases": [
+    {
+      "id": "clips.add_split_move_trim_remove", "from": "SOURCE",
+      "steps": [
+        { "command": "ADD_CLIP", "inUs": 0, "outUs": 4000000, "expect": { "result": "APPLIED", "clips": [[0, 4000000]], "revision": 1 } },
+        { "command": "SPLIT", "clip": 0, "atUs": 1000000, "expect": { "result": "APPLIED", "clips": [[0, 1000000], [1000000, 4000000]], "durationUs": 4000000 } },
+        { "command": "MOVE", "clip": 1, "toIndex": 0, "expect": { "result": "APPLIED", "clips": [[1000000, 4000000], [0, 1000000]] } },
+        { "command": "TRIM", "clip": 0, "inUs": 2000000, "outUs": 3000000, "expect": { "result": "APPLIED", "clips": [[2000000, 3000000], [0, 1000000]], "durationUs": 2000000 } },
+        { "command": "REMOVE", "clip": 1, "expect": { "result": "APPLIED", "clips": [[2000000, 3000000]], "revision": 5 } }
+      ]
+    },
+    {
+      "id": "clips.rejections_keep_revision", "from": "CLIP",
+      "steps": [
+        { "command": "ADD_CLIP", "source": "missing", "inUs": 0, "outUs": 1000000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:UNKNOWN_SOURCE", "revision": 0 } },
+        { "command": "ADD_CLIP", "inUs": 0, "outUs": 11000000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:CLIP_RANGE" } },
+        { "command": "ADD_CLIP", "inUs": 0, "outUs": 1000000, "index": 2, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:CLIP_INDEX" } },
+        { "command": "SPLIT", "clip": 0, "atUs": 3000000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:SPLIT_POINT" } },
+        { "command": "TRIM", "clip": 0, "inUs": 1000000, "outUs": 1000000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:CLIP_RANGE" } },
+        { "command": "MOVE", "clip": 0, "toIndex": 1, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:CLIP_INDEX", "clips": [[0, 3000000]], "revision": 0 } }
+      ]
+    },
+    {
+      "id": "history.undo_redo_and_clear", "from": "TWO_CLIPS",
+      "steps": [
+        { "command": "REMOVE", "clip": 0, "expect": { "result": "APPLIED", "clips": [[5000000, 6000000]], "canUndo": true, "canRedo": false } },
+        { "command": "UNDO", "expect": { "result": "APPLIED", "clips": [[0, 3000000], [5000000, 6000000]], "canRedo": true } },
+        { "command": "REDO", "expect": { "result": "APPLIED", "clips": [[5000000, 6000000]], "canRedo": false } },
+        { "command": "UNDO", "expect": { "result": "APPLIED", "canRedo": true } },
+        { "command": "MOVE", "clip": 1, "toIndex": 0, "expect": { "result": "APPLIED", "clips": [[5000000, 6000000], [0, 3000000]], "canRedo": false } },
+        { "command": "REDO", "expect": { "result": "REJECTED", "diagnostic": "ILLEGAL_STATE:NOTHING_TO_REDO" } }
+      ]
+    },
+    {
+      "id": "history.empty", "from": "EMPTY",
+      "steps": [
+        { "command": "UNDO", "expect": { "result": "REJECTED", "diagnostic": "ILLEGAL_STATE:NOTHING_TO_UNDO", "canUndo": false } },
+        { "command": "REDO", "expect": { "result": "REJECTED", "diagnostic": "ILLEGAL_STATE:NOTHING_TO_REDO", "revision": 0 } }
+      ]
+    },
+    {
+      "id": "masks.keyframes", "from": "CLIP",
+      "steps": [
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 2000000, "expect": { "result": "APPLIED", "masks": 1, "keyframes": [0] } },
+        { "command": "UPDATE_KEYFRAME", "mask": 0, "atUs": 1000000, "x": 0.3, "y": 0.1, "width": 0.2, "height": 0.2, "expect": { "result": "APPLIED", "keyframes": [0, 1000000] } },
+        { "command": "UPDATE_KEYFRAME", "mask": 0, "atUs": 500000, "x": 0.2, "y": 0.1, "width": 0.2, "height": 0.2, "expect": { "result": "APPLIED", "keyframes": [0, 500000, 1000000] } },
+        { "command": "UPDATE_KEYFRAME", "mask": 0, "atUs": 500000, "x": 0.25, "y": 0.1, "width": 0.2, "height": 0.2, "expect": { "result": "APPLIED", "keyframes": [0, 500000, 1000000] } },
+        { "command": "UPDATE_KEYFRAME", "mask": 0, "atUs": 2500000, "x": 0.2, "y": 0.1, "width": 0.2, "height": 0.2, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:KEYFRAME_TIME" } },
+        { "command": "UPDATE_KEYFRAME", "mask": 0, "atUs": 1500000, "x": 0.9, "y": 0.1, "width": 0.2, "height": 0.2, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:MASK_REGION" } },
+        { "command": "REMOVE_KEYFRAME", "mask": 0, "atUs": 500000, "expect": { "result": "APPLIED", "keyframes": [0, 1000000] } },
+        { "command": "REMOVE_KEYFRAME", "mask": 0, "atUs": 700000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:UNKNOWN_KEYFRAME" } },
+        { "command": "REMOVE_KEYFRAME", "mask": 0, "atUs": 0, "expect": { "result": "APPLIED", "keyframes": [1000000] } },
+        { "command": "REMOVE_KEYFRAME", "mask": 0, "atUs": 1000000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:LAST_KEYFRAME" } },
+        { "command": "UNDO", "expect": { "result": "APPLIED", "keyframes": [0, 1000000] } }
+      ]
+    },
+    {
+      "id": "masks.style_enabled_remove", "from": "CLIP",
+      "steps": [
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "style": "BLUR", "strength": 0.3, "expect": { "result": "APPLIED", "style": "BLUR", "strength": 0.3, "enabled": true } },
+        { "command": "SET_STYLE", "mask": 0, "style": "MOSAIC", "strength": 0.9, "expect": { "result": "APPLIED", "style": "MOSAIC", "strength": 0.9 } },
+        { "command": "SET_STYLE", "mask": 0, "style": "BLUR", "strength": 1.5, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:MASK_STRENGTH", "style": "MOSAIC" } },
+        { "command": "SET_ENABLED", "mask": 0, "enabled": false, "expect": { "result": "APPLIED", "enabled": false } },
+        { "command": "REMOVE_MASK", "mask": 0, "expect": { "result": "APPLIED", "masks": 0 } },
+        { "command": "UNDO", "expect": { "result": "APPLIED", "masks": 1, "enabled": false } }
+      ]
+    },
+    {
+      "id": "masks.add_rejections", "from": "CLIP",
+      "steps": [
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.0, "height": 0.2, "startUs": 0, "endUs": 1000000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:MASK_REGION" } },
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 1000000, "endUs": 1000000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:MASK_RANGE" } },
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 3000001, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:MASK_RANGE" } },
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "strength": -0.1, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:MASK_STRENGTH", "masks": 0, "revision": 0 } }
+      ]
+    },
+    {
+      "id": "masks.tracking_commands", "from": "CLIP",
+      "steps": [
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 1000000, "expect": { "result": "APPLIED" } },
+        { "command": "CORRECT_TRACKING", "mask": 0, "atUs": 500000, "x": 0.2, "y": 0.2, "width": 0.2, "height": 0.2, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:MASK_NOT_TRACKED" } },
+        { "command": "ACCEPT_RANGE", "mask": 0, "startUs": 0, "endUs": 500000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:MASK_NOT_TRACKED" } },
+        { "command": "REMOVE_MASK", "mask": 0, "expect": { "result": "APPLIED" } },
+        { "command": "ADD_MASK", "type": "FACE", "x": 0.4, "y": 0.4, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 2000000, "expect": { "result": "APPLIED" } },
+        { "command": "CORRECT_TRACKING", "mask": 0, "atUs": 1000000, "x": 0.5, "y": 0.4, "width": 0.2, "height": 0.2, "expect": { "result": "APPLIED", "keyframes": [0, 1000000] } },
+        { "command": "ACCEPT_RANGE", "mask": 0, "startUs": 1500000, "endUs": 2500000, "expect": { "result": "REJECTED", "diagnostic": "INVALID_ARGUMENT:ACCEPT_RANGE" } },
+        { "command": "ACCEPT_RANGE", "mask": 0, "startUs": 1500000, "endUs": 2000000, "expect": { "result": "APPLIED" } },
+        { "command": "START_TRACKING", "mask": 0, "expect": { "result": "NOT_AN_EDIT" } }
+      ]
+    }
+  ]
+}

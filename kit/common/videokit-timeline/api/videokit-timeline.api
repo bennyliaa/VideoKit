@@ -1,0 +1,213 @@
+public final class com/videokit/timeline/ConcatDecision {
+	public fun <init> (Lcom/videokit/timeline/ConcatPath;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Lcom/videokit/timeline/ConcatPath;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/videokit/timeline/ConcatPath;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (Lcom/videokit/timeline/ConcatPath;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lcom/videokit/timeline/ConcatDecision;
+	public static synthetic fun copy$default (Lcom/videokit/timeline/ConcatDecision;Lcom/videokit/timeline/ConcatPath;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/videokit/timeline/ConcatDecision;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEffectiveClips ()Ljava/util/List;
+	public final fun getPath ()Lcom/videokit/timeline/ConcatPath;
+	public final fun getReasons ()Ljava/util/List;
+	public final fun getWarnings ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/timeline/ConcatPath : java/lang/Enum {
+	public static final field FAST Lcom/videokit/timeline/ConcatPath;
+	public static final field TRANSCODE Lcom/videokit/timeline/ConcatPath;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/timeline/ConcatPath;
+	public static fun values ()[Lcom/videokit/timeline/ConcatPath;
+}
+
+public final class com/videokit/timeline/ConcatReason : java/lang/Enum {
+	public static final field AUDIO_CODEC_DIFFERS Lcom/videokit/timeline/ConcatReason;
+	public static final field AUDIO_PRESENCE_DIFFERS Lcom/videokit/timeline/ConcatReason;
+	public static final field CUT_NOT_ON_KEYFRAME Lcom/videokit/timeline/ConcatReason;
+	public static final field EMPTY_TIMELINE Lcom/videokit/timeline/ConcatReason;
+	public static final field FRAME_RATE_DIFFERS Lcom/videokit/timeline/ConcatReason;
+	public static final field KEYFRAMES_UNKNOWN Lcom/videokit/timeline/ConcatReason;
+	public static final field MASKS_ENABLED Lcom/videokit/timeline/ConcatReason;
+	public static final field OUTPUT_FORMAT_DIFFERS Lcom/videokit/timeline/ConcatReason;
+	public static final field OUTPUT_RESIZE Lcom/videokit/timeline/ConcatReason;
+	public static final field PROBE_INCOMPLETE Lcom/videokit/timeline/ConcatReason;
+	public static final field RESOLUTION_DIFFERS Lcom/videokit/timeline/ConcatReason;
+	public static final field ROTATION_DIFFERS Lcom/videokit/timeline/ConcatReason;
+	public static final field SOURCE_UNKNOWN Lcom/videokit/timeline/ConcatReason;
+	public static final field VIDEO_CODEC_DIFFERS Lcom/videokit/timeline/ConcatReason;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/timeline/ConcatReason;
+	public static fun values ()[Lcom/videokit/timeline/ConcatReason;
+}
+
+public final class com/videokit/timeline/ConcatRequest {
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/videokit/api/ExportPreset;ZZ)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/videokit/api/ExportPreset;ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/Map;
+	public final fun component4 ()Lcom/videokit/api/ExportPreset;
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/videokit/api/ExportPreset;ZZ)Lcom/videokit/timeline/ConcatRequest;
+	public static synthetic fun copy$default (Lcom/videokit/timeline/ConcatRequest;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/videokit/api/ExportPreset;ZZILjava/lang/Object;)Lcom/videokit/timeline/ConcatRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClips ()Ljava/util/List;
+	public final fun getKeyframesUs ()Ljava/util/Map;
+	public final fun getMasksEnabled ()Z
+	public final fun getPreciseCuts ()Z
+	public final fun getPreset ()Lcom/videokit/api/ExportPreset;
+	public final fun getSources ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/timeline/ConcatRules {
+	public static final field FRAME_RATE_TOLERANCE F
+	public static final field INSTANCE Lcom/videokit/timeline/ConcatRules;
+	public static final field OUTPUT_AUDIO_CODEC Ljava/lang/String;
+	public static final field OUTPUT_VIDEO_CODEC Ljava/lang/String;
+	public final fun decide (Lcom/videokit/timeline/ConcatRequest;)Lcom/videokit/timeline/ConcatDecision;
+	public final fun longEdgeLimit (Lcom/videokit/api/ExportPreset;)Ljava/lang/Integer;
+}
+
+public abstract interface class com/videokit/timeline/EditOutcome {
+}
+
+public final class com/videokit/timeline/EditOutcome$Applied : com/videokit/timeline/EditOutcome {
+	public fun <init> (Lcom/videokit/timeline/ProjectDocument;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/videokit/timeline/ProjectDocument;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/videokit/timeline/ProjectDocument;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lcom/videokit/timeline/ProjectDocument;Ljava/lang/String;)Lcom/videokit/timeline/EditOutcome$Applied;
+	public static synthetic fun copy$default (Lcom/videokit/timeline/EditOutcome$Applied;Lcom/videokit/timeline/ProjectDocument;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/timeline/EditOutcome$Applied;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCreatedId ()Ljava/lang/String;
+	public final fun getDocument ()Lcom/videokit/timeline/ProjectDocument;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/timeline/EditOutcome$NotAnEdit : com/videokit/timeline/EditOutcome {
+	public static final field INSTANCE Lcom/videokit/timeline/EditOutcome$NotAnEdit;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/timeline/EditOutcome$Rejected : com/videokit/timeline/EditOutcome {
+	public fun <init> (Lcom/videokit/api/VideoKitStableError;)V
+	public final fun component1 ()Lcom/videokit/api/VideoKitStableError;
+	public final fun copy (Lcom/videokit/api/VideoKitStableError;)Lcom/videokit/timeline/EditOutcome$Rejected;
+	public static synthetic fun copy$default (Lcom/videokit/timeline/EditOutcome$Rejected;Lcom/videokit/api/VideoKitStableError;ILjava/lang/Object;)Lcom/videokit/timeline/EditOutcome$Rejected;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/videokit/api/VideoKitStableError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/videokit/timeline/IdSource {
+	public abstract fun next (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/videokit/timeline/ProjectDocument {
+	public fun <init> (Ljava/lang/String;JJJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/videokit/api/ExportPreset;)V
+	public synthetic fun <init> (Ljava/lang/String;JJJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/videokit/api/ExportPreset;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun clip (Ljava/lang/String;)Lcom/videokit/api/Clip;
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Ljava/util/Map;
+	public final fun component9 ()Lcom/videokit/api/ExportPreset;
+	public final fun copy (Ljava/lang/String;JJJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/videokit/api/ExportPreset;)Lcom/videokit/timeline/ProjectDocument;
+	public static synthetic fun copy$default (Lcom/videokit/timeline/ProjectDocument;Ljava/lang/String;JJJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Lcom/videokit/api/ExportPreset;ILjava/lang/Object;)Lcom/videokit/timeline/ProjectDocument;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClips ()Ljava/util/List;
+	public final fun getCreatedAtMs ()J
+	public final fun getDurationUs ()J
+	public final fun getExportPreset ()Lcom/videokit/api/ExportPreset;
+	public final fun getMasks ()Ljava/util/List;
+	public final fun getProjectId ()Ljava/lang/String;
+	public final fun getRevision ()J
+	public final fun getSources ()Ljava/util/List;
+	public final fun getTimeline ()Lcom/videokit/api/Timeline;
+	public final fun getTracking ()Ljava/util/Map;
+	public final fun getUpdatedAtMs ()J
+	public fun hashCode ()I
+	public final fun mask (Ljava/lang/String;)Lcom/videokit/api/MaskTrack;
+	public final fun maxIdNumber ()J
+	public final fun source (Ljava/lang/String;)Lcom/videokit/api/EditSource;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/timeline/ProjectJson {
+	public static final field INSTANCE Lcom/videokit/timeline/ProjectJson;
+	public static final field SCHEMA_MINOR I
+	public static final field SCHEMA_VERSION I
+	public final fun decode (Lcom/videokit/api/SerializedEditProject;Lcom/videokit/timeline/SchemaMigrations;)Lcom/videokit/timeline/ProjectDocument;
+	public static synthetic fun decode$default (Lcom/videokit/timeline/ProjectJson;Lcom/videokit/api/SerializedEditProject;Lcom/videokit/timeline/SchemaMigrations;ILjava/lang/Object;)Lcom/videokit/timeline/ProjectDocument;
+	public final fun encode (Lcom/videokit/timeline/ProjectDocument;)Lcom/videokit/api/SerializedEditProject;
+}
+
+public abstract interface class com/videokit/timeline/SchemaMigration {
+	public abstract fun getFromVersion ()I
+	public abstract fun migrate (Ljava/util/Map;)Ljava/util/Map;
+}
+
+public final class com/videokit/timeline/SchemaMigrations {
+	public static final field Companion Lcom/videokit/timeline/SchemaMigrations$Companion;
+	public fun <init> (Ljava/util/List;I)V
+	public synthetic fun <init> (Ljava/util/List;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCurrentVersion ()I
+	public final fun getOldestSupportedVersion ()I
+	public final fun migrate (ILjava/util/Map;)Ljava/util/Map;
+	public final fun supports (I)Z
+}
+
+public final class com/videokit/timeline/SchemaMigrations$Companion {
+	public final fun getDEFAULT ()Lcom/videokit/timeline/SchemaMigrations;
+}
+
+public final class com/videokit/timeline/SequentialIds : com/videokit/timeline/IdSource {
+	public fun <init> ()V
+	public fun <init> (J)V
+	public synthetic fun <init> (JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun next (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/videokit/timeline/TimelineEditor {
+	public static final field Companion Lcom/videokit/timeline/TimelineEditor$Companion;
+	public static final field DEFAULT_UNDO_LIMIT I
+	public fun <init> (Lcom/videokit/timeline/ProjectDocument;Lcom/videokit/timeline/IdSource;ILkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lcom/videokit/timeline/ProjectDocument;Lcom/videokit/timeline/IdSource;ILkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun apply (Lcom/videokit/api/VideoKitEditCommand;)Lcom/videokit/timeline/EditOutcome;
+	public final fun bumpRevision ()Lcom/videokit/timeline/ProjectDocument;
+	public final fun getCanRedo ()Z
+	public final fun getCanUndo ()Z
+	public final fun getDocument ()Lcom/videokit/timeline/ProjectDocument;
+	public final fun getUndoLimit ()I
+	public final fun newSourceId ()Ljava/lang/String;
+	public final fun putSource (Lcom/videokit/api/EditSource;)Lcom/videokit/timeline/ProjectDocument;
+	public final fun redo ()Lcom/videokit/timeline/EditOutcome;
+	public final fun replaceMask (Lcom/videokit/api/MaskTrack;)Lcom/videokit/timeline/ProjectDocument;
+	public final fun setTracking (Lcom/videokit/api/TrackingRun;)Lcom/videokit/timeline/ProjectDocument;
+	public final fun undo ()Lcom/videokit/timeline/EditOutcome;
+}
+
+public final class com/videokit/timeline/TimelineEditor$Companion {
+}
+
+public final class com/videokit/timeline/V0ToV1 : com/videokit/timeline/SchemaMigration {
+	public static final field INSTANCE Lcom/videokit/timeline/V0ToV1;
+	public fun getFromVersion ()I
+	public fun migrate (Ljava/util/Map;)Ljava/util/Map;
+}
+

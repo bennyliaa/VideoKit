@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "edit-state-machine",
-  "description": "Legal and illegal edit project transitions (04 §6, 08 §2.2). 'from': EMPTY (no source), READY_WITH_SOURCE (one video source, no clip), READY_WITH_CLIP (one source + one clip [0, 3 s)), RELEASED. Clip and mask commands address the first clip / first mask; times are microseconds; 'source' is 'first' or 'unknown'. 'expect.result': APPLIED | REJECTED | UNSUPPORTED | PROJECT_RELEASED (ADD_SOURCE: APPLIED = returned a token, REJECTED = threw). 'expect.phase' (optional) is the phase after the step; 'expect.code' (optional) the stable error code of a REJECTED or FAILED result. EXPORT exports to an in-memory sink: SUCCEEDED | FAILED | CANCELLED (04A I5). RESTORE_FUTURE_SNAPSHOT restores the project's snapshot with schemaVersion + 1. DETECT_CANDIDATES: APPLIED = at least one candidate and no error (04A I10). ACCEPT_TRACKING_RANGE_FIRST_MASK: 04A I11. Edit commands after COMPLETED, FAILED or CANCELLED return the project to READY (04A I12).",
+  "description": "Legal and illegal edit project transitions (04 §6, 08 §2.2). 'from': EMPTY (no source), READY_WITH_SOURCE (one video source, no clip), READY_WITH_CLIP (one source + one clip [0, 3 s)), RELEASED. Clip and mask commands address the first clip / first mask; times are microseconds; 'source' is 'first' or 'unknown'. 'expect.result': APPLIED | REJECTED | UNSUPPORTED | PROJECT_RELEASED (ADD_SOURCE: APPLIED = returned a token, REJECTED = threw). 'expect.phase' (optional) is the phase after the step; 'expect.code' (optional) the stable error code of a REJECTED or FAILED result. EXPORT exports to an in-memory sink: SUCCEEDED | FAILED | CANCELLED (04A I5). RESTORE_FUTURE_SNAPSHOT restores the project's snapshot with schemaVersion + 1. SNAPSHOT_ROUNDTRIP (04A E2): snapshot the project, restore it into a new project, snapshot that again; APPLIED when both snapshots parse to the same JSON tree apart from updatedAt and the restored timeline, masks and revision equal the original. RESTORE_SNAPSHOT (04A E2): restore SerializedEditProject('schemaVersion', 'json' or 'payload' written as JSON) into a new project (spec/schema/edit-project.v1.json); APPLIED = restored, REJECTED = threw. Optional checks of the restored or round-tripped project: 'revision', 'clips' and 'masks' (counts), 'canUndo', and for the first mask 'acceptedRanges' (count), 'maskStyle', 'maskStrength', 'maskEnabled'. DETECT_CANDIDATES: APPLIED = at least one candidate and no error (04A I10). ACCEPT_TRACKING_RANGE_FIRST_MASK: 04A I11. Edit commands after COMPLETED, FAILED or CANCELLED return the project to READY (04A I12).",
   "cases": [
     { "id": "empty.phase_is_created", "from": "EMPTY", "steps": [ { "command": "UNDO", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "CREATED" } } ] },
     { "id": "empty.add_source.ready", "from": "EMPTY", "steps": [ { "command": "ADD_SOURCE", "expect": { "result": "APPLIED", "phase": "READY" } } ] },
@@ -43,6 +43,56 @@
         { "command": "CANCEL_TRACKING_FIRST_MASK", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "READY" } }
       ]
     },
+    { "id": "source.add_clip_negative_in.rejected", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_CLIP", "source": "first", "inUs": -1, "outUs": 1000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT", "phase": "READY" } } ] },
+    { "id": "source.add_clip_beyond_source.rejected", "from": "READY_WITH_SOURCE", "steps": [ { "command": "ADD_CLIP", "source": "first", "inUs": 0, "outUs": 999000000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
+    {
+      "id": "source.add_clip_at_front", "from": "READY_WITH_SOURCE",
+      "steps": [
+        { "command": "ADD_CLIP", "source": "first", "inUs": 0, "outUs": 1000000, "expect": { "result": "APPLIED" } },
+        { "command": "ADD_CLIP", "source": "first", "inUs": 2000000, "outUs": 3000000, "index": 0, "expect": { "result": "APPLIED" } },
+        { "command": "TRIM_FIRST", "inUs": 2000000, "outUs": 2500000, "expect": { "result": "APPLIED", "phase": "READY" } }
+      ]
+    },
+    { "id": "clip.trim_valid.applied", "from": "READY_WITH_CLIP", "steps": [ { "command": "TRIM_FIRST", "inUs": 500000, "outUs": 2500000, "expect": { "result": "APPLIED", "phase": "READY" } } ] },
+    { "id": "clip.trim_beyond_source.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "TRIM_FIRST", "inUs": 0, "outUs": 999000000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
+    { "id": "clip.split_at_out_point.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "SPLIT_FIRST", "atUs": 3000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
+    {
+      "id": "clip.split_undo_redo", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "SPLIT_FIRST", "atUs": 1000000, "expect": { "result": "APPLIED" } },
+        { "command": "MOVE_FIRST", "toIndex": 1, "expect": { "result": "APPLIED" } },
+        { "command": "UNDO", "expect": { "result": "APPLIED" } },
+        { "command": "UNDO", "expect": { "result": "APPLIED" } },
+        { "command": "REDO", "expect": { "result": "APPLIED" } },
+        { "command": "REDO", "expect": { "result": "APPLIED" } },
+        { "command": "REDO", "expect": { "result": "REJECTED", "code": "INVALID_STATE" } }
+      ]
+    },
+    {
+      "id": "clip.undo_past_history.rejected", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "UNDO", "expect": { "result": "APPLIED", "phase": "READY" } },
+        { "command": "UNDO", "expect": { "result": "REJECTED", "code": "INVALID_STATE", "phase": "READY" } }
+      ]
+    },
+    {
+      "id": "clip.new_command_clears_redo", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "REMOVE_FIRST", "expect": { "result": "APPLIED" } },
+        { "command": "UNDO", "expect": { "result": "APPLIED" } },
+        { "command": "ADD_CLIP", "source": "first", "inUs": 0, "outUs": 1000000, "expect": { "result": "APPLIED" } },
+        { "command": "REDO", "expect": { "result": "REJECTED", "code": "INVALID_STATE" } }
+      ]
+    },
+    { "id": "clip.mask_beyond_timeline.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 5000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },
+    {
+      "id": "clip.mask_undo_redo", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "ADD_MASK", "type": "MANUAL", "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 3000000, "expect": { "result": "APPLIED" } },
+        { "command": "UNDO", "expect": { "result": "APPLIED" } },
+        { "command": "REDO", "expect": { "result": "APPLIED" } }
+      ]
+    },
     { "id": "clip.close.released", "from": "READY_WITH_CLIP", "steps": [ { "command": "CLOSE", "expect": { "result": "APPLIED", "phase": "RELEASED" } } ] },
 
 
@@ -62,6 +112,78 @@
     },
     { "id": "export.empty_project.failed", "from": "EMPTY", "steps": [ { "command": "EXPORT", "expect": { "result": "FAILED", "code": "INVALID_STATE", "phase": "CREATED" } } ] },
     { "id": "export.empty_timeline.failed", "from": "READY_WITH_SOURCE", "steps": [ { "command": "EXPORT", "expect": { "result": "FAILED", "code": "EXPORT_FAILED", "phase": "READY" } } ] },
+    {
+      "id": "snapshot.roundtrip", "from": "READY_WITH_CLIP",
+      "steps": [
+        { "command": "SPLIT_FIRST", "atUs": 1000000, "expect": { "result": "APPLIED" } },
+        { "command": "ADD_MASK", "type": "FACE", "x": 0.4, "y": 0.4, "width": 0.2, "height": 0.2, "startUs": 0, "endUs": 2000000, "expect": { "result": "APPLIED" } },
+        { "command": "ACCEPT_TRACKING_RANGE_FIRST_MASK", "startUs": 500000, "endUs": 1000000, "expect": { "result": "APPLIED" } },
+        { "command": "SNAPSHOT_ROUNDTRIP", "expect": { "result": "APPLIED", "clips": 2, "masks": 1, "acceptedRanges": 1 } }
+      ]
+    },
+    {
+      "id": "snapshot.missing_optional_fields_default", "from": "EMPTY",
+      "steps": [ { "command": "RESTORE_SNAPSHOT", "schemaVersion": 1, "payload": { "schemaVersion": 1, "projectId": "p-defaults" }, "expect": { "result": "APPLIED", "revision": 0, "clips": 0, "masks": 0, "canUndo": false } } ]
+    },
+    {
+      "id": "snapshot.optional_mask_fields_default", "from": "EMPTY",
+      "steps": [
+        {
+          "command": "RESTORE_SNAPSHOT", "schemaVersion": 1,
+          "payload": {
+            "schemaVersion": 1, "projectId": "p-mask", "revision": 4,
+            "sources": [ { "sourceId": "src-1", "mediaToken": "m", "probe": { "durationUs": 10000000, "width": 1280, "height": 720 } } ],
+            "timeline": { "clips": [ { "clipId": "clip-2", "sourceId": "src-1", "inUs": 0, "outUs": 3000000 } ] },
+            "masks": [ { "maskId": "mask-3", "type": "MANUAL", "rangeUs": { "startUs": 0, "endUs": 1000000 }, "keyframes": [ { "atUs": 0, "region": { "x": 0.1, "y": 0.1, "width": 0.2, "height": 0.2 } } ] } ]
+          },
+          "expect": { "result": "APPLIED", "revision": 4, "clips": 1, "masks": 1, "acceptedRanges": 0, "maskStyle": "MOSAIC", "maskStrength": 0.5, "maskEnabled": true }
+        }
+      ]
+    },
+    {
+      "id": "snapshot.minor_newer_readable", "from": "EMPTY",
+      "steps": [
+        {
+          "command": "RESTORE_SNAPSHOT", "schemaVersion": 1,
+          "payload": {
+            "schemaVersion": 1, "schemaMinor": 7, "projectId": "p-minor", "revision": 2, "fieldFromMinor7": { "x": 1 },
+            "sources": [ { "sourceId": "src-1", "mediaToken": "m", "probeExtra": true, "probe": { "durationUs": 10000000, "width": 1280, "height": 720, "rotation": 0, "fps": 30.0, "videoCodec": "video/avc", "hasAudio": false, "container": "mp4" } } ],
+            "timeline": { "clips": [ { "clipId": "clip-2", "sourceId": "src-1", "inUs": 0, "outUs": 3000000, "label": "intro" } ] },
+            "masks": [], "tracking": []
+          },
+          "expect": { "result": "APPLIED", "revision": 2, "clips": 1, "masks": 0 }
+        }
+      ]
+    },
+    {
+      "id": "snapshot.future_major_payload.rejected", "from": "EMPTY",
+      "steps": [ { "command": "RESTORE_SNAPSHOT", "schemaVersion": 1, "payload": { "schemaVersion": 2, "projectId": "p-future" }, "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } } ]
+    },
+    {
+      "id": "snapshot.future_major_envelope.rejected", "from": "EMPTY",
+      "steps": [ { "command": "RESTORE_SNAPSHOT", "schemaVersion": 2, "payload": { "schemaVersion": 2, "schemaMinor": 0, "projectId": "p-future" }, "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } } ]
+    },
+    {
+      "id": "snapshot.malformed.rejected", "from": "EMPTY",
+      "steps": [ { "command": "RESTORE_SNAPSHOT", "schemaVersion": 1, "json": "{not json", "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ]
+    },
+    {
+      "id": "snapshot.synthetic_v0_migrated", "from": "EMPTY",
+      "steps": [
+        {
+          "command": "RESTORE_SNAPSHOT", "schemaVersion": 0,
+          "payload": {
+            "projectId": "p-v0", "revision": 3,
+            "sources": [ { "sourceId": "src-1", "mediaToken": "m", "probe": { "durationUs": 10000000, "width": 1280, "height": 720 } } ],
+            "timeline": { "clips": [ { "clipId": "clip-2", "sourceId": "src-1", "inUs": 0, "outUs": 3000000 } ] },
+            "masks": [ { "maskId": "mask-3", "type": "FACE", "rangeUs": [0, 2000000], "keyframes": [ { "atUs": 0, "region": { "x": 0.4, "y": 0.4, "width": 0.2, "height": 0.2 } } ] } ],
+            "tracking": [ { "maskId": "mask-3", "status": "COMPLETED", "requestId": "r-1", "progress": 1.0,
+              "coverage": [ { "startUs": 0, "endUs": 1000000, "state": "TRACKED" }, { "startUs": 1000000, "endUs": 2000000, "state": "LOST", "accepted": true } ] } ]
+          },
+          "expect": { "result": "APPLIED", "revision": 3, "clips": 1, "masks": 1, "acceptedRanges": 1 }
+        }
+      ]
+    },
     { "id": "snapshot.future_major.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "RESTORE_FUTURE_SNAPSHOT", "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } } ] },
     { "id": "candidates.inside_timeline.found", "from": "READY_WITH_CLIP", "steps": [ { "command": "DETECT_CANDIDATES", "atUs": 1000000, "expect": { "result": "APPLIED", "phase": "READY" } } ] },
     { "id": "candidates.outside_timeline.rejected", "from": "READY_WITH_CLIP", "steps": [ { "command": "DETECT_CANDIDATES", "atUs": 10000000, "expect": { "result": "REJECTED", "code": "INVALID_ARGUMENT" } } ] },

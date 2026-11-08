@@ -544,15 +544,38 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             controller: _c.sheets,
             child: ColoredBox(
               color: t.colors.playerCanvas,
-              child: LayoutBuilder(
-                builder: (context, c) =>
-                    _layers(context, Size(c.maxWidth, c.maxHeight)),
+              // TEST-R5 R5-01b: the hide timer pauses while any finger is
+              // on the player and restarts when the last one lifts.
+              child: Listener(
+                behavior: HitTestBehavior.translucent,
+                onPointerDown: (e) => _touch(e.pointer, true),
+                onPointerUp: (e) => _touch(e.pointer, false),
+                onPointerCancel: (e) => _touch(e.pointer, false),
+                child: LayoutBuilder(
+                  builder: (context, c) =>
+                      _layers(context, Size(c.maxWidth, c.maxHeight)),
+                ),
               ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  final Set<int> _pointers = {};
+
+  /// Keeps the seek bar's state (an open drag) when the controls tree
+  /// changes shape mid-gesture (TEST-R5 R5-01b).
+  final GlobalKey _seekBarKey = GlobalKey(debugLabel: 'vk-seek-bar');
+
+  void _touch(int pointer, bool down) {
+    if (down) {
+      _pointers.add(pointer);
+    } else {
+      _pointers.remove(pointer);
+    }
+    _c.autoHide.setTouching(_pointers.isNotEmpty);
   }
 
   Widget _layers(BuildContext context, Size size) {
@@ -1071,6 +1094,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     );
     final seekBar = isVideo
         ? VkSeekBar(
+            key: _seekBarKey,
             positionUs: position,
             durationUs: duration,
             bufferedUs: st.bufferedUs,

@@ -84,6 +84,25 @@ class AutoHidePolicy extends ChangeNotifier {
   /// Shows controls (host handle).
   void show() => kick();
 
+  bool _touching = false;
+
+  /// Whether a finger is on the player.
+  bool get touching => _touching;
+
+  /// TEST-R5 R5-01b: while a finger is on the player (any drag, including
+  /// one the seek bar lost to a rebuild) the hide timer is paused; lifting
+  /// it restarts the full delay. Unlike a blocker this neither shows the
+  /// controls nor refuses a hide (a tap still toggles them).
+  void setTouching(bool touching) {
+    if (_touching == touching) return;
+    _touching = touching;
+    if (touching) {
+      _timer?.cancel();
+    } else if (_visible) {
+      _schedule();
+    }
+  }
+
   /// Hides controls (a tap on the picture); returns whether they were
   /// hidden. "Not playing" only stops the automatic timer: a paused video or
   /// a static image (which never plays) can still be hidden by the user
@@ -98,9 +117,9 @@ class AutoHidePolicy extends ChangeNotifier {
 
   void _schedule() {
     _timer?.cancel();
-    if (blocked || _disposed) return;
+    if (blocked || _touching || _disposed) return;
     _timer = Timer(delay, () {
-      if (!blocked) _setVisible(false);
+      if (!blocked && !_touching) _setVisible(false);
     });
   }
 

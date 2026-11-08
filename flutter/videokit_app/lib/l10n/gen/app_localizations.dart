@@ -784,11 +784,17 @@ abstract class AppLocalizations {
   /// **'删除工程'**
   String get recentProjectDelete;
 
-  /// 恢复工程失败（restoreEditProject 拒绝）。
+  /// 恢复工程失败（restoreEditProject 拒绝，非版本原因）。
   ///
   /// In zh, this message translates to:
-  /// **'无法打开这个工程：格式版本过新或文件已损坏'**
+  /// **'无法打开这个工程：文件已损坏'**
   String get recentProjectRestoreFailed;
+
+  /// 恢复工程失败：UNSUPPORTED_SNAPSHOT_VERSION（M4-A2）。工程保留在列表中。
+  ///
+  /// In zh, this message translates to:
+  /// **'这个工程由更新版本的应用保存，请更新后再打开'**
+  String get recentProjectTooNew;
 
   /// 打开超时或打开过程中播放组件被释放（TEST-R2 R2-03）。
   ///

@@ -392,6 +392,41 @@ void main() {
       expect(Timeline.empty().durationUs, 0);
     });
 
+    test('04A E4: TimeRangeUs, MaskTrack.acceptedRanges, nullable probe '
+        'and video codec', () {
+      const r = TimeRangeUs(500000, 1000000);
+      expect(r.durationUs, 500000);
+      expect(r.isValid, isTrue);
+      expect(const TimeRangeUs(5, 5).isValid, isFalse);
+      expect(r.contains(500000), isTrue);
+      expect(r.contains(1000000), isFalse, reason: 'half open');
+      expect(r.covers(600000, 900000), isTrue);
+      expect(r.covers(400000, 900000), isFalse);
+      expectValueSemantics(
+        r,
+        const TimeRangeUs(500000, 1000000),
+        const TimeRangeUs(0, 1000000),
+      );
+      final m = MaskTrack(
+        maskId: 'm',
+        type: MaskType.face,
+        startUs: 0,
+        endUs: 2000000,
+      );
+      expect(m.acceptedRanges, isEmpty);
+      final accepted = m.copyWith(acceptedRanges: const [r]);
+      expect(accepted.isAccepted(600000, 900000), isTrue);
+      expect(accepted.isAccepted(0, 900000), isFalse);
+      expect(accepted == m, isFalse);
+      expect(accepted.copyWith(), accepted);
+      const p = SourceProbe(durationUs: 1, width: 2, height: 3);
+      expect(p.videoCodec, isNull);
+      expect(p.copyWith(videoCodec: 'video/avc').copyWith(videoCodec: null), p);
+      const s = EditSource(sourceId: 's', mediaToken: 't');
+      expect(s.probe, isNull);
+      expect(s.copyWith(probe: p).copyWith(probe: null), s);
+    });
+
     test('MaskTrack.regionAt interpolates linearly and holds at ends', () {
       const a = MaskRegion(x: 0, y: 0, width: 0.2, height: 0.2);
       const b = MaskRegion(x: 0.4, y: 0.2, width: 0.4, height: 0.2);

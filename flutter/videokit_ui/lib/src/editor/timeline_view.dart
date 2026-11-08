@@ -208,7 +208,7 @@ class _TimelineViewState extends State<TimelineView> {
       }
       _haptic(snapped);
     } else {
-      final maxOut = src?.probe.durationUs ?? clip.outUs;
+      final maxOut = src?.probe?.durationUs ?? clip.outUs;
       outUs = (clip.outUs + deltaUs).clamp(clip.inUs + minUs, maxOut);
       final edge = clipStart + (outUs - clip.inUs);
       final snapped = _c.scale.snap(edge, _snapTargets(clip.clipId), _snapPx);

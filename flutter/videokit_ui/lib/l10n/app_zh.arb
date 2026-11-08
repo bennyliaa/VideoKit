@@ -428,6 +428,8 @@
   "@concatDiffRotation": { "description": "转码原因：旋转方向不同。" },
   "concatDiffOther": "有视频无法直接拼接",
   "@concatDiffOther": { "description": "转码原因：工程标记了不能直接拼接的视频。" },
+  "concatDiffProbeIncomplete": "有视频的编码、尺寸或帧率未知",
+  "@concatDiffProbeIncomplete": { "description": "转码原因：探测信息不完整（PROBE_INCOMPLETE，04A E3/E4）。" },
   "estimateLine": "预计 {duration} · 约 {size}",
   "@estimateLine": { "description": "预计输出时长与大小。", "placeholders": { "duration": { "type": "String" }, "size": { "type": "String" } } },
   "estimateDurationOnly": "预计 {duration} · 大小无法预估",

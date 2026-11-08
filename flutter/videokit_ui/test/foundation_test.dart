@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_api/videokit_api.dart';
+import 'package:videokit_ui/src/foundation/auto_hide.dart';
 import 'package:videokit_ui/src/foundation/command_dispatcher.dart';
 import 'package:videokit_ui/src/foundation/selector.dart';
 import 'package:videokit_ui/videokit_ui.dart';
@@ -326,5 +327,23 @@ void main() {
       expect(await end, const Executed());
       disp.dispose();
     });
+  });
+
+  test('R5-01b: AutoHidePolicy.setTouching pauses the timer without showing '
+      'or refusing a hide', () async {
+    final p = AutoHidePolicy(delay: const Duration(milliseconds: 50));
+    addTearDown(p.dispose);
+    p.setTouching(true);
+    await Future<void>.delayed(const Duration(milliseconds: 120));
+    expect(p.visible, isTrue, reason: 'timer paused');
+    expect(p.hide(), isTrue, reason: 'a tap may still hide');
+    p.setTouching(false);
+    expect(p.visible, isFalse, reason: 'touching does not show');
+    p.show();
+    p
+      ..setTouching(true)
+      ..setTouching(false);
+    await Future<void>.delayed(const Duration(milliseconds: 120));
+    expect(p.visible, isFalse, reason: 'timer restarted on release');
   });
 }

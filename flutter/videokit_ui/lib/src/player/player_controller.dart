@@ -193,7 +193,11 @@ class PlayerController extends ChangeNotifier {
     dragUs = null;
     seekPreview.cancel();
     autoHide.setBlocker(AutoHideBlocker.dragging, false);
-    unawaited(dispatcher.seekEnd(us));
+    // TEST-R5 R5-01a (14 §5): the release commits a frame-exact seek to
+    // the release point; previews during the drag stay `preview`. seekEnd
+    // drops any pending throttled preview first, and SeekTo is never
+    // merged away by the dispatcher, so this last seek is always sent.
+    unawaited(dispatcher.seekEnd(us, mode: SeekMode.exact));
     notifyListeners();
   }
 

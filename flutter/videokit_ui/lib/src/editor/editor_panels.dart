@@ -51,7 +51,23 @@ enum ConcatDifference {
 
   /// The project flagged the source as not concatenable as is.
   other,
+
+  /// A source has no probe, or its probe lacks the video codec, size,
+  /// frame rate, or the audio codec of a source with audio (04A E3/E4,
+  /// Kotlin `ConcatReason.PROBE_INCOMPLETE`).
+  probeIncomplete,
 }
+
+/// Whether [p] can be compared for fast concatenation (same rule as Kotlin
+/// `ConcatRules`: video codec, size and frame rate known; the audio codec
+/// known when the source has audio).
+bool vkProbeComplete(SourceProbe? p) =>
+    p != null &&
+    p.videoCodec != null &&
+    p.width > 0 &&
+    p.height > 0 &&
+    p.fps != null &&
+    !(p.hasAudio && p.audioCodec == null);
 
 /// Multi-input compatibility (14 §5.6, design page 16): all inputs equal
 /// in size, frame rate, codec and rotation → fast concat possible. M4: the
@@ -80,19 +96,30 @@ final class ConcatCompatibility {
     final ref = sources.first.probe;
     final differences = <ConcatDifference>{};
     final mismatched = <String>[];
-    for (final src in sources.skip(1)) {
-      final p = src.probe;
-      final diff = {
-        if (p.width != ref.width || p.height != ref.height)
-          ConcatDifference.resolution,
-        if (p.fps != ref.fps) ConcatDifference.frameRate,
-        if (p.videoCodec != ref.videoCodec) ConcatDifference.codec,
-        if (p.rotationDeg != ref.rotationDeg) ConcatDifference.rotation,
-        if (src.mismatch) ConcatDifference.other,
-      };
-      if (diff.isNotEmpty) {
+    // 04A E3/E4: a missing probe value means the inputs cannot be compared:
+    // transcode with PROBE_INCOMPLETE.
+    for (final src in sources) {
+      if (!vkProbeComplete(src.probe)) {
         mismatched.add(src.sourceId);
-        differences.addAll(diff);
+        differences.add(ConcatDifference.probeIncomplete);
+      }
+    }
+    if (ref != null) {
+      for (final src in sources.skip(1)) {
+        final p = src.probe;
+        if (p == null) continue;
+        final diff = {
+          if (p.width != ref.width || p.height != ref.height)
+            ConcatDifference.resolution,
+          if (p.fps != ref.fps) ConcatDifference.frameRate,
+          if (p.videoCodec != ref.videoCodec) ConcatDifference.codec,
+          if (p.rotationDeg != ref.rotationDeg) ConcatDifference.rotation,
+          if (src.mismatch) ConcatDifference.other,
+        };
+        if (diff.isNotEmpty) {
+          if (!mismatched.contains(src.sourceId)) mismatched.add(src.sourceId);
+          differences.addAll(diff);
+        }
       }
     }
     final fast = fastConcatCapable && mismatched.isEmpty;
@@ -248,6 +275,7 @@ class ConcatPathInfo extends StatelessWidget {
                 ConcatDifference.codec => 'concatDiffCodec',
                 ConcatDifference.rotation => 'concatDiffRotation',
                 ConcatDifference.other => 'concatDiffOther',
+                ConcatDifference.probeIncomplete => 'concatDiffProbeIncomplete',
               }),
         ],
       };
@@ -602,7 +630,9 @@ class ClipOrderSheet extends StatelessWidget {
                                   color: t.colors.textPrimary,
                                 ),
                               ),
-                              if (p != null)
+                              // 04A E4: a probe without codec / size / frame
+                              // rate shows no meta line (nothing guessed).
+                              if (p != null && vkProbeComplete(p))
                                 Text(
                                   s.sourceMeta(
                                     p.width,

@@ -133,8 +133,9 @@ class EditDemoPageState extends State<EditDemoPage>
         sourceRef: const DemoSourceRef('normal'),
       ),
     );
-    final probe = p.state.value.timeline.sourceById(src.sourceId)!.probe;
-    // Demo clips use the first 20 s of every source.
+    final probe = p.state.value.timeline.sourceById(src.sourceId)?.probe;
+    // Demo clips use the first 20 s of every source (none while unprobed).
+    if (probe == null || probe.durationUs <= 0) return;
     await p.apply(
       AddClip(
         src.sourceId,

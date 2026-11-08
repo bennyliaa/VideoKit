@@ -438,7 +438,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get recentProjectDelete => '删除工程';
 
   @override
-  String get recentProjectRestoreFailed => '无法打开这个工程：格式版本过新或文件已损坏';
+  String get recentProjectRestoreFailed => '无法打开这个工程：文件已损坏';
+
+  @override
+  String get recentProjectTooNew => '这个工程由更新版本的应用保存，请更新后再打开';
 
   @override
   String get openFailedTitle => '没有打开成功';

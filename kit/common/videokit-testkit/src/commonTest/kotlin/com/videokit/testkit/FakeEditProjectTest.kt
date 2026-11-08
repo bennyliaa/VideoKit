@@ -261,13 +261,14 @@ class FakeEditProjectTest {
             kit.restoreEditProject(SerializedEditProject(1, "{not json"), EditProjectConfig())
             fail("expected VideoKitException")
         } catch (expected: VideoKitException) {
-            assertTrue(expected.error.diagnostic!!.startsWith("SNAPSHOT_CORRUPT"))
+            assertEquals(ErrorCode.INVALID_ARGUMENT, expected.error.code)
+            assertTrue(expected.error.diagnostic!!.startsWith("SNAPSHOT_MALFORMED"))
         }
         try {
-            kit.restoreEditProject(SerializedEditProject(0, snapshot.json), EditProjectConfig())
+            kit.restoreEditProject(SerializedEditProject(2, snapshot.json), EditProjectConfig())
             fail("expected VideoKitException")
         } catch (expected: VideoKitException) {
-            assertEquals("UNSUPPORTED_SCHEMA_VERSION:0", expected.error.diagnostic)
+            assertEquals("UNSUPPORTED_SCHEMA_VERSION:2", expected.error.diagnostic)
         }
     }
 

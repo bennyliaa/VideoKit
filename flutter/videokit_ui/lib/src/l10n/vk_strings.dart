@@ -232,6 +232,7 @@ final class VkStrings {
     'concatDiffCodec': l10n.concatDiffCodec,
     'concatDiffRotation': l10n.concatDiffRotation,
     'concatDiffOther': l10n.concatDiffOther,
+    'concatDiffProbeIncomplete': l10n.concatDiffProbeIncomplete,
     'slotPlaceholderTitle': l10n.slotPlaceholderTitle,
     'slotPlaceholderDetail': l10n.slotPlaceholderDetail,
     'slotPlaceholderShort': l10n.slotPlaceholderShort,

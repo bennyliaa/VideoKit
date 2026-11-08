@@ -42,6 +42,11 @@ class ConcatPageState extends State<ConcatPage> {
   /// Restoring failed (shown instead of the editor).
   bool restoreFailed = false;
 
+  /// M4-A2: the snapshot is from a newer module schema
+  /// (`UNSUPPORTED_SNAPSHOT_VERSION`); the saved entry is kept so a newer
+  /// App can still open it.
+  bool restoreTooNew = false;
+
   /// ID under which the project is saved.
   late final String projectId = widget.restore?.id ?? _scope.projects.newId();
 
@@ -103,6 +108,9 @@ class ConcatPageState extends State<ConcatPage> {
           notAvailable = true;
         } else if (widget.restore != null) {
           restoreFailed = true;
+          restoreTooNew =
+              e is VideoKitException &&
+              e.error.code == ErrorCode.unsupportedSnapshotVersion;
         } else {
           openFailed = true;
         }
@@ -115,6 +123,11 @@ class ConcatPageState extends State<ConcatPage> {
       return;
     }
     setState(() => project = opened);
+    // M4-A2: restore migrated an older schema; save the migrated form so
+    // the entry is current from now on.
+    if (widget.restore?.needsMigration ?? false) {
+      unawaited(_scope.projects.save(projectId, opened));
+    }
   }
 
   /// "另存为" right before the export starts (REQ-APP-03 export part).
@@ -192,7 +205,9 @@ class ConcatPageState extends State<ConcatPage> {
               kind: StateViewKind.error,
               iconName: 'warning',
               titleText: a(
-                restoreFailed
+                restoreTooNew
+                    ? a.l.recentProjectTooNew
+                    : restoreFailed
                     ? a.l.recentProjectRestoreFailed
                     : a.l.openFailedTitle,
               ),

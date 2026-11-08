@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "videokit:spec/schema/edit-project.v1.json",
+  "title": "VideoKit edit project snapshot, schema 1.0",
+  "description": "Single source of the edit project snapshot (04A E2, 08 §2.1; M4-B1). The JSON text of SerializedEditProject.json. Both codecs (Kotlin timeline ProjectJson, Dart FakeEditProjectCodec) are tested against this file. Rules that JSON Schema cannot express are in 'x-rules'. Times are microseconds unless named in ms; ranges are always objects {startUs, endUs}, half open [startUs, endUs).",
+  "x-version": { "major": 1, "minor": 0 },
+  "x-rules": [
+    "W1 Writers write every property defined here (null where nullable), in any order, and nothing else; schemaVersion = 1, schemaMinor = 0.",
+    "W2 Runtime state is never written: tracking requestId, projectRevision, kind and progress; the source probe mismatch flag; the phase; the undo/redo history.",
+    "W3 A tracking run in progress is written as CANCELLED (it restarts after restore, 08 §6); writers never write RUNNING.",
+    "R1 The version is the payload's schemaVersion; when the payload has none, the envelope's SerializedEditProject.schemaVersion. A version above the reader's major (checked on the envelope too) is rejected with UNSUPPORTED_SNAPSHOT_VERSION. A lower version is migrated step by step; a version without a migration path is rejected with UNSUPPORTED_SNAPSHOT_VERSION.",
+    "R2 Any schemaMinor of the same major is readable; unknown properties are ignored at every level (minor additions).",
+    "R3 A missing optional property reads as its 'default'. A missing 'required' property, a wrong type, or text that is not a JSON object is rejected with INVALID_ARGUMENT (04A V7); diagnostics never contain snapshot content.",
+    "R4 Unknown enum values (from a newer minor) read as the enum's 'x-unknown' value.",
+    "R5 A restored project has no undo/redo history; its revision is the snapshot's; ids generated after restore continue after the highest numeric id suffix in the snapshot.",
+    "R6 RUNNING read from a snapshot (only hand-made data) is treated as CANCELLED.",
+    "M0 Schema 0 is synthetic (no build wrote it) and exists to test the migration framework: v1 without schemaVersion, schemaMinor, createdAt, updatedAt; mask rangeUs and acceptedRanges items may be arrays [startUs, endUs]; coverage items carry 'state' instead of 'quality' and an 'accepted' flag; tracking entries may carry runtime fields. v0 to v1: ranges become objects, coverage items with accepted = true are appended to the mask's acceptedRanges, 'state' becomes 'quality', runtime fields are dropped, createdAt / updatedAt default to 0."
+  ],
+  "type": "object",
+  "required": ["schemaVersion", "projectId"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1, "description": "Major version." },
+    "schemaMinor": { "type": "integer", "minimum": 0, "default": 0, "description": "Minor version (04A E2 (b))." },
+    "projectId": { "type": "string" },
+    "revision": { "type": "integer", "minimum": 0, "default": 0 },
+    "createdAt": { "type": "integer", "minimum": 0, "default": 0, "description": "Epoch milliseconds." },
+    "updatedAt": { "type": "integer", "minimum": 0, "default": 0, "description": "Epoch milliseconds." },
+    "exportPresetId": { "type": ["string", "null"], "default": null, "description": "Last used export preset (ORIGINAL | P1080 | P720), or null." },
+    "sources": { "type": "array", "items": { "$ref": "#/$defs/source" }, "default": [] },
+    "timeline": {
+      "type": "object",
+      "default": { "clips": [] },
+      "properties": {
+        "clips": { "type": "array", "items": { "$ref": "#/$defs/clip" }, "default": [], "description": "Playback order." }
+      }
+    },
+    "masks": { "type": "array", "items": { "$ref": "#/$defs/mask" }, "default": [] },
+    "tracking": { "type": "array", "items": { "$ref": "#/$defs/trackingRun" }, "default": [] }
+  },
+  "$defs": {
+    "range": {
+      "type": "object",
+      "required": ["startUs", "endUs"],
+      "properties": {
+        "startUs": { "type": "integer" },
+        "endUs": { "type": "integer" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["sourceId", "mediaToken"],
+      "properties": {
+        "sourceId": { "type": "string" },
+        "mediaToken": { "type": "string" },
+        "displayName": { "type": ["string", "null"], "default": null },
+        "probe": { "oneOf": [{ "$ref": "#/$defs/probe" }, { "type": "null" }], "default": null, "description": "null while not probed." }
+      }
+    },
+    "probe": {
+      "type": "object",
+      "properties": {
+        "durationUs": { "type": "integer", "minimum": 0, "default": 0 },
+        "width": { "type": "integer", "minimum": 0, "default": 0 },
+        "height": { "type": "integer", "minimum": 0, "default": 0 },
+        "rotation": { "type": "integer", "default": 0, "description": "Rotation metadata in degrees." },
+        "fps": { "type": ["number", "null"], "default": null },
+        "videoCodec": { "type": ["string", "null"], "default": null, "description": "MIME type; null or empty when unknown." },
+        "audioCodec": { "type": ["string", "null"], "default": null },
+        "hasAudio": { "type": "boolean", "default": false }
+      }
+    },
+    "clip": {
+      "type": "object",
+      "required": ["clipId", "sourceId", "inUs", "outUs"],
+      "properties": {
+        "clipId": { "type": "string" },
+        "sourceId": { "type": "string" },
+        "inUs": { "type": "integer", "minimum": 0, "description": "Source time." },
+        "outUs": { "type": "integer", "minimum": 0, "description": "Source time, exclusive." }
+      }
+    },
+    "region": {
+      "type": "object",
+      "required": ["x", "y", "width", "height"],
+      "description": "Normalized 0..1 to the rotation-corrected source frame; (x, y) is the top-left corner before rotation around the center.",
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number" },
+        "height": { "type": "number" },
+        "rotation": { "type": "number", "default": 0, "description": "Degrees around the region center." }
+      }
+    },
+    "mask": {
+      "type": "object",
+      "required": ["maskId", "type", "rangeUs"],
+      "properties": {
+        "maskId": { "type": "string" },
+        "type": { "enum": ["MANUAL", "FACE", "OBJECT"], "x-unknown": "MANUAL" },
+        "style": { "enum": ["MOSAIC", "BLUR"], "default": "MOSAIC", "x-unknown": "MOSAIC" },
+        "strength": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.5 },
+        "enabled": { "type": "boolean", "default": true },
+        "rangeUs": { "$ref": "#/$defs/range", "description": "Active range on the timeline." },
+        "keyframes": { "type": "array", "items": { "$ref": "#/$defs/keyframe" }, "default": [], "description": "Sorted by atUs." },
+        "acceptedRanges": { "type": "array", "items": { "$ref": "#/$defs/range" }, "default": [], "description": "Ranges the user accepted although tracking did not cover them (09 §4)." }
+      }
+    },
+    "keyframe": {
+      "type": "object",
+      "required": ["atUs", "region"],
+      "properties": {
+        "atUs": { "type": "integer", "description": "Timeline time." },
+        "region": { "$ref": "#/$defs/region" },
+        "source": { "enum": ["USER", "TRACKER"], "default": "USER", "x-unknown": "USER" },
+        "state": { "oneOf": [{ "$ref": "#/$defs/trackingQuality" }, { "type": "null" }], "default": null, "description": "Quality of a tracker keyframe; null for user keyframes." }
+      }
+    },
+    "trackingQuality": {
+      "description": "Tracking quality shared by keyframe 'state' and coverage 'quality' (04A E2 5, 09 §1, §3, §4). NOT_ANALYZED: frames not analysed (never counts as covered). LOST, AMBIGUOUS and NOT_ANALYZED block export unless corrected or accepted.",
+      "enum": ["TRACKED", "LOW_CONFIDENCE", "AMBIGUOUS", "LOST", "NOT_ANALYZED"],
+      "x-unknown": "NOT_ANALYZED"
+    },
+    "trackingRun": {
+      "type": "object",
+      "required": ["maskId", "status"],
+      "properties": {
+        "maskId": { "type": "string" },
+        "status": { "enum": ["COMPLETED", "CANCELLED", "FAILED"], "x-readerAlsoAccepts": ["RUNNING"], "x-unknown": "FAILED" },
+        "coverage": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object",
+            "required": ["startUs", "endUs", "quality"],
+            "properties": {
+              "startUs": { "type": "integer" },
+              "endUs": { "type": "integer" },
+              "quality": { "$ref": "#/$defs/trackingQuality" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

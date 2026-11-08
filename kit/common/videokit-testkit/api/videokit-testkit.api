@@ -125,8 +125,8 @@ public final class com/videokit/testkit/FakeScenario {
 	public static final field DEMO_OUTPUT_WARNING Ljava/lang/String;
 	public static final field DEMO_TOKEN_PREFIX Ljava/lang/String;
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;JJLcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;JJLcom/videokit/testkit/BufferingSpec;ZZZLjava/lang/Long;Ljava/lang/Long;ZLjava/util/Set;Ljava/util/List;JLcom/videokit/testkit/ExportFailureSpec;JJ)V
-	public synthetic fun <init> (Ljava/lang/String;JJLcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;JJLcom/videokit/testkit/BufferingSpec;ZZZLjava/lang/Long;Ljava/lang/Long;ZLjava/util/Set;Ljava/util/List;JLcom/videokit/testkit/ExportFailureSpec;JJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;JJLcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;JJLcom/videokit/testkit/BufferingSpec;ZZZLjava/lang/Long;Ljava/lang/Long;ZLjava/util/Set;Ljava/util/List;JLcom/videokit/testkit/ExportFailureSpec;JJLjava/lang/Long;)V
+	public synthetic fun <init> (Ljava/lang/String;JJLcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;JJLcom/videokit/testkit/BufferingSpec;ZZZLjava/lang/Long;Ljava/lang/Long;ZLjava/util/Set;Ljava/util/List;JLcom/videokit/testkit/ExportFailureSpec;JJLjava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun buffering (JJ)Lcom/videokit/testkit/FakeScenario;
 	public static synthetic fun buffering$default (Lcom/videokit/testkit/FakeScenario;JJILjava/lang/Object;)Lcom/videokit/testkit/FakeScenario;
 	public final fun component1 ()Ljava/lang/String;
@@ -143,6 +143,7 @@ public final class com/videokit/testkit/FakeScenario {
 	public final fun component2 ()J
 	public final fun component20 ()J
 	public final fun component21 ()J
+	public final fun component22 ()Ljava/lang/Long;
 	public final fun component3 ()J
 	public final fun component4 ()Lcom/videokit/api/Size;
 	public final fun component5 ()Ljava/util/List;
@@ -150,8 +151,8 @@ public final class com/videokit/testkit/FakeScenario {
 	public final fun component7 ()J
 	public final fun component8 ()J
 	public final fun component9 ()Lcom/videokit/testkit/BufferingSpec;
-	public final fun copy (Ljava/lang/String;JJLcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;JJLcom/videokit/testkit/BufferingSpec;ZZZLjava/lang/Long;Ljava/lang/Long;ZLjava/util/Set;Ljava/util/List;JLcom/videokit/testkit/ExportFailureSpec;JJ)Lcom/videokit/testkit/FakeScenario;
-	public static synthetic fun copy$default (Lcom/videokit/testkit/FakeScenario;Ljava/lang/String;JJLcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;JJLcom/videokit/testkit/BufferingSpec;ZZZLjava/lang/Long;Ljava/lang/Long;ZLjava/util/Set;Ljava/util/List;JLcom/videokit/testkit/ExportFailureSpec;JJILjava/lang/Object;)Lcom/videokit/testkit/FakeScenario;
+	public final fun copy (Ljava/lang/String;JJLcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;JJLcom/videokit/testkit/BufferingSpec;ZZZLjava/lang/Long;Ljava/lang/Long;ZLjava/util/Set;Ljava/util/List;JLcom/videokit/testkit/ExportFailureSpec;JJLjava/lang/Long;)Lcom/videokit/testkit/FakeScenario;
+	public static synthetic fun copy$default (Lcom/videokit/testkit/FakeScenario;Ljava/lang/String;JJLcom/videokit/api/Size;Ljava/util/List;Ljava/util/List;JJLcom/videokit/testkit/BufferingSpec;ZZZLjava/lang/Long;Ljava/lang/Long;ZLjava/util/Set;Ljava/util/List;JLcom/videokit/testkit/ExportFailureSpec;JJLjava/lang/Long;ILjava/lang/Object;)Lcom/videokit/testkit/FakeScenario;
 	public final fun corrupt (J)Lcom/videokit/testkit/FakeScenario;
 	public static synthetic fun corrupt$default (Lcom/videokit/testkit/FakeScenario;JILjava/lang/Object;)Lcom/videokit/testkit/FakeScenario;
 	public final fun disconnect (J)Lcom/videokit/testkit/FakeScenario;
@@ -171,6 +172,7 @@ public final class com/videokit/testkit/FakeScenario {
 	public final fun getExportFailure ()Lcom/videokit/testkit/ExportFailureSpec;
 	public final fun getExportStageDelayMs ()J
 	public final fun getHostActionTimeoutIds ()Ljava/util/Set;
+	public final fun getKeyframeIntervalUs ()Ljava/lang/Long;
 	public final fun getLoadDelayMs ()J
 	public final fun getName ()Ljava/lang/String;
 	public final fun getResourceExhausted ()Z

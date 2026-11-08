@@ -9,6 +9,8 @@ kotlin {
         commonMain.dependencies {
             api(project(":videokit-api"))
             api(project(":videokit-core"))
+            // M4-B1: the Fake edit project writes and migrates snapshots with the timeline codec.
+            implementation(project(":videokit-timeline"))
             api(libs.kotlinx.coroutines.core)
         }
         commonTest.dependencies {

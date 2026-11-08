@@ -106,6 +106,9 @@ public object VideoKitContractSuite {
         "faults.edit_commands",
         "snapshot.edit_round_trip",
         "snapshot.future_major_rejected",
+        "faults.edit_clip_commands",
+        "snapshot.edit_restore_without_history",
+        "snapshot.edit_v0_migrated",
     )
 
     // ------------------------------------------------------------------ version & capabilities
@@ -645,11 +648,65 @@ public object VideoKitContractSuite {
             expect(project.undo() is EditCommandResult.Applied && project.state.value.timeline.clips.isEmpty()) { "undo failed" }
             expect(project.redo() is EditCommandResult.Applied && project.state.value.timeline.clips.size == 1) { "redo failed" }
         },
+        case(
+            "faults.edit_clip_commands",
+            ContractGroup.FAULT_MAPPING,
+            "split, move and trim keep the timeline consistent; split names the new clip",
+        ) {
+            val project = projectWithClip("edit-clips")
+            val first = project.state.value.timeline.clips.single()
+            val total = project.state.value.timeline.durationUs
+            val split = project.apply(VideoKitEditCommand.SplitAt(first.clipId, first.inUs + first.durationUs / 2))
+            val second = (split as? EditCommandResult.Applied)?.createdId ?: throw ContractViolation("split returned $split")
+            val clips = project.state.value.timeline.clips
+            expectEquals(listOf(first.clipId, second), clips.map { it.clipId }, "clips after split")
+            expectEquals(total, project.state.value.timeline.durationUs, "duration after split")
+            expectEquals(clips[0].outUs, clips[1].inUs, "split point")
+            expect(project.apply(VideoKitEditCommand.MoveClip(second, 0)) is EditCommandResult.Applied) { "move rejected" }
+            expectEquals(listOf(second, first.clipId), project.state.value.timeline.clips.map { it.clipId }, "clips after move")
+            val trim = project.apply(VideoKitEditCommand.TrimClip(first.clipId, first.inUs, first.inUs + 1_000L))
+            expect(trim is EditCommandResult.Applied) {
+                "trim rejected"
+            }
+            expectEquals(1_000L, project.state.value.timeline.clips.first { it.clipId == first.clipId }.durationUs, "trimmed duration")
+            val revision = project.state.value.revision
+            expect(project.apply(VideoKitEditCommand.SplitAt(first.clipId, first.inUs)) is EditCommandResult.Rejected) {
+                "split at the in point accepted"
+            }
+            expectEquals(revision, project.state.value.revision, "revision after a rejected command")
+        },
     )
 
     // ------------------------------------------------------------------ snapshots
 
     private fun snapshotCases() = listOf(
+        case(
+            "snapshot.edit_restore_without_history",
+            ContractGroup.SNAPSHOT_COMPATIBILITY,
+            "a restored project keeps its revision and starts without undo history",
+        ) {
+            val project = projectWithClip("edit-history")
+            val snapshot = project.snapshot()
+            val restored = kit.restoreEditProject(snapshot, EditProjectConfig())
+            expectEquals(project.state.value.revision, restored.state.value.revision, "revision")
+            expect(!restored.state.value.canUndo && !restored.state.value.canRedo) { "history restored: ${restored.state.value}" }
+            expect(restored.undo() is EditCommandResult.Rejected) { "undo after restore accepted" }
+        },
+        case(
+            "snapshot.edit_v0_migrated",
+            ContractGroup.SNAPSHOT_COMPATIBILITY,
+            "a schema 0 snapshot is migrated on restore (M4-B1 example migration)",
+        ) {
+            val restored = kit.restoreEditProject(SerializedEditProject(0, V0_SNAPSHOT), EditProjectConfig())
+            val state = restored.state.value
+            expectEquals(listOf("v0-source"), state.timeline.sources.map { it.mediaToken }, "sources")
+            expectEquals(90, state.timeline.sources.single().probe?.rotationDeg, "probe rotation")
+            expectEquals(listOf(0L to 2_000_000L), state.timeline.clips.map { it.inUs to it.outUs }, "clips")
+            expectEquals(TimeRangeUs(0L, 1_000_000L), state.masks.single().rangeUs, "mask range")
+            expectEquals(listOf(TimeRangeUs(500_000L, 1_000_000L)), state.masks.single().acceptedRangesUs, "accepted ranges")
+            expectEquals(7L, state.revision, "revision")
+            expectEquals(SerializedEditProject.CURRENT_SCHEMA_VERSION, restored.snapshot().schemaVersion, "written schema")
+        },
         case("snapshot.playback_round_trip", ContractGroup.SNAPSHOT_COMPATIBILITY, "a playback snapshot restored with bind round-trips") {
             val probe = boundVideo("snapshot-probe")
             val secondTrack =
@@ -742,6 +799,18 @@ public object VideoKitContractSuite {
         expect(result is EditCommandResult.Applied) { "AddClip returned $result" }
         return project
     }
+
+    // Synthetic schema 0 (rule M0 of spec/schema/edit-project.v1.json): no version fields, mask ranges as arrays,
+    // coverage `state` and `accepted` flags, runtime tracking fields.
+    private const val V0_SNAPSHOT: String =
+        """{"projectId":"v0-project","revision":7,""" +
+            """"sources":[{"sourceId":"src-1","mediaToken":"v0-source","probe":{"durationUs":5000000,"width":640,"height":360,""" +
+            """"rotation":90,"fps":30.0,"videoCodec":"video/avc","hasAudio":false}}],""" +
+            """"timeline":{"clips":[{"clipId":"clip-2","sourceId":"src-1","inUs":0,"outUs":2000000}]},""" +
+            """"masks":[{"maskId":"mask-3","type":"FACE","rangeUs":[0,1000000],""" +
+            """"keyframes":[{"atUs":0,"region":{"x":0.1,"y":0.1,"width":0.2,"height":0.2}}]}],""" +
+            """"tracking":[{"maskId":"mask-3","status":"COMPLETED","requestId":"r-1","coverage":[""" +
+            """{"startUs":0,"endUs":500000,"state":"TRACKED"},{"startUs":500000,"endUs":1000000,"state":"LOST","accepted":true}]}]}"""
 
     private fun tagAction() = VideoKitHostAction(
         actionId = "tag",

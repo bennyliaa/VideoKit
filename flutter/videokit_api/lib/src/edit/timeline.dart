@@ -11,7 +11,7 @@ final class SourceProbe {
     required this.durationUs,
     required this.width,
     required this.height,
-    required this.videoCodec,
+    this.videoCodec,
     this.rotationDeg = 0,
     this.fps,
     this.audioCodec,
@@ -33,8 +33,8 @@ final class SourceProbe {
   /// Frame rate, if constant/known.
   final double? fps;
 
-  /// Video codec.
-  final String videoCodec;
+  /// Video codec MIME type; null when unknown (04A E4, like Kotlin).
+  final String? videoCodec;
 
   /// Audio codec.
   final String? audioCodec;
@@ -49,7 +49,7 @@ final class SourceProbe {
     int? height,
     int? rotationDeg,
     Object? fps = undefined,
-    String? videoCodec,
+    Object? videoCodec = undefined,
     Object? audioCodec = undefined,
     bool? hasAudio,
   }) => SourceProbe(
@@ -58,7 +58,7 @@ final class SourceProbe {
     height: height ?? this.height,
     rotationDeg: rotationDeg ?? this.rotationDeg,
     fps: pick<double?>(fps, this.fps),
-    videoCodec: videoCodec ?? this.videoCodec,
+    videoCodec: pick<String?>(videoCodec, this.videoCodec),
     audioCodec: pick<String?>(audioCodec, this.audioCodec),
     hasAudio: hasAudio ?? this.hasAudio,
   );
@@ -100,7 +100,7 @@ final class EditSource {
   const EditSource({
     required this.sourceId,
     required this.mediaToken,
-    required this.probe,
+    this.probe,
     this.displayName,
     this.mismatch = false,
   });
@@ -114,8 +114,8 @@ final class EditSource {
   /// Display name.
   final String? displayName;
 
-  /// Probe result.
-  final SourceProbe probe;
+  /// Probe result; null while not probed (04A E4, like Kotlin).
+  final SourceProbe? probe;
 
   /// Probe differs from the restored project record (needs user confirm).
   final bool mismatch;
@@ -125,13 +125,13 @@ final class EditSource {
     String? sourceId,
     String? mediaToken,
     Object? displayName = undefined,
-    SourceProbe? probe,
+    Object? probe = undefined,
     bool? mismatch,
   }) => EditSource(
     sourceId: sourceId ?? this.sourceId,
     mediaToken: mediaToken ?? this.mediaToken,
     displayName: pick<String?>(displayName, this.displayName),
-    probe: probe ?? this.probe,
+    probe: pick<SourceProbe?>(probe, this.probe),
     mismatch: mismatch ?? this.mismatch,
   );
 
