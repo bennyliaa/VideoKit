@@ -22,7 +22,7 @@
 | 项 | 决定 | 状态 | 说明 / 备选 |
 | --- | --- | --- | --- |
 | 播放器 | Media3 ExoPlayer | 已定 | 备选平台 MediaPlayer 能力不足（轨道选择、自定义数据源、效果），不采用 |
-| 视频/音频解码 | 系统 MediaCodec（Media3 `MediaCodecRenderer`），硬解优先、系统软解回退 | 已定 | 解码器选择与失败回退用 Media3 `DefaultRenderersFactory` 的解码器回退开关 |
+| 视频/音频解码 | 系统 MediaCodec（Media3 `MediaCodecRenderer`），硬解优先、系统软解回退 | 已定 | 解码器选择与失败回退用 Media3 `DefaultRenderersFactory` 的解码器回退开关。**不提供手动切换软/硬解码的入口**（用户 2026-11-08 决定：自动回退已能满足播放需要） |
 | 宿主随机读取 | 自定义 `HostDataSource : BaseDataSource`，在加载线程调用宿主 `readAt`（可取消桥接）；内存预读缓冲 | 待验证 S1 | 不使用磁盘缓存（隐私：不在 VideoKit 侧落盘媒体内容）。缓冲大小、预读策略由 S1 确定 |
 | Seek | `SeekParameters`：拖动中 `CLOSEST_SYNC`/`PREVIOUS_SYNC` 低成本预览，松手按请求精确 Seek；可用时启用 Media3 拖动优化模式（scrubbing mode） | 待验证 S1 | 大文件（2 GiB 以上）与慢速源下的 Seek 耗时由 S1 测得 |
 | 字幕 | Media3 内置解析：SRT、SSA/ASS（基础样式）、WebVTT、TTML、PGS、DVB；内嵌与外挂（外挂由宿主提供第二个源） | 已定 | ASS 高级特效（动画、复杂排版）不支持，能力报告标 `PARTIAL` |
