@@ -12,7 +12,7 @@
 2. **一套媒体框架**：播放、抽帧、剪辑、合成、导出统一用 AndroidX Media3（Apache-2.0）。预览和导出使用同一套效果实现，保证所见即所得。
 3. **缺口如实报告，不静默降级**：平台和 Media3 不支持的格式由能力报告返回 `UNSUPPORTED_*`，UI 给出原因。是否为缺口补充组件，由格式覆盖验证（S2）的数据决定。
 4. **FFmpeg 不进入 V1.0 主线**：只有 S2 证明存在需要补的缺口时，才作为**可选模块**单独做许可、专利和安全评审（第 3 节）。
-5. **高风险任务进程隔离**：导出编码、跟踪推理、任何自带原生解析代码在 `isolatedProcess` 中运行；播放在应用进程内（Media3 的解析在 Java/Kotlin 中，系统解码器运行在系统媒体进程）。
+5. **高风险任务进程隔离**：导出编码、跟踪推理、任何自带原生解析代码在独立进程中运行。**2026-11-07 用户决定（S4 方案 c1）**：导出使用同 uid、非隔离的独立进程 `:export`，不用 `isolatedProcess`，因为隔离进程中 MediaCodec 与系统媒体服务完全不可用（S4 第 4 次，SELinux 策略）。保留地址空间隔离（崩溃、内存耗尽、被杀不影响主进程与播放），放弃权限隔离；缓解：编解码原生代码运行在系统 media.codec/HAL 沙箱中，`:export` 进程内只有 Java 解封装与 MediaCodec 客户端。跟踪推理的进程形式随 S6 再定；播放在应用进程内（Media3 的解析在 Java/Kotlin 中，系统解码器运行在系统媒体进程）。
 6. **版本固定**：Media3 以 D1 已使用的 1.9.3 为基线；正式工程初始化时升级到当时最新稳定版并锁定，之后只在里程碑边界评估升级。
 
 ## 2. 逐项决定
@@ -109,7 +109,7 @@
 | 项 | 决定 | 状态 | 说明 |
 | --- | --- | --- | --- |
 | 播放 | 应用进程内 | 已定 | 系统解码器崩溃发生在系统媒体进程，表现为可恢复错误 |
-| 导出 | 独立 `isolatedProcess` Service；输入、输出经 `ParcelFileDescriptor` 由主进程代理传入（D1 `BrokerDataSource` / `FdOutputMuxer` 的做法） | 待验证 S4 | 宿主 `readAt` 源在主进程读取后经管道或共享内存传入。**S4 上机（2026-11-07，模拟器 API 31）发现隔离进程 worker 的两条约束**：(1) 禁止 `registerReceiver`。Media3 默认的 BandwidthMeter 和 NetworkTypeObserver 会注册广播接收器，worker 启动即崩溃；用受限 Context 已解决。(2) 不能访问音频系统服务（`media.audio_flinger`）。Transformer 内部的 ExoPlayer 初始化时生成音频会话 id（`Util.generateAudioSessionId`），在 `ServiceManager` 上永久阻塞，不抛异常。因此导出 worker 不得经过 ExoPlayer 的音频初始化。(3) 第 3 次上机（14:07）：平台 `MediaExtractor` 同样阻塞，它要查找系统的 `media.extractor` 服务。结论是隔离进程中凡是经 ServiceManager 查找的系统媒体服务都不可用，解封装必须在进程内用 Java 完成（Media3 `media3-extractor`），或者在主进程完成后把样本送入 worker；方案选择见报告 §0.3。worker 必须在启动时自检并设自检超时，失败映射为 `EXPORT_FAILED`。主进程侧的隔离行为（主进程存活、播放不中断、输出删除无残留、解绑后系统回收 worker）已在三次上机中得到确认。故障注入（崩溃、OOM、死循环、被杀）与取消耗时待 worker 修复后补测（见 `test-workspace/reports/S4/REPORT.md` §0.1、§0.2） |
+| 导出 | 独立 Service，运行在同 uid、非隔离的 `:export` 进程（用户 2026-11-07 决定方案 c1，见 §1.5）；输入、输出经 `ParcelFileDescriptor` 由主进程代理传入（D1 `BrokerDataSource` / `FdOutputMuxer` 的做法） | 方案已定，故障注入待 S4 第 5 次 | 宿主 `readAt` 源在主进程读取后经管道或共享内存传入。**S4 上机（2026-11-07，模拟器 API 31）发现隔离进程 worker 的两条约束**：(1) 禁止 `registerReceiver`。Media3 默认的 BandwidthMeter 和 NetworkTypeObserver 会注册广播接收器，worker 启动即崩溃；用受限 Context 已解决。(2) 不能访问音频系统服务（`media.audio_flinger`）。Transformer 内部的 ExoPlayer 初始化时生成音频会话 id（`Util.generateAudioSessionId`），在 `ServiceManager` 上永久阻塞，不抛异常。因此导出 worker 不得经过 ExoPlayer 的音频初始化。(3) 第 3 次上机（14:07）：平台 `MediaExtractor` 同样阻塞，它要查找系统的 `media.extractor` 服务。结论是隔离进程中凡是经 ServiceManager 查找的系统媒体服务都不可用，解封装必须在进程内用 Java 完成（Media3 `media3-extractor`），或者在主进程完成后把样本送入 worker；方案选择见报告 §0.3。worker 必须在启动时自检并设自检超时，失败映射为 `EXPORT_FAILED`。主进程侧的隔离行为（主进程存活、播放不中断、输出删除无残留、解绑后系统回收 worker）已在三次上机中得到确认。故障注入（崩溃、OOM、死循环、被杀）与取消耗时待 worker 修复后补测（见 `test-workspace/reports/S4/REPORT.md` §0.1、§0.2） |
 | 跟踪推理 | 独立 `isolatedProcess` Service | 待验证 S4、S6 | 同样受导出行的两条隔离约束：不注册广播接收器，不访问音频及其他需要权限的系统服务；推理 worker 同样要启动自检 |
 | 格式探测 | 应用进程内（Media3 解析）；若将来引入原生解析模块则移入隔离进程 | 已定 | |
 | 进程粒度 | 每个导出任务、每个跟踪任务各一个进程实例，结束即退出 | 已定 | |
