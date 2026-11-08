@@ -98,7 +98,7 @@ Browser 的 PlaybackCoordinator 负责：按 VideoBoxFile 成员创建/销毁会
 
 - 头像替换是 Kit 能力，Browser 可直接使用：用户在编辑器中选“头像”样式时，由宿主提供头像图片源（与视频相同的 `mediaToken` + `readAt`，可来自 Browser 的图库或系统选择器）。
 - Kit 的 `prepareAvatar` 完成抠图；Browser 保存返回的透明 PNG（例如放在 Browser 私有目录），分配 `avatarToken`，并实现 `openAvatar(avatarToken)` 回调供预览与导出读取。
-- Browser 不需要实现抠图或合成；可直接使用 `videokit_ui` 的头像页面，也可只调 API 自建界面。按 `Capabilities.avatar` 决定是否显示入口。
+- 选择头像、调整头像的页面由 Browser 自行实现（App 业务），用什么图片由 Browser 决定；Kit 编辑器点“更换头像”时调用 Browser 的 `requestAvatar()` 回调。Browser 不需要实现合成；抠图可调用 Kit 的可选工具 API `prepareAvatar`，也可直接提供处理好的透明 PNG。按 `Capabilities.avatar` 决定是否显示入口。
 - 头像 PNG 属用户数据，保存、清理与权限由 Browser 负责；VideoKit 不保存、不上传。
 
 ## 9. 回退与故障
