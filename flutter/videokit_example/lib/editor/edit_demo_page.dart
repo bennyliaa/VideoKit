@@ -217,8 +217,8 @@ class EditDemoPageState extends State<EditDemoPage>
                     project: p,
                     sink: sink,
                     title: g(g.l.editProjectTitle),
-                    // Design page 15 shows the autosave hint (demo only).
-                    showAutosaved: true,
+                    // Design page 15: autosave; the demo takes a snapshot.
+                    onAutosave: p.snapshot,
                     presets: FakeVideoKit.demoCapabilities().outputFormats,
                     pictureBuilder: (context, session) =>
                         DemoSessionPicture(session: session),
@@ -227,8 +227,11 @@ class EditDemoPageState extends State<EditDemoPage>
                     exportSuccessActions: (context, media) => Wrap(
                       spacing: d.spacing12,
                       children: [
+                        // Design page 21: "完成" is the one main button;
+                        // the host's own actions stay secondary.
                         VkButton(
                           label: g(g.l.exportOpen),
+                          variant: VkButtonVariant.secondary,
                           onPressed: () => _hostAction(g(g.l.exportOpen)),
                         ),
                         VkButton(

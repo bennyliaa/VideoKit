@@ -850,7 +850,8 @@ class FakeEditProject implements VideoKitEditProject {
           stage: ErrorStage.sink,
           retryable: true,
           suggestedAction: SuggestedAction.freeSpace,
-          params: {'requiredBytes': '${estimate.sizeBytes}'},
+          // J8 (spec/errors.json): the shortfall, estimate minus free.
+          params: {'requiredBytes': '${estimate.sizeBytes! - free}'},
         ),
       );
     }
@@ -1056,6 +1057,14 @@ class FakeEditProject implements VideoKitEditProject {
                 SuggestedAction.checkPermission,
               _ => SuggestedAction.retry,
             },
+            // J8: a sink running out of space mid-write reports the
+            // shortfall (here: the half not yet written).
+            params: failure.code == ErrorCode.outputSpaceInsufficient
+                ? {
+                    'requiredBytes':
+                        '${math.max(1, (_estimate(_s.timeline).sizeBytes ?? 0) ~/ 2)}',
+                  }
+                : const {},
           );
           _set(
             _s.copyWith(phase: EditPhase.failed, error: error, export: null),

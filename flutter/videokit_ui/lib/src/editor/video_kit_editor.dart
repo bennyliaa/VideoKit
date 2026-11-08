@@ -16,6 +16,7 @@ import '../mask/mask_editor.dart';
 import '../player/media_surface.dart';
 import '../player/picture_style.dart';
 import '../theme/theme_scope.dart';
+import 'editor_autosave.dart';
 import 'editor_controller.dart';
 import 'editor_panels.dart';
 import 'timeline_view.dart';
@@ -46,12 +47,18 @@ class VideoKitEditor extends StatefulWidget {
     this.presets = const [],
     this.fastConcatCapable = true,
     this.exportSuccessActions,
-    this.showAutosaved = false,
+    this.onAutosave,
+    this.autosaveDelay = const Duration(seconds: 2),
   });
 
-  /// Shows "已自动保存" after the title on tablets (design page 15); set by
-  /// hosts that save the project themselves.
-  final bool showAutosaved;
+  /// Autosave (design page 15, UI-AUDIT-A3): [autosaveDelay] after each
+  /// edit the editor calls this; the title shows "正在保存…", "已自动保存" or
+  /// "未保存" with retry. Null: no autosave and no status. Hosts still save
+  /// when the editor is left.
+  final VideoKitAutosave? onAutosave;
+
+  /// Debounce of [onAutosave] after the last edit (2 s).
+  final Duration autosaveDelay;
 
   /// Project (owned by the host).
   final VideoKitEditProject project;
@@ -109,6 +116,26 @@ class VideoKitEditorState extends State<VideoKitEditor> {
     strings: () => VkStrings.of(context),
   );
 
+  EditorAutosave? _autosave;
+
+  /// Autosave state (tests and hosts); null without [VideoKitEditor.onAutosave].
+  EditorAutosave? get autosave => _autosave;
+
+  EditorAutosave? _createAutosave() => widget.onAutosave == null
+      ? null
+      : EditorAutosave(
+          project: widget.project,
+          // Reads the widget's current callback.
+          save: () => widget.onAutosave?.call() ?? Future<void>.value(),
+          delay: widget.autosaveDelay,
+        );
+
+  @override
+  void initState() {
+    super.initState();
+    _autosave = _createAutosave();
+  }
+
   @override
   void didUpdateWidget(VideoKitEditor oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -116,10 +143,16 @@ class VideoKitEditorState extends State<VideoKitEditor> {
       _c.dispose();
       _c = _create();
     }
+    if (!identical(oldWidget.project, widget.project) ||
+        (oldWidget.onAutosave == null) != (widget.onAutosave == null)) {
+      _autosave?.dispose();
+      _autosave = _createAutosave();
+    }
   }
 
   @override
   void dispose() {
+    _autosave?.dispose();
     _c.dispose();
     super.dispose();
   }
@@ -346,17 +379,14 @@ class VideoKitEditorState extends State<VideoKitEditor> {
                     ),
                   ),
                 ],
-                // Design page 15: "已自动保存" after the title (tablet).
-                if (widget.showAutosaved && !compact && !inMode) ...[
-                  SizedBox(width: d.spacing16),
-                  Text(
-                    s.text('editorAutosaved'),
-                    maxLines: 1,
-                    style: t.typography.bodySmall.copyWith(
-                      color: t.colors.textSecondary,
-                    ),
+                // Design page 15: autosave state after the title. Phones
+                // only show a failure (with retry); tablets show all.
+                if (_autosave case final autosave? when !inMode)
+                  ListenableBuilder(
+                    listenable: autosave,
+                    builder: (context, _) =>
+                        _autosaveStatus(context, autosave, compact: compact),
                   ),
-                ],
               ],
             ),
           ),
@@ -412,6 +442,55 @@ class VideoKitEditorState extends State<VideoKitEditor> {
               ),
           ],
         ],
+      ),
+    );
+  }
+
+  Widget _autosaveStatus(
+    BuildContext context,
+    EditorAutosave autosave, {
+    required bool compact,
+  }) {
+    final t = VkTheme.of(context);
+    final s = VkStrings.of(context);
+    final d = t.dimensions;
+    final status = autosave.status;
+    if (status == AutosaveStatus.idle) return const SizedBox.shrink();
+    if (status == AutosaveStatus.failed) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(width: d.spacing12),
+          Semantics(
+            liveRegion: true,
+            child: Text(
+              s.text('editorSaveFailed'),
+              maxLines: 1,
+              style: t.typography.bodySmall.copyWith(color: t.colors.error),
+            ),
+          ),
+          VkButton(
+            label: s.text('commonRetry'),
+            variant: VkButtonVariant.text,
+            onPressed: () => unawaited(autosave.saveNow()),
+          ),
+        ],
+      );
+    }
+    if (compact) return const SizedBox.shrink();
+    return Padding(
+      padding: EdgeInsetsDirectional.only(start: d.spacing16),
+      child: Semantics(
+        liveRegion: true,
+        child: Text(
+          s.text(
+            status == AutosaveStatus.saving
+                ? 'editorSaving'
+                : 'editorAutosaved',
+          ),
+          maxLines: 1,
+          style: t.typography.bodySmall.copyWith(color: t.colors.textSecondary),
+        ),
       ),
     );
   }

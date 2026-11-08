@@ -357,8 +357,12 @@ void main() {
       expect(find.text('原视频未受影响'), findsOneWidget);
       expect(find.text('未完成的输出已丢弃'), findsOneWidget);
       expect(find.text('错误代码 OUTPUT_SPACE_INSUFFICIENT'), findsOneWidget);
-      // J8: the Fake reports no byte count, so the hint has no number.
-      expect(find.text('建议：释放存储空间'), findsOneWidget);
+      // J8 (TEST-R4): the Fake reports the shortfall; the hint names it,
+      // rounded up to 10 MB.
+      expect(
+        find.textContaining(RegExp(r'^建议：释放约 \d+ MB 空间$')),
+        findsOneWidget,
+      );
       await tapText(tester, '改用 1080p 重新导出');
       await settle(tester);
       expect(e.exportPanel!.presetId, ExportPresets.p1080);

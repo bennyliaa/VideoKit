@@ -897,6 +897,10 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
     /**
      * 04A P1: the frame nearest to [atUs] through the platform [com.videokit.core.spi.FrameSource], encoded by the
      * platform. Image thumbnails need the image engine (VK-M2). Failures are results, never exceptions.
+     *
+     * 04A P5: a hard timeout ([com.videokit.core.CoreOptions.thumbnailTimeoutMs], 3 s) covers opening and extracting;
+     * on timeout or cancellation the use is cancelled, and the [com.videokit.core.spi.FrameSource] contract makes it
+     * return promptly (it closes its own read handle so blocked host reads fail) and discards the frame.
      */
     override suspend fun captureThumbnail(atUs: Long, maxWidth: Int, maxHeight: Int): ThumbnailResult {
         if (released) return ThumbnailResult.Failed(StableErrors.of(ErrorCode.SESSION_RELEASED, ErrorStage.PLAYBACK, "THUMBNAIL_RELEASED"))
@@ -915,7 +919,7 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
         }
         val released = ThumbnailResult.Failed(StableErrors.of(ErrorCode.SESSION_RELEASED, ErrorStage.PLAYBACK, "THUMBNAIL_SOURCE_RELEASED"))
         return try {
-            withTimeout(runtime.options.sourceTimeoutMs) {
+            withTimeout(runtime.options.thumbnailTimeoutMs) {
                 sourceUses.use {
                     if (image != null) return@use image.thumbnail(Size(maxWidth, maxHeight))
                     val reader = checkNotNull(frames).open(media)

@@ -1,6 +1,7 @@
 package com.videokit.core.runtime
 
 import com.videokit.api.ErrorCode
+import com.videokit.api.ErrorParams
 import com.videokit.api.ErrorStage
 import com.videokit.api.SuggestedAction
 import com.videokit.api.VideoKitSinkException
@@ -48,11 +49,26 @@ public object StableErrors {
         else -> of(ErrorCode.INTERNAL_ERROR_REDACTED, stage, "SOURCE:${failure.typeName()}")
     }
 
-    /** Maps any failure of a host sink. */
+    /** Maps any failure of a host sink; a space shortfall the sink reported becomes `requiredBytes` (J8). */
     public fun fromSinkFailure(failure: Throwable): VideoKitStableError = when (failure) {
-        is VideoKitSinkException -> of(failure.code.errorCode, ErrorStage.SINK, "SINK:${failure.code.name}")
+        is VideoKitSinkException -> withRequiredBytes(
+            of(failure.code.errorCode, ErrorStage.SINK, "SINK:${failure.code.name}"),
+            failure.requiredBytes,
+        )
+
         else -> of(ErrorCode.EXPORT_FAILED, ErrorStage.SINK, "SINK:${failure.typeName()}")
     }
+
+    /** [ErrorCode.OUTPUT_SPACE_INSUFFICIENT] with the shortfall when known (UI-AUDIT-A1 J8, `spec/errors.json`). */
+    public fun spaceInsufficient(stage: ErrorStage, requiredBytes: Long?, diagnostic: String? = null): VideoKitStableError =
+        withRequiredBytes(of(ErrorCode.OUTPUT_SPACE_INSUFFICIENT, stage, diagnostic), requiredBytes)
+
+    private fun withRequiredBytes(error: VideoKitStableError, requiredBytes: Long?): VideoKitStableError =
+        if (error.code == ErrorCode.OUTPUT_SPACE_INSUFFICIENT && requiredBytes != null && requiredBytes > 0) {
+            error.copy(params = error.params + (ErrorParams.REQUIRED_BYTES to requiredBytes.toString()))
+        } else {
+            error
+        }
 
     /** Whether [code] is retryable by default (`spec/errors.json`). */
     public fun retryable(code: ErrorCode): Boolean = when (code) {

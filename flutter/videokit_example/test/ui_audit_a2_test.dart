@@ -34,12 +34,12 @@ void main() {
       '"正在打开"', (tester) async {
     await pump(tester, 'openBuffering');
     expect(rig.session.state.value.phase, SessionPhase.buffering);
-    expect(find.text('正在缓冲…'), findsOneWidget);
+    expect(find.text('缓冲中'), findsOneWidget);
     expect(find.text('正在打开…'), findsNothing);
     expect(find.byType(CircularProgressIndicator), findsWidgets);
     await rig.advance(tester, const Duration(seconds: 3));
     expect(rig.session.state.value.phase, isNot(SessionPhase.buffering));
-    expect(find.text('正在缓冲…'), findsNothing);
+    expect(find.text('缓冲中'), findsNothing);
   });
 
   testWidgets('J4: unsupported → short title, detail, error code and '

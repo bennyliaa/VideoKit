@@ -529,6 +529,12 @@ abstract class ExampleLocalizations {
   /// **'慢加载'**
   String get scenarioSlowLoad;
 
+  /// Fake 场景：网络等慢速源（04A P6），拖动只显示时间气泡。
+  ///
+  /// In zh, this message translates to:
+  /// **'慢速源'**
+  String get scenarioSlowSource;
+
   /// Fake 场景：播放中缓冲。
   ///
   /// In zh, this message translates to:

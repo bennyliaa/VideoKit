@@ -33,6 +33,19 @@ object S4Protocol {
     const val KEY_CODE = "code"
     const val KEY_SAMPLES = "samples"
     const val KEY_BYTES = "bytes"
+    const val KEY_LOADER = "loader"
+    const val KEY_PROBE = "probe"
+
+    /** Worker to main: one decode probe step result (attempt 4), in KEY_CODE. */
+    const val PROBE = 15
+
+    /**
+     * Asset loaders of the worker: pure-Java Media3 extractors (attempt 4, default, option a′); platform MediaExtractor
+     * (attempt 3, blocks on media.extractor) and ExoPlayer (attempt 2, blocks on media.audio_flinger) for comparison.
+     */
+    const val LOADER_JAVA = "JAVA"
+    const val LOADER_EXTRACTOR = "EXTRACTOR"
+    const val LOADER_EXO = "EXO"
 
     /** Faults injected in the worker after its first written video sample (15 §4 S4). */
     enum class Fault { NONE, CANCEL, SIGSEGV, OOM, LOOP, KILL }

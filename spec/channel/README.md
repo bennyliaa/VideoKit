@@ -43,6 +43,9 @@ Pigeon 29.1.1 generates the Dart (`videokit_flutter_platform_interface/lib/src/g
 - `MediaSourceMsg.sourceRef`: `uri:<content or file uri>`, `registered:<id>` (registered natively with
   `VideoKitFlutter.registerSource`), `demo:<scenarioId>` (Fake backend only). Dart `readAt` sources are not carried
   by protocol 1 (`Unsupported(NOT_IMPLEMENTED)`). Unknown schemes → `rejected(INVALID_ARGUMENT)`.
+- `MediaSourceMsg.latencyHint` (04A P6): `SourceLatency` wire name `LOCAL` or `SLOW`; null or an unknown name is
+  `LOCAL`. It applies to every reference kind (the native side sets it on the resolved source). An optional field
+  added at the end: protocol version stays 1.
 - `sinkRef`: `registered:<id>` or `demo:memory`. Unknown → precheck problem / export `FAILED(INVALID_ARGUMENT)`.
 
 ## Update streams

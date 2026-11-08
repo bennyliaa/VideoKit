@@ -34,7 +34,7 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get stateLoading => '正在加载…';
 
   @override
-  String get stateBuffering => '正在缓冲…';
+  String get stateBuffering => '缓冲中';
 
   @override
   String get stateUnavailable => '不可用';
@@ -471,6 +471,38 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
 
   @override
   String get slotLowResolution => '已降为低分辨率';
+
+  @override
+  String get slotLowResolutionShort => '低清';
+
+  @override
+  String get gridTitle => '多画面';
+
+  @override
+  String gridCount(int count, int max) {
+    return '$count / $max';
+  }
+
+  @override
+  String get gridHint => '点按画面切换声音来源，同一时间只有一路发声';
+
+  @override
+  String get gridAddMedia => '添加媒体';
+
+  @override
+  String get gridLayout => '布局';
+
+  @override
+  String get gridLayoutAuto => '自动';
+
+  @override
+  String get gridLayout2x2 => '2×2';
+
+  @override
+  String get gridLayout3x3 => '3×3';
+
+  @override
+  String get gridLayout3x4 => '4×3';
 
   @override
   String get slotPlaceholderTitle => '资源不足 · 未播放';
@@ -1007,6 +1039,11 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get checkSpaceFail => '空间不足';
 
   @override
+  String checkSpaceFailSize(String size) {
+    return '空间不足，需释放约 $size';
+  }
+
+  @override
   String get checkCoverage => '打码覆盖';
 
   @override
@@ -1132,10 +1169,38 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get exportDoneDetail => '文件已写入宿主提供的临时位置，正式保存由宿主确认。';
 
   @override
-  String get summaryFormat => '格式';
+  String get exportDone => '完成';
+
+  @override
+  String get summaryFormat => '容器 / 编码';
 
   @override
   String get summaryResolution => '分辨率';
+
+  @override
+  String summaryResolutionValue(String size, String orientation) {
+    return '$size · $orientation';
+  }
+
+  @override
+  String get summaryLandscape => '横屏';
+
+  @override
+  String get summaryPortrait => '竖屏';
+
+  @override
+  String get summarySquare => '方形';
+
+  @override
+  String get summarySource => '来源';
+
+  @override
+  String summarySourceCount(int count) {
+    return '$count 个视频';
+  }
+
+  @override
+  String get summaryNoWarnings => '无';
 
   @override
   String get summaryDuration => '时长';
@@ -1144,7 +1209,7 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
   String get summarySize => '大小';
 
   @override
-  String get summaryWarnings => '提示';
+  String get summaryWarnings => '警告';
 
   @override
   String get warnBoundary => '边界已对齐到关键帧';
@@ -1233,6 +1298,12 @@ class VideoKitLocalizationsZh extends VideoKitLocalizations {
 
   @override
   String get editorAutosaved => '已自动保存';
+
+  @override
+  String get editorSaving => '正在保存…';
+
+  @override
+  String get editorSaveFailed => '未保存';
 
   @override
   String editorTitleWithProject(String name) {

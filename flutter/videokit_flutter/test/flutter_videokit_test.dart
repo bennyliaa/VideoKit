@@ -114,6 +114,17 @@ void main() {
         ),
       );
       expect(api.lastBoundSource!.sourceRef, 'demo:buffering');
+      // 04A P6: the latency hint crosses with its wire name (default LOCAL).
+      expect(api.lastBoundSource!.latencyHint, 'LOCAL');
+      await session.bind(
+        const VideoKitMediaSource(
+          mediaToken: 'smb',
+          mediaKind: MediaKind.video,
+          sourceRef: DemoSourceRef('normal'),
+          latencyHint: SourceLatency.slow,
+        ),
+      );
+      expect(api.lastBoundSource!.latencyHint, 'SLOW');
       await session.execute(const SeekTo(1500000, mode: SeekMode.exact));
       await session.execute(const SetVisibility(SessionVisibility.background));
       await session.execute(const SetOrientation(OrientationRequest.landscape));

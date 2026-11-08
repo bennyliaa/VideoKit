@@ -235,6 +235,9 @@ class ConcatPageState extends State<ConcatPage> {
           pictureBuilder: _scope.backend.pictureBuilder,
           onBack: () => unawaited(leave()),
           onPickSourcesRequested: () => unawaited(addVideos()),
+          // Design page 15 (UI-AUDIT-A3): saved 2 s after each edit into
+          // "最近工程"; a failed write shows "未保存" with retry.
+          onAutosave: () => _scope.projects.save(projectId, p, strict: true),
         ),
       );
     }

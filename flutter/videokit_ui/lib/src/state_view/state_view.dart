@@ -118,10 +118,16 @@ class VideoKitStateView extends StatelessWidget {
     final icon = spinning
         ? SizedBox.square(
             dimension: compact ? d.icon24 : d.targetMin,
+            // Design page 12: opening uses the primary ring; buffering over
+            // the picture a white one.
             child: CircularProgressIndicator(
               strokeWidth: t.components.progress.height,
-              color: t.components.progress.indicator,
-              backgroundColor: t.components.progress.track,
+              color: model.kind == StateViewKind.buffering
+                  ? onCanvas
+                  : t.components.progress.indicator,
+              backgroundColor: model.kind == StateViewKind.buffering
+                  ? onCanvas.withValues(alpha: 0.24)
+                  : t.components.progress.track,
             ),
           )
         : Icon(

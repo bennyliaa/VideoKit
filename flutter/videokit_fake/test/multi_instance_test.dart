@@ -112,6 +112,23 @@ void main() {
     await kit.close();
   });
 
+  // Same case as the Kotlin contract multi.audio_inactive_until_granted
+  // (testkit MultiInstanceCases, 04A A1, TEST-R3 R3-01).
+  test('multi.audio_inactive_until_granted: a bound session is silent until '
+      'the host grants audio', () async {
+    final kit = FakeVideoKit();
+    final (s, r) = await _open(kit, 'audio-default');
+    expect(r, const Executed());
+    expect(s.state.value.activeAudio, isFalse, reason: 'before any grant');
+    await s.execute(const Play());
+    await kit.clock.advance(const Duration(milliseconds: 100));
+    expect(s.state.value.activeAudio, isFalse, reason: 'Play is no grant');
+    expect(await s.execute(const SetActiveAudio(true, 1)), const Executed());
+    expect(s.state.value.activeAudio, isTrue, reason: 'grant applied');
+    await s.execute(const Release());
+    await kit.close();
+  });
+
   test('stale audio epochs are rejected', () async {
     final kit = FakeVideoKit();
     final (a, _) = await _open(kit, 'a');

@@ -6,6 +6,7 @@ import com.videokit.api.EditCommandResult
 import com.videokit.api.EditPhase
 import com.videokit.api.EditProjectConfig
 import com.videokit.api.ErrorCode
+import com.videokit.api.ErrorParams
 import com.videokit.api.FitMode
 import com.videokit.api.HostActionResult
 import com.videokit.api.HostActionStatus
@@ -581,9 +582,14 @@ public object VideoKitContractSuite {
         },
         case("faults.sink_write", ContractGroup.FAULT_MAPPING, "a sink write failure aborts the output and never marks it ready") {
             val project = projectWithClip("sink-write")
-            val sink = RecordingOutputSink(fault = SinkFault.FailOnWrite(SinkErrorCode.SPACE_INSUFFICIENT, afterBytes = 1L))
+            val sink =
+                RecordingOutputSink(
+                    fault = SinkFault.FailOnWrite(SinkErrorCode.SPACE_INSUFFICIENT, afterBytes = 1L, requiredBytes = 123_000_000L),
+                )
             val failure = (project.export(VideoKitExportRequest(), sink) as? VideoKitExportResult.Failed)?.error
             expectEquals(ErrorCode.OUTPUT_SPACE_INSUFFICIENT, failure?.code, "export failure")
+            // UI-AUDIT-A1 J8: the shortfall the sink reported reaches the UI as a message parameter.
+            expectEquals("123000000", failure?.params?.get(ErrorParams.REQUIRED_BYTES), "requiredBytes")
             expect(sink.readyCalls.isEmpty()) { "markReady called" }
             expectEquals(1, sink.abortCalls.size, "abort calls")
             expectEquals(VideoKitAbortReason.EXPORT_FAILED, sink.abortCalls.single().second, "abort reason")
@@ -603,7 +609,11 @@ public object VideoKitContractSuite {
             val sink =
                 RecordingOutputSink(capabilities = SinkCapabilities(sequentialWrite = true, randomWrite = true, knownFreeSpaceBytes = 1L))
             val precheck = project.checkExport(VideoKitExportRequest(), sink)
-            expect(!precheck.ok && precheck.problems.any { it.code == ErrorCode.OUTPUT_SPACE_INSUFFICIENT }) { "precheck $precheck" }
+            val space = precheck.problems.firstOrNull { it.code == ErrorCode.OUTPUT_SPACE_INSUFFICIENT }
+            expect(!precheck.ok && space != null) { "precheck $precheck" }
+            // J8: estimated size minus the 1 known free byte.
+            val estimate = precheck.estimate.sizeBytes
+            if (estimate != null) expectEquals((estimate - 1L).toString(), space?.params?.get(ErrorParams.REQUIRED_BYTES), "requiredBytes")
         },
         case("faults.export_success", ContractGroup.FAULT_MAPPING, "a successful export marks the output ready exactly once") {
             val project = projectWithClip("export-ok")

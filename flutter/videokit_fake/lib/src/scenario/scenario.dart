@@ -123,6 +123,15 @@ final class Scenario {
          bufferingWindows: [BufferingWindow(at, duration)],
        );
 
+  /// 04A P6: a slow (network) source: opening and seeks take longer.
+  /// Hosts bind it with `latencyHint: SourceLatency.slow`.
+  const Scenario.slowSource()
+    : this._(
+        name: 'slowSource',
+        loadDelay: const Duration(seconds: 2),
+        seekLatency: const Duration(milliseconds: 600),
+      );
+
   /// 04A B1: bind succeeds once the tracks are known, then the session
   /// keeps buffering for [duration] before the first frame is ready.
   const Scenario.openBuffering([Duration duration = const Duration(seconds: 3)])
@@ -310,6 +319,7 @@ abstract final class Scenarios {
     'normal': const Scenario.normal(),
     'slowLoad': const Scenario.slowLoad(),
     'openBuffering': const Scenario.openBuffering(),
+    'slowSource': const Scenario.slowSource(),
     'buffering': Scenario.buffering(),
     'unsupported': const Scenario.unsupported(),
     'unsupportedContainer': const Scenario.unsupported(

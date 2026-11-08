@@ -578,7 +578,7 @@ public class FakeEditProject internal constructor(
         val free = caps.knownFreeSpaceBytes
         val needed = estimate.sizeBytes
         if (free != null && needed != null && free < needed) {
-            problems += Errors.of(ErrorCode.OUTPUT_SPACE_INSUFFICIENT, ErrorStage.SINK, "FREE_SPACE")
+            problems += Errors.spaceInsufficient(ErrorStage.SINK, needed - free, "FREE_SPACE")
         }
         val uncovered = mutableListOf<CoverageRange>()
         content.masks.filter { it.type != MaskType.MANUAL && it.enabled }.forEach { mask ->

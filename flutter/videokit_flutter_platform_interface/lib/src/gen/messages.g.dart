@@ -1631,6 +1631,7 @@ class MediaSourceMsg {
     this.extension,
     required this.randomAccess,
     required this.sourceRef,
+    this.latencyHint,
   });
 
   String mediaToken;
@@ -1650,6 +1651,9 @@ class MediaSourceMsg {
   /// Native source reference: `uri:<uri>`, `registered:<id>` or `demo:<scenarioId>` (04A I15, B9).
   String sourceRef;
 
+  /// `SourceLatency` wire name, `LOCAL` or `SLOW` (04A P6); null or unknown is `LOCAL`.
+  String? latencyHint;
+
   List<Object?> _toList() {
     return <Object?>[
       mediaToken,
@@ -1660,6 +1664,7 @@ class MediaSourceMsg {
       extension,
       randomAccess,
       sourceRef,
+      latencyHint,
     ];
   }
 
@@ -1678,6 +1683,7 @@ class MediaSourceMsg {
       extension: result[5] as String?,
       randomAccess: result[6]! as bool,
       sourceRef: result[7]! as String,
+      latencyHint: result[8] as String?,
     );
   }
 
@@ -1697,7 +1703,8 @@ class MediaSourceMsg {
         _deepEquals(mimeType, other.mimeType) &&
         _deepEquals(extension, other.extension) &&
         _deepEquals(randomAccess, other.randomAccess) &&
-        _deepEquals(sourceRef, other.sourceRef);
+        _deepEquals(sourceRef, other.sourceRef) &&
+        _deepEquals(latencyHint, other.latencyHint);
   }
 
   @override
@@ -1706,7 +1713,7 @@ class MediaSourceMsg {
 
   @override
   String toString() {
-    return 'MediaSourceMsg(mediaToken: $mediaToken, mediaKind: $mediaKind, displayName: $displayName, knownLength: $knownLength, mimeType: $mimeType, extension: $extension, randomAccess: $randomAccess, sourceRef: $sourceRef)';
+    return 'MediaSourceMsg(mediaToken: $mediaToken, mediaKind: $mediaKind, displayName: $displayName, knownLength: $knownLength, mimeType: $mimeType, extension: $extension, randomAccess: $randomAccess, sourceRef: $sourceRef, latencyHint: $latencyHint)';
   }
 }
 

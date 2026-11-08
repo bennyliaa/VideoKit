@@ -21,6 +21,7 @@ import com.videokit.api.VideoKitOutputSink
 import com.videokit.api.VideoKitSession
 import com.videokit.api.VideoKitStableError
 import com.videokit.api.android.MediaSources
+import com.videokit.flutter.Mappers.latency
 import com.videokit.flutter.Mappers.toAction
 import com.videokit.flutter.Mappers.toCommand
 import com.videokit.flutter.Mappers.toConfig
@@ -112,7 +113,7 @@ internal class HostApiImpl(private val engine: EngineRuntime) : VideoKitHostApi 
     @SuppressLint("UseKtx") // The plugin does not depend on androidx.core-ktx for one Uri.parse call.
     private fun resolveSource(msg: MediaSourceMsg): VideoKitMediaSource? {
         val ref = msg.sourceRef
-        return when {
+        val resolved = when {
             ref.startsWith("uri:") -> MediaSources.fromUri(
                 engine.context,
                 Uri.parse(ref.removePrefix("uri:")),
@@ -131,6 +132,8 @@ internal class HostApiImpl(private val engine: EngineRuntime) : VideoKitHostApi 
 
             else -> null
         }
+        // 04A P6: the host's latency hint holds for every kind of reference.
+        return resolved?.copy(latencyHint = msg.latency())
     }
 
     private fun resolveSink(ref: String): VideoKitOutputSink? = when {

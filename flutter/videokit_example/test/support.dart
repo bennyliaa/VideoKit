@@ -207,11 +207,13 @@ Widget demoPlayer(
   GlobalKey<VideoKitPlayerState>? key,
   ValueChanged<bool>? onControlsVisibilityChanged,
   ValueChanged<StateAction>? onStateAction,
+  SourceLatency latencyHint = SourceLatency.local,
 }) => Builder(
   builder: (context) => Scaffold(
     body: VideoKitPlayer(
       key: key,
       session: session,
+      latencyHint: latencyHint,
       title: '演示视频',
       pictureBuilder: (context, s) => DemoSessionPicture(session: s),
       resolveHostString: (k) => DemoHostActions.resolve(context, k),

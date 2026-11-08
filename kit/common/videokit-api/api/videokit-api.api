@@ -320,6 +320,11 @@ public final class com/videokit/api/ErrorCode$Companion {
 	public final fun fromWireName (Ljava/lang/String;)Lcom/videokit/api/ErrorCode;
 }
 
+public final class com/videokit/api/ErrorParams {
+	public static final field INSTANCE Lcom/videokit/api/ErrorParams;
+	public static final field REQUIRED_BYTES Ljava/lang/String;
+}
+
 public final class com/videokit/api/ErrorStage : java/lang/Enum {
 	public static final field BIND Lcom/videokit/api/ErrorStage;
 	public static final field CALLBACK Lcom/videokit/api/ErrorStage;
@@ -1264,6 +1269,14 @@ public final class com/videokit/api/SourceErrorCode : java/lang/Enum {
 	public final fun getErrorCode ()Lcom/videokit/api/ErrorCode;
 	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/SourceErrorCode;
 	public static fun values ()[Lcom/videokit/api/SourceErrorCode;
+}
+
+public final class com/videokit/api/SourceLatency : java/lang/Enum {
+	public static final field LOCAL Lcom/videokit/api/SourceLatency;
+	public static final field SLOW Lcom/videokit/api/SourceLatency;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/videokit/api/SourceLatency;
+	public static fun values ()[Lcom/videokit/api/SourceLatency;
 }
 
 public final class com/videokit/api/SourceProbe {
@@ -2438,8 +2451,8 @@ public abstract interface class com/videokit/api/VideoKitLogger {
 }
 
 public final class com/videokit/api/VideoKitMediaSource {
-	public fun <init> (Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/Seekability;Lcom/videokit/api/VideoKitSourceFactory;)V
-	public synthetic fun <init> (Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/Seekability;Lcom/videokit/api/VideoKitSourceFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/Seekability;Lcom/videokit/api/VideoKitSourceFactory;Lcom/videokit/api/SourceLatency;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/Seekability;Lcom/videokit/api/VideoKitSourceFactory;Lcom/videokit/api/SourceLatency;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Lcom/videokit/api/MediaKind;
 	public final fun component3 ()Ljava/lang/String;
@@ -2448,12 +2461,14 @@ public final class com/videokit/api/VideoKitMediaSource {
 	public final fun component6 ()Ljava/lang/String;
 	public final fun component7 ()Lcom/videokit/api/Seekability;
 	public final fun component8 ()Lcom/videokit/api/VideoKitSourceFactory;
-	public final fun copy (Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/Seekability;Lcom/videokit/api/VideoKitSourceFactory;)Lcom/videokit/api/VideoKitMediaSource;
-	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitMediaSource;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/Seekability;Lcom/videokit/api/VideoKitSourceFactory;ILjava/lang/Object;)Lcom/videokit/api/VideoKitMediaSource;
+	public final fun component9 ()Lcom/videokit/api/SourceLatency;
+	public final fun copy (Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/Seekability;Lcom/videokit/api/VideoKitSourceFactory;Lcom/videokit/api/SourceLatency;)Lcom/videokit/api/VideoKitMediaSource;
+	public static synthetic fun copy$default (Lcom/videokit/api/VideoKitMediaSource;Ljava/lang/String;Lcom/videokit/api/MediaKind;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Lcom/videokit/api/Seekability;Lcom/videokit/api/VideoKitSourceFactory;Lcom/videokit/api/SourceLatency;ILjava/lang/Object;)Lcom/videokit/api/VideoKitMediaSource;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getExtension ()Ljava/lang/String;
 	public final fun getKnownLength ()Ljava/lang/Long;
+	public final fun getLatencyHint ()Lcom/videokit/api/SourceLatency;
 	public final fun getMediaKind ()Lcom/videokit/api/MediaKind;
 	public final fun getMediaToken ()Ljava/lang/String;
 	public final fun getMimeType ()Ljava/lang/String;
@@ -2809,9 +2824,10 @@ public final class com/videokit/api/VideoKitSessionState {
 }
 
 public final class com/videokit/api/VideoKitSinkException : java/lang/Exception {
-	public fun <init> (Lcom/videokit/api/SinkErrorCode;Ljava/lang/String;Ljava/lang/Throwable;)V
-	public synthetic fun <init> (Lcom/videokit/api/SinkErrorCode;Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/videokit/api/SinkErrorCode;Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/Long;)V
+	public synthetic fun <init> (Lcom/videokit/api/SinkErrorCode;Ljava/lang/String;Ljava/lang/Throwable;Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getCode ()Lcom/videokit/api/SinkErrorCode;
+	public final fun getRequiredBytes ()Ljava/lang/Long;
 }
 
 public final class com/videokit/api/VideoKitSourceException : java/lang/Exception {

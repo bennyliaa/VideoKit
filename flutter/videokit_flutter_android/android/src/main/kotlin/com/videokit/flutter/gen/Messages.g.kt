@@ -1490,7 +1490,9 @@ data class MediaSourceMsg (
   val extension: String? = null,
   val randomAccess: Boolean,
   /** Native source reference: `uri:<uri>`, `registered:<id>` or `demo:<scenarioId>` (04A I15, B9). */
-  val sourceRef: String
+  val sourceRef: String,
+  /** `SourceLatency` wire name, `LOCAL` or `SLOW` (04A P6); null or unknown is `LOCAL`. */
+  val latencyHint: String? = null
 )
  {
   companion object {
@@ -1503,7 +1505,8 @@ data class MediaSourceMsg (
       val extension = pigeonVar_list[5] as String?
       val randomAccess = pigeonVar_list[6] as Boolean
       val sourceRef = pigeonVar_list[7] as String
-      return MediaSourceMsg(mediaToken, mediaKind, displayName, knownLength, mimeType, extension, randomAccess, sourceRef)
+      val latencyHint = pigeonVar_list[8] as String?
+      return MediaSourceMsg(mediaToken, mediaKind, displayName, knownLength, mimeType, extension, randomAccess, sourceRef, latencyHint)
     }
   }
   fun toList(): List<Any?> {
@@ -1516,6 +1519,7 @@ data class MediaSourceMsg (
       extension,
       randomAccess,
       sourceRef,
+      latencyHint,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -1526,7 +1530,7 @@ data class MediaSourceMsg (
       return true
     }
     val other = other as MediaSourceMsg
-    return MessagesPigeonUtils.deepEquals(this.mediaToken, other.mediaToken) && MessagesPigeonUtils.deepEquals(this.mediaKind, other.mediaKind) && MessagesPigeonUtils.deepEquals(this.displayName, other.displayName) && MessagesPigeonUtils.deepEquals(this.knownLength, other.knownLength) && MessagesPigeonUtils.deepEquals(this.mimeType, other.mimeType) && MessagesPigeonUtils.deepEquals(this.extension, other.extension) && MessagesPigeonUtils.deepEquals(this.randomAccess, other.randomAccess) && MessagesPigeonUtils.deepEquals(this.sourceRef, other.sourceRef)
+    return MessagesPigeonUtils.deepEquals(this.mediaToken, other.mediaToken) && MessagesPigeonUtils.deepEquals(this.mediaKind, other.mediaKind) && MessagesPigeonUtils.deepEquals(this.displayName, other.displayName) && MessagesPigeonUtils.deepEquals(this.knownLength, other.knownLength) && MessagesPigeonUtils.deepEquals(this.mimeType, other.mimeType) && MessagesPigeonUtils.deepEquals(this.extension, other.extension) && MessagesPigeonUtils.deepEquals(this.randomAccess, other.randomAccess) && MessagesPigeonUtils.deepEquals(this.sourceRef, other.sourceRef) && MessagesPigeonUtils.deepEquals(this.latencyHint, other.latencyHint)
   }
 
   override fun hashCode(): Int {
@@ -1539,10 +1543,11 @@ data class MediaSourceMsg (
     result = 31 * result + MessagesPigeonUtils.deepHash(this.extension)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.randomAccess)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.sourceRef)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.latencyHint)
     return result
   }
   override fun toString(): String {
-    return "MediaSourceMsg(mediaToken=$mediaToken, mediaKind=$mediaKind, displayName=$displayName, knownLength=$knownLength, mimeType=$mimeType, extension=$extension, randomAccess=$randomAccess, sourceRef=$sourceRef)"
+    return "MediaSourceMsg(mediaToken=$mediaToken, mediaKind=$mediaKind, displayName=$displayName, knownLength=$knownLength, mimeType=$mimeType, extension=$extension, randomAccess=$randomAccess, sourceRef=$sourceRef, latencyHint=$latencyHint)"
   }
 }
 

@@ -303,6 +303,8 @@ class DemoBackend implements AppBackend {
       displayName: entry.displayName,
       sourceRef: DemoSourceRef(doc?.scenario ?? 'normal'),
       mimeType: entry.mimeType,
+      // 04A P6: the App only opens local content.
+      latencyHint: SourceLatency.local,
     );
   }
 

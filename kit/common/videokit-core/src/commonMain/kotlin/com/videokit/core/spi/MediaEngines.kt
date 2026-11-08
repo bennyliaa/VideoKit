@@ -40,7 +40,14 @@ public class FrameData(
     public val pixels: ByteArray,
 )
 
-/** Frame extraction (02 §4.2 `FrameSource`). */
+/**
+ * Frame extraction (02 §4.2 `FrameSource`).
+ *
+ * Cancellation contract (04A P5): [open], [FrameReader.frameAt] and [FrameReader.thumbnailAt] must return promptly
+ * when their coroutine is cancelled, even while a platform extractor is blocked in a host read. Implementations run
+ * the blocking work on their own worker thread with their own read handle, close that handle on cancellation so the
+ * blocked read fails, and discard the late result. [FrameReader.close] must not block on work still in progress.
+ */
 public interface FrameSource {
     /** Opens [source] for frame extraction. */
     public suspend fun open(source: VideoKitMediaSource): FrameReader

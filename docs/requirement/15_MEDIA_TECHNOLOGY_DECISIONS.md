@@ -81,7 +81,7 @@
 | 项 | 决定 | 状态 | 说明 |
 | --- | --- | --- | --- |
 | 输出格式 | MP4 / H.264 / AAC / SDR；预设原始、1080p、720p（02 §7 #5） | 已定 | |
-| 编码器 | 系统 MediaCodec 编码器，经 Transformer `DefaultEncoderFactory`；按能力回退分辨率/码率 | 已定 | D1 C13/C14 已验证系统 AVC 编码器在隔离进程中的配置协商 |
+| 编码器 | 系统 MediaCodec 编码器，经 Transformer `DefaultEncoderFactory`；按能力回退分辨率/码率 | 已定 | D1 C13/C14 验证了系统 AVC 编码器的配置协商，但运行在普通 uid 进程中（C14 为 companion 包、E4 为非隔离的 :e4_codec 进程），不是 isolatedProcess。S4 第 4 次确认：isolatedProcess 中 MediaCodec 完全不可用（SELinux 拒绝 /dev/hwbinder），见 reports/S4 §0.5 |
 | 封装 | Media3 `InAppMp4Muxer`（media3-muxer）写到宿主 Sink 提供的可随机写 FD | 已定 | 不用平台 `MediaMuxer`：后者只接受文件路径/FD 且错误不可控 |
 | 仅顺序写的 Sink | 先写 VideoKit 私有暂存文件，校验通过后顺序复制到 Sink，再删除暂存 | 已定 | 不用 fragmented MP4 作为最终输出（兼容性较差）；fragmented 仅作内部暂存可选格式 |
 | 输出校验 | 导出后重新解析输出：时长、轨道、方向、首尾帧可解码 | 已定 | |
@@ -109,8 +109,8 @@
 | 项 | 决定 | 状态 | 说明 |
 | --- | --- | --- | --- |
 | 播放 | 应用进程内 | 已定 | 系统解码器崩溃发生在系统媒体进程，表现为可恢复错误 |
-| 导出 | 独立 `isolatedProcess` Service；输入、输出经 `ParcelFileDescriptor` 由主进程代理传入（D1 `BrokerDataSource` / `FdOutputMuxer` 的做法） | 待验证 S4 | 宿主 `readAt` 源在主进程读取后经管道或共享内存传入 |
-| 跟踪推理 | 独立 `isolatedProcess` Service | 待验证 S4、S6 | |
+| 导出 | 独立 `isolatedProcess` Service；输入、输出经 `ParcelFileDescriptor` 由主进程代理传入（D1 `BrokerDataSource` / `FdOutputMuxer` 的做法） | 待验证 S4 | 宿主 `readAt` 源在主进程读取后经管道或共享内存传入。**S4 上机（2026-11-07，模拟器 API 31）发现隔离进程 worker 的两条约束**：(1) 禁止 `registerReceiver`。Media3 默认的 BandwidthMeter 和 NetworkTypeObserver 会注册广播接收器，worker 启动即崩溃；用受限 Context 已解决。(2) 不能访问音频系统服务（`media.audio_flinger`）。Transformer 内部的 ExoPlayer 初始化时生成音频会话 id（`Util.generateAudioSessionId`），在 `ServiceManager` 上永久阻塞，不抛异常。因此导出 worker 不得经过 ExoPlayer 的音频初始化。(3) 第 3 次上机（14:07）：平台 `MediaExtractor` 同样阻塞，它要查找系统的 `media.extractor` 服务。结论是隔离进程中凡是经 ServiceManager 查找的系统媒体服务都不可用，解封装必须在进程内用 Java 完成（Media3 `media3-extractor`），或者在主进程完成后把样本送入 worker；方案选择见报告 §0.3。worker 必须在启动时自检并设自检超时，失败映射为 `EXPORT_FAILED`。主进程侧的隔离行为（主进程存活、播放不中断、输出删除无残留、解绑后系统回收 worker）已在三次上机中得到确认。故障注入（崩溃、OOM、死循环、被杀）与取消耗时待 worker 修复后补测（见 `test-workspace/reports/S4/REPORT.md` §0.1、§0.2） |
+| 跟踪推理 | 独立 `isolatedProcess` Service | 待验证 S4、S6 | 同样受导出行的两条隔离约束：不注册广播接收器，不访问音频及其他需要权限的系统服务；推理 worker 同样要启动自检 |
 | 格式探测 | 应用进程内（Media3 解析）；若将来引入原生解析模块则移入隔离进程 | 已定 | |
 | 进程粒度 | 每个导出任务、每个跟踪任务各一个进程实例，结束即退出 | 已定 | |
 
@@ -173,7 +173,7 @@
 2. 验证代码放在 `spikes/<编号>/`，只作参考，不直接进入 Kit；结论通过后在正式模块中按设计重写。
 3. 设备：至少一台 Android 12 中端机与一台较新旗舰机（芯片厂商不同），记录型号、系统版本、补丁级别。
 4. 结论只回填本文第 2 节对应行（把“待验证”改为“已定”并附报告链接），选择超出本文备选范围时走变更评审。
-5. 原 D1 已有的可复用结果（隔离进程中系统 AVC 编码器配置协商、FD 代理输入输出、FragmentedMp4Muxer 输出验证等）可作为 S4 的起点，但需在 S4 中按新标准重新测量，不直接计为 S4 通过。
+5. 原 D1 已有的可复用结果（普通 uid 进程中系统 AVC 编码器配置协商——更正：并非隔离进程，见 S4 §0.5；FD 代理输入输出、FragmentedMp4Muxer 输出验证等）可作为 S4 的起点，但需在 S4 中按新标准重新测量，不直接计为 S4 通过。
 6. 2026-11-07 用户决定：S1、S4 先在模拟器（emulator-5556）上做，得出逻辑正确性与相对数据；S2、S3、S5 等测试机分配后再做。模拟器数据不代替真机指标，测试机到位后 S1、S4 的性能项在真机上补测。VK-M1–M3 已按“开发先行、测试后补”（12 §3B）先行开发，相关指标待对应 S 项结论回填。
 7. **M1 播放指标草案**（负责人 2026-11-07 补定，供 S1 判定；真机实测后校准，模拟器数据只作逻辑与相对比较）：本地源 1080p H.264，中端机，各 20 次取 P90。起播（bind 到首帧）≤ 1.0 s；关键帧 Seek（`closestSync`）≤ 0.5 s；精确 Seek ≤ 1.5 s；拖动预览 Seek 间隔 ≥ 100 ms（14 §12）。高延迟源（每次读取加 100 ms）：起播 ≤ 5 s；取消读取 ≤ 0.5 s 内返回；主线程单次阻塞 ≤ 16 ms。4K HEVC 与 ≥2 GiB 大文件只记录实测值，不设门槛。
 

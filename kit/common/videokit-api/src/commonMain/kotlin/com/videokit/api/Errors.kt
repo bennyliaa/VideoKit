@@ -258,4 +258,18 @@ public class VideoKitSinkException(
     public val code: SinkErrorCode,
     message: String? = null,
     cause: Throwable? = null,
+    /**
+     * For [SinkErrorCode.SPACE_INSUFFICIENT]: the additional bytes the sink would need, when known. Reported as the
+     * [ErrorParams.REQUIRED_BYTES] parameter (UI-AUDIT-A1 J8).
+     */
+    public val requiredBytes: Long? = null,
 ) : Exception(message ?: code.name, cause)
+
+/** Registered message parameter keys of [VideoKitStableError.params] (`spec/errors.json` "params"). */
+public object ErrorParams {
+    /**
+     * [ErrorCode.OUTPUT_SPACE_INSUFFICIENT]: additional bytes that must be freed, a decimal integer > 0; absent when
+     * not known (UI-AUDIT-A1 J8).
+     */
+    public const val REQUIRED_BYTES: String = "requiredBytes"
+}

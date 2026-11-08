@@ -30,6 +30,8 @@ public sealed interface SinkFault {
         val code: SinkErrorCode,
         /** Bytes accepted before failing. */
         val afterBytes: Long = 0L,
+        /** Shortfall reported with SPACE_INSUFFICIENT (J8 `requiredBytes`), if any. */
+        val requiredBytes: Long? = null,
     ) : SinkFault
 
     /** `markReady` throws [code]. */
@@ -110,7 +112,11 @@ public class RecordingWriteHandle internal constructor(override val handleId: St
         check(!closedFlag.value) { "write after close" }
         mutex.withLock {
             val current = this.data
-            if (failure != null && current.size + length > failure.afterBytes) throw VideoKitSinkException(failure.code)
+            if (failure != null &&
+                current.size + length > failure.afterBytes
+            ) {
+                throw VideoKitSinkException(failure.code, requiredBytes = failure.requiredBytes)
+            }
             this.data = current + data.copyOfRange(offset, offset + length)
         }
     }

@@ -249,6 +249,9 @@ class ExampleLocalizationsZh extends ExampleLocalizations {
   String get scenarioSlowLoad => '慢加载';
 
   @override
+  String get scenarioSlowSource => '慢速源';
+
+  @override
   String get scenarioBuffering => '缓冲';
 
   @override

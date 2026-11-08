@@ -26,12 +26,20 @@ enum PlayerDemoScenario {
   unsupported('unsupported'),
 
   /// The "删除" host action never answers (10 s timeout).
-  hostActionTimeout('hostActionTimeout');
+  hostActionTimeout('hostActionTimeout'),
+
+  /// A network source (04A P6): bound with `SourceLatency.slow`, so seek
+  /// drags show only the time bubble.
+  slowSource('slowSource');
 
   const PlayerDemoScenario(this.id);
 
   /// Scenario ID in `Scenarios.catalog`.
   final String id;
+
+  /// Latency hint the demo binds with.
+  SourceLatency get latency =>
+      this == slowSource ? SourceLatency.slow : SourceLatency.local;
 
   /// ARB label.
   String label(GalleryText g) => g(switch (this) {
@@ -41,6 +49,7 @@ enum PlayerDemoScenario {
     disconnect => g.l.scenarioDisconnect,
     unsupported => g.l.scenarioUnsupported,
     hostActionTimeout => g.l.scenarioHostActionTimeout,
+    slowSource => g.l.scenarioSlowSource,
   });
 }
 
@@ -103,6 +112,7 @@ class PlayerDemoPageState extends State<PlayerDemoPage>
       mediaToken: 'example-${scenario.id}-$generation',
       mediaKind: MediaKind.video,
       sourceRef: DemoSourceRef(scenario.id),
+      latencyHint: scenario.latency,
       mimeType: 'video/mp4',
     );
     setState(() {
@@ -189,6 +199,7 @@ class PlayerDemoPageState extends State<PlayerDemoPage>
             session: s,
             title: g(g.l.playerDemoVideoTitle),
             subtitle: _scenario.label(g),
+            latencyHint: _scenario.latency,
             pictureBuilder: (context, session) =>
                 DemoSessionPicture(session: session),
             resolveHostString: (k) => DemoHostActions.resolve(context, k),

@@ -106,7 +106,12 @@ class VideoKitPlayer extends StatefulWidget {
     this.resolveHostString,
     this.resolveHostIcon,
     this.options = const VideoKitPlayerOptions(),
+    this.latencyHint = SourceLatency.local,
   });
+
+  /// Latency of the bound source (04A P6, the host knows it):
+  /// [SourceLatency.slow] drags show only the time bubble, no preview frames.
+  final SourceLatency latencyHint;
 
   /// Session (owned by the host).
   final VideoKitSession session;
@@ -193,6 +198,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     strings: () => VkStrings.of(context),
     hostLabel: _host,
     onControlsVisibilityChanged: widget.onControlsVisibilityChanged,
+    previewFrames: widget.latencyHint != SourceLatency.slow,
   );
 
   @override
@@ -219,7 +225,8 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     } else {
       _c
         ..hostLabel = _host
-        ..onControlsVisibilityChanged = widget.onControlsVisibilityChanged;
+        ..onControlsVisibilityChanged = widget.onControlsVisibilityChanged
+        ..previewFrames = widget.latencyHint != SourceLatency.slow;
     }
     final actions = widget.hostActions;
     if (actions != null && actions != oldWidget.hostActions) {
@@ -650,8 +657,10 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                 end: 0,
                 child: SafeArea(
                   child: Padding(
+                    // TEST-R4 R4-03: below the top bar even when large text
+                    // makes the title taller than the bar.
                     padding: EdgeInsetsDirectional.only(
-                      top: VkTheme.of(context).dimensions.controlBarHeight,
+                      top: _topBarHeight(context),
                     ),
                     child: const Center(child: DemoBadge()),
                   ),
@@ -661,6 +670,17 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         );
       },
     );
+  }
+
+  /// Height of the top bar: the bar height, plus what large text adds to
+  /// the title line beyond it.
+  double _topBarHeight(BuildContext context) {
+    final t = VkTheme.of(context);
+    final title = t.typography.title;
+    final size = title.fontSize ?? t.dimensions.icon24;
+    final line = size * (title.height ?? 1.3);
+    final scaled = MediaQuery.textScalerOf(context).scale(size) / size * line;
+    return t.dimensions.controlBarHeight + math.max(0.0, scaled - line);
   }
 
   Widget _hostPanel(BuildContext context, Size size, bool visible) {
@@ -1057,7 +1077,10 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
             stepUs: widget.options.seekStepUs,
             onDragStart: _c.dragStart,
             onDragUpdate: _c.dragUpdate,
-            onDragEnd: !blocked && st.phase.isBound ? _c.dragEnd : null,
+            // R4-01: a drag in progress keeps the bar enabled until it ends.
+            onDragEnd: (!blocked && st.phase.isBound) || _c.dragUs != null
+                ? _c.dragEnd
+                : null,
             onTapInstead: hidden ? _c.autoHide.show : null,
             previewFrame: VkSeekPreviewFrame(frames: _c.seekPreview),
           )

@@ -148,7 +148,7 @@ abstract class VideoKitLocalizations {
   /// 缓冲中。
   ///
   /// In zh, this message translates to:
-  /// **'正在缓冲…'**
+  /// **'缓冲中'**
   String get stateBuffering;
 
   /// 控件不可用时的读屏状态与提示。
@@ -930,6 +930,66 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'已降为低分辨率'**
   String get slotLowResolution;
+
+  /// 大字号或小格中的降级角标短文案（TEST-R4 R4-03）。
+  ///
+  /// In zh, this message translates to:
+  /// **'低清'**
+  String get slotLowResolutionShort;
+
+  /// 多画面页标题（设计稿第 14 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'多画面'**
+  String get gridTitle;
+
+  /// 多画面数量，例如“4 / 12”。
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} / {max}'**
+  String gridCount(int count, int max);
+
+  /// 多画面底部提示。
+  ///
+  /// In zh, this message translates to:
+  /// **'点按画面切换声音来源，同一时间只有一路发声'**
+  String get gridHint;
+
+  /// 多画面添加媒体。
+  ///
+  /// In zh, this message translates to:
+  /// **'添加媒体'**
+  String get gridAddMedia;
+
+  /// 多画面布局菜单。
+  ///
+  /// In zh, this message translates to:
+  /// **'布局'**
+  String get gridLayout;
+
+  /// 布局：自动。
+  ///
+  /// In zh, this message translates to:
+  /// **'自动'**
+  String get gridLayoutAuto;
+
+  /// 布局：2×2。
+  ///
+  /// In zh, this message translates to:
+  /// **'2×2'**
+  String get gridLayout2x2;
+
+  /// 布局：3×3。
+  ///
+  /// In zh, this message translates to:
+  /// **'3×3'**
+  String get gridLayout3x3;
+
+  /// 布局：4 列 × 3 行。
+  ///
+  /// In zh, this message translates to:
+  /// **'4×3'**
+  String get gridLayout3x4;
 
   /// 设备没有可用解码器，宿主改为显示静态占位（M3，07 §3）。
   ///
@@ -1813,6 +1873,12 @@ abstract class VideoKitLocalizations {
   /// **'空间不足'**
   String get checkSpaceFail;
 
+  /// 空间不足，带需释放的空间（向上取整到 10 MB，J8）。
+  ///
+  /// In zh, this message translates to:
+  /// **'空间不足，需释放约 {size}'**
+  String checkSpaceFailSize(String size);
+
   /// 预检项：打码覆盖。
   ///
   /// In zh, this message translates to:
@@ -2029,10 +2095,16 @@ abstract class VideoKitLocalizations {
   /// **'文件已写入宿主提供的临时位置，正式保存由宿主确认。'**
   String get exportDoneDetail;
 
-  /// 结果摘要：格式。
+  /// 导出成功页的主按钮（设计稿第 21 页）。
   ///
   /// In zh, this message translates to:
-  /// **'格式'**
+  /// **'完成'**
+  String get exportDone;
+
+  /// 结果摘要：容器与编码（设计稿第 21 页）。
+  ///
+  /// In zh, this message translates to:
+  /// **'容器 / 编码'**
   String get summaryFormat;
 
   /// 结果摘要：分辨率。
@@ -2040,6 +2112,48 @@ abstract class VideoKitLocalizations {
   /// In zh, this message translates to:
   /// **'分辨率'**
   String get summaryResolution;
+
+  /// 分辨率与方向，例如“1920 × 1080 · 横屏”。
+  ///
+  /// In zh, this message translates to:
+  /// **'{size} · {orientation}'**
+  String summaryResolutionValue(String size, String orientation);
+
+  /// 输出方向：横屏。
+  ///
+  /// In zh, this message translates to:
+  /// **'横屏'**
+  String get summaryLandscape;
+
+  /// 输出方向：竖屏。
+  ///
+  /// In zh, this message translates to:
+  /// **'竖屏'**
+  String get summaryPortrait;
+
+  /// 输出方向：方形。
+  ///
+  /// In zh, this message translates to:
+  /// **'方形'**
+  String get summarySquare;
+
+  /// 结果摘要：来源。
+  ///
+  /// In zh, this message translates to:
+  /// **'来源'**
+  String get summarySource;
+
+  /// 来源视频数量。
+  ///
+  /// In zh, this message translates to:
+  /// **'{count} 个视频'**
+  String summarySourceCount(int count);
+
+  /// 结果摘要：没有警告。
+  ///
+  /// In zh, this message translates to:
+  /// **'无'**
+  String get summaryNoWarnings;
 
   /// 结果摘要：时长。
   ///
@@ -2056,7 +2170,7 @@ abstract class VideoKitLocalizations {
   /// 结果摘要：警告。
   ///
   /// In zh, this message translates to:
-  /// **'提示'**
+  /// **'警告'**
   String get summaryWarnings;
 
   /// 导出警告。
@@ -2191,11 +2305,23 @@ abstract class VideoKitLocalizations {
   /// **'{codec} {channels}'**
   String trackCodecChannels(String codec, String channels);
 
-  /// 编辑器标题后的保存状态（平板，设计稿第 15 页；宿主自行保存工程时显示）。
+  /// 编辑器标题后的保存状态：最近一次修改已自动保存（平板，设计稿第 15 页）。
   ///
   /// In zh, this message translates to:
   /// **'已自动保存'**
   String get editorAutosaved;
+
+  /// 编辑器自动保存进行中（修改后 2 秒防抖）。
+  ///
+  /// In zh, this message translates to:
+  /// **'正在保存…'**
+  String get editorSaving;
+
+  /// 编辑器自动保存失败，旁边有“重试”。
+  ///
+  /// In zh, this message translates to:
+  /// **'未保存'**
+  String get editorSaveFailed;
 
   /// 平板编辑器标题：工程名 · 剪辑（设计稿第 15 页）。
   ///

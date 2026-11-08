@@ -417,6 +417,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get recentProjectsEmpty => '还没有保存的工程。选择多个视频并“拼接为一个视频”，离开编辑器时会自动保存。';
 
   @override
+  String get recentProjectsEmptyNoEditing => '编辑功能即将提供，届时这里会显示保存的工程。';
+
+  @override
   String recentProjectSaved(String when) {
     return '保存于 $when';
   }

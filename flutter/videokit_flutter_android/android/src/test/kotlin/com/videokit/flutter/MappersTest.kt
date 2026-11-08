@@ -288,11 +288,16 @@ class MappersTest {
             "gif",
             false,
             "demo:normal",
+            "SLOW",
         )
         val source = msg.toSource(factory)
         assertEquals(MediaKind.IMAGE_ANIMATED, source.mediaKind)
         assertEquals(Seekability.SEQUENTIAL_ONLY, source.seekability)
+        // 04A P6: latency hint wire names; missing or unknown is LOCAL.
+        assertEquals(com.videokit.api.SourceLatency.SLOW, source.latencyHint)
         assertEquals(msg, source.toMsg("demo:normal"))
+        assertEquals(com.videokit.api.SourceLatency.LOCAL, msg.copy(latencyHint = null).toSource(factory).latencyHint)
+        assertEquals(com.videokit.api.SourceLatency.LOCAL, msg.copy(latencyHint = "FAST_FUTURE").toSource(factory).latencyHint)
     }
 
     @Test

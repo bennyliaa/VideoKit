@@ -127,6 +127,13 @@ class _EmbedContentViewState extends State<_EmbedContentView> {
   late final Future<List<VideoKitSession>> _sessions = _adopt();
   bool _displayedReported = false;
 
+  /// 04A A1 / 07 §4: in a multi-view every adopted session stays silent until the user picks the audio source;
+  /// this engine is then the single audio coordinator of its grid. Epochs start at the wall clock so they are
+  /// newer than any small counter a host used before handing the sessions over.
+  late final VideoKitAudioCoordinator _audio = VideoKitAudioCoordinator(
+    startEpoch: DateTime.now().millisecondsSinceEpoch,
+  );
+
   Future<List<VideoKitSession>> _adopt() async {
     final kit = await widget.kit;
     final c = widget.content;
@@ -140,6 +147,7 @@ class _EmbedContentViewState extends State<_EmbedContentView> {
 
   @override
   void dispose() {
+    _audio.dispose();
     // Adopted host sessions: release() only stops observing them (the host owns them).
     unawaited(
       _sessions
@@ -183,6 +191,8 @@ class _EmbedContentViewState extends State<_EmbedContentView> {
         autoHideDelay: Duration(
           milliseconds: options?.autoHideControlsMs ?? 3000,
         ),
+        // 04A A1: sessions start silent; a single embedded player grants itself the audio after bind.
+        grantAudio: true,
       ),
       onControlsVisibilityChanged: (visible) =>
           widget.channel.controlsVisibilityChanged(
@@ -212,7 +222,12 @@ class _EmbedContentViewState extends State<_EmbedContentView> {
   Widget _grid(List<VideoKitSession> sessions) => VideoKitSlotGrid(
     slots: [
       for (var i = 0; i < sessions.length; i++)
-        VideoKitSlot(session: sessions[i], index: i),
+        VideoKitSlot(
+          key: ValueKey(sessions[i].sessionId),
+          session: sessions[i],
+          index: i + 1,
+          onActivateAudio: (_) => unawaited(_audio.activate(sessions[i])),
+        ),
     ],
   );
 }

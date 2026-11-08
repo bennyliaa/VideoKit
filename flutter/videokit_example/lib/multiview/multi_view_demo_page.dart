@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
@@ -306,235 +305,46 @@ class MultiViewDemoPageState extends State<MultiViewDemoPage>
 
   @override
   Widget build(BuildContext context) {
-    final t = VkTheme.of(context);
     final g = GalleryText.of(context);
-    final s = VkStrings.of(context);
-    final d = t.dimensions;
     final paused = pausedCount;
-    return Scaffold(
-      backgroundColor: t.colors.background,
-      appBar: AppBar(
-        backgroundColor: t.colors.background,
-        title: Wrap(
-          spacing: d.spacing12,
-          crossAxisAlignment: WrapCrossAlignment.end,
-          children: [
-            Text(g(g.l.multiViewTitle), style: t.typography.titleLarge),
-            Text(
-              g(g.l.multiViewCount(slots.length, VideoKitSlotGrid.maxSlots)),
-              style: t.typography.body.copyWith(color: t.colors.textSecondary),
-            ),
-          ],
-        ),
-        actions: [
-          VkIconButton(
-            icon: t.icons.resolve('mute'),
-            semanticLabel: s.text('gridMuteAll'),
-            onPressed: activeAudio == null ? null : muteAll,
-          ),
-          // Design page 14: the layout is chosen from a menu at the top end.
-          _LayoutMenu(
-            selected: layout,
-            onSelected: (l) => setState(() => layout = l),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: d.spacing16),
-          // Large text or short screens scroll the page; the grid then gets
-          // a fixed share of the height instead of the remaining space.
-          child: LayoutBuilder(
-            builder: (context, c) {
-              final scroll =
-                  MediaQuery.textScalerOf(context).scale(10) > 13 ||
-                  c.maxHeight < d.targetMin * 12;
-              Widget gridBox(Widget grid) => scroll
-                  ? SizedBox(
-                      height: math.max(c.maxHeight * 0.75, d.targetMin * 6),
-                      child: grid,
-                    )
-                  : Expanded(child: grid);
-              final children = <Widget>[
-                if (paused > 0)
-                  Padding(
-                    padding: EdgeInsetsDirectional.only(bottom: d.spacing12),
-                    child: _Notice(
-                      text: g(
-                        g.l.multiViewNotice(
-                          MultiViewDemoPage.suggestedConcurrent,
-                          paused,
-                        ),
-                      ),
-                    ),
-                  ),
-                gridBox(
-                  VideoKitSlotGrid(
-                    layout: layout,
-                    slots: [
-                      for (final (i, slot) in slots.indexed)
-                        VideoKitSlot(
-                          key: ValueKey(slot.session.sessionId),
-                          session: slot.session,
-                          index: i + 1,
-                          title: g(g.l.demoSlotTitle(slot.number)),
-                          degradation: slot.placeholder
-                              ? SlotDegradation.placeholder
-                              : slot.pausedForResources
-                              ? SlotDegradation.pausedForResources
-                              : (slot.lowResolution
-                                    ? SlotDegradation.lowResolution
-                                    : null),
-                          pictureBuilder: (context, session) =>
-                              DemoSessionPicture(session: session),
-                          onActivateAudio: (id) => unawaited(activateAudio(id)),
-                          onTap: () => _onTap(slot),
-                          onRetry: () => unawaited(_bind(slot)),
-                          onRemove: () => remove(slot),
-                        ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.symmetric(
-                    vertical: d.spacing12,
-                  ),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: t.colors.surface,
-                      borderRadius: BorderRadius.circular(d.cornerLarge),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.all(d.spacing16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            g(g.l.multiViewHint),
-                            style: t.typography.body.copyWith(
-                              color: t.colors.textSecondary,
-                            ),
-                          ),
-                          SizedBox(height: d.spacing12),
-                          Wrap(
-                            spacing: d.spacing12,
-                            runSpacing: d.spacing8,
-                            alignment: WrapAlignment.spaceBetween,
-                            children: [
-                              VkButton(
-                                label: s.text('gridMuteAll'),
-                                variant: VkButtonVariant.secondary,
-                                onPressed: activeAudio == null ? null : muteAll,
-                              ),
-                              VkButton(
-                                label: g(g.l.multiViewAdd),
-                                onPressed:
-                                    slots.length >= VideoKitSlotGrid.maxSlots
-                                    ? null
-                                    : () => unawaited(add()),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ];
-              return scroll
-                  ? ListView(children: children)
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: children,
-                    );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _LayoutMenu extends StatelessWidget {
-  const _LayoutMenu({required this.selected, required this.onSelected});
-
-  final SlotGridLayout selected;
-  final ValueChanged<SlotGridLayout> onSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = VkTheme.of(context);
-    final g = GalleryText.of(context);
-    final d = t.dimensions;
-    String label(SlotGridLayout l) => g(switch (l) {
-      SlotGridLayout.auto => g.l.layoutAuto,
-      SlotGridLayout.grid2x2 => g.l.layout2x2,
-      SlotGridLayout.grid3x3 => g.l.layout3x3,
-      SlotGridLayout.grid3x4 => g.l.layout3x4,
-    });
-    return MenuAnchor(
-      style: MenuStyle(
-        backgroundColor: WidgetStatePropertyAll(t.colors.surfaceHigh),
-      ),
-      menuChildren: [
-        for (final l in SlotGridLayout.values)
-          MenuItemButton(
-            onPressed: () => onSelected(l),
-            trailingIcon: l == selected
-                ? Icon(t.icons.check, size: d.icon20, color: t.colors.primary)
-                : null,
-            child: Text(
-              label(l),
-              style: t.typography.body.copyWith(color: t.colors.textPrimary),
-            ),
-          ),
-      ],
-      builder: (context, menu, _) => VkIconButton(
-        icon: t.icons.resolve('grid'),
-        semanticLabel: g(g.l.multiViewLayout),
-        semanticValue: label(selected),
-        onPressed: () => menu.isOpen ? menu.close() : menu.open(),
-      ),
-    );
-  }
-}
-
-/// Capability notice (design page 14, tablet): warning container colours.
-class _Notice extends StatelessWidget {
-  const _Notice({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = VkTheme.of(context);
-    final d = t.dimensions;
-    return Semantics(
-      liveRegion: true,
-      container: true,
-      child: Container(
-        padding: EdgeInsetsDirectional.all(d.spacing12),
-        decoration: BoxDecoration(
-          color: t.colors.warningContainer,
-          borderRadius: BorderRadius.circular(d.cornerMedium),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(
-              t.icons.resolve('info'),
-              size: d.icon20,
-              color: t.colors.warning,
-            ),
-            SizedBox(width: d.spacing8),
-            Expanded(
-              child: Text(
-                text,
-                style: t.typography.body.copyWith(color: t.colors.textPrimary),
+    // Design page 14 chrome is the shared `VideoKitMultiViewScaffold` (the
+    // App uses the same one); this page only plays the host.
+    return VideoKitMultiViewScaffold(
+      count: slots.length,
+      notice: paused > 0
+          ? g(
+              g.l.multiViewNotice(
+                MultiViewDemoPage.suggestedConcurrent,
+                paused,
               ),
+            )
+          : null,
+      onMuteAll: activeAudio == null ? null : muteAll,
+      onAdd: () => unawaited(add()),
+      layout: layout,
+      onLayoutChanged: (l) => setState(() => layout = l),
+      grid: VideoKitSlotGrid(
+        layout: layout,
+        slots: [
+          for (final (i, slot) in slots.indexed)
+            VideoKitSlot(
+              key: ValueKey(slot.session.sessionId),
+              session: slot.session,
+              index: i + 1,
+              title: g(g.l.demoSlotTitle(slot.number)),
+              degradation: slot.placeholder
+                  ? SlotDegradation.placeholder
+                  : slot.pausedForResources
+                  ? SlotDegradation.pausedForResources
+                  : (slot.lowResolution ? SlotDegradation.lowResolution : null),
+              pictureBuilder: (context, session) =>
+                  DemoSessionPicture(session: session),
+              onActivateAudio: (id) => unawaited(activateAudio(id)),
+              onTap: () => _onTap(slot),
+              onRetry: () => unawaited(_bind(slot)),
+              onRemove: () => remove(slot),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }

@@ -354,6 +354,8 @@ MediaSourceMsg? mediaSourceToMsg(VideoKitMediaSource s) {
     extension: s.extension,
     randomAccess: s.seekability == Seekability.randomAccess,
     sourceRef: ref,
+    // 04A P6: wire name LOCAL / SLOW.
+    latencyHint: s.latencyHint.wireName,
   );
 }
 

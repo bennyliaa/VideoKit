@@ -6,13 +6,36 @@ import 'package:videokit_ui/videokit_ui.dart';
 import '../app_scope.dart';
 import '../l10n/app_text.dart';
 import '../pages/concat_page.dart';
+import '../pages/launcher.dart';
 import 'project_store.dart';
 
 /// "最近工程" (M4, App business): edit projects saved when the user left the
 /// editor; open restores the snapshot, delete removes it.
-class RecentProjectsPage extends StatelessWidget {
+class RecentProjectsPage extends StatefulWidget {
   /// Creates the page.
   const RecentProjectsPage({super.key});
+
+  @override
+  State<RecentProjectsPage> createState() => _RecentProjectsPageState();
+}
+
+class _RecentProjectsPageState extends State<RecentProjectsPage> {
+  /// TEST-R4 R4-02: the empty text only points at concatenation when the
+  /// Kit can edit; otherwise it says editing is coming. Null while asking.
+  bool? _editing;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(
+      Future(() async {
+        if (!mounted) return;
+        final scope = AppScope.of(context);
+        final ok = await MediaLauncher.concatAvailable(scope);
+        if (mounted) setState(() => _editing = ok);
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +62,9 @@ class RecentProjectsPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsetsDirectional.all(d.spacing24),
                   child: Text(
-                    a(a.l.recentProjectsEmpty),
+                    _editing == false
+                        ? a(a.l.recentProjectsEmptyNoEditing)
+                        : a(a.l.recentProjectsEmpty),
                     textAlign: TextAlign.center,
                     style: t.typography.body.copyWith(
                       color: t.colors.textSecondary,

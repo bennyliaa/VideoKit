@@ -93,6 +93,8 @@ final class VkStrings {
   Map<String, String> get defaults => {
     'demoModeBadge': l10n.demoModeBadge,
     'editorAutosaved': l10n.editorAutosaved,
+    'editorSaving': l10n.editorSaving,
+    'editorSaveFailed': l10n.editorSaveFailed,
     'trackApply': l10n.trackApply,
     'stateUnsupportedTitle': l10n.stateUnsupportedTitle,
     'stateUnsupportedContainer': l10n.stateUnsupportedContainer,
@@ -235,6 +237,15 @@ final class VkStrings {
     'slotPlaceholderShort': l10n.slotPlaceholderShort,
     'trackChannelsMono': l10n.trackChannelsMono,
     'slotLowResolution': l10n.slotLowResolution,
+    'slotLowResolutionShort': l10n.slotLowResolutionShort,
+    'gridTitle': l10n.gridTitle,
+    'gridHint': l10n.gridHint,
+    'gridAddMedia': l10n.gridAddMedia,
+    'gridLayout': l10n.gridLayout,
+    'gridLayoutAuto': l10n.gridLayoutAuto,
+    'gridLayout2x2': l10n.gridLayout2x2,
+    'gridLayout3x3': l10n.gridLayout3x3,
+    'gridLayout3x4': l10n.gridLayout3x4,
     'slotErrorOnly': l10n.slotErrorOnly,
     'slotRemove': l10n.slotRemove,
     'gridMuteAll': l10n.gridMuteAll,
@@ -369,6 +380,12 @@ final class VkStrings {
     'summaryDuration': l10n.summaryDuration,
     'summarySize': l10n.summarySize,
     'summaryWarnings': l10n.summaryWarnings,
+    'exportDone': l10n.exportDone,
+    'summaryLandscape': l10n.summaryLandscape,
+    'summaryPortrait': l10n.summaryPortrait,
+    'summarySquare': l10n.summarySquare,
+    'summarySource': l10n.summarySource,
+    'summaryNoWarnings': l10n.summaryNoWarnings,
     'warnBoundary': l10n.warnBoundary,
     'warnSilence': l10n.warnSilence,
     'warnCoverage': l10n.warnCoverage,
@@ -385,6 +402,10 @@ final class VkStrings {
     'capabilitiesSessionsValue',
     'orientationRotated',
     'exportSuggestFreeSpaceSize',
+    'summaryResolutionValue',
+    'summarySourceCount',
+    'checkSpaceFailSize',
+    'gridCount',
     'playerSubtitlesRow',
     'playerMediaSummary',
     'sourceTrimRange',
@@ -598,6 +619,19 @@ final class VkStrings {
   /// Image rotation metadata.
   String orientationRotated(int degrees) =>
       _out(l10n.orientationRotated(degrees));
+
+  /// Export summary resolution with orientation (design page 21).
+  String summaryResolutionValue(String size, String orientation) =>
+      _out(l10n.summaryResolutionValue(size, orientation));
+
+  /// Multi-view slot count ("4 / 12", design page 14).
+  String gridCount(int count, int max) => _out(l10n.gridCount(count, max));
+
+  /// Precheck: not enough space, with the amount to free (J8).
+  String checkSpaceFailSize(String size) => _out(l10n.checkSpaceFailSize(size));
+
+  /// Export summary source count (design page 21).
+  String summarySourceCount(int count) => _out(l10n.summarySourceCount(count));
 
   /// Export failure hint with the missing space.
   String exportSuggestFreeSpaceSize(String size) =>

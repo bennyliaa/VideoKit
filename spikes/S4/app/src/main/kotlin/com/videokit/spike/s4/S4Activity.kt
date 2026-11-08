@@ -79,6 +79,8 @@ class S4Activity : Activity() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private lateinit var view: SurfaceView
     private var started = false
+    private var loader = S4Protocol.LOADER_JAVA
+    private var probe = true
     private val samples = CopyOnWriteArrayList<Triple<Long, Long, SessionPhase>>()
     private lateinit var out: File
 
@@ -106,6 +108,9 @@ class S4Activity : Activity() {
         val input = File(dir, intent.getStringExtra("input") ?: "input.mp4")
         val play = File(dir, intent.getStringExtra("play") ?: input.name)
         val faults = intent.getStringExtra("faults")?.split(',')?.map { S4Protocol.Fault.valueOf(it.trim()) } ?: S4Protocol.Fault.entries
+        loader = intent.getStringExtra("loader") ?: S4Protocol.LOADER_JAVA
+        // Attempt 4: the decode probe runs once, in the first task (before its export).
+        probe = intent.getStringExtra("probe") != "false"
         scope.launch {
             val session = startPlayback(play)
             line("""{"event":"start","device":"${android.os.Build.MODEL}","sdk":${android.os.Build.VERSION.SDK_INT},"mainPid":${android.os.Process.myPid()},"input":"${input.name}","inputBytes":${input.length()},"playing":"${play.name}","playPhase":"${session?.state?.value?.phase}"}""")
@@ -162,6 +167,8 @@ class S4Activity : Activity() {
         val broker = InputBroker(input)
         val events = CopyOnWriteArrayList<Pair<Long, String>>()
         val terminal = CompletableDeferred<String>()
+        val probeSteps = CopyOnWriteArrayList<String>()
+        val withProbe = probe && index == 0
         val replyThread = HandlerThread("s4-replies-$task").apply { start() }
         var lastProgress = SystemClock.elapsedRealtime()
         var cancelSentAt = -1L
@@ -173,6 +180,8 @@ class S4Activity : Activity() {
                 lastProgress = now
                 when (message.what) {
                     S4Protocol.STARTED -> events += now to "STARTED"
+
+                    S4Protocol.PROBE -> message.data.getString(S4Protocol.KEY_CODE)?.takeIf { it != "probe=START" }?.let { probeSteps += it }
 
                     S4Protocol.SAMPLE -> if (message.data.getLong(S4Protocol.KEY_SAMPLES) == 1L) {
                         events += now to "FIRST_SAMPLE"
@@ -210,6 +219,8 @@ class S4Activity : Activity() {
                         putParcelable(S4Protocol.KEY_OUTPUT, pfd)
                         putString(S4Protocol.KEY_FAULT, fault.name)
                         putLong(S4Protocol.KEY_CLIP_MS, CLIP_MS)
+                        putString(S4Protocol.KEY_LOADER, loader)
+                        putBoolean(S4Protocol.KEY_PROBE, withProbe)
                     }
                 }
                 runCatching { messenger.send(start) }.onFailure { terminal.complete("SEND_FAILED") }
@@ -248,12 +259,13 @@ class S4Activity : Activity() {
         val firstSample = events.firstOrNull { it.second == "FIRST_SAMPLE" }?.first
         val residue = cacheDir.listFiles { f -> f.name.startsWith("s4_out_$task") }?.size ?: 0
         line(
-            """{"event":"task","task":"$task","fault":"$fault","outcome":"$outcome","totalMs":${terminalAt - t0},""" +
+            """{"event":"task","task":"$task","fault":"$fault","loader":"$loader","outcome":"$outcome","totalMs":${terminalAt - t0},""" +
                 """"firstSampleMs":${firstSample?.let { it - t0 } ?: -1},""" +
                 """"detectMs":${if (firstSample != null && fault != S4Protocol.Fault.NONE) terminalAt - firstSample else -1},""" +
                 """"cancelMs":${if (cancelSentAt > 0) terminalAt - cancelSentAt else -1},""" +
                 """"outputBytesAtEnd":$outputBytes,"outputValid":${valid ?: "null"},"outputAborted":$aborted,"residue":$residue,""" +
                 """"brokerReads":${broker.reads.get()},"brokerCalls":${broker.calls.get()},""" +
+                """"probe":${if (withProbe) probeSteps.joinToString(",", "[", "]") { "\"$it\"" } else "null"},""" +
                 """"mainPid":${android.os.Process.myPid()},"mainMaxStallMs":${maxStallMs(t0, terminalAt + POST_WINDOW_MS)}}""",
         )
     }

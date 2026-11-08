@@ -52,6 +52,7 @@ import com.videokit.api.SessionPurpose
 import com.videokit.api.SessionVisibility
 import com.videokit.api.SinkWriteMode
 import com.videokit.api.Size
+import com.videokit.api.SourceLatency
 import com.videokit.api.SourceProbe
 import com.videokit.api.SuggestedAction
 import com.videokit.api.SupportLevel
@@ -438,6 +439,9 @@ internal object Mappers {
         else -> null
     }
 
+    /** 04A P6: wire name LOCAL / SLOW; missing or unknown is LOCAL. */
+    fun MediaSourceMsg.latency(): SourceLatency = wire(latencyHint, SourceLatency.LOCAL)
+
     fun MediaSourceMsg.toSource(factory: VideoKitSourceFactory): VideoKitMediaSource = VideoKitMediaSource(
         mediaToken = mediaToken,
         mediaKind = mediaKind.toKind(),
@@ -447,6 +451,7 @@ internal object Mappers {
         extension = extension,
         seekability = if (randomAccess) Seekability.RANDOM_ACCESS else Seekability.SEQUENTIAL_ONLY,
         sourceFactory = factory,
+        latencyHint = latency(),
     )
 
     fun VideoKitMediaSource.toMsg(sourceRef: String): MediaSourceMsg = MediaSourceMsg(
@@ -458,6 +463,7 @@ internal object Mappers {
         extension = extension,
         randomAccess = seekability == Seekability.RANDOM_ACCESS,
         sourceRef = sourceRef,
+        latencyHint = latencyHint.name,
     )
 
     // ------------------------------------------------------------------ capabilities

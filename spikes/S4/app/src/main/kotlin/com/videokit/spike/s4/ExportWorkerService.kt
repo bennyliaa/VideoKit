@@ -13,6 +13,7 @@ import android.os.ParcelFileDescriptor
 import android.os.Process
 import android.system.Os
 import android.system.OsConstants
+import android.util.Log
 import androidx.media3.common.Format
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Metadata
@@ -74,16 +75,32 @@ class ExportWorkerService : Service() {
             send(S4Protocol.SAMPLE, samples = samples, bytes = bytes)
             if (samples == 1L) inject(fault)
         }
-        val inputs = DataSource.Factory { BrokerDataSource(broker) }
+        val loader = data.getString(S4Protocol.KEY_LOADER) ?: S4Protocol.LOADER_JAVA
         // S4 attempt 1: Media3 must not register broadcast receivers in the isolated process.
         val context = IsolatedContext(this)
-        val assets = DefaultAssetLoaderFactory(
-            context,
-            DefaultDecoderFactory.Builder(context).build(),
-            Clock.DEFAULT,
-            DefaultMediaSourceFactory(inputs),
-            DataSourceBitmapLoader(context),
-        )
+        val assets = when (loader) {
+            // Attempt 2: blocks forever in ExoPlayerImpl's audio session id (media.audio_flinger); kept for comparison.
+            S4Protocol.LOADER_EXO -> DefaultAssetLoaderFactory(
+                context,
+                DefaultDecoderFactory.Builder(context).build(),
+                Clock.DEFAULT,
+                DefaultMediaSourceFactory(DataSource.Factory { BrokerDataSource(broker) }),
+                DataSourceBitmapLoader(context),
+            )
+
+            // Attempt 3: platform MediaExtractor; blocks on media.extractor. Kept for comparison.
+            S4Protocol.LOADER_EXTRACTOR -> ExtractorAssetLoader.Factory(broker, clipMs * 1_000L)
+
+            // Attempt 4 (a′): pure-Java Media3 extractors, no system service.
+            else -> JavaExtractorAssetLoader.Factory(broker, clipMs * 1_000L)
+        }
+        Log.i(TAG, "start fault=$fault loader=$loader")
+        if (data.getBoolean(S4Protocol.KEY_PROBE, false)) {
+            // Attempt 4: can this process decode at all? Bounded steps, reported before the export starts.
+            send(S4Protocol.PROBE, code = "probe=START")
+            DecodeProbe(broker) { line -> send(S4Protocol.PROBE, code = line) }.run()
+        }
+        dumpThreadsIfStuck(muxer)
         val built = Transformer.Builder(context)
             .setAssetLoaderFactory(assets)
             .setMuxerFactory(muxer)
@@ -110,6 +127,25 @@ class ExportWorkerService : Service() {
         send(S4Protocol.STARTED)
         // Transformer needs a path; the muxer factory ignores it and writes to the descriptor of the main process.
         built.start(edited, "/s4-fd-only-output.mp4")
+    }
+
+    /**
+     * S4 attempts 3-4: when no sample was written [STACK_DUMP_MS] after the start, logs every thread's stack (tag
+     * `S4STACK`) so a blocking call is identified at runtime, before the main process watchdog unbinds the worker.
+     */
+    private fun dumpThreadsIfStuck(muxer: FdMuxerFactory) {
+        Thread({
+            try {
+                Thread.sleep(STACK_DUMP_MS)
+            } catch (interrupted: InterruptedException) {
+                return@Thread
+            }
+            if (muxer.samples.get() > 0) return@Thread
+            Thread.getAllStackTraces().forEach { (thread, frames) ->
+                Log.w(STACK_TAG, "thread ${thread.name} state=${thread.state}")
+                frames.take(STACK_DEPTH).forEach { frame -> Log.w(STACK_TAG, "  at $frame") }
+            }
+        }, "s4-stack-dump").apply { isDaemon = true }.start()
     }
 
     private fun inject(fault: S4Protocol.Fault) {
@@ -146,6 +182,10 @@ class ExportWorkerService : Service() {
 
     private companion object {
         const val OOM_CHUNK = 32 * 1024 * 1024
+        const val TAG = "S4Worker"
+        const val STACK_TAG = "S4STACK"
+        const val STACK_DUMP_MS = 3_000L
+        const val STACK_DEPTH = 25
     }
 }
 

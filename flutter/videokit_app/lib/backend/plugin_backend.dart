@@ -66,6 +66,8 @@ class PluginBackend implements AppBackend {
     displayName: entry.displayName,
     sourceRef: UriSourceRef(entry.uri),
     mimeType: entry.mimeType,
+    // 04A P6: the App only opens local content URIs.
+    latencyHint: SourceLatency.local,
   );
 
   @override

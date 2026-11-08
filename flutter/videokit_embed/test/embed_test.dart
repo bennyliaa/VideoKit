@@ -47,12 +47,42 @@ class _FakeEmbedHost implements VideoKitEmbedHostApi {
       calls.add('displayed:${kind.name}');
 }
 
-/// Minimal plugin platform: handshake and adoption only.
+/// Minimal plugin platform: handshake and adoption; every other call is recorded and answered with a neutral
+/// value of its return type (the widgets attach textures, report visibility, send commands).
 class _FakeHostApi implements VideoKitHostApi {
   final List<String> calls = [];
 
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) {
+    // Symbol("setActiveAudio") -> setActiveAudio
+    final symbol = invocation.memberName.toString();
+    final name = symbol.substring('Symbol("'.length, symbol.length - 2);
+    final args = invocation.positionalArguments.skip(1).join(':');
+    calls.add(args.isEmpty ? name : '$name:$args');
+    return switch (name) {
+      'createTexture' => Future<int>.value(1),
+      'requestNavigation' => Future<String>.value('UNAVAILABLE'),
+      'release' || 'captureState' => Future<PlaybackStateMsg?>.value(),
+      'setControlsVisible' ||
+      'updateHostActions' ||
+      'resizeTexture' ||
+      'disposeTexture' => Future<void>.value(),
+      'captureThumbnail' => Future<ThumbnailResultMsg>.value(
+        ThumbnailResultMsg(
+          error: StableErrorMsg(
+            code: 'INVALID_STATE',
+            stage: 'PLAYBACK',
+            retryable: false,
+            suggestedAction: 'NONE',
+            params: {},
+          ),
+        ),
+      ),
+      _ => Future<CommandResultMsg>.value(
+        CommandResultMsg(kind: CommandResultKind.executed),
+      ),
+    };
+  }
 
   @override
   Future<HandshakeResponse> handshake(HandshakeRequest request) async =>
@@ -81,14 +111,60 @@ class _FakePlatform extends VideoKitPlatform {
   @override
   VideoKitHostApi get hostApi => api;
 
+  // ignore: close_sinks, closed with the test isolate
+  final StreamController<SessionUpdateMessage> sessions =
+      StreamController.broadcast();
+
   @override
-  Stream<SessionUpdateMessage> sessionUpdates() => const Stream.empty();
+  Stream<SessionUpdateMessage> sessionUpdates() => sessions.stream;
 
   @override
   Stream<EditUpdateMessage> editUpdates() => const Stream.empty();
 
   @override
   void setCallbacks(VideoKitCallbacksApi? callbacks) {}
+}
+
+/// A bound video session as the host reports it (04A A1: silent until granted).
+SessionStateMsg _ready({bool activeAudio = false}) => SessionStateMsg(
+  phase: SessionPhaseMsg.ready,
+  mediaKind: MediaKindMsg.video,
+  positionUs: 0,
+  durationUs: 120000000,
+  playWhenReady: false,
+  speed: 1,
+  volume: 1,
+  muted: false,
+  audioTracks: [],
+  subtitleTracks: [],
+  transform: TransformMsg(
+    scale: 1,
+    panX: 0,
+    panY: 0,
+    rotationDeg: 0,
+    fitMode: 'FIT',
+  ),
+  orientation: OrientationStateMsg(
+    request: 'AUTO',
+    contentOrientation: 'LANDSCAPE',
+    fullscreen: false,
+  ),
+  visibility: 'VISIBLE',
+  activeAudio: activeAudio,
+  controlsVisible: true,
+  resourcesHeld: true,
+  hostActions: [],
+  videoWidth: 1920,
+  videoHeight: 1080,
+  hiddenForLock: false,
+  looping: false,
+);
+
+/// Pumps a few frames: the player shows an endless loading indicator, so `pumpAndSettle` never settles.
+Future<void> _settle(WidgetTester tester) async {
+  for (var i = 0; i < 10; i++) {
+    await tester.pump(const Duration(milliseconds: 50));
+  }
 }
 
 EmbedStartMsg _start({EmbedContentMsg? content}) => EmbedStartMsg(
@@ -207,6 +283,93 @@ void main() {
         await tester.pumpWidget(const SizedBox());
         await tester.pumpAndSettle();
         expect(plugin.calls, contains('closeAll'));
+      },
+    );
+
+    Future<_FakePlatform> pumpEmbed(
+      WidgetTester tester,
+      EmbedContentMsg content,
+    ) async {
+      final platform = _FakePlatform(_FakeHostApi());
+      final channel = EmbedChannel(
+        hostApi: _FakeEmbedHost(_start(content: content)),
+        registerFlutterApi: (_) {},
+      );
+      await tester.pumpWidget(
+        VideoKitEmbedApp(
+          channel: channel,
+          connect: () => FlutterVideoKit.connect(
+            const VideoKitConfig(),
+            platform: platform,
+          ),
+        ),
+      );
+      await _settle(tester);
+      return platform;
+    }
+
+    testWidgets(
+      '04A A1: a single embedded player grants itself the audio once the adopted session is bound',
+      (tester) async {
+        final platform = await pumpEmbed(
+          tester,
+          EmbedContentMsg(
+            kind: EmbedSurfaceKind.player,
+            sessionId: 's-1',
+            sessionIds: [],
+          ),
+        );
+        final calls = platform.api.calls;
+        expect(calls, contains('adopt:s-1'));
+        platform.sessions.add(
+          SessionUpdateMessage(sessionId: 's-1', seq: 1, state: _ready()),
+        );
+        await _settle(tester);
+        final grants = calls.where((c) => c.startsWith('setActiveAudio:true'));
+        expect(grants, hasLength(1), reason: '$calls');
+        // Already audible (the host granted it): no second grant.
+        platform.sessions.add(
+          SessionUpdateMessage(
+            sessionId: 's-1',
+            seq: 2,
+            state: _ready(activeAudio: true),
+          ),
+        );
+        await _settle(tester);
+        expect(
+          calls.where((c) => c.startsWith('setActiveAudio:true')),
+          hasLength(1),
+        );
+        await tester.pumpWidget(const SizedBox());
+        await _settle(tester);
+      },
+    );
+
+    testWidgets(
+      '04A A1: a multi-view keeps every slot silent until the user picks the audio source',
+      (tester) async {
+        final platform = await pumpEmbed(
+          tester,
+          EmbedContentMsg(
+            kind: EmbedSurfaceKind.multiView,
+            sessionIds: ['a', 'b'],
+          ),
+        );
+        for (final (i, id) in ['a', 'b'].indexed) {
+          platform.sessions.add(
+            SessionUpdateMessage(sessionId: id, seq: i + 1, state: _ready()),
+          );
+        }
+        await _settle(tester);
+        final calls = platform.api.calls;
+        expect(calls, containsAll(['adopt:a', 'adopt:b']));
+        expect(
+          calls.where((c) => c.startsWith('setActiveAudio')),
+          isEmpty,
+          reason: 'multi-view sessions are never self-granted',
+        );
+        await tester.pumpWidget(const SizedBox());
+        await _settle(tester);
       },
     );
   });

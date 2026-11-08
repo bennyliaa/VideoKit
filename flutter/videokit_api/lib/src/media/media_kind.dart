@@ -35,6 +35,23 @@ enum Seekability {
       enumFromName(values, name, sequentialOnly);
 }
 
+/// How fast the source delivers bytes (04A P6; Kotlin `SourceLatency`).
+enum SourceLatency {
+  /// Local storage (default).
+  local,
+
+  /// Network or remote storage (e.g. SMB): seek preview frames are off by
+  /// default, only the time bubble is shown.
+  slow;
+
+  /// SCREAMING_SNAKE_CASE wire name.
+  String get wireName => toWireName(name);
+
+  /// Parses a Dart or wire name; unknown or null → [local].
+  static SourceLatency fromName(String? name) =>
+      enumFromName(values, name, local);
+}
+
 /// Why a source handle is opened (04 §5).
 enum OpenPurpose {
   probe,

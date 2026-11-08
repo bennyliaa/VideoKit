@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 
@@ -68,10 +70,22 @@ class VkSeekBar extends StatefulWidget {
 }
 
 class _VkSeekBarState extends State<VkSeekBar> {
+  // Gesture state machine (TEST-R4 R4-01 / R3-04):
+  //   pointer down  -> if the controls are hidden, show them at once and
+  //                    remember that this gesture began hidden;
+  //   past the slop -> drag, absolute position under the finger;
+  //   up            -> commit one seek and leave the drag;
+  //   cancel, the bar disabled, the controls hidden mid-drag, or the bar
+  //   disposed      -> leave the drag too (committing where the preview
+  //                    is), so the owner never keeps a stale drag position.
+  // A tap that began hidden only shows the controls. The recognizers are
+  // registered unconditionally so a rebuild during the gesture (the
+  // controls fading in) never drops the drag without an end.
   int? _dragUs;
 
-  /// [VkSeekBar.onTapInstead] as it was when the current tap went down.
-  VoidCallback? _tapInstead;
+  /// Whether the pointer that is down went down while the controls were
+  /// hidden.
+  bool _downHidden = false;
 
   bool get _enabled => widget.durationUs > 0 && widget.onDragEnd != null;
 
@@ -81,21 +95,64 @@ class _VkSeekBarState extends State<VkSeekBar> {
   int _atX(double x, double width) =>
       _clamp((widget.durationUs * (x / width).clamp(0.0, 1.0)).round());
 
+  void _down() {
+    final show = widget.onTapInstead;
+    _downHidden = show != null;
+    show?.call();
+  }
+
   void _start(double x, double width) {
+    if (!_enabled) return;
     widget.onDragStart?.call();
     setState(() => _dragUs = _atX(x, width));
     widget.onDragUpdate?.call(_dragUs!);
   }
 
   void _update(double x, double width) {
+    if (_dragUs == null || !_enabled) return;
     setState(() => _dragUs = _atX(x, width));
     widget.onDragUpdate?.call(_dragUs!);
   }
 
   void _end() {
+    // Not clearing [_downHidden] here: the drag recognizer reports a cancel
+    // when it loses to the tap, before the tap's up (the flag decides it).
     final us = _dragUs;
+    if (us == null) return;
     setState(() => _dragUs = null);
-    if (us != null) widget.onDragEnd?.call(us);
+    widget.onDragEnd?.call(us);
+  }
+
+  void _tapUp(double x, double width) {
+    final hidden = _downHidden;
+    _downHidden = false;
+    if (hidden || widget.onTapInstead != null) {
+      widget.onTapInstead?.call();
+      return;
+    }
+    if (_enabled) widget.onDragEnd!(_atX(x, width));
+  }
+
+  @override
+  void didUpdateWidget(VkSeekBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final hiddenNow =
+        oldWidget.onTapInstead == null && widget.onTapInstead != null;
+    if (_dragUs != null && (!_enabled || hiddenNow)) {
+      // Leave the drag; report it after this build.
+      final us = _dragUs!;
+      final end = oldWidget.onDragEnd ?? widget.onDragEnd;
+      _dragUs = null;
+      if (end != null) scheduleMicrotask(() => end(us));
+    }
+  }
+
+  @override
+  void dispose() {
+    final us = _dragUs;
+    final end = widget.onDragEnd;
+    if (us != null && end != null) scheduleMicrotask(() => end(us));
+    super.dispose();
   }
 
   @override
@@ -134,90 +191,76 @@ class _VkSeekBarState extends State<VkSeekBar> {
           child: LayoutBuilder(
             builder: (context, c) {
               final width = c.maxWidth;
-              return GestureDetector(
+              // The pointer-down decision is synchronous (a Listener, not the
+              // arena): the controls show before any recognizer resolves.
+              return Listener(
                 behavior: HitTestBehavior.opaque,
-                // Absolute positioning (R1-16): the drag starts where the
-                // finger went down and the thumb follows the finger; screen
-                // readers keep the ±step actions.
-                dragStartBehavior: DragStartBehavior.down,
-                onHorizontalDragStart: _enabled
-                    ? (d) => _start(d.localPosition.dx, width)
-                    : null,
-                onHorizontalDragUpdate: _enabled
-                    ? (d) => _update(d.localPosition.dx, width)
-                    : null,
-                onHorizontalDragEnd: _enabled ? (_) => _end() : null,
-                onHorizontalDragCancel: _enabled ? _end : null,
-                // TEST-R3 R3-04: whether this tap only shows the controls is
-                // decided when the finger goes down. The controls appear
-                // during the tap and the bar is rebuilt without
-                // [onTapInstead]; the tap must still not seek. Only a drag
-                // (past the touch slop) seeks while hidden.
-                onTapDown: widget.onTapInstead != null || _enabled
-                    ? (_) => _tapInstead = widget.onTapInstead
-                    : null,
-                onTapCancel: () => _tapInstead = null,
-                onTapUp: widget.onTapInstead != null || _enabled
-                    ? (d) {
-                        final instead = _tapInstead ?? widget.onTapInstead;
-                        _tapInstead = null;
-                        if (instead != null) {
-                          instead();
-                        } else if (_enabled) {
-                          widget.onDragEnd!(_atX(d.localPosition.dx, width));
-                        }
-                      }
-                    : null,
-                child: SizedBox(
-                  height: t.dimensions.targetMin,
-                  width: width,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Positioned.fill(
-                        child: CustomPaint(
-                          painter: _SeekPainter(
-                            style: style,
-                            played: duration <= 0
-                                ? 0
-                                : _clamp(widget.positionUs) / duration,
-                            buffered: duration <= 0
-                                ? 0
-                                : _clamp(widget.bufferedUs ?? 0) / duration,
-                            preview: _dragUs == null || duration <= 0
-                                ? null
-                                : _dragUs! / duration,
-                            active: _dragUs != null,
-                            enabled: _enabled,
+                onPointerDown: (_) => _down(),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  // Absolute positioning (R1-16): the drag starts where the
+                  // finger went down and the thumb follows the finger; screen
+                  // readers keep the ±step actions.
+                  dragStartBehavior: DragStartBehavior.down,
+                  onHorizontalDragStart: (d) =>
+                      _start(d.localPosition.dx, width),
+                  onHorizontalDragUpdate: (d) =>
+                      _update(d.localPosition.dx, width),
+                  onHorizontalDragEnd: (_) => _end(),
+                  onHorizontalDragCancel: _end,
+                  onTapUp: (d) => _tapUp(d.localPosition.dx, width),
+                  onTapCancel: () => _downHidden = false,
+                  child: SizedBox(
+                    height: t.dimensions.targetMin,
+                    width: width,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Positioned.fill(
+                          child: CustomPaint(
+                            painter: _SeekPainter(
+                              style: style,
+                              played: duration <= 0
+                                  ? 0
+                                  : _clamp(widget.positionUs) / duration,
+                              buffered: duration <= 0
+                                  ? 0
+                                  : _clamp(widget.bufferedUs ?? 0) / duration,
+                              preview: _dragUs == null || duration <= 0
+                                  ? null
+                                  : _dragUs! / duration,
+                              active: _dragUs != null,
+                              enabled: _enabled,
+                            ),
                           ),
                         ),
-                      ),
-                      if (_dragUs != null && duration > 0)
-                        Positioned(
-                          bottom: t.dimensions.targetMin,
-                          left: 0,
-                          right: 0,
-                          child: Align(
-                            alignment: Alignment(
-                              (_dragUs! / duration) * 2 - 1,
-                              0,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (widget.previewFrame != null) ...[
-                                  widget.previewFrame!,
-                                  SizedBox(height: t.dimensions.spacing4),
+                        if (_dragUs != null && duration > 0)
+                          Positioned(
+                            bottom: t.dimensions.targetMin,
+                            left: 0,
+                            right: 0,
+                            child: Align(
+                              alignment: Alignment(
+                                (_dragUs! / duration) * 2 - 1,
+                                0,
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (widget.previewFrame != null) ...[
+                                    widget.previewFrame!,
+                                    SizedBox(height: t.dimensions.spacing4),
+                                  ],
+                                  _Bubble(
+                                    style: style.bubble,
+                                    text: VkFormat.timecode(_dragUs!),
+                                  ),
                                 ],
-                                _Bubble(
-                                  style: style.bubble,
-                                  text: VkFormat.timecode(_dragUs!),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );

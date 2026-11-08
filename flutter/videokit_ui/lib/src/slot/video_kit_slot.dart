@@ -253,59 +253,98 @@ class VideoKitSlot extends StatelessWidget {
       MediaKind.imageStatic || MediaKind.imageUnknown => s.text('slotImage'),
       _ => null,
     };
+    // TEST-R4 R4-03 / R3-05: the audio control and the badges share one
+    // top row, so at 200 % text they never overlap or cut each other; the
+    // badges shrink (ellipsis) and use short texts at large text.
+    final large = VkLayoutClass.iconScale(context) > 1;
+    final lowRes = degradation == SlotDegradation.lowResolution;
+    final audio = !v.isVideo
+        ? null
+        : v.activeAudio
+        ? Padding(
+            padding: EdgeInsetsDirectional.all(d.spacing4),
+            child: _Pill(
+              icon: t.icons.resolve('volume'),
+              text: s.text('slotActiveAudio'),
+              background: t.colors.primary,
+              content: t.colors.onPrimary,
+            ),
+          )
+        : VkIconButton(
+            icon: t.icons.resolve('mute'),
+            semanticLabel: s.text('slotActivateAudio'),
+            style: disc,
+            iconSize: d.icon20,
+            onPressed: onActivateAudio == null
+                ? null
+                : () => onActivateAudio!(session.sessionId),
+          );
+    final hasBadges = kindText != null || lowRes;
+    if (audio == null && !hasBadges) return const [];
     return [
-      if (v.isVideo)
-        PositionedDirectional(
-          top: d.spacing4,
-          start: d.spacing4,
-          child: v.activeAudio
-              ? Padding(
-                  padding: EdgeInsetsDirectional.all(d.spacing4),
-                  child: _Pill(
-                    icon: t.icons.resolve('volume'),
-                    text: s.text('slotActiveAudio'),
-                    background: t.colors.primary,
-                    content: t.colors.onPrimary,
-                  ),
-                )
-              : VkIconButton(
-                  icon: t.icons.resolve('mute'),
-                  semanticLabel: s.text('slotActivateAudio'),
-                  style: disc,
-                  iconSize: d.icon20,
-                  onPressed: onActivateAudio == null
-                      ? null
-                      : () => onActivateAudio!(session.sessionId),
-                ),
-        ),
-      if (kindText != null || degradation == SlotDegradation.lowResolution)
-        PositionedDirectional(
-          top: d.spacing8,
-          end: d.spacing8,
-          child: ExcludeSemantics(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+      PositionedDirectional(
+        top: d.spacing4,
+        start: d.spacing4,
+        end: d.spacing4,
+        child: LayoutBuilder(
+          builder: (context, c) {
+            final short = large || c.maxWidth < d.targetMin * 4;
+            // Audio control at the start, badges at the end edge.
+            return Row(
+              mainAxisAlignment: audio == null
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (kindText != null)
-                  _Pill(
-                    text: kindText,
-                    background: disc.normal.background,
-                    content: t.colors.playerControlsContent,
-                  ),
-                if (degradation == SlotDegradation.lowResolution)
-                  Padding(
-                    padding: EdgeInsetsDirectional.only(top: d.spacing4),
-                    child: _Pill(
-                      icon: t.icons.resolve('warning'),
-                      text: s.text('slotLowResolution'),
-                      background: t.colors.warningContainer,
-                      content: t.colors.textPrimary,
+                if (audio != null) Flexible(flex: 3, child: audio),
+                if (hasBadges)
+                  Flexible(
+                    flex: 4,
+                    child: Align(
+                      alignment: AlignmentDirectional.topEnd,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.only(
+                          top: d.spacing4,
+                          start: d.spacing4,
+                          end: d.spacing4,
+                        ),
+                        child: ExcludeSemantics(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              if (kindText != null)
+                                _Pill(
+                                  text: kindText,
+                                  background: disc.normal.background,
+                                  content: t.colors.playerControlsContent,
+                                ),
+                              if (lowRes)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.only(
+                                    top: d.spacing4,
+                                  ),
+                                  child: _Pill(
+                                    icon: t.icons.resolve('warning'),
+                                    text: s.text(
+                                      short
+                                          ? 'slotLowResolutionShort'
+                                          : 'slotLowResolution',
+                                    ),
+                                    background: t.colors.warningContainer,
+                                    content: t.colors.textPrimary,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
               ],
-            ),
-          ),
+            );
+          },
         ),
+      ),
     ];
   }
 
@@ -325,31 +364,58 @@ class VideoKitSlot extends StatelessWidget {
       end: d.spacing12,
       bottom: d.spacing12,
       child: ExcludeSemantics(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(d.cornerFull),
-          child: SizedBox(
-            height: bar.trackHeight,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                ColoredBox(color: bar.track),
-                FractionallySizedBox(
-                  alignment: AlignmentDirectional.centerStart,
-                  widthFactor: buffered,
-                  child: ColoredBox(color: bar.buffered),
-                ),
-                FractionallySizedBox(
-                  alignment: AlignmentDirectional.centerStart,
-                  widthFactor: played,
-                  child: ColoredBox(
-                    color: v.activeAudio
-                        ? bar.played
-                        : t.colors.playerControlsContent,
+        // Design page 14: the slot bar carries a thumb at the position
+        // (display only; the slot is not a seek control).
+        child: LayoutBuilder(
+          builder: (context, c) {
+            final playedColor = v.activeAudio
+                ? bar.played
+                : t.colors.playerControlsContent;
+            final thumb = bar.thumbSize * 0.75;
+            final x = (c.maxWidth * played).clamp(0.0, c.maxWidth);
+            return SizedBox(
+              height: thumb,
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: AlignmentDirectional.centerStart,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(d.cornerFull),
+                    child: SizedBox(
+                      height: bar.trackHeight,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          ColoredBox(color: bar.track),
+                          FractionallySizedBox(
+                            alignment: AlignmentDirectional.centerStart,
+                            widthFactor: buffered,
+                            child: ColoredBox(color: bar.buffered),
+                          ),
+                          FractionallySizedBox(
+                            alignment: AlignmentDirectional.centerStart,
+                            widthFactor: played,
+                            child: ColoredBox(color: playedColor),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                  PositionedDirectional(
+                    start: x - thumb / 2,
+                    child: Container(
+                      width: thumb,
+                      height: thumb,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: playedColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
@@ -430,9 +496,17 @@ class _PausedCover extends StatelessWidget {
           builder: (context, c) {
             final small =
                 c.maxWidth < d.targetMin * 3 || c.maxHeight < d.targetMin * 3;
+            // TEST-R4 R4-03: at large text the content starts below the
+            // slot's top row (audio control), so it never covers the icon.
+            final large = VkLayoutClass.iconScale(context) > 1;
             return Center(
               child: SingleChildScrollView(
-                padding: EdgeInsetsDirectional.all(d.spacing8),
+                padding: EdgeInsetsDirectional.fromSTEB(
+                  d.spacing8,
+                  large ? d.targetMin : d.spacing8,
+                  d.spacing8,
+                  d.spacing8,
+                ),
                 child: ExcludeSemantics(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,

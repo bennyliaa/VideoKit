@@ -46,6 +46,34 @@ void main() {
     expect(RecentProject.fromJson({'id': 'x'}), isNull);
   });
 
+  testWidgets('UI-AUDIT-A3: edits are saved to "最近工程" 2 s later, before '
+      'leaving', (tester) async {
+    final rig = AppRig.create();
+    await rig.pump(tester, size: expandedSize);
+    await startConcat(tester);
+    final page = tester.state<ConcatPageState>(find.byType(ConcatPage));
+    final editor = tester.state<VideoKitEditorState>(
+      find.byType(VideoKitEditor),
+    );
+    // The opening edits run before the editor exists; autosave starts with
+    // the first edit made in it.
+    await settle(tester, 15);
+    expect(savedProjects(rig), isEmpty);
+    expect(editor.autosave!.status, AutosaveStatus.idle);
+    await page.project!.apply(
+      SplitAt(page.project!.state.value.timeline.clips.first.clipId, 1000000),
+    );
+    await settle(tester, 2);
+    expect(find.text('正在保存…'), findsOneWidget);
+    await settle(tester, 12);
+    expect(find.text('已自动保存'), findsOneWidget);
+    expect(savedProjects(rig).single['clipCount'], 3);
+    expect(savedProjects(rig).single['savedAtEpochMs'], isNotNull);
+    await tester.binding.handlePopRoute();
+    await settle(tester, 6);
+    await unmount(tester);
+  });
+
   testWidgets('leaving the editor saves the project; reopening restores it', (
     tester,
   ) async {

@@ -53,7 +53,17 @@ public data class CoreOptions(
     val offscreenReleaseMs: Long = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_OFFSCREEN_RELEASE_MS,
     /** Background time after which a session releases its decoder. */
     val backgroundReleaseMs: Long = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_BACKGROUND_RELEASE_MS,
-)
+    /**
+     * Hard timeout of one thumbnail or seek preview frame (04A P5, same level as the 14 §12 callback timeout). On
+     * timeout the result is `Failed(SOURCE_TIMEOUT)` and the work is abandoned; the session is never blocked.
+     */
+    val thumbnailTimeoutMs: Long = DEFAULT_THUMBNAIL_TIMEOUT_MS,
+) {
+    public companion object {
+        /** Default [thumbnailTimeoutMs]. */
+        public const val DEFAULT_THUMBNAIL_TIMEOUT_MS: Long = 3_000L
+    }
+}
 
 /** Creates the media sessions of a [CoreVideoKit] (implemented by `videokit-playback`). */
 public fun interface SessionFactory {

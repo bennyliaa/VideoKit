@@ -38,4 +38,7 @@ dependencies {
     implementation("androidx.media3:media3-effect:1.11.1")
     implementation("androidx.media3:media3-muxer:1.11.1")
     implementation("androidx.media3:media3-exoplayer:1.11.1")
+    // Attempt 4 (a′): the pure-Java extractors. Already in the graph through transformer/exoplayer (same version);
+    // declared so the worker compiles against it directly. Not a new artifact.
+    implementation("androidx.media3:media3-extractor:1.11.1")
 }

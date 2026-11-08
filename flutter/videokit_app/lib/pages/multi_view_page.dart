@@ -69,7 +69,10 @@ class MultiViewPageState extends State<MultiViewPage> {
     if (e.kind == MediaKind.imageStatic) return;
     await s.execute(const SetMuted(true));
     await s.execute(const Play());
-    if (activeAudio == null && e.kind == MediaKind.video) {
+    // TEST-R4 O-4: the first video in grid order starts with the audio,
+    // not whichever slot finished opening first.
+    final first = _entries.where((x) => x.kind == MediaKind.video).firstOrNull;
+    if (activeAudio == null && e.id == first?.id) {
       await activateAudio(s.sessionId);
     } else {
       // R3-01: a slot that joins later is told it has no audio.
@@ -114,6 +117,9 @@ class MultiViewPageState extends State<MultiViewPage> {
     if (mounted) Navigator.of(context).pop();
   }
 
+  /// Grid layout (design page 14 layout menu).
+  SlotGridLayout layout = SlotGridLayout.auto;
+
   @override
   Widget build(BuildContext context) {
     final t = VkTheme.of(context);
@@ -124,53 +130,37 @@ class MultiViewPageState extends State<MultiViewPage> {
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) unawaited(close());
       },
-      child: Scaffold(
-        backgroundColor: t.colors.background,
-        appBar: AppBar(
-          backgroundColor: t.colors.background,
-          leading: VkIconButton(
-            icon: t.icons.resolve('back'),
-            semanticLabel: s.text('playerBack'),
-            onPressed: () => unawaited(close()),
-          ),
-          title: Text(
-            a(a.l.multiViewTitle),
-            style: t.typography.titleLarge.copyWith(
-              color: t.colors.textPrimary,
-            ),
-          ),
-          actions: [
-            VkIconButton(
-              icon: t.icons.resolve('mute'),
-              semanticLabel: s.text('gridMuteAll'),
-              onPressed: activeAudio == null
-                  ? null
-                  : () => unawaited(muteAll()),
-            ),
-          ],
+      // TEST-R4 page 14: the same chrome as the example (count, layout,
+      // hint, "全部静音"); the App does not add media from here.
+      child: VideoKitMultiViewScaffold(
+        title: a(a.l.multiViewTitle),
+        count: _entries.length,
+        leading: VkIconButton(
+          icon: t.icons.resolve('back'),
+          semanticLabel: s.text('playerBack'),
+          onPressed: () => unawaited(close()),
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsetsDirectional.all(t.dimensions.spacing16),
-            child: VideoKitSlotGrid(
-              slots: [
-                for (final (i, e) in _entries.indexed)
-                  if (sessions[e.id] case final session?)
-                    VideoKitSlot(
-                      key: ValueKey(e.id),
-                      session: session,
-                      index: i + 1,
-                      title: e.displayName,
-                      pictureBuilder: _scope.backend.pictureBuilder,
-                      onActivateAudio: (id) => unawaited(activateAudio(id)),
-                      onTap: e.kind == MediaKind.video
-                          ? () => unawaited(activateAudio(session.sessionId))
-                          : null,
-                      onRetry: () => unawaited(_bind(e, session)),
-                    ),
-              ],
-            ),
-          ),
+        onMuteAll: activeAudio == null ? null : () => unawaited(muteAll()),
+        layout: layout,
+        onLayoutChanged: (l) => setState(() => layout = l),
+        grid: VideoKitSlotGrid(
+          layout: layout,
+          slots: [
+            for (final (i, e) in _entries.indexed)
+              if (sessions[e.id] case final session?)
+                VideoKitSlot(
+                  key: ValueKey(e.id),
+                  session: session,
+                  index: i + 1,
+                  title: e.displayName,
+                  pictureBuilder: _scope.backend.pictureBuilder,
+                  onActivateAudio: (id) => unawaited(activateAudio(id)),
+                  onTap: e.kind == MediaKind.video
+                      ? () => unawaited(activateAudio(session.sessionId))
+                      : null,
+                  onRetry: () => unawaited(_bind(e, session)),
+                ),
+          ],
         ),
       ),
     );

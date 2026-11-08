@@ -13,6 +13,16 @@ import '../editor/editor_panels.dart';
 /// (J8; reported by the Kit when known).
 const String requiredBytesParam = 'requiredBytes';
 
+/// J8: the space [e] says must be freed, rounded up to 10 MB, or null when
+/// it is not an `OUTPUT_SPACE_INSUFFICIENT` with a valid `requiredBytes`.
+int? vkSpaceToFree(VideoKitStableError e) {
+  if (e.code != ErrorCode.outputSpaceInsufficient) return null;
+  final need = int.tryParse(e.params[requiredBytesParam] ?? '');
+  if (need == null || need <= 0) return null;
+  const step = 10 * 1000 * 1000;
+  return (need + step - 1) ~/ step * step;
+}
+
 /// Display name of a codec / container MIME type (technical names, not
 /// translated).
 String vkCodecName(String? mime) => switch (mime) {
@@ -238,6 +248,15 @@ class ExportPanelState extends State<ExportPanel> {
     return Semantics(container: true, child: _lay(context, body));
   }
 
+  String _viewKind() {
+    final st = widget.project.state.value;
+    if (st.phase == EditPhase.cancelling) return 'cancelling';
+    if (st.phase == EditPhase.exporting && st.export != null) {
+      return 'progress';
+    }
+    return _result?.runtimeType.toString() ?? 'idle';
+  }
+
   /// Moves the [_Actions] of [body] below a scrolling content area.
   Widget _lay(BuildContext context, Widget body) {
     if (!widget.pinActions || body is! Column) return body;
@@ -255,6 +274,10 @@ class ExportPanelState extends State<ExportPanel> {
           children: [
             Expanded(
               child: SingleChildScrollView(
+                // TEST-R4 R4-04: each view (presets, progress, result)
+                // starts at the top; the result never inherits the
+                // previous scroll offset.
+                key: ValueKey(_viewKind()),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
@@ -321,6 +344,11 @@ class ExportPanelState extends State<ExportPanel> {
     ];
     final need = pre?.estimate.sizeBytes ?? st.estimate.sizeBytes;
     final free = widget.sink.capabilities.knownFreeSpaceBytes;
+    // J8: the precheck names the space to free (rounded up to 10 MB).
+    final toFree = [
+      for (final e in pre?.problems ?? const <VideoKitStableError>[])
+        ?vkSpaceToFree(e),
+    ].firstOrNull;
     final blocking =
         pre == null || codes.any((c) => c != ErrorCode.trackingLost);
     final coverageBlocks = uncovered.isNotEmpty;
@@ -389,7 +417,9 @@ class ExportPanelState extends State<ExportPanel> {
           _CheckRow(
             title: s.text('checkSpace'),
             detail: codes.contains(ErrorCode.outputSpaceInsufficient)
-                ? s.text('checkSpaceFail')
+                ? (toFree == null
+                      ? s.text('checkSpaceFail')
+                      : s.checkSpaceFailSize(VkFormat.fileSize(s, toFree)))
                 : need == null
                 ? s.text('checkSpaceUnknown')
                 : free == null
@@ -659,13 +689,10 @@ class ExportPanelState extends State<ExportPanel> {
     // 10 MB) the hint names it; otherwise a generic hint without numbers.
     final String? suggestion;
     if (e.code == ErrorCode.outputSpaceInsufficient) {
-      final need = int.tryParse(e.params[requiredBytesParam] ?? '');
-      const step = 10 * 1000 * 1000;
-      suggestion = need == null || need <= 0
+      final toFree = vkSpaceToFree(e);
+      suggestion = toFree == null
           ? s.text('exportSuggestFreeSpace')
-          : s.exportSuggestFreeSpaceSize(
-              VkFormat.fileSize(s, (need + step - 1) ~/ step * step),
-            );
+          : s.exportSuggestFreeSpaceSize(VkFormat.fileSize(s, toFree));
     } else {
       suggestion = s.action(e.suggestedAction);
     }
@@ -750,7 +777,17 @@ class ExportPanelState extends State<ExportPanel> {
     final demo =
         m.isDemo ||
         ExportWarnings.has(m.warnings, ExportWarnings.demoNoRealFile);
-    Widget row(String k, String v) => MergeSemantics(
+    // Design page 21: resolution with orientation, the number of source
+    // videos, and the warnings line (in the warning colour, "无" if none).
+    final orientation = m.width > m.height
+        ? s.text('summaryLandscape')
+        : m.width < m.height
+        ? s.text('summaryPortrait')
+        : s.text('summarySquare');
+    final sources = {
+      for (final c in widget.project.state.value.timeline.clips) c.sourceId,
+    }.length;
+    Widget row(String k, String v, {Color? valueColor}) => MergeSemantics(
       child: Padding(
         padding: EdgeInsetsDirectional.symmetric(vertical: d.spacing8),
         // Design page 21: label at the start, value at the end.
@@ -773,7 +810,7 @@ class ExportPanelState extends State<ExportPanel> {
                 v,
                 style: t.typography.body.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: t.colors.textPrimary,
+                  color: valueColor ?? t.colors.textPrimary,
                 ),
               ),
             ],
@@ -821,14 +858,26 @@ class ExportPanelState extends State<ExportPanel> {
             ),
             row(
               s.text('summaryResolution'),
-              s.infoDimensionsValue(m.width, m.height),
+              s.summaryResolutionValue(
+                s.infoDimensionsValue(m.width, m.height),
+                orientation,
+              ),
             ),
             row(s.text('summaryDuration'), VkFormat.timecode(m.durationUs)),
             row(s.text('summarySize'), VkFormat.fileSize(s, m.sizeBytes)),
-            if (warnings.isNotEmpty)
-              row(s.text('summaryWarnings'), warnings.join('；')),
+            if (sources > 0)
+              row(s.text('summarySource'), s.summarySourceCount(sources)),
+            row(
+              s.text('summaryWarnings'),
+              warnings.isEmpty
+                  ? s.text('summaryNoWarnings')
+                  : warnings.join('；'),
+              valueColor: warnings.isEmpty ? null : t.colors.warning,
+            ),
           ],
         ),
+        // Host actions ("打开", "分享") stay secondary under the summary;
+        // the one main button is "完成" (design page 21).
         if (widget.successActions != null) ...[
           SizedBox(height: d.spacing16),
           widget.successActions!(context, m),
@@ -837,8 +886,7 @@ class ExportPanelState extends State<ExportPanel> {
           SizedBox(height: d.spacing16),
           _Actions([
             VkButton(
-              label: s.text('exportBackToEdit'),
-              variant: VkButtonVariant.outline,
+              label: s.text('exportDone'),
               onPressed: widget.onBackToEdit,
             ),
           ]),

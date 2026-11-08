@@ -28,6 +28,18 @@ public enum class Seekability {
     SEQUENTIAL_ONLY,
 }
 
+/** How fast a source delivers bytes, as the host knows it (04A P6). */
+public enum class SourceLatency {
+    /** Local storage (default). */
+    LOCAL,
+
+    /**
+     * Network or remote storage (for example SMB): seek preview frames are off by default and only the time bubble is
+     * shown; single thumbnails are still allowed within their hard timeout (04A P5).
+     */
+    SLOW,
+}
+
 /** Why VideoKit opens a read handle (04 §5). The host may track and close handles per purpose. */
 public enum class OpenPurpose {
     /** Short probe of the container and tracks. */
@@ -64,6 +76,8 @@ public data class VideoKitMediaSource(
     val seekability: Seekability,
     /** Factory creating short-lived read handles. */
     val sourceFactory: VideoKitSourceFactory,
+    /** How fast the source is (04A P6); [SourceLatency.SLOW] turns seek preview frames off by default. */
+    val latencyHint: SourceLatency = SourceLatency.LOCAL,
 )
 
 /** Creates short-lived read handles for a source (04 §5). */

@@ -27,7 +27,8 @@ class VkIcons extends ThemeExtension<VkIcons> {
     'audiotrack': Icons.audiotrack_rounded,
     'speed': Icons.speed_rounded,
     'rotate': Icons.rotate_right_rounded,
-    'orientationlock': Icons.screen_lock_rotation_rounded,
+    // Design pages 9-10: the orientation lock is a lock shape.
+    'orientationlock': Icons.lock_outline_rounded,
     'fullscreen': Icons.fullscreen_rounded,
     'exitfullscreen': Icons.fullscreen_exit_rounded,
     'edit': Icons.content_cut_rounded,

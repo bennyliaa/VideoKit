@@ -4,26 +4,33 @@ public final class com/videokit/core/CapabilityNegotiation {
 }
 
 public final class com/videokit/core/CoreOptions {
+	public static final field Companion Lcom/videokit/core/CoreOptions$Companion;
+	public static final field DEFAULT_THUMBNAIL_TIMEOUT_MS J
 	public fun <init> ()V
-	public fun <init> (IJLcom/videokit/api/VideoKitApiVersion;ZJJ)V
-	public synthetic fun <init> (IJLcom/videokit/api/VideoKitApiVersion;ZJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (IJLcom/videokit/api/VideoKitApiVersion;ZJJJ)V
+	public synthetic fun <init> (IJLcom/videokit/api/VideoKitApiVersion;ZJJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()I
 	public final fun component2 ()J
 	public final fun component3 ()Lcom/videokit/api/VideoKitApiVersion;
 	public final fun component4 ()Z
 	public final fun component5 ()J
 	public final fun component6 ()J
-	public final fun copy (IJLcom/videokit/api/VideoKitApiVersion;ZJJ)Lcom/videokit/core/CoreOptions;
-	public static synthetic fun copy$default (Lcom/videokit/core/CoreOptions;IJLcom/videokit/api/VideoKitApiVersion;ZJJILjava/lang/Object;)Lcom/videokit/core/CoreOptions;
+	public final fun component7 ()J
+	public final fun copy (IJLcom/videokit/api/VideoKitApiVersion;ZJJJ)Lcom/videokit/core/CoreOptions;
+	public static synthetic fun copy$default (Lcom/videokit/core/CoreOptions;IJLcom/videokit/api/VideoKitApiVersion;ZJJJILjava/lang/Object;)Lcom/videokit/core/CoreOptions;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getApiVersion ()Lcom/videokit/api/VideoKitApiVersion;
 	public final fun getBackgroundReleaseMs ()J
 	public final fun getMaxSessions ()I
 	public final fun getOffscreenReleaseMs ()J
 	public final fun getSourceTimeoutMs ()J
+	public final fun getThumbnailTimeoutMs ()J
 	public fun hashCode ()I
 	public final fun isDemo ()Z
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/videokit/core/CoreOptions$Companion {
 }
 
 public final class com/videokit/core/CoreRuntime {
@@ -290,6 +297,8 @@ public final class com/videokit/core/runtime/StableErrors {
 	public final fun of (Lcom/videokit/api/ErrorCode;Lcom/videokit/api/ErrorStage;Ljava/lang/String;)Lcom/videokit/api/VideoKitStableError;
 	public static synthetic fun of$default (Lcom/videokit/core/runtime/StableErrors;Lcom/videokit/api/ErrorCode;Lcom/videokit/api/ErrorStage;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitStableError;
 	public final fun retryable (Lcom/videokit/api/ErrorCode;)Z
+	public final fun spaceInsufficient (Lcom/videokit/api/ErrorStage;Ljava/lang/Long;Ljava/lang/String;)Lcom/videokit/api/VideoKitStableError;
+	public static synthetic fun spaceInsufficient$default (Lcom/videokit/core/runtime/StableErrors;Lcom/videokit/api/ErrorStage;Ljava/lang/Long;Ljava/lang/String;ILjava/lang/Object;)Lcom/videokit/api/VideoKitStableError;
 	public final fun suggestion (Lcom/videokit/api/ErrorCode;)Lcom/videokit/api/SuggestedAction;
 }
 

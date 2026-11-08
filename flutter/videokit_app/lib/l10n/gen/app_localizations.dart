@@ -760,6 +760,12 @@ abstract class AppLocalizations {
   /// **'还没有保存的工程。选择多个视频并“拼接为一个视频”，离开编辑器时会自动保存。'**
   String get recentProjectsEmpty;
 
+  /// 最近工程空状态：编辑不可用时（TEST-R4 R4-02）。
+  ///
+  /// In zh, this message translates to:
+  /// **'编辑功能即将提供，届时这里会显示保存的工程。'**
+  String get recentProjectsEmptyNoEditing;
+
   /// 最近工程条目：保存时间（相对时间）。
   ///
   /// In zh, this message translates to:

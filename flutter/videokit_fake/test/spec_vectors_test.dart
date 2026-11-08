@@ -228,6 +228,10 @@ void main() {
           if (e['looping'] != null) {
             expect(st.looping, e['looping'], reason: cmd);
           }
+          // 04A A1 (TEST-R3 R3-01): no audio until the host grants it.
+          if (e['activeAudio'] != null) {
+            expect(st.activeAudio, e['activeAudio'], reason: cmd);
+          }
           if (e['atEnd'] != null) {
             expect(st.positionUs == st.durationUs, e['atEnd'], reason: cmd);
           }

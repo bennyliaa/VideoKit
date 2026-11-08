@@ -491,6 +491,7 @@ class MediaSourceMsg {
     this.extension,
     required this.randomAccess,
     required this.sourceRef,
+    this.latencyHint,
   });
 
   String mediaToken;
@@ -503,6 +504,9 @@ class MediaSourceMsg {
 
   /// Native source reference: `uri:<uri>`, `registered:<id>` or `demo:<scenarioId>` (04A I15, B9).
   String sourceRef;
+
+  /// `SourceLatency` wire name, `LOCAL` or `SLOW` (04A P6); null or unknown is `LOCAL`.
+  String? latencyHint;
 }
 
 // ---------------------------------------------------------------- capabilities

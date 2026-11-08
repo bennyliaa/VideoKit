@@ -121,8 +121,14 @@ class ProjectStore extends ChangeNotifier {
   String newId() => 'project-${++_counter}';
 
   /// Saves [project] under [id] (moves it to the front). An empty timeline
-  /// is not kept (and removes an older save of the same project).
-  Future<void> save(String id, VideoKitEditProject project) async {
+  /// is not kept (and removes an older save of the same project). With
+  /// [strict] a failed write throws (editor autosave shows "not saved");
+  /// otherwise it is only logged.
+  Future<void> save(
+    String id,
+    VideoKitEditProject project, {
+    bool strict = false,
+  }) async {
     final st = project.state.value;
     if (st.timeline.clips.isEmpty) {
       await remove(id);
@@ -141,7 +147,7 @@ class ProjectStore extends ChangeNotifier {
       for (final p in _projects)
         if (p.id != id) p,
     ].take(limit).toList();
-    await _write();
+    await _write(strict: strict);
   }
 
   /// Deletes [id].
@@ -154,16 +160,17 @@ class ProjectStore extends ChangeNotifier {
     await _write();
   }
 
-  Future<void> _write() async {
+  Future<void> _write({bool strict = false}) async {
     notifyListeners();
-    await writeQuietly(
-      storage,
-      fileName,
-      jsonEncode({
-        'schema': 1,
-        'counter': _counter,
-        'projects': [for (final p in _projects) p.toJson()],
-      }),
-    );
+    final json = jsonEncode({
+      'schema': 1,
+      'counter': _counter,
+      'projects': [for (final p in _projects) p.toJson()],
+    });
+    if (strict) {
+      await storage.write(fileName, json);
+    } else {
+      await writeQuietly(storage, fileName, json);
+    }
   }
 }

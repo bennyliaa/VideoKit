@@ -20,6 +20,7 @@ class PlayerController extends ChangeNotifier {
     required this.strings,
     required this.hostLabel,
     this.onControlsVisibilityChanged,
+    this.previewFrames = true,
   }) : autoHide = AutoHidePolicy(delay: autoHideDelay) {
     dispatcher = CommandDispatcher(
       execute: session.execute,
@@ -36,6 +37,10 @@ class PlayerController extends ChangeNotifier {
 
   /// Session.
   final VideoKitSession session;
+
+  /// Whether a seek drag asks for preview frames (`captureThumbnail`);
+  /// false for slow sources (04A P6), set by the widget.
+  bool previewFrames;
 
   /// Strings resolver (refreshed by the widget when the locale changes).
   VkStrings Function() strings;
@@ -88,6 +93,10 @@ class PlayerController extends ChangeNotifier {
 
   void _onVisibility() {
     final v = autoHide.visible;
+    // R4-01: controls hidden while a drag is open (a host hide) end the
+    // drag, so the progress display never stays frozen on it.
+    final drag = dragUs;
+    if (!v && drag != null) dragEnd(drag);
     session.setControlsVisible(v);
     onControlsVisibilityChanged?.call(v);
     notifyListeners();
@@ -170,14 +179,17 @@ class PlayerController extends ChangeNotifier {
 
   /// Seek bar drag preview (throttled preview seeks).
   void dragUpdate(int us) {
+    if (_disposed) return;
     dragUs = us;
     dispatcher.seekDrag(us);
-    seekPreview.request(us);
+    // 04A P6: slow sources show only the time bubble while dragging.
+    if (previewFrames) seekPreview.request(us);
     notifyListeners();
   }
 
   /// Seek bar released: one final seek.
   void dragEnd(int us) {
+    if (_disposed) return;
     dragUs = null;
     seekPreview.cancel();
     autoHide.setBlocker(AutoHideBlocker.dragging, false);

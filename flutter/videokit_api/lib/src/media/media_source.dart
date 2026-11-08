@@ -162,7 +162,12 @@ final class VideoKitMediaSource {
     this.mimeType,
     this.extension,
     this.seekability = Seekability.randomAccess,
+    this.latencyHint = SourceLatency.local,
   });
+
+  /// How fast the source is (04A P6): [SourceLatency.slow] turns seek
+  /// preview frames off by default (time bubble only).
+  final SourceLatency latencyHint;
 
   /// Opaque host token for this media.
   final String mediaToken;
@@ -198,6 +203,7 @@ final class VideoKitMediaSource {
     Object? mimeType = undefined,
     Object? extension = undefined,
     Seekability? seekability,
+    SourceLatency? latencyHint,
   }) => VideoKitMediaSource(
     mediaToken: mediaToken ?? this.mediaToken,
     mediaKind: mediaKind ?? this.mediaKind,
@@ -207,6 +213,7 @@ final class VideoKitMediaSource {
     mimeType: pick<String?>(mimeType, this.mimeType),
     extension: pick<String?>(extension, this.extension),
     seekability: seekability ?? this.seekability,
+    latencyHint: latencyHint ?? this.latencyHint,
   );
 
   @override
@@ -219,7 +226,8 @@ final class VideoKitMediaSource {
       other.knownLength == knownLength &&
       other.mimeType == mimeType &&
       other.extension == extension &&
-      other.seekability == seekability;
+      other.seekability == seekability &&
+      other.latencyHint == latencyHint;
 
   @override
   int get hashCode => Object.hash(
@@ -231,10 +239,11 @@ final class VideoKitMediaSource {
     mimeType,
     extension,
     seekability,
+    latencyHint,
   );
 
   @override
   String toString() =>
       'VideoKitMediaSource($mediaToken, ${mediaKind.name}, $sourceRef, '
-      '${seekability.name})';
+      '${seekability.name}, ${latencyHint.name})';
 }
