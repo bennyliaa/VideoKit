@@ -40,7 +40,7 @@ SetMaskStyle(maskId, MOSAIC|BLUR, strength)
 StartTracking / AddCorrectionKeyframe / AcceptTrackingRange（见 09）
 ```
 
-所有命令可撤销/重做（命令栈上限在 M4 冻结）；非法命令（越界、重叠冲突）返回 `Rejected` 与稳定错误。
+所有命令可撤销/重做（命令栈上限 M4 冻结为 100 步，超出时丢弃最早一步；04A E2）；非法命令（越界、重叠冲突）返回 `Rejected` 与稳定错误。
 
 ## 3. 片段与拼接（§10.2、§10.3）
 
@@ -53,7 +53,7 @@ StartTracking / AddCorrectionKeyframe / AcceptTrackingRange（见 09）
 
 | 条件 | 路径 |
 | --- | --- |
-| 所有片段同源或参数完全一致（容器、编码与 profile、分辨率、帧率、方向、音频参数），且切点在关键帧上 | 快速拼接（remux，无重编码） |
+| 所有片段同源或参数完全一致（容器、编码与 profile、分辨率、帧率、方向、音频参数），且切点在关键帧上（帧率比较容差冻结为 0.01 fps，M4-B1） | 快速拼接（remux，无重编码） |
 | 否则 | 转码：按导出预设统一分辨率、帧率、方向和音频参数 |
 
 - 方向：读取旋转元数据，转码时统一为预设方向，快速拼接只在旋转一致时允许；输出不得出现旋转错误。

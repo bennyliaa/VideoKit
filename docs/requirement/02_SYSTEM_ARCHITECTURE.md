@@ -111,7 +111,7 @@ UI 框架先行之所以可行，是因为 `videokit_ui` 只依赖 Dart 版 `vid
 | `videokit-core` | 会话运行时（串行命令执行器、状态机驱动、事件采样）、能力协商、通用变换、资源预算策略与运行时；**平台引擎接口 SPI**（`com.videokit.core.spi`，见 4.2） | api |
 | `videokit-playback` | 播放控制规则、轨道模型、播放事件、观看统计 | core |
 | `videokit-image` | 图片会话规则：缩放/翻页/动图状态、分块调度策略、内存额度 | core |
-| `videokit-timeline` | 编辑工程 Schema 与迁移、编辑命令与撤销重做、片段与拼接规则（快速拼接判定）、关键帧插值 | api、kotlinx-serialization |
+| `videokit-timeline` | 编辑工程 Schema 与迁移、编辑命令与撤销重做、片段与拼接规则（快速拼接判定）、关键帧插值 | core（JSON 读写自实现，不引入新依赖；M4-B1） |
 | `videokit-effects` | 马赛克/模糊参数、按帧遮罩区域计算、**CPU 参考实现**（用于黄金图像与各平台 GPU 实现对照） | timeline |
 | `videokit-tracking` | 跟踪编排：检测→跟踪→关联→置信状态、纠正与重算、覆盖报告；通过 SPI `TrackerBackend` 调平台推理 | timeline、core |
 | `videokit-export` | 导出计划与阶段状态机、取消、Sink 能力协商、输出校验规则；通过 SPI `CompositionExporter` 调平台编码 | timeline、effects、core |
