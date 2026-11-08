@@ -124,6 +124,9 @@
 | 帧来源 | Media3 帧提取 / 解码到 `ImageReader`，按分析分辨率降采样 | 已定 |
 | 推理核心位置 | C++ `native/tracking-core`（OpenCV + 模型加载 + 预处理），Android 经 JNI 调用；跟踪编排、关联、覆盖报告在平台无关的 `videokit-tracking`（Kotlin） | 已定（2026-11-07，多平台复用） |
 
+| 头像抠图（REQ-ED-07） | 人脸框：沿用 YuNet；头部范围：人脸框按比例扩展并结合分割结果；去背景：候选 ① MODNet（人像抠图，代码 Apache-2.0）② PP-HumanSeg（PaddleSeg，Apache-2.0）③ MediaPipe Selfie Multiclass（可分出头发、面部皮肤）；优先能经 OpenCV DNN / ONNX Runtime 运行、与跟踪同一推理栈的模型。权重许可须逐一确认为可商用 | 待验证 S7 |
+| 头像随动 | 位置、大小取跟踪框（扩展到头部）；转角取人脸关键点（双眼连线），可关闭；合成在 `videokit-effects`，预览与导出同一套计算 | 已定（随 VK-M5A） |
+
 ### 2.10 平台引擎接口与多平台复用（2026-11-07 确认）
 
 本文第 2.1–2.9 节的 Android 方案全部作为**平台引擎接口（SPI）的 Android 实现**落地，业务规则不写进 Android 实现（分层见 [02](02_SYSTEM_ARCHITECTURE.md) §4，SPI 列表见 02 §4.2，规则见 [13](13_ENGINEERING_CONVENTIONS.md) §3.2）：
