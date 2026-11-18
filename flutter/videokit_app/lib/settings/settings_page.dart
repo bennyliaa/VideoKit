@@ -1,12 +1,16 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../app_scope.dart';
+import '../entitlement/entitlement_service.dart';
 import '../history/history_store.dart';
 import '../l10n/app_text.dart';
+import '../startup/privacy_consent.dart' show PolicyPage;
 import 'app_settings.dart';
+import 'licenses_page.dart';
 
 /// App version shown in settings (pubspec `version`).
 const String kAppVersion = '1.0.0';
@@ -265,6 +269,46 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
+              // FT01B-07: debug builds only — simulate "not subscribed"
+              // (locks, paywall prompt) or "trial" (no locks, days left).
+              // The App is always subscribed otherwise.
+              if (kDebugMode)
+                if (scope.entitlements
+                    case final AlwaysSubscribedEntitlements debug) ...[
+                  _Section(title: a(a.l.secDebug)),
+                  ValueListenableBuilder<Entitlement>(
+                    valueListenable: debug,
+                    builder: (context, _, _) => _Card(
+                      children: [
+                        _Row(
+                          title: a(a.l.debugSimulateUnsubscribed),
+                          subtitle: a(a.l.debugSimulateUnsubscribedNote),
+                          trailing: VkSwitch(
+                            value: debug.simulatingUnsubscribed,
+                            semanticLabel: a(a.l.debugSimulateUnsubscribed),
+                            onChanged: (on) => debug.debugSimulate(
+                              on
+                                  ? EntitlementStatus.expired
+                                  : EntitlementStatus.subscribed,
+                            ),
+                          ),
+                        ),
+                        _Row(
+                          title: a(a.l.debugSimulateTrial),
+                          trailing: VkSwitch(
+                            value: debug.simulatingTrial,
+                            semanticLabel: a(a.l.debugSimulateTrial),
+                            onChanged: (on) => debug.debugSimulate(
+                              on
+                                  ? EntitlementStatus.trial
+                                  : EntitlementStatus.subscribed,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               _Section(title: a(a.l.secAbout)),
               _Card(
                 children: [
@@ -274,6 +318,28 @@ class SettingsPage extends StatelessWidget {
                       kAppVersion,
                       style: t.typography.body.copyWith(
                         color: t.colors.textSecondary,
+                      ),
+                    ),
+                  ),
+                  // VK-A2: the privacy policy stays readable after consent.
+                  MergeSemantics(
+                    child: Semantics(
+                      button: true,
+                      child: InkWell(
+                        onTap: () => unawaited(
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => const PolicyPage(),
+                            ),
+                          ),
+                        ),
+                        child: _Row(
+                          title: a(a.l.privacySettingsRow),
+                          trailing: Icon(
+                            t.icons.resolve('next'),
+                            color: t.colors.textSecondary,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -301,15 +367,15 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  void _licenses(BuildContext context) {
-    final a = AppText.of(context);
-    showLicensePage(
-      context: context,
-      applicationName: a(a.l.appTitle),
-      applicationVersion: kAppVersion,
-      applicationLegalese: a(a.l.legalese),
-    );
-  }
+  /// VK-M8: the component list with license and status ("待定" where not
+  /// settled), then the full texts.
+  void _licenses(BuildContext context) => unawaited(
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => const LicensesPage(version: kAppVersion),
+      ),
+    ),
+  );
 }
 
 class _Section extends StatelessWidget {

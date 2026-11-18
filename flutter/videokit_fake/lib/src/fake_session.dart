@@ -1069,6 +1069,17 @@ class FakeSession implements VideoKitSession {
 
   // ----------------------------------------------------- preview support --
 
+  /// Edit state of the project this session previews (set by
+  /// `FakeEditProject`); the demo picture draws its masks' mosaic / blur
+  /// from it (UI-AUDIT-A4, design page 17), as the native preview
+  /// composites them.
+  ValueListenable<VideoKitEditState>? get previewOf => _previewOf;
+  ValueListenable<VideoKitEditState>? _previewOf;
+
+  /// Attaches [state] as the previewed edit project (see [previewOf]).
+  void debugAttachPreviewOf(ValueListenable<VideoKitEditState> state) =>
+      _previewOf = state;
+
   /// Updates duration of a bound preview session (used by `FakeEditProject`
   /// when the timeline changes).
   void debugSetDuration(int durationUs) {

@@ -5,11 +5,14 @@ import com.videokit.api.EditFeatures
 import com.videokit.api.EditProjectConfig
 import com.videokit.api.ErrorCode
 import com.videokit.api.ErrorStage
+import com.videokit.api.FeatureAccess
 import com.videokit.api.FeatureKey
+import com.videokit.api.FeatureMode
 import com.videokit.api.ImageFeatures
 import com.videokit.api.MediaProbeResult
 import com.videokit.api.ResourceBudget
 import com.videokit.api.SerializedEditProject
+import com.videokit.api.SessionPurpose
 import com.videokit.api.SupportLevel
 import com.videokit.api.UnsupportedReason
 import com.videokit.api.VideoKit
@@ -18,6 +21,7 @@ import com.videokit.api.VideoKitCapabilities
 import com.videokit.api.VideoKitConfig
 import com.videokit.api.VideoKitEditProject
 import com.videokit.api.VideoKitException
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitSession
 import com.videokit.api.VideoKitSessionConfig
@@ -25,6 +29,8 @@ import com.videokit.api.VideoKitStableError
 import com.videokit.core.runtime.AtomicCounter
 import com.videokit.core.runtime.AtomicFlag
 import com.videokit.core.runtime.AtomicMap
+import com.videokit.core.runtime.CallbackOutcome
+import com.videokit.core.runtime.FeatureGate
 import com.videokit.core.runtime.HostCallbackRunner
 import com.videokit.core.runtime.StableErrors
 import com.videokit.core.spi.PlatformEngines
@@ -94,9 +100,12 @@ public class CoreRuntime internal constructor(
     /** Options. */
     public val options: CoreOptions,
     private val onReleased: (String) -> Unit,
+    /** Static feature switches and the dynamic feature gate (REQ-API-10); sessions check [VideoKitFeature.MULTI_VIEW]. */
+    public val features: FeatureGate = FeatureGate.OPEN,
 ) {
     /** A session reports that it is released (it leaves the session count). */
     public fun sessionReleased(sessionId: String) {
+        features.forget(sessionId)
         onReleased(sessionId)
     }
 }
@@ -121,10 +130,16 @@ public class CoreVideoKit(
         CoroutineScope((parent ?: engines.scheduler.compute) + SupervisorJob(parent?.get(Job)) + CoroutineName("VideoKit"))
     }
     private val callbacks = HostCallbackRunner(scope, config.hostCallbacks, config.callbackTimeouts)
+    private val features = FeatureGate(config.features) { feature, scopeId ->
+        when (val outcome = callbacks.request("checkFeature", config.callbackTimeouts.featureGateMs) { checkFeature(feature, scopeId) }) {
+            is CallbackOutcome.Success -> outcome.value
+            is CallbackOutcome.Failure -> null
+        }
+    }
     private val closed = AtomicFlag()
     private val sessionIds = AtomicCounter()
     private val sessions = AtomicMap<String, VideoKitSession>()
-    private val runtime = CoreRuntime(scope, callbacks, config.resourceBudget, engines, options) { sessions.remove(it) }
+    private val runtime = CoreRuntime(scope, callbacks, config.resourceBudget, engines, options, { sessions.remove(it) }, features)
 
     override val apiVersion: VideoKitApiVersion get() = options.apiVersion
 
@@ -139,8 +154,13 @@ public class CoreVideoKit(
     override suspend fun capabilities(request: CapabilityRequest): VideoKitCapabilities {
         val device = CapabilityNegotiation.effective(engines.capabilities.device(), engines, options.isDemo)
         val probe = request.source?.let { probe(it) }
-        return device.copy(mediaProbe = probe)
+        return features.applyTo(device).copy(mediaProbe = probe)
     }
+
+    override fun featureMode(feature: VideoKitFeature): FeatureMode = features.mode(feature)
+
+    override suspend fun checkFeature(feature: VideoKitFeature, sessionId: String?): FeatureAccess =
+        features.check(feature, sessionId)
 
     override fun createSession(config: VideoKitSessionConfig): VideoKitSession {
         if (closed.value) throw VideoKitException(StableErrors.of(ErrorCode.SESSION_RELEASED, ErrorStage.BIND, "VIDEOKIT_CLOSED"))
@@ -149,14 +169,20 @@ public class CoreVideoKit(
                 StableErrors.of(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorStage.BIND, "SESSION_LIMIT:${options.maxSessions}"),
             )
         }
+        if (config.purpose == SessionPurpose.MULTI_SLOT) features.requireEnabled(VideoKitFeature.MULTI_VIEW, ErrorStage.BIND)
         val id = "session-" + sessionIds.incrementAndGet().toString().padStart(4, '0')
         return sessionFactory.create(SessionContext(id, config, runtime)).also { sessions.put(id, it) }
     }
 
-    override fun createEditProject(config: EditProjectConfig): VideoKitEditProject = throw editingUnavailable()
-
-    override suspend fun restoreEditProject(serialized: SerializedEditProject, config: EditProjectConfig): VideoKitEditProject =
+    override fun createEditProject(config: EditProjectConfig): VideoKitEditProject {
+        if (!closed.value) features.requireEnabled(VideoKitFeature.EDIT, ErrorStage.EDIT)
         throw editingUnavailable()
+    }
+
+    override suspend fun restoreEditProject(serialized: SerializedEditProject, config: EditProjectConfig): VideoKitEditProject {
+        if (!closed.value) features.require(VideoKitFeature.EDIT, null, ErrorStage.EDIT)
+        throw editingUnavailable()
+    }
 
     override fun close() {
         if (!closed.setOnce()) return

@@ -37,7 +37,7 @@ internal object TimelineVectors {
     fun runMigration(case: Map<*, *>) {
         val id = case["id"]
         val version = (case["envelopeVersion"] as Number).toInt()
-        val json = case["json"] as? String ?: MiniJson.write(case["payload"])
+        val json = case["json"] as? String ?: MiniJson.write(asReader(case["payload"], case["readerStyles"] as? List<*>))
         val expect = case["expect"] as Map<*, *>
         val outcome = runCatching { ProjectJson.decode(SerializedEditProject(version, json)) }
         when (expect["result"]) {
@@ -52,8 +52,17 @@ internal object TimelineVectors {
             "RESTORED" -> {
                 val document = outcome.getOrElse { fail("$id: restore failed: $it") }
                 checkDocument("$id", document, expect)
-                // A restored document written again reads back identically (schema 1 round trip).
-                assertEquals(document, ProjectJson.decode(ProjectJson.encode(document)), "$id round trip")
+                // A restored document written again reads back identically (schema 1 round trip); it is then at this Kit's minor.
+                val again = ProjectJson.decode(ProjectJson.encode(document))
+                assertEquals(document.copy(sourceSchemaMinor = ProjectJson.SCHEMA_MINOR), again, "$id round trip")
+                (expect["save"] as? Map<*, *>)?.forEach { (target, outcome) ->
+                    val result = ProjectJson.save(document, SaveMode.valueOf(target as String))
+                    val actual = when (result) {
+                        is SaveResult.Rejected -> "REJECTED"
+                        is SaveResult.Saved -> if (result.copyRequired) "SAVED_AS_COPY" else "SAVED"
+                    }
+                    assertEquals(outcome, actual, "$id save to $target")
+                }
             }
 
             else -> fail("$id: unknown result ${expect["result"]}")
@@ -107,6 +116,10 @@ internal object TimelineVectors {
                     val actual = mask.acceptedRangesUs.map { listOf(it.startUs, it.endUs) }
                     assertEquals(ranges.map { range(it as Map<*, *>) }, actual, "$id accepted")
                 }
+                (want["keyframeRollDegs"] as? List<*>)?.let { rolls ->
+                    assertEquals(rolls.map { (it as? Number)?.toFloat() }, mask.keyframes.map { k -> k.rollDeg }, "$id rollDeg")
+                }
+                if (want.containsKey("avatar")) checkAvatar("$id avatar", want["avatar"] as? Map<*, *>, mask.avatar)
             }
         }
         (expect["tracking"] as? List<*>)?.let { runs ->
@@ -118,6 +131,30 @@ internal object TimelineVectors {
                 }
             }
         }
+    }
+
+    private fun checkAvatar(where: String, want: Map<*, *>?, actual: com.videokit.api.MaskAvatar?) {
+        if (want == null) {
+            assertEquals(null, actual, where)
+            return
+        }
+        val avatar = actual ?: fail("$where: no avatar")
+        assertEquals(want["avatarToken"], avatar.avatarToken, "$where token")
+        (want["scale"] as? Number)?.let { assertClose(it.toDouble(), avatar.scale.toDouble(), "$where scale") }
+        (want["offsetX"] as? Number)?.let { assertClose(it.toDouble(), avatar.offsetX.toDouble(), "$where offsetX") }
+        (want["offsetY"] as? Number)?.let { assertClose(it.toDouble(), avatar.offsetY.toDouble(), "$where offsetY") }
+        (want["followRotation"] as? Boolean)?.let { assertEquals(it, avatar.followRotation, "$where followRotation") }
+    }
+
+    /** `readerStyles`: a reader with an older style enum; styles outside it become unknown values (read by R4). */
+    private fun asReader(payload: Any?, styles: List<*>?): Any? {
+        if (styles == null || payload !is Map<*, *>) return payload
+        val masks = (payload["masks"] as? List<*>).orEmpty().map { item ->
+            val mask = LinkedHashMap(item as Map<*, *>)
+            if (mask["style"] !in styles) mask["style"] = "UNKNOWN_TO_THIS_READER"
+            mask
+        }
+        return LinkedHashMap(payload).apply { put("masks", masks) }
     }
 
     private fun range(json: Map<*, *>): List<Long> = listOf((json["startUs"] as Number).toLong(), (json["endUs"] as Number).toLong())

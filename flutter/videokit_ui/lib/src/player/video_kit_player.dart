@@ -16,6 +16,7 @@ import '../export/export_panel.dart' show vkCodecName;
 import '../foundation/audio_grant.dart';
 import '../foundation/auto_hide.dart';
 import '../foundation/controls_policy.dart';
+import '../foundation/feature_scope.dart';
 import '../foundation/format.dart';
 import '../foundation/layout_class.dart';
 import '../foundation/selector.dart';
@@ -664,6 +665,12 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                           minimal:
                               vkControlsMode(model, st) ==
                               VkControlsMode.minimal,
+                          // Design page 12 (ruling 2026-11-08): opening
+                          // shows back, title and the spinner; the bottom
+                          // controls stay with a disabled look.
+                          loading:
+                              vkControlsMode(model, st) ==
+                              VkControlsMode.loading,
                           hidden: !visible,
                         ),
                       ),
@@ -672,7 +679,9 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                 ),
               ),
             ),
-            if (widget.hostPanel != null) _hostPanel(context, size, visible),
+            if (widget.hostPanel != null &&
+                vkControlsMode(model, st) != VkControlsMode.loading)
+              _hostPanel(context, size, visible),
             if (widget.session.isDemo)
               PositionedDirectional(
                 top: 0,
@@ -791,13 +800,17 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         label: s.text('playerRotate'),
         onPressed: bound ? _rotate : null,
       ),
-      if (widget.onEditRequested != null && isVideo)
+      // REQ-API-10: no entry when editing is hidden; the host's gate is
+      // asked before the editor opens.
+      if (widget.onEditRequested != null &&
+          isVideo &&
+          VideoKitFeatures.of(context).isEnabled(VideoKitFeature.edit))
         _ControlItem(
           id: 'edit',
           icon: t.icons.resolve('edit'),
           label: s.text('playerEdit'),
           onPressed: bound
-              ? () => widget.onEditRequested!(st.positionUs)
+              ? () => unawaited(_requestEdit(st.positionUs))
               : null,
         ),
       _ControlItem(
@@ -807,6 +820,13 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         onPressed: _toggleFullscreen,
       ),
     ];
+  }
+
+  Future<void> _requestEdit(int positionUs) async {
+    final open = await VideoKitFeatures.of(
+      context,
+    ).enter(VideoKitFeature.edit, sessionId: widget.session.sessionId);
+    if (open && mounted) widget.onEditRequested?.call(positionUs);
   }
 
   /// Portrait big play key: light disc with dark icon; disabled is a faint
@@ -872,18 +892,31 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
   VkStateStyleBox _onPictureStyle(BuildContext context) =>
       vkOnPictureIconStyle(context);
 
-  /// "1920 × 1080 · H.264" from the media info (design page 10), or null.
+  /// "1080p · H.264 · AAC" from the media info (design page 10,
+  /// UI-AUDIT-A4): a common resolution class (else "W × H"), the video
+  /// codec and, when known, the audio codec; or null.
   static String? _mediaSummary(VkStrings s, VideoKitSessionState st) {
     final info = st.mediaInfo;
     final w = info?.width;
     final h = info?.height;
     final codec = info?.videoCodec;
     if (w == null || h == null || w <= 0 || codec == null) return null;
-    return s.playerMediaSummary(
-      s.infoDimensionsValue(w, h),
-      vkCodecName(codec),
-    );
+    final lines = math.min(w, h);
+    final size = _resolutionClasses.contains(lines)
+        ? s.playerResolutionLines(lines)
+        : s.infoDimensionsValue(w, h);
+    final audio = info?.audioCodec;
+    return audio == null
+        ? s.playerMediaSummary(size, vkCodecName(codec))
+        : s.playerMediaSummaryAudio(
+            size,
+            vkCodecName(codec),
+            vkCodecName(audio),
+          );
   }
+
+  /// Heights named by their class ("1080p").
+  static const List<int> _resolutionClasses = [480, 720, 1080, 1440, 2160];
 
   Widget _controls(
     BuildContext context,
@@ -891,6 +924,7 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
     VideoKitSessionState st, {
     bool blocked = false,
     bool minimal = false,
+    bool loading = false,
     bool hidden = false,
   }) {
     // While hidden only the seek bar takes pointers (R2-05): dragging it
@@ -1038,12 +1072,12 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
                   ],
                 ),
               ),
-              if (landscape && !minimal)
+              if (landscape && !minimal && !loading)
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: size.width * 0.45),
                   child: hostBar,
                 ),
-              if (!minimal)
+              if (!minimal && !loading)
                 VkIconButton(
                   icon: t.icons.resolve('more'),
                   semanticLabel: s.text('commonMore'),
@@ -1300,7 +1334,9 @@ class VideoKitPlayerState extends State<VideoKitPlayer> {
         LayoutId(id: _PortraitSlot.bottom, child: bottomBar),
         LayoutId(
           id: _PortraitSlot.host,
-          child: IgnorePointer(ignoring: blocked || hidden, child: hostBar),
+          child: loading
+              ? const SizedBox.shrink()
+              : IgnorePointer(ignoring: blocked || hidden, child: hostBar),
         ),
       ],
     );

@@ -266,12 +266,12 @@ internal class Media3PlaybackHandle(
         }
 
         override fun onPlayerError(error: PlaybackException) {
-            val trackType = (error as? ExoPlaybackException)
+            val rendererFormat = (error as? ExoPlaybackException)
                 ?.takeIf { it.type == ExoPlaybackException.TYPE_RENDERER }
                 ?.rendererFormat
-                ?.sampleMimeType
-                ?.let { MimeTypes.getTrackType(it) }
-            val stable = PlaybackErrors.map(error.errorCode, error.cause ?: error, trackType)
+            val trackType = rendererFormat?.sampleMimeType?.let { MimeTypes.getTrackType(it) }
+            // 04A X2: the renderer format gives the UI the unsupported codec, profile and bit depth.
+            val stable = PlaybackErrors.map(error.errorCode, error.cause ?: error, trackType, rendererFormat)
             failure =
                 EngineState(EngineStatus.FAILED, false, currentPositionUs(), null, null, videoSize, audioTracks, subtitleTracks, stable)
             pendingSeek?.complete(Unit)

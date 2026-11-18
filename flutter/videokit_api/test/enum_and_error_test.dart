@@ -3,9 +3,13 @@ import 'package:videokit_api/videokit_api.dart';
 
 void main() {
   group('ErrorCode', () {
-    test('has the 25 codes of 04 §9.1 + 04A V7 with stable wire names', () {
-      expect(ErrorCode.values, hasLength(25));
-      expect(ErrorCode.values.last, ErrorCode.unsupportedSnapshotVersion);
+    test('has the 27 codes of 04 §9.1 + 04A V7 + E6 with stable wire '
+        'names', () {
+      // VK-A2 (REQ-API-10): FEATURE_DISABLED, FEATURE_DENIED appended.
+      expect(ErrorCode.values, hasLength(29));
+      expect(ErrorCode.values.last, ErrorCode.featureDenied);
+      expect(ErrorCode.featureDisabled.wireName, 'FEATURE_DISABLED');
+      expect(ErrorCode.avatarNoFace.wireName, 'AVATAR_NO_FACE');
       expect(ErrorCode.invalidArgument.wireName, 'INVALID_ARGUMENT');
       expect(ErrorCode.sourceNotFound.wireName, 'SOURCE_NOT_FOUND');
       expect(

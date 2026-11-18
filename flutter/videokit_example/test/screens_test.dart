@@ -98,6 +98,10 @@ void main() {
     await _shot(tester, 'ui01_player_portrait');
     key.currentState!.openPanel(PlayerPanel.speed);
     await _shot(tester, 'ui02_track_sheet_speed_portrait');
+    // UI-AUDIT-A4 (TEST-PLAN-6 page 11 ①): close the speed sheet first, so
+    // the subtitles shot really shows the subtitles tab.
+    await tester.binding.handlePopRoute();
+    await rig.advance(tester, const Duration(milliseconds: 400));
     key.currentState!.openPanel(PlayerPanel.subtitles);
     await _shot(tester, 'ui02_track_sheet_subtitles_portrait');
     await tester.pumpWidget(const SizedBox());
@@ -717,5 +721,88 @@ void main() {
     await _shot(tester, 'a2_capabilities_page');
     await tester.pumpWidget(const SizedBox());
     await frames(tester, 5);
+  }, skip: _dir == null);
+
+  testWidgets('UI-AUDIT-A4 screens', (tester) async {
+    // Page 12: opening (spinner, back, title, disabled bottom controls).
+    var rig = await player(tester, 'slowLoad', compactSize);
+    await tester.pump(const Duration(milliseconds: 500));
+    await _shot(tester, 'a4_p12_loading');
+    await tester.pumpWidget(const SizedBox());
+    rig.dispose();
+    await tester.pump(Duration.zero);
+
+    // Page 12: unsupported (film icon, "无法播放此视频").
+    rig = await player(tester, 'unsupported', compactSize);
+    await _shot(tester, 'a4_p12_unsupported');
+    await tester.pumpWidget(const SizedBox());
+    rig.dispose();
+    await tester.pump(Duration.zero);
+
+    // Page 23: RTL.
+    setViewSize(tester, compactSize);
+    rig = await PlayerRig.create('normal');
+    addTearDown(rig.dispose);
+    await tester.pumpWidget(
+      _wrap(
+        testApp(
+          Directionality(
+            textDirection: TextDirection.rtl,
+            child: demoPlayer(rig.session, onStateAction: (_) {}),
+          ),
+          fontFamily: _family,
+        ),
+      ),
+    );
+    await rig.advance(tester, const Duration(seconds: 2));
+    await _shot(tester, 'a4_p23_player_rtl');
+    await tester.pumpWidget(const SizedBox());
+    rig.dispose();
+    await tester.pump(Duration.zero);
+
+    Future<VideoKitEditorState> editor(Size size) async {
+      setViewSize(tester, size);
+      await tester.pumpWidget(
+        _wrap(
+          testApp(
+            const EditDemoPage(showScenarioPicker: false),
+            fontFamily: _family,
+          ),
+        ),
+      );
+      await frames(tester, 15);
+      // Let the timeline thumbnails decode (real async).
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 300)),
+      );
+      await frames(tester, 3);
+      return tester.state<VideoKitEditorState>(find.byType(VideoKitEditor));
+    }
+
+    // Pages 15/16: thumbnail film, waveform, empty mask track, "添加片段".
+    var e = await editor(expandedSize);
+    await _shot(tester, 'a4_p15_editor_timeline');
+    await unmount(tester);
+    e = await editor(compactSize);
+    await _shot(tester, 'a4_p16_editor_phone');
+    // Page 16 ④: portrait "多视频拼接" with clip thumbnails.
+    await tester.tap(find.text('排序'));
+    await frames(tester, 3);
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 300)),
+    );
+    await frames(tester, 3);
+    await _shot(tester, 'a4_p16_concat_portrait');
+    await unmount(tester);
+
+    // Page 17: mosaic on the preview and the keyframe range bar.
+    e = await editor(expandedSize);
+    e.openMasks(MaskEditorTab.manual);
+    await frames(tester, 3);
+    await e.maskEditor!.addManualMask();
+    await frames(tester, 3);
+    await _shot(tester, 'a4_p17_mask_mosaic');
+    await unmount(tester);
+    expect(e, isNotNull);
   }, skip: _dir == null);
 }

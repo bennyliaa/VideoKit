@@ -50,7 +50,24 @@ final class OverlayBox {
     this.dashed = false,
     this.reference = false,
     this.semanticLabel,
+    this.content,
+    this.contentScale = 1,
+    this.contentOffset = Offset.zero,
+    this.contentRotationDeg = 0,
   });
+
+  /// Picture drawn in the box under its outline (an avatar, REQ-ED-07);
+  /// decorative, never hit-tested.
+  final Widget? content;
+
+  /// [content] size relative to the box.
+  final double contentScale;
+
+  /// [content] offset relative to the box size.
+  final Offset contentOffset;
+
+  /// [content] rotation in degrees around the box center.
+  final double contentRotationDeg;
 
   /// ID (mask or candidate).
   final String id;
@@ -243,6 +260,31 @@ class _MaskOverlayState extends State<MaskOverlay> {
         final sel = _selected;
         return Stack(
           children: [
+            // REQ-ED-07: avatars under the outlines, following the box.
+            for (final b in widget.boxes)
+              if (b.content case final content?)
+                () {
+                  final r = vkRegionToRect(b.region, picture);
+                  final w = r.width * b.contentScale;
+                  final h = r.height * b.contentScale;
+                  final center =
+                      r.center +
+                      Offset(
+                        b.contentOffset.dx * r.width,
+                        b.contentOffset.dy * r.height,
+                      );
+                  return Positioned.fromRect(
+                    rect: Rect.fromCenter(center: center, width: w, height: h),
+                    child: IgnorePointer(
+                      child: ExcludeSemantics(
+                        child: Transform.rotate(
+                          angle: b.contentRotationDeg * math.pi / 180,
+                          child: content,
+                        ),
+                      ),
+                    ),
+                  );
+                }(),
             Positioned.fill(
               child: GestureDetector(
                 excludeFromSemantics: true,

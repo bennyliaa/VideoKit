@@ -145,6 +145,12 @@ public enum class MaskStyle {
 
     /** Blur. */
     BLUR,
+
+    /**
+     * An avatar image drawn over the tracked head (REQ-ED-07, 04A E5/E6); requires [MaskTrack.avatar]. Not rendered
+     * before VK-M5A: commands that set it return Unsupported.
+     */
+    IMAGE,
 }
 
 /**
@@ -209,6 +215,8 @@ public data class MaskKeyframe(
     val source: KeyframeSource = KeyframeSource.USER,
     /** Quality for tracker keyframes; `null` for user keyframes. */
     val quality: CoverageQuality? = null,
+    /** Head roll in degrees (from the eye line) for [MaskAvatar.followRotation]; `null` when unknown (04A E5, schema 1.1). */
+    val rollDeg: Float? = null,
 )
 
 /** A mask track (08 §4). */
@@ -229,6 +237,26 @@ public data class MaskTrack(
     val keyframes: List<MaskKeyframe> = emptyList(),
     /** Ranges the user explicitly accepted although tracking did not cover them (09 §4). */
     val acceptedRangesUs: List<TimeRangeUs> = emptyList(),
+    /** Avatar of style [MaskStyle.IMAGE] (04A E6, schema 1.1); `null` for the other styles. */
+    val avatar: MaskAvatar? = null,
+)
+
+/**
+ * Avatar of a mask (REQ-ED-07, 04A E5/E6). The PNG is not part of the project: the host keeps it and opens it by
+ * [avatarToken] ([VideoKitHostCallbacks.openAvatar]); `builtin:N` names a Kit avatar. Scale and offsets are relative to
+ * the tracked box and hold for the whole mask.
+ */
+public data class MaskAvatar(
+    /** Opaque host token of the PNG, or `builtin:N`. */
+    val avatarToken: String,
+    /** Size relative to the tracked box. */
+    val scale: Float = 1f,
+    /** Horizontal offset relative to the tracked box width. */
+    val offsetX: Float = 0f,
+    /** Vertical offset relative to the tracked box height. */
+    val offsetY: Float = 0f,
+    /** Turn with the head ([MaskKeyframe.rollDeg]). */
+    val followRotation: Boolean = true,
 )
 
 /** One coverage range of a tracking run (09). */
@@ -432,6 +460,17 @@ public sealed interface VideoKitEditCommand {
         val style: MaskStyle,
         /** Strength 0..1. */
         val strength: Float,
+    ) : VideoKitEditCommand
+
+    /**
+     * Sets the avatar of [maskId] (REQ-ED-07, 04A E6). Before VK-M5A the native Kit returns
+     * [EditCommandResult.Unsupported] (avatars are not rendered yet).
+     */
+    public data class SetMaskAvatar(
+        /** Mask id. */
+        val maskId: String,
+        /** Avatar settings. */
+        val avatar: MaskAvatar,
     ) : VideoKitEditCommand
 
     /** Enables or pauses [maskId]. */
@@ -686,3 +725,46 @@ public data class CandidateDetectionResult(
     /** Error, for example [ErrorCode.TRACKING_MODEL_UNAVAILABLE] or [ErrorCode.INVALID_ARGUMENT]. */
     val error: VideoKitStableError? = null,
 )
+
+/**
+ * Optional timeline media of an edit project (04A X2, UI-AUDIT-A4, design pages 15/16: thumbnail film and audio
+ * waveform on the clip blocks). A separate interface like the avatar tools: [VideoKitEditProject] is unchanged, and
+ * the editor checks `project is VideoKitEditMediaPreview` and otherwise draws plain blocks. Same as the Dart
+ * `VideoKitEditMediaPreview`; the native implementation comes with the M4/M6 native batches.
+ *
+ * Implementations follow 04A P5: every frame read has the hard thumbnail timeout and is cancellable (the editor drops
+ * late answers by cancelling). For [SourceLatency.SLOW] sources they serve only a low density of thumbnails: requests
+ * closer than [SLOW_SOURCE_THUMBNAIL_SPACING_US] to an already served time may return `null`.
+ */
+public interface VideoKitEditMediaPreview {
+    /**
+     * An encoded picture (PNG or JPEG) of source [sourceId] at source time [atUs], at most [maxWidth] × [maxHeight] px;
+     * `null` when the frame cannot be read in time (the block keeps its plain look there).
+     */
+    public suspend fun sourceThumbnail(
+        sourceId: String,
+        atUs: Long,
+        maxWidth: Int = DEFAULT_THUMBNAIL_WIDTH,
+        maxHeight: Int = DEFAULT_THUMBNAIL_HEIGHT,
+    ): ByteArray?
+
+    /**
+     * [buckets] audio peaks (0–1) of source [sourceId] over source time [inUs]–[outUs]; all zero for silence, empty
+     * when the source has no audio track.
+     */
+    public suspend fun sourceWaveform(sourceId: String, inUs: Long, outUs: Long, buckets: Int): List<Float>
+
+    public companion object {
+        /** Default thumbnail width (same as Dart). */
+        public const val DEFAULT_THUMBNAIL_WIDTH: Int = 160
+
+        /** Default thumbnail height (same as Dart). */
+        public const val DEFAULT_THUMBNAIL_HEIGHT: Int = 90
+
+        /** Thumbnail spacing of local sources on the timeline (04A X2, frozen 2026-11-08). */
+        public const val LOCAL_SOURCE_THUMBNAIL_SPACING_US: Long = 500_000L
+
+        /** Low thumbnail density of slow sources: at most one per this source time (04A X2, frozen 2026-11-08). */
+        public const val SLOW_SOURCE_THUMBNAIL_SPACING_US: Long = 2_000_000L
+    }
+}

@@ -3,6 +3,7 @@ import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../editor/edit_demo_page.dart';
+import '../features/feature_switch_page.dart';
 import '../image/image_demo_page.dart';
 import '../multiview/multi_view_demo_page.dart';
 import '../player/player_demo_page.dart';
@@ -827,6 +828,7 @@ class _DemoLinks extends StatelessWidget {
         link(g(g.l.navImageViewer), () => const ImageDemoPage()),
         link(g(g.l.navMultiView), () => const MultiViewDemoPage()),
         link(g(g.l.navEditor), () => const EditDemoPage()),
+        link(g(g.l.navFeatures), () => const FeatureSwitchPage()),
       ],
     );
   }

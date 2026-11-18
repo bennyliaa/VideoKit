@@ -36,6 +36,12 @@ enum UnsupportedReason {
   /// Content is hidden for lock.
   contentLocked,
 
+  /// The feature is hidden by the host configuration (REQ-API-10 ①).
+  featureDisabled,
+
+  /// The host's feature gate did not allow it (REQ-API-10 ②).
+  featureDenied,
+
   /// Fallback for reasons added by a newer native Kit.
   unknown;
 

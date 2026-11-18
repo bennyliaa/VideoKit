@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_app/app.dart';
 import 'package:videokit_app/backend/demo_backend.dart';
+import 'package:videokit_app/entitlement/entitlement_service.dart';
 import 'package:videokit_app/history/app_storage.dart';
 import 'package:videokit_app/history/history_entry.dart';
 
@@ -59,6 +60,7 @@ final class AppRig {
     double textScale = 1.0,
     String? fontFamily,
     Widget Function(Widget app)? wrap,
+    EntitlementService? entitlements,
   }) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -71,6 +73,9 @@ final class AppRig {
       now: () => testNow,
       locale: locale,
       fontFamily: fontFamily,
+      // APP-LIB-A1: a cheap PIN hash keeps library tests fast.
+      libraryHashRounds: 4,
+      entitlements: entitlements,
     );
     await tester.pumpWidget(wrap == null ? app : wrap(app));
     await settle(tester);

@@ -65,7 +65,7 @@ void main() {
         expect(s.error(code), isNotEmpty);
         expect(VkStrings.errorKey(code), startsWith('error'));
       }
-      expect(s.error(ErrorCode.sourceDisconnected), '连接中断');
+      expect(s.error(ErrorCode.sourceDisconnected), '连接已断开');
       expect(
         s.error(ErrorCode.fromName('FUTURE_CODE')),
         s.error(ErrorCode.internalErrorRedacted),

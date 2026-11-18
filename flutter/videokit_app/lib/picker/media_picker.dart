@@ -87,4 +87,10 @@ abstract interface class MediaPickerService {
 
   /// Media handed over by other apps ("用 VideoKit 打开"), as they arrive.
   Stream<List<PickedMedia>> get incoming;
+
+  /// Whether [capturePhoto] can take a picture ("拍一张", REQ-ED-07).
+  bool get canCapturePhoto;
+
+  /// Takes a photo with the camera; null when cancelled or unavailable.
+  Future<PickedMedia?> capturePhoto(BuildContext context);
 }

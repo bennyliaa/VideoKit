@@ -239,12 +239,12 @@ void main() {
     ]);
   });
 
-  test('E2 (b): schemaMinor 0 is written; a higher minor of the same '
+  test('E2 (b): the current schemaMinor (1) is written; a higher minor of the same '
       'major reads, unknown fields ignored', () async {
     final (_, p) = await project();
     final j = await json(p);
     expect(j['schemaVersion'], 1);
-    expect(j['schemaMinor'], 0);
+    expect(j['schemaMinor'], FakeEditProjectCodec.currentSchemaMinor);
     final newer = {
       ...j,
       'schemaMinor': 7,
@@ -256,7 +256,7 @@ void main() {
       EditProjectConfig(),
     );
     expect(restored.state.value.timeline.clips, p.state.value.timeline.clips);
-    expect((await json(restored))['schemaMinor'], 0);
+    expect((await json(restored))['schemaMinor'], 1);
   });
 
   test('E2 6: a version with no migration step is rejected', () async {

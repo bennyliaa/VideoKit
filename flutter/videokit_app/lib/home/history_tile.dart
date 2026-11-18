@@ -84,13 +84,41 @@ class HistoryTile extends StatelessWidget {
           color: e.unavailable ? t.colors.textSecondary : t.colors.textPrimary,
         ),
       ),
-      if (e.unavailable) ...[
+      if (e.unavailable && grid)
+        // UI-AUDIT-A4 (design page 7): one line "无法打开 · 重新选择"; the
+        // whole card reselects.
+        Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: a(a.l.unavailable),
+                style: t.typography.label.copyWith(color: t.colors.error),
+              ),
+              TextSpan(
+                text: a(a.l.metaSeparator),
+                style: t.typography.label.copyWith(
+                  color: t.colors.textSecondary,
+                ),
+              ),
+              TextSpan(
+                text: a(a.l.reselect),
+                style: t.typography.label.copyWith(color: t.colors.primary),
+              ),
+            ],
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        )
+      else if (e.unavailable) ...[
         Text(
           a(a.l.unavailable),
           style: t.typography.label.copyWith(color: t.colors.error),
         ),
+        // Design page 7: the reason stays on one line.
         Text(
           a(a.l.unavailableReason),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: t.typography.bodySmall.copyWith(color: t.colors.textSecondary),
         ),
         // At large text "重新选择" does not fit beside the texts.
@@ -212,8 +240,6 @@ class HistoryTile extends StatelessWidget {
                     style: t.components.hostActionBar.item,
                   ),
           ),
-          if (e.unavailable)
-            PositionedDirectional(bottom: 0, end: 0, child: action),
         ],
       );
     }

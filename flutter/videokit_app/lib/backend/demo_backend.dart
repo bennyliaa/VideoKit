@@ -7,7 +7,9 @@ import 'package:videokit_ui/videokit_ui.dart';
 
 import '../history/history_entry.dart';
 import '../host/app_host.dart';
+import '../library/library_platform.dart';
 import '../l10n/app_text.dart';
+import '../permissions/app_permissions.dart';
 import '../picker/media_picker.dart';
 import 'app_backend.dart';
 
@@ -132,6 +134,17 @@ class DemoMediaPicker implements MediaPickerService {
 
   @override
   Stream<List<PickedMedia>> get incoming => _incoming.stream;
+
+  @override
+  bool get canCapturePhoto => true;
+
+  /// Demo "拍一张": returns the demo photo without a camera.
+  @override
+  Future<PickedMedia?> capturePhoto(BuildContext context) async {
+    final t = AppText.of(context);
+    final d = demoDocuments.firstWhere((d) => d.kind == MediaKind.imageStatic);
+    return media(d, t);
+  }
 
   /// Closes the incoming stream.
   Future<void> close() => _incoming.close();
@@ -291,6 +304,10 @@ class DemoBackend implements AppBackend {
   @override
   DemoMediaPicker get picker => _picker;
 
+  /// Demo permissions (tests set the answers).
+  @override
+  final DemoPermissions permissions = DemoPermissions();
+
   @override
   VideoKit get videoKit => _kit;
 
@@ -337,6 +354,19 @@ class DemoBackend implements AppBackend {
     required String suggestedName,
     required String mimeType,
   }) async => exportSink;
+
+  /// In-memory library device side (tests script it).
+  @override
+  final DemoLibraryPlatform library = DemoLibraryPlatform();
+
+  /// Demo: the Fake writes no file, so the "file" is created here.
+  @override
+  Future<VideoKitOutputSink?> prepareLibraryExport({
+    required String path,
+  }) async {
+    library.files[path] = 1;
+    return exportSink;
+  }
 
   @override
   Future<List<OutputFormat>> presets() async =>

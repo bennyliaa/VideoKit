@@ -16,10 +16,14 @@ import 'player_page.dart';
 /// actions; an animated image restores its looping setting (04A L3).
 class ImagePage extends StatefulWidget {
   /// Creates the page.
-  const ImagePage({super.key, required this.entry});
+  const ImagePage({super.key, required this.entry, this.pageList});
 
   /// Record opened first.
   final HistoryEntry entry;
+
+  /// Records to page through instead of the history's images (media
+  /// library, APP-LIB-A1: never mixes with "最近播放").
+  final List<HistoryEntry>? pageList;
 
   @override
   State<ImagePage> createState() => ImagePageState();
@@ -43,10 +47,12 @@ class ImagePageState extends State<ImagePage> {
   bool openFailed = false;
 
   /// Image records the viewer pages through, in the home list's order.
-  List<HistoryEntry> get pages => [
-    for (final e in _scope.history.entries)
-      if (e.isImage && !e.unavailable) e,
-  ];
+  List<HistoryEntry> get pages =>
+      widget.pageList ??
+      [
+        for (final e in _scope.history.entries)
+          if (e.isImage && !e.unavailable) e,
+      ];
 
   @override
   void didChangeDependencies() {

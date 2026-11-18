@@ -16,6 +16,7 @@ import io.flutter.embedding.engine.FlutterEngine
 class MainActivity : FlutterActivity() {
     private var documents: DocumentsChannel? = null
     private var incoming: IncomingChannel? = null
+    private var library: LibraryChannel? = null
     private var restored = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,8 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         val messenger = flutterEngine.dartExecutor.binaryMessenger
         documents = DocumentsChannel(this, messenger)
+        // APP-LIB-A1: the private media library (copies, lock, FLAG_SECURE).
+        library = LibraryChannel(this, messenger)
         incoming = IncomingChannel(applicationContext.contentResolver, messenger).also {
             if (!restored) it.handle(intent)
         }
@@ -36,8 +39,10 @@ class MainActivity : FlutterActivity() {
     override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
         documents?.dispose()
         incoming?.dispose()
+        library?.dispose()
         documents = null
         incoming = null
+        library = null
         super.cleanUpFlutterEngine(flutterEngine)
     }
 
@@ -50,6 +55,7 @@ class MainActivity : FlutterActivity() {
     // FlutterActivity is not a ComponentActivity, so the Activity Result API is not available here.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (documents?.onActivityResult(requestCode, resultCode, data) == true) return
+        if (library?.onActivityResult(requestCode, resultCode, data) == true) return
         super.onActivityResult(requestCode, resultCode, data)
     }
 }

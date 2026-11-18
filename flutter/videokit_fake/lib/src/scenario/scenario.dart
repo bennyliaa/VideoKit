@@ -61,8 +61,9 @@ final class TimeRange {
 /// Export failure injection.
 @immutable
 final class ExportFailure {
-  /// Fails when [stage] is reached with [code].
-  const ExportFailure(this.stage, this.code);
+  /// Fails when [stage] is reached with [code] (and `params.reason` =
+  /// [reason] when set, 04A X1-3).
+  const ExportFailure(this.stage, this.code, {this.reason});
 
   /// Stage.
   final ExportStage stage;
@@ -70,12 +71,19 @@ final class ExportFailure {
   /// Code.
   final ErrorCode code;
 
-  @override
-  bool operator ==(Object other) =>
-      other is ExportFailure && other.stage == stage && other.code == code;
+  /// `WORKER_KILLED`, `WORKER_CRASHED` or `WORKER_TIMEOUT` for an
+  /// `EXPORT_FAILED` from the export worker.
+  final String? reason;
 
   @override
-  int get hashCode => Object.hash(stage, code);
+  bool operator ==(Object other) =>
+      other is ExportFailure &&
+      other.stage == stage &&
+      other.code == code &&
+      other.reason == reason;
+
+  @override
+  int get hashCode => Object.hash(stage, code, reason);
 }
 
 /// Declarative, composable Fake script (14 §11.1).
@@ -103,6 +111,8 @@ final class Scenario {
     this.trackingLostRanges = const [],
     this.exportFailure,
     this.exportCancelSlow = false,
+    this.exportCancelDelay,
+    this.exportFailsAfterDone = false,
     this.fastConcatRejected = false,
     this.openBuffering,
   });
@@ -170,11 +180,39 @@ final class Scenario {
   Scenario.exportFails({
     ExportStage stage = ExportStage.encoding,
     ErrorCode code = ErrorCode.outputSpaceInsufficient,
-  }) : this._(name: 'exportFails', exportFailure: ExportFailure(stage, code));
+    String? reason,
+  }) : this._(
+         name: 'exportFails',
+         exportFailure: ExportFailure(stage, code, reason: reason),
+       );
+
+  /// The export worker fails with `EXPORT_FAILED` and `params.reason`
+  /// [reason] while encoding (M6-A1, 04A X1-3).
+  Scenario.exportWorker(String reason)
+    : this._(
+        name: 'exportWorker$reason',
+        exportFailure: ExportFailure(
+          ExportStage.encoding,
+          ErrorCode.exportFailed,
+          reason: reason,
+        ),
+      );
 
   /// Export cancellation takes 2 s in `cancelling`.
   const Scenario.exportCancelSlow()
     : this._(name: 'exportCancelSlow', exportCancelSlow: true);
+
+  /// The clean-up after a cancel takes 7 s, past the 5 s after which the
+  /// UI says it takes longer (04A X1-2, M6-A1).
+  const Scenario.exportCleanupSlow()
+    : this._(
+        name: 'exportCleanupSlow',
+        exportCancelDelay: const Duration(seconds: 7),
+      );
+
+  /// The export looks done, then fails (15 §2.8 constraint 4, M6-A1).
+  const Scenario.exportFailsAfterDone()
+    : this._(name: 'exportFailsAfterDone', exportFailsAfterDone: true);
 
   /// The engine refuses fast (remux) concatenation even though the inputs
   /// match (M4): `checkExport` warns `fast_concat_rejected` and the export
@@ -218,6 +256,14 @@ final class Scenario {
   /// Slow cancellation.
   final bool exportCancelSlow;
 
+  /// Explicit clean-up time after a cancel (overrides [exportCancelSlow]).
+  final Duration? exportCancelDelay;
+
+  /// 15 §2.8 constraint 4 (M6-A1): every stage and the progress finish,
+  /// then the main process refuses the result (the worker crashed while
+  /// finishing): the export fails although it looked done.
+  final bool exportFailsAfterDone;
+
   /// Fast concatenation refused by the engine.
   final bool fastConcatRejected;
 
@@ -233,6 +279,24 @@ final class Scenario {
         suggestedAction: unsupportedPart == UnsupportedPart.audioCodec
             ? SuggestedAction.chooseOtherTrack
             : SuggestedAction.chooseOtherSource,
+        // 04A X2: why, so the UI names it (design page 12).
+        params: switch (unsupportedPart!) {
+          UnsupportedPart.container => const {
+            'container': 'video/x-ms-wmv',
+            'reasonDetail': 'CONTAINER_UNSUPPORTED',
+          },
+          UnsupportedPart.videoCodec => const {
+            'codec': 'video/hevc',
+            'profile': 'Main 10',
+            'bitDepth': '10',
+            'container': 'video/x-matroska',
+            'reasonDetail': 'EXCEEDS_CAPABILITIES',
+          },
+          UnsupportedPart.audioCodec => const {
+            'codec': 'audio/eac3',
+            'reasonDetail': 'FORMAT_UNSUPPORTED',
+          },
+        },
       );
     }
     if (resourceExhausted) {
@@ -264,6 +328,8 @@ final class Scenario {
     trackingLostRanges: [...trackingLostRanges, ...other.trackingLostRanges],
     exportFailure: other.exportFailure ?? exportFailure,
     exportCancelSlow: exportCancelSlow || other.exportCancelSlow,
+    exportCancelDelay: other.exportCancelDelay ?? exportCancelDelay,
+    exportFailsAfterDone: exportFailsAfterDone || other.exportFailsAfterDone,
     fastConcatRejected: fastConcatRejected || other.fastConcatRejected,
     openBuffering: other.openBuffering ?? openBuffering,
   );
@@ -286,6 +352,8 @@ final class Scenario {
       listEquals(other.trackingLostRanges, trackingLostRanges) &&
       other.exportFailure == exportFailure &&
       other.exportCancelSlow == exportCancelSlow &&
+      other.exportCancelDelay == exportCancelDelay &&
+      other.exportFailsAfterDone == exportFailsAfterDone &&
       other.fastConcatRejected == fastConcatRejected &&
       other.openBuffering == openBuffering;
 
@@ -303,6 +371,8 @@ final class Scenario {
     Object.hashAll(trackingLostRanges),
     exportFailure,
     exportCancelSlow,
+    exportCancelDelay,
+    exportFailsAfterDone,
     fastConcatRejected,
     openBuffering,
   );
@@ -332,7 +402,15 @@ abstract final class Scenarios {
     'hostActionTimeout': Scenario.hostActionTimeout(),
     'trackingLost': const Scenario.trackingLost(),
     'exportFails': Scenario.exportFails(),
+    'exportWorkerKilled': Scenario.exportWorker('WORKER_KILLED'),
+    'exportWorkerCrashed': Scenario.exportWorker('WORKER_CRASHED'),
+    'exportWorkerTimeout': Scenario.exportWorker('WORKER_TIMEOUT'),
+    'exportDisconnected': Scenario.exportFails(
+      code: ErrorCode.sourceDisconnected,
+    ),
     'exportCancelSlow': const Scenario.exportCancelSlow(),
+    'exportFailsAfterDone': const Scenario.exportFailsAfterDone(),
+    'exportCleanupSlow': const Scenario.exportCleanupSlow(),
     'fastConcatRejected': const Scenario.fastConcatRejected(),
   });
 

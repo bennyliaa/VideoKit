@@ -5,7 +5,9 @@ import 'package:videokit_ui/videokit_ui.dart';
 
 import '../history/history_entry.dart';
 import '../host/app_host.dart';
+import '../library/library_platform.dart';
 import '../picker/channel_media_picker.dart';
+import '../permissions/app_permissions.dart';
 import '../picker/media_picker.dart';
 import '../startup/app_bootstrap.dart';
 import 'app_backend.dart';
@@ -57,6 +59,9 @@ class PluginBackend implements AppBackend {
   MediaPickerService get picker => _picker;
 
   @override
+  AppPermissions get permissions => const ChannelPermissions();
+
+  @override
   VideoKit get videoKit => _kit;
 
   @override
@@ -104,6 +109,28 @@ class PluginBackend implements AppBackend {
     suggestedName: suggestedName,
     mimeType: mimeType,
   );
+
+  @override
+  final LibraryPlatform library = ChannelLibraryPlatform();
+
+  /// The save-as sink, registered for the private file instead of a
+  /// chosen document (the native sink writes through the content resolver,
+  /// which also opens `file://` URIs).
+  @override
+  Future<VideoKitOutputSink?> prepareLibraryExport({
+    required String path,
+  }) async {
+    final sinkId = '$precheckSinkId-${++_exports}';
+    try {
+      await _exportTarget.registerSink(sinkId, Uri.file(path).toString());
+    } on Object {
+      return null;
+    }
+    return VideoKitOutputSink(
+      sinkRef: 'registered:$sinkId',
+      capabilities: ChannelExportTarget.sinkCapabilities,
+    );
+  }
 
   @override
   Future<List<OutputFormat>> presets() async =>

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:videokit_api/videokit_api.dart';
 
 import '../common/vk_buttons.dart';
+import '../export/export_panel.dart' show vkCodecName, vkContainerName;
 import '../l10n/vk_strings.dart';
 import '../theme/theme_scope.dart';
 import 'state_mapping.dart';
@@ -63,13 +64,19 @@ class VideoKitStateView extends StatelessWidget {
         // J4: unsupported media gets a short title; the detail says what.
         StateViewKind.error =>
           isUnsupportedMedia(model.error!.code)
-              ? s.text('stateUnsupportedTitle')
+              ? s.text(
+                  model.mediaKind == MediaKind.imageStatic ||
+                          model.mediaKind == MediaKind.imageAnimated
+                      ? 'stateUnsupportedImageTitle'
+                      : 'stateUnsupportedTitle',
+                )
               : s.error(model.error!.code),
       };
 
   /// Detail text for [model], if any.
   static String? detail(VkStrings s, StateViewModel model) =>
       model.detailText ??
+      unsupportedReason(s, model.error) ??
       switch (model.error?.code) {
         ErrorCode.unsupportedContainer => s.text('stateUnsupportedContainer'),
         ErrorCode.unsupportedVideoCodec => s.text('stateUnsupportedVideoCodec'),
@@ -88,6 +95,46 @@ class VideoKitStateView extends StatelessWidget {
         StateDetail.space => s.text('stateDetailSpace'),
         StateDetail.generic => s.text('stateDetailGeneric'),
       };
+
+  /// The specific reason of an UNSUPPORTED_* error from its params (04A
+  /// X2, design page 12: "本设备不支持 HEVC 10-bit 解码"); null when the
+  /// params do not say (unknown `reasonDetail` or missing names), so the
+  /// generic text is shown.
+  static String? unsupportedReason(VkStrings s, VideoKitStableError? error) {
+    if (error == null || !isUnsupportedMedia(error.code)) return null;
+    final p = error.params;
+    String? str(String k) => switch (p[k]) {
+      final String v when v.trim().isNotEmpty => v.trim(),
+      _ => null,
+    };
+    final codec = str('codec');
+    final container = str('container');
+    final bits = int.tryParse(str('bitDepth') ?? '');
+    final profile = str('profile');
+    switch (str('reasonDetail')) {
+      case 'EXCEEDS_CAPABILITIES' when codec != null:
+        // An RFC 6381 codecs string ("hvc1.2.4.L120") is not shown; a
+        // profile name ("Main 10") is, unless the bit depth says it.
+        final readableProfile =
+            profile != null && !RegExp(r'^[A-Za-z0-9]{4}\.').hasMatch(profile)
+            ? profile
+            : null;
+        final parts = [
+          vkCodecName(codec),
+          if (bits != null && bits > 0)
+            s.stateBitDepth(bits)
+          else if (readableProfile != null)
+            readableProfile,
+        ];
+        return s.stateUnsupportedExceeds(parts.join(' '));
+      case 'FORMAT_UNSUPPORTED' when codec != null:
+        return s.stateUnsupportedNoDecoder(vkCodecName(codec));
+      case 'CONTAINER_UNSUPPORTED' when container != null:
+        return s.stateUnsupportedContainerNamed(vkContainerName(container));
+      default:
+        return null;
+    }
+  }
 
   /// Label of [action].
   static String actionLabel(VkStrings s, StateAction action) =>

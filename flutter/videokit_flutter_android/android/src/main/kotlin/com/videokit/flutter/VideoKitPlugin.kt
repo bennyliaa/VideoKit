@@ -1,9 +1,11 @@
 package com.videokit.flutter
 
 import android.content.Context
+import com.videokit.api.FeatureMode
 import com.videokit.api.HostCallbackTimeouts
 import com.videokit.api.VideoKit
 import com.videokit.api.VideoKitConfig
+import com.videokit.api.VideoKitFeature
 import com.videokit.flutter.gen.EditUpdateMessage
 import com.videokit.flutter.gen.EditUpdatesStreamHandler
 import com.videokit.flutter.gen.SessionUpdateMessage
@@ -105,12 +107,17 @@ internal class EngineRuntime(
 
     /** Creates the engine's VideoKit at the first handshake (later handshakes reuse it). */
     @Synchronized
-    fun ensureKit(backend: VideoKitBackend, timeouts: HostCallbackTimeouts): VideoKit = kit ?: backend.create(
+    fun ensureKit(
+        backend: VideoKitBackend,
+        timeouts: HostCallbackTimeouts,
+        features: Map<VideoKitFeature, FeatureMode> = emptyMap(),
+    ): VideoKit = kit ?: backend.create(
         context,
         VideoKitConfig(
             hostCallbacks = FlutterHostCallbacks(callbacksApi, mainDispatcher),
             resourceBudget = PluginResourceBudget.shared,
             callbackTimeouts = timeouts,
+            features = features,
         ),
     ).also {
         this.backend = backend

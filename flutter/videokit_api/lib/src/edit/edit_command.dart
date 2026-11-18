@@ -338,6 +338,37 @@ final class SetMaskStyle extends VideoKitEditCommand {
   String toString() => 'SetMaskStyle($maskId, ${style.name}, $strength)';
 }
 
+/// Sets the avatar of [maskId] (REQ-ED-07, 04A E5/E6). Combine with
+/// `SetMaskStyle(maskId, MaskStyle.image, …)` to show it; setting
+/// [MaskStyle.image] on a mask without an avatar is rejected
+/// (`INVALID_ARGUMENT`).
+final class SetMaskAvatar extends VideoKitEditCommand {
+  /// Creates the command.
+  const SetMaskAvatar(this.maskId, this.avatar);
+
+  /// Mask ID.
+  final String maskId;
+
+  /// Avatar settings (token, size, offset, follow rotation).
+  final MaskAvatar avatar;
+
+  /// Returns a copy with the given fields replaced.
+  SetMaskAvatar copyWith({String? maskId, MaskAvatar? avatar}) =>
+      SetMaskAvatar(maskId ?? this.maskId, avatar ?? this.avatar);
+
+  @override
+  bool operator ==(Object other) =>
+      other is SetMaskAvatar &&
+      other.maskId == maskId &&
+      other.avatar == avatar;
+
+  @override
+  int get hashCode => Object.hash(SetMaskAvatar, maskId, avatar);
+
+  @override
+  String toString() => 'SetMaskAvatar($maskId, $avatar)';
+}
+
 /// Enable/disable [maskId].
 final class SetMaskEnabled extends VideoKitEditCommand {
   /// Creates the command.

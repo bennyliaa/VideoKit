@@ -6,7 +6,9 @@ import com.videokit.api.EditProjectConfig
 import com.videokit.api.ErrorCode
 import com.videokit.api.ErrorStage
 import com.videokit.api.ExportPreset
+import com.videokit.api.FeatureAccess
 import com.videokit.api.FeatureKey
+import com.videokit.api.FeatureMode
 import com.videokit.api.FormatSupport
 import com.videokit.api.HostCallbackTimeouts
 import com.videokit.api.ImageFeatures
@@ -17,6 +19,7 @@ import com.videokit.api.OutputFormat
 import com.videokit.api.PlaybackFeatures
 import com.videokit.api.ResourceBudget
 import com.videokit.api.SerializedEditProject
+import com.videokit.api.SessionPurpose
 import com.videokit.api.SinkRequirements
 import com.videokit.api.Size
 import com.videokit.api.SupportLevel
@@ -29,6 +32,7 @@ import com.videokit.api.VideoKitCapabilities
 import com.videokit.api.VideoKitConfig
 import com.videokit.api.VideoKitEditProject
 import com.videokit.api.VideoKitException
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitHostCallbacks
 import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitSession
@@ -36,7 +40,9 @@ import com.videokit.api.VideoKitSessionConfig
 import com.videokit.api.VideoKitSurfaceTarget
 import com.videokit.testkit.internal.AtomicCounter
 import com.videokit.testkit.internal.AtomicFlag
+import com.videokit.core.runtime.FeatureGate
 import com.videokit.testkit.internal.AtomicMap
+import com.videokit.testkit.internal.CallbackOutcome
 import com.videokit.testkit.internal.CallbackRunner
 import com.videokit.testkit.internal.Errors
 import kotlinx.coroutines.CancellationException
@@ -94,6 +100,8 @@ public data class FakeVideoKitOptions(
     val offscreenReleaseMs: Long = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_OFFSCREEN_RELEASE_MS,
     /** Background time after which a session releases its decoder. */
     val backgroundReleaseMs: Long = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_BACKGROUND_RELEASE_MS,
+    /** Static feature switches (REQ-API-10), as `VideoKitConfig.features`. */
+    val features: Map<VideoKitFeature, FeatureMode> = emptyMap(),
 )
 
 /**
@@ -113,6 +121,14 @@ public class FakeVideoKit(
         CoroutineScope((parent ?: Dispatchers.Default) + SupervisorJob(parent?.get(Job)) + CoroutineName("FakeVideoKit"))
     }
     internal val callbacks = CallbackRunner(scope, hostCallbacks, options.callbackTimeouts)
+
+    /** Feature switches and gate (REQ-API-10), shared with the sessions and edit projects of this kit. */
+    internal val features = FeatureGate(options.features) { feature, scopeId ->
+        when (val outcome = callbacks.request("checkFeature", options.callbackTimeouts.featureGateMs) { checkFeature(feature, scopeId) }) {
+            is CallbackOutcome.Success -> outcome.value
+            is CallbackOutcome.Failure -> null
+        }
+    }
     private val closed = AtomicFlag()
     private val sessionIds = AtomicCounter()
     private val projectIds = AtomicCounter()
@@ -134,8 +150,13 @@ public class FakeVideoKit(
 
     override suspend fun capabilities(request: CapabilityRequest): VideoKitCapabilities {
         val probe = request.source?.let { probe(it) }
-        return demoCapabilities().copy(mediaProbe = probe)
+        return features.applyTo(demoCapabilities()).copy(mediaProbe = probe)
     }
+
+    override fun featureMode(feature: VideoKitFeature): FeatureMode = features.mode(feature)
+
+    override suspend fun checkFeature(feature: VideoKitFeature, sessionId: String?): FeatureAccess =
+        features.check(feature, sessionId)
 
     override fun createSession(config: VideoKitSessionConfig): VideoKitSession {
         if (closed.value) throw VideoKitException(Errors.of(ErrorCode.SESSION_RELEASED, ErrorStage.BIND, "VIDEOKIT_CLOSED"))
@@ -144,18 +165,22 @@ public class FakeVideoKit(
                 Errors.of(ErrorCode.DECODER_RESOURCE_EXHAUSTED, ErrorStage.BIND, "SESSION_LIMIT:${options.maxSessions}"),
             )
         }
+        if (config.purpose == SessionPurpose.MULTI_SLOT) features.requireEnabled(VideoKitFeature.MULTI_VIEW, ErrorStage.BIND)
         val id = "fake-session-" + sessionIds.incrementAndGet().toString().padStart(4, '0')
         return FakeSession(id, config, this).also { sessions.put(id, it) }
     }
 
     override fun createEditProject(config: EditProjectConfig): VideoKitEditProject {
         if (closed.value) throw VideoKitException(Errors.of(ErrorCode.SESSION_RELEASED, ErrorStage.EDIT, "VIDEOKIT_CLOSED"))
+        features.requireEnabled(VideoKitFeature.EDIT, ErrorStage.EDIT)
         return FakeEditProject(newProjectId(), config, this, restored = null).also { projects.put(it.projectId, it) }
     }
 
     override suspend fun restoreEditProject(serialized: SerializedEditProject, config: EditProjectConfig): VideoKitEditProject {
         if (closed.value) throw VideoKitException(Errors.of(ErrorCode.SESSION_RELEASED, ErrorStage.EDIT, "VIDEOKIT_CLOSED"))
+        features.requireEnabled(VideoKitFeature.EDIT, ErrorStage.EDIT)
         val model = ProjectCodec.decode(serialized)
+        features.require(VideoKitFeature.EDIT, model.projectId, ErrorStage.EDIT)
         return FakeEditProject(model.projectId, config, this, restored = model).also { projects.put(it.projectId, it) }
     }
 
@@ -170,10 +195,12 @@ public class FakeVideoKit(
     }
 
     internal fun onSessionReleased(sessionId: String) {
+        features.forget(sessionId)
         sessions.remove(sessionId)
     }
 
     internal fun onProjectReleased(projectId: String) {
+        features.forget(projectId)
         projects.remove(projectId)
     }
 
@@ -275,10 +302,10 @@ public class FakeVideoKit(
     public companion object {
         private const val PROBE_BYTES = 64
 
-        /** Creates a Fake from a [VideoKitConfig], taking its callbacks, budget and timeouts. */
+        /** Creates a Fake from a [VideoKitConfig], taking its callbacks, budget, timeouts and feature switches. */
         public fun fromConfig(config: VideoKitConfig, options: FakeVideoKitOptions = FakeVideoKitOptions()): FakeVideoKit = FakeVideoKit(
             config.hostCallbacks,
-            options.copy(resourceBudget = config.resourceBudget, callbackTimeouts = config.callbackTimeouts),
+            options.copy(resourceBudget = config.resourceBudget, callbackTimeouts = config.callbackTimeouts, features = config.features),
         )
     }
 }

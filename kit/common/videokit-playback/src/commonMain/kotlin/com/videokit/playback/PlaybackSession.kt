@@ -22,6 +22,7 @@ import com.videokit.api.ResourceRequest
 import com.videokit.api.SeekMode
 import com.videokit.api.Seekability
 import com.videokit.api.SessionPhase
+import com.videokit.api.SessionPurpose
 import com.videokit.api.SessionVisibility
 import com.videokit.api.Size
 import com.videokit.api.ThumbnailResult
@@ -29,6 +30,7 @@ import com.videokit.api.UnsupportedReason
 import com.videokit.api.VideoKitCommand
 import com.videokit.api.VideoKitCommandResult
 import com.videokit.api.VideoKitEvent
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitHostAction
 import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitPlaybackEvent
@@ -114,6 +116,7 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
     private val scope = CoroutineScope(runtime.scope.coroutineContext + SupervisorJob(runtime.scope.coroutineContext[Job]))
     private val mutex = Mutex()
     private val priority = context.config.priority
+    private val purpose = context.config.purpose
     private val mutableState = MutableStateFlow(
         VideoKitSessionState(visibility = context.config.initialVisibility, activeAudio = context.config.initialActiveAudio),
     )
@@ -179,6 +182,10 @@ public class PlaybackSession internal constructor(context: SessionContext) : Vid
     ): VideoKitCommandResult {
         if (released) return VideoKitCommandResult.SessionReleased
         if (source.mediaKind.isImage && engines.images == null) return VideoKitCommandResult.Unsupported(UnsupportedReason.NOT_IMPLEMENTED)
+        if (purpose == SessionPurpose.MULTI_SLOT) {
+            // REQ-API-10: multi-view slots ask the feature gate; the answer is remembered for this session.
+            runtime.features.unsupportedReason(VideoKitFeature.MULTI_VIEW, sessionId)?.let { return VideoKitCommandResult.Unsupported(it) }
+        }
         val job = scope.async { mutex.withLock { bindLocked(source, initialState, hostActions) } }
         activeBind = job
         return try {

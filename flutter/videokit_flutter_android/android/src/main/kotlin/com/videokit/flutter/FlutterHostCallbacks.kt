@@ -1,10 +1,12 @@
 package com.videokit.flutter
 
+import com.videokit.api.FeatureAccess
 import com.videokit.api.HostActionRequest
 import com.videokit.api.HostActionResult
 import com.videokit.api.NavigationRequest
 import com.videokit.api.NavigationResult
 import com.videokit.api.RecoveryDecision
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitHostCallbacks
 import com.videokit.api.VideoKitPlaybackEvent
 import com.videokit.api.VideoKitPlaybackState
@@ -52,4 +54,8 @@ internal class FlutterHostCallbacks(private val api: VideoKitCallbacksApi, priva
         val msg = error.toMsg()
         withContext(main) { api.onFatalSessionError(sessionId, msg) }
     }
+
+    // REQ-API-10: the Dart host's gate. A Dart error or the Kit timeout counts as denied (Kit runtime).
+    override suspend fun checkFeature(feature: VideoKitFeature, sessionId: String?): FeatureAccess =
+        Mappers.featureAccess(withContext(main) { api.checkFeature(feature.name, sessionId) })
 }

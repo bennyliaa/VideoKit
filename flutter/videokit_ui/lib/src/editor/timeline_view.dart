@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,16 @@ class TimelineView extends StatefulWidget {
   /// Editor controller.
   final EditorController controller;
 
+  /// Source-time step of the thumbnails of a local source (X2, frozen).
+  static const int thumbStepUs = 500000;
+
+  /// Step for a [SourceLatency.slow] source (X2, frozen): fewer reads.
+  static const int thumbStepSlowUs = 2000000;
+
+  /// Thumbnail step for a source of [latency].
+  static int thumbStepFor(SourceLatency latency) =>
+      latency == SourceLatency.slow ? thumbStepSlowUs : thumbStepUs;
+
   @override
   State<TimelineView> createState() => _TimelineViewState();
 }
@@ -66,6 +77,97 @@ class _TimelineViewState extends State<TimelineView> {
   Offset? _down;
 
   EditorController get _c => widget.controller;
+
+  // ------------------------------------- thumbnails / waveform (A4) --
+
+  /// Most decoded thumbnails kept.
+  static const int thumbCacheLimit = 160;
+
+  final Map<String, ui.Image> _thumbs = {};
+  final Map<String, List<double>> _waves = {};
+  final Set<String> _requested = {};
+  int _mediaRevision = 0;
+  bool _disposed = false;
+
+  VideoKitEditMediaPreview? get _media => switch (_c.project) {
+    final VideoKitEditMediaPreview m => m,
+    _ => null,
+  };
+
+  /// Thumbnail of [sourceId] near [sourceUs], or null (requested then;
+  /// the timeline repaints when it arrives).
+  ui.Image? _thumbFor(String sourceId, int sourceUs) {
+    final media = _media;
+    if (media == null) return null;
+    final step = TimelineView.thumbStepFor(_c.latencyOf(sourceId));
+    final at = sourceUs ~/ step * step;
+    final key = '$sourceId@$at';
+    final hit = _thumbs.remove(key);
+    if (hit != null) {
+      _thumbs[key] = hit; // most recent last
+      return hit;
+    }
+    if (_requested.add(key)) {
+      // Never inside paint: start after this frame.
+      unawaited(
+        Future(() async {
+          final bytes = await media.sourceThumbnail(sourceId, at);
+          if (bytes == null || _disposed) return;
+          final codec = await ui.instantiateImageCodec(bytes);
+          final frame = await codec.getNextFrame();
+          codec.dispose();
+          if (_disposed) {
+            frame.image.dispose();
+            return;
+          }
+          _thumbs[key] = frame.image;
+          while (_thumbs.length > thumbCacheLimit) {
+            final oldest = _thumbs.keys.first;
+            _thumbs.remove(oldest)?.dispose();
+            _requested.remove(oldest);
+          }
+          if (mounted) setState(() => _mediaRevision++);
+        }).catchError((Object _) {}),
+      );
+    }
+    return null;
+  }
+
+  /// Waveform peaks of [clip] (empty: no audio), or null while loading.
+  List<double>? _waveFor(EditClip clip) {
+    final media = _media;
+    if (media == null) return null;
+    final key = '${clip.sourceId}:${clip.inUs}:${clip.outUs}';
+    final hit = _waves[key];
+    if (hit != null) return hit;
+    if (_requested.add(key)) {
+      final buckets = (clip.durationUs / 1e5).round().clamp(16, 600);
+      unawaited(
+        Future(() async {
+          final peaks = await media.sourceWaveform(
+            clip.sourceId,
+            clip.inUs,
+            clip.outUs,
+            buckets,
+          );
+          if (_disposed) return;
+          _waves[key] = peaks;
+          if (mounted) setState(() => _mediaRevision++);
+        }).catchError((Object _) {}),
+      );
+    }
+    return null;
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    for (final i in _thumbs.values) {
+      i.dispose();
+    }
+    _thumbs.clear();
+    super.dispose();
+  }
 
   /// Snap threshold (14 §5.6: 8 dp).
   double get _snapPx => VkTheme.of(context).dimensions.spacing8;
@@ -334,7 +436,9 @@ class _TimelineViewState extends State<TimelineView> {
         final masks = st.masks;
         final height =
             _maskTop(t) +
-            masks.length * (d.timelineMaskRow + d.spacing4) +
+            // Design page 15 item 5: the mask track is always there (one
+            // empty lane before the first mask).
+            math.max(1, masks.length) * (d.timelineMaskRow + d.spacing4) +
             d.spacing8;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -380,6 +484,14 @@ class _TimelineViewState extends State<TimelineView> {
                                     move: _move,
                                     theme: t,
                                     clipLabel: s.editorClip,
+                                    maskTrackEmpty: s.text(
+                                      'timelineMaskTrackEmpty',
+                                    ),
+                                    thumbFor: _media == null
+                                        ? null
+                                        : _thumbFor,
+                                    waveFor: _media == null ? null : _waveFor,
+                                    mediaRevision: _mediaRevision,
                                     textDirection: Directionality.of(context),
                                     fontFamily: DefaultTextStyle.of(context)
                                         .style
@@ -478,9 +590,25 @@ class _TimelinePainter extends CustomPainter {
     required this.move,
     required this.theme,
     required this.clipLabel,
+    required this.maskTrackEmpty,
     required this.textDirection,
     this.fontFamily,
+    this.thumbFor,
+    this.waveFor,
+    this.mediaRevision = 0,
   });
+
+  /// Thumbnail lookup (null: the project has no timeline media).
+  final ui.Image? Function(String sourceId, int sourceUs)? thumbFor;
+
+  /// Waveform lookup (null: the project has no timeline media).
+  final List<double>? Function(EditClip clip)? waveFor;
+
+  /// Bumped when a thumbnail or waveform arrives.
+  final int mediaRevision;
+
+  /// Text in the empty mask track.
+  final String maskTrackEmpty;
 
   final VideoKitEditState state;
   final TimelineScale scale;
@@ -562,24 +690,118 @@ class _TimelinePainter extends CustomPainter {
         RRect.fromRectAndRadius(rect.deflate(d.borderWidth), radius),
         Paint()..color = moving ? fill.withValues(alpha: 0.5) : fill,
       );
-      // Thumbnail placeholders.
-      final thumb = Paint()..color = c.border;
-      for (var x = rect.left + clipH; x < rect.right; x += clipH) {
-        canvas.drawLine(
-          Offset(x, rect.top + d.spacing4),
-          Offset(x, rect.bottom - d.spacing4),
-          thumb,
-        );
-      }
+      // Design pages 15/16: thumbnail film with the audio waveform along
+      // the bottom (when the project offers timeline media), otherwise
+      // placeholder frame lines.
+      final inner = rect.deflate(d.borderWidth);
+      final wave = waveFor?.call(clip);
+      final waveH = wave == null ? 0.0 : inner.height * 0.3;
+      final film = Rect.fromLTRB(
+        inner.left,
+        inner.top,
+        inner.right,
+        inner.bottom - waveH,
+      );
+      final probe = state.timeline.sourceById(clip.sourceId)?.probe;
+      final aspect = probe != null && probe.height > 0
+          ? probe.width / probe.height
+          : 16 / 9;
+      final tileW = math.max(d.spacing8, film.height * aspect);
       canvas
         ..save()
-        ..clipRect(rect);
-      _text(
-        canvas,
-        clipLabel(i + 1),
-        Offset(rect.left + d.spacing8, rect.top + d.spacing4),
-        t.typography.label.copyWith(color: c.textPrimary),
-      );
+        ..clipRRect(RRect.fromRectAndRadius(inner, radius));
+      var drewThumb = false;
+      final lookup = thumbFor;
+      if (lookup != null && w > 0) {
+        for (var x = film.left; x < film.right; x += tileW) {
+          if (x + tileW < 0 || x > size.width) continue;
+          final frac = ((x - rect.left + tileW / 2) / w).clamp(0.0, 1.0);
+          final srcUs = (inUs + frac * visualDuration).round().clamp(
+            inUs,
+            math.max(inUs, outUs - 1),
+          );
+          final img = lookup(clip.sourceId, srcUs);
+          if (img == null) continue;
+          drewThumb = true;
+          final dst = Rect.fromLTWH(x, film.top, tileW, film.height);
+          // Cover: crop the picture to the tile's aspect.
+          final iw = img.width.toDouble();
+          final ih = img.height.toDouble();
+          final scaleCover = math.max(dst.width / iw, dst.height / ih);
+          final sw = dst.width / scaleCover;
+          final sh = dst.height / scaleCover;
+          canvas.drawImageRect(
+            img,
+            Rect.fromLTWH((iw - sw) / 2, (ih - sh) / 2, sw, sh),
+            dst,
+            Paint()
+              ..filterQuality = FilterQuality.low
+              ..color = moving ? c.textPrimary.withValues(alpha: 0.5) : c.textPrimary,
+          );
+        }
+      }
+      if (!drewThumb) {
+        final thumb = Paint()..color = c.border;
+        for (var x = rect.left + clipH; x < rect.right; x += clipH) {
+          canvas.drawLine(
+            Offset(x, rect.top + d.spacing4),
+            Offset(x, film.bottom - d.spacing4),
+            thumb,
+          );
+        }
+      }
+      if (wave != null && waveH > 0) {
+        final band = Rect.fromLTRB(inner.left, film.bottom, inner.right, inner.bottom);
+        canvas.drawRect(band, Paint()..color = c.surface.withValues(alpha: 0.72));
+        final wavePaint = Paint()..color = c.textSecondary;
+        if (wave.isEmpty || wave.every((p) => p <= 0)) {
+          // No audio or silence: a flat line.
+          canvas.drawLine(
+            Offset(band.left, band.center.dy),
+            Offset(band.right, band.center.dy),
+            wavePaint..strokeWidth = d.borderWidth,
+          );
+        } else {
+          final barW = band.width / wave.length;
+          for (final (j, p) in wave.indexed) {
+            final hgt = math.max(d.borderWidth, p.clamp(0.0, 1.0) * band.height * 0.9);
+            canvas.drawRect(
+              Rect.fromCenter(
+                center: Offset(band.left + barW * (j + 0.5), band.center.dy),
+                width: math.max(d.borderWidth, barW * 0.6),
+                height: hgt,
+              ),
+              wavePaint,
+            );
+          }
+        }
+      }
+      // Clip label on a scrim so it stays readable over the film.
+      final labelStyle = t.typography.label.copyWith(color: c.textPrimary);
+      final label = TextPainter(
+        text: TextSpan(
+          text: clipLabel(i + 1),
+          style: labelStyle.copyWith(fontFamily: fontFamily),
+        ),
+        textDirection: textDirection,
+        maxLines: 1,
+      )..layout();
+      final labelAt = Offset(rect.left + d.spacing8, rect.top + d.spacing4);
+      if (drewThumb) {
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromLTWH(
+              labelAt.dx - d.spacing4,
+              labelAt.dy,
+              label.width + d.spacing8,
+              label.height,
+            ),
+            radius,
+          ),
+          Paint()..color = c.surface.withValues(alpha: 0.72),
+        );
+      }
+      label.paint(canvas, labelAt);
       canvas.restore();
       if (clip.clipId == selectedClipId) {
         final sel = Paint()
@@ -625,6 +847,37 @@ class _TimelinePainter extends CustomPainter {
         Paint()
           ..color = c.primary
           ..strokeWidth = d.focusRingWidth * 1.5,
+      );
+    }
+
+    // Mask track (design page 15 item 5): one lane per mask over the whole
+    // timeline; automatic masks are coloured by tracking state, manual
+    // ones are one colour; diamonds are keyframes.
+    final lanePaint = Paint()..color = c.surfaceVariant.withValues(alpha: 0.4);
+    final laneR = Radius.circular(d.timelineMaskRow / 2);
+    final laneL = scale.xForUs(0);
+    final laneEnd = scale.xForUs(duration);
+    for (var i = 0; i < math.max(1, state.masks.length); i++) {
+      final top = maskTop + i * (d.timelineMaskRow + d.spacing4);
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTRB(laneL, top, laneEnd, top + d.timelineMaskRow),
+          laneR,
+        ),
+        lanePaint,
+      );
+    }
+    if (state.masks.isEmpty) {
+      final style = t.typography.caption.copyWith(color: c.textSecondary);
+      final lineH = (style.fontSize ?? d.spacing12) * (style.height ?? 1.3);
+      _text(
+        canvas,
+        maskTrackEmpty,
+        Offset(
+          math.max(0, laneL) + d.spacing8,
+          maskTop + (d.timelineMaskRow - lineH) / 2,
+        ),
+        style,
       );
     }
 
@@ -695,6 +948,9 @@ class _TimelinePainter extends CustomPainter {
   @override
   bool shouldRepaint(_TimelinePainter old) =>
       old.fontFamily != fontFamily ||
+      old.maskTrackEmpty != maskTrackEmpty ||
+      old.mediaRevision != mediaRevision ||
+      (old.thumbFor == null) != (thumbFor == null) ||
       old.state != state ||
       old.scale != scale ||
       old.playheadUs != playheadUs ||

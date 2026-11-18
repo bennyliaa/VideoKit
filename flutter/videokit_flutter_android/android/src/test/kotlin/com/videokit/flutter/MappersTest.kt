@@ -28,6 +28,7 @@ import com.videokit.api.HostIcon
 import com.videokit.api.ImageDetails
 import com.videokit.api.ImageFeatures
 import com.videokit.api.KeyframeSource
+import com.videokit.api.MaskAvatar
 import com.videokit.api.MaskKeyframe
 import com.videokit.api.MaskRegion
 import com.videokit.api.MaskStyle
@@ -86,11 +87,14 @@ import com.videokit.flutter.Mappers.toAction
 import com.videokit.flutter.Mappers.toCapabilities
 import com.videokit.flutter.Mappers.toClip
 import com.videokit.flutter.Mappers.toCommand
+import com.videokit.flutter.Mappers.toCoverage
 import com.videokit.flutter.Mappers.toConfig
 import com.videokit.flutter.Mappers.toError
 import com.videokit.flutter.Mappers.toEvent
 import com.videokit.flutter.Mappers.toIcon
 import com.videokit.flutter.Mappers.toMedia
+import com.videokit.flutter.Mappers.toKeyframe
+import com.videokit.flutter.Mappers.toMask
 import com.videokit.flutter.Mappers.toMsg
 import com.videokit.flutter.Mappers.toPlaybackState
 import com.videokit.flutter.Mappers.toPrecheck
@@ -101,8 +105,11 @@ import com.videokit.flutter.Mappers.toSerialized
 import com.videokit.flutter.Mappers.toSource
 import com.videokit.flutter.Mappers.toState
 import com.videokit.flutter.Mappers.toTransform
+import com.videokit.flutter.gen.CoverageRangeMsg
 import com.videokit.flutter.gen.EditCommandMsg
+import com.videokit.flutter.gen.MaskKeyframeMsg
 import com.videokit.flutter.gen.StableErrorMsg
+import com.videokit.flutter.gen.TimeRangeMsg
 import com.videokit.testkit.CountingSourceFactory
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -347,6 +354,8 @@ class MappersTest {
             VideoKitEditCommand.RemoveMaskKeyframe("mask-1", 7),
             VideoKitEditCommand.SetMaskStyle("mask-1", MaskStyle.MOSAIC, 0.25f),
             VideoKitEditCommand.SetMaskEnabled("mask-1", false),
+            VideoKitEditCommand.SetMaskAvatar("mask-1", MaskAvatar("host:a-1", 1.25f, 0.05f, -0.1f, followRotation = false)),
+            VideoKitEditCommand.SetMaskStyle("mask-1", MaskStyle.IMAGE, 0.5f),
             VideoKitEditCommand.RemoveMask("mask-1"),
             VideoKitEditCommand.StartTracking("mask-1", TrackingKind.FACE),
             VideoKitEditCommand.StartTracking("mask-1", TrackingKind.OBJECT, MaskRegion(0.1f, 0.2f, 0.3f, 0.4f), "candidate-1"),
@@ -401,9 +410,16 @@ class MappersTest {
                     rangeUs = TimeRangeUs(0, 2_000_000),
                     keyframes = listOf(
                         MaskKeyframe(0, region, KeyframeSource.USER),
-                        MaskKeyframe(1_000_000, region.copy(x = 0.2f), KeyframeSource.TRACKER, CoverageQuality.AMBIGUOUS),
+                        MaskKeyframe(1_000_000, region.copy(x = 0.2f), KeyframeSource.TRACKER, CoverageQuality.AMBIGUOUS, rollDeg = -12.5f),
                     ),
                     acceptedRangesUs = listOf(TimeRangeUs(500_000, 600_000)),
+                ),
+                MaskTrack(
+                    maskId = "mask-2",
+                    type = MaskType.FACE,
+                    style = MaskStyle.IMAGE,
+                    rangeUs = TimeRangeUs(0, 1_000_000),
+                    avatar = MaskAvatar("builtin:3", scale = 1.5f),
                 ),
             ),
             tracking = mapOf(
@@ -429,6 +445,23 @@ class MappersTest {
         )
         assertEquals(state, state.toMsg().toState())
         assertEquals(VideoKitEditState(), VideoKitEditState().toMsg().toState())
+    }
+
+    @Test
+    fun unknownTrackingQualitiesReadAsNotAnalyzed() {
+        // Schema R4 and the Dart mapping: a quality from a newer minor is never treated as covered.
+        assertEquals(CoverageQuality.NOT_ANALYZED, CoverageRangeMsg(TimeRangeMsg(1, 2), "OCCLUDED").toCoverage().quality)
+        assertEquals(CoverageQuality.NOT_ANALYZED, MaskKeyframeMsg(0, region.toMsg(), "TRACKER", "OCCLUDED").toKeyframe().quality)
+        assertEquals(CoverageQuality.NOT_ANALYZED, CoverageRangeMsg(TimeRangeMsg(1, 2), "NOT_ANALYZED").toCoverage().quality)
+        assertEquals(null, MaskKeyframeMsg(0, region.toMsg(), "USER").toKeyframe().quality)
+    }
+
+    @Test
+    fun imageWithoutAvatarReadsAsMosaic() {
+        // Schema R7, as in Dart: a mask never ends up without an effect.
+        val image = MaskTrack("mask-1", MaskType.FACE, MaskStyle.IMAGE, rangeUs = TimeRangeUs(0, 1)).toMsg()
+        assertEquals(MaskStyle.MOSAIC, image.toMask().style)
+        assertEquals(MaskStyle.MOSAIC, image.copy(style = "STYLE_FROM_THE_FUTURE").toMask().style)
     }
 
     @Test
@@ -495,5 +528,38 @@ class MappersTest {
     fun clipMessage() {
         val clip = Clip("c", "s", 1, 2)
         assertEquals(clip, clip.toMsg().toClip())
+    }
+
+    // REQ-API-10 (VK-A2-B)
+    @Test
+    fun featureSwitchesFromTheHandshake() {
+        val modes = Mappers.features(mapOf("EXPORT" to "HIDDEN", "MULTI_VIEW" to "SOMETIMES", "FUTURE" to "HIDDEN"))
+        assertEquals(
+            mapOf(
+                com.videokit.api.VideoKitFeature.EXPORT to com.videokit.api.FeatureMode.HIDDEN,
+                com.videokit.api.VideoKitFeature.MULTI_VIEW to com.videokit.api.FeatureMode.ENABLED,
+            ),
+            modes,
+        )
+        assertEquals(emptyMap<com.videokit.api.VideoKitFeature, com.videokit.api.FeatureMode>(), Mappers.features(null))
+    }
+
+    @Test
+    fun featureAnswersOfTheDartHost() {
+        val trial = Mappers.featureAccess(com.videokit.flutter.gen.FeatureAccessMsg("ALLOWED", "TRIAL"))
+        assertEquals(com.videokit.api.FeatureAccess.Allowed(com.videokit.api.FeatureBadge.TRIAL), trial)
+        val denied = Mappers.featureAccess(com.videokit.flutter.gen.FeatureAccessMsg("DENIED", null))
+        assertEquals(com.videokit.api.FeatureAccess.Denied(null), denied)
+        // Anything but ALLOWED is denied; unknown badges read as UNKNOWN.
+        val odd = Mappers.featureAccess(com.videokit.flutter.gen.FeatureAccessMsg("MAYBE", "STAR"))
+        assertEquals(com.videokit.api.FeatureAccess.Denied(com.videokit.api.FeatureBadge.UNKNOWN), odd)
+    }
+
+    @Test
+    fun hiddenFeaturesRoundTripInCapabilities() {
+        val hidden = setOf(com.videokit.api.VideoKitFeature.EDIT, com.videokit.api.VideoKitFeature.EXPORT)
+        val caps = com.videokit.api.VideoKitCapabilities(hiddenFeatures = hidden)
+        assertEquals(listOf("EDIT", "EXPORT"), caps.toMsg().hiddenFeatures)
+        assertEquals(hidden, caps.toMsg().toCapabilities().hiddenFeatures)
     }
 }

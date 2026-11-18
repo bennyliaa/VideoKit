@@ -128,7 +128,7 @@ class ProjectJsonTest {
     fun rangesAreObjectsAndTrackingKeepsNoRuntimeState() {
         val running = document.copy(tracking = mapOf("mask-5" to TrackingRun("mask-5", TrackingRunStatus.RUNNING, progress = 0.5f)))
         val root = MiniJson.parse(ProjectJson.encode(running).json) as Map<*, *>
-        assertEquals(0L, root["schemaMinor"])
+        assertEquals(ProjectJson.SCHEMA_MINOR.toLong(), root["schemaMinor"])
         val mask = (root["masks"] as List<*>).single() as Map<*, *>
         assertEquals(mapOf("startUs" to 0L, "endUs" to 2_000_000L), mask["rangeUs"])
         assertEquals(listOf(mapOf("startUs" to 1_500_000L, "endUs" to 2_000_000L)), mask["acceptedRanges"])

@@ -76,7 +76,12 @@ final class StateViewModel {
     List<StateAction> actions = const [],
     this.titleText,
     this.detailText,
+    this.mediaKind,
   }) : actions = List.unmodifiable(actions);
+
+  /// Media the state is about, when known ("无法播放此视频" vs an image's
+  /// title, design page 12).
+  final MediaKind? mediaKind;
 
   /// Kind.
   final StateViewKind kind;
@@ -112,6 +117,7 @@ final class StateViewModel {
       other.detail == detail &&
       other.titleText == titleText &&
       other.detailText == detailText &&
+      other.mediaKind == mediaKind &&
       listEquals(other.actions, actions);
 
   @override
@@ -122,6 +128,7 @@ final class StateViewModel {
     detail,
     titleText,
     detailText,
+    mediaKind,
     Object.hashAll(actions),
   );
 
@@ -170,6 +177,7 @@ StateViewModel? mapSessionState({
             ),
         fatal: phase == SessionPhase.errorFatal,
         capabilityHelp: capabilityHelp,
+        mediaKind: mediaKind,
       );
     case SessionPhase.ready || SessionPhase.playing || SessionPhase.paused:
       return null;
@@ -185,15 +193,17 @@ StateViewModel mapError(
   VideoKitStableError error, {
   bool fatal = false,
   bool capabilityHelp = false,
+  MediaKind? mediaKind,
 }) {
   final (StateDetail detail, String icon) = switch (error.code) {
+    // UI-AUDIT-A4 (design page 12): unsupported media shows a film strip.
+    ErrorCode.unsupportedContainer ||
+    ErrorCode.unsupportedVideoCodec ||
+    ErrorCode.unsupportedAudioCodec => (StateDetail.unsupported, 'film'),
     ErrorCode.sourceDisconnected ||
     ErrorCode.sourceTimeout => (StateDetail.connection, 'warning'),
     ErrorCode.sourcePermissionDenied ||
     ErrorCode.outputPermissionDenied => (StateDetail.permission, 'lock'),
-    ErrorCode.unsupportedContainer ||
-    ErrorCode.unsupportedVideoCodec ||
-    ErrorCode.unsupportedAudioCodec ||
     ErrorCode.decoderUnavailable ||
     ErrorCode.encoderUnavailable ||
     ErrorCode.seekUnsupported ||
@@ -228,11 +238,12 @@ StateViewModel mapError(
     error: error,
     detail: detail,
     actions: actions,
+    mediaKind: mediaKind,
   );
 }
 
 /// Whether [code] means the device cannot play this media's format
-/// (short title "格式不支持", J4).
+/// (title "无法播放此视频", J4 / UI-AUDIT-A4).
 bool isUnsupportedMedia(ErrorCode code) =>
     code == ErrorCode.unsupportedContainer ||
     code == ErrorCode.unsupportedVideoCodec ||

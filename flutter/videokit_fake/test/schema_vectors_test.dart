@@ -97,9 +97,27 @@ void main() {
           for (final (i, x) in masks.indexed) {
             final want = (x! as Map).cast<String, Object?>();
             final m = st.masks[i];
+            // 'readerStyles' simulates an older reader: a style it does
+            // not know reads as MOSAIC (R4, x-unknown).
+            final readerStyles = (c['readerStyles'] as List?)?.cast<String>();
+            final style =
+                readerStyles == null || readerStyles.contains(m.style.wireName)
+                ? m.style.wireName
+                : MaskStyle.mosaic.wireName;
+            final avatar = m.avatar;
             final got = <String, Object?>{
               'maskId': m.maskId,
-              'style': m.style.wireName,
+              'style': style,
+              'avatar': avatar == null
+                  ? null
+                  : {
+                      'avatarToken': avatar.avatarToken,
+                      'scale': avatar.scale,
+                      'offsetX': avatar.offsetX,
+                      'offsetY': avatar.offsetY,
+                      'followRotation': avatar.followRotation,
+                    },
+              'keyframeRollDegs': [for (final k in m.keyframes) k.rollDeg],
               'strength': m.strength,
               'enabled': m.enabled,
               'rangeUs': {'startUs': m.startUs, 'endUs': m.endUs},
@@ -151,10 +169,10 @@ void main() {
   });
 
   group('W1 conformance', () {
-    test('schema version is 1.0', () {
-      expect(schema['x-version'], {'major': 1, 'minor': 0});
+    test('schema version is 1.1 (M5A-A1)', () {
+      expect(schema['x-version'], {'major': 1, 'minor': 1});
       expect(SerializedEditProject.currentSchemaVersion, 1);
-      expect(FakeEditProjectCodec.currentSchemaMinor, 0);
+      expect(FakeEditProjectCodec.currentSchemaMinor, 1);
     });
 
     Future<VideoKitEditProject> rich() async {

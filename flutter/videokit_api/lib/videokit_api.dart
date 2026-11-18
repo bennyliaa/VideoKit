@@ -5,6 +5,8 @@
 library;
 
 export 'src/capability/capabilities.dart';
+export 'src/edit/avatar.dart';
+export 'src/edit/edit_media_preview.dart';
 export 'src/edit/edit_command.dart';
 export 'src/edit/edit_project.dart';
 export 'src/edit/edit_state.dart';
@@ -18,6 +20,8 @@ export 'src/export/export_progress.dart';
 export 'src/export/export_request.dart';
 export 'src/export/export_result.dart';
 export 'src/export/precheck.dart';
+export 'src/feature/feature.dart';
+export 'src/feature/feature_gate.dart';
 export 'src/host/host_action.dart';
 export 'src/host/host_callbacks.dart';
 export 'src/host/navigation.dart';

@@ -6,8 +6,12 @@ import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../app_scope.dart';
+import '../entitlement/entitlement_gate.dart';
+import '../entitlement/entitlement_service.dart';
+import '../avatar/avatar_pick_page.dart';
 import '../history/history_entry.dart';
 import '../l10n/app_text.dart';
+import '../library/library_models.dart';
 import '../projects/project_store.dart';
 import 'launcher.dart';
 import 'player_page.dart';
@@ -18,10 +22,19 @@ import 'player_page.dart';
 /// picks more videos.
 class ConcatPage extends StatefulWidget {
   /// Creates the page for new [entries], or to restore [restore].
-  const ConcatPage({super.key, this.entries = const [], this.restore});
+  const ConcatPage({
+    super.key,
+    this.entries = const [],
+    this.restore,
+    this.libraryTarget,
+  });
 
   /// Video records (new project).
   final List<HistoryEntry> entries;
+
+  /// Opened from the media library: the export is saved back into this
+  /// folder and the project is not kept in "最近工程" (APP-LIB-A1).
+  final LibraryExportTarget? libraryTarget;
 
   /// Saved project to reopen.
   final RecentProject? restore;
@@ -36,6 +49,12 @@ class ConcatPageState extends State<ConcatPage> {
   VideoKitEditProject? project;
   List<OutputFormat> _presets = const [];
   late AppScope _scope;
+
+  /// The Kit's optional avatar tools (04A E6), null when it has none.
+  VideoKitAvatarTools? get _avatarTools => switch (_scope.backend.videoKit) {
+    final VideoKitAvatarTools tools => tools,
+    _ => null,
+  };
   bool _started = false;
   bool _leaving = false;
 
@@ -50,13 +69,41 @@ class ConcatPageState extends State<ConcatPage> {
   /// ID under which the project is saved.
   late final String projectId = widget.restore?.id ?? _scope.projects.newId();
 
+  /// 04A E7 Q3 / R8: the copy notice was shown.
+  bool savedAsCopyNoticed = false;
+
+  /// Saves the project; R8 may redirect it to a copy (the original was
+  /// written by a newer App) → a one-time notice.
+  Future<void> _save(VideoKitEditProject p, {bool strict = false}) async {
+    // REQ-APP-10: private media never show up in "最近工程".
+    if (widget.libraryTarget != null) return;
+    final saved = await _scope.projects.save(projectId, p, strict: strict);
+    if (saved == projectId || savedAsCopyNoticed || !mounted) return;
+    savedAsCopyNoticed = true;
+    final a = AppText.of(context);
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(a(a.l.projectSavedAsCopy))));
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _scope = AppScope.of(context);
     if (_started) return;
     _started = true;
-    unawaited(_open());
+    // REQ-APP-15: editing is a paid feature (every way in: concat, recent
+    // projects, the export notice, the library). Projects are kept either
+    // way; a denied user just goes back.
+    if (_scope.entitlements.allows(AppFeature.edit)) {
+      unawaited(_open());
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (!mounted) return;
+        await ensureEntitled(context, AppFeature.edit);
+        if (mounted) Navigator.of(context).maybePop();
+      });
+    }
   }
 
   /// TEST-R3 R3-02: the Kit has no edit engine yet (`EDITING_NOT_AVAILABLE`,
@@ -123,15 +170,27 @@ class ConcatPageState extends State<ConcatPage> {
       return;
     }
     setState(() => project = opened);
+    opened.state.addListener(_onProjectState);
+    // REQ-ED-07: built-in avatars come from the Kit (04A E5 5).
+    final tools = _avatarTools;
+    if (tools != null) unawaited(_scope.avatars.loadBuiltins(tools));
     // M4-A2: restore migrated an older schema; save the migrated form so
     // the entry is current from now on.
     if (widget.restore?.needsMigration ?? false) {
-      unawaited(_scope.projects.save(projectId, opened));
+      unawaited(_save(opened));
     }
   }
 
+  /// Library export in progress: the private file and its name.
+  ({String path, String name, String mime})? _libraryExport;
+
   /// "另存为" right before the export starts (REQ-APP-03 export part).
-  Future<VideoKitOutputSink?> _prepareSink(VideoKitExportRequest request) {
+  /// From the media library the export goes straight into a private file
+  /// of the current folder instead (REQ-APP-09, no system dialog).
+  Future<VideoKitOutputSink?> _prepareSink(VideoKitExportRequest request) async {
+    // REQ-APP-15: export is a paid feature; denied = no sink (cancelled).
+    if (!await ensureEntitled(context, AppFeature.export)) return null;
+    if (!mounted) return null;
     final a = AppText.of(context);
     final container = _presets
         .where((p) => p.presetId == request.presetId)
@@ -142,10 +201,93 @@ class ConcatPageState extends State<ConcatPage> {
       'yyyyMMdd_HHmmss',
       'en',
     ).format(_scope.history.now());
-    return _scope.backend.prepareExport(
-      suggestedName: '${a.l.exportFileName(stamp)}.$ext',
-      mimeType: mime,
+    if (widget.libraryTarget != null) {
+      final dir = await _scope.backend.library.mediaDirectory();
+      final path = '$dir/${_scope.library.newId('item')}.$ext';
+      _libraryExport = (
+        path: path,
+        name: '${a.l.exportFileName(stamp)}.$ext',
+        mime: mime,
+      );
+      return _scope.backend.prepareLibraryExport(path: path);
+    }
+    return _scope.backend
+        .prepareExport(
+          suggestedName: '${a.l.exportFileName(stamp)}.$ext',
+          mimeType: mime,
+        )
+        .then((sink) async {
+          // M6-A1: remembered until the export ends, so a kill during it
+          // is reported at the next start.
+          if (sink != null) {
+            await _save(project!);
+            await _scope.exportJournal.begin(
+              _scope.projects.resolveId(projectId),
+            );
+          }
+          return sink;
+        });
+  }
+
+  /// M6-A1: the export ended (any way) → nothing to report later.
+  void _onProjectState() {
+    final phase = project?.state.value.phase;
+    final lib = _libraryExport;
+    if (lib != null &&
+        (phase == EditPhase.completed ||
+            phase == EditPhase.failed ||
+            phase == EditPhase.cancelled)) {
+      _libraryExport = null;
+      unawaited(_finishLibraryExport(lib, phase == EditPhase.completed));
+      return;
+    }
+    if (widget.libraryTarget != null) return;
+    if (phase == EditPhase.completed ||
+        phase == EditPhase.failed ||
+        phase == EditPhase.cancelled) {
+      unawaited(_scope.exportJournal.end(_scope.projects.resolveId(projectId)));
+    }
+  }
+
+  /// REQ-APP-09: a finished export becomes a library item of the folder;
+  /// a failed or cancelled one leaves no file.
+  Future<void> _finishLibraryExport(
+    ({String path, String name, String mime}) lib,
+    bool ok,
+  ) async {
+    final platform = _scope.backend.library;
+    final target = widget.libraryTarget!;
+    if (!ok) {
+      await platform.delete(lib.path);
+      return;
+    }
+    final probed = await platform.probe(lib.path, MediaKind.video);
+    final dir = await platform.mediaDirectory();
+    final id = lib.path.split('/').last.split('.').first;
+    final thumb = '$dir/thumbs/$id.jpg';
+    final thumbOk = await platform.thumbnail(lib.path, MediaKind.video, thumb);
+    await _scope.library.addItem(
+      LibraryItem(
+        id: id,
+        path: lib.path,
+        displayName: lib.name,
+        kind: MediaKind.video,
+        importedAtEpochMs: _scope.history.now().millisecondsSinceEpoch,
+        folderId: target.folderId,
+        mimeType: lib.mime,
+        durationUs: probed?.durationUs,
+        width: probed?.width,
+        height: probed?.height,
+        thumbnailPath: thumbOk ? thumb : null,
+      ),
     );
+    if (!mounted) return;
+    final a = AppText.of(context);
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(a(a.l.libraryExportSaved(target.folderName)))),
+      );
   }
 
   /// "添加视频": more videos at the end of the timeline.
@@ -175,12 +317,13 @@ class ConcatPageState extends State<ConcatPage> {
     if (_leaving) return;
     _leaving = true;
     final p = project;
-    if (p != null) await _scope.projects.save(projectId, p);
+    if (p != null) await _save(p);
     if (mounted) Navigator.of(context).pop();
   }
 
   @override
   void dispose() {
+    project?.state.removeListener(_onProjectState);
     unawaited(project?.close());
     super.dispose();
   }
@@ -252,7 +395,27 @@ class ConcatPageState extends State<ConcatPage> {
           onPickSourcesRequested: () => unawaited(addVideos()),
           // Design page 15 (UI-AUDIT-A3): saved 2 s after each edit into
           // "最近工程"; a failed write shows "未保存" with retry.
-          onAutosave: () => _scope.projects.save(projectId, p, strict: true),
+          onAutosave: () => _save(p, strict: true),
+          // REQ-ED-07 (04A E6 5): the App's own avatar pages; hidden when
+          // the Kit has no avatar tools.
+          onRequestAvatar: _avatarTools == null
+              ? null
+              : (request) => AvatarPickPage.open(
+                  context,
+                  tools: _avatarTools!,
+                  currentToken: request.currentToken,
+                ),
+          avatarBuilder: (context, token) => ListenableBuilder(
+            listenable: _scope.avatars,
+            builder: (context, _) => switch (_scope.avatars.image(token)) {
+              null => const SizedBox.shrink(),
+              final image => Image(
+                image: image,
+                fit: BoxFit.contain,
+                gaplessPlayback: true,
+              ),
+            },
+          ),
         ),
       );
     }

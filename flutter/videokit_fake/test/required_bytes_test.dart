@@ -33,7 +33,11 @@ void main() {
         const VideoKitExportRequest(),
         const VideoKitOutputSink(
           sinkRef: 'demo:t',
-          capabilities: SinkCapabilities(knownFreeSpaceBytes: free),
+          // Random write: no staging copy (X1-6 doubles a sequential sink).
+          capabilities: SinkCapabilities(
+            knownFreeSpaceBytes: free,
+            randomWrite: true,
+          ),
         ),
       );
       final e = pre.problems.singleWhere(
@@ -44,6 +48,48 @@ void main() {
       expect(e.suggestedAction, SuggestedAction.freeSpace);
     },
   );
+
+  test('X1-6: a sequential-only sink counts the staging copy', () async {
+    final (_, p) = await project();
+    const free = 1000;
+    final pre = await p.checkExport(
+      const VideoKitExportRequest(),
+      const VideoKitOutputSink(
+        sinkRef: 'demo:seq',
+        capabilities: SinkCapabilities(
+          knownFreeSpaceBytes: free,
+          randomWrite: false,
+          fileDescriptor: false,
+        ),
+      ),
+    );
+    expect(pre.writeMode, isNull, reason: 'blocked by the space problem');
+    final e = pre.problems.singleWhere(
+      (e) => e.code == ErrorCode.outputSpaceInsufficient,
+    );
+    expect(
+      int.parse(e.params['requiredBytes']!),
+      pre.estimate.sizeBytes! * 2 - free,
+    );
+  });
+
+  test('X1-3: worker failures carry params.reason', () async {
+    for (final reason in ['WORKER_KILLED', 'WORKER_CRASHED', 'WORKER_TIMEOUT']) {
+      final (kit, p) = await project(Scenario.exportWorker(reason));
+      final done = p.export(
+        const VideoKitExportRequest(),
+        const VideoKitOutputSink(sinkRef: 'demo:t'),
+      );
+      VideoKitExportResult? r;
+      unawaited(done.then((x) => r = x));
+      for (var i = 0; i < 200 && r == null; i++) {
+        await kit.clock.advance(const Duration(milliseconds: 250));
+      }
+      final failed = r! as ExportFailed;
+      expect(failed.error.code, ErrorCode.exportFailed);
+      expect(failed.error.params['reason'], reason);
+    }
+  });
 
   test('enough space: no problem, no requiredBytes', () async {
     final (_, p) = await project();

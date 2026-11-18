@@ -1,9 +1,14 @@
 package com.videokit.media3
 
 import androidx.media3.common.C
+import androidx.media3.common.ColorInfo
+import androidx.media3.common.Format
+import androidx.media3.common.MimeTypes
 import androidx.media3.common.PlaybackException
 import com.videokit.api.ErrorCode
+import com.videokit.api.ErrorParams
 import com.videokit.api.OpenPurpose
+import com.videokit.api.UnsupportedDetails
 import com.videokit.api.VideoKitReadHandle
 import com.videokit.api.VideoKitSourceFactory
 import org.junit.Assert.assertArrayEquals
@@ -122,5 +127,33 @@ class M2tsAndErrorsTest {
                 null,
             ).diagnostic.orEmpty().contains("secret"),
         )
+    }
+
+    @Test
+    fun unsupportedFormatsCarryTheirDetails() {
+        // 04A X2: the UI shows "HEVC 10-bit" from these parameters.
+        val hevc10 = Format.Builder()
+            .setSampleMimeType(MimeTypes.VIDEO_H265)
+            .setCodecs("hvc1.2.4.L120")
+            .setContainerMimeType(MimeTypes.VIDEO_MATROSKA)
+            .setColorInfo(ColorInfo.Builder().setLumaBitdepth(10).setChromaBitdepth(10).build())
+            .build()
+        val exceedsCode = PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES
+        val exceeds = PlaybackErrors.map(exceedsCode, null, C.TRACK_TYPE_VIDEO, hevc10)
+        assertEquals(ErrorCode.UNSUPPORTED_VIDEO_CODEC, exceeds.code)
+        assertEquals(
+            mapOf(
+                ErrorParams.REASON_DETAIL to UnsupportedDetails.EXCEEDS_CAPABILITIES,
+                ErrorParams.CODEC to MimeTypes.VIDEO_H265,
+                ErrorParams.PROFILE to "hvc1.2.4.L120",
+                ErrorParams.BIT_DEPTH to "10",
+                ErrorParams.CONTAINER to MimeTypes.VIDEO_MATROSKA,
+            ),
+            exceeds.params,
+        )
+        // Without a format only the detail is known; other errors get no details.
+        val noFormat = PlaybackErrors.map(PlaybackException.ERROR_CODE_DECODING_FORMAT_UNSUPPORTED, null, C.TRACK_TYPE_AUDIO)
+        assertEquals(mapOf(ErrorParams.REASON_DETAIL to UnsupportedDetails.FORMAT_UNSUPPORTED), noFormat.params)
+        assertTrue(PlaybackErrors.map(PlaybackException.ERROR_CODE_DECODING_FAILED, null, C.TRACK_TYPE_VIDEO, hevc10).params.isEmpty())
     }
 }

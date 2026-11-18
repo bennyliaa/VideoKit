@@ -35,7 +35,22 @@ enum ErrorCode {
   invalidArgument,
 
   /// Snapshot or project schema version not supported (04A V7).
-  unsupportedSnapshotVersion;
+  unsupportedSnapshotVersion,
+
+  /// No usable face in the avatar image (REQ-ED-07, 04A E6, M4-B2).
+  avatarNoFace,
+
+  /// The avatar image cannot be decoded or is too large, also a host PNG
+  /// (REQ-ED-07, 04A E6, M4-B2).
+  avatarImageUnsupported,
+
+  /// The feature is hidden by the host configuration (REQ-API-10 ①,
+  /// VK-A2); `params.feature` names it.
+  featureDisabled,
+
+  /// The host's feature gate did not allow it, or failed / timed out
+  /// (REQ-API-10 ②); `params.feature`, optional `params.badge`.
+  featureDenied;
 
   /// SCREAMING_SNAKE_CASE name shared with Kotlin (`SOURCE_NOT_FOUND`).
   String get wireName => toWireName(name);

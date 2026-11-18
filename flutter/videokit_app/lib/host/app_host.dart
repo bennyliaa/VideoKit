@@ -1,5 +1,9 @@
+import 'package:flutter/widgets.dart';
 import 'package:videokit_api/videokit_api.dart';
 
+import '../avatar/avatar_store.dart';
+import '../entitlement/entitlement_gate.dart';
+import '../entitlement/entitlement_service.dart';
 import '../history/history_entry.dart';
 
 /// Host side of one open session (a player or image page).
@@ -43,6 +47,43 @@ final class AppHostCallbacks extends NoopHostCallbacks {
   Future<NavigationResult> onNavigationRequested(NavigationRequest request) =>
       _hosts[request.sessionId]?.onNavigation(request) ??
       Future.value(NavigationResult.unavailable);
+
+  /// The App's avatars (set when the App starts).
+  AvatarStore? avatars;
+
+  /// Entitlements (set when the App starts; REQ-APP-15).
+  EntitlementService? entitlements;
+
+  /// Context for the App's paywall placeholder (the navigator's).
+  BuildContext? Function()? dialogContext;
+
+  /// REQ-API-10 / REQ-APP-15: the App answers the Kit's feature gate from
+  /// its entitlements (multi-view, edit, masks and tracking, avatar,
+  /// export are paid). A paid feature the user may not use shows the
+  /// App's paywall placeholder, then is denied with a lock; a trial is
+  /// allowed without a marker.
+  @override
+  Future<FeatureAccess> checkFeature(
+    VideoKitFeature feature,
+    String? sessionId,
+  ) async {
+    final app = AppFeature.ofKit(feature);
+    final service = entitlements;
+    if (app == null || service == null || service.allows(app)) {
+      return FeatureAccess.allowed;
+    }
+    final ctx = dialogContext?.call();
+    if (ctx != null && ctx.mounted) await showEntitlementDenied(ctx, app);
+    return const FeatureDenied();
+  }
+
+  /// REQ-ED-07 (04A E6 2): the Kit reads an App avatar for preview /
+  /// export; null when it is gone (the Kit then falls back to mosaic).
+  @override
+  Future<VideoKitSourceFactory?> openAvatar(String avatarToken) async {
+    final png = await avatars?.bytes(avatarToken);
+    return png == null ? null : BytesSourceFactory(png);
+  }
 }
 
 /// The App's own host actions (M2, App business, not in the module):

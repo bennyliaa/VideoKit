@@ -243,16 +243,18 @@ class _TrackSettingsSheetState extends State<TrackSettingsSheet> {
     final d = t.dimensions;
     Widget chip(double v, {bool tight = false}) => VkPressable(
       // Equal chips in one row use a narrow side padding so "0.75×" fits.
-      style: tight
-          ? t.components.chip.copyWithAll(
-              (b) => b.copyWith(
-                padding: EdgeInsetsDirectional.symmetric(
+      // UI-AUDIT-A4 (design page 11): rounded rectangles, not discs.
+      style: t.components.chip.copyWithAll(
+        (b) => b.copyWith(
+          radius: d.cornerMedium,
+          padding: tight
+              ? EdgeInsetsDirectional.symmetric(
                   horizontal: d.spacing4,
                   vertical: d.spacing8,
-                ),
-              ),
-            )
-          : t.components.chip,
+                )
+              : null,
+        ),
+      ),
       semanticLabel: VkFormat.speed(s, v),
       selected: st.speed == v,
       onPressed: () => widget.onCommand(SetSpeed(v)),

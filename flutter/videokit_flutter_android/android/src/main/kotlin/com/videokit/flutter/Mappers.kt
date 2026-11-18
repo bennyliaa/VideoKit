@@ -18,7 +18,10 @@ import com.videokit.api.ExportPrecheck
 import com.videokit.api.ExportPreset
 import com.videokit.api.ExportProgress
 import com.videokit.api.ExportStage
+import com.videokit.api.FeatureAccess
+import com.videokit.api.FeatureBadge
 import com.videokit.api.FeatureKey
+import com.videokit.api.FeatureMode
 import com.videokit.api.FitMode
 import com.videokit.api.HostActionRequest
 import com.videokit.api.HostActionResult
@@ -27,6 +30,7 @@ import com.videokit.api.HostActionStatus
 import com.videokit.api.HostIcon
 import com.videokit.api.ImageDetails
 import com.videokit.api.KeyframeSource
+import com.videokit.api.MaskAvatar
 import com.videokit.api.MaskKeyframe
 import com.videokit.api.MaskRegion
 import com.videokit.api.MaskStyle
@@ -75,6 +79,7 @@ import com.videokit.api.VideoKitEvent
 import com.videokit.api.VideoKitExportRequest
 import com.videokit.api.VideoKitExportResult
 import com.videokit.api.VideoKitExportedMedia
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitHostAction
 import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitOutputToken
@@ -105,12 +110,14 @@ import com.videokit.flutter.gen.ExportRequestMsg
 import com.videokit.flutter.gen.ExportResultKind
 import com.videokit.flutter.gen.ExportResultMsg
 import com.videokit.flutter.gen.ExportedMediaMsg
+import com.videokit.flutter.gen.FeatureAccessMsg
 import com.videokit.flutter.gen.HostActionMsg
 import com.videokit.flutter.gen.HostActionRequestMsg
 import com.videokit.flutter.gen.HostActionResultMsg
 import com.videokit.flutter.gen.HostActionStateMsg
 import com.videokit.flutter.gen.HostIconMsg
 import com.videokit.flutter.gen.ImageDetailsMsg
+import com.videokit.flutter.gen.MaskAvatarMsg
 import com.videokit.flutter.gen.MaskKeyframeMsg
 import com.videokit.flutter.gen.MaskRegionMsg
 import com.videokit.flutter.gen.MaskTrackMsg
@@ -513,6 +520,7 @@ internal object Mappers {
         objectTracking = tracking.objectTracking.name,
         unavailableReasons = unavailableReasons.entries.associate { (key, reason) -> key.name to reason.name },
         mediaProbe = mediaProbe?.toMsg(),
+        hiddenFeatures = VideoKitFeature.CONFIGURABLE.filter { it in hiddenFeatures }.map { it.name },
     )
 
     /** The summary carried by protocol 1 (codec and format lists are not part of it). */
@@ -538,7 +546,28 @@ internal object Mappers {
         unavailableReasons = unavailableReasons.entries
             .associate { (key, reason) -> FeatureKey.fromWireName(key) to UnsupportedReason.fromWireName(reason) },
         mediaProbe = mediaProbe?.toProbe(),
+        hiddenFeatures = hiddenFeatures.orEmpty().map(VideoKitFeature::fromWireName).filter { it != VideoKitFeature.UNKNOWN }.toSet(),
     )
+
+    // ------------------------------------------------------------------ feature switches and gate (REQ-API-10)
+
+    /** `FeatureAccessMsg.access` of an allowed answer. */
+    const val ALLOWED: String = "ALLOWED"
+
+    /** `FeatureAccessMsg.access` of a denied answer. */
+    const val DENIED: String = "DENIED"
+
+    /** `HandshakeRequest.features`: unknown feature names are dropped, unknown modes read as ENABLED. */
+    fun features(wire: Map<String, String>?): Map<VideoKitFeature, FeatureMode> = wire.orEmpty().entries
+        .map { (name, mode) -> VideoKitFeature.fromWireName(name) to FeatureMode.fromWireName(mode) }
+        .filter { it.first != VideoKitFeature.UNKNOWN }
+        .toMap()
+
+    /** The Dart host's answer; anything but `ALLOWED` is denied. */
+    fun featureAccess(msg: FeatureAccessMsg): FeatureAccess {
+        val badge = FeatureBadge.fromWireName(msg.badge)
+        return if (msg.access == ALLOWED) FeatureAccess.Allowed(badge) else FeatureAccess.Denied(badge)
+    }
 
     // ------------------------------------------------------------------ host callbacks
 
@@ -660,6 +689,8 @@ internal object Mappers {
 
         is VideoKitEditCommand.SetMaskEnabled -> EditCommandMsg("SetMaskEnabled", maskId = maskId, enabled = enabled)
 
+        is VideoKitEditCommand.SetMaskAvatar -> EditCommandMsg("SetMaskAvatar", maskId = maskId, avatar = avatar.toMsg())
+
         is VideoKitEditCommand.RemoveMask -> EditCommandMsg("RemoveMask", maskId = maskId)
 
         is VideoKitEditCommand.StartTracking ->
@@ -701,6 +732,8 @@ internal object Mappers {
             "SetMaskStyle" -> VideoKitEditCommand.SetMaskStyle(maskId!!, wire(style, MaskStyle.MOSAIC), strength!!.toFloat())
 
             "SetMaskEnabled" -> VideoKitEditCommand.SetMaskEnabled(maskId!!, enabled!!)
+
+            "SetMaskAvatar" -> VideoKitEditCommand.SetMaskAvatar(maskId!!, avatar!!.toAvatar())
 
             "RemoveMask" -> VideoKitEditCommand.RemoveMask(maskId!!)
 
@@ -770,14 +803,21 @@ internal object Mappers {
 
     fun ClipMsg.toClip(): Clip = Clip(clipId, sourceId, inUs, outUs)
 
-    fun MaskKeyframe.toMsg(): MaskKeyframeMsg = MaskKeyframeMsg(atUs, region.toMsg(), source.name, quality?.name)
+    fun MaskKeyframe.toMsg(): MaskKeyframeMsg = MaskKeyframeMsg(atUs, region.toMsg(), source.name, quality?.name, rollDeg?.toDouble())
 
     fun MaskKeyframeMsg.toKeyframe(): MaskKeyframe = MaskKeyframe(
         atUs = atUs,
         region = region.toRegion(),
         source = wire(source, KeyframeSource.USER),
-        quality = quality?.let { wire(it, CoverageQuality.LOW_CONFIDENCE) },
+        quality = quality?.let { wire(it, CoverageQuality.NOT_ANALYZED) }, // unknown: NOT_ANALYZED (schema R4, as Dart)
+        rollDeg = rollDeg?.toFloat(),
     )
+
+    fun MaskAvatar.toMsg(): MaskAvatarMsg =
+        MaskAvatarMsg(avatarToken, scale.toDouble(), offsetX.toDouble(), offsetY.toDouble(), followRotation)
+
+    fun MaskAvatarMsg.toAvatar(): MaskAvatar =
+        MaskAvatar(avatarToken, scale.toFloat(), offsetX.toFloat(), offsetY.toFloat(), followRotation)
 
     fun MaskTrack.toMsg(): MaskTrackMsg = MaskTrackMsg(
         maskId,
@@ -790,22 +830,25 @@ internal object Mappers {
             it.toMsg()
         },
         acceptedRangesUs.map { it.toMsg() },
+        avatar?.toMsg(),
     )
 
     fun MaskTrackMsg.toMask(): MaskTrack = MaskTrack(
         maskId = maskId,
         type = wire(type, MaskType.MANUAL),
-        style = wire(style, MaskStyle.MOSAIC),
+        // IMAGE without an avatar reads as MOSAIC (schema R7), as in Dart.
+        style = wire(style, MaskStyle.MOSAIC).let { if (it == MaskStyle.IMAGE && avatar == null) MaskStyle.MOSAIC else it },
         strength = strength.toFloat(),
         enabled = enabled,
         rangeUs = range.toRange(),
         keyframes = keyframes.map { it.toKeyframe() },
         acceptedRangesUs = acceptedRanges.map { it.toRange() },
+        avatar = avatar?.toAvatar(),
     )
 
     fun CoverageRange.toMsg(): CoverageRangeMsg = CoverageRangeMsg(rangeUs.toMsg(), quality.name, maskId)
 
-    fun CoverageRangeMsg.toCoverage(): CoverageRange = CoverageRange(range.toRange(), wire(quality, CoverageQuality.LOST), maskId)
+    fun CoverageRangeMsg.toCoverage(): CoverageRange = CoverageRange(range.toRange(), wire(quality, CoverageQuality.NOT_ANALYZED), maskId)
 
     fun TrackingRun.toMsg(): TrackingRunMsg = TrackingRunMsg(
         maskId = maskId,

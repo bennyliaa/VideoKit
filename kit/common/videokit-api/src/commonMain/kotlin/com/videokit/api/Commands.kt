@@ -145,6 +145,12 @@ public enum class UnsupportedReason {
     /** The content is hidden because the host is locked (04A V1). */
     CONTENT_LOCKED,
 
+    /** The feature is hidden by the host configuration ([FeatureMode.HIDDEN], REQ-API-10 ①). */
+    FEATURE_DISABLED,
+
+    /** The host's feature gate did not allow the feature ([FeatureAccess.Denied], REQ-API-10 ②). */
+    FEATURE_DENIED,
+
     /** Unknown reason (also used for unknown wire values). */
     UNKNOWN,
     ;

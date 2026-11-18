@@ -38,10 +38,15 @@ class VkButton extends StatelessWidget {
     this.icon,
     this.selected = false,
     this.pill = false,
+    this.small = false,
   });
 
   /// Fully rounded ends (design page 7: the floating "open file" button).
   final bool pill;
+
+  /// Small pill (design page 16: "导出" in the phone editor bar): pill
+  /// ends and a narrow padding; the touch target stays `targetMin`.
+  final bool small;
 
   /// Label (from ARB).
   final String label;
@@ -68,8 +73,19 @@ class VkButton extends StatelessWidget {
       VkButtonVariant.outline => t.components.buttonOutline,
       VkButtonVariant.danger => t.components.buttonDanger,
     };
-    final shaped = pill
-        ? style.copyWithAll((b) => b.copyWith(radius: t.dimensions.cornerFull))
+    final d = t.dimensions;
+    final shaped = small
+        ? style.copyWithAll(
+            (b) => b.copyWith(
+              radius: d.cornerFull,
+              padding: EdgeInsetsDirectional.symmetric(
+                horizontal: d.spacing16,
+                vertical: d.spacing4,
+              ),
+            ),
+          )
+        : pill
+        ? style.copyWithAll((b) => b.copyWith(radius: d.cornerFull))
         : style;
     return VkPressable(
       style: shaped,

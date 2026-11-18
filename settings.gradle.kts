@@ -57,6 +57,7 @@ val androidModules = listOf(
     "videokit-api-android",
     "videokit-image-android",
     "videokit-media3",
+    "videokit-export-android",
     "videokit-platform-android",
     "videokit-testkit-android",
     "videokit-flutter-plugin-check",

@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../app_scope.dart';
+import '../entitlement/entitlement_service.dart';
 import '../history/history_entry.dart';
 import '../history/history_store.dart';
 import '../l10n/app_text.dart';
+import '../library/library_gate.dart';
 import '../pages/launcher.dart';
 import '../projects/recent_projects_page.dart';
 import '../settings/app_settings.dart';
 import '../settings/settings_page.dart';
 import 'history_tile.dart';
+import 'interrupted_export_notice.dart';
 
 /// Home filters (design page 7).
 enum HomeFilter {
@@ -172,6 +175,38 @@ class HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
+                      // REQ-APP-15: "试用中 · 剩 N 天" while trying.
+                      ValueListenableBuilder<Entitlement>(
+                        valueListenable: scope.entitlements,
+                        builder: (context, e, _) {
+                          final days = e.trialDaysLeft(scope.history.now());
+                          if (days <= 0) return const SizedBox.shrink();
+                          return Container(
+                            padding: EdgeInsetsDirectional.symmetric(
+                              horizontal: d.spacing8,
+                              vertical: d.spacing4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: t.colors.primaryContainer,
+                              borderRadius: BorderRadius.circular(
+                                d.cornerFull,
+                              ),
+                            ),
+                            child: Text(
+                              a(a.l.trialDaysLeft(days)),
+                              style: t.typography.caption.copyWith(
+                                color: t.colors.primary,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      // APP-LIB-A1: the private media library (free).
+                      VkIconButton(
+                        icon: t.icons.resolve('folder'),
+                        semanticLabel: a(a.l.libraryTitle),
+                        onPressed: () => unawaited(LibraryGate.open(context)),
+                      ),
                       VkIconButton(
                         icon: t.icons.resolve('edit'),
                         semanticLabel: a(a.l.recentProjects),
@@ -192,6 +227,15 @@ class HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
+                ),
+                // M6-A1: an export the App did not finish last time.
+                ListenableBuilder(
+                  listenable: scope.exportJournal,
+                  builder: (context, _) =>
+                      switch (scope.exportJournal.interrupted) {
+                        null => const SizedBox.shrink(),
+                        final i => InterruptedExportNotice(interrupted: i),
+                      },
                 ),
                 if (all.isEmpty)
                   Expanded(
@@ -408,8 +452,9 @@ class _EmptyState extends StatelessWidget {
                   color: t.colors.primaryContainer,
                   shape: BoxShape.circle,
                 ),
+                // UI-AUDIT-A4 (design page 7): a film strip.
                 child: Icon(
-                  t.icons.resolve('movie'),
+                  t.icons.resolve('film'),
                   size: d.targetMin,
                   color: t.colors.primary,
                 ),

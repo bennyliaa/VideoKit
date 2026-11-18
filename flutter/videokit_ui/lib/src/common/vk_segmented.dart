@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../foundation/layout_class.dart';
 import '../theme/theme_scope.dart';
 import '../theme/tokens/vk_component_styles.dart';
 import 'vk_pressable.dart';
@@ -103,14 +104,31 @@ class VkSegmented<T> extends StatelessWidget {
                   onPressed: onChanged == null || !s.enabled
                       ? null
                       : () => onChanged!(s.value),
+                  // UI-AUDIT-A4 (design page 8): one line ("跟随系统"); a
+                  // label slightly too wide is scaled down instead of
+                  // wrapping. Large text (collapse class) may wrap to two
+                  // lines so it is never shrunk below the user's size.
                   builder: (context, st) => Center(
-                    child: Text(
-                      s.label,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: st.textStyle,
-                    ),
+                    child: VkLayoutClass.collapseSecondary(
+                          MediaQuery.textScalerOf(context),
+                        )
+                        ? Text(
+                            s.label,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: st.textStyle,
+                          )
+                        : FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              s.label,
+                              textAlign: TextAlign.center,
+                              maxLines: 1,
+                              softWrap: false,
+                              style: st.textStyle,
+                            ),
+                          ),
                   ),
                 ),
               ),

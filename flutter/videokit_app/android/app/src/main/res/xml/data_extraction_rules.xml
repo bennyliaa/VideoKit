@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- APP-LIB-A1 (REQ-APP-10): the private media library never leaves the device (Android 12+ backup and transfer). -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="library/"/>
+        <exclude domain="file" path="videokit_app/library.json"/>
+        <exclude domain="file" path="videokit_app/library_settings.json"/>
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="library/"/>
+        <exclude domain="file" path="videokit_app/library.json"/>
+        <exclude domain="file" path="videokit_app/library_settings.json"/>
+    </device-transfer>
+</data-extraction-rules>

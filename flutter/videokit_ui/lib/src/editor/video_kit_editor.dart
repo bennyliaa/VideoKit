@@ -8,6 +8,7 @@ import 'package:videokit_api/videokit_api.dart';
 import '../common/vk_buttons.dart';
 import '../common/vk_sheet_host.dart';
 import '../export/export_panel.dart';
+import '../foundation/feature_scope.dart';
 import '../foundation/format.dart';
 import '../foundation/layout_class.dart';
 import '../l10n/vk_strings.dart';
@@ -49,13 +50,31 @@ class VideoKitEditor extends StatefulWidget {
     this.exportSuccessActions,
     this.onAutosave,
     this.autosaveDelay = const Duration(seconds: 2),
+    this.onRequestAvatar,
+    this.avatarBuilder,
+    this.sourceLatency,
   });
+
+  /// How fast each source is (04A P6; the host knows its sources). Slow
+  /// sources get timeline thumbnails every 2 s instead of every 500 ms
+  /// (X2, frozen). Null: all local.
+  final SourceLatency Function(String sourceId)? sourceLatency;
 
   /// Autosave (design page 15, UI-AUDIT-A3): [autosaveDelay] after each
   /// edit the editor calls this; the title shows "正在保存…", "已自动保存" or
   /// "未保存" with retry. Null: no autosave and no status. Hosts still save
   /// when the editor is left.
   final VideoKitAutosave? onAutosave;
+
+  /// "更换头像" in the mask panel (REQ-ED-07, 04A E6 5): the host opens its
+  /// own avatar pages and returns the stored `avatarToken` with its size and
+  /// offset as a [MaskAvatar] (null = cancelled). Null hides the avatar
+  /// entry.
+  final Future<MaskAvatar?> Function(AvatarRequest request)? onRequestAvatar;
+
+  /// Draws the avatar of a token in the mask panel and preview.
+  final Widget Function(BuildContext context, String avatarToken)?
+  avatarBuilder;
 
   /// Debounce of [onAutosave] after the last edit (2 s).
   final Duration autosaveDelay;
@@ -114,6 +133,7 @@ class VideoKitEditorState extends State<VideoKitEditor> {
   EditorController _create() => EditorController(
     project: widget.project,
     strings: () => VkStrings.of(context),
+    sourceLatency: widget.sourceLatency,
   );
 
   EditorAutosave? _autosave;
@@ -143,6 +163,7 @@ class VideoKitEditorState extends State<VideoKitEditor> {
       _c.dispose();
       _c = _create();
     }
+    _c.sourceLatency = widget.sourceLatency;
     if (!identical(oldWidget.project, widget.project) ||
         (oldWidget.onAutosave == null) != (widget.onAutosave == null)) {
       _autosave?.dispose();
@@ -165,6 +186,28 @@ class VideoKitEditorState extends State<VideoKitEditor> {
 
   /// Opens the export panel.
   void openExport() => _c.mode = EditorMode.export;
+
+  // --------------------------------------------- features (REQ-API-10) --
+
+  bool _enabled(VideoKitFeature f) => VideoKitFeatures.of(context).isEnabled(f);
+
+  /// "打码" / "跟踪" entries: through the host's gate (MASK_TRACKING).
+  Future<void> requestMasks(MaskEditorTab tab) async {
+    final open = await VideoKitFeatures.of(context).enter(
+      VideoKitFeature.maskTracking,
+      sessionId: widget.project.projectId,
+    );
+    if (open && mounted) openMasks(tab);
+  }
+
+  /// "导出" entries: through the host's gate (EXPORT).
+  Future<void> requestExport() async {
+    final open = await VideoKitFeatures.of(context).enter(
+      VideoKitFeature.export,
+      sessionId: widget.project.projectId,
+    );
+    if (open && mounted) openExport();
+  }
 
   void _openOrder() {
     final s = VkStrings.of(context);
@@ -326,9 +369,19 @@ class VideoKitEditorState extends State<VideoKitEditor> {
       child: Row(
         children: [
           if (inMode)
+            // UI-AUDIT-A4 (design page 21): the failed-export result
+            // closes ("×") back to the edit; elsewhere "back".
             VkIconButton(
-              icon: t.icons.resolve('back'),
-              semanticLabel: s.text('playerBack'),
+              icon: t.icons.resolve(
+                _c.mode == EditorMode.export && st.phase == EditPhase.failed
+                    ? 'close'
+                    : 'back',
+              ),
+              semanticLabel: s.text(
+                _c.mode == EditorMode.export && st.phase == EditPhase.failed
+                    ? 'commonClose'
+                    : 'playerBack',
+              ),
               onPressed: () => _c.mode = EditorMode.clips,
             )
           else if (widget.onBack != null)
@@ -420,13 +473,34 @@ class VideoKitEditorState extends State<VideoKitEditor> {
                   ),
                 ),
               )
+            // REQ-API-10: no "导出" when export is hidden.
+            else if (!_enabled(VideoKitFeature.export))
+              const SizedBox.shrink()
             else if (compact && VkLayoutClass.iconScale(context) > 1)
               // J9: phones at large text keep "导出" as an icon button.
               VkIconButton(
                 icon: t.icons.resolve('export'),
                 semanticLabel: s.text('editorExport'),
                 style: t.components.buttonPrimary,
-                onPressed: st.timeline.clips.isEmpty ? null : openExport,
+                onPressed: st.timeline.clips.isEmpty
+                  ? null
+                  : () => unawaited(requestExport()),
+              )
+            else if (compact)
+              // UI-AUDIT-A4 (design page 16): a small pill, clear of the
+              // corner.
+              Padding(
+                padding: EdgeInsetsDirectional.only(end: d.spacing8),
+                child: VkFeatureBadged(
+                  feature: VideoKitFeature.export,
+                  child: VkButton(
+                    label: s.text('editorExport'),
+                    small: true,
+                    onPressed: st.timeline.clips.isEmpty
+                        ? null
+                        : () => unawaited(requestExport()),
+                  ),
+                ),
               )
             else
               // Regular button height, pill width (design page 15).
@@ -434,9 +508,14 @@ class VideoKitEditorState extends State<VideoKitEditor> {
                 flex: VkLayoutClass.iconScale(context) > 1 ? 1 : 0,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minWidth: d.targetMin * 2),
-                  child: VkButton(
-                    label: s.text('editorExport'),
-                    onPressed: st.timeline.clips.isEmpty ? null : openExport,
+                  child: VkFeatureBadged(
+                    feature: VideoKitFeature.export,
+                    child: VkButton(
+                      label: s.text('editorExport'),
+                      onPressed: st.timeline.clips.isEmpty
+                          ? null
+                          : () => unawaited(requestExport()),
+                    ),
                   ),
                 ),
               ),
@@ -644,6 +723,8 @@ class VideoKitEditorState extends State<VideoKitEditor> {
     tab: _maskTab,
     onTabChanged: (tab) => setState(() => _maskTab = tab),
     pictureBuilder: widget.pictureBuilder,
+    onRequestAvatar: widget.onRequestAvatar,
+    avatarBuilder: widget.avatarBuilder,
   );
 
   Widget _estimate(BuildContext context) => EstimateLine(
@@ -692,18 +773,29 @@ class VideoKitEditorState extends State<VideoKitEditor> {
           icon: t.icons.resolve('delete'),
           onPressed: hasClip ? () => unawaited(_c.removeSelected()) : null,
         ),
-        VkButton(
-          label: s.text('editorMask'),
-          variant: VkButtonVariant.secondary,
-          icon: t.icons.resolve('mask'),
-          onPressed: () => openMasks(MaskEditorTab.manual),
-        ),
-        VkButton(
-          label: s.text('editorTrack'),
-          variant: VkButtonVariant.secondary,
-          icon: t.icons.resolve('face'),
-          onPressed: () => openMasks(MaskEditorTab.tracking),
-        ),
+        // REQ-API-10: no mask / tracking entries when MASK_TRACKING (or
+        // EDIT) is hidden; the host's marker on them otherwise.
+        if (_enabled(VideoKitFeature.maskTracking)) ...[
+          VkFeatureBadged(
+            feature: VideoKitFeature.maskTracking,
+            child: VkButton(
+              label: s.text('editorMask'),
+              variant: VkButtonVariant.secondary,
+              icon: t.icons.resolve('mask'),
+              onPressed: () => unawaited(requestMasks(MaskEditorTab.manual)),
+            ),
+          ),
+          VkFeatureBadged(
+            feature: VideoKitFeature.maskTracking,
+            child: VkButton(
+              label: s.text('editorTrack'),
+              variant: VkButtonVariant.secondary,
+              icon: t.icons.resolve('face'),
+              onPressed: () =>
+                  unawaited(requestMasks(MaskEditorTab.tracking)),
+            ),
+          ),
+        ],
       ],
     );
     final Widget upper = switch (_c.mode) {
@@ -869,18 +961,27 @@ class VideoKitEditorState extends State<VideoKitEditor> {
                       s.text('editorReorder'),
                       clips.length > 1 ? _openOrder : null,
                     ),
-                    _actionDisc(
-                      context,
-                      'mask',
-                      s.text('editorMask'),
-                      () => openMasks(MaskEditorTab.manual),
-                    ),
-                    _actionDisc(
-                      context,
-                      'face',
-                      s.text('editorTrackShort'),
-                      () => openMasks(MaskEditorTab.tracking),
-                    ),
+                    if (_enabled(VideoKitFeature.maskTracking)) ...[
+                      VkFeatureBadged(
+                        feature: VideoKitFeature.maskTracking,
+                        child: _actionDisc(
+                          context,
+                          'mask',
+                          s.text('editorMask'),
+                          () => unawaited(requestMasks(MaskEditorTab.manual)),
+                        ),
+                      ),
+                      VkFeatureBadged(
+                        feature: VideoKitFeature.maskTracking,
+                        child: _actionDisc(
+                          context,
+                          'face',
+                          s.text('editorTrackShort'),
+                          () =>
+                              unawaited(requestMasks(MaskEditorTab.tracking)),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ],
@@ -1022,24 +1123,31 @@ class VideoKitEditorState extends State<VideoKitEditor> {
             false,
             widget.onPickSourcesRequested,
           ),
-          item(
-            'mask',
-            s.text('editorMask'),
-            m == EditorMode.mask && _maskTab == MaskEditorTab.manual,
-            () => openMasks(MaskEditorTab.manual),
-          ),
-          item(
-            'face',
-            s.text('editorTrackShort'),
-            m == EditorMode.mask && _maskTab == MaskEditorTab.tracking,
-            () => openMasks(MaskEditorTab.tracking),
-          ),
-          item(
-            'export',
-            s.text('editorExport'),
-            m == EditorMode.export,
-            _c.state.timeline.clips.isEmpty ? null : openExport,
-          ),
+          // REQ-API-10: hidden features have no tab; the gate is asked
+          // before one opens.
+          if (_enabled(VideoKitFeature.maskTracking)) ...[
+            item(
+              'mask',
+              s.text('editorMask'),
+              m == EditorMode.mask && _maskTab == MaskEditorTab.manual,
+              () => unawaited(requestMasks(MaskEditorTab.manual)),
+            ),
+            item(
+              'face',
+              s.text('editorTrackShort'),
+              m == EditorMode.mask && _maskTab == MaskEditorTab.tracking,
+              () => unawaited(requestMasks(MaskEditorTab.tracking)),
+            ),
+          ],
+          if (_enabled(VideoKitFeature.export))
+            item(
+              'export',
+              s.text('editorExport'),
+              m == EditorMode.export,
+              _c.state.timeline.clips.isEmpty
+                  ? null
+                  : () => unawaited(requestExport()),
+            ),
         ],
       ),
     );

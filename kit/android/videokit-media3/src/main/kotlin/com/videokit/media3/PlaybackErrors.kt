@@ -1,9 +1,12 @@
 package com.videokit.media3
 
 import androidx.media3.common.C
+import androidx.media3.common.Format
 import androidx.media3.common.PlaybackException
 import com.videokit.api.ErrorCode
+import com.videokit.api.ErrorParams
 import com.videokit.api.ErrorStage
+import com.videokit.api.UnsupportedDetails
 import com.videokit.api.VideoKitStableError
 import com.videokit.core.runtime.StableErrors
 import java.io.InterruptedIOException
@@ -15,9 +18,11 @@ import java.io.InterruptedIOException
 internal object PlaybackErrors {
     /**
      * Stable error of a Media3 failure with [errorCode] (`PlaybackException.errorCode`), [cause] and the type of the
-     * failing renderer ([trackType] = `C.TRACK_TYPE_*`, `null` when not a renderer failure).
+     * failing renderer ([trackType] = `C.TRACK_TYPE_*`, `null` when not a renderer failure). With the renderer's
+     * [format] the `UNSUPPORTED_*` errors carry the format details (04A X2: codec, profile, bitDepth, container,
+     * reasonDetail) so the UI can say, for example, "HEVC 10-bit".
      */
-    fun map(errorCode: Int, cause: Throwable?, trackType: Int?): VideoKitStableError {
+    fun map(errorCode: Int, cause: Throwable?, trackType: Int?, format: Format? = null): VideoKitStableError {
         hostFailure(cause)?.let { return it }
         if (causes(cause).any {
                 it is InterruptedIOException
@@ -47,6 +52,7 @@ internal object PlaybackErrors {
 
             PlaybackException.ERROR_CODE_PARSING_CONTAINER_UNSUPPORTED ->
                 StableErrors.of(ErrorCode.UNSUPPORTED_CONTAINER, ErrorStage.PROBE, diagnostic)
+                    .withDetails(format, UnsupportedDetails.CONTAINER_UNSUPPORTED)
 
             PlaybackException.ERROR_CODE_PARSING_CONTAINER_MALFORMED,
             PlaybackException.ERROR_CODE_PARSING_MANIFEST_MALFORMED,
@@ -59,6 +65,13 @@ internal object PlaybackErrors {
                 if (audio) ErrorCode.UNSUPPORTED_AUDIO_CODEC else ErrorCode.UNSUPPORTED_VIDEO_CODEC,
                 ErrorStage.DECODE,
                 diagnostic,
+            ).withDetails(
+                format,
+                if (errorCode == PlaybackException.ERROR_CODE_DECODING_FORMAT_EXCEEDS_CAPABILITIES) {
+                    UnsupportedDetails.EXCEEDS_CAPABILITIES
+                } else {
+                    UnsupportedDetails.FORMAT_UNSUPPORTED
+                },
             )
 
             PlaybackException.ERROR_CODE_DECODER_INIT_FAILED,
@@ -71,6 +84,18 @@ internal object PlaybackErrors {
 
             else -> StableErrors.of(ErrorCode.INTERNAL_ERROR_REDACTED, ErrorStage.PLAYBACK, diagnostic)
         }
+    }
+
+    /** Adds the format details of 04A X2; absent values are left out (all are optional). */
+    private fun VideoKitStableError.withDetails(format: Format?, detail: String): VideoKitStableError {
+        val details = buildMap {
+            put(ErrorParams.REASON_DETAIL, detail)
+            format?.sampleMimeType?.let { put(ErrorParams.CODEC, it) }
+            format?.codecs?.takeIf { it.isNotBlank() }?.let { put(ErrorParams.PROFILE, it) }
+            format?.colorInfo?.takeIf { it.isBitdepthValid }?.let { put(ErrorParams.BIT_DEPTH, it.lumaBitdepth.toString()) }
+            format?.containerMimeType?.let { put(ErrorParams.CONTAINER, it) }
+        }
+        return copy(params = params + details)
     }
 
     /** The stable error of a host source failure in [cause]'s chain, if any. */

@@ -4,6 +4,8 @@ import 'package:videokit_ui/videokit_ui.dart';
 
 import '../history/history_entry.dart';
 import '../host/app_host.dart';
+import '../library/library_platform.dart';
+import '../permissions/app_permissions.dart';
 import '../picker/media_picker.dart';
 
 /// What the App needs from a VideoKit backend (REQ-APP-05: public API
@@ -16,6 +18,9 @@ abstract interface class AppBackend {
 
   /// Media picker.
   MediaPickerService get picker;
+
+  /// Runtime permissions (VK-M8: only the camera, only for "拍一张").
+  AppPermissions get permissions;
 
   /// The VideoKit entry point.
   VideoKit get videoKit;
@@ -41,6 +46,14 @@ abstract interface class AppBackend {
     required String suggestedName,
     required String mimeType,
   });
+
+  /// Media library device side (REQ-APP-09–11, App business).
+  LibraryPlatform get library;
+
+  /// Sink writing an export into the library's private file [path]
+  /// (REQ-APP-09: edited exports go back to the current folder); null
+  /// when it cannot be prepared.
+  Future<VideoKitOutputSink?> prepareLibraryExport({required String path});
 
   /// Export presets (`capabilities().outputFormats`).
   Future<List<OutputFormat>> presets();

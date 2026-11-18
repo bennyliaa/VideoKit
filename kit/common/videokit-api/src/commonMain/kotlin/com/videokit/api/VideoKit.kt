@@ -16,16 +16,37 @@ public interface VideoKit : AutoCloseable {
 
     /**
      * Creates a session. Throws [VideoKitException] with [ErrorCode.DECODER_RESOURCE_EXHAUSTED] when the
-     * hard session limit (07 §3) is reached and with [ErrorCode.SESSION_RELEASED] after [close].
+     * hard session limit (07 §3) is reached and with [ErrorCode.SESSION_RELEASED] after [close]. A
+     * [SessionPurpose.MULTI_SLOT] session needs [VideoKitFeature.MULTI_VIEW]: throws [ErrorCode.FEATURE_DISABLED] when it
+     * is hidden; its gate is asked at [VideoKitSession.bind], which then returns `Unsupported(FEATURE_DENIED)`.
      */
     public fun createSession(config: VideoKitSessionConfig): VideoKitSession
 
-    /** Creates an empty edit project. Throws [VideoKitException] after [close]. */
+    /**
+     * Effective static switch of [feature] (REQ-API-10 ①): [FeatureMode.HIDDEN] when the feature or one of its parents is
+     * hidden in [VideoKitConfig.features]. The UI shows no entry for a hidden feature. Never suspends, never asks the host.
+     */
+    public fun featureMode(feature: VideoKitFeature): FeatureMode = FeatureMode.ENABLED
+
+    /**
+     * Asks the dynamic feature gate before the user enters [feature] (REQ-API-10 ②): the host's
+     * [VideoKitHostCallbacks.checkFeature] with its timeout. A host that does not implement it allows everything; a
+     * callback that throws or times out counts as [FeatureAccess.Denied] without a marker. The answer carries the marker
+     * for the entry. Throws [VideoKitException] with [ErrorCode.FEATURE_DISABLED] when the feature is hidden.
+     */
+    public suspend fun checkFeature(feature: VideoKitFeature, sessionId: String? = null): FeatureAccess = FeatureAccess.ALLOWED
+
+    /**
+     * Creates an empty edit project. Throws [VideoKitException] after [close], and with [ErrorCode.FEATURE_DISABLED]
+     * when [VideoKitFeature.EDIT] is hidden. This call does not suspend, so the dynamic gate of [VideoKitFeature.EDIT]
+     * is asked at the first [VideoKitEditProject.addSource].
+     */
     public fun createEditProject(config: EditProjectConfig): VideoKitEditProject
 
     /**
      * Restores an edit project from a snapshot. Older schema versions are migrated; an unknown future
-     * major version is rejected with [VideoKitException] (04 §10).
+     * major version is rejected with [VideoKitException] (04 §10). [VideoKitFeature.EDIT] must be enabled and allowed
+     * by the gate ([ErrorCode.FEATURE_DISABLED], [ErrorCode.FEATURE_DENIED]).
      */
     public suspend fun restoreEditProject(serialized: SerializedEditProject, config: EditProjectConfig): VideoKitEditProject
 
@@ -46,4 +67,9 @@ public data class VideoKitConfig(
     val logging: LoggingPolicy = LoggingPolicy.ReleaseDefault,
     /** Host callback timeouts (04 §8, 14 §12). */
     val callbackTimeouts: HostCallbackTimeouts = HostCallbackTimeouts(),
+    /**
+     * Static feature switches (REQ-API-10 ①). Features not in the map are [FeatureMode.ENABLED]; [VideoKitFeature.UNKNOWN]
+     * is ignored. Playback and image viewing cannot be switched off.
+     */
+    val features: Map<VideoKitFeature, FeatureMode> = emptyMap(),
 )

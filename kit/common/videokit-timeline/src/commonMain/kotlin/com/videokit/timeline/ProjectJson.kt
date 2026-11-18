@@ -9,6 +9,7 @@ import com.videokit.api.ErrorCode
 import com.videokit.api.ErrorStage
 import com.videokit.api.ExportPreset
 import com.videokit.api.KeyframeSource
+import com.videokit.api.MaskAvatar
 import com.videokit.api.MaskKeyframe
 import com.videokit.api.MaskRegion
 import com.videokit.api.MaskStyle
@@ -24,13 +25,14 @@ import com.videokit.core.runtime.StableErrors
 import com.videokit.timeline.internal.MiniJson
 
 /**
- * JSON codec of [ProjectDocument]: the edit project snapshot schema 1.0 of `spec/schema/edit-project.v1.json`
+ * JSON codec of [ProjectDocument]: the edit project snapshot schema 1.1 of `spec/schema/edit-project.v1.json`
  * (04A E2, 08 §2.1), the single source for this codec and the Dart one. In short:
- * - writing (W1–W3): every property, `schemaVersion` [SCHEMA_VERSION] and `schemaMinor` [SCHEMA_MINOR]; ranges as
- *   `{startUs, endUs}`; no runtime state (tracking progress, probe mismatch flag); a running tracking run as CANCELLED;
- * - reading (R1–R6): the payload's `schemaVersion` (else the envelope's); a higher major is rejected, a lower one
+ * - writing (W1–W3): every property, `schemaVersion` [SCHEMA_VERSION] and `schemaMinor` [SCHEMA_MINOR] (schema 1.1);
+ *   ranges as `{startUs, endUs}`; no runtime state (tracking progress, probe mismatch flag); a running tracking run as
+ *   CANCELLED;
+ * - reading (R1–R8): the payload's `schemaVersion` (else the envelope's); a higher major is rejected, a lower one
  *   migrated through [SchemaMigrations]; any minor readable, unknown properties ignored, missing optional properties
- *   read as defaults, unknown enum values read as the schema's `x-unknown` value.
+ *   read as defaults, unknown enum values read as the schema's `x-unknown` value; IMAGE without an avatar as MOSAIC (R7).
  *
  * Errors (thrown as [VideoKitException], stage EDIT):
  * - `UNSUPPORTED_SNAPSHOT_VERSION`, diagnostic `UNSUPPORTED_SCHEMA_VERSION:<n>`: a higher major or no migration path;
@@ -41,10 +43,29 @@ public object ProjectJson {
     /** Major version written by this Kit. */
     public const val SCHEMA_VERSION: Int = SerializedEditProject.CURRENT_SCHEMA_VERSION
 
-    /** Minor version written by this Kit (04A E2 (b)). */
-    public const val SCHEMA_MINOR: Int = 0
+    /** Minor version written by this Kit (04A E2 (b)); 1 = schema 1.1 (mask avatar, style IMAGE, keyframe rollDeg). */
+    public const val SCHEMA_MINOR: Int = 1
 
-    /** Serializes [document]. */
+    /**
+     * How [document] may be saved (schema R8, 04A E7 Q3): [SaveMode.SAVE_AS_COPY] when it was read from a newer
+     * minor than this Kit writes (unknown data was dropped), else [SaveMode.OVERWRITE].
+     */
+    public fun saveMode(document: ProjectDocument): SaveMode =
+        if (document.sourceSchemaMinor > SCHEMA_MINOR) SaveMode.SAVE_AS_COPY else SaveMode.OVERWRITE
+
+    /**
+     * Serializes [document] for saving to [target] (schema R8). Overwriting the original of a document read from a
+     * newer minor is rejected with `INVALID_STATE` (diagnostic `ILLEGAL_STATE:OVERWRITE_NEWER_MINOR`); the caller saves
+     * a copy instead and tells the user. A copy is always allowed.
+     */
+    public fun save(document: ProjectDocument, target: SaveMode): SaveResult =
+        if (target == SaveMode.OVERWRITE && saveMode(document) == SaveMode.SAVE_AS_COPY) {
+            SaveResult.Rejected(StableErrors.illegalState(ErrorStage.EDIT, "OVERWRITE_NEWER_MINOR"))
+        } else {
+            SaveResult.Saved(encode(document), copyRequired = saveMode(document) == SaveMode.SAVE_AS_COPY)
+        }
+
+    /** Serializes [document] (any target; use [save] where the original could be overwritten). */
     public fun encode(document: ProjectDocument): SerializedEditProject = SerializedEditProject(
         schemaVersion = SCHEMA_VERSION,
         json = MiniJson.write(toTree(document)),
@@ -135,9 +156,19 @@ public object ProjectJson {
                 "region" to regionToJson(keyframe.region),
                 "source" to keyframe.source.name,
                 "state" to keyframe.quality?.name,
+                "rollDeg" to keyframe.rollDeg,
             )
         },
         "acceptedRanges" to mask.acceptedRangesUs.map(::range),
+        "avatar" to mask.avatar?.let { avatar ->
+            linkedMapOf(
+                "avatarToken" to avatar.avatarToken,
+                "scale" to avatar.scale,
+                "offsetX" to avatar.offsetX,
+                "offsetY" to avatar.offsetY,
+                "followRotation" to avatar.followRotation,
+            )
+        },
     )
 
     private fun regionToJson(region: MaskRegion): Map<String, Any?> = linkedMapOf(
@@ -171,6 +202,8 @@ public object ProjectJson {
             masks = root.optObjects("masks").map(::maskFromJson),
             tracking = root.optObjects("tracking").map(::trackingFromJson).associateBy { it.maskId },
             exportPreset = root.optString("exportPresetId")?.let { name -> ExportPreset.entries.firstOrNull { it.name == name } },
+            // R8: remembered so a document from a newer minor is never written over its original.
+            sourceSchemaMinor = root.optLong("schemaMinor", 0L).toInt(),
         )
     }
 
@@ -195,10 +228,22 @@ public object ProjectJson {
     private fun clipFromJson(json: Map<*, *>): Clip =
         Clip(json.requiredString("clipId"), json.requiredString("sourceId"), json.requiredLong("inUs"), json.requiredLong("outUs"))
 
-    private fun maskFromJson(json: Map<*, *>): MaskTrack = MaskTrack(
+    private fun maskFromJson(json: Map<*, *>): MaskTrack {
+        val avatar = json.optObject("avatar")?.let { item ->
+            MaskAvatar(
+                avatarToken = item.requiredString("avatarToken"),
+                scale = item.optNumber("scale")?.toFloat() ?: 1f,
+                offsetX = item.optNumber("offsetX")?.toFloat() ?: 0f,
+                offsetY = item.optNumber("offsetY")?.toFloat() ?: 0f,
+                followRotation = item.optBoolean("followRotation", true),
+            )
+        }
+        val style = json.enumOr("style", MaskStyle.entries, MaskStyle.MOSAIC)
+        return MaskTrack(
         maskId = json.requiredString("maskId"),
         type = json.enumOr("type", MaskType.entries, MaskType.MANUAL, required = true),
-        style = json.enumOr("style", MaskStyle.entries, MaskStyle.MOSAIC),
+        // R7 (1.1): IMAGE without an avatar reads as MOSAIC, so a mask never ends up without an effect.
+        style = if (style == MaskStyle.IMAGE && avatar == null) MaskStyle.MOSAIC else style,
         strength = json.optNumber("strength")?.toFloat() ?: DEFAULT_STRENGTH,
         enabled = json.optBoolean("enabled", true),
         rangeUs = rangeFromJson(json.optObject("rangeUs") ?: error("missing rangeUs")),
@@ -208,10 +253,13 @@ public object ProjectJson {
                 region = regionFromJson(keyframe.optObject("region") ?: error("missing region")),
                 source = keyframe.enumOr("source", KeyframeSource.entries, KeyframeSource.USER),
                 quality = keyframe.optString("state")?.let { quality(it) },
+                rollDeg = keyframe.optNumber("rollDeg")?.toFloat(),
             )
         },
         acceptedRangesUs = json.optObjects("acceptedRanges").map(::rangeFromJson),
+        avatar = avatar,
     )
+    }
 
     private fun rangeFromJson(json: Map<*, *>): TimeRangeUs = TimeRangeUs(json.requiredLong("startUs"), json.requiredLong("endUs"))
 
@@ -296,4 +344,30 @@ public object ProjectJson {
         val name = if (required) requiredString(key) else optString(key) ?: return unknown
         return entries.firstOrNull { it.name == name } ?: unknown
     }
+}
+
+/** Where a snapshot may be saved (schema R8, 04A E7 Q3). */
+public enum class SaveMode {
+    /** Replace the original project. */
+    OVERWRITE,
+
+    /** Save as a new copy and keep the original. */
+    SAVE_AS_COPY,
+}
+
+/** Result of [ProjectJson.save]. */
+public sealed interface SaveResult {
+    /** The snapshot to save; [copyRequired] when the original must be kept (tell the user, R8). */
+    public data class Saved(
+        /** The snapshot. */
+        val snapshot: SerializedEditProject,
+        /** Whether the original must be kept and this saved as a copy. */
+        val copyRequired: Boolean,
+    ) : SaveResult
+
+    /** Overwriting was not allowed (R8). */
+    public data class Rejected(
+        /** `INVALID_STATE`, diagnostic `ILLEGAL_STATE:OVERWRITE_NEWER_MINOR`. */
+        val error: com.videokit.api.VideoKitStableError,
+    ) : SaveResult
 }

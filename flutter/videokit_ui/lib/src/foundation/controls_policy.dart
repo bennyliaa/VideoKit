@@ -14,6 +14,11 @@ enum VkControlsMode {
   /// (TEST-R1 R1-09/R1-02).
   disabled,
 
+  /// Opening (design page 12, ruling 2026-11-08 in TEST-PLAN-6 §4A): back,
+  /// title and the spinner; the bottom controls keep a disabled look; host
+  /// actions and "more" are not shown yet.
+  loading,
+
   /// An unsupported or fatal error (04A U1, design page 12): only back and
   /// title stay; bottom controls, host actions and "more" are hidden.
   minimal,
@@ -33,6 +38,8 @@ VkControlsMode vkControlsMode(StateViewModel? model, VideoKitSessionState st) {
           : VkControlsMode.disabled;
     case StateViewKind.released || StateViewKind.locked:
       return VkControlsMode.disabled;
+    case StateViewKind.loading:
+      return VkControlsMode.loading;
     default:
       return VkControlsMode.normal;
   }

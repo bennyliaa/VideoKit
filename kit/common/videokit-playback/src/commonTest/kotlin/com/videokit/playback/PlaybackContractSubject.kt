@@ -34,7 +34,8 @@ import kotlin.coroutines.ContinuationInterceptor
  * Images run on the fake image engine; editing (VK-M4) is not implemented yet and its cases are reported as skipped.
  */
 class PlaybackContractSubject(private val scope: CoroutineScope, val clock: FakeClock = FakeClock()) : VideoKitContractSubject {
-    override val features: Set<ContractFeature> get() = setOf(ContractFeature.IMAGES, ContractFeature.BUDGET_INJECTION)
+    override val features: Set<ContractFeature>
+        get() = setOf(ContractFeature.IMAGES, ContractFeature.BUDGET_INJECTION, ContractFeature.FEATURE_SWITCHES)
 
     override val callbackTimeouts: HostCallbackTimeouts get() = HostCallbackTimeouts()
 
@@ -42,10 +43,24 @@ class PlaybackContractSubject(private val scope: CoroutineScope, val clock: Fake
 
     override fun create(callbacks: VideoKitHostCallbacks): VideoKit = create(callbacks, FakeResourceBudget())
 
-    override fun create(callbacks: VideoKitHostCallbacks, budget: com.videokit.api.ResourceBudget): VideoKit {
+    override fun create(callbacks: VideoKitHostCallbacks, budget: com.videokit.api.ResourceBudget): VideoKit =
+        create(VideoKitConfig(hostCallbacks = callbacks, resourceBudget = budget, callbackTimeouts = callbackTimeouts))
+
+    override fun create(
+        callbacks: VideoKitHostCallbacks,
+        features: Map<com.videokit.api.VideoKitFeature, com.videokit.api.FeatureMode>,
+    ): VideoKit = create(
+        VideoKitConfig(
+            hostCallbacks = callbacks,
+            resourceBudget = FakeResourceBudget(),
+            callbackTimeouts = callbackTimeouts,
+            features = features,
+        ),
+    )
+
+    private fun create(config: VideoKitConfig): VideoKit {
         val dispatcher = scope.coroutineContext[ContinuationInterceptor] as? CoroutineDispatcher ?: error("scope without dispatcher")
         val engines = FakeEngines.platform(dispatcher, FakeEngineOptions(clock = clock))
-        val config = VideoKitConfig(hostCallbacks = callbacks, resourceBudget = budget, callbackTimeouts = callbackTimeouts)
         return PlaybackVideoKit.create(config, engines, CoreOptions(isDemo = true), parentScope = scope)
     }
 

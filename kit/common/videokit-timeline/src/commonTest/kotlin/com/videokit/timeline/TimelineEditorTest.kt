@@ -3,7 +3,9 @@ package com.videokit.timeline
 import com.videokit.api.Clip
 import com.videokit.api.EditSource
 import com.videokit.api.ErrorCode
+import com.videokit.api.MaskAvatar
 import com.videokit.api.MaskRegion
+import com.videokit.api.MaskStyle
 import com.videokit.api.MaskType
 import com.videokit.api.SourceProbe
 import com.videokit.api.TimeRangeUs
@@ -105,6 +107,43 @@ class TimelineEditorTest {
         assertFalse(editor.document.mask(maskId)!!.enabled)
         assertIs<EditOutcome.Applied>(editor.undo())
         assertTrue(editor.document.mask(maskId)!!.enabled)
+    }
+
+    @Test
+    fun avatarsAreSetBeforeTheImageStyle() {
+        val editor = editor()
+        editor.add(0, 2_000_000)
+        val maskId = assertIs<EditOutcome.Applied>(
+            editor.apply(VideoKitEditCommand.AddMask(MaskType.FACE, MaskRegion(0.1f, 0.1f, 0.2f, 0.2f), TimeRangeUs(0, 1_000_000))),
+        ).createdId!!
+        val noAvatar = assertIs<EditOutcome.Rejected>(editor.apply(VideoKitEditCommand.SetMaskStyle(maskId, MaskStyle.IMAGE, 0.5f)))
+        assertEquals("INVALID_ARGUMENT:MASK_AVATAR", noAvatar.error.diagnostic)
+        val badScale = editor.apply(VideoKitEditCommand.SetMaskAvatar(maskId, MaskAvatar("host:a", scale = 0f)))
+        assertIs<EditOutcome.Rejected>(badScale)
+        assertIs<EditOutcome.Rejected>(editor.apply(VideoKitEditCommand.SetMaskAvatar(maskId, MaskAvatar(" "))))
+        val avatar = MaskAvatar("host:a", scale = 1.5f, offsetY = -0.1f)
+        assertIs<EditOutcome.Applied>(editor.apply(VideoKitEditCommand.SetMaskAvatar(maskId, avatar)))
+        assertIs<EditOutcome.Applied>(editor.apply(VideoKitEditCommand.SetMaskStyle(maskId, MaskStyle.IMAGE, 0.5f)))
+        assertEquals(MaskStyle.IMAGE, editor.document.mask(maskId)!!.style)
+        assertEquals(avatar, editor.document.mask(maskId)!!.avatar)
+        // Snapshot 1.1 keeps both.
+        assertEquals(editor.document, ProjectJson.decode(ProjectJson.encode(editor.document)))
+    }
+
+    @Test
+    fun projectsFromANewerMinorAreOnlySavedAsCopies() {
+        // Schema R8 (04A E7 Q3): the reader dropped what it does not know, so the original must stay.
+        val newer = editor(ProjectDocument("p", sources = listOf(source), sourceSchemaMinor = ProjectJson.SCHEMA_MINOR + 1))
+        assertEquals(SaveMode.SAVE_AS_COPY, newer.saveMode)
+        val rejected = assertIs<SaveResult.Rejected>(newer.save(SaveMode.OVERWRITE))
+        assertEquals("ILLEGAL_STATE:OVERWRITE_NEWER_MINOR", rejected.error.diagnostic)
+        assertTrue(assertIs<SaveResult.Saved>(newer.save(SaveMode.SAVE_AS_COPY)).copyRequired)
+        // Edits keep the origin; a project of this or an older minor overwrites normally.
+        newer.add(0, 1_000)
+        assertEquals(SaveMode.SAVE_AS_COPY, newer.saveMode)
+        val current = editor()
+        assertEquals(SaveMode.OVERWRITE, current.saveMode)
+        assertIs<SaveResult.Saved>(current.save(SaveMode.OVERWRITE))
     }
 
     @Test

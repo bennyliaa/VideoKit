@@ -34,6 +34,8 @@ class HandshakeRequest {
     required this.navigationTimeoutMs,
     required this.recoveryDecisionTimeoutMs,
     required this.notificationTimeoutMs,
+    this.featureGateTimeoutMs,
+    this.features,
   });
 
   /// Channel protocol version of the Dart side (`kChannelProtocolVersion`).
@@ -47,6 +49,14 @@ class HandshakeRequest {
   int navigationTimeoutMs;
   int recoveryDecisionTimeoutMs;
   int notificationTimeoutMs;
+
+  /// `HostCallbackTimeouts.featureGate` (REQ-API-10); null = the native default (30 s).
+  int? featureGateTimeoutMs;
+
+  /// `VideoKitConfig.features` (REQ-API-10): `VideoKitFeature` wire name → `FeatureMode` wire name. Null or missing
+  /// entries = ENABLED; unknown names are ignored, unknown modes read as ENABLED. Applied at the first handshake only
+  /// (the engine's Kit is created once).
+  Map<String, String>? features;
 }
 
 /// Answer of the native side.
@@ -564,6 +574,7 @@ class CapabilitiesMsg {
     required this.objectTracking,
     required this.unavailableReasons,
     this.mediaProbe,
+    this.hiddenFeatures,
   });
 
   int schemaVersion;
@@ -592,6 +603,20 @@ class CapabilitiesMsg {
   /// `FeatureKey` wire name → `UnsupportedReason` wire name.
   Map<String, String> unavailableReasons;
   MediaProbeMsg? mediaProbe;
+
+  /// `VideoKitCapabilities.hiddenFeatures` (REQ-API-10): `VideoKitFeature` wire names; null = none.
+  List<String>? hiddenFeatures;
+}
+
+/// Answer of the Dart host's feature gate (REQ-API-10, `FeatureAccess`).
+class FeatureAccessMsg {
+  FeatureAccessMsg({required this.access, this.badge});
+
+  /// `ALLOWED` or `DENIED`; anything else counts as DENIED.
+  String access;
+
+  /// `FeatureBadge` wire name (LOCK, TRIAL) or null.
+  String? badge;
 }
 
 // ---------------------------------------------------------------- host callbacks
@@ -718,6 +743,7 @@ class EditCommandMsg {
     this.enabled,
     this.trackingKind,
     this.targetId,
+    this.avatar,
   });
 
   String kind;
@@ -740,6 +766,9 @@ class EditCommandMsg {
   /// `StartTracking.kind` wire name (FACE / OBJECT); the seed region travels in [region] (04A S4).
   String? trackingKind;
   String? targetId;
+
+  /// `SetMaskAvatar.avatar` (04A E6, M4-B2; kind `SetMaskAvatar`).
+  MaskAvatarMsg? avatar;
 }
 
 class EditResultMsg {
@@ -816,6 +845,7 @@ class MaskKeyframeMsg {
     required this.region,
     required this.source,
     this.quality,
+    this.rollDeg,
   });
 
   int atUs;
@@ -824,6 +854,26 @@ class MaskKeyframeMsg {
   /// `KeyframeSource` / `CoverageQuality` wire names.
   String source;
   String? quality;
+
+  /// Head roll in degrees for `MaskAvatar.followRotation`; null when unknown (04A E5, M4-B2).
+  double? rollDeg;
+}
+
+/// `MaskAvatar` (04A E5/E6, M4-B2): the PNG stays with the host, opened by [avatarToken].
+class MaskAvatarMsg {
+  MaskAvatarMsg({
+    required this.avatarToken,
+    required this.scale,
+    required this.offsetX,
+    required this.offsetY,
+    required this.followRotation,
+  });
+
+  String avatarToken;
+  double scale;
+  double offsetX;
+  double offsetY;
+  bool followRotation;
 }
 
 class TimeRangeMsg {
@@ -843,16 +893,22 @@ class MaskTrackMsg {
     required this.range,
     required this.keyframes,
     required this.acceptedRanges,
+    this.avatar,
   });
 
   String maskId;
   String type;
+
+  /// `MaskStyle` wire name: MOSAIC, BLUR or IMAGE (M4-B2).
   String style;
   double strength;
   bool enabled;
   TimeRangeMsg range;
   List<MaskKeyframeMsg> keyframes;
   List<TimeRangeMsg> acceptedRanges;
+
+  /// Avatar of style IMAGE (M4-B2).
+  MaskAvatarMsg? avatar;
 }
 
 class CoverageRangeMsg {
@@ -1255,6 +1311,27 @@ abstract class VideoKitHostApi {
   @async
   CandidateResultMsg detectCandidates(String projectId, int atUs);
 
+  /// Timeline thumbnail of a project source (04A X2, `VideoKitEditMediaPreview`); null when not available. The
+  /// native side answers within the thumbnail hard timeout (04A P5).
+  @async
+  Uint8List? sourceThumbnail(
+    String projectId,
+    String sourceId,
+    int atUs,
+    int maxWidth,
+    int maxHeight,
+  );
+
+  /// Audio peaks (0–1) of a project source over `[inUs, outUs]` (04A X2); empty without audio or support.
+  @async
+  List<double> sourceWaveform(
+    String projectId,
+    String sourceId,
+    int inUs,
+    int outUs,
+    int buckets,
+  );
+
   @async
   void closeEditProject(String projectId);
 
@@ -1291,6 +1368,12 @@ abstract class VideoKitCallbacksApi {
 
   @async
   void onFatalSessionError(String sessionId, StableErrorMsg error);
+
+  /// `VideoKitHostCallbacks.checkFeature` (REQ-API-10). [feature] is a `VideoKitFeature` wire name; [sessionId] the
+  /// session or edit project id, null before one exists. The native timeout is `featureGateTimeoutMs`; an error or
+  /// timeout counts as denied.
+  @async
+  FeatureAccessMsg checkFeature(String feature, String? sessionId);
 
   /// The surface of [sessionId] was recycled or recreated (14 §8.4); null = no texture.
   void onTextureChanged(String sessionId, int? textureId);

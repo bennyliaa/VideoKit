@@ -63,6 +63,15 @@ public interface VideoKitContractSubject {
      */
     public fun create(callbacks: VideoKitHostCallbacks, budget: com.videokit.api.ResourceBudget): VideoKit? = null
 
+    /**
+     * Creates an instance with [callbacks] and the static feature switches [features] (REQ-API-10, `VideoKitConfig.features`),
+     * or `null` when the subject cannot take them; those cases then do not apply (feature [ContractFeature.FEATURE_SWITCHES]).
+     */
+    public fun create(
+        callbacks: VideoKitHostCallbacks,
+        features: Map<com.videokit.api.VideoKitFeature, com.videokit.api.FeatureMode>,
+    ): VideoKit? = null
+
     /** Off-screen time after which the created instances release a decoder (07 §5.3). */
     public val offscreenReleaseMs: Long get() = com.videokit.core.runtime.VisibilityPolicy.DEFAULT_OFFSCREEN_RELEASE_MS
 }
@@ -95,6 +104,9 @@ public enum class ContractGroup {
 
     /** Multiple sessions: slots, unique audio, visibility policy, budget, fault isolation (07 §6). */
     MULTI_INSTANCE,
+
+    /** Feature switches and the feature gate (REQ-API-10). */
+    FEATURE_GATE,
 }
 
 /** One contract case. */
@@ -216,4 +228,7 @@ public enum class ContractFeature {
 
     /** Instances over a host supplied budget ([VideoKitContractSubject.create] with a budget). */
     BUDGET_INJECTION,
+
+    /** Instances with static feature switches ([VideoKitContractSubject.create] with features, REQ-API-10). */
+    FEATURE_SWITCHES,
 }

@@ -81,6 +81,18 @@ public enum class ErrorCode {
 
     /** A snapshot or project schema version is not supported, for example a future major version (04A V7). */
     UNSUPPORTED_SNAPSHOT_VERSION,
+
+    /** No usable face in an avatar image (REQ-ED-07, 04A E6): the user picks another photo. */
+    AVATAR_NO_FACE,
+
+    /** An avatar image cannot be decoded or exceeds the size limit, including a host-supplied PNG (04A E6). */
+    AVATAR_IMAGE_UNSUPPORTED,
+
+    /** The feature is hidden by the host configuration (REQ-API-10 ①, [FeatureMode.HIDDEN]); params `feature`. */
+    FEATURE_DISABLED,
+
+    /** The host's feature gate did not allow the feature (REQ-API-10 ②); params `feature`, `badge`. */
+    FEATURE_DENIED,
     ;
 
     public companion object {
@@ -272,4 +284,58 @@ public object ErrorParams {
      * not known (UI-AUDIT-A1 J8).
      */
     public const val REQUIRED_BYTES: String = "requiredBytes"
+
+    /** [ErrorCode.EXPORT_FAILED]: why the export worker failed, one of [ExportFailureReasons]; absent otherwise (04A X1). */
+    public const val REASON: String = "reason"
+
+    /** `UNSUPPORTED_*` media codes: codec MIME type, for example `video/hevc` (04A X2). */
+    public const val CODEC: String = "codec"
+
+    /** `UNSUPPORTED_*` media codes: codec profile as the media declares it (04A X2). */
+    public const val PROFILE: String = "profile"
+
+    /** `UNSUPPORTED_*` media codes: luma bit depth, a decimal integer (04A X2). */
+    public const val BIT_DEPTH: String = "bitDepth"
+
+    /** `UNSUPPORTED_*` media codes: container MIME type (04A X2). */
+    public const val CONTAINER: String = "container"
+
+    /** `UNSUPPORTED_*` media codes: one of [UnsupportedDetails] (04A X2). */
+    public const val REASON_DETAIL: String = "reasonDetail"
+
+    /** [ErrorCode.FEATURE_DISABLED], [ErrorCode.FEATURE_DENIED]: the [VideoKitFeature] wire name (REQ-API-10). */
+    public const val FEATURE: String = "feature"
+
+    /** [ErrorCode.FEATURE_DENIED]: the [FeatureBadge] wire name the host gave; absent without a marker (REQ-API-10). */
+    public const val BADGE: String = "badge"
+}
+
+/** Values of [ErrorParams.REASON_DETAIL] on the `UNSUPPORTED_*` media codes (04A X2, `spec/errors.json`). */
+public object UnsupportedDetails {
+    /** No decoder for this format. */
+    public const val FORMAT_UNSUPPORTED: String = "FORMAT_UNSUPPORTED"
+
+    /** A decoder exists, but not for this profile, level, size or bit depth. */
+    public const val EXCEEDS_CAPABILITIES: String = "EXCEEDS_CAPABILITIES"
+
+    /** The container cannot be read. */
+    public const val CONTAINER_UNSUPPORTED: String = "CONTAINER_UNSUPPORTED"
+
+    /** All values in registry order. */
+    public val ALL: List<String> = listOf(FORMAT_UNSUPPORTED, EXCEEDS_CAPABILITIES, CONTAINER_UNSUPPORTED)
+}
+
+/** Values of [ErrorParams.REASON] on [ErrorCode.EXPORT_FAILED] (04A X1, `spec/errors.json`). */
+public object ExportFailureReasons {
+    /** The system or the main process killed the worker (for example low memory). */
+    public const val WORKER_KILLED: String = "WORKER_KILLED"
+
+    /** The worker crashed: native signal, uncaught exception, out of memory. */
+    public const val WORKER_CRASHED: String = "WORKER_CRASHED"
+
+    /** No progress within the watchdog time. */
+    public const val WORKER_TIMEOUT: String = "WORKER_TIMEOUT"
+
+    /** All values in registry order. */
+    public val ALL: List<String> = listOf(WORKER_KILLED, WORKER_CRASHED, WORKER_TIMEOUT)
 }

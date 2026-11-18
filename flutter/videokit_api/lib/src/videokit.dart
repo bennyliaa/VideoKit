@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 
 import 'capability/capabilities.dart';
 import 'edit/edit_project.dart';
+import 'feature/feature.dart';
+import 'feature/feature_gate.dart';
 import 'host/host_callbacks.dart';
 import 'resource/resource_budget.dart';
 import 'session/session.dart';
@@ -157,7 +159,19 @@ final class VideoKitConfig {
     this.callbackTimeouts = const HostCallbackTimeouts(),
     this.resourceBudget,
     this.logging = LoggingPolicy.releaseDefault,
+    this.features = VideoKitFeatureConfig.allEnabled,
   });
+
+  /// Static feature switches (REQ-API-10 ①); unlisted features are
+  /// enabled.
+  final VideoKitFeatureConfig features;
+
+  /// The switches with the host's gate ([VideoKitHostCallbacks.checkFeature]).
+  VideoKitFeatureGate get featureGate => VideoKitFeatureGate(
+    config: features,
+    callbacks: hostCallbacks,
+    timeout: callbackTimeouts.featureGate,
+  );
 
   /// Host callbacks.
   final VideoKitHostCallbacks hostCallbacks;
@@ -177,11 +191,13 @@ final class VideoKitConfig {
     HostCallbackTimeouts? callbackTimeouts,
     Object? resourceBudget = undefined,
     LoggingPolicy? logging,
+    VideoKitFeatureConfig? features,
   }) => VideoKitConfig(
     hostCallbacks: hostCallbacks ?? this.hostCallbacks,
     callbackTimeouts: callbackTimeouts ?? this.callbackTimeouts,
     resourceBudget: pick<ResourceBudget?>(resourceBudget, this.resourceBudget),
     logging: logging ?? this.logging,
+    features: features ?? this.features,
   );
 
   @override
@@ -190,7 +206,8 @@ final class VideoKitConfig {
       identical(other.hostCallbacks, hostCallbacks) &&
       other.callbackTimeouts == callbackTimeouts &&
       identical(other.resourceBudget, resourceBudget) &&
-      other.logging == logging;
+      other.logging == logging &&
+      other.features == features;
 
   @override
   int get hashCode => Object.hash(
@@ -198,6 +215,7 @@ final class VideoKitConfig {
     callbackTimeouts,
     identityHashCode(resourceBudget),
     logging,
+    features,
   );
 
   @override

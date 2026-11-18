@@ -23,6 +23,7 @@ import com.videokit.api.ResourcePriority
 import com.videokit.api.ResourceRequest
 import com.videokit.api.Seekability
 import com.videokit.api.SessionPhase
+import com.videokit.api.SessionPurpose
 import com.videokit.api.SessionVisibility
 import com.videokit.api.Size
 import com.videokit.api.ThumbnailResult
@@ -30,6 +31,7 @@ import com.videokit.api.UnsupportedReason
 import com.videokit.api.VideoKitCommand
 import com.videokit.api.VideoKitCommandResult
 import com.videokit.api.VideoKitEvent
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitHostAction
 import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitPlaybackEvent
@@ -89,6 +91,7 @@ public class FakeSession internal constructor(
 ) : VideoKitSession {
     private val options = kit.options
     private val timeouts = options.callbackTimeouts
+    private val purpose = config.purpose
     private val scope = CoroutineScope(kit.scope.coroutineContext + SupervisorJob(kit.scope.coroutineContext[Job]))
     private val mutex = Mutex()
     private val mutableState = MutableStateFlow(
@@ -154,6 +157,9 @@ public class FakeSession internal constructor(
         hostActions: List<VideoKitHostAction>,
     ): VideoKitCommandResult {
         if (released) return VideoKitCommandResult.SessionReleased
+        if (purpose == SessionPurpose.MULTI_SLOT) {
+            kit.features.unsupportedReason(VideoKitFeature.MULTI_VIEW, sessionId)?.let { return VideoKitCommandResult.Unsupported(it) }
+        }
         val job = scope.async { mutex.withLock { bindLocked(source, initialState, hostActions) } }
         activeBind = job
         return try {

@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:videokit_api/videokit_api.dart';
 
+import 'avatar/fake_avatar.dart';
 import 'clock/fake_clock.dart';
 import 'demo/demo_data.dart';
 import 'fake_session.dart';
@@ -23,7 +24,8 @@ final class _Model {
 /// In-memory Fake edit project (14 §11.1): timeline, masks, undo stack,
 /// scripted tracking coverage and staged, cancellable export. Never writes
 /// files; successful exports are flagged demo (`demo_no_real_file`).
-class FakeEditProject implements VideoKitEditProject {
+class FakeEditProject
+    implements VideoKitEditProject, VideoKitEditMediaPreview {
   /// Creates a project in `CREATED`.
   FakeEditProject({
     required this.projectId,
@@ -32,7 +34,13 @@ class FakeEditProject implements VideoKitEditProject {
     required this._scenario,
     required this._createPreviewSession,
     this._onReleased,
+    this.features = VideoKitFeatureGate.open,
   });
+
+  /// Feature switches and the host gate (REQ-API-10, VK-A2): hidden
+  /// mask/tracking or avatar commands answer `EditUnsupported
+  /// (FEATURE_DISABLED)`; export checks EXPORT (static, then the gate).
+  final VideoKitFeatureGate features;
 
   @override
   final String projectId;
@@ -193,9 +201,32 @@ class FakeEditProject implements VideoKitEditProject {
 
   // ------------------------------------------------------------ commands --
 
+  /// The switchable feature [command] belongs to (beyond editing itself),
+  /// or null. Removing / disabling existing masks stays possible, so a
+  /// project made earlier can still be cleaned up.
+  static VideoKitFeature? featureOf(VideoKitEditCommand command) =>
+      switch (command) {
+        SetMaskAvatar() => VideoKitFeature.avatar,
+        SetMaskStyle(:final style) when style == MaskStyle.image =>
+          VideoKitFeature.avatar,
+        AddMask() ||
+        UpdateMaskKeyframe() ||
+        RemoveMaskKeyframe() ||
+        SetMaskStyle() ||
+        StartTracking() ||
+        CorrectTracking() ||
+        AcceptTrackingRange() => VideoKitFeature.maskTracking,
+        _ => null,
+      };
+
   @override
   Future<EditCommandResult> apply(VideoKitEditCommand command) async {
     if (_released) return const EditProjectReleased();
+    // REQ-API-10 ①: a hidden feature's commands are not available.
+    final feature = featureOf(command);
+    if (feature != null && !features.isEnabled(feature)) {
+      return const EditUnsupported(UnsupportedReason.featureDisabled);
+    }
     final phase = _s.phase;
     final duringTracking =
         phase == EditPhase.tracking &&
@@ -357,6 +388,8 @@ class FakeEditProject implements VideoKitEditProject {
           throw _Invalid('mask_range');
         }
         if (strength < 0 || strength > 1) throw _Invalid('strength');
+        // REQ-ED-07: an avatar mask is made by SetMaskAvatar first.
+        if (style == MaskStyle.image) throw _Invalid('MASK_AVATAR');
         final id = _nextId('mask');
         setMasks([
           ..._s.masks,
@@ -408,9 +441,26 @@ class FakeEditProject implements VideoKitEditProject {
         return null;
       case SetMaskStyle(:final maskId, :final style, :final strength):
         if (strength < 0 || strength > 1) throw _Invalid('strength');
-        setMasks(
-          replaceMask(mask(maskId).copyWith(style: style, strength: strength)),
-        );
+        final m = mask(maskId);
+        // REQ-ED-07: IMAGE needs the mask's avatar (SetMaskAvatar).
+        if (style == MaskStyle.image && m.avatar == null) {
+          throw _Invalid('MASK_AVATAR');
+        }
+        setMasks(replaceMask(m.copyWith(style: style, strength: strength)));
+        return null;
+      case SetMaskAvatar(:final maskId, :final avatar):
+        final m = mask(maskId);
+        // Same rule as Kotlin TimelineEditor (M4-B2): the token is not
+        // blank, scale > 0 and finite, offsets finite. Whether the picture
+        // exists is checked when it is drawn (openAvatar / built-ins).
+        if (avatar.avatarToken.trim().isEmpty ||
+            avatar.scale <= 0 ||
+            !avatar.scale.isFinite ||
+            !avatar.offsetX.isFinite ||
+            !avatar.offsetY.isFinite) {
+          throw _Invalid('MASK_AVATAR');
+        }
+        setMasks(replaceMask(m.copyWith(avatar: avatar)));
         return null;
       case SetMaskEnabled(:final maskId, :final enabled):
         setMasks(replaceMask(mask(maskId).copyWith(enabled: enabled)));
@@ -671,6 +721,8 @@ class FakeEditProject implements VideoKitEditProject {
             ),
             source: KeyframeSource.tracker,
             state: CoverageReport(segments: segments).stateAt(at),
+            // Synthetic head roll (04A E5 3) for avatars that follow it.
+            rollDeg: 8 * math.sin(at / 1.5e6),
           ),
     ];
     final updatedMask = m.copyWith(
@@ -718,6 +770,84 @@ class FakeEditProject implements VideoKitEditProject {
       ),
     );
     if (!silent) _emit(TrackingFinished(maskId, TrackingRunStatus.cancelled));
+  }
+
+  // ------------------------------------------- timeline media (A4) --
+
+  /// Demo thumbnail: colour bars shifted by the time and a bright
+  /// position marker, so neighbouring frames differ visibly. Null for an
+  /// unknown or unprobed source, or after close.
+  @override
+  Future<Uint8List?> sourceThumbnail(
+    String sourceId,
+    int atUs, {
+    int maxWidth = 160,
+    int maxHeight = 90,
+  }) async {
+    final probe = _s.timeline.sourceById(sourceId)?.probe;
+    if (_released || probe == null || probe.durationUs <= 0) return null;
+    final aspect = probe.height > 0 ? probe.width / probe.height : 16 / 9;
+    var w = math.max(1, maxWidth);
+    var h = (w / aspect).round();
+    if (h > maxHeight) {
+      h = math.max(1, maxHeight);
+      w = math.max(1, (h * aspect).round());
+    }
+    h = math.max(1, h);
+    const bars = [
+      [0xC0, 0xC0, 0xC0],
+      [0xC0, 0xC0, 0x00],
+      [0x00, 0xC0, 0xC0],
+      [0x00, 0xC0, 0x00],
+      [0xC0, 0x00, 0xC0],
+      [0xC0, 0x00, 0x00],
+      [0x00, 0x00, 0xC0],
+    ];
+    final t = (atUs.clamp(0, probe.durationUs) / probe.durationUs);
+    final shift = (t * w).round();
+    final marker = (t * (w - 1)).round();
+    final rgba = Uint8List(w * h * 4);
+    for (var y = 0; y < h; y++) {
+      for (var x = 0; x < w; x++) {
+        final bar = bars[((x + shift) % w) * bars.length ~/ w];
+        final dark = y > h * 3 ~/ 4;
+        final i = (y * w + x) * 4;
+        final on = x == marker;
+        rgba[i] = on ? 0xFF : (dark ? bar[0] ~/ 3 : bar[0]);
+        rgba[i + 1] = on ? 0xFF : (dark ? bar[1] ~/ 3 : bar[1]);
+        rgba[i + 2] = on ? 0xFF : (dark ? bar[2] ~/ 3 : bar[2]);
+        rgba[i + 3] = 0xFF;
+      }
+    }
+    return FakeAvatarTools.encodePng(rgba, w, h);
+  }
+
+  /// Demo waveform: a deterministic envelope per source; empty without
+  /// audio, zeros in the `silent` demo source.
+  @override
+  Future<List<double>> sourceWaveform(
+    String sourceId,
+    int inUs,
+    int outUs,
+    int buckets,
+  ) async {
+    final src = _s.timeline.sourceById(sourceId);
+    final probe = src?.probe;
+    if (_released || probe == null || !probe.hasAudio || buckets <= 0) {
+      return const [];
+    }
+    final silent = src!.mediaToken.contains('silent');
+    final seed = sourceId.codeUnits.fold<int>(7, (a, b) => a * 31 + b);
+    final span = math.max(1, outUs - inUs);
+    double peak(int i) {
+      if (silent) return 0;
+      final s = (inUs + span * (i + 0.5) / buckets) / 1e6;
+      final env = 0.55 + 0.35 * math.sin(s * 0.9 + seed % 13);
+      final wobble = 0.5 + 0.5 * math.sin(s * 7.3 + seed % 7);
+      return (env * (0.4 + 0.6 * wobble)).clamp(0.0, 1.0);
+    }
+
+    return [for (var i = 0; i < buckets; i++) peak(i)];
   }
 
   @override
@@ -826,7 +956,9 @@ class FakeEditProject implements VideoKitEditProject {
         sourceRef: const DemoSourceRef('normal'),
       ),
     );
-    session.debugSetDuration(_s.timeline.durationUs);
+    session
+      ..debugSetDuration(_s.timeline.durationUs)
+      ..debugAttachPreviewOf(_state);
     return session;
   }();
 
@@ -891,17 +1023,20 @@ class FakeEditProject implements VideoKitEditProject {
     }
     final estimate = _estimate(tl);
     final free = caps.knownFreeSpaceBytes;
-    if (free != null &&
-        estimate.sizeBytes != null &&
-        free < estimate.sizeBytes!) {
+    // 04A X1-6: a sequential-only sink needs a private staging copy too,
+    // so the space needed is twice the output.
+    final need = estimate.sizeBytes == null
+        ? null
+        : estimate.sizeBytes! * (mode == SinkWriteMode.sequential ? 2 : 1);
+    if (free != null && need != null && free < need) {
       problems.add(
         VideoKitStableError(
           code: ErrorCode.outputSpaceInsufficient,
           stage: ErrorStage.sink,
           retryable: true,
           suggestedAction: SuggestedAction.freeSpace,
-          // J8 (spec/errors.json): the shortfall, estimate minus free.
-          params: {'requiredBytes': '${estimate.sizeBytes! - free}'},
+          // J8 (spec/errors.json): the shortfall, need minus free.
+          params: {'requiredBytes': '${need - free}'},
         ),
       );
     }
@@ -987,6 +1122,31 @@ class FakeEditProject implements VideoKitEditProject {
         _illegal(
           'illegal_transition:${_s.phase.wireName}:export',
           ErrorStage.export,
+        ),
+      );
+    }
+    // REQ-API-10: EXPORT hidden → FEATURE_DISABLED; gate says no →
+    // FEATURE_DENIED. Nothing starts, the phase is unchanged.
+    if (!features.isEnabled(VideoKitFeature.export)) {
+      return ExportFailed(
+        exportId,
+        VideoKitFeatureGate.disabledError(
+          VideoKitFeature.export,
+          stage: ErrorStage.export,
+        ),
+      );
+    }
+    final access = await features.check(
+      VideoKitFeature.export,
+      sessionId: projectId,
+    );
+    if (!access.isAllowed) {
+      return ExportFailed(
+        exportId,
+        VideoKitFeatureGate.deniedError(
+          VideoKitFeature.export,
+          badge: access.badge,
+          stage: ErrorStage.export,
         ),
       );
     }
@@ -1109,12 +1269,13 @@ class FakeEditProject implements VideoKitEditProject {
             },
             // J8: a sink running out of space mid-write reports the
             // shortfall (here: the half not yet written).
-            params: failure.code == ErrorCode.outputSpaceInsufficient
-                ? {
-                    'requiredBytes':
-                        '${math.max(1, (_estimate(_s.timeline).sizeBytes ?? 0) ~/ 2)}',
-                  }
-                : const {},
+            params: {
+              if (failure.code == ErrorCode.outputSpaceInsufficient)
+                'requiredBytes':
+                    '${math.max(1, (_estimate(_s.timeline).sizeBytes ?? 0) ~/ 2)}',
+              // 04A X1-3: why the export worker failed.
+              'reason': ?failure.reason,
+            },
           );
           _set(
             _s.copyWith(phase: EditPhase.failed, error: error, export: null),
@@ -1122,6 +1283,20 @@ class FakeEditProject implements VideoKitEditProject {
           return ExportFailed(exportId, error, stage: stage);
         }
       }
+    }
+    // 15 §2.8 constraint 4 (M6-A1): the worker reported DONE while
+    // crashing; the main process refuses the output. The export only
+    // counts as done when the result says so.
+    if (_scenario.exportFailsAfterDone) {
+      const error = VideoKitStableError(
+        code: ErrorCode.exportFailed,
+        stage: ErrorStage.export,
+        retryable: true,
+        suggestedAction: SuggestedAction.retry,
+        diagnostic: 'worker_failed_after_done',
+      );
+      _set(_s.copyWith(phase: EditPhase.failed, error: error, export: null));
+      return ExportFailed(exportId, error, stage: ExportStage.writing);
     }
     final first = _s.timeline.sources.isEmpty
         ? null
@@ -1163,9 +1338,10 @@ class FakeEditProject implements VideoKitEditProject {
   Future<VideoKitExportResult> _finishCancel(String exportId) async {
     if (!_released) {
       await clock.delay(
-        _scenario.exportCancelSlow
-            ? const Duration(seconds: 2)
-            : const Duration(milliseconds: 250),
+        _scenario.exportCancelDelay ??
+            (_scenario.exportCancelSlow
+                ? const Duration(seconds: 2)
+                : const Duration(milliseconds: 250)),
       );
     }
     if (!_released) _set(_s.copyWith(phase: EditPhase.cancelled, export: null));
@@ -1265,7 +1441,9 @@ abstract final class FakeEditProjectCodec {
 
   /// Minor version written beside the major `schemaVersion` (04A E2 (b)):
   /// any minor of the same major is readable; unknown fields are ignored.
-  static const int currentSchemaMinor = 0;
+  /// 1.1 (M5A-A1, REQ-ED-07): mask `avatar`, style `IMAGE`, keyframe
+  /// `rollDeg`.
+  static const int currentSchemaMinor = SerializedEditProject.currentSchemaMinor;
 
   /// Encodes [state] of [projectId].
   static Map<String, Object?> encode(
@@ -1333,11 +1511,22 @@ abstract final class FakeEditProjectCodec {
                   'region': _rect(k.region),
                   'source': k.source.wireName,
                   'state': k.state?.wireName,
+                  'rollDeg': k.rollDeg,
                 },
             ],
             'acceptedRanges': [
               for (final r in m.acceptedRanges) range(r.startUs, r.endUs),
             ],
+            'avatar': switch (m.avatar) {
+              null => null,
+              final a => {
+                'avatarToken': a.avatarToken,
+                'scale': a.scale,
+                'offsetX': a.offsetX,
+                'offsetY': a.offsetY,
+                'followRotation': a.followRotation,
+              },
+            },
           },
       ],
       'tracking': [
@@ -1635,6 +1824,22 @@ abstract final class FakeEditProjectCodec {
           final id = _str(_req(m, 'maskId'));
           noteId(id);
           final (start, end) = _rangeOf(_req(m, 'rangeUs'));
+          final avatarJson = m['avatar'] == null ? null : _obj(m['avatar']);
+          final avatar = avatarJson == null
+              ? null
+              : MaskAvatar(
+                  avatarToken: _str(_req(avatarJson, 'avatarToken')),
+                  scale: _numOr(avatarJson, 'scale', 1),
+                  offsetX: _numOr(avatarJson, 'offsetX', 0),
+                  offsetY: _numOr(avatarJson, 'offsetY', 0),
+                  followRotation: _boolOr(avatarJson, 'followRotation', true),
+                );
+          final style = _enum(
+            MaskStyle.values,
+            m['style'],
+            (e) => e.wireName,
+            MaskStyle.mosaic,
+          );
           return MaskTrack(
             acceptedRanges: [
               for (final r in _objList(m, 'acceptedRanges'))
@@ -1650,12 +1855,12 @@ abstract final class FakeEditProjectCodec {
               (e) => e.wireName,
               MaskType.manual,
             ),
-            style: _enum(
-              MaskStyle.values,
-              m['style'],
-              (e) => e.wireName,
-              MaskStyle.mosaic,
-            ),
+            avatar: avatar,
+            // 1.1: IMAGE without an avatar reads as MOSAIC (never
+            // uncovered).
+            style: style == MaskStyle.image && avatar == null
+                ? MaskStyle.mosaic
+                : style,
             strength: _numOr(m, 'strength', 0.5),
             enabled: _boolOr(m, 'enabled', true),
             startUs: start,
@@ -1680,6 +1885,7 @@ abstract final class FakeEditProjectCodec {
                       KeyframeSource.user,
                     ),
                     state: k['state'] == null ? null : _quality(k['state']),
+                    rollDeg: _numOrNull(k['rollDeg']),
                   );
                 }(),
             ],

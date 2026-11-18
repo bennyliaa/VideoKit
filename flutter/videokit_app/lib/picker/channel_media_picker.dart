@@ -124,6 +124,15 @@ final class ChannelMediaPicker implements MediaPickerService {
         fromMap(m),
     ],
   );
+
+  /// M5A-A1: the camera capture needs native code (`ACTION_IMAGE_CAPTURE`
+  /// with a FileProvider) that is not built yet, so "拍一张" is hidden on
+  /// devices for now.
+  @override
+  bool get canCapturePhoto => false;
+
+  @override
+  Future<PickedMedia?> capturePhoto(BuildContext context) async => null;
 }
 
 /// Export "另存为" over [AppDocumentChannels.documents] (REQ-APP-03 export

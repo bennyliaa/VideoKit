@@ -6,6 +6,7 @@ import com.videokit.api.ErrorStage
 import com.videokit.api.KeyframeSource
 import com.videokit.api.MaskKeyframe
 import com.videokit.api.MaskTrack
+import com.videokit.api.MaskStyle
 import com.videokit.api.MaskType
 import com.videokit.api.TrackingRun
 import com.videokit.api.VideoKitEditCommand
@@ -57,7 +58,7 @@ public sealed interface EditOutcome {
  *
  * Rejections use stable diagnostics shared with the Fake (`INVALID_ARGUMENT:<what>`): `UNKNOWN_SOURCE`,
  * `CLIP_RANGE`, `CLIP_INDEX`, `UNKNOWN_CLIP`, `SPLIT_POINT`, `MASK_REGION`, `MASK_RANGE`, `MASK_STRENGTH`,
- * `UNKNOWN_MASK`, `KEYFRAME_TIME`, `UNKNOWN_KEYFRAME`, `LAST_KEYFRAME`, `MASK_NOT_TRACKED`, `ACCEPT_RANGE`; and
+ * `UNKNOWN_MASK`, `KEYFRAME_TIME`, `UNKNOWN_KEYFRAME`, `LAST_KEYFRAME`, `MASK_NOT_TRACKED`, `ACCEPT_RANGE`, `MASK_AVATAR`; and
  * `ILLEGAL_STATE:NOTHING_TO_UNDO` / `NOTHING_TO_REDO`.
  */
 public class TimelineEditor(
@@ -85,6 +86,12 @@ public class TimelineEditor(
 
     /** Whether [redo] can apply. */
     public val canRedo: Boolean get() = redoStack.isNotEmpty()
+
+    /** How the project may be saved: a copy only when it was read from a newer minor (schema R8, 04A E7 Q3). */
+    public val saveMode: SaveMode get() = ProjectJson.saveMode(document)
+
+    /** Serializes the current document for [target]; overwriting a newer-minor original is rejected (R8). */
+    public fun save(target: SaveMode): SaveResult = ProjectJson.save(document, target)
 
     // ------------------------------------------------------------------ non-undoable changes
 
@@ -266,7 +273,18 @@ public class TimelineEditor(
             is VideoKitEditCommand.SetMaskStyle -> {
                 val mask = document.mask(command.maskId) ?: return fail("UNKNOWN_MASK")
                 if (!validStrength(command.strength)) return fail("MASK_STRENGTH")
+                // IMAGE needs an avatar first (SetMaskAvatar; schema R7 reads IMAGE without avatar as MOSAIC).
+                if (command.style == MaskStyle.IMAGE && mask.avatar == null) return fail("MASK_AVATAR")
                 withMask(mask.copy(style = command.style, strength = command.strength))
+            }
+
+            is VideoKitEditCommand.SetMaskAvatar -> {
+                val mask = document.mask(command.maskId) ?: return fail("UNKNOWN_MASK")
+                val avatar = command.avatar
+                val valid = avatar.avatarToken.isNotBlank() && avatar.scale.isFinite() && avatar.scale > 0f &&
+                    avatar.offsetX.isFinite() && avatar.offsetY.isFinite()
+                if (!valid) return fail("MASK_AVATAR")
+                withMask(mask.copy(avatar = avatar))
             }
 
             is VideoKitEditCommand.SetMaskEnabled -> {

@@ -253,6 +253,11 @@ public data class VideoKitCapabilities(
     val mediaProbe: MediaProbeResult? = null,
     /** Whether the report comes from a demo/fake backend (04A I6); demo capabilities are not device facts. */
     val isDemo: Boolean = false,
+    /**
+     * Features hidden by [VideoKitConfig.features], parents included (REQ-API-10 ①). Their [VideoKitFeature.capabilityKeys]
+     * are reported unavailable with [UnsupportedReason.FEATURE_DISABLED]. The dynamic gate is not reflected here.
+     */
+    val hiddenFeatures: Set<VideoKitFeature> = emptySet(),
 ) {
     public companion object {
         /** Schema version written by this API version. */

@@ -169,6 +169,27 @@ public interface VideoKitHostCallbacks {
 
     /** A fatal error happened in [sessionId] (04A I7). */
     public suspend fun onFatalSessionError(sessionId: String, error: VideoKitStableError)
+
+    /**
+     * Opens the avatar PNG of [avatarToken] for preview and export (REQ-ED-07, 04A E6): the host keeps the PNG and gives
+     * a readable source like a media source; `builtin:N` tokens never reach the host. `null` (the default) when the host
+     * has no such avatar: the mask then falls back to mosaic with a warning. Same as the Dart `openAvatar`.
+     */
+    public suspend fun openAvatar(avatarToken: String): VideoKitSourceFactory? = null
+
+    /**
+     * Dynamic feature gate (REQ-API-10 ②): may the user use [feature] now? Called before the user enters the feature
+     * ([VideoKit.checkFeature]) and again by the API entry points of the feature (edit project, tracking, export,
+     * multi-view bind). The host may show its own page (for example a paywall) before it answers, within
+     * [HostCallbackTimeouts.featureGateMs]; the Kit never asks while holding a project or session lock. [sessionId]
+     * is the session or edit project the feature is used in, `null` before one exists. Within one edit project or
+     * session an [FeatureAccess.Allowed] answer is remembered, so a feature that was entered is not taken away mid-work
+     * and the host is not asked again for every command; a [FeatureAccess.Denied] answer is not remembered.
+     *
+     * The default allows everything without a marker: a host without the gate behaves as before REQ-API-10. A callback
+     * that throws or exceeds [HostCallbackTimeouts.featureGateMs] counts as denied. Same as the Dart `checkFeature`.
+     */
+    public suspend fun checkFeature(feature: VideoKitFeature, sessionId: String?): FeatureAccess = FeatureAccess.ALLOWED
 }
 
 /**
@@ -183,9 +204,14 @@ public data class HostCallbackTimeouts(
     val recoveryDecisionMs: Long = 3_000L,
     /** All notification callbacks (snapshot, events, visibility, source released, fatal error). */
     val notificationMs: Long = 2_000L,
+    /**
+     * [VideoKitHostCallbacks.checkFeature] (REQ-API-10): long enough for a host page (paywall) shown before it answers;
+     * on timeout the feature counts as denied. Same default as the Dart `featureGate`.
+     */
+    val featureGateMs: Long = 30_000L,
 ) {
     init {
-        require(hostActionMs > 0 && navigationMs > 0 && recoveryDecisionMs > 0 && notificationMs > 0) {
+        require(hostActionMs > 0 && navigationMs > 0 && recoveryDecisionMs > 0 && notificationMs > 0 && featureGateMs > 0) {
             "Callback timeouts must be positive"
         }
     }

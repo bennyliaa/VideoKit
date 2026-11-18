@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:videokit_api/videokit_api.dart';
 
+import 'avatar/fake_avatar.dart';
 import 'clock/fake_clock.dart';
 import 'fake_edit_project.dart';
 import 'fake_session.dart';
@@ -14,7 +16,7 @@ import 'scenario/scenario.dart';
 /// Scenario selection for a bound source, in order: [scenarioOverrides] by
 /// media token → a non-`normal` `DemoSourceRef.scenarioId` from
 /// [Scenarios.catalog] → [defaultScenario].
-class FakeVideoKit implements VideoKit {
+class FakeVideoKit implements VideoKit, VideoKitAvatarTools {
   /// Creates a Fake.
   FakeVideoKit({
     FakeClock? clock,
@@ -57,6 +59,71 @@ class FakeVideoKit implements VideoKit {
 
   /// Config.
   final VideoKitConfig config;
+
+  /// Feature switches and the host gate (REQ-API-10, VK-A2).
+  VideoKitFeatureGate get features => config.featureGate;
+
+  /// Throws `FEATURE_DISABLED` when [feature] is hidden, `FEATURE_DENIED`
+  /// when the host's gate says no.
+  Future<void> _requireFeature(
+    VideoKitFeature feature, {
+    ErrorStage stage = ErrorStage.edit,
+    String? sessionId,
+  }) async {
+    if (!features.isEnabled(feature)) {
+      throw VideoKitException(
+        VideoKitFeatureGate.disabledError(feature, stage: stage),
+      );
+    }
+    final access = await features.check(feature, sessionId: sessionId);
+    if (!access.isAllowed) {
+      throw VideoKitException(
+        VideoKitFeatureGate.deniedError(
+          feature,
+          badge: access.badge,
+          stage: stage,
+        ),
+      );
+    }
+  }
+
+  /// Avatar cut-out (REQ-ED-07, optional tools, 04A E6).
+  late final FakeAvatarTools avatarTools = FakeAvatarTools(clock);
+
+  @override
+  Future<AvatarImage> prepareAvatar(
+    VideoKitMediaSource image, {
+    AvatarPrepareOptions options = const AvatarPrepareOptions(),
+  }) async {
+    _checkOpen();
+    _checkEditing();
+    await _requireFeature(VideoKitFeature.avatar);
+    return avatarTools.prepareAvatar(image, options: options);
+  }
+
+  @override
+  Future<AvatarImage> refineAvatar(
+    AvatarImage avatar,
+    List<AvatarStroke> strokes, {
+    double? feather,
+  }) async {
+    _checkOpen();
+    _checkEditing();
+    // Refining one already prepared: only the static switch.
+    if (!features.isEnabled(VideoKitFeature.avatar)) {
+      throw VideoKitException(
+        VideoKitFeatureGate.disabledError(VideoKitFeature.avatar),
+      );
+    }
+    return avatarTools.refineAvatar(avatar, strokes, feather: feather);
+  }
+
+  @override
+  int get builtinAvatarCount => FakeAvatarTools.builtinCount;
+
+  @override
+  Future<Uint8List> builtinAvatar(int index) =>
+      avatarTools.builtinAvatar(index);
 
   /// Fallback scenario.
   Scenario defaultScenario;
@@ -157,6 +224,8 @@ class FakeVideoKit implements VideoKit {
     MediaProbeResult? mediaProbe,
     bool editing = true,
   }) => VideoKitCapabilities(
+    // 04A E6 4: the Fake cut-out is always available with editing.
+    avatar: editing ? AvatarSupport.available : AvatarSupport.unsupported,
     decoders: DecoderSummary(
       video: const [
         CodecInfo(
@@ -293,6 +362,7 @@ class FakeVideoKit implements VideoKit {
       createPreviewSession: () async =>
           _newSession(const VideoKitSessionConfig(debugLabel: 'preview')),
       onReleased: _projects.remove,
+      features: features,
     );
     _projects.add(project);
     return project;
@@ -303,6 +373,7 @@ class FakeVideoKit implements VideoKit {
     EditProjectConfig config,
   ) async {
     _checkEditing();
+    await _requireFeature(VideoKitFeature.edit);
     return _newProject(config);
   }
 
@@ -313,6 +384,7 @@ class FakeVideoKit implements VideoKit {
   ) async {
     _checkOpen();
     _checkEditing();
+    await _requireFeature(VideoKitFeature.edit);
     final (projectId, state, maxId, meta) = FakeEditProjectCodec.decodeWithMeta(
       serialized,
     );

@@ -285,6 +285,12 @@ abstract final class VkTokenKeys {
     'grid',
     'list',
     'movie',
+    'film',
+    'image',
+    'camera',
+    'move',
+    'erase',
+    'restore',
     'unknown',
   ];
 

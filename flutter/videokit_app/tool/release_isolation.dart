@@ -1,6 +1,7 @@
 // Release isolation check (14 §11.4, 04A P3) without Gradle:
 //
-//   dart run tool/release_isolation.dart            (from videokit_app)
+//   dart run tool/release_isolation.dart [--artifact=<apk|libapp.so>]
+//                                                (from videokit_app)
 //
 // Walks the import/export graph from `lib/main.dart` through the workspace
 // packages (via .dart_tool/package_config.json) and fails if the release
@@ -132,8 +133,146 @@ List<String> demoAssets(Directory packageRoot) {
   ];
 }
 
+/// Strings that must not appear in a release artifact (VK-M8, 11 §7): Fake
+/// classes, the demo backend and demo source refs.
+const List<String> forbiddenArtifactMarkers = [
+  'FakeVideoKit',
+  'FakeEditProject',
+  'FakeAvatarTools',
+  'DemoBackend',
+  'DemoMediaPicker',
+  'package:videokit_fake/',
+];
+
+/// Result of scanning one built artifact.
+final class ArtifactScan {
+  /// Creates a result.
+  ArtifactScan(this.path, this.found, {required this.readable});
+
+  /// Scanned file.
+  final String path;
+
+  /// Forbidden markers found.
+  final List<String> found;
+
+  /// False when the file looks compressed (e.g. a deflated `libapp.so` in
+  /// an APK): absence then proves nothing and the scan is inconclusive.
+  final bool readable;
+}
+
+/// Scans the bytes of [file] (an APK with stored native libraries, or an
+/// extracted `libapp.so`) for [forbiddenArtifactMarkers]. Dart AOT keeps
+/// class names unless obfuscated, so a Fake that was compiled in shows up.
+ArtifactScan scanArtifact(File file) {
+  final bytes = file.readAsBytesSync();
+  final text = latin1.decode(bytes, allowInvalid: true);
+  final found = [
+    for (final m in forbiddenArtifactMarkers)
+      if (text.contains(m)) m,
+  ];
+  // A release snapshot always names the module's own classes; if even
+  // those are missing the native library was compressed.
+  final readable = text.contains('VideoKitPlayer') || text.contains('VkTheme');
+  return ArtifactScan(file.path, found, readable: readable);
+}
+
+/// Whether `videokit_fake` is a regular (not dev) dependency of the App.
+/// That is allowed (the demo flavor `main_demo.dart` needs it and the
+/// release snapshot only contains what `main.dart` reaches), but the
+/// report says so.
+bool fakeIsRegularDependency(Directory packageRoot) {
+  final yaml = File('${packageRoot.path}/pubspec.yaml').readAsStringSync();
+  final deps = yaml.split(RegExp(r'^dev_dependencies:', multiLine: true)).first;
+  return RegExp(r'^\s+videokit_fake:', multiLine: true).hasMatch(deps);
+}
+
+/// APP-LIB-A1 (REQ-APP-10, not encrypted, so privacy rests on these): the
+/// Android sources of the App must keep
+///
+/// * the release build not debuggable (no `isDebuggable = true` in the
+///   release block, no `android:debuggable="true"` in the main manifest);
+/// * the media library out of backups (`allowBackup="false"`, or both
+///   backup rule files excluding `library/`);
+/// * the library files in internal storage (`LibraryChannel.kt` never uses
+///   external app-specific or shared storage).
+///
+/// Returns the problems found (empty = ok).
+List<String> checkAndroidPrivacy(Directory packageRoot) {
+  final problems = <String>[];
+  final app = '${packageRoot.path}/android/app';
+  final gradle = File('$app/build.gradle.kts');
+  if (gradle.existsSync()) {
+    final text = gradle.readAsStringSync();
+    final release = RegExp(
+      r'release\s*\{([^{}]*(\{[^{}]*\}[^{}]*)*)\}',
+    ).firstMatch(text)?.group(1);
+    if (release != null &&
+        RegExp(r'isDebuggable\s*=\s*true').hasMatch(release)) {
+      problems.add('release build is debuggable (build.gradle.kts)');
+    }
+  }
+  final manifest = File('$app/src/main/AndroidManifest.xml');
+  if (!manifest.existsSync()) {
+    problems.add('main AndroidManifest.xml missing');
+    return problems;
+  }
+  final m = manifest.readAsStringSync();
+  if (RegExp(r'android:debuggable\s*=\s*"true"').hasMatch(m)) {
+    problems.add('main manifest sets android:debuggable="true"');
+  }
+  final noBackup = RegExp(r'android:allowBackup\s*=\s*"false"').hasMatch(m);
+  if (!noBackup) {
+    for (final (attr, file) in const [
+      ('android:dataExtractionRules', 'data_extraction_rules.xml'),
+      ('android:fullBackupContent', 'backup_rules.xml'),
+    ]) {
+      final rules = File('$app/src/main/res/xml/$file');
+      if (!m.contains(attr) || !rules.existsSync()) {
+        problems.add('backup: $attr / res/xml/$file missing');
+      } else if (!rules.readAsStringSync().contains('path="library/"')) {
+        problems.add('backup: $file does not exclude library/');
+      }
+    }
+  }
+  final channel = File(
+    '$app/src/main/kotlin/com/videokit/videokit_app/LibraryChannel.kt',
+  );
+  if (channel.existsSync()) {
+    final k = channel.readAsStringSync();
+    for (final bad in const [
+      'getExternalFilesDir',
+      'externalCacheDir',
+      'getExternalCacheDir',
+      'getExternalStorageDirectory',
+      'getExternalStoragePublicDirectory',
+      'externalMediaDirs',
+    ]) {
+      if (k.contains(bad)) problems.add('library uses external storage: $bad');
+    }
+    if (!k.contains('filesDir')) {
+      problems.add('library directory is not under filesDir');
+    }
+  }
+  return problems;
+}
+
+/// Usage:
+///
+///     dart run tool/release_isolation.dart [packageRoot]
+///         [--artifact=build/app/outputs/flutter-apk/app-release.apk] ...
+///
+/// Without `--artifact` only the source graph and assets are checked (no
+/// build needed). Exit code 1 on any violation or an inconclusive scan.
 void main(List<String> args) {
-  final root = Directory(args.isEmpty ? '.' : args.first);
+  final positional = [
+    for (final a in args)
+      if (!a.startsWith('--')) a,
+  ];
+  final artifacts = [
+    for (final a in args)
+      if (a.startsWith('--artifact=')) a.substring('--artifact='.length),
+  ];
+  final root = Directory(positional.isEmpty ? '.' : positional.first);
   final report = checkIsolation(root, 'main.dart');
   final assets = demoAssets(root);
   stdout.writeln(
@@ -145,7 +284,47 @@ void main(List<String> args) {
   for (final a in assets) {
     stderr.writeln('FORBIDDEN demo asset: $a');
   }
-  if (!report.ok || assets.isNotEmpty) exitCode = 1;
+  if (fakeIsRegularDependency(root)) {
+    stdout.writeln(
+      'note: videokit_fake is a regular dependency (demo flavor); release '
+      'safety relies on the graph check above',
+    );
+  }
+  final privacy = checkAndroidPrivacy(root);
+  for (final p in privacy) {
+    stderr.writeln('PRIVACY: $p');
+  }
+  if (privacy.isEmpty) {
+    stdout.writeln(
+      'android: release not debuggable, library excluded from backup, '
+      'internal storage only',
+    );
+  }
+  var failed = !report.ok || assets.isNotEmpty || privacy.isNotEmpty;
+  for (final path in artifacts) {
+    final f = File(path);
+    if (!f.existsSync()) {
+      stderr.writeln('MISSING artifact: $path');
+      failed = true;
+      continue;
+    }
+    final scan = scanArtifact(f);
+    if (!scan.readable) {
+      stderr.writeln(
+        'INCONCLUSIVE artifact (compressed?): $path; scan the extracted '
+        'lib/arm64-v8a/libapp.so instead',
+      );
+      failed = true;
+    }
+    for (final m in scan.found) {
+      stderr.writeln('FORBIDDEN in artifact $path: $m');
+    }
+    if (scan.found.isNotEmpty) failed = true;
+    if (scan.readable && scan.found.isEmpty) {
+      stdout.writeln('artifact clean: $path');
+    }
+  }
+  if (failed) exitCode = 1;
 }
 
 /// Package roots in package_config may lack the trailing slash.

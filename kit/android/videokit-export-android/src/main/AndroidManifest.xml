@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- 15 §1.5 / §2.8 (option c1, user decision 2026-11-08): the export worker runs in a separate, non-isolated
+             process of the host app's uid. Isolated processes cannot reach any codec (S4). The main process kills it
+             after every task. -->
+        <service
+            android:name="com.videokit.export.android.ExportWorkerService"
+            android:exported="false"
+            android:process=":videokit_export" />
+    </application>
+</manifest>

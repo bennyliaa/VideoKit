@@ -34,6 +34,12 @@ public data class ProjectDocument(
     val tracking: Map<String, TrackingRun> = emptyMap(),
     /** Last used export preset, if any. */
     val exportPreset: ExportPreset? = null,
+    /**
+     * The `schemaMinor` the document was read from (runtime only, not written; new documents: this Kit's
+     * [ProjectJson.SCHEMA_MINOR]). Above this Kit's minor the reader may have dropped unknown data, so the original
+     * must not be overwritten (schema R8, [ProjectJson.saveMode]).
+     */
+    val sourceSchemaMinor: Int = ProjectJson.SCHEMA_MINOR,
 ) {
     /** Sources and clips as the API timeline. */
     public val timeline: Timeline get() = Timeline(sources, clips)

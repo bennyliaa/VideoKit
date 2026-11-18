@@ -5,17 +5,24 @@ import android.net.Uri
 import com.videokit.api.EditCommandResult
 import com.videokit.api.ErrorCode
 import com.videokit.api.ErrorStage
+import com.videokit.api.FeatureAccess
+import com.videokit.api.FeatureMode
 import com.videokit.api.HostCallbackTimeouts
+import com.videokit.api.MaskStyle
 import com.videokit.api.NavigationDirection
 import com.videokit.api.NavigationResult
 import com.videokit.api.OrientationRequest
 import com.videokit.api.SessionVisibility
+import com.videokit.api.UnsupportedReason
 import com.videokit.api.VideoKitApiVersion
 import com.videokit.api.VideoKitCommand
 import com.videokit.api.VideoKitCommandResult
+import com.videokit.api.VideoKitEditCommand
+import com.videokit.api.VideoKitEditMediaPreview
 import com.videokit.api.VideoKitEditProject
 import com.videokit.api.VideoKitException
 import com.videokit.api.VideoKitExportResult
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitOutputSink
 import com.videokit.api.VideoKitSession
@@ -180,10 +187,25 @@ internal class HostApiImpl(private val engine: EngineRuntime) : VideoKitHostApi 
                 request.navigationTimeoutMs,
                 request.recoveryDecisionTimeoutMs,
                 request.notificationTimeoutMs,
+                request.featureGateTimeoutMs ?: HostCallbackTimeouts().featureGateMs,
             )
         }.getOrDefault(HostCallbackTimeouts())
-        engine.ensureKit(backend, timeouts)
+        // REQ-API-10: the switches configure the engine's Kit at its first handshake; unknown names are ignored.
+        engine.ensureKit(backend, timeouts, Mappers.features(request.features))
         return HandshakeResponse(CHANNEL_PROTOCOL_VERSION, NATIVE_KIT_VERSION, VideoKitApiVersion.CURRENT.toString(), backend.isDemo)
+    }
+
+    /**
+     * REQ-API-10 for the commands this plugin answers itself: the first of [features] that is hidden or denied in
+     * [projectId], or `null` when all may be used.
+     */
+    private suspend fun featureRejection(projectId: String, features: List<VideoKitFeature>): UnsupportedReason? {
+        val kit = kit()
+        for (feature in features) {
+            if (kit.featureMode(feature) == FeatureMode.HIDDEN) return UnsupportedReason.FEATURE_DISABLED
+            if (kit.checkFeature(feature, projectId) is FeatureAccess.Denied) return UnsupportedReason.FEATURE_DENIED
+        }
+        return null
     }
 
     override suspend fun capabilities(request: CapabilityRequestMsg): CapabilitiesMsg {
@@ -367,6 +389,14 @@ internal class HostApiImpl(private val engine: EngineRuntime) : VideoKitHostApi 
 
     override suspend fun applyEdit(projectId: String, command: EditCommandMsg): EditResultMsg = edit(projectId) { project ->
         val parsed = command.toCommand() ?: return@edit EditCommandResult.Rejected(invalidArgument("EDIT_COMMAND:${command.kind}"))
+        // 04A E6 (M4-B2): avatars are not rendered before VK-M5A.
+        val avatar = parsed is VideoKitEditCommand.SetMaskAvatar ||
+            parsed is VideoKitEditCommand.SetMaskStyle && parsed.style == MaskStyle.IMAGE
+        if (avatar) {
+            // REQ-API-10: a hidden or denied avatar feature answers that, not NOT_IMPLEMENTED.
+            val rejected = featureRejection(projectId, listOf(VideoKitFeature.EDIT, VideoKitFeature.AVATAR))
+            return@edit EditCommandResult.Unsupported(rejected ?: UnsupportedReason.NOT_IMPLEMENTED)
+        }
         project.apply(parsed)
     }
 
@@ -424,6 +454,18 @@ internal class HostApiImpl(private val engine: EngineRuntime) : VideoKitHostApi 
     override suspend fun detectCandidates(projectId: String, atUs: Long): CandidateResultMsg {
         val holder = engine.projects[projectId] ?: return CandidateResultMsg(emptyList(), released().toMsg())
         return work({ CandidateResultMsg(emptyList(), Mappers.redacted(it).toMsg()) }) { holder.project.detectCandidates(atUs).toMsg() }
+    }
+
+    // 04A X2: timeline media of projects that implement VideoKitEditMediaPreview; null / empty otherwise or on failure
+    // (the editor keeps plain blocks). The implementation bounds frame reads (04A P5).
+    override suspend fun sourceThumbnail(projectId: String, sourceId: String, atUs: Long, maxWidth: Long, maxHeight: Long): ByteArray? {
+        val preview = engine.projects[projectId]?.project as? VideoKitEditMediaPreview ?: return null
+        return work({ null }) { preview.sourceThumbnail(sourceId, atUs, maxWidth.toInt(), maxHeight.toInt()) }
+    }
+
+    override suspend fun sourceWaveform(projectId: String, sourceId: String, inUs: Long, outUs: Long, buckets: Long): List<Double> {
+        val preview = engine.projects[projectId]?.project as? VideoKitEditMediaPreview ?: return emptyList()
+        return work({ emptyList() }) { preview.sourceWaveform(sourceId, inUs, outUs, buckets.toInt()).map { it.toDouble() } }
     }
 
     override suspend fun closeEditProject(projectId: String) {

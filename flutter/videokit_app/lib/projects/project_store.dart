@@ -15,7 +15,21 @@ final class RecentProject {
     required this.clipCount,
     required this.snapshot,
     this.durationUs,
+    this.schemaMinor = 0,
+    this.copyOf,
+    this.avatarTokens = const [],
   });
+
+  /// Snapshot schema minor (04A E2 (b); 0 when the entry predates it).
+  final int schemaMinor;
+
+  /// 04A E7 Q3 / R8: this entry is a copy saved because [copyOf] was written
+  /// by a newer minor than this App reads; the original is kept untouched.
+  final String? copyOf;
+
+  /// 04A E7 Q4: App avatar tokens the project's masks use (never evicted
+  /// from the avatar store while the project is kept).
+  final List<String> avatarTokens;
 
   /// App ID (stable across saves of the same project).
   final String id;
@@ -39,8 +53,16 @@ final class RecentProject {
     'clipCount': clipCount,
     'durationUs': ?durationUs,
     'schemaVersion': snapshot.schemaVersion,
+    'schemaMinor': schemaMinor,
+    'copyOf': ?copyOf,
+    if (avatarTokens.isNotEmpty) 'avatarTokens': avatarTokens,
     'snapshot': snapshot.json,
   };
+
+  /// R8: written by a newer minor than this App → never overwritten.
+  bool get isNewerMinor =>
+      snapshot.schemaVersion == SerializedEditProject.currentSchemaVersion &&
+      schemaMinor > SerializedEditProject.currentSchemaMinor;
 
   /// Parses [json]; null when broken (never fatal). An entry written before
   /// the App recorded `schemaVersion` beside the snapshot (M4-A2) takes it
@@ -58,19 +80,36 @@ final class RecentProject {
         clipCount: (json['clipCount']! as num).toInt(),
         durationUs: (json['durationUs'] as num?)?.toInt(),
         snapshot: SerializedEditProject(schemaVersion: version, json: snapshot),
+        schemaMinor:
+            (json['schemaMinor'] as num?)?.toInt() ??
+            embeddedSchemaMinor(snapshot),
+        copyOf: json['copyOf'] as String?,
+        avatarTokens: [
+          for (final t in json['avatarTokens'] as List<Object?>? ?? const [])
+            if (t is String) t,
+        ],
       );
     } on Object {
       return null;
     }
   }
 
-  static int? _embeddedSchemaVersion(String snapshot) {
+  static Object? _embedded(String snapshot, String key) {
     try {
       final j = jsonDecode(snapshot);
-      return j is Map ? (j['schemaVersion'] as num?)?.toInt() : null;
+      return j is Map ? j[key] : null;
     } on Object {
       return null;
     }
+  }
+
+  static int? _embeddedSchemaVersion(String snapshot) =>
+      (_embedded(snapshot, 'schemaVersion') as num?)?.toInt();
+
+  /// `schemaMinor` inside a module snapshot (absent = 0, 04A E2 (b)).
+  static int embeddedSchemaMinor(String snapshot) {
+    final v = _embedded(snapshot, 'schemaMinor');
+    return v is num ? v.toInt() : 0;
   }
 
   /// Whether the snapshot was written by an older module schema (restore
@@ -85,11 +124,22 @@ final class RecentProject {
       other.savedAtEpochMs == savedAtEpochMs &&
       other.clipCount == clipCount &&
       other.durationUs == durationUs &&
-      other.snapshot == snapshot;
+      other.snapshot == snapshot &&
+      other.schemaMinor == schemaMinor &&
+      other.copyOf == copyOf &&
+      listEquals(other.avatarTokens, avatarTokens);
 
   @override
-  int get hashCode =>
-      Object.hash(id, savedAtEpochMs, clipCount, durationUs, snapshot);
+  int get hashCode => Object.hash(
+    id,
+    savedAtEpochMs,
+    clipCount,
+    durationUs,
+    snapshot,
+    schemaMinor,
+    copyOf,
+    Object.hashAll(avatarTokens),
+  );
 }
 
 /// Saved edit projects, newest first, at most [limit] (App-private file
@@ -115,8 +165,27 @@ class ProjectStore extends ChangeNotifier {
   List<RecentProject> _projects = const [];
   int _counter = 0;
 
+  /// R8: original ID → the copy this App saves to instead (04A E7 Q3).
+  Map<String, String> _copies = const {};
+
   /// Projects, newest first.
   List<RecentProject> get projects => _projects;
+
+  /// The ID saves of [id] actually go to (its copy when [id] was written by
+  /// a newer minor, otherwise [id]).
+  String resolveId(String id) => _copies[id] ?? id;
+
+  /// App avatar tokens used by any kept project (04A E7 Q4: the avatar
+  /// store never evicts these).
+  Set<String> get referencedAvatars => {
+    for (final p in _projects) ...p.avatarTokens,
+  };
+
+  /// App avatar tokens [project]'s masks use (Kit built-ins excluded).
+  static List<String> avatarTokensOf(VideoKitEditProject project) => [
+    for (final m in project.state.value.masks)
+      if (m.avatar case final a? when !a.isBuiltin) a.avatarToken,
+  ].toSet().toList();
 
   /// Loads the file (broken entries are dropped).
   Future<void> load() async {
@@ -125,6 +194,11 @@ class ProjectStore extends ChangeNotifier {
     try {
       final json = jsonDecode(raw) as Map<String, Object?>;
       _counter = (json['counter'] as num?)?.toInt() ?? 0;
+      _copies = {
+        for (final e
+            in (json['copies'] as Map<String, Object?>? ?? const {}).entries)
+          if (e.value is String) e.key: e.value! as String,
+      };
       _projects = [
         for (final e in json['projects'] as List<Object?>? ?? const [])
           if (e is Map<String, Object?>) ?RecentProject.fromJson(e),
@@ -142,30 +216,49 @@ class ProjectStore extends ChangeNotifier {
   /// is not kept (and removes an older save of the same project). With
   /// [strict] a failed write throws (editor autosave shows "not saved");
   /// otherwise it is only logged.
-  Future<void> save(
+  ///
+  /// R8 (04A E7 Q3): when the kept entry [id] was written by a newer schema
+  /// minor than this App, it is never overwritten (nor removed): the save
+  /// goes to a copy (`copyOf` = [id]) and later saves of [id] go there too.
+  /// Returns the ID the project was saved under.
+  Future<String> save(
     String id,
     VideoKitEditProject project, {
     bool strict = false,
   }) async {
     final st = project.state.value;
+    var target = resolveId(id);
+    final kept = _projects.where((p) => p.id == target).firstOrNull;
+    if (kept != null && kept.isNewerMinor) {
+      if (st.timeline.clips.isEmpty) return target;
+      target = newId();
+      _copies = {..._copies, id: target};
+    }
     if (st.timeline.clips.isEmpty) {
-      await remove(id);
-      return;
+      await remove(target);
+      return target;
     }
     final snap = await project.snapshot();
     final entry = RecentProject(
-      id: id,
+      id: target,
       savedAtEpochMs: now().millisecondsSinceEpoch,
       clipCount: st.timeline.clips.length,
       durationUs: st.estimate.durationUs,
       snapshot: snap,
+      schemaMinor: RecentProject.embeddedSchemaMinor(snap.json),
+      copyOf: target == id
+          ? _projects.where((p) => p.id == id).firstOrNull?.copyOf
+          : id,
+      avatarTokens: avatarTokensOf(project),
     );
+    final id0 = target;
     _projects = [
       entry,
       for (final p in _projects)
-        if (p.id != id) p,
+        if (p.id != id0) p,
     ].take(limit).toList();
     await _write(strict: strict);
+    return id0;
   }
 
   /// Deletes [id].
@@ -187,6 +280,7 @@ class ProjectStore extends ChangeNotifier {
     final json = jsonEncode({
       'schema': fileSchema,
       'counter': _counter,
+      if (_copies.isNotEmpty) 'copies': _copies,
       'projects': [for (final p in _projects) p.toJson()],
     });
     if (strict) {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- APP-LIB-A1 (REQ-APP-10): legacy full-backup rules, same exclusions as data_extraction_rules.xml. -->
+<full-backup-content>
+    <exclude domain="file" path="library/"/>
+    <exclude domain="file" path="videokit_app/library.json"/>
+    <exclude domain="file" path="videokit_app/library_settings.json"/>
+</full-backup-content>

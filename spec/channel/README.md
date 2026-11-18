@@ -46,6 +46,21 @@ Pigeon 29.1.1 generates the Dart (`videokit_flutter_platform_interface/lib/src/g
 - `MediaSourceMsg.latencyHint` (04A P6): `SourceLatency` wire name `LOCAL` or `SLOW`; null or an unknown name is
   `LOCAL`. It applies to every reference kind (the native side sets it on the resolved source). An optional field
   added at the end: protocol version stays 1.
+- Avatars (04A E5/E6, M4-B2): edit command kind `SetMaskAvatar` with `maskId` and `avatar` (`MaskAvatarMsg`:
+  `avatarToken`, `scale`, `offsetX`, `offsetY`, `followRotation`); `MaskTrackMsg.avatar` (null unless style `IMAGE`);
+  `MaskTrackMsg.style` may be `IMAGE`; `MaskKeyframeMsg.rollDeg` (null when unknown). Optional fields added at the
+  end: protocol version stays 1. Before VK-M5A the native side answers `SetMaskAvatar` and `SetMaskStyle(IMAGE)` with
+  `Unsupported(NOT_IMPLEMENTED)`; an unknown style name on the native side reads as MOSAIC.
+- Feature switches and gate (REQ-API-10, VK-A2): `HandshakeRequest.features` (`VideoKitFeature` → `FeatureMode` wire
+  names, unknown names ignored, unknown modes ENABLED) and `featureGateTimeoutMs` (null = 30 s) configure the engine's
+  Kit at its first handshake. The native runtime enforces both at the API entry points (one rule set, `FeatureGate`):
+  a hidden feature answers `FEATURE_DISABLED` / `Unsupported(FEATURE_DISABLED)` without asking, a denied one
+  `FEATURE_DENIED` / `Unsupported(FEATURE_DENIED)`. The gate is the Dart host: native calls
+  `VideoKitCallbacksApi.checkFeature(feature, sessionId)` → `FeatureAccessMsg` (`ALLOWED` / `DENIED`, optional
+  `badge`); a Dart error or timeout is denied, and an allowed answer is remembered per session or project. Entries in
+  the Dart UI use the Dart `VideoKitFeatureGate` (no channel call). `CapabilitiesMsg.hiddenFeatures` mirrors
+  `VideoKitCapabilities.hiddenFeatures`. New fields are optional and added at the end: protocol version stays 1
+  (Dart and native ship together; an older Dart side sends no switches).
 - `sinkRef`: `registered:<id>` or `demo:memory`. Unknown → precheck problem / export `FAILED(INVALID_ARGUMENT)`.
 
 ## Update streams

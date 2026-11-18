@@ -46,8 +46,9 @@ void main() {
       '"查看能力说明" for the host', (tester) async {
     final actions = <StateAction>[];
     await pump(tester, 'unsupported', onStateAction: actions.add);
-    expect(find.text('格式不支持'), findsOneWidget);
-    expect(find.text('本设备不支持此视频编码'), findsOneWidget);
+    expect(find.text('无法播放此视频'), findsOneWidget);
+    // 04A X2: the Fake reports why; the UI names it.
+    expect(find.text('本设备不支持 HEVC 10-bit 解码'), findsOneWidget);
     expect(find.text('错误代码 UNSUPPORTED_VIDEO_CODEC'), findsOneWidget);
     await tester.tap(find.text('查看能力说明'));
     await tester.pump();
@@ -58,7 +59,7 @@ void main() {
     tester,
   ) async {
     await pump(tester, 'unsupported');
-    expect(find.text('格式不支持'), findsOneWidget);
+    expect(find.text('无法播放此视频'), findsOneWidget);
     expect(find.text('查看能力说明'), findsNothing);
   });
 

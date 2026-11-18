@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 import '../error/stable_error.dart';
+import '../feature/feature.dart';
+import '../media/media_source.dart' show VideoKitSourceFactory;
 import '../session/event.dart';
 import '../session/playback_state.dart';
 import '../util/enum_codec.dart';
@@ -56,6 +58,20 @@ abstract interface class VideoKitHostCallbacks {
 
   /// A fatal session error occurred.
   Future<void> onFatalSessionError(String sessionId, VideoKitStableError error);
+
+  /// The Kit needs the transparent PNG stored under [avatarToken] for
+  /// preview or export (REQ-ED-07, 04A E5 1 / E6 2): return a readable
+  /// source, or null when it is gone (that range then falls back to mosaic
+  /// with a warning). `builtin:N` tokens never reach the host.
+  Future<VideoKitSourceFactory?> openAvatar(String avatarToken);
+
+  /// Dynamic feature gate (REQ-API-10 ②): asked before an entry of
+  /// [feature] opens (UI) and by the feature's API entry points; [sessionId]
+  /// names the session or project when there is one. A host may show its
+  /// own page (e.g. a paywall) before answering. A throw or a timeout
+  /// ([HostCallbackTimeouts.featureGate]) counts as denied without a
+  /// marker. [NoopHostCallbacks] allows everything.
+  Future<FeatureAccess> checkFeature(VideoKitFeature feature, String? sessionId);
 }
 
 /// Callbacks that do nothing; extend and override what you need.
@@ -99,6 +115,16 @@ class NoopHostCallbacks implements VideoKitHostCallbacks {
     String sessionId,
     VideoKitStableError error,
   ) async {}
+
+  @override
+  Future<VideoKitSourceFactory?> openAvatar(String avatarToken) async => null;
+
+  /// Allows everything: a host without a gate behaves as before (FT01B-03).
+  @override
+  Future<FeatureAccess> checkFeature(
+    VideoKitFeature feature,
+    String? sessionId,
+  ) async => FeatureAccess.allowed;
 }
 
 /// Callback timeouts (04A I8, 14 §12; host-configurable).
@@ -110,7 +136,12 @@ final class HostCallbackTimeouts {
     this.navigation = const Duration(seconds: 3),
     this.recoveryDecision = const Duration(seconds: 3),
     this.notification = const Duration(seconds: 2),
+    this.featureGate = const Duration(seconds: 30),
   });
+
+  /// `checkFeature` (REQ-API-10): long enough for a host paywall shown
+  /// before it answers; a timeout counts as denied.
+  final Duration featureGate;
 
   /// Host action (pending meanwhile).
   final Duration hostAction;
@@ -130,11 +161,13 @@ final class HostCallbackTimeouts {
     Duration? navigation,
     Duration? recoveryDecision,
     Duration? notification,
+    Duration? featureGate,
   }) => HostCallbackTimeouts(
     hostAction: hostAction ?? this.hostAction,
     navigation: navigation ?? this.navigation,
     recoveryDecision: recoveryDecision ?? this.recoveryDecision,
     notification: notification ?? this.notification,
+    featureGate: featureGate ?? this.featureGate,
   );
 
   @override
@@ -143,11 +176,17 @@ final class HostCallbackTimeouts {
       other.hostAction == hostAction &&
       other.navigation == navigation &&
       other.recoveryDecision == recoveryDecision &&
-      other.notification == notification;
+      other.notification == notification &&
+      other.featureGate == featureGate;
 
   @override
-  int get hashCode =>
-      Object.hash(hostAction, navigation, recoveryDecision, notification);
+  int get hashCode => Object.hash(
+    hostAction,
+    navigation,
+    recoveryDecision,
+    notification,
+    featureGate,
+  );
 
   @override
   String toString() =>

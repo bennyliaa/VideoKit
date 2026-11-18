@@ -1,11 +1,13 @@
 package com.videokit.testkit
 
+import com.videokit.api.FeatureAccess
 import com.videokit.api.HostActionRequest
 import com.videokit.api.HostActionResult
 import com.videokit.api.HostActionStatus
 import com.videokit.api.NavigationRequest
 import com.videokit.api.NavigationResult
 import com.videokit.api.RecoveryDecision
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitHostCallbacks
 import com.videokit.api.VideoKitPlaybackEvent
 import com.videokit.api.VideoKitPlaybackState
@@ -40,6 +42,13 @@ public class RecordingHostCallbacks(
     @Volatile public var navigationAnswer: (NavigationRequest) -> NavigationResult = { NavigationResult.UNAVAILABLE },
     /** Answer to recoverable errors. */
     @Volatile public var recoveryAnswer: (VideoKitStableError) -> RecoveryDecision = { RecoveryDecision.KEEP_ERROR },
+    /**
+     * Answer of the feature gate (REQ-API-10); `null` (default) behaves like a host that does not implement
+     * [VideoKitHostCallbacks.checkFeature]: everything is allowed. Calls are recorded either way. Only
+     * `overrideMode("checkFeature", …)` makes the gate throw or hang; the global [mode] does not, so the existing
+     * isolation cases keep their features.
+     */
+    @Volatile public var featureAnswer: ((VideoKitFeature, String?) -> FeatureAccess)? = null,
 ) : VideoKitHostCallbacks {
     private val overrides = AtomicMap<String, CallbackMode>()
 
@@ -92,6 +101,21 @@ public class RecordingHostCallbacks(
 
     /** Recoverable and fatal errors with their session id, in order (04A I7). */
     public val errorsBySession: List<Pair<String, VideoKitStableError>> get() = errorSessionsRecord.snapshot
+
+    private val featureChecksRecord = RecordList<Pair<VideoKitFeature, String?>>()
+
+    /** Recorded feature gate calls (feature, session or project id). */
+    public val featureChecks: List<Pair<VideoKitFeature, String?>> get() = featureChecksRecord.snapshot
+
+    override suspend fun checkFeature(feature: VideoKitFeature, sessionId: String?): FeatureAccess {
+        featureChecksRecord.add(feature to sessionId)
+        when (overrides["checkFeature"]) {
+            CallbackMode.THROW -> throw IllegalStateException("host callback checkFeature failed (injected)")
+            CallbackMode.HANG -> awaitCancellation()
+            CallbackMode.NORMAL, null -> Unit
+        }
+        return featureAnswer?.invoke(feature, sessionId) ?: super.checkFeature(feature, sessionId)
+    }
 
     override suspend fun onHostActionRequested(request: HostActionRequest): HostActionResult {
         hostActionRequestsRecord.add(request)

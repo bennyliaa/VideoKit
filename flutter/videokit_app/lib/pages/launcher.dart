@@ -5,6 +5,8 @@ import 'package:videokit_api/videokit_api.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../app_scope.dart';
+import '../entitlement/entitlement_gate.dart';
+import '../entitlement/entitlement_service.dart';
 import '../history/history_entry.dart';
 import '../l10n/app_text.dart';
 import '../picker/media_picker.dart';
@@ -108,20 +110,28 @@ abstract final class MediaLauncher {
                   ),
                 ),
                 SizedBox(height: d.spacing16),
-                VkButton(
-                  label: t(t.l.openMultiView),
-                  icon: th.icons.resolve('grid'),
-                  onPressed: () => Navigator.of(context).pop('multi'),
+                // REQ-APP-15: both are paid; without a subscription they
+                // stay, with a lock, and ask to subscribe when tapped.
+                EntitlementLock(
+                  feature: AppFeature.multiView,
+                  child: VkButton(
+                    label: t(t.l.openMultiView),
+                    icon: th.icons.resolve('grid'),
+                    onPressed: () => Navigator.of(context).pop('multi'),
+                  ),
                 ),
                 if (allVideo) ...[
                   SizedBox(height: d.spacing8),
-                  VkButton(
-                    label: t(t.l.openConcat),
-                    variant: VkButtonVariant.secondary,
-                    icon: th.icons.resolve('clips'),
-                    onPressed: editing
-                        ? () => Navigator.of(context).pop('concat')
-                        : null,
+                  EntitlementLock(
+                    feature: AppFeature.edit,
+                    child: VkButton(
+                      label: t(t.l.openConcat),
+                      variant: VkButtonVariant.secondary,
+                      icon: th.icons.resolve('clips'),
+                      onPressed: editing
+                          ? () => Navigator.of(context).pop('concat')
+                          : null,
+                    ),
                   ),
                   if (!editing) ...[
                     SizedBox(height: d.spacing4),
@@ -141,6 +151,9 @@ abstract final class MediaLauncher {
       },
     );
     if (!context.mounted || choice == null) return;
+    // REQ-APP-15: concat and multi-view are paid.
+    final paid = choice == 'concat' ? AppFeature.edit : AppFeature.multiView;
+    if (!await ensureEntitled(context, paid) || !context.mounted) return;
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => choice == 'concat'
@@ -201,9 +214,14 @@ abstract final class MediaLauncher {
   static Future<void> openMultiView(
     BuildContext context,
     List<HistoryEntry> entries,
-  ) => Navigator.of(context).push(
-    MaterialPageRoute<void>(builder: (_) => MultiViewPage(entries: entries)),
-  );
+  ) async {
+    // REQ-APP-15: multi-view is paid.
+    if (!await ensureEntitled(context, AppFeature.multiView)) return;
+    if (!context.mounted) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => MultiViewPage(entries: entries)),
+    );
+  }
 
   /// "重新选择": locate the file again, relink the record, open it.
   static Future<void> reselect(BuildContext origin, HistoryEntry e) async {

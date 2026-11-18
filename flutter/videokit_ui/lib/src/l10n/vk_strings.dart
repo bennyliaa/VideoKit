@@ -97,6 +97,7 @@ final class VkStrings {
     'editorSaveFailed': l10n.editorSaveFailed,
     'trackApply': l10n.trackApply,
     'stateUnsupportedTitle': l10n.stateUnsupportedTitle,
+    'stateUnsupportedImageTitle': l10n.stateUnsupportedImageTitle,
     'stateUnsupportedContainer': l10n.stateUnsupportedContainer,
     'stateUnsupportedVideoCodec': l10n.stateUnsupportedVideoCodec,
     'stateUnsupportedAudioCodec': l10n.stateUnsupportedAudioCodec,
@@ -294,6 +295,15 @@ final class VkStrings {
     'maskStyle': l10n.maskStyle,
     'maskStyleMosaic': l10n.maskStyleMosaic,
     'maskStyleBlur': l10n.maskStyleBlur,
+    'maskStyleImage': l10n.maskStyleImage,
+    'maskAvatarMine': l10n.maskAvatarMine,
+    'avatarTargetLost': l10n.avatarTargetLost,
+    'featureBadgeLock': l10n.featureBadgeLock,
+    'featureBadgeTrial': l10n.featureBadgeTrial,
+    'timelineMaskTrackEmpty': l10n.timelineMaskTrackEmpty,
+    'maskAvatarChange': l10n.maskAvatarChange,
+    'maskAvatarSize': l10n.maskAvatarSize,
+    'maskAvatarFollowRotation': l10n.maskAvatarFollowRotation,
     'maskStrength': l10n.maskStrength,
     'maskDelete': l10n.maskDelete,
     'maskEnable': l10n.maskEnable,
@@ -343,6 +353,9 @@ final class VkStrings {
     'checkOutput': l10n.checkOutput,
     'checkOutputOk': l10n.checkOutputOk,
     'checkOutputFail': l10n.checkOutputFail,
+    'checkWriteMode': l10n.checkWriteMode,
+    'checkWriteDirect': l10n.checkWriteDirect,
+    'checkWriteSequential': l10n.checkWriteSequential,
     'checkSpace': l10n.checkSpace,
     'checkSpaceUnknown': l10n.checkSpaceUnknown,
     'checkSpaceFail': l10n.checkSpaceFail,
@@ -367,6 +380,10 @@ final class VkStrings {
     'exportNoPause': l10n.exportNoPause,
     'exportCancel': l10n.exportCancel,
     'exportCancelling': l10n.exportCancelling,
+    'exportCleanupSlow': l10n.exportCleanupSlow,
+    'exportReasonWorkerKilled': l10n.exportReasonWorkerKilled,
+    'exportReasonWorkerCrashed': l10n.exportReasonWorkerCrashed,
+    'exportReasonWorkerTimeout': l10n.exportReasonWorkerTimeout,
     'exportCancelled': l10n.exportCancelled,
     'exportCancelledPartial': l10n.exportCancelledPartial,
     'exportFailedTitle': l10n.exportFailedTitle,
@@ -409,6 +426,12 @@ final class VkStrings {
     'gridCount',
     'playerSubtitlesRow',
     'playerMediaSummary',
+    'playerMediaSummaryAudio',
+    'playerResolutionLines',
+    'stateUnsupportedExceeds',
+    'stateUnsupportedNoDecoder',
+    'stateUnsupportedContainerNamed',
+    'stateBitDepth',
     'sourceTrimRange',
     'estimateWithPath',
     'playerSeekValue',
@@ -645,6 +668,29 @@ final class VkStrings {
   String playerMediaSummary(String size, String codec) =>
       _out(l10n.playerMediaSummary(size, codec));
 
+  /// Landscape media summary with the audio codec (design page 10).
+  String playerMediaSummaryAudio(String size, String codec, String audio) =>
+      _out(l10n.playerMediaSummaryAudio(size, codec, audio));
+
+  /// Unsupported reason: decoder exists but not for this (04A X2).
+  String stateUnsupportedExceeds(String format) =>
+      _out(l10n.stateUnsupportedExceeds(format));
+
+  /// Unsupported reason: no decoder (04A X2).
+  String stateUnsupportedNoDecoder(String codec) =>
+      _out(l10n.stateUnsupportedNoDecoder(codec));
+
+  /// Unsupported reason: container (04A X2).
+  String stateUnsupportedContainerNamed(String container) =>
+      _out(l10n.stateUnsupportedContainerNamed(container));
+
+  /// Bit depth, e.g. "10-bit".
+  String stateBitDepth(int bits) => _out(l10n.stateBitDepth(bits));
+
+  /// Resolution class, e.g. "1080p".
+  String playerResolutionLines(int lines) =>
+      _out(l10n.playerResolutionLines(lines));
+
   /// Clip trim range in the concat list.
   String sourceTrimRange(String start, String end) =>
       _out(l10n.sourceTrimRange(start, end));
@@ -801,5 +847,9 @@ final class VkStrings {
     ErrorCode.invalidArgument => l10n.errorInvalidArgument,
     ErrorCode.unsupportedSnapshotVersion =>
       l10n.errorUnsupportedSnapshotVersion,
+    ErrorCode.avatarNoFace => l10n.errorAvatarNoFace,
+    ErrorCode.avatarImageUnsupported => l10n.errorAvatarImageUnsupported,
+    ErrorCode.featureDisabled => l10n.errorFeatureDisabled,
+    ErrorCode.featureDenied => l10n.errorFeatureDenied,
   };
 }

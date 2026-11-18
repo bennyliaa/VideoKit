@@ -244,8 +244,8 @@ void main() {
         ),
       ),
     );
-    expect(find.text('连接中断'), findsOneWidget);
-    expect(find.text('请检查网络或存储连接后重试'), findsOneWidget);
+    expect(find.text('连接已断开'), findsOneWidget);
+    expect(find.text('无法继续读取媒体，请检查网络后重试'), findsOneWidget);
     await tester.tap(find.text('重试'));
     expect(actions, [StateAction.retry]);
     await tester.pumpWidget(

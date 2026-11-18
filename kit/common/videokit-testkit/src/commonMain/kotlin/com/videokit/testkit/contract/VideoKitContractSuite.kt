@@ -67,6 +67,7 @@ public object VideoKitContractSuite {
         addAll(snapshotCases())
         addAll(multiInstanceCases())
         addAll(mediaInfoCases())
+        addAll(featureGateCases())
     }
 
     /** Runs [case] against [subject]; [background] hosts recorders and is cancelled by the caller. */

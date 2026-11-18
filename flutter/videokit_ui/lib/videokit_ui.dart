@@ -21,6 +21,7 @@ export 'src/editor/timeline_view.dart';
 export 'src/editor/video_kit_editor.dart';
 export 'src/export/export_panel.dart';
 export 'src/foundation/audio_grant.dart';
+export 'src/foundation/feature_scope.dart';
 export 'src/foundation/format.dart';
 export 'src/foundation/layout_class.dart';
 export 'src/host_action/host_action_bar.dart';

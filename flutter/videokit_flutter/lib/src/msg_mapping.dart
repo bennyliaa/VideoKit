@@ -408,6 +408,27 @@ CapabilityRequestMsg capabilityRequestToMsg(CapabilityRequest r) =>
 TrackingModuleStatus _moduleState(String wire) =>
     enumOf(TrackingModuleStatus.values, wire, TrackingModuleStatus.unsupported);
 
+/// `HandshakeRequest.features` (REQ-API-10): the configured switches by wire
+/// name; [VideoKitFeature.unknown] is never sent.
+Map<String, String> featureModesToMsg(VideoKitFeatureConfig config) => {
+  for (final entry in config.modes.entries)
+    if (entry.key != VideoKitFeature.unknown)
+      entry.key.wireName: entry.value.wireName,
+};
+
+/// The Dart host's gate answer for the native runtime (REQ-API-10).
+FeatureAccessMsg featureAccessToMsg(FeatureAccess access) => FeatureAccessMsg(
+  access: access.isAllowed ? 'ALLOWED' : 'DENIED',
+  badge: access.badge?.wireName,
+);
+
+/// `CapabilitiesMsg.hiddenFeatures` (REQ-API-10); unknown names are dropped.
+Set<VideoKitFeature> hiddenFeaturesFromMsg(List<String>? names) => {
+  for (final name in names ?? const <String>[])
+    if (VideoKitFeature.fromName(name) != VideoKitFeature.unknown)
+      VideoKitFeature.fromName(name),
+};
+
 /// The wire carries the probe error; the Dart model keeps an [UnsupportedReason] (alignment item for 04A).
 UnsupportedReason? _probeReason(MediaProbeMsg probe) {
   final error = probe.error;
@@ -548,6 +569,12 @@ EditCommandMsg editCommandToMsg(VideoKitEditCommand c) => switch (c) {
     enabled: c.enabled,
   ),
   RemoveMask() => EditCommandMsg(kind: 'RemoveMask', maskId: c.maskId),
+  // 04A E6 (M4-B2): the native side answers Unsupported until VK-M5A.
+  SetMaskAvatar() => EditCommandMsg(
+    kind: 'SetMaskAvatar',
+    maskId: c.maskId,
+    avatar: maskAvatarToMsg(c.avatar),
+  ),
   // The Kotlin command only carries the mask id; kind/seed come from the mask (04A I11 alignment item).
   StartTracking() => EditCommandMsg(
     kind: 'StartTracking',
@@ -608,7 +635,9 @@ VideoKitEditState editStateFromMsg(EditStateMsg msg) {
           type: enumOf(MaskType.values, m.type, MaskType.manual),
           startUs: m.range.startUs,
           endUs: m.range.endUs,
-          style: enumOf(MaskStyle.values, m.style, MaskStyle.mosaic),
+          style: m.avatar == null && m.style == 'IMAGE'
+              ? MaskStyle.mosaic
+              : enumOf(MaskStyle.values, m.style, MaskStyle.mosaic),
           strength: m.strength,
           enabled: m.enabled,
           keyframes: m.keyframes
@@ -622,9 +651,15 @@ VideoKitEditState editStateFromMsg(EditStateMsg msg) {
                     KeyframeSource.user,
                   ),
                   state: k.quality == null ? null : _trackingState(k.quality),
+                  rollDeg: k.rollDeg,
                 ),
               )
               .toList(),
+          // 04A E4: accepted ranges belong to the mask.
+          acceptedRanges: m.acceptedRanges
+              .map((r) => TimeRangeUs(r.startUs, r.endUs))
+              .toList(),
+          avatar: m.avatar == null ? null : maskAvatarFromMsg(m.avatar!),
         ),
       )
       .toList();
@@ -641,16 +676,8 @@ VideoKitEditState editStateFromMsg(EditStateMsg msg) {
               mediaToken: s.mediaToken,
               displayName: s.displayName,
               mismatch: s.mismatch,
-              probe: SourceProbe(
-                durationUs: s.probe?.durationUs ?? 0,
-                width: s.probe?.width ?? 0,
-                height: s.probe?.height ?? 0,
-                rotationDeg: s.probe?.rotationDeg ?? 0,
-                fps: s.probe?.frameRate,
-                videoCodec: s.probe?.videoCodec ?? '',
-                audioCodec: s.probe?.audioCodec,
-                hasAudio: s.probe?.hasAudio ?? false,
-              ),
+              // 04A E4: not probed yet is null, and an unknown codec is null.
+              probe: s.probe == null ? null : sourceProbeFromMsg(s.probe!),
             ),
           )
           .toList(),
@@ -860,3 +887,33 @@ ThumbnailResult thumbnailFromMsg(ThumbnailResultMsg m) {
         : errorFromMsg(m.error!),
   );
 }
+
+/// [SourceProbe] of [msg]; an unknown (null or empty) codec stays null (04A E4).
+SourceProbe sourceProbeFromMsg(SourceProbeMsg msg) => SourceProbe(
+  durationUs: msg.durationUs,
+  width: msg.width,
+  height: msg.height,
+  rotationDeg: msg.rotationDeg,
+  fps: msg.frameRate,
+  videoCodec: (msg.videoCodec?.isEmpty ?? true) ? null : msg.videoCodec,
+  audioCodec: (msg.audioCodec?.isEmpty ?? true) ? null : msg.audioCodec,
+  hasAudio: msg.hasAudio,
+);
+
+/// [MaskAvatarMsg] of [avatar] (04A E6, M4-B2).
+MaskAvatarMsg maskAvatarToMsg(MaskAvatar avatar) => MaskAvatarMsg(
+  avatarToken: avatar.avatarToken,
+  scale: avatar.scale,
+  offsetX: avatar.offsetX,
+  offsetY: avatar.offsetY,
+  followRotation: avatar.followRotation,
+);
+
+/// [MaskAvatar] of [msg] (04A E6, M4-B2).
+MaskAvatar maskAvatarFromMsg(MaskAvatarMsg msg) => MaskAvatar(
+  avatarToken: msg.avatarToken,
+  scale: msg.scale,
+  offsetX: msg.offsetX,
+  offsetY: msg.offsetY,
+  followRotation: msg.followRotation,
+);

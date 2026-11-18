@@ -250,7 +250,7 @@ void main() {
     for (var i = 0; i < 35; i++) {
       await rig.advance(tester, const Duration(seconds: 1));
     }
-    expect(find.text('连接中断'), findsOneWidget);
+    expect(find.text('连接已断开'), findsOneWidget);
   });
 
   testWidgets('unsupported scenario shows a fatal state without retry', (
@@ -372,7 +372,7 @@ void r1PlayerTests() {
     for (var i = 0; i < 35; i++) {
       await rig.advance(tester, const Duration(seconds: 1));
     }
-    expect(find.text('连接中断'), findsOneWidget);
+    expect(find.text('连接已断开'), findsOneWidget);
     // R1-02: the primary controls look and act disabled.
     final play = tester.widget<VkIconButton>(
       find
@@ -417,7 +417,7 @@ void r1PlayerTests() {
     expect(identical(key.currentState!.session, s), isTrue, reason: 'rebind');
     expect(s.state.value.phase, SessionPhase.ready);
     expect(s.state.value.positionUs, 30000000, reason: 'resumes there');
-    expect(find.text('连接中断'), findsNothing);
+    expect(find.text('连接已断开'), findsNothing);
     await tester.tap(find.bySemanticsLabel('播放'));
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 500));

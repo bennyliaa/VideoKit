@@ -22,7 +22,16 @@ enum EditDemoScenario {
   cancelSlow('exportCancelSlow'),
 
   /// The engine refuses fast concatenation (M4): the export transcodes.
-  fastConcatRejected('fastConcatRejected');
+  fastConcatRejected('fastConcatRejected'),
+
+  /// The export looks done, then fails (M6-A1, 15 §2.8 constraint 4).
+  failsAfterDone('exportFailsAfterDone'),
+
+  /// The export worker is killed (M6-A1, 04A X1-3).
+  workerKilled('exportWorkerKilled'),
+
+  /// Cleaning up after a cancel takes 7 s (M6-A1, 04A X1-2).
+  cleanupSlow('exportCleanupSlow');
 
   const EditDemoScenario(this.id);
 
@@ -36,6 +45,9 @@ enum EditDemoScenario {
     exportFails => g.l.editScenarioExportFails,
     cancelSlow => g.l.editScenarioCancelSlow,
     fastConcatRejected => g.l.editScenarioFastConcatRejected,
+    failsAfterDone => g.l.editScenarioFailsAfterDone,
+    workerKilled => g.l.editScenarioWorkerKilled,
+    cleanupSlow => g.l.editScenarioCleanupSlow,
   });
 }
 
@@ -49,7 +61,16 @@ class EditDemoPage extends StatefulWidget {
     super.key,
     this.initialScenario = EditDemoScenario.normal,
     this.showScenarioPicker = true,
+    this.features = VideoKitFeatureConfig.allEnabled,
+    this.hostCallbacks,
   });
+
+  /// Static feature switches of the demo's Fake (REQ-API-10, the "功能开关"
+  /// panel).
+  final VideoKitFeatureConfig features;
+
+  /// Host callbacks with a feature gate; null = no gate (allow all).
+  final VideoKitHostCallbacks? hostCallbacks;
 
   /// First scenario.
   final EditDemoScenario initialScenario;
@@ -67,7 +88,18 @@ class EditDemoPage extends StatefulWidget {
 /// State (public for tests).
 class EditDemoPageState extends State<EditDemoPage>
     with SingleTickerProviderStateMixin {
-  late final FakeVideoKit kit = FakeVideoKit();
+  late final FakeVideoKit kit = FakeVideoKit(
+    config: VideoKitConfig(
+      hostCallbacks: widget.hostCallbacks ?? const NoopHostCallbacks(),
+      features: widget.features,
+    ),
+  );
+
+  /// Feature state of the editor below (switches + the host's gate).
+  late final VideoKitFeatures features = VideoKitFeatures(kit.features);
+
+  /// Opening failed (e.g. `FEATURE_DISABLED` when EDIT is hidden).
+  VideoKitStableError? openError;
 
   /// Current project.
   VideoKitEditProject? project;
@@ -104,7 +136,14 @@ class EditDemoPageState extends State<EditDemoPage>
     });
     if (old != null) await old.close();
     kit.defaultScenario = Scenarios.byId(scenario.id);
-    final p = await kit.createEditProject(EditProjectConfig());
+    final VideoKitEditProject p;
+    try {
+      p = await kit.createEditProject(EditProjectConfig());
+    } on VideoKitException catch (e) {
+      // REQ-API-10: EDIT hidden or denied — shown as a state view.
+      if (mounted && gen == _generation) setState(() => openError = e.error);
+      return;
+    }
     if (!mounted || gen != _generation) {
       await p.close();
       return;
@@ -160,6 +199,7 @@ class EditDemoPageState extends State<EditDemoPage>
     unawaited(project?.close());
     kit.clock.detachTicker();
     unawaited(kit.close());
+    features.dispose();
     super.dispose();
   }
 
@@ -168,6 +208,61 @@ class EditDemoPageState extends State<EditDemoPage>
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(content: Text(g(g.l.hostHandled(action)))));
+  }
+
+  /// Demo host for "更换头像": a sheet of the Kit's built-in avatars.
+  Future<MaskAvatar?> _pickBuiltinAvatar(AvatarRequest request) {
+    final t = VkTheme.of(context);
+    final g = GalleryText.of(context);
+    final d = t.dimensions;
+    return showModalBottomSheet<MaskAvatar>(
+      context: context,
+      backgroundColor: t.colors.surface,
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: EdgeInsetsDirectional.all(d.spacing16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                g(g.l.demoAvatarSheetTitle),
+                style: t.typography.title.copyWith(
+                  color: t.colors.textPrimary,
+                ),
+              ),
+              SizedBox(height: d.spacing12),
+              Wrap(
+                spacing: d.spacing12,
+                runSpacing: d.spacing12,
+                children: [
+                  for (var n = 1; n <= FakeAvatarTools.builtinCount; n++)
+                    Semantics(
+                      button: true,
+                      selected:
+                          request.currentToken ==
+                          '${MaskAvatar.builtinPrefix}$n',
+                      label: g(g.l.demoAvatarBuiltin(n)),
+                      excludeSemantics: true,
+                      child: InkWell(
+                        onTap: () => Navigator.of(context).pop(
+                          MaskAvatar(
+                            avatarToken: '${MaskAvatar.builtinPrefix}$n',
+                          ),
+                        ),
+                        child: SizedBox.square(
+                          dimension: d.targetMin * 1.25,
+                          child: Image.memory(FakeAvatarTools.builtinPng(n)),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -207,13 +302,17 @@ class EditDemoPageState extends State<EditDemoPage>
               ),
             ),
           Expanded(
-            child: p == null
+            child: openError != null
+                ? VideoKitStateView(model: mapError(openError!, fatal: true))
+                : p == null
                 ? Center(
                     child: CircularProgressIndicator(
                       color: t.components.progress.indicator,
                     ),
                   )
-                : VideoKitEditor(
+                : VideoKitFeatureScope(
+                    features: features,
+                    child: VideoKitEditor(
                     key: ObjectKey(p),
                     project: p,
                     sink: sink,
@@ -225,6 +324,19 @@ class EditDemoPageState extends State<EditDemoPage>
                         DemoSessionPicture(session: session),
                     onBack: () => Navigator.of(context).maybePop(),
                     onPickSourcesRequested: () => unawaited(addMore()),
+                    // REQ-ED-07 extension point (04A E6 5): this demo host
+                    // only offers the Kit's built-in avatars; the App has
+                    // the full choose / adjust pages.
+                    onRequestAvatar: (request) => _pickBuiltinAvatar(request),
+                    avatarBuilder: (context, token) =>
+                        switch (FakeAvatarTools.builtinFor(token)) {
+                          null => const SizedBox.shrink(),
+                          final png => Image.memory(
+                            png,
+                            fit: BoxFit.contain,
+                            gaplessPlayback: true,
+                          ),
+                        },
                     exportSuccessActions: (context, media) => Wrap(
                       spacing: d.spacing12,
                       children: [
@@ -241,6 +353,7 @@ class EditDemoPageState extends State<EditDemoPage>
                           onPressed: () => _hostAction(g(g.l.exportShare)),
                         ),
                       ],
+                    ),
                     ),
                   ),
           ),

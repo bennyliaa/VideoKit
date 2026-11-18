@@ -75,6 +75,15 @@ class VkIcons extends ThemeExtension<VkIcons> {
     'grid': Icons.grid_view_rounded,
     'list': Icons.view_list_rounded,
     'movie': Icons.movie_outlined,
+    // UI-AUDIT-A4: film strip (design pages 7 and 12: empty state,
+    // "无法播放此视频").
+    'film': Icons.theaters_outlined,
+    // Avatar replacement (design page 25, REQ-ED-07).
+    'image': Icons.image_outlined,
+    'camera': Icons.sentiment_satisfied_alt_rounded,
+    'move': Icons.open_with_rounded,
+    'erase': Icons.close_rounded,
+    'restore': Icons.undo_rounded,
     'unknown': Icons.help_outline_rounded,
   };
 

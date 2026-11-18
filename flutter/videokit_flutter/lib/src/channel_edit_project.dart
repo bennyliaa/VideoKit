@@ -8,7 +8,10 @@ import 'channel_session.dart';
 import 'msg_mapping.dart';
 
 /// [VideoKitEditProject] proxy over the channel (14 §8.5); state is replaced from `EditUpdateMessage`s.
-final class ChannelEditProject implements VideoKitEditProject {
+/// Also [VideoKitEditMediaPreview] (04A X2): thumbnails and waveforms come from the native Kit; until it
+/// implements them the answers are null and empty, and the editor keeps its plain blocks.
+final class ChannelEditProject
+    implements VideoKitEditProject, VideoKitEditMediaPreview {
   ChannelEditProject({
     required this.projectId,
     required this._api,
@@ -141,6 +144,41 @@ final class ChannelEditProject implements VideoKitEditProject {
       return candidatesFromMsg(await _api.detectCandidates(projectId, atUs));
     } on Object catch (failure) {
       return CandidateDetectionResult(error: channelError(failure));
+    }
+  }
+
+  @override
+  Future<Uint8List?> sourceThumbnail(
+    String sourceId,
+    int atUs, {
+    int maxWidth = 160,
+    int maxHeight = 90,
+  }) async {
+    try {
+      return await _api.sourceThumbnail(
+        projectId,
+        sourceId,
+        atUs,
+        maxWidth,
+        maxHeight,
+      );
+    } on Object {
+      // A missing thumbnail keeps the plain block; never an error on the timeline.
+      return null;
+    }
+  }
+
+  @override
+  Future<List<double>> sourceWaveform(
+    String sourceId,
+    int inUs,
+    int outUs,
+    int buckets,
+  ) async {
+    try {
+      return await _api.sourceWaveform(projectId, sourceId, inUs, outUs, buckets);
+    } on Object {
+      return const [];
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../edit/avatar.dart' show AvatarSupport;
 import '../error/unsupported_reason.dart';
 import '../media/media_source.dart';
 import '../media/video_size.dart';
@@ -666,6 +667,7 @@ final class VideoKitCapabilities {
     List<CodecInfo> encoders = const [],
     List<OutputFormat> outputFormats = const [],
     this.tracking = const TrackingStatus(),
+    this.avatar = AvatarSupport.unsupported,
     this.sinkRequirements = const SinkRequirements(),
     Map<FeatureKey, UnsupportedReason> unavailableReasons = const {},
     this.mediaProbe,
@@ -717,6 +719,10 @@ final class VideoKitCapabilities {
   /// Tracking.
   final TrackingStatus tracking;
 
+  /// Avatar cut-out tools (04A E6 4); hosts may still supply their own
+  /// transparent PNG when they are not [AvatarSupport.available].
+  final AvatarSupport avatar;
+
   /// Sink requirements.
   final SinkRequirements sinkRequirements;
 
@@ -743,6 +749,7 @@ final class VideoKitCapabilities {
     List<CodecInfo>? encoders,
     List<OutputFormat>? outputFormats,
     TrackingStatus? tracking,
+    AvatarSupport? avatar,
     SinkRequirements? sinkRequirements,
     Map<FeatureKey, UnsupportedReason>? unavailableReasons,
     Object? mediaProbe = undefined,
@@ -762,6 +769,7 @@ final class VideoKitCapabilities {
     encoders: encoders ?? this.encoders,
     outputFormats: outputFormats ?? this.outputFormats,
     tracking: tracking ?? this.tracking,
+    avatar: avatar ?? this.avatar,
     sinkRequirements: sinkRequirements ?? this.sinkRequirements,
     unavailableReasons: unavailableReasons ?? this.unavailableReasons,
     mediaProbe: pick<MediaProbeResult?>(mediaProbe, this.mediaProbe),
@@ -783,6 +791,7 @@ final class VideoKitCapabilities {
       listEquals(other.encoders, encoders) &&
       listEquals(other.outputFormats, outputFormats) &&
       other.tracking == tracking &&
+      other.avatar == avatar &&
       other.sinkRequirements == sinkRequirements &&
       mapEquals(other.unavailableReasons, unavailableReasons) &&
       other.mediaProbe == mediaProbe &&
@@ -802,6 +811,7 @@ final class VideoKitCapabilities {
     hashList(encoders),
     hashList(outputFormats),
     tracking,
+    avatar,
     sinkRequirements,
     hashMap(unavailableReasons),
     mediaProbe,

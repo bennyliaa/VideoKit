@@ -7,6 +7,7 @@ import com.videokit.api.CoverageReport
 import com.videokit.api.EditSource
 import com.videokit.api.ExportPreset
 import com.videokit.api.KeyframeSource
+import com.videokit.api.MaskAvatar
 import com.videokit.api.MaskKeyframe
 import com.videokit.api.MaskRegion
 import com.videokit.api.MaskStyle
@@ -47,14 +48,21 @@ class SchemaConformanceTest {
             MaskTrack(
                 maskId = "mask-5",
                 type = MaskType.OBJECT,
-                style = MaskStyle.BLUR,
+                style = MaskStyle.IMAGE,
                 strength = 0.7f,
                 rangeUs = TimeRangeUs(0, 1_000_000),
                 keyframes = listOf(
                     MaskKeyframe(0, MaskRegion(0.1f, 0.1f, 0.2f, 0.2f)),
-                    MaskKeyframe(500_000, MaskRegion(0.2f, 0.1f, 0.2f, 0.2f, 5f), KeyframeSource.TRACKER, CoverageQuality.AMBIGUOUS),
+                    MaskKeyframe(
+                        500_000,
+                        MaskRegion(0.2f, 0.1f, 0.2f, 0.2f, 5f),
+                        KeyframeSource.TRACKER,
+                        CoverageQuality.AMBIGUOUS,
+                        rollDeg = -7.5f,
+                    ),
                 ),
                 acceptedRangesUs = listOf(TimeRangeUs(500_000, 1_000_000)),
+                avatar = MaskAvatar("host:a-1", scale = 1.2f, offsetY = -0.1f, followRotation = false),
             ),
         ),
         tracking = mapOf(
@@ -104,6 +112,8 @@ class SchemaConformanceTest {
         val minimal = """{"schemaVersion":1,"projectId":"p","sources":[{"sourceId":"s","mediaToken":"m","probe":{}}],""" +
             """"masks":[{"maskId":"k","type":"MANUAL","rangeUs":{"startUs":0,"endUs":1},""" +
             """"keyframes":[{"atUs":0,"region":{"x":0,"y":0,"width":0.5,"height":0.5}}]}]}"""
+        val minimalAvatar = """{"schemaVersion":1,"projectId":"p","masks":[{"maskId":"k","type":"FACE","style":"IMAGE",""" +
+            """"rangeUs":{"startUs":0,"endUs":1},"avatar":{"avatarToken":"builtin:1"}}]}"""
         val restored = ProjectJson.decode(SerializedEditProject(1, minimal))
         val root = schema["properties"] as Map<*, *>
         assertEquals(root.default("revision"), restored.revision)
@@ -123,6 +133,14 @@ class SchemaConformanceTest {
         val keyframe = defs.def("keyframe")["properties"] as Map<*, *>
         assertEquals(keyframe.default("source"), readMask.keyframes.single().source.name)
         assertEquals(keyframe.default("state"), readMask.keyframes.single().quality)
+        assertEquals(keyframe.default("rollDeg"), readMask.keyframes.single().rollDeg)
+        assertEquals(mask.default("avatar"), readMask.avatar)
+        val avatar = defs.def("avatar")["properties"] as Map<*, *>
+        val readAvatar = ProjectJson.decode(SerializedEditProject(1, minimalAvatar)).masks.single().avatar!!
+        assertEquals((avatar.default("scale") as Number).toFloat(), readAvatar.scale)
+        assertEquals((avatar.default("offsetX") as Number).toFloat(), readAvatar.offsetX)
+        assertEquals((avatar.default("offsetY") as Number).toFloat(), readAvatar.offsetY)
+        assertEquals(avatar.default("followRotation"), readAvatar.followRotation)
         val region = defs.def("region")["properties"] as Map<*, *>
         assertEquals((region.default("rotation") as Number).toFloat(), readMask.keyframes.single().region.rotationDeg)
     }

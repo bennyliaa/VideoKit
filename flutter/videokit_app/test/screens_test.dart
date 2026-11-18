@@ -10,11 +10,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:videokit_api/videokit_api.dart';
 
+import 'package:videokit_app/app_scope.dart';
 import 'package:videokit_app/history/app_storage.dart';
 import 'package:videokit_app/history/history_entry.dart';
+import 'package:videokit_app/library/library_gate.dart';
 import 'package:videokit_app/pages/image_page.dart';
 import 'package:videokit_app/startup/app_bootstrap.dart';
+import 'package:videokit_ui/videokit_ui.dart';
 
+import 'library_page_test.dart' show libraryRig, openLibrary;
 import 'startup_test.dart' show ScriptedConnector;
 
 import 'support.dart';
@@ -237,6 +241,110 @@ void main() {
     await tester.tap(find.bySemanticsLabel('最近工程'));
     await settle(tester, 4);
     await _shot(tester, 'm4_app_recent_projects');
+    await unmount(tester);
+  }, skip: _dir == null);
+
+  testWidgets('M5A-A1 screens (design page 25)', (tester) async {
+    final rig = AppRig.create();
+    await rig.pump(tester, fontFamily: _family, wrap: _wrap);
+    await tapText(tester, '打开文件');
+    await settle(tester, 2);
+    for (final n in ['山谷黄昏.mkv', '家庭录像.avi']) {
+      await tapText(tester, n);
+      await tester.pump();
+    }
+    await tester.tap(find.textContaining('打开 2 个'));
+    await settle(tester, 4);
+    await tapText(tester, '拼接为一个视频');
+    await settle(tester, 8);
+    final e = tester.state<VideoKitEditorState>(find.byType(VideoKitEditor));
+    e.openMasks(MaskEditorTab.manual);
+    await settle(tester, 2);
+    unawaited(e.maskEditor!.addManualMask());
+    await settle(tester, 2);
+    await tapText(tester, '头像');
+    await settle(tester, 4);
+    await _shot(tester, 'm5a_app_avatar_pick');
+    await tapText(tester, '拍一张');
+    await settle(tester, 8);
+    await _shot(tester, 'm5a_app_avatar_adjust');
+    await tapText(tester, '使用此头像');
+    await settle(tester, 4);
+    await _shot(tester, 'm5a_app_editor_avatar_style');
+    await tester.binding.handlePopRoute();
+    await settle(tester, 6);
+    await unmount(tester);
+  }, skip: _dir == null);
+
+  // APP-LIB-A1: design pages 26 (tablet library) and 27 (PIN, phone list,
+  // drawer, import, settings).
+  testWidgets('APP-LIB-A1 screens', (tester) async {
+    Future<AppRig> library(Size size, {bool pin = false}) async {
+      final rig = libraryRig(
+        videos: 30,
+        images: 12,
+        folders: const ['旅行', '家人', '宠物', '工作'],
+        inFirst: 42,
+        settings: {'setUpDone': true},
+      );
+      await rig.pump(tester, size: size, fontFamily: _family, wrap: _wrap);
+      await openLibrary(tester);
+      if (pin) {
+        await AppScope.of(
+          tester.element(find.byType(LibraryGate)),
+        ).libraryLock.setPin('123456');
+        await settle(tester, 2);
+      }
+      return rig;
+    }
+
+    // Page 26: tablet, folder "旅行" selected.
+    await library(expandedSize, pin: true);
+    await tester.tap(find.text('旅行'));
+    await settle(tester, 2);
+    await _shot(tester, 'applib_p26_tablet');
+    await tester.tap(find.bySemanticsLabel('收起文件夹栏'));
+    await settle(tester, 2);
+    await _shot(tester, 'applib_p26_tablet_bar_hidden');
+    await unmount(tester);
+
+    // Page 27: PIN, phone list (page 2, videos), drawer, settings.
+    await library(compactSize, pin: true);
+    await tester.tap(find.bySemanticsLabel('立即上锁'));
+    await settle(tester, 2);
+    for (final c in ['1', '2', '3']) {
+      await tester.tap(find.bySemanticsLabel('数字 $c'));
+      await tester.pump();
+    }
+    await settle(tester, 1);
+    await _shot(tester, 'applib_p27_pin');
+    for (final c in ['4', '5', '6']) {
+      await tester.tap(find.bySemanticsLabel('数字 $c'));
+      await tester.pump();
+    }
+    await settle(tester, 2);
+    await tester.tap(find.text('视频'));
+    await settle(tester, 2);
+    await tester.tap(find.bySemanticsLabel('下一页'));
+    await settle(tester, 2);
+    await _shot(tester, 'applib_p27_phone_list');
+    await tester.tap(find.bySemanticsLabel('显示文件夹栏').first);
+    await settle(tester, 3);
+    await tester.longPress(find.text('旅行').last);
+    await settle(tester, 3);
+    await _shot(tester, 'applib_p27_drawer_folder_menu');
+    await tester.binding.handlePopRoute();
+    await settle(tester, 2);
+    await tester.binding.handlePopRoute();
+    await settle(tester, 2);
+    await tester.tap(find.bySemanticsLabel('媒体库设置'));
+    await settle(tester, 3);
+    await _shot(tester, 'applib_p27_settings');
+    await tester.binding.handlePopRoute();
+    await settle(tester, 2);
+    await tester.tap(find.text('导入'));
+    await settle(tester, 2);
+    await _shot(tester, 'applib_p27_import_picker');
     await unmount(tester);
   }, skip: _dir == null);
 }

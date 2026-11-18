@@ -3,8 +3,10 @@ package com.videokit.testkit
 import com.videokit.api.ErrorCode
 import com.videokit.api.ErrorParams
 import com.videokit.api.ErrorStage
+import com.videokit.api.ExportFailureReasons
 import com.videokit.api.SinkErrorCode
 import com.videokit.api.SuggestedAction
+import com.videokit.api.UnsupportedDetails
 import com.videokit.api.VideoKitSinkException
 import com.videokit.testkit.internal.Errors
 import com.videokit.testkit.internal.MiniJson
@@ -39,10 +41,32 @@ class ErrorRegistryTest {
     @Test
     fun registeredParamsAreKnownKeys() {
         // UI-AUDIT-A1 J8: message parameter keys of each code ("params") are the ErrorParams constants.
-        val known = setOf(ErrorParams.REQUIRED_BYTES)
+        val known = setOf(
+            ErrorParams.REQUIRED_BYTES,
+            ErrorParams.REASON,
+            ErrorParams.CODEC,
+            ErrorParams.PROFILE,
+            ErrorParams.BIT_DEPTH,
+            ErrorParams.CONTAINER,
+            ErrorParams.REASON_DETAIL,
+            ErrorParams.FEATURE,
+            ErrorParams.BADGE,
+        )
         val registered = codes.associate { it["code"] to ((it["params"] as? Map<*, *>)?.keys ?: emptySet<Any>()) }
         registered.values.flatten().forEach { key -> assertTrue("unknown param $key", key in known) }
         assertEquals(setOf(ErrorParams.REQUIRED_BYTES), registered["OUTPUT_SPACE_INSUFFICIENT"])
+        // 04A X1: worker failures are EXPORT_FAILED with params.reason; the three values are registered in the description.
+        assertEquals(setOf(ErrorParams.REASON), registered["EXPORT_FAILED"])
+        val reasonText = ((codes.first { it["code"] == "EXPORT_FAILED" }["params"] as Map<*, *>)[ErrorParams.REASON] as String)
+        ExportFailureReasons.ALL.forEach { assertTrue("$it not registered", reasonText.contains(it)) }
+        // 04A X2: the unsupported media codes carry the format details; the detail values are registered.
+        val media = setOf(ErrorParams.CODEC, ErrorParams.PROFILE, ErrorParams.BIT_DEPTH, ErrorParams.CONTAINER, ErrorParams.REASON_DETAIL)
+        listOf("UNSUPPORTED_CONTAINER", "UNSUPPORTED_VIDEO_CODEC", "UNSUPPORTED_AUDIO_CODEC").forEach {
+            assertEquals(media, registered[it])
+        }
+        val videoParams = codes.first { it["code"] == "UNSUPPORTED_VIDEO_CODEC" }["params"] as Map<*, *>
+        val detailText = videoParams[ErrorParams.REASON_DETAIL] as String
+        UnsupportedDetails.ALL.forEach { assertTrue("$it not registered", detailText.contains(it)) }
         val withBytes = Errors.spaceInsufficient(ErrorStage.SINK, 120_000_000L)
         assertEquals("120000000", withBytes.params[ErrorParams.REQUIRED_BYTES])
         // Unknown or non-positive shortfall: no parameter, the UI shows the generic text.

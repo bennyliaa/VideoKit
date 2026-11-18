@@ -25,10 +25,22 @@ enum EditorMode {
 /// through [apply] once, at the end of a gesture (14 §6.3).
 class EditorController extends ChangeNotifier {
   /// Creates a controller.
-  EditorController({required this.project, required this.strings}) {
+  EditorController({
+    required this.project,
+    required this.strings,
+    this.sourceLatency,
+  }) {
     project.state.addListener(_onProject);
     unawaited(_loadPreview());
   }
+
+  /// How fast each source is (04A P6, host knowledge); null = all local.
+  /// Slow sources get sparser timeline thumbnails (X2).
+  SourceLatency Function(String sourceId)? sourceLatency;
+
+  /// Latency of [sourceId].
+  SourceLatency latencyOf(String sourceId) =>
+      sourceLatency?.call(sourceId) ?? SourceLatency.local;
 
   /// Project (owned by the host).
   final VideoKitEditProject project;

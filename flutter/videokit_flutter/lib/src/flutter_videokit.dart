@@ -5,6 +5,7 @@ import 'package:videokit_flutter_platform_interface/videokit_flutter_platform_in
 
 import 'channel_edit_project.dart';
 import 'channel_session.dart';
+import 'licenses.dart';
 import 'msg_mapping.dart';
 
 /// Why [FlutterVideoKit.connect] failed (14 §8.3). The UI shows a clear error and does not continue.
@@ -66,6 +67,8 @@ final class FlutterVideoKit implements VideoKit {
     VideoKitConfig config, {
     VideoKitPlatform? platform,
   }) async {
+    // 04A X1: the open source notices of the plugin and the Kit appear on the host's licence page.
+    registerVideoKitLicenses();
     final p = platform ?? VideoKitPlatform.instance;
     final timeouts = config.callbackTimeouts;
     HandshakeResponse response;
@@ -78,6 +81,10 @@ final class FlutterVideoKit implements VideoKit {
           navigationTimeoutMs: timeouts.navigation.inMilliseconds,
           recoveryDecisionTimeoutMs: timeouts.recoveryDecision.inMilliseconds,
           notificationTimeoutMs: timeouts.notification.inMilliseconds,
+          // REQ-API-10: the native runtime enforces the switches at its API
+          // entry points and asks the gate back through checkFeature.
+          featureGateTimeoutMs: timeouts.featureGate.inMilliseconds,
+          features: featureModesToMsg(config.features),
         ),
       );
     } on Object catch (failure) {
@@ -282,6 +289,16 @@ final class _CallbacksBridge implements VideoKitCallbacksApi {
   @override
   Future<void> onFatalSessionError(String sessionId, StableErrorMsg error) =>
       _host.onFatalSessionError(sessionId, errorFromMsg(error));
+
+  /// REQ-API-10: the native gate asks the Dart host; the native side applies
+  /// the timeout, and an exception here counts as denied there.
+  @override
+  Future<FeatureAccessMsg> checkFeature(
+    String feature,
+    String? sessionId,
+  ) async => featureAccessToMsg(
+    await _host.checkFeature(VideoKitFeature.fromName(feature), sessionId),
+  );
 
   @override
   void onTextureChanged(String sessionId, int? textureId) =>

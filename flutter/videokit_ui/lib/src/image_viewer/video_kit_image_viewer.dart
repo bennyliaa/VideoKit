@@ -525,7 +525,8 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
               ),
             ),
             if (widget.hostPanel != null &&
-                vkControlsMode(model, st) != VkControlsMode.minimal)
+                vkControlsMode(model, st) != VkControlsMode.minimal &&
+                vkControlsMode(model, st) != VkControlsMode.loading)
               _hostPanel(context, size, visible),
             if (widget.session.isDemo)
               PositionedDirectional(
@@ -657,6 +658,8 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
   ) {
     final blocked = mode != VkControlsMode.normal;
     final minimal = mode == VkControlsMode.minimal;
+    // Design page 12: while opening, no host actions, info or "more" yet.
+    final loading = mode == VkControlsMode.loading;
     final t = VkTheme.of(context);
     final s = VkStrings.of(context);
     final d = t.dimensions;
@@ -699,7 +702,7 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
     final toolbarWidth = size.width - d.spacing8 * 2;
     final itemExtent = d.targetMin * 1.25;
     final hostLayout = layoutHostActions(
-      st.hostActions,
+      loading ? const [] : st.hostActions,
       available: math.max(0, toolbarWidth - tools.length * itemExtent),
       itemExtent: itemExtent,
       collapseSecondary: false,
@@ -740,7 +743,7 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
                         ),
                       ),
               ),
-              if (!minimal) ...[
+              if (!minimal && !loading) ...[
                 VkIconButton(
                   icon: t.icons.resolve('info'),
                   semanticLabel: s.text('viewerInfo'),
@@ -904,6 +907,20 @@ class VideoKitImageViewerState extends State<VideoKitImageViewer> {
             selected: st.looping,
             onPressed: _toggleLoop,
             style: style,
+          ),
+          // UI-AUDIT-A4 (design page 13): "1×" marks the native rate; the
+          // viewer has no speed control (component guarantee), so this is
+          // a label, not a button.
+          Padding(
+            padding: EdgeInsetsDirectional.symmetric(horizontal: d.spacing8),
+            child: Text(
+              s.speedValue(
+                VkFormat.number(s, 1, minFractionDigits: 0, maxFractionDigits: 0),
+              ),
+              style: t.typography.label.copyWith(
+                color: t.colors.playerControlsContent.withValues(alpha: 0.72),
+              ),
+            ),
           ),
         ],
       ),

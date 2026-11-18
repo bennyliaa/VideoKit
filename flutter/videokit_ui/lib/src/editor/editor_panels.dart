@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart' show listEquals, setEquals;
 import 'package:flutter/material.dart';
@@ -613,10 +614,17 @@ class ClipOrderSheet extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: d.spacing12),
-                        // Design page 16: picture with the clip length. No
-                        // thumbnails yet (real capability), so a plain frame.
+                        // Design page 16: picture with the clip length
+                        // (first frame when the project offers timeline
+                        // media, UI-AUDIT-A4).
                         _ClipThumb(
                           duration: VkFormat.timecode(clip.durationUs),
+                          media: switch (controller.project) {
+                            final VideoKitEditMediaPreview m => m,
+                            _ => null,
+                          },
+                          sourceId: clip.sourceId,
+                          atUs: clip.inUs,
                         ),
                         SizedBox(width: d.spacing12),
                         Expanded(
@@ -710,25 +718,78 @@ class ClipOrderSheet extends StatelessWidget {
   }
 }
 
-/// Clip picture placeholder with its length (design page 16).
-class _ClipThumb extends StatelessWidget {
-  const _ClipThumb({required this.duration});
+/// Clip picture with its length (design page 16): the clip's first frame
+/// when the project offers timeline media (UI-AUDIT-A4), otherwise a plain
+/// frame.
+class _ClipThumb extends StatefulWidget {
+  const _ClipThumb({
+    required this.duration,
+    required this.media,
+    required this.sourceId,
+    required this.atUs,
+  });
 
   final String duration;
+  final VideoKitEditMediaPreview? media;
+  final String sourceId;
+  final int atUs;
+
+  @override
+  State<_ClipThumb> createState() => _ClipThumbState();
+}
+
+class _ClipThumbState extends State<_ClipThumb> {
+  Uint8List? _bytes;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  @override
+  void didUpdateWidget(_ClipThumb old) {
+    super.didUpdateWidget(old);
+    if (old.sourceId != widget.sourceId ||
+        old.atUs != widget.atUs ||
+        old.media != widget.media) {
+      _load();
+    }
+  }
+
+  void _load() {
+    final media = widget.media;
+    if (media == null) return;
+    final key = (widget.sourceId, widget.atUs);
+    unawaited(
+      media
+          .sourceThumbnail(widget.sourceId, widget.atUs)
+          .then((b) {
+            if (!mounted || key != (widget.sourceId, widget.atUs)) return;
+            setState(() => _bytes = b);
+          })
+          .catchError((Object _) {}),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final t = VkTheme.of(context);
     final d = t.dimensions;
+    final bytes = _bytes;
     return ExcludeSemantics(
       child: Container(
         width: d.targetMin * 2,
         height: d.targetMin * 1.25,
         alignment: AlignmentDirectional.bottomStart,
         padding: EdgeInsetsDirectional.all(d.spacing4),
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: t.colors.playerCanvas,
           borderRadius: BorderRadius.circular(d.cornerSmall),
+          image: bytes == null
+              ? null
+              : DecorationImage(image: MemoryImage(bytes), fit: BoxFit.cover),
         ),
         child: Container(
           padding: EdgeInsetsDirectional.symmetric(
@@ -740,7 +801,7 @@ class _ClipThumb extends StatelessWidget {
             borderRadius: BorderRadius.circular(d.cornerFull),
           ),
           child: Text(
-            duration,
+            widget.duration,
             style: t.typography.timecode.copyWith(
               color: t.colors.playerControlsContent,
             ),

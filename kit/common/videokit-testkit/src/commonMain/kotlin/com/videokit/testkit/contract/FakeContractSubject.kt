@@ -40,6 +40,11 @@ public class FakeContractSubject(
     override fun create(callbacks: VideoKitHostCallbacks, budget: com.videokit.api.ResourceBudget): VideoKit =
         FakeVideoKit(callbacks, baseOptions.copy(scope = scope, clock = clock, resourceBudget = budget))
 
+    override fun create(
+        callbacks: VideoKitHostCallbacks,
+        features: Map<com.videokit.api.VideoKitFeature, com.videokit.api.FeatureMode>,
+    ): VideoKit = FakeVideoKit(callbacks, baseOptions.copy(scope = scope, clock = clock, features = features))
+
     override val offscreenReleaseMs: Long get() = baseOptions.offscreenReleaseMs
 
     override fun playableVideo(token: String): VideoKitMediaSource = FakeMediaSources.video(token)

@@ -103,7 +103,12 @@ enum MaskType {
 /// Mask rendering style (08 §4).
 enum MaskStyle {
   mosaic,
-  blur;
+  blur,
+
+  /// Avatar replacement (REQ-ED-07, 04A E5/E6): the mask's [MaskAvatar] is
+  /// drawn over the tracked head. A reader that does not know IMAGE reads
+  /// MOSAIC (schema `x-unknown`), so the head is never left uncovered.
+  image;
 
   /// SCREAMING_SNAKE_CASE wire name.
   String get wireName => toWireName(name);
@@ -134,7 +139,13 @@ final class MaskKeyframe {
     required this.region,
     this.source = KeyframeSource.user,
     this.state,
+    this.rollDeg,
   });
+
+  /// Head roll in degrees from the line between the eyes, when the tracker
+  /// reports it (04A E5 3); used by an avatar with
+  /// [MaskAvatar.followRotation]. Null when unknown.
+  final double? rollDeg;
 
   /// Output-timeline time (µs).
   final int atUs;
@@ -154,11 +165,13 @@ final class MaskKeyframe {
     MaskRegion? region,
     KeyframeSource? source,
     Object? state = undefined,
+    Object? rollDeg = undefined,
   }) => MaskKeyframe(
     atUs: atUs ?? this.atUs,
     region: region ?? this.region,
     source: source ?? this.source,
     state: pick<TrackingState?>(state, this.state),
+    rollDeg: pick<double?>(rollDeg, this.rollDeg),
   );
 
   @override
@@ -167,14 +180,85 @@ final class MaskKeyframe {
       other.atUs == atUs &&
       other.region == region &&
       other.source == source &&
-      other.state == state;
+      other.state == state &&
+      other.rollDeg == rollDeg;
 
   @override
-  int get hashCode => Object.hash(atUs, region, source, state);
+  int get hashCode => Object.hash(atUs, region, source, state, rollDeg);
 
   @override
   String toString() =>
       'MaskKeyframe($atUs, $region, ${source.name}, ${state?.name})';
+}
+
+/// The avatar of a [MaskStyle.image] mask (REQ-ED-07, 04A E5/E6): which
+/// picture and how it sits on the tracked head. One value for the whole
+/// mask in v1 (E5 4).
+@immutable
+final class MaskAvatar {
+  /// Creates avatar settings.
+  const MaskAvatar({
+    required this.avatarToken,
+    this.scale = 1.0,
+    this.offsetX = 0,
+    this.offsetY = 0,
+    this.followRotation = true,
+  });
+
+  /// Opaque host token of the transparent PNG (the host stores it, E5 1),
+  /// or `builtin:N` for a Kit built-in avatar (E5 5).
+  final String avatarToken;
+
+  /// Size relative to the tracked head box (design page 25 "大小").
+  final double scale;
+
+  /// Offset relative to the head box width.
+  final double offsetX;
+
+  /// Offset relative to the head box height.
+  final double offsetY;
+
+  /// Turn with the head ([MaskKeyframe.rollDeg]); design "随头部转动".
+  final bool followRotation;
+
+  /// Prefix of the built-in avatar tokens.
+  static const String builtinPrefix = 'builtin:';
+
+  /// Whether [avatarToken] names a Kit built-in avatar.
+  bool get isBuiltin => avatarToken.startsWith(builtinPrefix);
+
+  /// Returns a copy with the given fields replaced.
+  MaskAvatar copyWith({
+    String? avatarToken,
+    double? scale,
+    double? offsetX,
+    double? offsetY,
+    bool? followRotation,
+  }) => MaskAvatar(
+    avatarToken: avatarToken ?? this.avatarToken,
+    scale: scale ?? this.scale,
+    offsetX: offsetX ?? this.offsetX,
+    offsetY: offsetY ?? this.offsetY,
+    followRotation: followRotation ?? this.followRotation,
+  );
+
+  @override
+  bool operator ==(Object other) =>
+      other is MaskAvatar &&
+      other.avatarToken == avatarToken &&
+      other.scale == scale &&
+      other.offsetX == offsetX &&
+      other.offsetY == offsetY &&
+      other.followRotation == followRotation;
+
+  @override
+  int get hashCode =>
+      Object.hash(avatarToken, scale, offsetX, offsetY, followRotation);
+
+  @override
+  String toString() =>
+      'MaskAvatar(<token>, scale: $scale, offset: $offsetX/$offsetY, '
+      'follow: $followRotation)';
 }
 
 /// A half-open time range `[startUs, endUs)` in microseconds (same name and
@@ -228,10 +312,15 @@ final class MaskTrack {
     this.enabled = true,
     List<MaskKeyframe> keyframes = const [],
     List<TimeRangeUs> acceptedRanges = const [],
+    this.avatar,
   }) : keyframes = frozenList(
          [...keyframes]..sort((a, b) => a.atUs.compareTo(b.atUs)),
        ),
        acceptedRanges = frozenList(acceptedRanges);
+
+  /// Avatar of a [MaskStyle.image] mask (REQ-ED-07); may stay set while
+  /// another style is chosen, so switching back keeps the picture.
+  final MaskAvatar? avatar;
 
   /// Ranges the user explicitly accepted although tracking did not cover
   /// them (09 §4; 04A E2, E4). `CoverageRange.accepted` is derived from
@@ -288,6 +377,31 @@ final class MaskTrack {
     return keyframes.last.region;
   }
 
+  /// Head roll at [atUs] in degrees (04A E5 3, E7 Q2): keyframes without a
+  /// roll take it from the neighbouring keyframes that have one (linear),
+  /// held at the ends; 0 when no keyframe has a roll. Null only outside
+  /// the range. Shared by preview and export like [regionAt].
+  double? rollAt(int atUs) {
+    if (atUs < startUs || atUs >= endUs) return null;
+    final keys = [
+      for (final k in keyframes)
+        if (k.rollDeg != null) k,
+    ];
+    if (keys.isEmpty) return 0;
+    if (atUs <= keys.first.atUs) return keys.first.rollDeg;
+    if (atUs >= keys.last.atUs) return keys.last.rollDeg;
+    for (var i = 0; i < keys.length - 1; i++) {
+      final a = keys[i];
+      final b = keys[i + 1];
+      if (atUs >= a.atUs && atUs <= b.atUs) {
+        final span = b.atUs - a.atUs;
+        final t = span == 0 ? 0.0 : (atUs - a.atUs) / span;
+        return a.rollDeg! + (b.rollDeg! - a.rollDeg!) * t;
+      }
+    }
+    return keys.last.rollDeg;
+  }
+
   /// Returns a copy with the given fields replaced.
   MaskTrack copyWith({
     String? maskId,
@@ -299,6 +413,7 @@ final class MaskTrack {
     int? endUs,
     List<MaskKeyframe>? keyframes,
     List<TimeRangeUs>? acceptedRanges,
+    Object? avatar = undefined,
   }) => MaskTrack(
     maskId: maskId ?? this.maskId,
     type: type ?? this.type,
@@ -309,6 +424,7 @@ final class MaskTrack {
     endUs: endUs ?? this.endUs,
     keyframes: keyframes ?? this.keyframes,
     acceptedRanges: acceptedRanges ?? this.acceptedRanges,
+    avatar: pick<MaskAvatar?>(avatar, this.avatar),
   );
 
   @override
@@ -322,7 +438,8 @@ final class MaskTrack {
       other.startUs == startUs &&
       other.endUs == endUs &&
       listEquals(other.keyframes, keyframes) &&
-      listEquals(other.acceptedRanges, acceptedRanges);
+      listEquals(other.acceptedRanges, acceptedRanges) &&
+      other.avatar == avatar;
 
   @override
   int get hashCode => Object.hash(
@@ -335,6 +452,7 @@ final class MaskTrack {
     endUs,
     hashList(keyframes),
     hashList(acceptedRanges),
+    avatar,
   );
 
   @override

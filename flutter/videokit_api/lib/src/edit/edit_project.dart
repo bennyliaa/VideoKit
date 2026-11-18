@@ -71,6 +71,11 @@ final class SerializedEditProject {
   /// Current schema major version.
   static const int currentSchemaVersion = 1;
 
+  /// Schema minor version this build writes (1.1: avatars, 04A E2 (b)).
+  /// R8 (04A E7 Q3): a reader whose minor is lower than a project's must
+  /// not overwrite that project; it saves a copy instead.
+  static const int currentSchemaMinor = 1;
+
   /// Schema major version.
   final int schemaVersion;
 

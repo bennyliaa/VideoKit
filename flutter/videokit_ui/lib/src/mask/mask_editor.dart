@@ -10,10 +10,12 @@ import '../common/vk_sheet_host.dart';
 import '../common/vk_slider.dart';
 import '../common/vk_switch.dart';
 import '../editor/editor_controller.dart';
+import '../foundation/feature_scope.dart';
 import '../foundation/format.dart';
 import '../foundation/layout_class.dart';
 import '../l10n/vk_strings.dart';
 import '../player/media_surface.dart';
+import '../theme/theme_data.dart';
 import '../theme/theme_scope.dart';
 import 'coverage_strip.dart';
 import 'mask_overlay.dart';
@@ -30,6 +32,30 @@ enum MaskEditorTab {
 /// Target letter of the [i]-th automatic mask ("目标 A").
 String vkTargetLetter(int i) => String.fromCharCode(0x41 + i % 26);
 
+/// Whether [r] covers the whole frame (the mask "全画面打码" adds, E7 Q9).
+bool vkIsFullFrame(MaskRegion? r) =>
+    r != null &&
+    r.x <= 0.001 &&
+    r.y <= 0.001 &&
+    r.width >= 0.999 &&
+    r.height >= 0.999;
+
+/// Region of [m] at its last trusted keyframe at or before [atUs] (E7 Q1):
+/// a user keyframe, or a tracker keyframe that is TRACKED or
+/// LOW_CONFIDENCE. Null when there is none.
+MaskRegion? vkLastTrustedRegion(MaskTrack m, int atUs) {
+  MaskRegion? found;
+  for (final k in m.keyframes) {
+    if (k.atUs > atUs) break;
+    final trusted =
+        k.source == KeyframeSource.user ||
+        k.state == TrackingState.tracked ||
+        k.state == TrackingState.lowConfidence;
+    if (trusted) found = k.region;
+  }
+  return found;
+}
+
 /// UI-07 `MaskEditor` (14 §5.7): entered as a mode of the editor (same
 /// [EditorController], no new page). Manual masks are edited on the
 /// picture (box + 8 handles, one `UpdateMaskKeyframe` per drag); tracking
@@ -45,7 +71,22 @@ class MaskEditor extends StatefulWidget {
     this.tab = MaskEditorTab.manual,
     this.onTabChanged,
     this.pictureBuilder,
+    this.onRequestAvatar,
+    this.avatarBuilder,
   });
+
+  /// "更换头像" (REQ-ED-07, 04A E6 5): the host opens its own avatar pages
+  /// and returns the stored `avatarToken` with the size and offset chosen
+  /// on its adjust page (a [MaskAvatar]), or null when the user cancels.
+  /// The mask keeps its "随头部转动" setting. When this callback is null
+  /// the avatar entry is hidden (a mask that already has an avatar keeps
+  /// showing it).
+  final Future<MaskAvatar?> Function(AvatarRequest request)? onRequestAvatar;
+
+  /// Draws the avatar picture of a token (host storage or `builtin:N`);
+  /// without it the preview shows a neutral placeholder.
+  final Widget Function(BuildContext context, String avatarToken)?
+  avatarBuilder;
 
   /// Editor controller.
   final EditorController controller;
@@ -252,16 +293,53 @@ class MaskEditorState extends State<MaskEditor> {
     final tracking = widget.tab == MaskEditorTab.tracking;
     final auto = _auto;
     final boxes = <OverlayBox>[];
+    // E7 Q9: where "全画面打码" covers the frame, no avatar is drawn.
+    final fullFrame = st.masks.any(
+      (o) =>
+          o.enabled &&
+          o.style != MaskStyle.image &&
+          vkIsFullFrame(o.regionAt(at)),
+    );
     for (final (i, m) in st.masks.indexed) {
       if (!m.enabled) continue;
-      final r = m.regionAt(at);
-      if (r == null) continue;
+      var r = m.regionAt(at);
       final autoIndex = auto.indexOf(m);
+      var avatar = m.style == MaskStyle.image ? m.avatar : null;
+      var lost = false;
+      if (avatar != null &&
+          m.type.isAutomatic &&
+          at >= m.startUs &&
+          at < m.endUs) {
+        // E7 Q1: never put the avatar on someone else's head: LOST,
+        // AMBIGUOUS and not analysed show a dashed box at the last trusted
+        // position, labelled "目标丢失".
+        final state = st.tracking[m.maskId]?.coverage.stateAt(at);
+        if (state == null || state.blocksExport) {
+          avatar = null;
+          lost = true;
+          r = vkLastTrustedRegion(m, at) ?? r;
+        }
+      }
+      if (r == null) continue;
+      if (fullFrame) avatar = null;
       boxes.add(
         OverlayBox(
           id: m.maskId,
           region: r,
-          label: m.type.isAutomatic
+          dashed: lost,
+          // REQ-ED-07: the avatar follows the box, its size, offset and
+          // (optionally) the head roll.
+          content: avatar == null ? null : _avatarPicture(context, avatar),
+          contentScale: avatar?.scale ?? 1,
+          contentOffset: avatar == null
+              ? Offset.zero
+              : Offset(avatar.offsetX, avatar.offsetY),
+          contentRotationDeg: avatar != null && avatar.followRotation
+              ? (m.rollAt(at) ?? 0)
+              : 0,
+          label: lost
+              ? s.text('avatarTargetLost')
+              : m.type.isAutomatic
               ? s.trackTarget(vkTargetLetter(autoIndex))
               : s.maskName(i + 1),
           selected:
@@ -425,7 +503,28 @@ class MaskEditorState extends State<MaskEditor> {
     final hasKeyframeHere = sel.keyframes.any(
       (k) => (k.atUs - at).abs() < 40000,
     );
-    return Wrap(
+    // UI-AUDIT-A4 (design page 17): the mask's range on the timeline with
+    // its keyframe diamonds and the playhead.
+    final bar = ExcludeSemantics(
+      child: SizedBox(
+        height: d.timelineMaskRow,
+        child: CustomPaint(
+          painter: KeyframeRangePainter(
+            durationUs: st.timeline.durationUs,
+            startUs: sel.startUs,
+            endUs: sel.endUs,
+            keyframesUs: [
+              for (final k in sel.keyframes)
+                if (k.source != KeyframeSource.tracker) k.atUs,
+            ],
+            playheadUs: at,
+            theme: t,
+          ),
+          child: const SizedBox.expand(),
+        ),
+      ),
+    );
+    final header = Wrap(
       spacing: d.spacing8,
       runSpacing: d.spacing8,
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -473,6 +572,11 @@ class MaskEditorState extends State<MaskEditor> {
           ],
         ),
       ],
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [header, SizedBox(height: d.spacing8), bar],
     );
   }
 
@@ -522,8 +626,208 @@ class MaskEditorState extends State<MaskEditor> {
 
   // ------------------------------------------------------------- manual --
 
-  String _styleLabel(VkStrings s, MaskStyle st) =>
-      s.text(st == MaskStyle.mosaic ? 'maskStyleMosaic' : 'maskStyleBlur');
+  String _styleLabel(VkStrings s, MaskStyle st) => s.text(switch (st) {
+    MaskStyle.mosaic => 'maskStyleMosaic',
+    MaskStyle.blur => 'maskStyleBlur',
+    MaskStyle.image => 'maskStyleImage',
+  });
+
+  /// Avatar size slider range (design page 25 "大小").
+  static const double avatarScaleMin = 0.5;
+
+  /// See [avatarScaleMin].
+  static const double avatarScaleMax = 2.0;
+
+  Widget _avatarPicture(BuildContext context, MaskAvatar avatar) {
+    final t = VkTheme.of(context);
+    final b = widget.avatarBuilder;
+    if (b != null) return b(context, avatar.avatarToken);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: t.colors.surfaceVariant,
+      ),
+      child: Center(
+        child: Icon(
+          t.icons.resolve('face'),
+          color: t.colors.textSecondary,
+          size: t.dimensions.icon24,
+        ),
+      ),
+    );
+  }
+
+  /// "更换头像" / choosing the avatar style without an avatar: asks the
+  /// host, then sets the avatar (keeping size and rotation) and the style.
+  Future<void> requestAvatar(MaskTrack m) async {
+    final ask = widget.onRequestAvatar;
+    if (ask == null) return;
+    // REQ-API-10: the host's gate before its avatar pages open.
+    final open = await VideoKitFeatures.of(
+      context,
+    ).enter(VideoKitFeature.avatar, sessionId: _c.project.projectId);
+    if (!open || !mounted) return;
+    final chosen = await ask(
+      AvatarRequest(
+        projectId: _c.project.projectId,
+        maskId: m.maskId,
+        currentToken: m.avatar?.avatarToken,
+      ),
+    );
+    if (chosen == null || !mounted) return;
+    final avatar = chosen.copyWith(
+      followRotation: m.avatar?.followRotation ?? chosen.followRotation,
+    );
+    await _c.apply(SetMaskAvatar(m.maskId, avatar));
+    if (m.style != MaskStyle.image) {
+      await _c.apply(SetMaskStyle(m.maskId, MaskStyle.image, m.strength));
+    }
+  }
+
+  Future<void> _chooseStyle(MaskTrack m, MaskStyle style) async {
+    if (style == MaskStyle.image && m.avatar == null) {
+      await requestAvatar(m);
+      return;
+    }
+    await _c.apply(SetMaskStyle(m.maskId, style, m.strength));
+  }
+
+  List<Widget> _avatarControls(BuildContext context, MaskTrack sel) {
+    final t = VkTheme.of(context);
+    final s = VkStrings.of(context);
+    final d = t.dimensions;
+    final avatar = sel.avatar!;
+    final canChange = widget.onRequestAvatar != null;
+    final scaleT =
+        ((avatar.scale - avatarScaleMin) / (avatarScaleMax - avatarScaleMin))
+            .clamp(0.0, 1.0);
+    return [
+      // Design page 25: the avatar row ("我的头像 / 点按更换").
+      Semantics(
+        button: canChange,
+        label: s.text('maskAvatarMine'),
+        hint: canChange ? s.text('maskAvatarChange') : null,
+        excludeSemantics: true,
+        onTap: canChange ? () => unawaited(requestAvatar(sel)) : null,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(d.cornerMedium),
+          onTap: canChange ? () => unawaited(requestAvatar(sel)) : null,
+          child: Container(
+            constraints: BoxConstraints(minHeight: d.targetMin),
+            padding: EdgeInsetsDirectional.all(d.spacing12),
+            decoration: BoxDecoration(
+              color: t.colors.surfaceVariant,
+              borderRadius: BorderRadius.circular(d.cornerMedium),
+            ),
+            child: Row(
+              children: [
+                SizedBox.square(
+                  dimension: d.targetMin,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(d.cornerSmall),
+                    child: _avatarPicture(context, avatar),
+                  ),
+                ),
+                SizedBox(width: d.spacing12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        s.text('maskAvatarMine'),
+                        style: t.typography.body.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: t.colors.textPrimary,
+                        ),
+                      ),
+                      if (canChange)
+                        Text(
+                          s.text('maskAvatarChange'),
+                          style: t.typography.caption.copyWith(
+                            color: t.colors.textSecondary,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                if (canChange)
+                  Icon(
+                    t.icons.resolve('next'),
+                    color: t.colors.textSecondary,
+                    size: d.icon20,
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      SizedBox(height: d.spacing12),
+      Row(
+        children: [
+          Text(
+            s.text('maskAvatarSize'),
+            style: t.typography.label.copyWith(color: t.colors.textSecondary),
+          ),
+          SizedBox(width: d.spacing12),
+          Expanded(
+            child: VkSlider(
+              value: scaleT,
+              semanticLabel: s.text('maskAvatarSize'),
+              semanticValue: (v) => VkFormat.percent(
+                s,
+                (avatarScaleMin + v * (avatarScaleMax - avatarScaleMin)) / 2,
+              ),
+              onChangeEnd: (v) => unawaited(
+                _c.apply(
+                  SetMaskAvatar(
+                    sel.maskId,
+                    avatar.copyWith(
+                      scale:
+                          avatarScaleMin +
+                          v * (avatarScaleMax - avatarScaleMin),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      SizedBox(height: d.spacing8),
+      Container(
+        padding: EdgeInsetsDirectional.symmetric(
+          horizontal: d.spacing12,
+          vertical: d.spacing4,
+        ),
+        decoration: BoxDecoration(
+          color: t.colors.surfaceVariant,
+          borderRadius: BorderRadius.circular(d.cornerMedium),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                s.text('maskAvatarFollowRotation'),
+                style: t.typography.body.copyWith(color: t.colors.textPrimary),
+              ),
+            ),
+            VkSwitch(
+              value: avatar.followRotation,
+              semanticLabel: s.text('maskAvatarFollowRotation'),
+              onChanged: (v) => unawaited(
+                _c.apply(
+                  SetMaskAvatar(
+                    sel.maskId,
+                    avatar.copyWith(followRotation: v),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ];
+  }
 
   String _typeLabel(VkStrings s, MaskType ty) => s.text(switch (ty) {
     MaskType.manual => 'maskTypeManual',
@@ -597,16 +901,25 @@ class MaskEditorState extends State<MaskEditor> {
         VkSegmented<MaskStyle>(
           segments: [
             for (final style in MaskStyle.values)
-              VkSegment(value: style, label: _styleLabel(s, style)),
+              // REQ-ED-07: "头像" only when the host can supply one (or the
+              // mask already has one).
+              // REQ-API-10: and only while AVATAR is not hidden.
+              if (style != MaskStyle.image ||
+                  (VideoKitFeatures.of(
+                        context,
+                      ).isEnabled(VideoKitFeature.avatar) &&
+                      (widget.onRequestAvatar != null || sel.avatar != null)))
+                VkSegment(value: style, label: _styleLabel(s, style)),
           ],
           selected: sel.style,
           semanticLabel: s.text('maskStyle'),
-          onChanged: (style) => unawaited(
-            _c.apply(SetMaskStyle(sel.maskId, style, sel.strength)),
-          ),
+          onChanged: (style) => unawaited(_chooseStyle(sel, style)),
         ),
         SizedBox(height: d.spacing12),
-        Row(
+        if (sel.style == MaskStyle.image && sel.avatar != null)
+          ..._avatarControls(context, sel)
+        else
+          Row(
           children: [
             Text(
               s.text('maskStrength'),
@@ -994,5 +1307,105 @@ class _MaskRow extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// Mask range bar of the keyframe card (UI-AUDIT-A4, design page 17): the
+/// whole timeline as a track, the mask's range filled, user keyframes as
+/// diamonds, the playhead as a line.
+class KeyframeRangePainter extends CustomPainter {
+  /// Creates the painter.
+  KeyframeRangePainter({
+    required this.durationUs,
+    required this.startUs,
+    required this.endUs,
+    required this.keyframesUs,
+    required this.playheadUs,
+    required this.theme,
+  });
+
+  /// Timeline duration.
+  final int durationUs;
+
+  /// Mask range start.
+  final int startUs;
+
+  /// Mask range end.
+  final int endUs;
+
+  /// User keyframe times.
+  final List<int> keyframesUs;
+
+  /// Playhead.
+  final int playheadUs;
+
+  /// Theme.
+  final VideoKitThemeData theme;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (size.isEmpty || durationUs <= 0) return;
+    final c = theme.colors;
+    final d = theme.dimensions;
+    final k = size.height * 0.3;
+    final left = k;
+    final width = math.max(0.0, size.width - k * 2);
+    double x(int us) => left + width * (us.clamp(0, durationUs) / durationUs);
+    final cy = size.height / 2;
+    final trackH = size.height * 0.3;
+    final radius = Radius.circular(trackH / 2);
+    canvas
+      ..drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTRB(left, cy - trackH / 2, left + width, cy + trackH / 2),
+          radius,
+        ),
+        Paint()..color = c.surfaceVariant,
+      )
+      ..drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTRB(x(startUs), cy - trackH / 2, x(endUs), cy + trackH / 2),
+          radius,
+        ),
+        Paint()..color = c.primaryContainer,
+      );
+    final diamond = Paint()..color = c.textPrimary;
+    for (final us in keyframesUs) {
+      final px = x(us);
+      canvas.drawPath(
+        Path()
+          ..moveTo(px, cy - k)
+          ..lineTo(px + k, cy)
+          ..lineTo(px, cy + k)
+          ..lineTo(px - k, cy)
+          ..close(),
+        diamond,
+      );
+    }
+    final ph = x(playheadUs);
+    canvas.drawLine(
+      Offset(ph, 0),
+      Offset(ph, size.height),
+      Paint()
+        ..color = c.primary
+        ..strokeWidth = d.focusRingWidth,
+    );
+  }
+
+  @override
+  bool shouldRepaint(KeyframeRangePainter old) =>
+      old.durationUs != durationUs ||
+      old.startUs != startUs ||
+      old.endUs != endUs ||
+      old.playheadUs != playheadUs ||
+      old.theme != theme ||
+      !_same(old.keyframesUs, keyframesUs);
+
+  static bool _same(List<int> a, List<int> b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
   }
 }

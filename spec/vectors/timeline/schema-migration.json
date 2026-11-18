@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "timeline-schema-migration",
-  "description": "Edit project snapshot reading by the rules of spec/schema/edit-project.v1.json (04A E2; M4-B1): versions (R1), minor compatibility and unknown properties (R2), defaults and malformed input (R3), unknown enum values (R4), RUNNING (R6), and the synthetic v0 migration (M0). Each case reads SerializedEditProject(envelopeVersion, json): 'json' is the text, or 'payload' an object written as JSON. 'expect.result': RESTORED or REJECTED. RESTORED checks the listed fields of the restored project (sources: sourceId, mediaToken, rotation, fps, videoCodec; clips: clipId, inUs, outUs; masks: maskId, style, strength, enabled, rangeUs, keyframes (atUs list), keyframeStates, acceptedRanges; tracking: maskId, status, qualities); a restored project written again and read back is unchanged. REJECTED checks the stable error 'code'.",
+  "description": "Edit project snapshot reading by the rules of spec/schema/edit-project.v1.json (04A E2; M4-B1; 1.1 avatar cases M4-B2): versions (R1), minor compatibility and unknown properties (R2), defaults and malformed input (R3), unknown enum values (R4), RUNNING (R6), and the synthetic v0 migration (M0). Each case reads SerializedEditProject(envelopeVersion, json): 'json' is the text, or 'payload' an object written as JSON. 'expect.result': RESTORED or REJECTED. RESTORED checks the listed fields of the restored project (sources: sourceId, mediaToken, rotation, fps, videoCodec; clips: clipId, inUs, outUs; masks: maskId, style, strength, enabled, rangeUs, keyframes (atUs list), keyframeStates, keyframeRollDegs, acceptedRanges, avatar (object or null); tracking: maskId, status, qualities); a restored project written again and read back is unchanged. REJECTED checks the stable error 'code'. 'readerStyles' (optional): the style enum of the simulated reader; styles outside it read as MOSAIC (R4). 'expect.save' (optional, R8): the outcome of saving the restored project to OVERWRITE (the original) and to SAVE_AS_COPY: SAVED, SAVED_AS_COPY (saved, the user is told it is a copy) or REJECTED.",
   "cases": [
     {
       "id": "v1.full",
@@ -122,6 +122,86 @@
       "envelopeVersion": 0,
       "payload": { "projectId": "p-v0-min" },
       "expect": { "result": "RESTORED", "projectId": "p-v0-min", "revision": 0, "clips": [], "masks": [], "tracking": [] }
+    },
+    {
+      "id": "v1_1.avatar_image_and_roll",
+      "envelopeVersion": 1,
+      "payload": {
+        "schemaVersion": 1, "schemaMinor": 1, "projectId": "p-avatar",
+        "masks": [ { "maskId": "mask-1", "type": "FACE", "style": "IMAGE", "strength": 0.5, "enabled": true, "rangeUs": { "startUs": 0, "endUs": 2000000 },
+          "keyframes": [
+            { "atUs": 0, "region": { "x": 0.4, "y": 0.3, "width": 0.2, "height": 0.25, "rotation": 0 }, "source": "TRACKER", "state": "TRACKED", "rollDeg": -12.5 },
+            { "atUs": 1000000, "region": { "x": 0.45, "y": 0.3, "width": 0.2, "height": 0.25, "rotation": 0 }, "source": "USER", "state": null, "rollDeg": null }
+          ],
+          "acceptedRanges": [],
+          "avatar": { "avatarToken": "host:avatar-7", "scale": 1.25, "offsetX": 0.05, "offsetY": -0.1, "followRotation": false } } ]
+      },
+      "expect": {
+        "result": "RESTORED", "projectId": "p-avatar",
+        "masks": [ { "maskId": "mask-1", "style": "IMAGE", "keyframes": [0, 1000000], "keyframeRollDegs": [-12.5, null],
+          "avatar": { "avatarToken": "host:avatar-7", "scale": 1.25, "offsetX": 0.05, "offsetY": -0.1, "followRotation": false } } ]
+      }
+    },
+    {
+      "id": "v1_1.avatar_defaults",
+      "envelopeVersion": 1,
+      "payload": {
+        "schemaVersion": 1, "schemaMinor": 1, "projectId": "p-avatar-def",
+        "masks": [ { "maskId": "mask-1", "type": "MANUAL", "style": "IMAGE", "rangeUs": { "startUs": 0, "endUs": 1000000 }, "avatar": { "avatarToken": "builtin:3" } } ]
+      },
+      "expect": {
+        "result": "RESTORED",
+        "masks": [ { "maskId": "mask-1", "style": "IMAGE", "avatar": { "avatarToken": "builtin:3", "scale": 1, "offsetX": 0, "offsetY": 0, "followRotation": true } } ]
+      }
+    },
+    {
+      "id": "v1_1.image_without_avatar_reads_as_mosaic",
+      "description": "R7: IMAGE without an avatar (null or missing) reads as MOSAIC.",
+      "envelopeVersion": 1,
+      "payload": {
+        "schemaVersion": 1, "schemaMinor": 1, "projectId": "p-r7",
+        "masks": [
+          { "maskId": "mask-1", "type": "FACE", "style": "IMAGE", "rangeUs": { "startUs": 0, "endUs": 1000000 }, "avatar": null },
+          { "maskId": "mask-2", "type": "FACE", "style": "IMAGE", "rangeUs": { "startUs": 0, "endUs": 1000000 } }
+        ]
+      },
+      "expect": { "result": "RESTORED", "masks": [ { "maskId": "mask-1", "style": "MOSAIC", "avatar": null }, { "maskId": "mask-2", "style": "MOSAIC", "avatar": null } ] }
+    },
+    {
+      "id": "v1_1.read_by_a_1_0_reader_degrades_to_mosaic",
+      "description": "A 1.0 reader knows MOSAIC and BLUR only: IMAGE is an unknown value and reads as MOSAIC (R4, x-unknown), avatar and rollDeg are unknown properties and are ignored (R2). Runners that read with the 1.1 enum simulate it with 'readerStyles'; the case of this Kit (1.1) is covered by the same rule with a style from a newer minor ('STICKER', the second mask).",
+      "readerStyles": ["MOSAIC", "BLUR"],
+      "envelopeVersion": 1,
+      "payload": {
+        "schemaVersion": 1, "schemaMinor": 1, "projectId": "p-old-reader",
+        "masks": [
+          { "maskId": "mask-1", "type": "FACE", "style": "IMAGE", "rangeUs": { "startUs": 0, "endUs": 1000000 },
+            "keyframes": [ { "atUs": 0, "region": { "x": 0.4, "y": 0.4, "width": 0.2, "height": 0.2 }, "rollDeg": 8 } ],
+            "avatar": { "avatarToken": "host:a" } },
+          { "maskId": "mask-2", "type": "FACE", "style": "STICKER", "rangeUs": { "startUs": 0, "endUs": 1000000 }, "avatar": { "avatarToken": "host:b" } }
+        ]
+      },
+      "expect": { "result": "RESTORED", "masks": [ { "maskId": "mask-1", "style": "MOSAIC" }, { "maskId": "mask-2", "style": "MOSAIC" } ] }
+    },
+    {
+      "id": "r8.newer_minor_saves_as_copy_only",
+      "description": "R8: a project written by a newer minor (here 1.9) read by this 1.1 reader must not be overwritten; saving a copy is allowed and asks the user.",
+      "envelopeVersion": 1,
+      "payload": { "schemaVersion": 1, "schemaMinor": 9, "projectId": "p-r8", "fromMinor9": { "x": 1 } },
+      "expect": { "result": "RESTORED", "projectId": "p-r8", "save": { "OVERWRITE": "REJECTED", "SAVE_AS_COPY": "SAVED_AS_COPY" } }
+    },
+    {
+      "id": "r8.same_minor_overwrites",
+      "envelopeVersion": 1,
+      "payload": { "schemaVersion": 1, "schemaMinor": 1, "projectId": "p-same" },
+      "expect": { "result": "RESTORED", "save": { "OVERWRITE": "SAVED", "SAVE_AS_COPY": "SAVED" } }
+    },
+    {
+      "id": "r8.older_minor_overwrites",
+      "description": "An older minor (1.0) is upgraded in place: this reader knows everything 1.0 can hold.",
+      "envelopeVersion": 1,
+      "payload": { "schemaVersion": 1, "schemaMinor": 0, "projectId": "p-old" },
+      "expect": { "result": "RESTORED", "save": { "OVERWRITE": "SAVED", "SAVE_AS_COPY": "SAVED" } }
     },
     { "id": "future_major_envelope.rejected", "envelopeVersion": 2, "payload": { "schemaVersion": 2, "projectId": "p" }, "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } },
     { "id": "future_major_payload.rejected", "envelopeVersion": 1, "payload": { "schemaVersion": 2, "schemaMinor": 0, "projectId": "p" }, "expect": { "result": "REJECTED", "code": "UNSUPPORTED_SNAPSHOT_VERSION" } },

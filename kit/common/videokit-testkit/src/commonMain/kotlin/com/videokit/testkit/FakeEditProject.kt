@@ -17,10 +17,13 @@ import com.videokit.api.ExportPreset
 import com.videokit.api.ExportProgress
 import com.videokit.api.ExportStage
 import com.videokit.api.ExportWarnings
+import com.videokit.api.FeatureAccess
+import com.videokit.api.FeatureMode
 import com.videokit.api.KeyframeSource
 import com.videokit.api.MaskKeyframe
 import com.videokit.api.MaskRegion
 import com.videokit.api.MaskTrack
+import com.videokit.api.MaskStyle
 import com.videokit.api.MaskType
 import com.videokit.api.MediaKind
 import com.videokit.api.OpenPurpose
@@ -45,12 +48,14 @@ import com.videokit.api.VideoKitException
 import com.videokit.api.VideoKitExportRequest
 import com.videokit.api.VideoKitExportResult
 import com.videokit.api.VideoKitExportedMedia
+import com.videokit.api.VideoKitFeature
 import com.videokit.api.VideoKitMediaSource
 import com.videokit.api.VideoKitOutputMetadata
 import com.videokit.api.VideoKitOutputSink
 import com.videokit.api.VideoKitSession
 import com.videokit.api.VideoKitStableError
 import com.videokit.api.VideoKitWriteHandle
+import com.videokit.core.runtime.FeatureGate
 import com.videokit.testkit.internal.AtomicFlag
 import com.videokit.testkit.internal.AtomicValue
 import com.videokit.testkit.internal.Errors
@@ -133,6 +138,7 @@ public class FakeEditProject internal constructor(
     // ---------------------------------------------------------------- sources
 
     override suspend fun addSource(source: VideoKitMediaSource): SourceToken {
+        if (!releasedFlag.value) kit.features.require(VideoKitFeature.EDIT, projectId, ErrorStage.EDIT)
         val previousPhase = mutex.withLock {
             requireNotReleased()
             if (phase in BUSY_PHASES) throw VideoKitException(Errors.illegalState(ErrorStage.EDIT, "ADD_SOURCE_IN_$phase"))
@@ -209,7 +215,14 @@ public class FakeEditProject internal constructor(
 
     // ---------------------------------------------------------------- commands
 
-    override suspend fun apply(command: VideoKitEditCommand): EditCommandResult = mutex.withLock {
+    override suspend fun apply(command: VideoKitEditCommand): EditCommandResult {
+        if (releasedFlag.value) return EditCommandResult.ProjectReleased
+        // REQ-API-10: the gate may call the host, so it is asked before taking the project lock.
+        kit.features.firstUnsupported(FeatureGate.featuresOf(command), projectId)?.let { return EditCommandResult.Unsupported(it) }
+        return applyGated(command)
+    }
+
+    private suspend fun applyGated(command: VideoKitEditCommand): EditCommandResult = mutex.withLock {
         if (releasedFlag.value) return@withLock EditCommandResult.ProjectReleased
         if (phase == EditPhase.TRACKING && command !is VideoKitEditCommand.CancelTracking) {
             return@withLock rejected("${commandName(command)}_IN_TRACKING")
@@ -339,7 +352,14 @@ public class FakeEditProject internal constructor(
             is VideoKitEditCommand.SetMaskStyle -> {
                 val mask = maskOf(command.maskId) ?: return fail("UNKNOWN_MASK")
                 if (!command.strength.isFinite() || command.strength !in 0f..1f) return fail("MASK_STRENGTH")
+                // Avatars are not rendered before VK-M5A (04A E6): the native Kit reports IMAGE as unsupported.
+                if (command.style == MaskStyle.IMAGE) return Edit.Fail(EditCommandResult.Unsupported(UnsupportedReason.NOT_IMPLEMENTED))
                 replaceMask(mask.copy(style = command.style, strength = command.strength))
+            }
+
+            is VideoKitEditCommand.SetMaskAvatar -> {
+                if (maskOf(command.maskId) == null) return fail("UNKNOWN_MASK")
+                Edit.Fail(EditCommandResult.Unsupported(UnsupportedReason.NOT_IMPLEMENTED))
             }
 
             is VideoKitEditCommand.SetMaskEnabled -> {
@@ -489,7 +509,14 @@ public class FakeEditProject internal constructor(
      * Demo candidate detection (04A I10): two deterministic face candidates at any time inside the timeline.
      * Errors are returned in the result: tracking unavailable or disallowed, or [atUs] outside the timeline.
      */
-    override suspend fun detectCandidates(atUs: Long): CandidateDetectionResult = mutex.withLock {
+    override suspend fun detectCandidates(atUs: Long): CandidateDetectionResult {
+        if (!releasedFlag.value) {
+            featureProblem(TRACKING_FEATURES, ErrorStage.TRACKING)?.let { return CandidateDetectionResult(error = it) }
+        }
+        return detectCandidatesGated(atUs)
+    }
+
+    private suspend fun detectCandidatesGated(atUs: Long): CandidateDetectionResult = mutex.withLock {
         if (releasedFlag.value) {
             return@withLock CandidateDetectionResult(error = Errors.of(ErrorCode.SESSION_RELEASED, ErrorStage.TRACKING, "PROJECT_RELEASED"))
         }
@@ -549,8 +576,22 @@ public class FakeEditProject internal constructor(
 
     // ---------------------------------------------------------------- export
 
-    override suspend fun checkExport(request: VideoKitExportRequest, sink: VideoKitOutputSink): ExportPrecheck = mutex.withLock {
-        precheckLocked(request, sink)
+    override suspend fun checkExport(request: VideoKitExportRequest, sink: VideoKitOutputSink): ExportPrecheck {
+        featureProblem(EXPORT_FEATURES, ErrorStage.EXPORT)?.let { return ExportPrecheck(ok = false, problems = listOf(it)) }
+        return mutex.withLock { precheckLocked(request, sink) }
+    }
+
+    /**
+     * The FEATURE_DISABLED or FEATURE_DENIED error of the first of [features] that may not be used (REQ-API-10), or
+     * `null`.
+     */
+    private suspend fun featureProblem(features: List<VideoKitFeature>, stage: ErrorStage): VideoKitStableError? {
+        for (feature in features) {
+            if (kit.features.mode(feature) == FeatureMode.HIDDEN) return FeatureGate.disabledError(feature, stage)
+            val access = kit.features.check(feature, projectId, stage)
+            if (access is FeatureAccess.Denied) return FeatureGate.deniedError(feature, access, stage)
+        }
+        return null
     }
 
     private fun precheckLocked(request: VideoKitExportRequest, sink: VideoKitOutputSink): ExportPrecheck {
@@ -628,6 +669,11 @@ public class FakeEditProject internal constructor(
     }
 
     override suspend fun export(request: VideoKitExportRequest, sink: VideoKitOutputSink): VideoKitExportResult {
+        if (!releasedFlag.value) {
+            featureProblem(EXPORT_FEATURES, ErrorStage.EXPORT)?.let {
+                return VideoKitExportResult.Failed(request.exportId, it, ExportStage.PREPARING)
+            }
+        }
         val job = mutex.withLock {
             requireNotReleased()
             if (exportJob != null) {
@@ -920,6 +966,11 @@ public class FakeEditProject internal constructor(
         const val TRACKING_KEYFRAME_US = 1_000_000L
         const val EXPORT_CHUNKS = 10
         const val AUDIO_BITS_PER_SECOND = 128_000L
+
+        // REQ-API-10: features used by candidate detection and export.
+        val TRACKING_FEATURES = listOf(VideoKitFeature.EDIT, VideoKitFeature.MASK_TRACKING)
+        // EXPORT does not depend on EDIT (user 2026-11-08: export may be locked while editing is open).
+        val EXPORT_FEATURES = listOf(VideoKitFeature.EXPORT)
         const val CONTAINER_OVERHEAD_BYTES = 64_000L
         val DEMO_HEADER: ByteArray = "VIDEOKIT-DEMO-EXPORT-NOT-REAL-MEDIA".encodeToByteArray()
         val BUSY_PHASES =

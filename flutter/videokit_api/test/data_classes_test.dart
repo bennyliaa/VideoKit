@@ -427,6 +427,110 @@ void main() {
       expect(s.copyWith(probe: p).copyWith(probe: null), s);
     });
 
+    test('M5A-A1: MaskAvatar, MaskTrack.avatar, rollAt, SetMaskAvatar', () {
+      const a = MaskAvatar(avatarToken: 'builtin:1');
+      expect((a.scale, a.offsetX, a.offsetY, a.followRotation), (1.0, 0.0, 0.0, true));
+      expect(a.isBuiltin, isTrue);
+      expect(const MaskAvatar(avatarToken: 'app-avatar-1').isBuiltin, isFalse);
+      expectValueSemantics(a, a.copyWith(), a.copyWith(scale: 2));
+      expect(a.toString(), isNot(contains('builtin:1')), reason: 'redacted');
+      expect(MaskStyle.image.wireName, 'IMAGE');
+      expect(MaskStyle.fromName('IMAGE'), MaskStyle.image);
+      final m = MaskTrack(
+        maskId: 'm',
+        type: MaskType.face,
+        startUs: 0,
+        endUs: 3000000,
+        keyframes: const [
+          MaskKeyframe(
+            atUs: 0,
+            region: MaskRegion(x: 0, y: 0, width: 0.1, height: 0.1),
+            rollDeg: 0,
+          ),
+          MaskKeyframe(
+            atUs: 1000000,
+            region: MaskRegion(x: 0, y: 0, width: 0.1, height: 0.1),
+          ),
+          MaskKeyframe(
+            atUs: 2000000,
+            region: MaskRegion(x: 0, y: 0, width: 0.1, height: 0.1),
+            rollDeg: 20,
+          ),
+        ],
+      );
+      expect(m.avatar, isNull);
+      expect(m.rollAt(1000000), 10, reason: 'between keyframes with a roll');
+      expect(m.rollAt(2500000), 20, reason: 'held after the last');
+      expect(m.rollAt(3000000), isNull, reason: 'outside the range');
+      // E7 Q2: no keyframe with a roll → 0 (not null) inside the range.
+      expect(
+        MaskTrack(maskId: 'n', type: MaskType.face, startUs: 0, endUs: 9)
+            .rollAt(1),
+        0,
+      );
+      final withAvatar = m.copyWith(avatar: a);
+      expect(withAvatar.avatar, a);
+      expect(withAvatar == m, isFalse);
+      expect(withAvatar.copyWith(avatar: null), m);
+      expectValueSemantics(
+        SetMaskAvatar('m', a),
+        SetMaskAvatar('m', a),
+        SetMaskAvatar('m', a.copyWith(followRotation: false)),
+      );
+      expect(SetMaskAvatar('m', a).undoable, isTrue);
+      const k = MaskKeyframe(
+        atUs: 0,
+        region: MaskRegion(x: 0, y: 0, width: 0.1, height: 0.1),
+      );
+      expect(k.copyWith(rollDeg: 5).copyWith(rollDeg: null), k);
+    });
+
+    test('M5A-A1: avatar value types', () {
+      const r = AvatarRequest(projectId: 'p', maskId: 'm');
+      expectValueSemantics(
+        r,
+        const AvatarRequest(projectId: 'p', maskId: 'm'),
+        const AvatarRequest(projectId: 'p', maskId: 'm', currentToken: 't'),
+      );
+      const o = AvatarPrepareOptions();
+      expect((o.cropToHead, o.feather, o.faceIndex), (true, 0.5, null));
+      expectValueSemantics(o, o.copyWith(), o.copyWith(cropToHead: false));
+      final s = AvatarStroke(
+        brush: AvatarBrush.erase,
+        points: const [(0.5, 0.5)],
+        radius: 0.1,
+      );
+      expectValueSemantics(
+        s,
+        AvatarStroke(
+          brush: AvatarBrush.erase,
+          points: const [(0.5, 0.5)],
+          radius: 0.1,
+        ),
+        AvatarStroke(
+          brush: AvatarBrush.restore,
+          points: const [(0.5, 0.5)],
+          radius: 0.1,
+        ),
+      );
+      final img = AvatarImage(
+        avatarId: 'a',
+        png: Uint8List.fromList([1, 2, 3]),
+        width: 1,
+        height: 1,
+        headBox: const MaskRegion(x: 0, y: 0, width: 1, height: 1),
+      );
+      expectValueSemantics(
+        img,
+        img.copyWith(),
+        img.copyWith(png: Uint8List.fromList([9])),
+      );
+      expect(AvatarSupport.fromName('MODEL_MISSING'), AvatarSupport.modelMissing);
+      expect(AvatarSupport.fromName('???'), AvatarSupport.unsupported);
+      expect(AvatarBrush.restore.wireName, 'RESTORE');
+      expect(VideoKitCapabilities().avatar, AvatarSupport.unsupported);
+    });
+
     test('MaskTrack.regionAt interpolates linearly and holds at ends', () {
       const a = MaskRegion(x: 0, y: 0, width: 0.2, height: 0.2);
       const b = MaskRegion(x: 0.4, y: 0.2, width: 0.4, height: 0.2);

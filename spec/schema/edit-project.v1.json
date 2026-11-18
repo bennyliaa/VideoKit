@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "videokit:spec/schema/edit-project.v1.json",
-  "title": "VideoKit edit project snapshot, schema 1.0",
+  "title": "VideoKit edit project snapshot, schema 1.1",
   "description": "Single source of the edit project snapshot (04A E2, 08 §2.1; M4-B1). The JSON text of SerializedEditProject.json. Both codecs (Kotlin timeline ProjectJson, Dart FakeEditProjectCodec) are tested against this file. Rules that JSON Schema cannot express are in 'x-rules'. Times are microseconds unless named in ms; ranges are always objects {startUs, endUs}, half open [startUs, endUs).",
-  "x-version": { "major": 1, "minor": 0 },
+  "x-version": { "major": 1, "minor": 1 },
   "x-rules": [
-    "W1 Writers write every property defined here (null where nullable), in any order, and nothing else; schemaVersion = 1, schemaMinor = 0.",
+    "W1 Writers write every property defined here (null where nullable), in any order, and nothing else; schemaVersion = 1, schemaMinor = 1 (1.1, M4-B2: mask avatar, style IMAGE, keyframe rollDeg; 1.0 readers read IMAGE as MOSAIC by R4 and ignore avatar and rollDeg by R2).",
     "W2 Runtime state is never written: tracking requestId, projectRevision, kind and progress; the source probe mismatch flag; the phase; the undo/redo history.",
     "W3 A tracking run in progress is written as CANCELLED (it restarts after restore, 08 §6); writers never write RUNNING.",
     "R1 The version is the payload's schemaVersion; when the payload has none, the envelope's SerializedEditProject.schemaVersion. A version above the reader's major (checked on the envelope too) is rejected with UNSUPPORTED_SNAPSHOT_VERSION. A lower version is migrated step by step; a version without a migration path is rejected with UNSUPPORTED_SNAPSHOT_VERSION.",
@@ -14,6 +14,8 @@
     "R4 Unknown enum values (from a newer minor) read as the enum's 'x-unknown' value.",
     "R5 A restored project has no undo/redo history; its revision is the snapshot's; ids generated after restore continue after the highest numeric id suffix in the snapshot.",
     "R6 RUNNING read from a snapshot (only hand-made data) is treated as CANCELLED.",
+    "R7 (1.1) A mask with style IMAGE and no avatar (null or missing) reads as MOSAIC: a mask never ends up without an effect.",
+    "R8 (1.1, 04A E7 Q3) A reader whose schemaMinor is lower than the project's schemaMinor must not overwrite the original project (it would drop what it does not know); it may only save a copy and tells the user. All implementations from 1.1 on follow this.",
     "M0 Schema 0 is synthetic (no build wrote it) and exists to test the migration framework: v1 without schemaVersion, schemaMinor, createdAt, updatedAt; mask rangeUs and acceptedRanges items may be arrays [startUs, endUs]; coverage items carry 'state' instead of 'quality' and an 'accepted' flag; tracking entries may carry runtime fields. v0 to v1: ranges become objects, coverage items with accepted = true are appended to the mask's acceptedRanges, 'state' becomes 'quality', runtime fields are dropped, createdAt / updatedAt default to 0."
   ],
   "type": "object",
@@ -97,12 +99,25 @@
       "properties": {
         "maskId": { "type": "string" },
         "type": { "enum": ["MANUAL", "FACE", "OBJECT"], "x-unknown": "MANUAL" },
-        "style": { "enum": ["MOSAIC", "BLUR"], "default": "MOSAIC", "x-unknown": "MOSAIC" },
+        "style": { "enum": ["MOSAIC", "BLUR", "IMAGE"], "default": "MOSAIC", "x-unknown": "MOSAIC", "description": "IMAGE (1.1): the avatar is drawn over the tracked head; requires avatar (R7)." },
         "strength": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.5 },
         "enabled": { "type": "boolean", "default": true },
         "rangeUs": { "$ref": "#/$defs/range", "description": "Active range on the timeline." },
         "keyframes": { "type": "array", "items": { "$ref": "#/$defs/keyframe" }, "default": [], "description": "Sorted by atUs." },
-        "acceptedRanges": { "type": "array", "items": { "$ref": "#/$defs/range" }, "default": [], "description": "Ranges the user accepted although tracking did not cover them (09 §4)." }
+        "acceptedRanges": { "type": "array", "items": { "$ref": "#/$defs/range" }, "default": [], "description": "Ranges the user accepted although tracking did not cover them (09 §4)." },
+        "avatar": { "oneOf": [{ "$ref": "#/$defs/avatar" }, { "type": "null" }], "default": null, "description": "1.1: avatar of style IMAGE; the PNG is not in the snapshot, the host opens it by avatarToken (04A E6)." }
+      }
+    },
+    "avatar": {
+      "type": "object",
+      "required": ["avatarToken"],
+      "description": "1.1 (04A E5/E6): the avatar of a mask; scale and offsets are relative to the tracked box and hold for the whole mask.",
+      "properties": {
+        "avatarToken": { "type": "string", "description": "Opaque host token of the PNG, or builtin:N for a Kit avatar." },
+        "scale": { "type": "number", "default": 1, "description": "Size relative to the tracked box." },
+        "offsetX": { "type": "number", "default": 0, "description": "Horizontal offset relative to the tracked box width." },
+        "offsetY": { "type": "number", "default": 0, "description": "Vertical offset relative to the tracked box height." },
+        "followRotation": { "type": "boolean", "default": true, "description": "Turn with the head (keyframe rollDeg)." }
       }
     },
     "keyframe": {
@@ -112,7 +127,8 @@
         "atUs": { "type": "integer", "description": "Timeline time." },
         "region": { "$ref": "#/$defs/region" },
         "source": { "enum": ["USER", "TRACKER"], "default": "USER", "x-unknown": "USER" },
-        "state": { "oneOf": [{ "$ref": "#/$defs/trackingQuality" }, { "type": "null" }], "default": null, "description": "Quality of a tracker keyframe; null for user keyframes." }
+        "state": { "oneOf": [{ "$ref": "#/$defs/trackingQuality" }, { "type": "null" }], "default": null, "description": "Quality of a tracker keyframe; null for user keyframes." },
+        "rollDeg": { "type": ["number", "null"], "default": null, "description": "1.1: head roll in degrees (from the eye line) for followRotation; null when unknown." }
       }
     },
     "trackingQuality": {

@@ -8,6 +8,7 @@ import 'package:videokit_app/pages/image_page.dart';
 import 'package:videokit_app/pages/multi_view_page.dart';
 import 'package:videokit_app/pages/player_page.dart';
 import 'package:videokit_app/picker/media_picker.dart';
+import 'package:videokit_app/settings/licenses_page.dart';
 import 'package:videokit_app/settings/settings_page.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
@@ -282,9 +283,19 @@ void main() {
       rig.storage.documents['settings.json'],
       contains('"recordHistory":false'),
     );
+    // VK-M8 (M6-A1): the component list first, "待定" where not settled,
+    // then the full texts.
     await tapText(tester, '开源许可');
     await settle(tester, 4);
+    expect(find.byType(LicensesPage), findsOneWidget);
+    expect(find.text('AndroidX Media3'), findsOneWidget);
+    expect(find.text('待定'), findsWidgets);
+    await tester.scrollUntilVisible(find.text('查看许可全文'), 200);
+    await tapText(tester, '查看许可全文');
+    await settle(tester, 4);
     expect(find.byType(LicensePage), findsOneWidget);
+    await tester.binding.handlePopRoute();
+    await settle(tester, 2);
     await tester.binding.handlePopRoute();
     await settle(tester, 2);
     await tester.binding.handlePopRoute();

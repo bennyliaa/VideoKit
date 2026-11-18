@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:videokit_ui/videokit_ui.dart';
 
 import '../app_scope.dart';
+import '../entitlement/entitlement_gate.dart';
+import '../entitlement/entitlement_service.dart';
 import '../l10n/app_text.dart';
 import '../pages/concat_page.dart';
 import '../pages/launcher.dart';
@@ -102,6 +104,8 @@ class _ProjectTile extends StatelessWidget {
     final meta = [
       a(a.l.recentProjectClips(project.clipCount)),
       if (duration != null) VkFormat.timecode(duration),
+      // 04A E7 Q3 / R8: saved as a copy of a newer App's project.
+      if (project.copyOf != null) a(a.l.recentProjectCopy),
     ];
     return Container(
       decoration: BoxDecoration(
@@ -114,19 +118,30 @@ class _ProjectTile extends StatelessWidget {
             child: MergeSemantics(
               child: InkWell(
                 borderRadius: BorderRadius.circular(d.cornerLarge),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => ConcatPage(restore: project),
-                  ),
-                ),
+                // REQ-APP-15: projects stay listed; opening one asks to
+                // subscribe when editing is not part of the plan.
+                onTap: () async {
+                  if (!await ensureEntitled(context, AppFeature.edit)) {
+                    return;
+                  }
+                  if (!context.mounted) return;
+                  await Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => ConcatPage(restore: project),
+                    ),
+                  );
+                },
                 child: Padding(
                   padding: EdgeInsetsDirectional.all(d.spacing12),
                   child: Row(
                     children: [
-                      Icon(
-                        t.icons.resolve('edit'),
-                        size: d.icon24,
-                        color: t.colors.textSecondary,
+                      EntitlementLock(
+                        feature: AppFeature.edit,
+                        child: Icon(
+                          t.icons.resolve('edit'),
+                          size: d.icon24,
+                          color: t.colors.textSecondary,
+                        ),
                       ),
                       SizedBox(width: d.spacing12),
                       Expanded(

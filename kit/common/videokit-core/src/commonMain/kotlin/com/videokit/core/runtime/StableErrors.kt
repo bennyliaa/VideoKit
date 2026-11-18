@@ -80,6 +80,7 @@ public object StableErrors {
         ErrorCode.HOST_CALLBACK_FAILED,
         ErrorCode.TRACKING_LOST,
         ErrorCode.CANCELLED,
+        ErrorCode.FEATURE_DENIED,
         -> true
 
         else -> false

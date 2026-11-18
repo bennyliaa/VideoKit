@@ -4,6 +4,7 @@
 /// Everything here is demo data: `isDemo` is always true.
 library;
 
+export 'src/avatar/fake_avatar.dart' show FakeAvatarTools;
 export 'src/clock/fake_clock.dart';
 export 'src/contract/videokit_contract.dart';
 export 'src/demo/demo_data.dart';

@@ -13,6 +13,23 @@ import '../editor/editor_panels.dart';
 /// (J8; reported by the Kit when known).
 const String requiredBytesParam = 'requiredBytes';
 
+/// `VideoKitStableError.params` key of why the export worker failed
+/// (04A X1-3): `WORKER_KILLED`, `WORKER_CRASHED` or `WORKER_TIMEOUT` on an
+/// `EXPORT_FAILED`.
+const String exportFailureReasonParam = 'reason';
+
+/// ARB key of the reason text for [e], or null when [e] is not an
+/// `EXPORT_FAILED` with a known reason (then the code's text is used).
+String? exportFailureReasonKey(VideoKitStableError e) {
+  if (e.code != ErrorCode.exportFailed) return null;
+  return switch (e.params[exportFailureReasonParam]) {
+    'WORKER_KILLED' => 'exportReasonWorkerKilled',
+    'WORKER_CRASHED' => 'exportReasonWorkerCrashed',
+    'WORKER_TIMEOUT' => 'exportReasonWorkerTimeout',
+    _ => null,
+  };
+}
+
 /// J8: the space [e] says must be freed, rounded up to 10 MB, or null when
 /// it is not an `OUTPUT_SPACE_INSUFFICIENT` with a valid `requiredBytes`.
 int? vkSpaceToFree(VideoKitStableError e) {
@@ -44,6 +61,20 @@ String vkCodecName(String? mime) => switch (mime) {
   'audio/eac3' => 'E-AC-3',
   'audio/raw' => 'PCM',
   _ => mime.split('/').last.toUpperCase(),
+};
+
+/// Display name of a container MIME type (04A X2 `params.container`).
+String vkContainerName(String mime) => switch (mime) {
+  'video/mp4' || 'audio/mp4' => 'MP4',
+  'video/x-matroska' || 'audio/x-matroska' => 'MKV',
+  'video/webm' || 'audio/webm' => 'WebM',
+  'video/quicktime' => 'MOV',
+  'video/x-msvideo' => 'AVI',
+  'video/mp2t' => 'TS',
+  'video/x-flv' => 'FLV',
+  'video/3gpp' => '3GP',
+  'audio/ogg' => 'Ogg',
+  _ => mime.split('/').last.replaceFirst('x-', '').toUpperCase(),
 };
 
 /// "MP4 · H.264 · AAC" for an output format (technical identifiers).
@@ -161,13 +192,33 @@ class ExportPanelState extends State<ExportPanel> {
   @override
   void dispose() {
     widget.project.state.removeListener(_onState);
+    _cleanupTimer?.cancel();
     super.dispose();
   }
 
+  /// 04A X1-2: after this long in CANCELLING the panel says the clean-up
+  /// takes longer (S4 measured cancels of ≤ 138 ms).
+  static const Duration slowCleanup = Duration(seconds: 5);
+
+  Timer? _cleanupTimer;
+
+  /// Cancelling has lasted longer than [slowCleanup].
+  bool cleanupSlow = false;
+
   void _onState() {
     if (!mounted) return;
-    final rev = widget.project.state.value.revision;
+    final st = widget.project.state.value;
+    final rev = st.revision;
     if (_checkedRevision != rev && _result == null) unawaited(_check());
+    if (st.phase == EditPhase.cancelling) {
+      _cleanupTimer ??= Timer(slowCleanup, () {
+        if (mounted) setState(() => cleanupSlow = true);
+      });
+    } else {
+      _cleanupTimer?.cancel();
+      _cleanupTimer = null;
+      cleanupSlow = false;
+    }
     setState(() {});
   }
 
@@ -342,7 +393,11 @@ class ExportPanelState extends State<ExportPanel> {
             e.code != ErrorCode.trackingLost)
           e,
     ];
-    final need = pre?.estimate.sizeBytes ?? st.estimate.sizeBytes;
+    // 04A X1-6: sequential writing stages a private copy first.
+    final output = pre?.estimate.sizeBytes ?? st.estimate.sizeBytes;
+    final need = output == null
+        ? null
+        : output * (pre?.writeMode == SinkWriteMode.sequential ? 2 : 1);
     final free = widget.sink.capabilities.knownFreeSpaceBytes;
     // J8: the precheck names the space to free (rounded up to 10 MB).
     final toFree = [
@@ -414,6 +469,17 @@ class ExportPanelState extends State<ExportPanel> {
             ),
             ok: !codes.contains(ErrorCode.outputCapabilityUnsupported),
           ),
+          // M6-A1 (08 §5): how the export writes to the host's sink.
+          if (pre.writeMode case final mode?)
+            _CheckRow(
+              title: s.text('checkWriteMode'),
+              detail: s.text(
+                mode == SinkWriteMode.sequential
+                    ? 'checkWriteSequential'
+                    : 'checkWriteDirect',
+              ),
+              ok: true,
+            ),
           _CheckRow(
             title: s.text('checkSpace'),
             detail: codes.contains(ErrorCode.outputSpaceInsufficient)
@@ -575,6 +641,19 @@ class ExportPanelState extends State<ExportPanel> {
             style: t.typography.title.copyWith(color: t.colors.textPrimary),
           ),
         ),
+        if (cleanupSlow) ...[
+          SizedBox(height: t.dimensions.spacing8),
+          Semantics(
+            liveRegion: true,
+            child: Text(
+              s.text('exportCleanupSlow'),
+              textAlign: TextAlign.center,
+              style: t.typography.body.copyWith(
+                color: t.colors.textSecondary,
+              ),
+            ),
+          ),
+        ],
         SizedBox(height: t.dimensions.spacing16),
         _Actions([
           VkButton(
@@ -706,7 +785,10 @@ class ExportPanelState extends State<ExportPanel> {
           color: t.colors.error,
           container: t.colors.errorContainer,
           title: s.text('exportFailedTitle'),
-          subtitle: s.error(e.code),
+          subtitle: switch (exportFailureReasonKey(e)) {
+            null => s.error(e.code),
+            final key => s.text(key),
+          },
         ),
         SizedBox(height: d.spacing16),
         _InfoCard(

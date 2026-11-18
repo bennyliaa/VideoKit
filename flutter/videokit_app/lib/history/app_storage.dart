@@ -25,6 +25,13 @@ abstract interface class AppStorage {
 
   /// Image for a stored thumbnail [path].
   ImageProvider thumbnailImage(String path);
+
+  /// Saves avatar PNG [name] (REQ-ED-07, 04A E5 1: the host keeps the
+  /// avatars) and returns its path.
+  Future<String> writeAvatar(String name, Uint8List bytes);
+
+  /// Bytes of a stored file [path] (avatars), or null when it is gone.
+  Future<Uint8List?> readBytes(String path);
 }
 
 /// Files under the application support directory (path_provider).
@@ -101,6 +108,21 @@ final class FileAppStorage implements AppStorage {
 
   @override
   ImageProvider thumbnailImage(String path) => FileImage(File(path));
+
+  @override
+  Future<String> writeAvatar(String name, Uint8List bytes) async {
+    final d = Directory('${(await _dir()).path}/avatars');
+    if (!d.existsSync()) await d.create(recursive: true);
+    final f = File('${d.path}/$name');
+    await f.writeAsBytes(bytes, flush: true);
+    return f.path;
+  }
+
+  @override
+  Future<Uint8List?> readBytes(String path) async {
+    final f = File(path);
+    return f.existsSync() ? f.readAsBytes() : null;
+  }
 }
 
 /// In-memory storage (tests, demo without a file system).
@@ -140,6 +162,16 @@ final class MemoryAppStorage implements AppStorage {
   @override
   ImageProvider thumbnailImage(String path) =>
       MemoryImage(thumbnails[path] ?? Uint8List(0));
+
+  @override
+  Future<String> writeAvatar(String name, Uint8List bytes) async {
+    final path = 'memory:avatars/$name';
+    thumbnails[path] = bytes;
+    return path;
+  }
+
+  @override
+  Future<Uint8List?> readBytes(String path) async => thumbnails[path];
 }
 
 /// Writes [content] to [name] and only logs a failure (TEST-R2 R2-02): a

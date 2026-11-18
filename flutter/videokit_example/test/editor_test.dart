@@ -143,7 +143,7 @@ void main() {
       expect(find.text('多视频拼接'), findsOneWidget);
       expect(find.text('3 个视频'), findsOneWidget);
       expect(find.text('参数一致，可快速拼接'), findsOneWidget);
-      await tester.tap(find.text('添加视频').last);
+      await tester.tap(find.text('添加片段').last);
       await settle(tester, 4);
       expect(c.state.timeline.clips, hasLength(4));
       await unmount(tester);
@@ -384,7 +384,7 @@ void main() {
       await tapText(tester, '取消导出');
       await tester.pump(const Duration(milliseconds: 300));
       expect(c.state.phase, EditPhase.cancelling);
-      expect(find.text('正在取消…'), findsOneWidget);
+      expect(find.text('正在清理…'), findsOneWidget);
       await waitPhase(tester, c, (p) => p == EditPhase.cancelled);
       await settle(tester, 2);
       expect(find.text('已取消，未生成文件'), findsOneWidget);
